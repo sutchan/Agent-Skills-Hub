@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "285eefd4-49b2-4f97-b420-6724800ee2ab",
+  "path": "verification-loop",
+  "path_key": "verification-loop",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

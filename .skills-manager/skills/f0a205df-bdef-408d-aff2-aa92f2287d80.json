@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "f0a205df-bdef-408d-aff2-aa92f2287d80",
+  "path": "content-hash-cache-pattern",
+  "path_key": "content-hash-cache-pattern",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

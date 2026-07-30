@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "2ab6369d-b8ff-4edd-81c5-1cef6658fa22",
+  "path": "product-lens",
+  "path_key": "product-lens",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

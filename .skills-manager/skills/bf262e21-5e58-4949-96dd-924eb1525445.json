@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "bf262e21-5e58-4949-96dd-924eb1525445",
+  "path": "django-tdd",
+  "path_key": "django-tdd",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

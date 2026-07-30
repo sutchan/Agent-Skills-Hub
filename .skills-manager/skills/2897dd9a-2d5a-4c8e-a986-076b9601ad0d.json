@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "2897dd9a-2d5a-4c8e-a986-076b9601ad0d",
+  "path": "ai-first-engineering",
+  "path_key": "ai-first-engineering",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

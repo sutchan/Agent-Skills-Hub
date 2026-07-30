@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "9d0e2b4d-8ff0-4958-ab3e-bcf5bdc279f4",
+  "path": "springboot-security",
+  "path_key": "springboot-security",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

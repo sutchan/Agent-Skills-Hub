@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "e83625c9-dfee-405e-8316-a71aa449982b",
+  "path": "enterprise-agent-ops",
+  "path_key": "enterprise-agent-ops",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

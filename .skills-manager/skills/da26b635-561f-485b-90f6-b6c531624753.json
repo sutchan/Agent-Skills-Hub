@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "da26b635-561f-485b-90f6-b6c531624753",
+  "path": "nanoclaw-repl",
+  "path_key": "nanoclaw-repl",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

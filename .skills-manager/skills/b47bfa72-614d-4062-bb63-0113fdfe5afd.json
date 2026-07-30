@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "b47bfa72-614d-4062-bb63-0113fdfe5afd",
+  "path": "energy-procurement",
+  "path_key": "energy-procurement",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

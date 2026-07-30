@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "0be0466a-8762-4815-8449-b2b8cf93bea7",
+  "path": "swift-protocol-di-testing",
+  "path_key": "swift-protocol-di-testing",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

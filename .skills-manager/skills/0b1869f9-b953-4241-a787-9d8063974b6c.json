@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "0b1869f9-b953-4241-a787-9d8063974b6c",
+  "path": "backend-patterns",
+  "path_key": "backend-patterns",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

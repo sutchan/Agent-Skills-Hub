@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "c16cb4b9-89ba-4d81-b56b-8962884cf160",
+  "path": "flutter-dart-code-review",
+  "path_key": "flutter-dart-code-review",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

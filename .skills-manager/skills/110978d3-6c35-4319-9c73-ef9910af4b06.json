@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "110978d3-6c35-4319-9c73-ef9910af4b06",
+  "path": "performance-analysis",
+  "path_key": "performance-analysis",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

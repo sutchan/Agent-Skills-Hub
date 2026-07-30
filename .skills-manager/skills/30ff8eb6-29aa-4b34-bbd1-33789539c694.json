@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "30ff8eb6-29aa-4b34-bbd1-33789539c694",
+  "path": "compose-multiplatform-patterns",
+  "path_key": "compose-multiplatform-patterns",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

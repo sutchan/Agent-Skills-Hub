@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "b43e101c-95c6-4804-8fb0-db34fe367816",
+  "path": "build-deploy",
+  "path_key": "build-deploy",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

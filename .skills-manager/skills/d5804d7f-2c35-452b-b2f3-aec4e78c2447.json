@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "d5804d7f-2c35-452b-b2f3-aec4e78c2447",
+  "path": "video-use",
+  "path_key": "video-use",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

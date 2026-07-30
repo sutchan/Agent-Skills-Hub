@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "5fbeba60-2b22-47e6-9d81-d33e3ec958c7",
+  "path": "videodb",
+  "path_key": "videodb",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

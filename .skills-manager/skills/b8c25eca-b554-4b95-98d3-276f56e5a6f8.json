@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "b8c25eca-b554-4b95-98d3-276f56e5a6f8",
+  "path": "csharp-testing",
+  "path_key": "csharp-testing",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

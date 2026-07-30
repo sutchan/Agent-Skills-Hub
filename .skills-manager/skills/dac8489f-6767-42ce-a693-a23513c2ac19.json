@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "dac8489f-6767-42ce-a693-a23513c2ac19",
+  "path": "exa-search",
+  "path_key": "exa-search",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

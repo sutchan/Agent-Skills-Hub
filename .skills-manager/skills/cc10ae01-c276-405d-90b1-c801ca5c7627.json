@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "cc10ae01-c276-405d-90b1-c801ca5c7627",
+  "path": "returns-reverse-logistics",
+  "path_key": "returns-reverse-logistics",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

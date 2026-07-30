@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "6d7663ca-5cc1-4ad4-b224-7374a3344fdc",
+  "path": "dependency-management",
+  "path_key": "dependency-management",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

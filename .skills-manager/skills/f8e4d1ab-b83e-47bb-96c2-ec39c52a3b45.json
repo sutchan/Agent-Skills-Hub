@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "f8e4d1ab-b83e-47bb-96c2-ec39c52a3b45",
+  "path": "social-graph-ranker",
+  "path_key": "social-graph-ranker",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

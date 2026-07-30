@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "15888a59-2f59-4610-8650-c675bda3a88c",
+  "path": "database-migrations",
+  "path_key": "database-migrations",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

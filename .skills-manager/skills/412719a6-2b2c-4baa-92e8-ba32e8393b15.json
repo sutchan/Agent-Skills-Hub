@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "412719a6-2b2c-4baa-92e8-ba32e8393b15",
+  "path": "agentic-engineering",
+  "path_key": "agentic-engineering",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

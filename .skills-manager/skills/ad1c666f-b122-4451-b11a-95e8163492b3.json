@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "ad1c666f-b122-4451-b11a-95e8163492b3",
+  "path": "dmux-workflows",
+  "path_key": "dmux-workflows",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

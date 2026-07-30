@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "64375d62-4409-481e-af89-aae07565bdc2",
+  "path": "visa-doc-translate",
+  "path_key": "visa-doc-translate",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}
