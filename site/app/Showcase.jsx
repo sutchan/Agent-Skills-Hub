@@ -1,11 +1,7 @@
 // 路径: site/app/Showcase.jsx 版本: 1.0.0
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
-
-function esc(s) {
-  return String(s == null ? "" : s);
-}
+import { useEffect, useMemo, useState, useCallback } from "react";
 
 export default function Showcase({ data }) {
   const { meta, categories, skills } = data;
@@ -29,6 +25,19 @@ export default function Showcase({ data }) {
   }, [skills, activeCat, query]);
 
   const closeModal = useCallback(() => setModal(null), []);
+
+  useEffect(() => {
+    if (!modal) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") closeModal();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [modal, closeModal]);
 
   const tagHtml = (s) => (
     <>

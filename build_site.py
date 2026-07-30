@@ -9,7 +9,7 @@ import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
 README = os.path.join(ROOT, "README.md")
 SKILLS_DIR = os.path.join(ROOT, "skills")
-OUT = os.path.join(ROOT, "site", "data.json")
+OUT = os.path.join(ROOT, "site", "data", "skills.json")
 
 
 def parse_readme():
