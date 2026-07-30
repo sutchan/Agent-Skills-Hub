@@ -3,3 +3,6 @@ Thumbs.db
 *.tmp
 .skills-manager.lock
 .codebuddy/
+tools/*.ps1
+.gitignore
+.py

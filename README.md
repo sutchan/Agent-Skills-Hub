@@ -294,6 +294,20 @@ git clone https://github.com/sutchan/skills-chinese.git
 
 具体命令与配置请参考 [skills-manager 仓库文档](https://github.com/xingkongliang/skills-manager)。
 
+## 在线展示页面
+
+仓库内置一个独立的静态展示页（`site/` 目录），可用于部署到腾讯云 EdgeOne / 对象存储等静态托管服务，方便在线浏览全部技能。
+
+```bash
+# 本地预览
+cd site && python -m http.server 8000   # 打开 http://localhost:8000
+
+# 重新从 README 与 SKILL.md 生成数据（修改技能后执行）
+python build_site.py
+```
+
+部署时只需将 `site/` 目录作为站点根目录发布即可。`data.json` 由 `build_site.py` 自动生成，无需手动维护。
+
 ## 技能检索
 
 列出全部技能：
