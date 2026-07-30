@@ -9,7 +9,7 @@
 
 ### 新增
 
-- 初始化 Skills 技能库，纳入 202 个技能包
+- 初始化 Skills 技能库，纳入 201 个技能包
 - 按领域建立 13 个分类：前端与 UI 设计、后端/语言与框架、架构与设计、
   测试与质量、Agent 与 AI 工程、DevOps 与基础设施、数据与机器学习、
   内容/文档与写作、视频与媒体、行业领域、生产力与工具、上下文与提示工程、其他
@@ -20,4 +20,14 @@
 - 仓库以多次 `backup: 同步 Skills 库` 提交持续同步技能内容
 - 各技能许可证见其目录内 `LICENSE` 文件
 
-[1.0.0]: https://github.com/skills/skills/releases/tag/v1.0.0
+## [1.0.1] - 2026-07-30
+
+### 文档
+
+- 完善 `README.md`：补充作者（Sut Chan）与项目地址
+- 将全部技能说明翻译为中文
+- 修正技能总数（201）与分类计数，清理重复条目
+- 新增「相关文档」章节，链接 `CHANGELOG.md` 与 `LICENSE`
+
+[1.0.0]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.0
+[1.0.1]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.1

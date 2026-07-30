@@ -1,5 +1,9 @@
 # Skills 技能库
 
+> 作者：Sut Chan
+>
+> 项目地址：https://github.com/sutchan/skills-chinese
+>
 > 一个集中管理的 AI 技能（Skill）集合，包含 201 个面向开发、设计、
 测试、DevOps、Agent 工程及各行业领域的技能包。
 
@@ -13,6 +17,7 @@
 - [使用方式](#使用方式)
 - [贡献指南](#贡献指南)
 - [许可证](#许可证)
+- [相关文档](#相关文档)
 
 ## 仓库结构
 
@@ -282,3 +287,10 @@
 ## 许可证
 
 各技能许可证见其目录内 `LICENSE` 文件（如 [`skill-creator/LICENSE.txt`](skill-creator/LICENSE.txt)）。
+
+## 相关文档
+
+- [变更记录](CHANGELOG.md) — 版本与重要变更记录（遵循 Keep a Changelog 与 SemVer）
+- [许可证](LICENSE) — 项目整体许可证
+- 项目地址：https://github.com/sutchan/skills-chinese
+- 工作区配置：[skills-chinese.code-workspace](skills-chinese.code-workspace)
