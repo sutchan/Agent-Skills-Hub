@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "9aa6c110-eb63-43e9-bd96-0ef7aa637dcc",
+  "path": "canvas-design-2",
+  "path_key": "canvas-design-2",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "local",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}
