@@ -83,7 +83,9 @@ def parse_readme() -> tuple[int | None, list[dict]]:
             continue
         lm = LINK_RE.match(line)
         if lm and current is not None:
-            current["skills"].append(lm.group(1))
+            # Identify skills by their link path (without trailing slash) so
+            # display-name quirks (e.g. quoted "[...]") don't cause false drift.
+            current["skills"].append(lm.group(2).rstrip("/"))
     return total, categories
 
 

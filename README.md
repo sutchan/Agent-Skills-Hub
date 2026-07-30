@@ -1,5 +1,7 @@
 # Skills 技能库
 
+[![技能数量](https://img.shields.io/badge/skills-201-blue)](README.md) [![许可证](https://img.shields.io/badge/license-查看%20LICENSE-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+
 > 作者：Sut Chan
 >
 > 项目地址：https://github.com/sutchan/skills-chinese
@@ -15,6 +17,7 @@
 - [仓库结构](#仓库结构)
 - [技能分类](#技能分类)
 - [使用方式](#使用方式)
+- [技能检索](#技能检索)
 - [贡献指南](#贡献指南)
 - [许可证](#许可证)
 - [相关文档](#相关文档)
@@ -278,6 +281,20 @@
 2. 技能通过 `SKILL.md` 中的 `description` 字段被自动触发；也可在对话中显式 `@技能名` 调用。
 3. 部分技能依赖 `scripts/` 中的脚本或外部工具，使用前请阅读对应 `SKILL.md` 的依赖说明。
 
+## 技能检索
+
+列出全部技能：
+
+```bash
+ls skills/
+```
+
+按关键词检索技能（如 "test"）：
+
+```bash
+grep -rl "test" skills/*/SKILL.md
+```
+
 ## 贡献指南
 
 - 新增技能：使用 [`skill-creator`](skill-creator/) 技能按规范创建与评估。
@@ -291,6 +308,8 @@
 ## 相关文档
 
 - [变更记录](CHANGELOG.md) — 版本与重要变更记录（遵循 Keep a Changelog 与 SemVer）
+- [贡献指南](CONTRIBUTING.md) — 如何新增/更新技能并保持 README 同步
+- [英文文档](README.en.md) — English README
 - [许可证](LICENSE) — 项目整体许可证
 - 项目地址：https://github.com/sutchan/skills-chinese
 - 工作区配置：[skills-chinese.code-workspace](skills-chinese.code-workspace)
