@@ -1,0 +1,23 @@
+{
+  "name": "skills-chinese-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "skills-chinese 静态展示页（Next.js 静态导出，可部署到腾讯云 EdgeOne）",
+  "scripts": {
+    "prebuild": "python build_site.py",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next build"
+  },
+  "dependencies": {
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  }
+}
