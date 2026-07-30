@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "f17d9446-707a-43b3-86e2-deb0290b83f9",
+  "path": "skills/autonomous-loops",
+  "path_key": "skills/autonomous-loops",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

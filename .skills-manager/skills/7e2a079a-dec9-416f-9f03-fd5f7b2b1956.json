@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "7e2a079a-dec9-416f-9f03-fd5f7b2b1956",
+  "path": "skills/quality-nonconformance",
+  "path_key": "skills/quality-nonconformance",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "07c11c60-25bc-4ba4-9b39-428de1fd798c",
+  "path": "skills/perl-security",
+  "path_key": "skills/perl-security",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "0fa9d869-23a0-4f8e-bd2a-fff683ec4ea5",
+  "path": "skills/lead-intelligence",
+  "path_key": "skills/lead-intelligence",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

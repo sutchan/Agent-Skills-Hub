@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "096085cb-8336-4a78-987c-e17cb63b77d3",
+  "path": "skills/safety-guard",
+  "path_key": "skills/safety-guard",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

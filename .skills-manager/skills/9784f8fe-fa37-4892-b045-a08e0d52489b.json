@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "9784f8fe-fa37-4892-b045-a08e0d52489b",
+  "path": "skills/swift-concurrency-6-2",
+  "path_key": "skills/swift-concurrency-6-2",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

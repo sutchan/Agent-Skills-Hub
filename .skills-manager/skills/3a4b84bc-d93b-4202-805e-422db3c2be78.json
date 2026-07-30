@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "3a4b84bc-d93b-4202-805e-422db3c2be78",
+  "path": "skills/code-quality-check",
+  "path_key": "skills/code-quality-check",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

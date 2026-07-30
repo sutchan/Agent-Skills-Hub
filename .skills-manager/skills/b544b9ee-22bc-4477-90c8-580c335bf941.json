@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "b544b9ee-22bc-4477-90c8-580c335bf941",
+  "path": "skills/审查项目",
+  "path_key": "skills/审查项目",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

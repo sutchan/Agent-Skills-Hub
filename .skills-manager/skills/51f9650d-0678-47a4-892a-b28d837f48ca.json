@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "51f9650d-0678-47a4-892a-b28d837f48ca",
+  "path": "skills/swift-actor-persistence",
+  "path_key": "skills/swift-actor-persistence",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "71cb0282-3f9b-4f21-beca-e13ce4f95d3b",
+  "path": "skills/clickhouse-io",
+  "path_key": "skills/clickhouse-io",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

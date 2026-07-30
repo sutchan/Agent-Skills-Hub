@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "204fe1df-da77-49cb-b873-43c5bb5823f1",
+  "path": "skills/laravel-verification",
+  "path_key": "skills/laravel-verification",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

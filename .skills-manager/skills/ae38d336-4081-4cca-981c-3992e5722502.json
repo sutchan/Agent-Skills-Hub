@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "ae38d336-4081-4cca-981c-3992e5722502",
+  "path": "skills/x-api",
+  "path_key": "skills/x-api",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

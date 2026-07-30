@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "80313611-fc77-4329-903c-236408ecf2b9",
+  "path": "skills/coding-standards",
+  "path_key": "skills/coding-standards",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "4a994ca7-07f9-48fa-aa33-f29e879141ad",
+  "path": "skills/strategic-compact",
+  "path_key": "skills/strategic-compact",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

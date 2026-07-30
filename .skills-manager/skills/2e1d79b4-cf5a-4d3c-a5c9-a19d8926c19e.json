@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "2e1d79b4-cf5a-4d3c-a5c9-a19d8926c19e",
+  "path": "skills/springboot-verification",
+  "path_key": "skills/springboot-verification",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "f590bf15-0b75-431e-b2ff-86b280cc5ecd",
+  "path": "skills/iga-pages",
+  "path_key": "skills/iga-pages",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "543ca5e6-00e6-454f-ab76-d88aae6fe220",
+  "path": "skills/gan-style-harness",
+  "path_key": "skills/gan-style-harness",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

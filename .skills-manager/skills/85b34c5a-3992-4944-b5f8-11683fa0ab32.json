@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "85b34c5a-3992-4944-b5f8-11683fa0ab32",
+  "path": "skills/santa-method",
+  "path_key": "skills/santa-method",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "b5f6a9ca-977b-4739-a13f-3208e70fb77e",
+  "path": "skills/documentation-lookup",
+  "path_key": "skills/documentation-lookup",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}
