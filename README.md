@@ -281,6 +281,19 @@
 2. 技能通过 `SKILL.md` 中的 `description` 字段被自动触发；也可在对话中显式 `@技能名` 调用。
 3. 部分技能依赖 `scripts/` 中的脚本或外部工具，使用前请阅读对应 `SKILL.md` 的依赖说明。
 
+### 使用 skills-manager 一键安装与管理
+
+推荐使用 [skills-manager](https://github.com/xingkongliang/skills-manager) 来管理本项目的技能：它可以批量安装、更新与卸载技能，免去手动复制目录的麻烦。
+
+```bash
+# 安装 skills-manager（详见其仓库说明）
+# 然后克隆本项目并使用 skills-manager 安装所需技能
+git clone https://github.com/sutchan/skills-chinese.git
+# 按 skills-manager 的用法将本项目 skills/ 目录中的技能导入/链接到你的 Agent
+```
+
+具体命令与配置请参考 [skills-manager 仓库文档](https://github.com/xingkongliang/skills-manager)。
+
 ## 技能检索
 
 列出全部技能：

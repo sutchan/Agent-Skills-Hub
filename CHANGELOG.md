@@ -29,5 +29,17 @@
 - 修正技能总数（201）与分类计数，清理重复条目
 - 新增「相关文档」章节，链接 `CHANGELOG.md` 与 `LICENSE`
 
+## [1.0.2] - 2026-07-30
+
+### 文档与工程
+
+- 新增 `README` GitHub 徽章（技能数量 / 许可证 / 英文文档）与「技能检索」指引
+- 提取独立 `CONTRIBUTING.md`，并在「相关文档」中链接
+- 新增英文版 `README.en.md`（与中文版结构一致，含英文描述与检索指引）
+- 新增 `tools/skills_readme.py`：校验 README 与 `skills/` 一致性、生成英文 README
+- 新增 CI 工作流 `.github/workflows/verify.yml`，在 push/PR 时校验一致性
+- 在 `skills-chinese.code-workspace` 补充作者与项目元信息
+
 [1.0.0]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.0
 [1.0.1]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.1
+[1.0.2]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.2
