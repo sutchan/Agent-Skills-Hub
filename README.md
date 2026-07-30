@@ -299,16 +299,19 @@ git clone https://github.com/sutchan/skills-chinese.git
 仓库内置一个基于 **Next.js** 的独立静态展示页（`site/` 目录），使用静态导出（`output: export`），可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务，方便在线浏览全部技能。
 
 ```bash
+# 进入站点目录
+cd site
+
 # 安装依赖
-cd site && npm install
+npm install
 
 # 本地开发预览
 npm run dev            # 打开 http://localhost:3000
 
-# 构建静态站点（会自动先执行 build_site.py 生成数据）
+# 构建静态站点（prebuild 会自动先执行 build_site.py 生成数据）
 npm run build          # 产物输出到 site/out/
 
-# 仅重新从 README 与 SKILL.md 生成数据（修改技能后执行）
+# 仅重新从 README 与 SKILL.md 生成数据（修改技能后执行；脚本位于 site/）
 python build_site.py
 ```
 

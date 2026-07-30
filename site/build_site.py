@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-# build_site.py — 解析 README.md 与 skills/*/SKILL.md，生成展示页数据 data.json
-# 路径: build_site.py 版本: 1.0.0
+# build_site.py — 解析 README.md 与 skills/*/SKILL.md，生成展示页数据 data/skills.json
+# 路径: site/build_site.py 版本: 1.0.0
 
 import json
 import re
 import os
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+# 仓库根目录（脚本位于 site/ 下，上级目录即仓库根）
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 README = os.path.join(ROOT, "README.md")
 SKILLS_DIR = os.path.join(ROOT, "skills")
 OUT = os.path.join(ROOT, "site", "data", "skills.json")
@@ -34,17 +35,12 @@ def parse_readme():
     categories = {}
     current_cat = None
     cat_order = []
-    # 匹配形如 "### 前端与 UI 设计（15）"
     cat_re = re.compile(r"^###\s+(.+?)(?:（(\d+)）)?$")
-    # 匹配形如 "- **[api-design](api-design/)** — 描述"
     item_re = re.compile(r"^\s*-\s+\*\*\[([^\]]+)\]\(([^)]+)\)\*\*\s*[—-]\s*(.+)$")
 
     for line in lines:
-        cm = cat_re.match(line)
-        if cm and "（" in line or (cm and re.match(r"^###\s", line) and not line.startswith("## ")):
-            # 仅当是二级分类（### 且该行含中文分类名）时作为分类头
-            name = cm.group(1).strip()
-            # 跳过"目录""仓库结构"等非技能分类章节
+        if re.match(r"^###\s", line) and not line.startswith("## "):
+            name = cat_re.match(line).group(1).strip()
             if name in ("目录", "仓库结构"):
                 current_cat = None
                 continue
@@ -59,7 +55,6 @@ def parse_readme():
         if im:
             name = im.group(1).strip()
             desc = im.group(3).strip()
-            # 清理描述末尾多余标点/空格
             desc = desc.rstrip("。 ")
             categories[current_cat].append((name, desc))
 
@@ -84,7 +79,6 @@ def read_skill_meta(skill_dir):
             km = re.search(rf"^{key}:\s*(.+)$", fm, re.MULTILINE)
             if km:
                 meta[key if key == "name" else "en_desc"] = km.group(1).strip()
-    # 资源统计
     meta["has_scripts"] = os.path.isdir(os.path.join(skill_path, "scripts"))
     meta["has_references"] = os.path.isdir(os.path.join(skill_path, "references"))
     meta["has_assets"] = os.path.isdir(os.path.join(skill_path, "assets"))
