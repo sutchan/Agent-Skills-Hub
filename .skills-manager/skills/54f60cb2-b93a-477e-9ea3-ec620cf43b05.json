@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "54f60cb2-b93a-477e-9ea3-ec620cf43b05",
+  "path": "skills/springboot-patterns",
+  "path_key": "skills/springboot-patterns",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

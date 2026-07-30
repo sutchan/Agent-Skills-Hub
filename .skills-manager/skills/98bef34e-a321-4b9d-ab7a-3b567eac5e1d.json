@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "98bef34e-a321-4b9d-ab7a-3b567eac5e1d",
+  "path": "skills/agent-payment-x402",
+  "path_key": "skills/agent-payment-x402",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "bca06494-84a0-4173-9834-b06a334637ab",
+  "path": "skills/claude-devfleet",
+  "path_key": "skills/claude-devfleet",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

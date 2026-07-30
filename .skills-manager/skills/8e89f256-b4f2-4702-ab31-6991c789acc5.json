@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "8e89f256-b4f2-4702-ab31-6991c789acc5",
+  "path": "skills/investor-outreach",
+  "path_key": "skills/investor-outreach",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

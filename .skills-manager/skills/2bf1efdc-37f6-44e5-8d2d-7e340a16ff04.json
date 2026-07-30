@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "2bf1efdc-37f6-44e5-8d2d-7e340a16ff04",
+  "path": "skills/run-tests",
+  "path_key": "skills/run-tests",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

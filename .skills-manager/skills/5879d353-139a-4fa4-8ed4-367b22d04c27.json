@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "5879d353-139a-4fa4-8ed4-367b22d04c27",
+  "path": "skills/security-scan",
+  "path_key": "skills/security-scan",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "4dec89e8-417a-4fe9-8000-8b5caf1cc186",
+  "path": "skills/e2e-testing",
+  "path_key": "skills/e2e-testing",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

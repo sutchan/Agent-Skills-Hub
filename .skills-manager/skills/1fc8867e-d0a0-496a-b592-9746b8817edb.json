@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "1fc8867e-d0a0-496a-b592-9746b8817edb",
+  "path": "skills/prompt-optimizer",
+  "path_key": "skills/prompt-optimizer",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

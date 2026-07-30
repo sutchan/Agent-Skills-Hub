@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "61a6b1be-f5ca-4222-b004-603150a5bd8e",
+  "path": "skills/content-engine",
+  "path_key": "skills/content-engine",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

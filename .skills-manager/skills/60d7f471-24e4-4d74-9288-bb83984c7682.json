@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "60d7f471-24e4-4d74-9288-bb83984c7682",
+  "path": "skills/django-security",
+  "path_key": "skills/django-security",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

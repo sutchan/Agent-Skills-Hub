@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "20237475-b50b-4cec-8cbb-927e21a9cc24",
+  "path": "skills/canary-watch",
+  "path_key": "skills/canary-watch",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

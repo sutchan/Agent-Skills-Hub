@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "d16deae5-ef20-47a4-8e1a-5fe5f3af04d8",
+  "path": "skills/code-stats",
+  "path_key": "skills/code-stats",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

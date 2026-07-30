@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "f9ceaa9c-78a0-4b05-92c7-be23a005e9a2",
+  "path": "skills/springboot-tdd",
+  "path_key": "skills/springboot-tdd",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

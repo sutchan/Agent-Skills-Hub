@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "96bebacf-26ff-436b-a6fc-67eaf6ef2b06",
+  "path": "skills/pytorch-patterns",
+  "path_key": "skills/pytorch-patterns",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

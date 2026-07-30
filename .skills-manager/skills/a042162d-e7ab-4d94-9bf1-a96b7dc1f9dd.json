@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "a042162d-e7ab-4d94-9bf1-a96b7dc1f9dd",
+  "path": "skills/deployment-patterns",
+  "path_key": "skills/deployment-patterns",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

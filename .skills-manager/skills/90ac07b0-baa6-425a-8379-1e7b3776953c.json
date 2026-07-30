@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "90ac07b0-baa6-425a-8379-1e7b3776953c",
+  "path": "skills/codebase-onboarding",
+  "path_key": "skills/codebase-onboarding",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

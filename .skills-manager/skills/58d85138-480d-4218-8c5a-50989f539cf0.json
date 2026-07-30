@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "58d85138-480d-4218-8c5a-50989f539cf0",
+  "path": "skills/file-deduplicator",
+  "path_key": "skills/file-deduplicator",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}

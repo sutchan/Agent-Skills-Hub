@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "c3d657b1-3106-43a0-8d22-310e91e74aa2",
+  "path": "skills/design-system",
+  "path_key": "skills/design-system",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "import",
+    "ref": null,
+    "subpath": null,
+    "branch": null
+  }
+}
