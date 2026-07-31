@@ -4,7 +4,7 @@
 
 > 作者：Sut Chan
 >
-> 项目地址：https://github.com/sutchan/skills-chinese
+> 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 >
 > 一个集中管理的 AI 技能（Skill）集合，包含 201 个面向开发、设计、
 测试、DevOps、Agent 工程及各行业领域的技能包。
@@ -292,7 +292,7 @@
 ```bash
 # 安装 skills-manager（详见其仓库说明）
 # 然后克隆本项目并使用 skills-manager 安装所需技能
-git clone https://github.com/sutchan/skills-chinese.git
+git clone https://github.com/sutchan/Agent-Skills-Hub.git
 # 按 skills-manager 的用法将本项目 skills/ 目录中的技能导入/链接到你的 Agent
 ```
 
@@ -351,5 +351,5 @@ grep -rl "test" skills/*/SKILL.md
 - [贡献指南](CONTRIBUTING.md) — 如何新增/更新技能并保持 README 同步
 - [英文文档](README.en.md) — English README
 - [许可证](LICENSE) — 项目整体许可证
-- 项目地址：https://github.com/sutchan/skills-chinese
+- 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 - 工作区配置：[agent-skills-hub.code-workspace](agent-skills-hub.code-workspace)
