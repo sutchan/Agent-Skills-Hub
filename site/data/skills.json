@@ -1,10 +1,10 @@
-﻿{
+{
   "meta": {
     "title": "Agent Skills Hub",
     "subtitle": "面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合",
     "author": "Sut Chan",
     "repo": "https://github.com/sutchan/Agent-Skills-Hub",
-    "count": 201,
+    "count": 199,
     "generated_at": "2026-07-30T20:28:13"
   },
   "categories": [
@@ -22,11 +22,11 @@
     },
     {
       "name": "测试与质量",
-      "count": 20
+      "count": 19
     },
     {
       "name": "Agent 与 AI 工程",
-      "count": 20
+      "count": 19
     },
     {
       "name": "DevOps 与基础设施",
@@ -954,17 +954,6 @@
       "zh_desc": "Claude Code 会话的综合验证系统"
     },
     {
-      "en_name": "webapp-testing-2",
-      "en_desc": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
-      "name": "webapp-testing",
-      "has_scripts": true,
-      "has_references": false,
-      "has_assets": false,
-      "dir": "webapp-testing-2",
-      "category": "测试与质量",
-      "zh_desc": "使用 Playwright 与本地 Web 应用交互和测试的工具包。支持验证前端功能"
-    },
-    {
       "en_name": "agent-browser",
       "en_desc": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction.",
       "name": "agent-browser",
@@ -1073,17 +1062,6 @@
       "dir": "continuous-agent-loop",
       "category": "Agent 与 AI 工程",
       "zh_desc": "带质量门禁、评估与恢复控制的持续自主 agent 循环模式"
-    },
-    {
-      "en_name": "continuous-learning",
-      "en_desc": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
-      "name": "continuous-learning",
-      "has_scripts": false,
-      "has_references": false,
-      "has_assets": false,
-      "dir": "continuous-learning",
-      "category": "Agent 与 AI 工程",
-      "zh_desc": "从 Claude Code 会话中自动提取可复用模式，并保存为已学习的技能供以后使用"
     },
     {
       "en_name": "continuous-learning-v2",

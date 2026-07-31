@@ -43,3 +43,12 @@
 [1.0.0]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.0
 [1.0.1]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.1
 [1.0.2]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.2
+
+## [1.0.3] - 2026-07-31
+
+### 文档
+
+- 删除冗余技能，技能总数由 201 调整为 199
+- `continuous-learning`：已有 `continuous-learning-v2` 替代，删除旧版
+- `webapp-testing-2`：与 `e2e-testing` / `browser-qa` 功能重叠且命名遗留 `-2`，删除
+- 同步更新 `README.md`、`README.en.md`（分类计数与总数）与 `site/data/skills.json`

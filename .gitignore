@@ -21,3 +21,5 @@ skills/skills/
 # 本地脚本（不属于技能内容）
 tools/*.ps1
 skills/cache/
+*.py
+*.txt

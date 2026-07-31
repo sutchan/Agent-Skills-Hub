@@ -1,12 +1,12 @@
 # Agent Skills Hub
 
-[![技能数量](https://img.shields.io/badge/skills-201-blue)](README.md) [![许可证](https://img.shields.io/badge/license-查看%20LICENSE-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-199-blue)](README.md) [![许可证](https://img.shields.io/badge/license-查看%20LICENSE-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 >
-> 一个集中管理的 AI 技能（Skill）集合，包含 201 个面向开发、设计、
+> 一个集中管理的 AI 技能（Skill）集合，包含 199 个面向开发、设计、
 测试、DevOps、Agent 工程及各行业领域的技能包。
 
 每个技能是一个独立目录，内含 `SKILL.md`（技能说明与触发描述）以及
@@ -15,6 +15,7 @@
 > 说明：本仓库对技能做了“中文目录 + 中文描述”的本地化；技能正文
 > （`SKILL.md` 内容）目前主要保留上游英文，仅少量已全文翻译。
 > 翻译覆盖率由 CI 中的 `tools/coverage.py` 统计。
+> 英文版 [`README.en.md`](README.en.md) 结构与本文件一致，技能描述同样为中文。
 
 ## 目录
 
@@ -110,7 +111,7 @@
 - **[backend-patterns](skills/backend-patterns/)** — 后端架构模式、API 设计、数据库优化与 Node.js、Express 等服务端最佳实践。
 - **[hexagonal-architecture](skills/hexagonal-architecture/)** — 设计、实现与重构端口与适配器（Ports & Adapters）系统，具备清晰领域边界、依赖倒置与可测试性。
 
-### 测试与质量（20）
+### 测试与质量（19）
 
 - **[ai-regression-testing](skills/ai-regression-testing/)** — AI 辅助开发的回归测试策略。沙箱模式 API 测试（无数据库依赖），自动验证行为。
 - **[browser-qa](skills/browser-qa/)** — 部署前端后，使用浏览器自动化进行视觉测试与 UI 交互验证。
@@ -131,9 +132,9 @@
 - **[skill-comply](skills/skill-comply/)** — 可视化技能、规则与 agent 定义是否真正被遵循——自动在 3 个提示规模上生成场景。
 - **[tdd-workflow](skills/tdd-workflow/)** — 编写新功能、修复 bug 或重构代码时使用。以 80% 覆盖率为目标强制执行测试驱动开发。
 - **[verification-loop](skills/verification-loop/)** — Claude Code 会话的综合验证系统。
-- **[webapp-testing-2](skills/webapp-testing-2/)** — 使用 Playwright 与本地 Web 应用交互和测试的工具包。支持验证前端功能。
 
-### Agent 与 AI 工程（20）
+
+### Agent 与 AI 工程（19）
 
 - **[agent-browser](skills/agent-browser/)** — 面向 AI agent 的浏览器自动化 CLI。当用户需要与网站交互（导航页面等）时使用。
 - **[agent-eval](skills/agent-eval/)** — 在自定义任务上对编码 agent（Claude Code、Aider、Codex 等）进行头对头对比，含通过率、成本、耗时等。
@@ -145,7 +146,6 @@
 - **[autonomous-loops](skills/autonomous-loops/)** — 自主 Claude Code 循环的模式与架构——从简单顺序流水线到 RFC 驱动的多 agent 协作。
 - **[benchmark](skills/benchmark/)** — 使用该技能测量性能基线、检测 PR 前后的回归，并对比技术栈方案。
 - **[continuous-agent-loop](skills/continuous-agent-loop/)** — 带质量门禁、评估与恢复控制的持续自主 agent 循环模式。
-- **[continuous-learning](skills/continuous-learning/)** — 从 Claude Code 会话中自动提取可复用模式，并保存为已学习的技能供以后使用。
 - **[continuous-learning-v2](skills/continuous-learning-v2/)** — 基于本能的学习系统，通过 hook 观察会话，创建带置信度评分的原子本能。
 - **[cost-aware-llm-pipeline](skills/cost-aware-llm-pipeline/)** — LLM API 调用的成本优化模式——按任务复杂度路由模型、预算跟踪、重试逻辑等。
 - **[data-scraper-agent](skills/data-scraper-agent/)** — 为任意公开来源构建全自动的 AI 数据收集 agent——招聘网站、价格、新闻、GitHub 等。
