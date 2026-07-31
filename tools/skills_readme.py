@@ -83,9 +83,10 @@ def parse_readme() -> tuple[int | None, list[dict]]:
             continue
         lm = LINK_RE.match(line)
         if lm and current is not None:
-            # Identify skills by their link path (without trailing slash) so
-            # display-name quirks (e.g. quoted "[...]") don't cause false drift.
-            current["skills"].append(lm.group(2).rstrip("/"))
+            # Identify skills by their directory name (last path segment,
+            # without trailing slash) so the "skills/" prefix doesn't cause
+            # false drift against list_skill_dirs().
+            current["skills"].append(lm.group(2).rstrip("/").split("/")[-1])
     return total, categories
 
 
@@ -197,7 +198,7 @@ def gen_en() -> int:
             desc = read_description(skill)
             if len(desc) > 220:
                 desc = desc[:217].rstrip() + "…"
-            lines.append(f"- **[{skill}]({skill}/)** — {desc}")
+            lines.append(f"- **[{skill}](skills/{skill}/)** — {desc}")
         lines.append("")
 
     lines.append("## Usage")

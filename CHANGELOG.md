@@ -40,9 +40,19 @@
 - 新增 CI 工作流 `.github/workflows/verify.yml`，在 push/PR 时校验一致性
 - 在 `agent-skills-hub.code-workspace` 补充作者与项目元信息
 
+## [1.0.3] - 2026-07-31
+
+### 文档
+
+- 修正 `README.md` 与 `README.en.md` 技能总数（201 → 199）
+- 修正「测试与质量」「Agent 与 AI 工程」分类计数（20 → 19），使各分类合计与总数一致
+- 中文版与英文版均补充本地化说明段，明确技能描述为「中文目录 + 中文描述」
+- 修复 `tools/skills_readme.py`：verify 误将 `skills/` 路径前缀当作技能名导致全量误报；gen-en 生成链接路径补全 `skills/` 前缀
+
 [1.0.0]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.0
 [1.0.1]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.1
 [1.0.2]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.2
+[1.0.3]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.3
 
 ## [1.0.3] - 2026-07-31
 
