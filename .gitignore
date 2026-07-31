@@ -26,3 +26,5 @@ skills/cache/
 .github/
 tools/
 *.code-workspace
+skills-manager.db
+skills-manager.db-wal
