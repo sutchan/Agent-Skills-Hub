@@ -43,6 +43,7 @@ export default function Showcase({ data }) {
     });
   }, [skills, activeCat, query]);
 
+  const openModal = useCallback((s) => setModal(s), []);
   const closeModal = useCallback(() => setModal(null), []);
 
   useEffect(() => {
@@ -119,6 +120,7 @@ export default function Showcase({ data }) {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 autoComplete="off"
+                aria-label="搜索技能"
               />
             </div>
             <button
@@ -143,7 +145,9 @@ export default function Showcase({ data }) {
             {catList.map((c) => (
               <button
                 key={c.name}
+                type="button"
                 className={"chip" + (c.name === activeCat ? " active" : "")}
+                aria-pressed={c.name === activeCat}
                 onClick={() => setActiveCat(c.name)}
               >
                 {c.name}
@@ -154,7 +158,21 @@ export default function Showcase({ data }) {
         </section>
 
         <section className="result-count">
-          显示 {filtered.length} / {skills.length} 个技能
+          <span>
+            显示 {filtered.length} / {skills.length} 个技能
+          </span>
+          {(activeCat !== "全部" || query.trim()) && (
+            <button
+              type="button"
+              className="clear-btn"
+              onClick={() => {
+                setActiveCat("全部");
+                setQuery("");
+              }}
+            >
+              清除筛选
+            </button>
+          )}
         </section>
 
         <section className="grid">
@@ -162,7 +180,16 @@ export default function Showcase({ data }) {
             <article
               key={s.dir}
               className="card"
-              onClick={() => setModal(s)}
+              role="button"
+              tabIndex={0}
+              aria-label={`查看技能 ${s.name} 详情`}
+              onClick={() => openModal(s)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  openModal(s);
+                }
+              }}
             >
               <div className="card-cat">{s.category}</div>
               <h3 className="card-name">{s.name}</h3>

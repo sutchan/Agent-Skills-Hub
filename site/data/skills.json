@@ -1,9 +1,9 @@
-{
+﻿{
   "meta": {
     "title": "Agent Skills Hub",
     "subtitle": "面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合",
     "author": "Sut Chan",
-    "repo": "https://github.com/sutchan/skills-chinese",
+    "repo": "https://github.com/sutchan/Agent-Skills-Hub",
     "count": 201,
     "generated_at": "2026-07-30T20:28:13"
   },
