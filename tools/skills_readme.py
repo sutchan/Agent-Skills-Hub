@@ -42,9 +42,39 @@ CATEGORY_EN = {
 TOTAL_RE = re.compile(r"包含\s*(\d+)\s*个")
 CATEGORY_RE = re.compile(r"^###\s+(.+?)（(\d+)）\s*$")
 LINK_RE = re.compile(r"-\s+\*\*\[([^\]]+)\]\(([^)]+)\)\*\*")
-DESC_FOLDED_RE = re.compile(
-    r"description:\s*([>|-]?)\s*\n((?:[ \t]+.*\n?)*)")
-DESC_PLAIN_RE = re.compile(r"description:\s*(.+)")
+
+
+def read_description(skill: str) -> str:
+    """Extract and unfold the ``description`` frontmatter field of a skill."""
+    path = os.path.join(SKILLS_DIR, skill, "SKILL.md")
+    try:
+        with open(path, encoding="utf-8") as fh:
+            text = fh.read()
+    except FileNotFoundError:
+        return ""
+    # Match the YAML frontmatter block (between the first pair of `---`).
+    fm = re.match(r"^---\s*\n(.*?)\n---\s*\n", text, re.DOTALL)
+    block = fm.group(1) if fm else text
+    # Strip any leading indentation (common in nested YAML) per line.
+    block_lines = [ln.lstrip() for ln in block.splitlines()]
+    block = "\n".join(block_lines)
+    # Block scalar: description: |  /  >  /  |-  /  >-  (possibly indented).
+    m = re.search(
+        r"^description:\s*[-|>]+\s*$\n((?:[ \t]+.*\n?)*)",
+        block, re.MULTILINE)
+    if m:
+        body = m.group(1)
+        # Drop the YAML indentation block indicator footprint and join lines.
+        lines = [ln.strip() for ln in body.splitlines() if ln.strip()]
+        desc = " ".join(lines).strip()
+        desc = desc.replace("|-", "").replace(">-", "").strip()
+        if desc:
+            return desc
+    # Plain scalar (quoted or bare), possibly multi-line folded onto one line.
+    m = re.search(r"^description:\s*(.+)$", block, re.MULTILINE)
+    if m:
+        return m.group(1).strip().strip('"').strip("'").strip()
+    return ""
 
 
 def list_skill_dirs() -> list[str]:
@@ -98,13 +128,23 @@ def read_description(skill: str) -> str:
             text = fh.read()
     except FileNotFoundError:
         return ""
-    m = DESC_FOLDED_RE.search(text)
+    # Match the YAML frontmatter block (between the first pair of `---`).
+    fm = re.match(r"^---\s*\n(.*?)\n---\s*\n", text, re.DOTALL)
+    block = fm.group(1) if fm else text
+    # Block scalar: description: |  /  >  /  |-  /  >-  followed by indented lines.
+    m = re.search(
+        r"^description:\s*[-|>]+\s*$\n((?:[ \t]+.*(?:\n|$))*)",
+        block, re.MULTILINE)
     if m:
-        lines = [ln.strip() for ln in m.group(2).splitlines() if ln.strip()]
-        return " ".join(lines).strip()
-    m = DESC_PLAIN_RE.search(text)
+        body = m.group(1)
+        lines = [ln.strip() for ln in body.splitlines() if ln.strip()]
+        desc = " ".join(lines).strip()
+        if desc:
+            return desc
+    # Plain scalar (quoted or bare), single line (no following indented block).
+    m = re.search(r"^description:\s*(\S.*)$", block, re.MULTILINE)
     if m:
-        return m.group(1).strip().strip('"').strip("'")
+        return m.group(1).strip().strip('"').strip("'").strip()
     return ""
 
 
@@ -157,7 +197,7 @@ def gen_en() -> int:
     lines.append("")
     lines.append("> Author: Sut Chan")
     lines.append(">")
-    lines.append("> Repository: https://github.com/sutchan/skills-chinese")
+    lines.append("> Repository: https://github.com/sutchan/Agent-Skills-Hub")
     lines.append(">")
     lines.append("> A centrally managed collection of AI skills, containing "
                  f"{len(list_skill_dirs())} skill packs for development, design, "
@@ -166,6 +206,12 @@ def gen_en() -> int:
     lines.append("Each skill is a standalone directory containing `SKILL.md` "
                  "(name + description metadata + usage notes) plus optional "
                  "`scripts/`, `references/`, `assets/`, `agents/`.")
+    lines.append("")
+    lines.append("> Note: This repo localizes skills with Chinese categories and "
+                 "Chinese descriptions. Skills whose body is already English keep "
+                 "their English `SKILL.md`; a few Chinese-only skills keep Chinese "
+                 "descriptions here. Translation coverage is tracked by "
+                 "`tools/coverage.py` in CI.")
     lines.append("")
     lines.append("## Table of Contents")
     lines.append("")
@@ -210,6 +256,34 @@ def gen_en() -> int:
     lines.append("3. Some skills depend on scripts or external tools — read the "
                  "skill's `SKILL.md` before use.")
     lines.append("")
+    lines.append("### Install & manage with skills-manager")
+    lines.append("")
+    lines.append("We recommend [skills-manager](https://github.com/xingkongliang/"
+                 "skills-manager) for batch install/update/uninstall of skills, "
+                 "avoiding manual directory copying.")
+    lines.append("")
+    lines.append("```bash")
+    lines.append("git clone https://github.com/sutchan/Agent-Skills-Hub.git")
+    lines.append("# import/link skills from skills/ into your agent via skills-manager")
+    lines.append("```")
+    lines.append("")
+    lines.append("See the [skills-manager docs](https://github.com/xingkongliang/"
+                 "skills-manager) for commands and configuration.")
+    lines.append("")
+    lines.append("### Online showcase")
+    lines.append("")
+    lines.append("The repo ships a standalone static [Next.js](site/) showcase "
+                 "(`output: export`) deployable to EdgeOne / object storage for "
+                 "browsing all skills online.")
+    lines.append("")
+    lines.append("```bash")
+    lines.append("cd site")
+    lines.append("npm install")
+    lines.append("npm run dev      # http://localhost:3000")
+    lines.append("npm run build    # output to site/out/")
+    lines.append("python build_site.py   # regenerate data after editing skills")
+    lines.append("```")
+    lines.append("")
     lines.append("### Finding a skill")
     lines.append("")
     lines.append("List all skills:")
@@ -237,9 +311,11 @@ def gen_en() -> int:
     lines.append("## Related Documents")
     lines.append("")
     lines.append("- [Changelog](CHANGELOG.md) — version & change history")
+    lines.append("- [Contributing](CONTRIBUTING.md) — how to add/update skills")
     lines.append("- [License](LICENSE) — project license")
     lines.append("- [中文文档](README.md) — Chinese README")
-    lines.append("- [Workspace](skills-chinese.code-workspace) — workspace config")
+    lines.append("- [Workspace](agent-skills-hub.code-workspace) — workspace config")
+    lines.append("- Repository: https://github.com/sutchan/Agent-Skills-Hub")
     lines.append("")
 
     with open(README_EN, "w", encoding="utf-8") as fh:

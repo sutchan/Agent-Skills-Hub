@@ -1,12 +1,12 @@
 # Agent Skills Hub
 
-[![技能数量](https://img.shields.io/badge/skills-199-blue)](README.md) [![许可证](https://img.shields.io/badge/license-查看%20LICENSE-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-198-blue)](README.md) [![许可证](https://img.shields.io/badge/license-查看%20LICENSE-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 >
-> 一个集中管理的 AI 技能（Skill）集合，包含 199 个面向开发、设计、
+> 一个集中管理的 AI 技能（Skill）集合，包含 198 个面向开发、设计、
 测试、DevOps、Agent 工程及各行业领域的技能包。
 
 每个技能是一个独立目录，内含 `SKILL.md`（技能说明与触发描述）以及
@@ -134,7 +134,7 @@
 - **[verification-loop](skills/verification-loop/)** — Claude Code 会话的综合验证系统。
 
 
-### Agent 与 AI 工程（19）
+### Agent 与 AI 工程（18）
 
 - **[agent-browser](skills/agent-browser/)** — 面向 AI agent 的浏览器自动化 CLI。当用户需要与网站交互（导航页面等）时使用。
 - **[agent-eval](skills/agent-eval/)** — 在自定义任务上对编码 agent（Claude Code、Aider、Codex 等）进行头对头对比，含通过率、成本、耗时等。
@@ -143,7 +143,6 @@
 - **[agentic-engineering](skills/agentic-engineering/)** — 以评估优先执行、任务拆解与成本感知的模型路由，作为 agentic 工程师运作。
 - **[ai-first-engineering](skills/ai-first-engineering/)** — 面向 AI agent 产出大部分实现代码的团队的工程运作模式。
 - **[autonomous-agent-harness](skills/autonomous-agent-harness/)** — 将 Claude Code 转变为具备持久记忆、定时任务、计算机使用的完全自主 agent 系统。
-- **[autonomous-loops](skills/autonomous-loops/)** — 自主 Claude Code 循环的模式与架构——从简单顺序流水线到 RFC 驱动的多 agent 协作。
 - **[benchmark](skills/benchmark/)** — 使用该技能测量性能基线、检测 PR 前后的回归，并对比技术栈方案。
 - **[continuous-agent-loop](skills/continuous-agent-loop/)** — 带质量门禁、评估与恢复控制的持续自主 agent 循环模式。
 - **[continuous-learning-v2](skills/continuous-learning-v2/)** — 基于本能的学习系统，通过 hook 观察会话，创建带置信度评分的原子本能。

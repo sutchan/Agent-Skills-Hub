@@ -4,7 +4,7 @@
     "subtitle": "面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合",
     "author": "Sut Chan",
     "repo": "https://github.com/sutchan/Agent-Skills-Hub",
-    "count": 199,
+    "count": 198,
     "generated_at": "2026-07-30T20:28:13"
   },
   "categories": [
@@ -26,7 +26,7 @@
     },
     {
       "name": "Agent 与 AI 工程",
-      "count": 19
+      "count": 18
     },
     {
       "name": "DevOps 与基础设施",
@@ -1029,17 +1029,6 @@
       "dir": "autonomous-agent-harness",
       "category": "Agent 与 AI 工程",
       "zh_desc": "将 Claude Code 转变为具备持久记忆、定时任务、计算机使用的完全自主 agent 系统"
-    },
-    {
-      "en_name": "autonomous-loops",
-      "en_desc": "\"Patterns and architectures for autonomous Claude Code loops — from simple sequential pipelines to RFC-driven multi-agent DAG systems.\"",
-      "name": "autonomous-loops",
-      "has_scripts": false,
-      "has_references": false,
-      "has_assets": false,
-      "dir": "autonomous-loops",
-      "category": "Agent 与 AI 工程",
-      "zh_desc": "自主 Claude Code 循环的模式与架构——从简单顺序流水线到 RFC 驱动的多 agent 协作"
     },
     {
       "en_name": "benchmark",
