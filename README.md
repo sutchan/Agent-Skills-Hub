@@ -37,7 +37,7 @@
 
 ### 前端与 UI 设计（15）
 
-- **[api-design](api-design/)** — REST API 设计模式，涵盖资源命名、状态码、分页、过滤、错误响应、版本控制等。
+- **[api-design](skills/api-design/)** — REST API 设计模式，涵盖资源命名、状态码、分页、过滤、错误响应、版本控制等。
 - **[brand-guidelines](brand-guidelines/)** — 将 Anthropic 官方品牌色与字体应用于各类产物，使其符合 Anthropic 品牌规范。
 - **[brand-voice](brand-voice/)** — 从真实文章、随笔、发布说明、文档或站点文案中提炼写作风格画像，并在后续内容中复用。
 - **[canvas-design](canvas-design/)** — 运用设计理念在 `.png` 与 `.pdf` 文档中创作精美的视觉作品。当用户需要生成图像化文档时使用。
