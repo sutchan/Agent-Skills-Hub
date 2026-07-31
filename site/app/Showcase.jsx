@@ -8,6 +8,25 @@ export default function Showcase({ data }) {
   const [activeCat, setActiveCat] = useState("全部");
   const [query, setQuery] = useState("");
   const [modal, setModal] = useState(null);
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const cur =
+      document.documentElement.getAttribute("data-theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    setTheme(cur);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch (e) {
+      /* 忽略存储异常 */
+    }
+  };
 
   const catList = useMemo(
     () => [{ name: "全部", count: skills.length }].concat(categories),
@@ -85,21 +104,40 @@ export default function Showcase({ data }) {
 
       <main className="container">
         <section className="toolbar">
-          <div className="search-wrap">
-            <svg className="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-              <path
-                fill="currentColor"
-                d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"
+          <div className="toolbar-top">
+            <div className="search-wrap">
+              <svg className="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"
+                />
+              </svg>
+              <input
+                id="search"
+                type="search"
+                placeholder="搜索技能名称、描述或分类…"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                autoComplete="off"
               />
-            </svg>
-            <input
-              id="search"
-              type="search"
-              placeholder="搜索技能名称、描述或分类…"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              autoComplete="off"
-            />
+            </div>
+            <button
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label="切换深色 / 浅色主题"
+              title="切换深色 / 浅色主题"
+            >
+              {theme === "dark" ? (
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+                </svg>
+              )}
+            </button>
           </div>
           <div className="filters">
             {catList.map((c) => (
