@@ -23,3 +23,6 @@ tools/*.ps1
 skills/cache/
 *.py
 *.txt
+.github/
+tools/
+*.code-workspace
