@@ -71,14 +71,14 @@ def read_skill_meta(skill_dir):
         return None
     with open(skill_md, "r", encoding="utf-8") as f:
         content = f.read()
-    meta = {"en_name": skill_dir, "en_desc": "", "name": skill_dir}
+    meta = {"en_name": skill_dir, "en_desc": "", "name": skill_dir, "category": ""}
     m = re.match(r"^---\s*\n(.*?)\n---", content, re.DOTALL)
     if m:
         fm = m.group(1)
-        for key in ("name", "description"):
+        for key in ("name", "description", "category"):
             km = re.search(rf"^{key}:\s*(.+)$", fm, re.MULTILINE)
             if km:
-                meta[key if key == "name" else "en_desc"] = km.group(1).strip()
+                meta[key if key in ("name", "category") else "en_desc"] = km.group(1).strip()
     meta["has_scripts"] = os.path.isdir(os.path.join(skill_path, "scripts"))
     meta["has_references"] = os.path.isdir(os.path.join(skill_path, "references"))
     meta["has_assets"] = os.path.isdir(os.path.join(skill_path, "assets"))
@@ -102,7 +102,7 @@ def main():
                     "has_scripts": False, "has_references": False,
                     "has_assets": False, "dir": name,
                 }
-            sm["category"] = cat
+            sm["category"] = sm.get("category") or cat
             sm["zh_desc"] = zh_desc
             skills.append(sm)
 

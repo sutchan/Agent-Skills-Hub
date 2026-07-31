@@ -18,6 +18,8 @@
   ```
 
 - `SKILL.md` 的 `description` 应简洁明了，说明触发场景与能力边界。
+- 每个技能建议在 frontmatter 增加 `category` 字段（值取自 README 分类名，
+  如 `前端与 UI 设计`），便于展示页与工具统一读取分类，避免依赖 README 文本解析。
 
 ## 更新技能
 
@@ -34,6 +36,15 @@
   ```bash
   python tools/skills_readme.py gen-en
   ```
+
+- 翻译覆盖率检查（统计技能正文中文占比）：
+
+  ```bash
+  python tools/coverage.py
+  ```
+
+- 注意：skills-manager 的运行时文件（`.skills-manager/`、`skills/skills-manager.db*`）
+  以及其误写入的嵌套副本 `skills/skills/` 已被 `.gitignore` 忽略，请勿提交。
 
 - 通过校验后，在 `CHANGELOG.md` 追加变更记录（遵循 Keep a Changelog 与 SemVer）。
 
