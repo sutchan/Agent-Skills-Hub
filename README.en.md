@@ -1,4 +1,4 @@
-# Skills 技能库
+# Agent Skills Hub
 
 [![技能数量](https://img.shields.io/badge/skills-201-blue)](README.md) [![许可证](https://img.shields.io/badge/license-查看%20LICENSE-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
@@ -348,4 +348,4 @@ grep -rl "test" skills/*/SKILL.md
 - [英文文档](README.en.md) — English README
 - [许可证](LICENSE) — 项目整体许可证
 - 项目地址：https://github.com/sutchan/skills-chinese
-- 工作区配置：[skills-chinese.code-workspace](skills-chinese.code-workspace)
+- 工作区配置：[agent-skills-hub.code-workspace](agent-skills-hub.code-workspace)

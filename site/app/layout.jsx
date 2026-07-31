@@ -2,11 +2,11 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Skills 技能库 · AI 技能集合展示",
+  title: "Agent Skills Hub · AI 技能集合展示",
   description:
-    "面向开发、设计、测试、DevOps、Agent 工程及各行业领域的开源 AI 技能集合（skills-chinese）静态展示页。",
+    "面向开发、设计、测试、DevOps、Agent 工程及各行业领域的开源 AI 技能集合（Agent Skills Hub）静态展示页。",
   openGraph: {
-    title: "Skills 技能库",
+    title: "Agent Skills Hub",
     description: "面向开发与各行业的开源 AI 技能集合展示。",
     type: "website",
   },

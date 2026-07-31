@@ -9,7 +9,7 @@
 
 ### 新增
 
-- 初始化 Skills 技能库，纳入 201 个技能包
+- 初始化 Agent Skills Hub，纳入 201 个技能包
 - 按领域建立 13 个分类：前端与 UI 设计、后端/语言与框架、架构与设计、
   测试与质量、Agent 与 AI 工程、DevOps 与基础设施、数据与机器学习、
   内容/文档与写作、视频与媒体、行业领域、生产力与工具、上下文与提示工程、其他
@@ -38,7 +38,7 @@
 - 新增英文版 `README.en.md`（与中文版结构一致，含英文描述与检索指引）
 - 新增 `tools/skills_readme.py`：校验 README 与 `skills/` 一致性、生成英文 README
 - 新增 CI 工作流 `.github/workflows/verify.yml`，在 push/PR 时校验一致性
-- 在 `skills-chinese.code-workspace` 补充作者与项目元信息
+- 在 `agent-skills-hub.code-workspace` 补充作者与项目元信息
 
 [1.0.0]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.0
 [1.0.1]: https://github.com/sutchan/skills-chinese/releases/tag/v1.0.1

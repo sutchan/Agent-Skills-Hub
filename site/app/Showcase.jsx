@@ -72,7 +72,7 @@ export default function Showcase({ data }) {
     <>
       <header className="hero">
         <div className="hero-inner">
-          <div className="badge">SKILLS-CHINESE</div>
+          <div className="badge">AGENT SKILLS HUB</div>
           <h1>{meta.title}</h1>
           <p className="subtitle">{meta.subtitle}</p>
           <div className="stats">
@@ -183,7 +183,7 @@ export default function Showcase({ data }) {
           {(meta.generated_at || "").slice(0, 10)}
         </p>
         <p className="muted">
-          本页面为 <a href={meta.repo} target="_blank" rel="noopener">skills-chinese</a>{" "}
+          本页面为 <a href={meta.repo} target="_blank" rel="noopener">Agent Skills Hub</a>{" "}
           的静态展示，由 Next.js 构建、<code>build_site.py</code> 自动生成数据。许可证：MIT。
         </p>
       </footer>

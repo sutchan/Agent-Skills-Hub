@@ -19,7 +19,7 @@ def parse_readme():
         lines = f.read().splitlines()
 
     # 元信息
-    meta = {"title": "Skills 技能库", "author": "", "repo": "", "count": ""}
+    meta = {"title": "Agent Skills Hub", "author": "", "repo": "", "count": ""}
     for line in lines[:15]:
         m = re.search(r"技能数量.*?(\d+)", line)
         if m:
@@ -111,7 +111,7 @@ def main():
 
     data = {
         "meta": {
-            "title": "Skills 技能库",
+            "title": "Agent Skills Hub",
             "subtitle": "面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合",
             "author": meta["author"],
             "repo": meta["repo"] or "https://github.com/sutchan/skills-chinese",
