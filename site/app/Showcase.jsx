@@ -160,12 +160,12 @@ export default function Showcase({ data }) {
 
   return (
     <>
-      <header className="hero">
-        <div className="hero-inner">
+      <header className="hero" id="hero">
+        <div className="hero-inner" id="hero-inner">
           <div className="badge">AGENT SKILLS HUB</div>
           <h1>{meta.title}</h1>
           <p className="subtitle">{t.subtitle}</p>
-          <div className="stats">
+          <div className="stats" id="stats">
             <div className="stat">
               <div className="stat-num">{meta.count}</div>
               <div className="stat-label">{t.skillsUnit}</div>
@@ -175,7 +175,7 @@ export default function Showcase({ data }) {
               <div className="stat-label">{t.catsUnit}</div>
             </div>
           </div>
-          <div className="cta">
+          <div className="cta" id="cta">
             <a className="btn btn-primary" href={meta.repo} target="_blank" rel="noopener">
               {t.viewRepo}
             </a>
@@ -192,10 +192,10 @@ export default function Showcase({ data }) {
         <div className="hero-glow" aria-hidden="true" />
       </header>
 
-      <main className="container">
-        <section className="toolbar">
-          <div className="toolbar-top">
-            <div className="search-wrap">
+      <main className="container" id="main">
+        <section className="toolbar" id="toolbar">
+          <div className="toolbar-top" id="toolbar-top">
+            <div className="search-wrap" id="search-wrap">
               <svg className="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                 <path
                   fill="currentColor"
@@ -238,7 +238,7 @@ export default function Showcase({ data }) {
               )}
             </button>
           </div>
-          <div className="filters">
+          <div className="filters" id="filters">
             {catList.map((c) => (
               <button
                 key={c.name}
@@ -254,7 +254,7 @@ export default function Showcase({ data }) {
           </div>
         </section>
 
-        <section className="result-count">
+        <section className="result-count" id="result-count">
           <span>
             {t.showing} {filtered.length} {t.of} {skills.length} {t.skillsUnit}
           </span>
@@ -272,10 +272,11 @@ export default function Showcase({ data }) {
           )}
         </section>
 
-        <section className="grid">
+        <section className="grid" id="grid">
           {filtered.map((s) => (
             <article
               key={s.dir}
+              id={"card-" + s.dir}
               className="card"
               role="button"
               tabIndex={0}
@@ -302,7 +303,7 @@ export default function Showcase({ data }) {
         )}
       </main>
 
-      <footer className="footer">
+      <footer className="footer" id="footer">
         <p>
           {t.maintained}
           {meta.count}
@@ -322,9 +323,9 @@ export default function Showcase({ data }) {
       </footer>
 
       {modal && (
-        <div className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div className="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
           <div className="modal-backdrop" onClick={closeModal} />
-          <div className="modal-card">
+          <div className="modal-card" id="modal-card">
             <button className="modal-close" onClick={closeModal} aria-label={t.close}>
               ×
             </button>
