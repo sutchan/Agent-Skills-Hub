@@ -49,6 +49,17 @@
 - 中文版与英文版均补充本地化说明段，明确技能描述为「中文目录 + 中文描述」
 - 修复 `tools/skills_readme.py`：verify 误将 `skills/` 路径前缀当作技能名导致全量误报；gen-en 生成链接路径补全 `skills/` 前缀
 
+## [1.2.0] - 2026-08-08
+
+### 文档与规范
+
+- 新增 `site/DESIGN.md`：Web 展示原型设计规范，定义视觉令牌（配色/字体/
+  间距/响应式）、布局组件、交互与数据架构（单一数据源 = 磁盘 SKILL.md →
+  build_site.py → skills.json → 原型）
+- 新增 `openspec/project.md`：OpenSpec 项目规范，定义 change 工作流、
+  artifact 准则与本仓库一致性红线（单一数据源、无嵌套副本、分类英文数据驱动）
+- 新增 `openspec/AGENTS.md`：AI 协作指引，含 OpenSpec CLI 快速命令与角色契约
+
 ## [1.1.0] - 2026-08-07
 
 ### 原型对齐与数据治理
