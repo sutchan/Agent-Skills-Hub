@@ -48,7 +48,7 @@
 - **[canvas-design](skills/canvas-design/)** — 运用设计理念在 `.png` 与 `.pdf` 文档中创作精美的视觉作品。当用户需要生成图像化文档时使用。
 - **[design-system](skills/design-system/)** — 用于生成或审查设计系统、检查视觉一致性，并评审涉及样式的 PR。
 - **[figma](skills/figma/)** — 通过 Figma MCP 服务获取设计上下文、截图、变量与资源，并将设计稿转换为代码。
-- **[frontend-design-2](skills/frontend-design-2/)** — 构建新 UI 或重塑现有界面时的差异化、有意图的视觉设计指引，帮助提升美感。
+- **[frontend-design](skills/frontend-design/)** — 构建新 UI 或重塑现有界面时的差异化、有意图的视觉设计指引，帮助提升美感。
 - **[frontend-patterns](skills/frontend-patterns/)** — 前端开发模式：React、Next.js、状态管理、性能优化与 UI 最佳实践。
 - **[frontend-skill](skills/frontend-skill/)** — 当任务需要视觉表现力强的落地页、网站、应用、原型、演示或游戏 UI 时使用。
 - **[frontend-slides](skills/frontend-slides/)** — 从零创建或将 PowerPoint 文件转换为动画丰富、惊艳的 HTML 演示文稿。
@@ -276,7 +276,6 @@
 - **[vercel-react-best-practices](skills/vercel-react-best-practices/)** — 来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。编写相关代码时应使用该技能。
 - **[vercel-react-native-skills](skills/vercel-react-native-skills/)** — React Native 与 Expo 构建高性能移动应用的最佳实践，涵盖组件、列表性能优化、动画与原生模块。用于 RN/Expo 开发、性能优化或原生 API 任务。
 - **[x-api](skills/x-api/)** — X/Twitter API 集成，用于发推、线程、读取时间线、搜索与分析。涵盖 OAuth 认证流程。
-- **[审查项目](skills/审查项目/)** — 审查项目所有文件，分析冗余文件，分析代码问题，检查项目开发进度，生成项目进度报告。
 
 ## 使用方式
 

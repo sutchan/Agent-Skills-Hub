@@ -49,6 +49,31 @@
 - 中文版与英文版均补充本地化说明段，明确技能描述为「中文目录 + 中文描述」
 - 修复 `tools/skills_readme.py`：verify 误将 `skills/` 路径前缀当作技能名导致全量误报；gen-en 生成链接路径补全 `skills/` 前缀
 
+## [1.1.0] - 2026-08-07
+
+### 原型对齐与数据治理
+
+- 改进展示页原型（`site/`）：分类英文名从 `data/skills.json` 的
+  `categories[].en` 字段读取，删除 `Showcase.jsx` 中硬编码的 `CAT_EN`
+  映射，新增分类无需改动前端代码
+- 增强 `site/build_site.py`：生成 `categories` 时写入 `en` 字段，
+  数据重生成自动携带分类英文名，原型与数据源一致
+- 修正 `site/data/skills.json`：删除磁盘已不存在的 `审查项目` 条目，
+  将错误目录 `frontend-design-2` 修正为真实 `frontend-design`，
+  技能总数 198 → 196，分类计数同步更新
+- 修正 `README.md`：同上述两处坏条目，使 README、skills.json 与
+  磁盘 `skills/` 三套数据对齐（单一数据源 = 磁盘 SKILL.md）
+
+### 仓库清理
+
+- 恢复根 `tools/coverage.py` 与 `tools/skills_readme.py`（此前误置于
+  `skills/tools/` 嵌套副本），删除非法嵌套目录 `skills/tools/`、`skills/site/`
+- 解决 `manim-video` 版本冲突：将完整生产级版本（version 1.0.0，含
+  14 份 references 文档与 `scripts/setup.sh`）从错误嵌套位置
+  `skills/video-use/skills/manim-video` 归位到根 `skills/manim-video/`
+  （保留 `assets/network_graph_scene.py` 示例），删除非法嵌套目录；
+  同步 `skills.json` 的 `has_scripts`/`has_references` 与 `en_desc`
+
 [1.0.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.0
 [1.0.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.1
 [1.0.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.2

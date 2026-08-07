@@ -27,6 +27,24 @@ DEFAULT_REPO = "https://github.com/sutchan/Agent-Skills-Hub"
 # README 中定义的合法分类顺序（用于排序回退）
 README_CAT_ORDER = []
 
+# 分类中文名 -> 英文显示名（与展示页原型保持一致；新增分类时在此补充）
+CAT_EN = {
+    "前端与 UI 设计": "Frontend & UI Design",
+    "后端、语言与框架": "Backend, Languages & Frameworks",
+    "架构与设计": "Architecture & Design",
+    "测试与质量": "Testing & Quality",
+    "Agent 与 AI 工程": "Agent & AI Engineering",
+    "DevOps 与基础设施": "DevOps & Infrastructure",
+    "数据与机器学习": "Data & Machine Learning",
+    "内容、文档与写作": "Content, Docs & Writing",
+    "视频与媒体": "Video & Media",
+    "行业领域": "Industry Domains",
+    "生产力与工具": "Productivity & Tools",
+    "上下文与提示工程": "Context & Prompt Engineering",
+    "其他": "Other",
+}
+
+
 
 def parse_readme_categories():
     """解析 README，返回 (分类顺序, 技能名->分类名, 技能名->中文描述)。"""
@@ -142,7 +160,10 @@ def build_data():
         if c not in ordered_cats:
             ordered_cats.append(c)
 
-    categories = [{"name": c, "count": cat_counts[c]} for c in ordered_cats]
+    categories = [
+        {"name": c, "en": CAT_EN.get(c, c), "count": cat_counts[c]}
+        for c in ordered_cats
+    ]
 
     data = {
         "meta": {

@@ -10,67 +10,67 @@
   "categories": [
     {
       "name": "前端与 UI 设计",
-      "en": "frontend-ui-design",
+      "en": "Frontend & UI Design",
       "count": 15
     },
     {
       "name": "后端、语言与框架",
-      "en": "backend-languages-frameworks",
+      "en": "Backend, Languages & Frameworks",
       "count": 43
     },
     {
       "name": "架构与设计",
-      "en": "architecture-design",
+      "en": "Architecture & Design",
       "count": 4
     },
     {
       "name": "测试与质量",
-      "en": "testing-quality",
+      "en": "Testing & Quality",
       "count": 19
     },
     {
       "name": "Agent 与 AI 工程",
-      "en": "agent-ai-engineering",
+      "en": "Agent & AI Engineering",
       "count": 18
     },
     {
       "name": "DevOps 与基础设施",
-      "en": "devops-infrastructure",
+      "en": "DevOps & Infrastructure",
       "count": 11
     },
     {
       "name": "数据与机器学习",
-      "en": "data-ml",
+      "en": "Data & Machine Learning",
       "count": 8
     },
     {
       "name": "内容、文档与写作",
-      "en": "content-docs-writing",
+      "en": "Content, Docs & Writing",
       "count": 14
     },
     {
       "name": "视频与媒体",
-      "en": "video-media",
+      "en": "Video & Media",
       "count": 7
     },
     {
       "name": "行业领域",
-      "en": "industry-domains",
+      "en": "Industry Domains",
       "count": 14
     },
     {
       "name": "生产力与工具",
-      "en": "productivity-tools",
+      "en": "Productivity & Tools",
       "count": 20
     },
     {
       "name": "上下文与提示工程",
-      "en": "context-prompt-engineering",
+      "en": "Context & Prompt Engineering",
       "count": 14
     },
     {
       "name": "其他",
-      "en": "other",
+      "en": "Other",
       "count": 10
     }
   ],
@@ -1551,10 +1551,10 @@
     },
     {
       "en_name": "manim-video",
-      "en_desc": "Build reusable Manim explainers for technical concepts, graphs, system diagrams, and product walkthroughs, then hand off to the wider ECC video stack if needed. Use when the user wants a clean animated explainer rather than a generic talking-head script.",
+      "en_desc": "Production pipeline for mathematical and technical animations using Manim Community Edition. Creates 3Blue1Brown-style explainer videos, algorithm visualizations, equation derivations, architecture diagrams, and data stories.",
       "name": "manim-video",
-      "has_scripts": false,
-      "has_references": false,
+      "has_scripts": true,
+      "has_references": true,
       "has_assets": true,
       "dir": "manim-video",
       "category": "视频与媒体",

@@ -3,23 +3,6 @@
 
 import { useEffect, useMemo, useState, useCallback } from "react";
 
-// 分类中文名 -> 英文名 映射（与 README 分类保持一致）
-const CAT_EN = {
-  "前端与 UI 设计": "Frontend & UI Design",
-  "后端、语言与框架": "Backend, Languages & Frameworks",
-  "架构与设计": "Architecture & Design",
-  "测试与质量": "Testing & Quality",
-  "Agent 与 AI 工程": "Agent & AI Engineering",
-  "DevOps 与基础设施": "DevOps & Infrastructure",
-  "数据与机器学习": "Data & Machine Learning",
-  "内容、文档与写作": "Content, Docs & Writing",
-  "视频与媒体": "Video & Media",
-  "行业领域": "Industry Domains",
-  "生产力与工具": "Productivity & Tools",
-  "上下文与提示工程": "Context & Prompt Engineering",
-  "其他": "Other",
-};
-
 // 界面文案双语映射
 const UI = {
   zh: {
@@ -115,7 +98,15 @@ export default function Showcase({ data }) {
   };
 
   const t = UI[lang];
-  const catName = (name) => (lang === "en" ? CAT_EN[name] || name : name);
+  // 分类英文名从数据读取，新增分类无需修改前端代码
+  const catEnMap = useMemo(
+    () =>
+      Object.fromEntries(
+        (data.categories || []).map((c) => [c.name, c.en || c.name])
+      ),
+    [data.categories]
+  );
+  const catName = (name) => (lang === "en" ? catEnMap[name] || name : name);
 
   const catList = useMemo(
     () => [{ name: "全部", count: skills.length }].concat(categories),
