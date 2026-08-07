@@ -4,61 +4,74 @@
     "subtitle": "面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合",
     "author": "Sut Chan",
     "repo": "https://github.com/sutchan/Agent-Skills-Hub",
-    "count": 198,
-    "generated_at": "2026-07-30T20:28:13"
+    "count": 196,
+    "generated_at": "2026-08-07T00:00:00"
   },
   "categories": [
     {
       "name": "前端与 UI 设计",
+      "en": "frontend-ui-design",
       "count": 15
     },
     {
       "name": "后端、语言与框架",
+      "en": "backend-languages-frameworks",
       "count": 43
     },
     {
       "name": "架构与设计",
+      "en": "architecture-design",
       "count": 4
     },
     {
       "name": "测试与质量",
+      "en": "testing-quality",
       "count": 19
     },
     {
       "name": "Agent 与 AI 工程",
+      "en": "agent-ai-engineering",
       "count": 18
     },
     {
       "name": "DevOps 与基础设施",
+      "en": "devops-infrastructure",
       "count": 11
     },
     {
       "name": "数据与机器学习",
+      "en": "data-ml",
       "count": 8
     },
     {
       "name": "内容、文档与写作",
+      "en": "content-docs-writing",
       "count": 14
     },
     {
       "name": "视频与媒体",
+      "en": "video-media",
       "count": 7
     },
     {
       "name": "行业领域",
+      "en": "industry-domains",
       "count": 14
     },
     {
       "name": "生产力与工具",
+      "en": "productivity-tools",
       "count": 20
     },
     {
       "name": "上下文与提示工程",
+      "en": "context-prompt-engineering",
       "count": 14
     },
     {
       "name": "其他",
-      "count": 11
+      "en": "other",
+      "count": 10
     }
   ],
   "skills": [
@@ -129,13 +142,13 @@
       "zh_desc": "通过 Figma MCP 服务获取设计上下文、截图、变量与资源，并将设计稿转换为代码"
     },
     {
-      "en_name": "frontend-design-2",
+      "en_name": "frontend-design",
       "en_desc": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
       "name": "frontend-design",
       "has_scripts": false,
       "has_references": false,
       "has_assets": false,
-      "dir": "frontend-design-2",
+      "dir": "frontend-design",
       "category": "前端与 UI 设计",
       "zh_desc": "构建新 UI 或重塑现有界面时的差异化、有意图的视觉设计指引，帮助提升美感"
     },
@@ -2228,17 +2241,6 @@
       "dir": "x-api",
       "category": "其他",
       "zh_desc": "X/Twitter API 集成，用于发推、线程、读取时间线、搜索与分析。涵盖 OAuth 认证流程"
-    },
-    {
-      "en_name": "审查项目",
-      "en_desc": "审查项目所有文件，分析冗余文件，分析代码问题，检查项目开发进度，生成项目进度报告。",
-      "name": "审查项目",
-      "has_scripts": false,
-      "has_references": false,
-      "has_assets": false,
-      "dir": "审查项目",
-      "category": "其他",
-      "zh_desc": "审查项目所有文件，分析冗余文件，分析代码问题，检查项目开发进度，生成项目进度报告"
     }
   ]
 }
