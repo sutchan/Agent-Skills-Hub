@@ -170,7 +170,8 @@
 
 - 原型为只读展示，无表单提交错误。
 - 边界情况：技能 `zh_desc`/`en_desc` 缺失时回退到另一语言。
-- 仓库链接指向 `{repo}/tree/main/{dir}`（动态构造，repo 取自 `skills.json` 的 `meta.repo`），避免硬编码路径。
+- 仓库内 Markdown 文档（README / CONTRIBUTING 等）的技能链接使用相对路径 `skills/<name>/`，由 GitHub 自动解析，避免硬编码用户名。
+- 原型站点的"在仓库中查看"为跨域外链，使用 `{repo}/tree/main/{dir}`（动态构造，`repo` 取自 `skills.json` 的 `meta.repo`）。
 
 ### 4.4 空状态（Empty）
 

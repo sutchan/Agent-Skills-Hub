@@ -96,7 +96,10 @@ Props：
 ### 13. SkillDetail 技能详情
 文件：`components/skill-detail.tsx`
 Props：`{ skill: Skill, lang, catEn }`。
-内容：标题 + 分类 Badge → 别名 → 描述 → 目录 `code` 块 → 资源标签组 → 仓库外链 `ExternalLink`（`{repo}/tree/main/{skill.dir}`）。
+内容：标题 + 分类 Badge → 别名 → 描述 → 目录 `code` 块 → 资源标签组 → 仓库外链 `ExternalLink`（指向 `{repo}/tree/main/{skill.dir}`，`repo` 取自 `skills.json` 的 `meta.repo`）。
+
+> 说明：仓库内 Markdown 文档（README / CONTRIBUTING 等）中的技能链接使用相对路径
+> `skills/<name>/`，由 GitHub 自动解析；原型站点因跨域需外链，使用上述绝对 GitHub URL。
 Dialog 与 Sheet 共用此内容体。
 
 ### 14. CategoryFilter（Chip）
