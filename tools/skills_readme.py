@@ -36,7 +36,7 @@ CATEGORY_EN = {
     "行业领域": "Industry Domains",
     "生产力与工具": "Productivity & Tools",
     "上下文与提示工程": "Context & Prompt Engineering",
-    "其他": "Others",
+    "其他": "Other",
 }
 
 TOTAL_RE = re.compile(r"包含\s*(\d+)\s*个")
@@ -156,7 +156,7 @@ def gen_en() -> int:
     lines.append("")
     lines.append("> Author: Sut Chan")
     lines.append(">")
-    lines.append("> Repository: https://github.com/sutchan/skills-chinese")
+    lines.append("> Repository: https://github.com/sutchan/Agent-Skills-Hub")
     lines.append(">")
     lines.append("> A centrally managed collection of AI skills, containing "
                  f"{len(list_skill_dirs())} skill packs for development, design, "
@@ -238,7 +238,7 @@ def gen_en() -> int:
     lines.append("- [Changelog](CHANGELOG.md) — version & change history")
     lines.append("- [License](LICENSE) — project license")
     lines.append("- [中文文档](README.md) — Chinese README")
-    lines.append("- [Workspace](skills-chinese.code-workspace) — workspace config")
+    lines.append("- [Workspace](agent-skills-hub.code-workspace) — workspace config")
     lines.append("")
 
     with open(README_EN, "w", encoding="utf-8") as fh:

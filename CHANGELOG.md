@@ -51,7 +51,7 @@
 
 ## [1.4.0] - 2026-08-08
 
-### 数据一致性修复
+### 数据一致性修复（续）
 
 - 修复 `site/build_site.py`：frontmatter 解析时对 `name`/`description`/`category`
   去除 YAML 引号包裹，根治 `security-best-practices` 的 name 被包裹为
@@ -62,6 +62,24 @@
   `webapp-testing`（原仓库新增未同步至 README）
 - 修正 README 与 README.en.md 技能总数徽标/正文（198 → 200）及相应分类计数
 - 消除三向数据源不一致：磁盘（200）= `skills.json`（200）= README 链接（200）
+
+## [1.5.0] - 2026-08-08
+
+### 英文 README 与生成脚本修复
+
+- 修正 `README.en.md` 脏条目：`frontend-design-2` → `frontend-design`（目录名
+  错误），删除磁盘不存在的 `审查项目` 垃圾条目，补回缺失的 `frontend-design`
+- 统一中英文 README 分类英文名：`Others` → `Other`，与 `skills.json` 的
+  `categories[].en` 对齐；同步修正「其他」分类计数（11 → 10）
+- 修复 `tools/skills_readme.py`：`gen-en` 仓库地址
+  `sutchan/skills-chinese` → `sutchan/Agent-Skills-Hub`，相关文档链接
+  `skills-chinese.code-workspace` → `agent-skills-hub.code-workspace`，
+  分类英文映射 `其他: "Others"` → `"Other"`
+- 校验结果：中文 README（200）/ 英文 README（200）/ `skills.json`（200）三向
+  完全一致，中英文条目集合零差异
+- 已知残留：`skills/` 下 21 个 SKILL.md 的 frontmatter 字段（20 个 description
+  + 1 个 name）仍带 YAML 引号包裹，两个生成脚本均已兼容去引号，产物不受影响；
+  源文件清理因 `git-commit` 内部含单引号存在 YAML 破坏风险，留待后续逐文件处理
 
 ## [1.3.0] - 2026-08-08
 

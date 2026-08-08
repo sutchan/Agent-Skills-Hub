@@ -267,7 +267,7 @@
 - **[structured-context-compressor](skills/structured-context-compressor/)** — 将长 agent 对话压缩为九部分续写摘要，保留请求、文件、错误、用户等关键上下文。
 - **[token-budget-advisor](skills/token-budget-advisor/)** — 在回答前让用户选择消耗的回答深度/长度/Token 预算，用于用户显式想控制回答长度、深度或 Token 用量的场景。
 
-### 其他（11）
+### 其他（10）
 
 - **[claude-api](skills/claude-api/)** — Anthropic Claude API 的 Python 与 TypeScript 模式。涵盖 Messages API、流式、工具使用、视觉、扩展思考等。
 - **[codebase-onboarding](skills/codebase-onboarding/)** — 分析陌生代码库并生成结构化上手指南，含架构图、关键入口、关注点等。
