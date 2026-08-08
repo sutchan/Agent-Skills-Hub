@@ -1,4 +1,4 @@
-// 路径: site/app/layout.jsx 版本: 1.0.0
+// 路径: prototype/app/layout.jsx 版本: 1.5.0
 import "./globals.css";
 
 export const metadata = {

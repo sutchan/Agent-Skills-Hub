@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # build_site.py — 读取 skills/*/SKILL.md 的 frontmatter 生成展示页数据 data/skills.json
-# 路径: site/build_site.py 版本: 1.1.0
+# 路径: prototype/build_site.py 版本: 1.5.0
 #
 # 数据源策略：
 #   主数据源为各技能 SKILL.md 的 frontmatter（name / description / category）。
@@ -15,11 +15,11 @@ import os
 import re
 import sys
 
-# 仓库根目录（脚本位于 site/ 下，上级目录即仓库根）
+# 仓库根目录（脚本位于 prototype/ 下，上级目录即仓库根）
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 README = os.path.join(ROOT, "README.md")
 SKILLS_DIR = os.path.join(ROOT, "skills")
-OUT = os.path.join(ROOT, "site", "data", "skills.json")
+OUT = os.path.join(ROOT, "prototype", "data", "skills.json")
 
 # 仓库实际地址（兜底值，README 解析失败时使用）
 DEFAULT_REPO = "https://github.com/sutchan/Agent-Skills-Hub"

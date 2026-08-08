@@ -1,8 +1,8 @@
 {
-  "name": "agent-skills-hub-site",
-  "version": "1.1.0",
+  "name": "agent-skills-hub-prototype",
+  "version": "1.5.0",
   "private": true,
-  "description": "Agent Skills Hub 静态展示页（Next.js 静态导出，可部署到腾讯云 EdgeOne）",
+  "description": "Agent Skills Hub 高保真原型（Next.js 静态导出，可部署到腾讯云 EdgeOne）",
   "scripts": {
     "prebuild": "python3 build_site.py || python build_site.py || echo \"[prebuild] 跳过数据重新生成（未找到 python 或生成失败，使用已提交的数据文件）\"",
     "dev": "next dev",

@@ -1,26 +1,27 @@
-// 路径: site/app/Showcase.jsx 版本: 1.0.0
+// 路径: prototype/app/Showcase.jsx 版本: 1.5.0
 "use client";
 
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 
-// 界面文案双语映射
+// 界面文案双语映射（UI 文案，非业务数据）
 const UI = {
   zh: {
     all: "全部",
     skillsUnit: "个技能",
     catsUnit: "个分类",
-    viewRepo: "查看 GitHub 仓库",
-    install: "用 skills-manager 安装",
+    viewRepo: "查看仓库",
+    install: "安装指南",
     searchPh: "搜索技能名称、描述或分类…",
     searchLabel: "搜索技能",
-    toggleTheme: "切换深色 / 浅色主题",
+    toggleTheme: "切换主题",
     toggleLang: "Switch to English",
     clear: "清除筛选",
     viewGrid: "网格视图",
     viewList: "列表视图",
     showing: "显示",
-    of: "/",
-    empty: "没有匹配的技能，换个关键词试试。",
+    of: " / ",
+    emptyTitle: "没有匹配的技能",
+    emptyDesc: "换个关键词或分类试试。",
     maintained: "共 ",
     by: " 个技能 · 由 ",
     maintainedBy: " 维护 · 生成于 ",
@@ -29,23 +30,25 @@ const UI = {
     viewSkill: "在仓库中查看 SKILL.md →",
     close: "关闭",
     subtitle: "面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合",
+    installHint: "使用 skills-manager 安装",
   },
   en: {
     all: "All",
     skillsUnit: "skills",
     catsUnit: "categories",
-    viewRepo: "View GitHub Repository",
-    install: "Install with skills-manager",
+    viewRepo: "View repo",
+    install: "Install guide",
     searchPh: "Search by name, description or category…",
     searchLabel: "Search skills",
-    toggleTheme: "Toggle dark / light theme",
+    toggleTheme: "Toggle theme",
     toggleLang: "切换到中文",
     clear: "Clear filters",
     viewGrid: "Grid view",
     viewList: "List view",
     showing: "Showing",
     of: " / ",
-    empty: "No matching skills. Try another keyword.",
+    emptyTitle: "No matching skills",
+    emptyDesc: "Try another keyword or category.",
     maintained: "Total ",
     by: " skills · maintained by ",
     maintainedBy: " · generated on ",
@@ -55,7 +58,46 @@ const UI = {
     close: "Close",
     subtitle:
       "A collection of AI skills for development, design, testing, DevOps, agent engineering and industry domains",
+    installHint: "Install with skills-manager",
   },
+};
+
+// 图标集合（内联 SVG，无外部依赖）
+const Icon = {
+  search: (
+    <svg className="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z" />
+    </svg>
+  ),
+  sun: (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+    </svg>
+  ),
+  moon: (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+    </svg>
+  ),
+  grid: (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" />
+    </svg>
+  ),
+  list: (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
+      <circle cx="3.5" cy="6" r="1.2" fill="currentColor" /><circle cx="3.5" cy="12" r="1.2" fill="currentColor" /><circle cx="3.5" cy="18" r="1.2" fill="currentColor" />
+    </svg>
+  ),
+  empty: (
+    <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+      <line x1="8" y1="11" x2="14" y2="11" />
+    </svg>
+  ),
 };
 
 export default function Showcase({ data }) {
@@ -65,12 +107,14 @@ export default function Showcase({ data }) {
   const [view, setView] = useState("grid");
   const [modal, setModal] = useState(null);
   const [theme, setTheme] = useState("light");
+  const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState(() => {
     if (typeof document === "undefined") return "zh";
     const stored = document.documentElement.getAttribute("data-lang");
     if (stored === "en" || stored === "zh") return stored;
     return (navigator.language || "").toLowerCase().startsWith("en") ? "en" : "zh";
   });
+  const toolbarRef = useRef(null);
 
   useEffect(() => {
     const cur =
@@ -79,15 +123,19 @@ export default function Showcase({ data }) {
     setTheme(cur);
   }, []);
 
+  // Toolbar 滚动态
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
-    try {
-      localStorage.setItem("theme", next);
-    } catch (e) {
-      /* 忽略存储异常 */
-    }
+    try { localStorage.setItem("theme", next); } catch (e) { /* 忽略 */ }
   };
 
   const toggleLang = () => {
@@ -95,20 +143,12 @@ export default function Showcase({ data }) {
     setLang(next);
     document.documentElement.setAttribute("data-lang", next);
     document.documentElement.lang = next === "en" ? "en" : "zh-CN";
-    try {
-      localStorage.setItem("lang", next);
-    } catch (e) {
-      /* 忽略存储异常 */
-    }
+    try { localStorage.setItem("lang", next); } catch (e) { /* 忽略 */ }
   };
 
   const t = UI[lang];
-  // 分类英文名从数据读取，新增分类无需修改前端代码
   const catEnMap = useMemo(
-    () =>
-      Object.fromEntries(
-        (data.categories || []).map((c) => [c.name, c.en || c.name])
-      ),
+    () => Object.fromEntries((data.categories || []).map((c) => [c.name, c.en || c.name])),
     [data.categories]
   );
   const catName = (name) => (lang === "en" ? catEnMap[name] || name : name);
@@ -133,9 +173,7 @@ export default function Showcase({ data }) {
 
   useEffect(() => {
     if (!modal) return;
-    const onKey = (e) => {
-      if (e.key === "Escape") closeModal();
-    };
+    const onKey = (e) => { if (e.key === "Escape") closeModal(); };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
@@ -157,11 +195,11 @@ export default function Showcase({ data }) {
   return (
     <>
       <header className="hero" id="hero">
-        <div className="hero-inner" id="hero-inner">
+        <div className="hero-inner">
           <div className="badge">AGENT SKILLS HUB</div>
           <h1>{meta.title}</h1>
           <p className="subtitle">{t.subtitle}</p>
-          <div className="stats" id="stats">
+          <div className="stats" role="group" aria-label={t.skillsUnit + " / " + t.catsUnit}>
             <div className="stat">
               <div className="stat-num">{meta.count}</div>
               <div className="stat-label">{t.skillsUnit}</div>
@@ -171,7 +209,7 @@ export default function Showcase({ data }) {
               <div className="stat-label">{t.catsUnit}</div>
             </div>
           </div>
-          <div className="cta" id="cta">
+          <div className="cta">
             <a className="btn btn-primary" href={meta.repo} target="_blank" rel="noopener">
               {t.viewRepo}
             </a>
@@ -185,19 +223,17 @@ export default function Showcase({ data }) {
             </a>
           </div>
         </div>
-        <div className="hero-glow" aria-hidden="true" />
       </header>
 
-      <main className="container" id="main">
-        <section className="toolbar" id="toolbar">
-          <div className="toolbar-top" id="toolbar-top">
-            <div className="search-wrap" id="search-wrap">
-              <svg className="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                <path
-                  fill="currentColor"
-                  d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"
-                />
-              </svg>
+      <main className="container">
+        <section
+          className={"toolbar" + (scrolled ? " scrolled" : "")}
+          id="toolbar"
+          ref={toolbarRef}
+        >
+          <div className="toolbar-top">
+            <div className="search-wrap">
+              {Icon.search}
               <input
                 id="search"
                 type="search"
@@ -209,7 +245,7 @@ export default function Showcase({ data }) {
               />
             </div>
             <button
-              className="lang-toggle"
+              className="icon-btn"
               onClick={toggleLang}
               aria-label={t.toggleLang}
               title={t.toggleLang}
@@ -217,48 +253,31 @@ export default function Showcase({ data }) {
               {lang === "en" ? "中" : "EN"}
             </button>
             <button
-              className="theme-toggle"
+              className="icon-btn"
               onClick={toggleTheme}
               aria-label={t.toggleTheme}
               title={t.toggleTheme}
             >
-              {theme === "dark" ? (
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <circle cx="12" cy="12" r="4" />
-                  <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
-                </svg>
-              ) : (
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
-                </svg>
-              )}
+              {theme === "dark" ? Icon.sun : Icon.moon}
             </button>
             <button
-              className="view-toggle"
+              className={"icon-btn" + (view === "list" ? " active" : "")}
               onClick={() => setView(view === "grid" ? "list" : "grid")}
               aria-label={view === "grid" ? t.viewList : t.viewGrid}
+              aria-pressed={view === "list"}
               title={view === "grid" ? t.viewList : t.viewGrid}
             >
-              {view === "grid" ? (
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
-                  <circle cx="3.5" cy="6" r="1.2" fill="currentColor" /><circle cx="3.5" cy="12" r="1.2" fill="currentColor" /><circle cx="3.5" cy="18" r="1.2" fill="currentColor" />
-                </svg>
-              ) : (
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
-                </svg>
-              )}
+              {view === "grid" ? Icon.list : Icon.grid}
             </button>
           </div>
-          <div className="filters" id="filters">
+          <div className="filters" role="tablist" aria-label="分类筛选">
             {catList.map((c) => (
               <button
                 key={c.name}
                 type="button"
+                role="tab"
+                aria-selected={c.name === activeCat}
                 className={"chip" + (c.name === activeCat ? " active" : "")}
-                aria-pressed={c.name === activeCat}
                 onClick={() => setActiveCat(c.name)}
               >
                 {catName(c.name)}
@@ -268,7 +287,7 @@ export default function Showcase({ data }) {
           </div>
         </section>
 
-        <section className="result-count" id="result-count">
+        <section className="result-count" aria-live="polite">
           <span>
             {t.showing} {filtered.length} {t.of} {skills.length} {t.skillsUnit}
           </span>
@@ -276,21 +295,17 @@ export default function Showcase({ data }) {
             <button
               type="button"
               className="clear-btn"
-              onClick={() => {
-                setActiveCat("全部");
-                setQuery("");
-              }}
+              onClick={() => { setActiveCat("全部"); setQuery(""); }}
             >
               {t.clear}
             </button>
           )}
         </section>
 
-        <section className={"grid " + view} id="grid">
+        <section className={"grid " + view} aria-label="技能列表">
           {filtered.map((s) => (
             <article
               key={s.dir}
-              id={"card-" + s.dir}
               className="card"
               role="button"
               tabIndex={0}
@@ -315,12 +330,17 @@ export default function Showcase({ data }) {
             </article>
           ))}
         </section>
+
         {filtered.length === 0 && (
-          <p className="empty">{t.empty}</p>
+          <div className="empty" role="status">
+            {Icon.empty}
+            <p><strong>{t.emptyTitle}</strong></p>
+            <p>{t.emptyDesc}</p>
+          </div>
         )}
       </main>
 
-      <footer className="footer" id="footer">
+      <footer className="footer">
         <p>
           {t.maintained}
           {meta.count}
@@ -340,9 +360,9 @@ export default function Showcase({ data }) {
       </footer>
 
       {modal && (
-        <div className="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
           <div className="modal-backdrop" onClick={closeModal} />
-          <div className="modal-card" id="modal-card">
+          <div className="modal-card">
             <button className="modal-close" onClick={closeModal} aria-label={t.close}>
               ×
             </button>

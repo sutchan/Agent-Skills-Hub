@@ -292,13 +292,13 @@ See the [skills-manager docs](https://github.com/xingkongliang/skills-manager) f
 
 ### Online showcase
 
-The repo ships a standalone static [Next.js](site/) showcase (`output: export`) deployable to EdgeOne / object storage for browsing all skills online.
+The repo ships a standalone static [Next.js](prototype/) prototype (`output: export`) deployable to EdgeOne / object storage for browsing all skills online.
 
 ```bash
-cd site
+cd prototype
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # output to site/out/
+npm run build    # output to prototype/out/
 python build_site.py   # regenerate data after editing skills
 ```
 

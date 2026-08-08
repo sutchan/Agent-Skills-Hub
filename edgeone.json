@@ -1,6 +1,6 @@
 {
-  "installCommand": "cd site && npm install",
-  "buildCommand": "cd site && npm run build",
-  "outputDirectory": "./site/out",
+  "installCommand": "cd prototype && npm install",
+  "buildCommand": "cd prototype && npm run build",
+  "outputDirectory": "./prototype/out",
   "nodeVersion": "22.11.0"
 }

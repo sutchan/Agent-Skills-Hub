@@ -1,4 +1,4 @@
-// 路径: site/lib/skills.js 版本: 1.0.0
+// 路径: prototype/lib/skills.js 版本: 1.5.0
 // 读取构建脚本生成的 skills 数据，供页面使用。
 import data from "../data/skills.json";
 
