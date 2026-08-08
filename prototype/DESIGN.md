@@ -13,7 +13,7 @@
 | 极简（Minimal） | 克制的视觉语言，留白即设计；单一主色，避免渐变滥用与装饰性元素 |
 | 层级清晰（Hierarchy） | 通过字号、字重、色彩对比建立明确的信息层级，首屏 3 秒可读懂核心 |
 | 一致（Consistent） | 所有间距、圆角、阴影、动效遵循统一 Token，组件同源（shadcn/ui 基线） |
-| 真实（Real Data） | 原型读取 `data/skills.json`（由 `build_site.mjs`/`build_site.py` 从磁盘 SKILL.md 生成），非占位假数据 |
+| 真实（Real Data） | 原型数据为构建期从磁盘 `skills/<name>/SKILL.md` 生成并预渲染进 `prototype/out/`（由 `build_site.mjs`/`build_site.py` 生成），非占位假数据 |
 | 无障碍（Accessible） | 对比度 ≥ WCAG AA，键盘可达，支持 `prefers-reduced-motion` |
 
 ---
@@ -87,7 +87,7 @@
 
 ### 2.6 图标
 
-- 使用 **本地内联 SVG 图标集** `components/icons.tsx`（零外部依赖，避免安装/版本风险），统一 `24x24 viewBox` + `currentColor` 描边，等价于 lucide 风格。
+- 使用 **本地内联 SVG 图标集** `components/icons.tsx`（构建期源码路径，**原型源码不随仓库分发**，仅保留预渲染静态产物 `prototype/out/`；此处注明仅供理解实现），零外部依赖，统一 `24x24 viewBox` + `currentColor` 描边，等价于 lucide 风格。
 - 图标尺寸统一 `16-20px`（`h-4 w-4` / `h-5 w-5`），颜色继承 `currentColor` 随状态变化。
 - 业务图标语义：搜索 `Search`、主题 `Sun/Moon`、视图 `LayoutGrid/Rows3`、资源 `FileCode2/BookOpen/FolderOpen`、外链 `ExternalLink`、空态 `SlidersHorizontal`、品牌 `Boxes`、GitHub `Github`、关闭 `X`。
 
@@ -112,7 +112,9 @@
 
 组件分三类：**基础（Base）**、**复合（Composite）**、**业务（Domain）**。全部基于 shadcn/ui（new-york 风格）+ Tailwind 构建，禁止手写重复样式。
 
-### 3.1 基础组件（Base）— `components/ui/*`
+### 3.1 基础组件（Base）— `components/ui/*`（构建期源码映射）
+
+> 以下组件文件均为**原型构建期源码路径**（Next.js 源码不随仓库分发）；仓库仅保留其预渲染产物 `prototype/out/`。此处列出供理解静态产物的实现结构与评审对齐。
 
 | 组件 | 文件 | 变体/状态 |
 |------|------|-----------|
@@ -126,7 +128,7 @@
 | Dialog | `dialog.tsx` | Radix Dialog（桌面详情弹窗） |
 | Sheet | `sheet.tsx` | Radix Dialog 改右侧抽屉（移动详情） |
 
-### 3.2 复合/业务组件 — `components/*` + `app/page.tsx`
+### 3.2 复合/业务组件 — `components/*` + `app/page.tsx`（构建期源码映射）
 
 | 组件 | 文件 | 说明 |
 |------|------|------|
@@ -203,9 +205,10 @@
 
 ## 6. 数据架构（Data Contract）
 
-- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → `build_site.mjs`（或 `build_site.py`）→ `data/skills.json` → 原型读取。
-- `skills.json` Schema（详见 `openspec/project.md` §4.5）：`meta{title,subtitle,author,repo,count,generated_at}` + `categories[]{name,en,count}` + `skills[]{name,en_name,dir,category,zh_desc,en_desc,has_scripts,has_references,has_assets}`。
+- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → `build_site.mjs`（或 `build_site.py`）→ 构建期技能数据 → 预渲染进 `prototype/out/` 静态产物（仓库已入库 `prototype/out/`，无需手改产物）。
+- 数据 Schema（详见 `openspec/project.md` §4.5）：`meta{title,subtitle,author,repo,count,generated_at}` + `categories[]{name,en,count}` + `skills[]{name,en_name,dir,category,zh_desc,en_desc,has_scripts,has_references,has_assets}`。
 - 分类英文名为数据驱动（`categories[].en`），非硬编码。
+- 注意：`app/` 是项目**可运行 Web 应用**源码工作区（见 `app/README.md`），与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`。
 - 红色底线：数据契约须与 `build_site.mjs`/`build_site.py`、`openspec/project.md` 严格一致。
 
 ---

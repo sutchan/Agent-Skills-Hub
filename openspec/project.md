@@ -6,7 +6,7 @@
 ## 1. 项目概览
 
 Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合仓库。
-仓库以 `skills/<name>/SKILL.md` 为核心单元组织，并提供 `prototype/` 静态展示页（Next.js）做可视化浏览。
+仓库以 `skills/<name>/SKILL.md` 为核心单元组织，并提供 `app/`（可运行 Web 应用源码）与 `prototype/`（预构建静态展示页）两层 Web 产物做可视化浏览与开发。
 
 ## 2. 目录结构约定
 
@@ -15,6 +15,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 | `skills/<name>/SKILL.md` | 单个技能定义（frontmatter + 正文） | ✅ 高频 |
 | `skills/<name>/references/`、`scripts/`、`assets/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `README.md` | 技能清单（中文描述映射） | ✅ 中频 |
+| `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据 | ✅ 中频 |
 | `prototype/` | 预构建静态 HTML 高保真原型（打开 `prototype/out/index.html` 预览） | ✅ 中频 |
 | `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（已预构建产物，源码不随仓库分发） | ✅ 中频 |
 | `tools/` | 仓库级脚本（`coverage.py`、`skills_readme.py`） | ◻️ 低频 |
@@ -40,7 +41,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 ## 4.5 数据结构与接口标准（展示页）
 
-展示页为纯静态 SSG，`prototype/data/skills.json` 是唯一数据接口，由 `prototype/build_site.mjs`（或 `build_site.py`）在 `build` 阶段从磁盘生成。**严禁手改业务字段**，仅允许本地修正后重跑 `npm run build`。
+展示页（原型）为**预构建静态产物**：`prototype/out/index.html` + `prototype/out/_next/` 静态资源，技能数据在构建期由 `build_site.mjs`（或 `build_site.py`）从磁盘 `skills/<name>/SKILL.md` 生成并预渲染进 HTML/JS bundle。仓库随附的 `prototype/out/` 即为最终交付物，**数据源以磁盘 `skills/<name>/SKILL.md` 为准**，勿手改产物；如需修订展示效果，应基于源码重新构建并同步 `prototype/out/`。
 
 ### 4.5.1 `skills.json` Schema
 

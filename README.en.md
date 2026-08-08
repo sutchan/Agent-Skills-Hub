@@ -292,6 +292,15 @@ See the [skills-manager docs](https://github.com/xingkongliang/skills-manager) f
 
 ### Online showcase
 
+The repo provides two layers of web artifacts for both "browsing" and "development":
+
+| Directory | Type | Purpose |
+|-----------|------|---------|
+| `app/` | Runnable web app (**source**) | The project's real web app workspace (Next.js), supports `dev` / `build` / `start`, generating data from `skills/<name>/SKILL.md` at build time |
+| `prototype/` | Prebuilt static HTML prototype (**artifact**) | High-fidelity static prototype, browsable offline with no build, ready to deploy to EdgeOne / object storage |
+
+#### Prototype (prototype/)
+
 The repo ships a prebuilt static [HTML](prototype/out/) prototype for browsing all skills online. It is offline-ready and needs no build step.
 
 ```bash
@@ -300,6 +309,20 @@ cd prototype/out && python3 -m http.server 8080   # http://localhost:8080
 ```
 
 Deploy `prototype/out/` as the site root to EdgeOne / object storage. The prototype is a prebuilt static artifact; its data source is `skills/<name>/SKILL.md`.
+
+#### App (app/)
+
+`app/` is the runnable web app source workspace, hosting the real front-end application (Next.js 14 + React 18). Unlike `prototype/`'s prebuilt static prototype, `app/` is for actual development, iteration and build.
+
+```bash
+cd app
+npm install
+npm run dev      # local dev server
+npm run build    # production build
+npm run start    # start production server
+```
+
+The app uses `skills/<name>/SKILL.md` as the authoritative data source, generating skill data at build time (see [`app/README.md`](app/README.md)).
 
 ### Finding a skill
 

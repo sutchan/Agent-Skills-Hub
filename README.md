@@ -301,7 +301,16 @@ git clone https://github.com/sutchan/Agent-Skills-Hub.git
 
 ## 在线展示页面
 
-仓库内置一个基于 **Next.js** 的独立静态原型（`prototype/` 目录），使用静态导出（`output: export`），可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务，方便在线浏览全部技能。
+仓库提供两层 Web 产物，满足「浏览」与「开发」两种需求：
+
+| 目录 | 类型 | 用途 |
+|------|------|------|
+| `app/` | 可运行 Web 应用（**源码**） | 项目的真实 Web 应用工作区（Next.js），可 `dev` / `build` / `start`，从 `skills/<name>/SKILL.md` 实时生成数据 |
+| `prototype/` | 预构建静态 HTML 原型（**交付物**） | 高保真静态原型，无需构建即可离线浏览全部技能，适合一键部署到 EdgeOne / 对象存储 |
+
+### 原型（prototype/）
+
+仓库内置一个基于 **Next.js** 的独立静态原型，使用静态导出（`output: export`）预构建为纯静态 HTML，可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务。
 
 ```bash
 # 原型为预构建静态 HTML，无需安装依赖或构建：
@@ -313,6 +322,20 @@ cd prototype/out && python3 -m http.server 8080
 ```
 
 部署时将 `prototype/out/` 目录作为站点根目录发布即可。原型为预构建静态产物，数据源以 `skills/<name>/SKILL.md` 为准。
+
+### 应用（app/）
+
+`app/` 是项目 Web 应用的可开发源码工作区，承载可运行的前端应用（基于 Next.js 14 + React 18）。与 `prototype/` 的「预构建静态原型」不同，`app/` 用于实际开发、迭代与构建。
+
+```bash
+cd app
+npm install
+npm run dev      # 本地开发服务器
+npm run build    # 生产构建
+npm run start    # 启动生产服务
+```
+
+应用以 `skills/<name>/SKILL.md` 为权威数据源，构建期生成技能数据供前端读取（详见 [`app/README.md`](app/README.md)）。
 
 ## 技能检索
 

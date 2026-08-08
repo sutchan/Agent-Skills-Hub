@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.8.0] - 2026-08-08
+
+### 新增 app/ Web 应用工作区 + 文档索引更新
+
+- **新增 `app/` 目录**：作为项目可运行 Web 应用（WebApp）专属工作区，基于 Next.js 14 + React 18，
+  与 `prototype/`（预构建静态原型）分层——`app/` 用于开发/构建，`prototype/` 为离线浏览交付物
+- **目录约定固化**：`app/README.md` 明确数据源纪律（`skills/<name>/SKILL.md` 为权威）、md 用相对链接、跨域用 `{repo}/tree/main/{dir}`
+- **文档索引同步**：`README.md`/`README.en.md` 的「在线展示页面」拆为 `app/` 与 `prototype/` 两层对照表；
+  `openspec/project.md` §1 概览与 §2 目录结构表新增 `app/` 行；`openspec/AGENTS.md` 数据纪律补 `app/` 说明
+- 校验：仓库结构清晰，`prototype/` 已清理散落文件（仅 `out/` + 文档），`app/` 为未跟踪新目录
+
 ## [1.7.0] - 2026-08-08
 
 ### 原型 shadcn/ui 重构 + 文档/规范对齐

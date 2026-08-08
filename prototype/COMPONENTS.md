@@ -4,7 +4,7 @@
 > 配套 `DESIGN.md` 设计系统。本文规定每个组件的 **Props / 状态 / 用法 / 代码位置**，供后续开发与评审对齐。
 > 所有组件基于 **shadcn/ui（new-york）+ Tailwind CSS** 构建，样式由 `tailwind.config.ts` 的 Token 驱动，不手写重复 CSS。
 
-代码位置（构建期源码映射，原型已预渲染为静态 HTML `prototype/out/`）：
+代码位置（**构建期源码映射**，原型已预渲染为静态 HTML `prototype/out/`；Next.js 源码不随仓库分发，以下路径仅供理解静态产物实现与评审对齐）：
 - 基础/复合 UI 原语：源码 `components/ui/*`（按钮/输入/徽章/卡片/Tabs/Dialog/Sheet 等）
 - 业务组件：源码 `components/*`（主题切换/语言切换/视图切换/技能卡片/技能详情/图标集）
 - 页面装配：源码 `app/page.tsx`（承载搜索、分类过滤、卡片网格/列表、Dialog/Sheet 详情）
