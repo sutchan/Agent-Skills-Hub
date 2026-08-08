@@ -28,6 +28,8 @@ export interface SkillsData {
     author: string;
     repo: string;
     count: number;
+    version: string;
+    updated_at: string;
     generated_at: string;
   };
   categories: Category[];

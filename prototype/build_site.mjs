@@ -20,6 +20,19 @@ const OUT = path.join(ROOT, "prototype", "data", "skills.json");
 
 const DEFAULT_REPO = "https://github.com/sutchan/Agent-Skills-Hub";
 
+// 从 package.json 读取原型版本号，作为页脚展示的单一数据源
+function readVersion() {
+  try {
+    const pkg = JSON.parse(
+      fs.readFileSync(path.join(__dirname, "package.json"), "utf-8")
+    );
+    return pkg.version || "";
+  } catch {
+    return "";
+  }
+}
+const PROTO_VERSION = readVersion();
+
 // 分类中文名 -> 英文显示名（与展示页原型保持一致；新增分类时在此补充）
 const CAT_EN = {
   前端与UI设计: "Frontend & UI Design",
@@ -162,6 +175,8 @@ function buildData() {
       author: readmeMeta.author,
       repo: readmeMeta.repo || DEFAULT_REPO,
       count: skills.length,
+      version: PROTO_VERSION,
+      updated_at: new Date().toISOString().replace(/\.\d+Z$/, ""),
       generated_at: new Date().toISOString().replace(/\.\d+Z$/, ""),
     },
     categories,

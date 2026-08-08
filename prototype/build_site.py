@@ -27,6 +27,16 @@ OUT = os.path.join(ROOT, "prototype", "data", "skills.json")
 # 仓库实际地址（兜底值，README 解析失败时使用）
 DEFAULT_REPO = "https://github.com/sutchan/Agent-Skills-Hub"
 
+
+def _read_version():
+    """从 prototype/package.json 读取版本号，作为页脚展示单一数据源。"""
+    try:
+        here = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(here, "package.json"), "r", encoding="utf-8") as f:
+            return json.load(f).get("version", "")
+    except Exception:
+        return ""
+
 # README 中定义的合法分类顺序（用于排序回退）
 README_CAT_ORDER = []
 
@@ -179,6 +189,8 @@ def build_data():
             "author": readme_meta["author"],
             "repo": readme_meta["repo"] or DEFAULT_REPO,
             "count": len(skills),
+            "version": _read_version(),
+            "updated_at": __import__("datetime").datetime.now().isoformat(timespec="seconds"),
             "generated_at": __import__("datetime").datetime.now().isoformat(timespec="seconds"),
         },
         "categories": categories,

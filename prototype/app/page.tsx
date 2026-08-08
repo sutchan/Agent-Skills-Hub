@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
   DialogContent,
@@ -244,7 +245,167 @@ export default function Page() {
           )}
         </SheetContent>
       </Sheet>
+
+      {/* 页脚 */}
+      <footer className="border-t border-border/70 bg-background/60">
+        <div className="container py-10">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                  <Boxes className="h-4 w-4" />
+                </span>
+                <span className="text-sm font-semibold tracking-tight">
+                  {t("技能中心", "Skills Hub")}
+                </span>
+                {meta.version && (
+                  <Badge variant="outline" className="text-[10px] font-medium">
+                    v{meta.version}
+                  </Badge>
+                )}
+              </div>
+              <p className="max-w-xs text-xs leading-relaxed text-muted-foreground">
+                {heroSub}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                © {new Date().getFullYear()} {meta.author}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-x-10 gap-y-6 sm:grid-cols-3">
+              <FooterCol
+                title={t("概览", "Overview")}
+                items={[
+                  { label: t("技能总数", "Total skills"), value: String(meta.count) },
+                  {
+                    label: t("分类数量", "Categories"),
+                    value: String(categories.length),
+                  },
+                  {
+                    label: t("最近更新", "Updated"),
+                    value: formatDate(meta.updated_at, lang),
+                  },
+                ]}
+              />
+              <FooterCol
+                title={t("资源", "Resources")}
+                links={[
+                  {
+                    label: t("GitHub 仓库", "GitHub Repo"),
+                    href: meta.repo,
+                  },
+                  {
+                    label: t("提交记录", "Commits"),
+                    href: `${meta.repo}/commits/main`,
+                  },
+                  {
+                    label: t("问题反馈", "Issues"),
+                    href: `${meta.repo}/issues`,
+                  },
+                ]}
+                lang={lang}
+              />
+              <FooterCol
+                title={t("相关", "Related")}
+                links={[
+                  {
+                    label: t("贡献指南", "Contributing"),
+                    href: `${meta.repo}/blob/main/CONTRIBUTING.md`,
+                  },
+                  {
+                    label: t("更新日志", "Changelog"),
+                    href: `${meta.repo}/blob/main/CHANGELOG.md`,
+                  },
+                  {
+                    label: t("设计规范", "Design Spec"),
+                    href: `${meta.repo}/blob/main/prototype/DESIGN.md`,
+                  },
+                ]}
+                lang={lang}
+              />
+            </div>
+          </div>
+
+          <Separator className="my-6" />
+
+          <div className="flex flex-col items-center justify-between gap-2 text-xs text-muted-foreground sm:flex-row">
+            <span>
+              {t("基于 shadcn/ui 构建的高保真技能浏览原型", "High-fidelity skill browser prototype built with shadcn/ui")}
+            </span>
+            <span>
+              {t("数据生成于", "Generated at")} {formatDateTime(meta.updated_at, lang)}
+            </span>
+          </div>
+        </div>
+      </footer>
     </main>
+  );
+}
+
+function formatDate(iso: string, lang: Lang): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString(lang === "zh" ? "zh-CN" : "en-US", {
+    year: "numeric",
+    month: lang === "zh" ? "long" : "short",
+    day: "numeric",
+  });
+}
+
+function formatDateTime(iso: string, lang: Lang): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleString(lang === "zh" ? "zh-CN" : "en-US", {
+    year: "numeric",
+    month: lang === "zh" ? "long" : "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function FooterCol({
+  title,
+  items,
+  links,
+  lang,
+}: {
+  title: string;
+  items?: { label: string; value: string }[];
+  links?: { label: string; href: string }[];
+  lang?: Lang;
+}) {
+  return (
+    <div className="space-y-3">
+      <p className="text-xs font-semibold uppercase tracking-wide text-foreground/70">
+        {title}
+      </p>
+      <ul className="space-y-2">
+        {items?.map((it) => (
+          <li
+            key={it.label}
+            className="flex items-center justify-between gap-3 text-xs text-muted-foreground"
+          >
+            <span>{it.label}</span>
+            <span className="font-medium text-foreground">{it.value}</span>
+          </li>
+        ))}
+        {links?.map((lk) => (
+          <li key={lk.label}>
+            <a
+              href={lk.href}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {lk.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
