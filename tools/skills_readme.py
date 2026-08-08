@@ -189,6 +189,7 @@ def gen_en() -> int:
     lines.append("## Skill Categories")
     lines.append("")
 
+    repo = "https://github.com/sutchan/Agent-Skills-Hub"
     for c in categories:
         en_name = CATEGORY_EN.get(c["name"], c["name"])
         lines.append(f"### {en_name} ({len(c['skills'])})")
@@ -197,7 +198,7 @@ def gen_en() -> int:
             desc = read_description(skill)
             if len(desc) > 220:
                 desc = desc[:217].rstrip() + "…"
-            lines.append(f"- **[{skill}]({skill}/)** — {desc}")
+            lines.append(f"- **[{skill}]({repo}/tree/main/skills/{skill}/)** — {desc}")
         lines.append("")
 
     lines.append("## Usage")
