@@ -4,7 +4,7 @@
 
 ## 新增技能
 
-- 使用 [`skill-creator`](skills/skill-creator/) 技能按规范创建与评估。
+- 使用 [`skill-creator`](https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/skill-creator/) 技能按规范创建与评估。
 - 技能目录命名使用小写中划线（`kebab-case`），如 `python-testing/`。
 - 目录结构：
 

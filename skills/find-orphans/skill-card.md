@@ -25,9 +25,9 @@ Mitigation: Run cleanup on a branch, inspect every command in the script, and us
 
 ## Reference(s): <br>
 - [ClawHub release page](https://clawhub.ai/wangzhiming1999/find-orphans) <br>
-- [Repository](https://github.com/wangzhiming1999/oliver-skill) <br>
-- [Skill homepage](https://github.com/wangzhiming1999/oliver-skill/tree/main/skills/find-orphans) <br>
-- [Support issues](https://github.com/wangzhiming1999/oliver-skill/issues) <br>
+- [Repository](https://github.com/sutchan/Agent-Skills-Hub) <br>
+- [Skill homepage](https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/find-orphans) <br>
+- [Support issues](https://github.com/sutchan/Agent-Skills-Hub/issues) <br>
 
 
 ## Skill Output: <br>
