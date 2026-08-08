@@ -7,8 +7,8 @@
     "repo": "https://github.com/sutchan/Agent-Skills-Hub",
     "count": 200,
     "version": "1.7.0",
-    "updated_at": "2026-08-08T09:08:19",
-    "generated_at": "2026-08-08T09:08:19"
+    "updated_at": "2026-08-08T09:14:18",
+    "generated_at": "2026-08-08T09:14:18"
   },
   "categories": [
     {
@@ -87,7 +87,11 @@
       "has_references": true,
       "has_assets": false,
       "dir": "agent-browser",
-      "zh_desc": "面向 AI agent 的浏览器自动化 CLI。当用户需要与网站交互（导航页面等）时使用"
+      "zh_desc": "面向 AI agent 的浏览器自动化 CLI。当用户需要与网站交互（导航页面等）时使用",
+      "tags": [
+        "agent",
+        "browser"
+      ]
     },
     {
       "en_name": "agent-eval",
@@ -98,7 +102,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "agent-eval",
-      "zh_desc": "在自定义任务上对编码 agent（Claude Code、Aider、Codex 等）进行头对头对比，含通过率、成本、耗时等"
+      "zh_desc": "在自定义任务上对编码 agent（Claude Code、Aider、Codex 等）进行头对头对比，含通过率、成本、耗时等",
+      "tags": [
+        "agent",
+        "eval"
+      ]
     },
     {
       "en_name": "agent-harness-construction",
@@ -109,7 +117,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "agent-harness-construction",
-      "zh_desc": "设计与优化 AI agent 的动作空间、工具定义与观察格式化，以提升完成率"
+      "zh_desc": "设计与优化 AI agent 的动作空间、工具定义与观察格式化，以提升完成率",
+      "tags": [
+        "agent",
+        "harness",
+        "construction"
+      ]
     },
     {
       "en_name": "agent-payment-x402",
@@ -120,7 +133,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "agent-payment-x402",
-      "zh_desc": "为 AI agent 添加 x402 支付能力——按任务预算、支出控制，以及通过 MCP 工具实现的非托管钱包"
+      "zh_desc": "为 AI agent 添加 x402 支付能力——按任务预算、支出控制，以及通过 MCP 工具实现的非托管钱包",
+      "tags": [
+        "agent",
+        "payment",
+        "x402"
+      ]
     },
     {
       "en_name": "agentic-engineering",
@@ -131,7 +149,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "agentic-engineering",
-      "zh_desc": "以评估优先执行、任务拆解与成本感知的模型路由，作为 agentic 工程师运作"
+      "zh_desc": "以评估优先执行、任务拆解与成本感知的模型路由，作为 agentic 工程师运作",
+      "tags": [
+        "agentic",
+        "engineering"
+      ]
     },
     {
       "en_name": "ai-first-engineering",
@@ -142,7 +164,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "ai-first-engineering",
-      "zh_desc": "面向 AI agent 产出大部分实现代码的团队的工程运作模式"
+      "zh_desc": "面向 AI agent 产出大部分实现代码的团队的工程运作模式",
+      "tags": [
+        "first",
+        "engineering"
+      ]
     },
     {
       "en_name": "ai-regression-testing",
@@ -153,7 +179,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "ai-regression-testing",
-      "zh_desc": "AI 辅助开发的回归测试策略。沙箱模式 API 测试（无数据库依赖），自动验证行为"
+      "zh_desc": "AI 辅助开发的回归测试策略。沙箱模式 API 测试（无数据库依赖），自动验证行为",
+      "tags": [
+        "regression",
+        "testing"
+      ]
     },
     {
       "en_name": "algorithmic-art",
@@ -164,7 +194,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "algorithmic-art",
-      "zh_desc": "使用 p5.js 配合种子随机与交互式参数探索创作算法艺术。当用户需要时触发"
+      "zh_desc": "使用 p5.js 配合种子随机与交互式参数探索创作算法艺术。当用户需要时触发",
+      "tags": [
+        "algorithmic",
+        "art"
+      ]
     },
     {
       "en_name": "android-clean-architecture",
@@ -175,7 +209,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "android-clean-architecture",
-      "zh_desc": "Android 与 Kotlin Multiplatform 项目的整洁架构模式——模块结构、依赖规则、UseCase 设计等"
+      "zh_desc": "Android 与 Kotlin Multiplatform 项目的整洁架构模式——模块结构、依赖规则、UseCase 设计等",
+      "tags": [
+        "android",
+        "clean",
+        "architecture"
+      ]
     },
     {
       "en_name": "api-design",
@@ -186,7 +225,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "api-design",
-      "zh_desc": "REST API 设计模式，涵盖资源命名、状态码、分页、过滤、错误响应、版本控制等"
+      "zh_desc": "REST API 设计模式，涵盖资源命名、状态码、分页、过滤、错误响应、版本控制等",
+      "tags": [
+        "api",
+        "design"
+      ]
     },
     {
       "en_name": "architecture-decision-records",
@@ -197,7 +240,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "architecture-decision-records",
-      "zh_desc": "将 Claude Code 会话中的架构决策记录为结构化 ADR。自动检测决策时机并记录"
+      "zh_desc": "将 Claude Code 会话中的架构决策记录为结构化 ADR。自动检测决策时机并记录",
+      "tags": [
+        "architecture",
+        "decision",
+        "records"
+      ]
     },
     {
       "en_name": "article-writing",
@@ -208,7 +256,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "article-writing",
-      "zh_desc": "以独特语体撰写文章、指南、博客、教程、简报及其他长文内容"
+      "zh_desc": "以独特语体撰写文章、指南、博客、教程、简报及其他长文内容",
+      "tags": [
+        "article",
+        "writing"
+      ]
     },
     {
       "en_name": "autonomous-agent-harness",
@@ -219,7 +271,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "autonomous-agent-harness",
-      "zh_desc": "将 Claude Code 转变为具备持久记忆、定时任务、计算机使用的完全自主 agent 系统"
+      "zh_desc": "将 Claude Code 转变为具备持久记忆、定时任务、计算机使用的完全自主 agent 系统",
+      "tags": [
+        "autonomous",
+        "agent",
+        "harness"
+      ]
     },
     {
       "en_name": "autonomous-loops",
@@ -230,7 +287,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "autonomous-loops",
-      "zh_desc": "自主 Claude Code 循环的架构与模式，用于长时间运行的自动化任务编排"
+      "zh_desc": "自主 Claude Code 循环的架构与模式，用于长时间运行的自动化任务编排",
+      "tags": [
+        "autonomous",
+        "loops"
+      ]
     },
     {
       "en_name": "backend-patterns",
@@ -241,7 +302,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "backend-patterns",
-      "zh_desc": "后端架构模式、API 设计、数据库优化与 Node.js、Express 等服务端最佳实践"
+      "zh_desc": "后端架构模式、API 设计、数据库优化与 Node.js、Express 等服务端最佳实践",
+      "tags": [
+        "backend",
+        "patterns"
+      ]
     },
     {
       "en_name": "benchmark",
@@ -252,7 +317,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "benchmark",
-      "zh_desc": "使用该技能测量性能基线、检测 PR 前后的回归，并对比技术栈方案"
+      "zh_desc": "使用该技能测量性能基线、检测 PR 前后的回归，并对比技术栈方案",
+      "tags": [
+        "benchmark"
+      ]
     },
     {
       "en_name": "blueprint",
@@ -263,7 +331,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "blueprint",
-      "zh_desc": "将一句话目标拆解为多会话、多 Agent 工程项目的分步构建计划，每步含自包含上下文简报。用于复杂多 PR 任务或需多会话的路线图规划"
+      "zh_desc": "将一句话目标拆解为多会话、多 Agent 工程项目的分步构建计划，每步含自包含上下文简报。用于复杂多 PR 任务或需多会话的路线图规划",
+      "tags": [
+        "blueprint"
+      ]
     },
     {
       "en_name": "brainstorming",
@@ -274,7 +345,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "brainstorming",
-      "zh_desc": "任何创造性工作（创建功能、构建组件、添加功能或修整）前必须使用本技能"
+      "zh_desc": "任何创造性工作（创建功能、构建组件、添加功能或修整）前必须使用本技能",
+      "tags": [
+        "brainstorming"
+      ]
     },
     {
       "en_name": "brand-guidelines",
@@ -285,7 +359,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "brand-guidelines",
-      "zh_desc": "将 Anthropic 官方品牌色与字体应用于各类产物，使其符合 Anthropic 品牌规范"
+      "zh_desc": "将 Anthropic 官方品牌色与字体应用于各类产物，使其符合 Anthropic 品牌规范",
+      "tags": [
+        "brand",
+        "guidelines"
+      ]
     },
     {
       "en_name": "brand-voice",
@@ -296,7 +374,11 @@
       "has_references": true,
       "has_assets": false,
       "dir": "brand-voice",
-      "zh_desc": "从真实文章、随笔、发布说明、文档或站点文案中提炼写作风格画像，并在后续内容中复用"
+      "zh_desc": "从真实文章、随笔、发布说明、文档或站点文案中提炼写作风格画像，并在后续内容中复用",
+      "tags": [
+        "brand",
+        "voice"
+      ]
     },
     {
       "en_name": "browser-qa",
@@ -307,7 +389,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "browser-qa",
-      "zh_desc": "部署前端后，使用浏览器自动化进行视觉测试与 UI 交互验证"
+      "zh_desc": "部署前端后，使用浏览器自动化进行视觉测试与 UI 交互验证",
+      "tags": [
+        "browser"
+      ]
     },
     {
       "en_name": "build-deploy",
@@ -318,7 +403,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "build-deploy",
-      "zh_desc": "将项目构建并部署到不同环境。当你想为部署做准备时使用"
+      "zh_desc": "将项目构建并部署到不同环境。当你想为部署做准备时使用",
+      "tags": [
+        "build",
+        "deploy"
+      ]
     },
     {
       "en_name": "bun-runtime",
@@ -329,7 +418,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "bun-runtime",
-      "zh_desc": "Bun 作为运行时、包管理器、打包器与测试运行器。何时选择 Bun 而非 Node、迁移说明及 Vercel 支持"
+      "zh_desc": "Bun 作为运行时、包管理器、打包器与测试运行器。何时选择 Bun 而非 Node、迁移说明及 Vercel 支持",
+      "tags": [
+        "bun",
+        "runtime"
+      ]
     },
     {
       "en_name": "canary-watch",
@@ -340,7 +433,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "canary-watch",
-      "zh_desc": "部署、合并或依赖升级后，监控已部署 URL 是否出现回归"
+      "zh_desc": "部署、合并或依赖升级后，监控已部署 URL 是否出现回归",
+      "tags": [
+        "canary",
+        "watch"
+      ]
     },
     {
       "en_name": "canvas-design",
@@ -351,7 +448,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "canvas-design",
-      "zh_desc": "运用设计理念在 `.png` 与 `.pdf` 文档中创作精美的视觉作品。当用户需要生成图像化文档时使用"
+      "zh_desc": "运用设计理念在 `.png` 与 `.pdf` 文档中创作精美的视觉作品。当用户需要生成图像化文档时使用",
+      "tags": [
+        "canvas",
+        "design"
+      ]
     },
     {
       "en_name": "carrier-relationship-management",
@@ -362,7 +463,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "carrier-relationship-management",
-      "zh_desc": "承运商组合管理、运费费率谈判、绩效追踪、运力分配与战略关系维护。用于管理承运商、谈判费率、评估承运商绩效或制定货运策略"
+      "zh_desc": "承运商组合管理、运费费率谈判、绩效追踪、运力分配与战略关系维护。用于管理承运商、谈判费率、评估承运商绩效或制定货运策略",
+      "tags": [
+        "carrier",
+        "relationship",
+        "management"
+      ]
     },
     {
       "en_name": "ck",
@@ -373,7 +479,8 @@
       "has_references": false,
       "has_assets": false,
       "dir": "ck",
-      "zh_desc": "Claude Code 的持久化逐项目记忆。会话开始时自动加载项目上下文，用 git 跟踪会话历史"
+      "zh_desc": "Claude Code 的持久化逐项目记忆。会话开始时自动加载项目上下文，用 git 跟踪会话历史",
+      "tags": []
     },
     {
       "en_name": "claude-api",
@@ -384,7 +491,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "claude-api",
-      "zh_desc": "Anthropic Claude API 的 Python 与 TypeScript 模式。涵盖 Messages API、流式、工具使用、视觉、扩展思考等"
+      "zh_desc": "Anthropic Claude API 的 Python 与 TypeScript 模式。涵盖 Messages API、流式、工具使用、视觉、扩展思考等",
+      "tags": [
+        "claude",
+        "api"
+      ]
     },
     {
       "en_name": "claude-devfleet",
@@ -395,7 +506,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "claude-devfleet",
-      "zh_desc": "通过 Claude DevFleet 编排多 agent 编码任务——规划项目、在隔离工作区派发并行 agent"
+      "zh_desc": "通过 Claude DevFleet 编排多 agent 编码任务——规划项目、在隔离工作区派发并行 agent",
+      "tags": [
+        "claude",
+        "devfleet"
+      ]
     },
     {
       "en_name": "click-path-audit",
@@ -406,7 +521,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "click-path-audit",
-      "zh_desc": "追踪每个面向用户的按钮/触点经过的完整状态变更序列，以发现各函数单独正常但组合后出 bug 的位置"
+      "zh_desc": "追踪每个面向用户的按钮/触点经过的完整状态变更序列，以发现各函数单独正常但组合后出 bug 的位置",
+      "tags": [
+        "click",
+        "path",
+        "audit"
+      ]
     },
     {
       "en_name": "clickhouse-io",
@@ -417,7 +537,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "clickhouse-io",
-      "zh_desc": "ClickHouse 数据库模式、查询优化、分析与数据工程最佳实践，面向高性能场景"
+      "zh_desc": "ClickHouse 数据库模式、查询优化、分析与数据工程最佳实践，面向高性能场景",
+      "tags": [
+        "clickhouse"
+      ]
     },
     {
       "en_name": "code-quality-check",
@@ -428,7 +551,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "code-quality-check",
-      "zh_desc": "运行代码质量检查，含 Lint、类型检查与代码格式化。当你想确保代码符合规范时使用"
+      "zh_desc": "运行代码质量检查，含 Lint、类型检查与代码格式化。当你想确保代码符合规范时使用",
+      "tags": [
+        "code",
+        "quality",
+        "check"
+      ]
     },
     {
       "en_name": "code-reviewer",
@@ -439,7 +567,11 @@
       "has_references": true,
       "has_assets": false,
       "dir": "code-reviewer",
-      "zh_desc": "对指定文件夹内的代码进行全面审查，包含规范性检查、Bug检测、性能优化建议、可读性评估和基于华为Java编程规范的质量评分；当用户需要审查代码质量、发现潜在问题、评估代码规范符合度或生成代码审查报告时使用"
+      "zh_desc": "对指定文件夹内的代码进行全面审查，包含规范性检查、Bug检测、性能优化建议、可读性评估和基于华为Java编程规范的质量评分；当用户需要审查代码质量、发现潜在问题、评估代码规范符合度或生成代码审查报告时使用",
+      "tags": [
+        "code",
+        "reviewer"
+      ]
     },
     {
       "en_name": "code-stats",
@@ -450,7 +582,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "code-stats",
-      "zh_desc": "生成代码统计与分析报告。当你想了解代码库结构与指标时使用"
+      "zh_desc": "生成代码统计与分析报告。当你想了解代码库结构与指标时使用",
+      "tags": [
+        "code",
+        "stats"
+      ]
     },
     {
       "en_name": "codebase-onboarding",
@@ -461,7 +597,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "codebase-onboarding",
-      "zh_desc": "分析陌生代码库并生成结构化上手指南，含架构图、关键入口、关注点等"
+      "zh_desc": "分析陌生代码库并生成结构化上手指南，含架构图、关键入口、关注点等",
+      "tags": [
+        "codebase",
+        "onboarding"
+      ]
     },
     {
       "en_name": "coding-standards",
@@ -472,7 +612,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "coding-standards",
-      "zh_desc": "通用编码规范、最佳实践与模式，面向 TypeScript、JavaScript、React 与 Node.js 开发"
+      "zh_desc": "通用编码规范、最佳实践与模式，面向 TypeScript、JavaScript、React 与 Node.js 开发",
+      "tags": [
+        "coding",
+        "standards"
+      ]
     },
     {
       "en_name": "compose-multiplatform-patterns",
@@ -483,7 +627,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "compose-multiplatform-patterns",
-      "zh_desc": "Compose Multiplatform 与 Jetpack Compose 模式（KMP 项目）——状态管理、导航、主题、性能优化等"
+      "zh_desc": "Compose Multiplatform 与 Jetpack Compose 模式（KMP 项目）——状态管理、导航、主题、性能优化等",
+      "tags": [
+        "compose",
+        "multiplatform",
+        "patterns"
+      ]
     },
     {
       "en_name": "configure-ecc",
@@ -494,7 +643,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "configure-ecc",
-      "zh_desc": "Everything Claude Code 的交互式安装器——引导用户选择并安装技能与规则"
+      "zh_desc": "Everything Claude Code 的交互式安装器——引导用户选择并安装技能与规则",
+      "tags": [
+        "configure",
+        "ecc"
+      ]
     },
     {
       "en_name": "connections-optimizer",
@@ -505,7 +658,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "connections-optimizer",
-      "zh_desc": "以\"先审查再剪枝\"的方式重组用户的 X 与 LinkedIn 网络，给出添加/关注建议与渠道专属策略"
+      "zh_desc": "以\"先审查再剪枝\"的方式重组用户的 X 与 LinkedIn 网络，给出添加/关注建议与渠道专属策略",
+      "tags": [
+        "connections",
+        "optimizer"
+      ]
     },
     {
       "en_name": "content-engine",
@@ -516,7 +673,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "content-engine",
-      "zh_desc": "为 X、LinkedIn、TikTok、YouTube、简报与再加工的多平台内容创建原生内容系统"
+      "zh_desc": "为 X、LinkedIn、TikTok、YouTube、简报与再加工的多平台内容创建原生内容系统",
+      "tags": [
+        "content",
+        "engine"
+      ]
     },
     {
       "en_name": "content-hash-cache-pattern",
@@ -527,7 +688,13 @@
       "has_references": false,
       "has_assets": false,
       "dir": "content-hash-cache-pattern",
-      "zh_desc": "使用 SHA-256 内容哈希缓存昂贵的文件处理结果——与路径无关、自动失效，带服务层"
+      "zh_desc": "使用 SHA-256 内容哈希缓存昂贵的文件处理结果——与路径无关、自动失效，带服务层",
+      "tags": [
+        "content",
+        "hash",
+        "cache",
+        "pattern"
+      ]
     },
     {
       "en_name": "context-budget",
@@ -538,7 +705,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "context-budget",
-      "zh_desc": "审计 Claude Code 在 agent、技能、MCP 服务器与规则间的上下文窗口消耗。识别膨胀、冗余等"
+      "zh_desc": "审计 Claude Code 在 agent、技能、MCP 服务器与规则间的上下文窗口消耗。识别膨胀、冗余等",
+      "tags": [
+        "context",
+        "budget"
+      ]
     },
     {
       "en_name": "continuous-agent-loop",
@@ -549,7 +720,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "continuous-agent-loop",
-      "zh_desc": "带质量门禁、评估与恢复控制的持续自主 agent 循环模式"
+      "zh_desc": "带质量门禁、评估与恢复控制的持续自主 agent 循环模式",
+      "tags": [
+        "continuous",
+        "agent",
+        "loop"
+      ]
     },
     {
       "en_name": "continuous-learning",
@@ -560,7 +736,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "continuous-learning",
-      "zh_desc": "从 Claude Code 会话中自动提取可复用模式，构建带置信度的原子能力库"
+      "zh_desc": "从 Claude Code 会话中自动提取可复用模式，构建带置信度的原子能力库",
+      "tags": [
+        "continuous",
+        "learning"
+      ]
     },
     {
       "en_name": "continuous-learning-v2",
@@ -571,7 +751,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "continuous-learning-v2",
-      "zh_desc": "基于本能的学习系统，通过 hook 观察会话，创建带置信度评分的原子本能"
+      "zh_desc": "基于本能的学习系统，通过 hook 观察会话，创建带置信度评分的原子本能",
+      "tags": [
+        "continuous",
+        "learning"
+      ]
     },
     {
       "en_name": "cost-aware-llm-pipeline",
@@ -582,7 +766,13 @@
       "has_references": false,
       "has_assets": false,
       "dir": "cost-aware-llm-pipeline",
-      "zh_desc": "LLM API 调用的成本优化模式——按任务复杂度路由模型、预算跟踪、重试逻辑等"
+      "zh_desc": "LLM API 调用的成本优化模式——按任务复杂度路由模型、预算跟踪、重试逻辑等",
+      "tags": [
+        "cost",
+        "aware",
+        "llm",
+        "pipeline"
+      ]
     },
     {
       "en_name": "cpp-coding-standards",
@@ -593,7 +783,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "cpp-coding-standards",
-      "zh_desc": "基于 C++ Core Guidelines 的 C++ 编码规范。用于编写、审查或重构 C++ 代码时"
+      "zh_desc": "基于 C++ Core Guidelines 的 C++ 编码规范。用于编写、审查或重构 C++ 代码时",
+      "tags": [
+        "cpp",
+        "coding",
+        "standards"
+      ]
     },
     {
       "en_name": "cpp-testing",
@@ -604,7 +799,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "cpp-testing",
-      "zh_desc": "仅用于编写/更新/修复 C++ 测试、配置 GoogleTest/CTest、诊断失败或偶发测试等场景"
+      "zh_desc": "仅用于编写/更新/修复 C++ 测试、配置 GoogleTest/CTest、诊断失败或偶发测试等场景",
+      "tags": [
+        "cpp",
+        "testing"
+      ]
     },
     {
       "en_name": "crosspost",
@@ -615,7 +814,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "crosspost",
-      "zh_desc": "跨 X、LinkedIn、Threads 与 Bluesky 的多平台内容分发。按平台适配内容"
+      "zh_desc": "跨 X、LinkedIn、Threads 与 Bluesky 的多平台内容分发。按平台适配内容",
+      "tags": [
+        "crosspost"
+      ]
     },
     {
       "en_name": "csharp-testing",
@@ -626,7 +828,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "csharp-testing",
-      "zh_desc": "C# 与 .NET 测试模式：xUnit、FluentAssertions、Mocking、集成测试与测试组织最佳实践"
+      "zh_desc": "C# 与 .NET 测试模式：xUnit、FluentAssertions、Mocking、集成测试与测试组织最佳实践",
+      "tags": [
+        "csharp",
+        "testing"
+      ]
     },
     {
       "en_name": "customer-billing-ops",
@@ -637,7 +843,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "customer-billing-ops",
-      "zh_desc": "运营客户账单工作流，如订阅、退款、流失分诊、账单门户挽回与套餐变更等"
+      "zh_desc": "运营客户账单工作流，如订阅、退款、流失分诊、账单门户挽回与套餐变更等",
+      "tags": [
+        "customer",
+        "billing",
+        "ops"
+      ]
     },
     {
       "en_name": "customs-trade-compliance",
@@ -648,7 +859,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "customs-trade-compliance",
-      "zh_desc": "海关单证、税则归类、关税优化、受限方筛查与多辖区贸易合规。用于报关清关、税则归类、贸易合规、进出口单证或关税优化"
+      "zh_desc": "海关单证、税则归类、关税优化、受限方筛查与多辖区贸易合规。用于报关清关、税则归类、贸易合规、进出口单证或关税优化",
+      "tags": [
+        "customs",
+        "trade",
+        "compliance"
+      ]
     },
     {
       "en_name": "dart-flutter-patterns",
@@ -659,7 +875,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "dart-flutter-patterns",
-      "zh_desc": "生产可用的 Dart 与 Flutter 模式：空安全、不可变状态、异步组合、Widget 架构等"
+      "zh_desc": "生产可用的 Dart 与 Flutter 模式：空安全、不可变状态、异步组合、Widget 架构等",
+      "tags": [
+        "dart",
+        "flutter",
+        "patterns"
+      ]
     },
     {
       "en_name": "data-scraper-agent",
@@ -670,7 +891,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "data-scraper-agent",
-      "zh_desc": "为任意公开来源构建全自动的 AI 数据收集 agent——招聘网站、价格、新闻、GitHub 等"
+      "zh_desc": "为任意公开来源构建全自动的 AI 数据收集 agent——招聘网站、价格、新闻、GitHub 等",
+      "tags": [
+        "data",
+        "scraper",
+        "agent"
+      ]
     },
     {
       "en_name": "database-migrations",
@@ -681,7 +907,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "database-migrations",
-      "zh_desc": "数据库迁移最佳实践：模式变更、数据迁移、回滚与零停机部署"
+      "zh_desc": "数据库迁移最佳实践：模式变更、数据迁移、回滚与零停机部署",
+      "tags": [
+        "database",
+        "migrations"
+      ]
     },
     {
       "en_name": "deep-research",
@@ -692,7 +922,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "deep-research",
-      "zh_desc": "使用 firecrawl 与 exa MCP 进行多来源深度研究。检索网络、综合发现并交付带引用的结果"
+      "zh_desc": "使用 firecrawl 与 exa MCP 进行多来源深度研究。检索网络、综合发现并交付带引用的结果",
+      "tags": [
+        "deep",
+        "research"
+      ]
     },
     {
       "en_name": "defuddle",
@@ -703,7 +937,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "defuddle",
-      "zh_desc": "使用 Defuddle CLI 从网页提取干净的 Markdown 内容，去除杂讯与导航以节省 token"
+      "zh_desc": "使用 Defuddle CLI 从网页提取干净的 Markdown 内容，去除杂讯与导航以节省 token",
+      "tags": [
+        "defuddle"
+      ]
     },
     {
       "en_name": "dependency-management",
@@ -714,7 +951,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "dependency-management",
-      "zh_desc": "管理项目依赖，包括检查更新与安全漏洞。当你想确保依赖健康时使用"
+      "zh_desc": "管理项目依赖，包括检查更新与安全漏洞。当你想确保依赖健康时使用",
+      "tags": [
+        "dependency",
+        "management"
+      ]
     },
     {
       "en_name": "deployment-patterns",
@@ -725,7 +966,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "deployment-patterns",
-      "zh_desc": "部署工作流、CI/CD 流水线模式、Docker 容器化、健康检查、回滚策略与生产实践"
+      "zh_desc": "部署工作流、CI/CD 流水线模式、Docker 容器化、健康检查、回滚策略与生产实践",
+      "tags": [
+        "deployment",
+        "patterns"
+      ]
     },
     {
       "en_name": "design-system",
@@ -736,7 +981,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "design-system",
-      "zh_desc": "用于生成或审查设计系统、检查视觉一致性，并评审涉及样式的 PR"
+      "zh_desc": "用于生成或审查设计系统、检查视觉一致性，并评审涉及样式的 PR",
+      "tags": [
+        "design",
+        "system"
+      ]
     },
     {
       "en_name": "django-patterns",
@@ -747,7 +996,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "django-patterns",
-      "zh_desc": "Django 架构模式、DRF 的 REST API 设计、ORM 最佳实践、缓存、信号、中间件与产品化"
+      "zh_desc": "Django 架构模式、DRF 的 REST API 设计、ORM 最佳实践、缓存、信号、中间件与产品化",
+      "tags": [
+        "django",
+        "patterns"
+      ]
     },
     {
       "en_name": "django-security",
@@ -758,7 +1011,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "django-security",
-      "zh_desc": "Django 安全最佳实践：认证、授权、CSRF 防护、SQL 注入与 XSS 防护等"
+      "zh_desc": "Django 安全最佳实践：认证、授权、CSRF 防护、SQL 注入与 XSS 防护等",
+      "tags": [
+        "django",
+        "security"
+      ]
     },
     {
       "en_name": "django-tdd",
@@ -769,7 +1026,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "django-tdd",
-      "zh_desc": "Django 测试策略：pytest-django、TDD 方法、factory_boy、Mocking、覆盖率及 Django REST 测试"
+      "zh_desc": "Django 测试策略：pytest-django、TDD 方法、factory_boy、Mocking、覆盖率及 Django REST 测试",
+      "tags": [
+        "django",
+        "tdd"
+      ]
     },
     {
       "en_name": "django-verification",
@@ -780,7 +1041,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "django-verification",
-      "zh_desc": "Django 项目的验证闭环：迁移、Lint、带覆盖率的测试、安全扫描与部署就绪检查"
+      "zh_desc": "Django 项目的验证闭环：迁移、Lint、带覆盖率的测试、安全扫描与部署就绪检查",
+      "tags": [
+        "django",
+        "verification"
+      ]
     },
     {
       "en_name": "dmux-workflows",
@@ -791,7 +1056,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "dmux-workflows",
-      "zh_desc": "使用 dmux（面向 AI agent 的 tmux 面板管理器）进行多 agent 编排。跨项目的并行 agent 工作流模式"
+      "zh_desc": "使用 dmux（面向 AI agent 的 tmux 面板管理器）进行多 agent 编排。跨项目的并行 agent 工作流模式",
+      "tags": [
+        "dmux",
+        "workflows"
+      ]
     },
     {
       "en_name": "doc-coauthoring",
@@ -802,7 +1071,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "doc-coauthoring",
-      "zh_desc": "引导用户通过结构化工作流协同撰写文档。用户想写文档时触发"
+      "zh_desc": "引导用户通过结构化工作流协同撰写文档。用户想写文档时触发",
+      "tags": [
+        "doc",
+        "coauthoring"
+      ]
     },
     {
       "en_name": "docker-patterns",
@@ -813,7 +1086,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "docker-patterns",
-      "zh_desc": "本地开发、容器安全、网络、卷策略与多容器编排的 Docker 与 Docker Compose 模式"
+      "zh_desc": "本地开发、容器安全、网络、卷策略与多容器编排的 Docker 与 Docker Compose 模式",
+      "tags": [
+        "docker",
+        "patterns"
+      ]
     },
     {
       "en_name": "documentation-lookup",
@@ -824,7 +1101,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "documentation-lookup",
-      "zh_desc": "通过 Context7 MCP 使用最新库与框架文档，而非训练数据。在安装问题、API 调用等场景激活"
+      "zh_desc": "通过 Context7 MCP 使用最新库与框架文档，而非训练数据。在安装问题、API 调用等场景激活",
+      "tags": [
+        "documentation",
+        "lookup"
+      ]
     },
     {
       "en_name": "dogfood",
@@ -835,7 +1116,10 @@
       "has_references": true,
       "has_assets": false,
       "dir": "dogfood",
-      "zh_desc": "系统性地探索与测试 Web 应用，发现 bug、UX 问题及其他问题。当用户要求\"dogfood\"等时使用"
+      "zh_desc": "系统性地探索与测试 Web 应用，发现 bug、UX 问题及其他问题。当用户要求\"dogfood\"等时使用",
+      "tags": [
+        "dogfood"
+      ]
     },
     {
       "en_name": "dotnet-patterns",
@@ -846,7 +1130,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "dotnet-patterns",
-      "zh_desc": "地道的 C# 与 .NET 模式、约定、依赖注入、async/await 及构建健壮应用的实践"
+      "zh_desc": "地道的 C# 与 .NET 模式、约定、依赖注入、async/await 及构建健壮应用的实践",
+      "tags": [
+        "dotnet",
+        "patterns"
+      ]
     },
     {
       "en_name": "e2e-testing",
@@ -857,7 +1145,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "e2e-testing",
-      "zh_desc": "Playwright 端到端测试模式、Page Object Model、配置、CI/CD 集成、产物管理与偶发测试处理"
+      "zh_desc": "Playwright 端到端测试模式、Page Object Model、配置、CI/CD 集成、产物管理与偶发测试处理",
+      "tags": [
+        "e2e",
+        "testing"
+      ]
     },
     {
       "en_name": "energy-procurement",
@@ -868,7 +1160,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "energy-procurement",
-      "zh_desc": "电力与天然气采购、费率优化、需量电费管理、可再生 PPA 评估与多设施能源成本管理。用于采购能源、优化费率、管理需量电费、评估 PPA 或制定能源策略"
+      "zh_desc": "电力与天然气采购、费率优化、需量电费管理、可再生 PPA 评估与多设施能源成本管理。用于采购能源、优化费率、管理需量电费、评估 PPA 或制定能源策略",
+      "tags": [
+        "energy",
+        "procurement"
+      ]
     },
     {
       "en_name": "enterprise-agent-ops",
@@ -879,7 +1175,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "enterprise-agent-ops",
-      "zh_desc": "以可观测性、安全边界与生命周期管理运营长生命周期的 agent 工作负载"
+      "zh_desc": "以可观测性、安全边界与生命周期管理运营长生命周期的 agent 工作负载",
+      "tags": [
+        "enterprise",
+        "agent",
+        "ops"
+      ]
     },
     {
       "en_name": "eval-harness",
@@ -890,7 +1191,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "eval-harness",
-      "zh_desc": "实现评估驱动开发（EDD）原则的 Claude Code 会话形式化评估框架"
+      "zh_desc": "实现评估驱动开发（EDD）原则的 Claude Code 会话形式化评估框架",
+      "tags": [
+        "eval",
+        "harness"
+      ]
     },
     {
       "en_name": "exa-search",
@@ -901,7 +1206,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "exa-search",
-      "zh_desc": "通过 Exa MCP 进行神经搜索，面向网络、代码与公司研究。当用户需要网络搜索、代码示例时触发"
+      "zh_desc": "通过 Exa MCP 进行神经搜索，面向网络、代码与公司研究。当用户需要网络搜索、代码示例时触发",
+      "tags": [
+        "exa",
+        "search"
+      ]
     },
     {
       "en_name": "executing-plans",
@@ -912,7 +1221,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "executing-plans",
-      "zh_desc": "当你有书面实现计划，要在独立会话中执行并带审查检查点时使用"
+      "zh_desc": "当你有书面实现计划，要在独立会话中执行并带审查检查点时使用",
+      "tags": [
+        "executing",
+        "plans"
+      ]
     },
     {
       "en_name": "fal-ai-media",
@@ -923,7 +1236,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "fal-ai-media",
-      "zh_desc": "通过 fal.ai MCP 统一生成媒体——图像、视频与音频。涵盖文生图（Nano Banana）、文/图生视频等"
+      "zh_desc": "通过 fal.ai MCP 统一生成媒体——图像、视频与音频。涵盖文生图（Nano Banana）、文/图生视频等",
+      "tags": [
+        "fal",
+        "media"
+      ]
     },
     {
       "en_name": "figma",
@@ -934,7 +1251,10 @@
       "has_references": true,
       "has_assets": true,
       "dir": "figma",
-      "zh_desc": "通过 Figma MCP 服务获取设计上下文、截图、变量与资源，并将设计稿转换为代码"
+      "zh_desc": "通过 Figma MCP 服务获取设计上下文、截图、变量与资源，并将设计稿转换为代码",
+      "tags": [
+        "figma"
+      ]
     },
     {
       "en_name": "file-deduplicator",
@@ -945,7 +1265,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "file-deduplicator",
-      "zh_desc": "扫描项目目录，基于内容哈希找出重复文件，并检测空文件/无效文件，安全（默认 dry-run）地清理冗余。当用户想要查找/删除重复、冗余或无效文件时使用"
+      "zh_desc": "扫描项目目录，基于内容哈希找出重复文件，并检测空文件/无效文件，安全（默认 dry-run）地清理冗余。当用户想要查找/删除重复、冗余或无效文件时使用",
+      "tags": [
+        "file",
+        "deduplicator"
+      ]
     },
     {
       "en_name": "find-orphans",
@@ -956,7 +1280,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "find-orphans",
-      "zh_desc": "查找项目中的孤儿文件、未使用组件与死代码。当用户需要清理代码、查找孤儿文件、删除无用代码时使用"
+      "zh_desc": "查找项目中的孤儿文件、未使用组件与死代码。当用户需要清理代码、查找孤儿文件、删除无用代码时使用",
+      "tags": [
+        "find",
+        "orphans"
+      ]
     },
     {
       "en_name": "flutter-dart-code-review",
@@ -967,7 +1295,13 @@
       "has_references": false,
       "has_assets": false,
       "dir": "flutter-dart-code-review",
-      "zh_desc": "与库无关的 Flutter/Dart 代码审查清单，涵盖 Widget 最佳实践、状态管理（BLoC 等）模式"
+      "zh_desc": "与库无关的 Flutter/Dart 代码审查清单，涵盖 Widget 最佳实践、状态管理（BLoC 等）模式",
+      "tags": [
+        "flutter",
+        "dart",
+        "code",
+        "review"
+      ]
     },
     {
       "en_name": "foundation-models-on-device",
@@ -978,7 +1312,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "foundation-models-on-device",
-      "zh_desc": "Apple FoundationModels 框架的端侧 LLM——文本生成、@Generable 引导生成、工具调用等"
+      "zh_desc": "Apple FoundationModels 框架的端侧 LLM——文本生成、@Generable 引导生成、工具调用等",
+      "tags": [
+        "foundation",
+        "models",
+        "device"
+      ]
     },
     {
       "en_name": "frontend-design",
@@ -989,7 +1328,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "frontend-design",
-      "zh_desc": "构建新 UI 或重塑现有界面时的差异化、有意图的视觉设计指引，帮助提升美感"
+      "zh_desc": "构建新 UI 或重塑现有界面时的差异化、有意图的视觉设计指引，帮助提升美感",
+      "tags": [
+        "frontend",
+        "design"
+      ]
     },
     {
       "en_name": "frontend-patterns",
@@ -1000,7 +1343,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "frontend-patterns",
-      "zh_desc": "前端开发模式：React、Next.js、状态管理、性能优化与 UI 最佳实践"
+      "zh_desc": "前端开发模式：React、Next.js、状态管理、性能优化与 UI 最佳实践",
+      "tags": [
+        "frontend",
+        "patterns"
+      ]
     },
     {
       "en_name": "frontend-skill",
@@ -1011,7 +1358,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "frontend-skill",
-      "zh_desc": "当任务需要视觉表现力强的落地页、网站、应用、原型、演示或游戏 UI 时使用"
+      "zh_desc": "当任务需要视觉表现力强的落地页、网站、应用、原型、演示或游戏 UI 时使用",
+      "tags": [
+        "frontend",
+        "skill"
+      ]
     },
     {
       "en_name": "frontend-slides",
@@ -1022,7 +1373,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "frontend-slides",
-      "zh_desc": "从零创建或将 PowerPoint 文件转换为动画丰富、惊艳的 HTML 演示文稿"
+      "zh_desc": "从零创建或将 PowerPoint 文件转换为动画丰富、惊艳的 HTML 演示文稿",
+      "tags": [
+        "frontend",
+        "slides"
+      ]
     },
     {
       "en_name": "gan-style-harness",
@@ -1033,7 +1388,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "gan-style-harness",
-      "zh_desc": "受 GAN 启发的生成器-评估器 agent 框架，用于自主构建高质量应用。基于 Anthropic 思路"
+      "zh_desc": "受 GAN 启发的生成器-评估器 agent 框架，用于自主构建高质量应用。基于 Anthropic 思路",
+      "tags": [
+        "gan",
+        "style",
+        "harness"
+      ]
     },
     {
       "en_name": "gh-cli",
@@ -1044,7 +1404,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "gh-cli",
-      "zh_desc": "GitHub CLI（gh）的全面参考：仓库、Issue、PR、Actions、项目、发布、Gist 等"
+      "zh_desc": "GitHub CLI（gh）的全面参考：仓库、Issue、PR、Actions、项目、发布、Gist 等",
+      "tags": [
+        "cli"
+      ]
     },
     {
       "en_name": "git-commit",
@@ -1055,7 +1418,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "git-commit",
-      "zh_desc": "执行 git commit，含约定式提交信息分析、智能暂存与信息生成。当需要时触发"
+      "zh_desc": "执行 git commit，含约定式提交信息分析、智能暂存与信息生成。当需要时触发",
+      "tags": [
+        "git",
+        "commit"
+      ]
     },
     {
       "en_name": "git-workflow",
@@ -1066,7 +1433,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "git-workflow",
-      "zh_desc": "Git 工作流模式：分支策略、提交约定、merge 与 rebase、冲突解决等"
+      "zh_desc": "Git 工作流模式：分支策略、提交约定、merge 与 rebase、冲突解决等",
+      "tags": [
+        "git",
+        "workflow"
+      ]
     },
     {
       "en_name": "golang-patterns",
@@ -1077,7 +1448,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "golang-patterns",
-      "zh_desc": "地道的 Go 模式、最佳实践与约定，用于构建健壮、高效、可维护的 Go 应用"
+      "zh_desc": "地道的 Go 模式、最佳实践与约定，用于构建健壮、高效、可维护的 Go 应用",
+      "tags": [
+        "golang",
+        "patterns"
+      ]
     },
     {
       "en_name": "golang-testing",
@@ -1088,7 +1463,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "golang-testing",
-      "zh_desc": "Go 测试模式：表驱动测试、子测试、基准测试、模糊测试与测试覆盖率。遵循 TDD 方法"
+      "zh_desc": "Go 测试模式：表驱动测试、子测试、基准测试、模糊测试与测试覆盖率。遵循 TDD 方法",
+      "tags": [
+        "golang",
+        "testing"
+      ]
     },
     {
       "en_name": "google-workspace-ops",
@@ -1099,7 +1478,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "google-workspace-ops",
-      "zh_desc": "将 Google Drive、Docs、Sheets 与 Slides 作为统一工作流面，用于计划、追踪、演示与共享文档"
+      "zh_desc": "将 Google Drive、Docs、Sheets 与 Slides 作为统一工作流面，用于计划、追踪、演示与共享文档",
+      "tags": [
+        "google",
+        "workspace",
+        "ops"
+      ]
     },
     {
       "en_name": "healthcare-cdss-patterns",
@@ -1110,7 +1494,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "healthcare-cdss-patterns",
-      "zh_desc": "临床决策支持系统（CDSS）开发模式。药物相互作用检查、剂量校验、临床场景等"
+      "zh_desc": "临床决策支持系统（CDSS）开发模式。药物相互作用检查、剂量校验、临床场景等",
+      "tags": [
+        "healthcare",
+        "cdss",
+        "patterns"
+      ]
     },
     {
       "en_name": "healthcare-emr-patterns",
@@ -1121,7 +1510,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "healthcare-emr-patterns",
-      "zh_desc": "医疗应用的 EMR/EHR 开发模式。临床安全、就诊工作流、处方生成等"
+      "zh_desc": "医疗应用的 EMR/EHR 开发模式。临床安全、就诊工作流、处方生成等",
+      "tags": [
+        "healthcare",
+        "emr",
+        "patterns"
+      ]
     },
     {
       "en_name": "healthcare-eval-harness",
@@ -1132,7 +1526,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "healthcare-eval-harness",
-      "zh_desc": "医疗应用部署的患者安全评估框架。针对 CDSS 准确性、PHI 合规等的自动化测试套件"
+      "zh_desc": "医疗应用部署的患者安全评估框架。针对 CDSS 准确性、PHI 合规等的自动化测试套件",
+      "tags": [
+        "healthcare",
+        "eval",
+        "harness"
+      ]
     },
     {
       "en_name": "healthcare-phi-compliance",
@@ -1143,7 +1542,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "healthcare-phi-compliance",
-      "zh_desc": "医疗应用的受保护健康信息（PHI）与个人可识别信息（PII）合规模式"
+      "zh_desc": "医疗应用的受保护健康信息（PHI）与个人可识别信息（PII）合规模式",
+      "tags": [
+        "healthcare",
+        "phi",
+        "compliance"
+      ]
     },
     {
       "en_name": "hexagonal-architecture",
@@ -1154,7 +1558,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "hexagonal-architecture",
-      "zh_desc": "设计、实现与重构端口与适配器（Ports & Adapters）系统，具备清晰领域边界、依赖倒置与可测试性"
+      "zh_desc": "设计、实现与重构端口与适配器（Ports & Adapters）系统，具备清晰领域边界、依赖倒置与可测试性",
+      "tags": [
+        "hexagonal",
+        "architecture"
+      ]
     },
     {
       "en_name": "iga-pages",
@@ -1165,7 +1573,11 @@
       "has_references": true,
       "has_assets": false,
       "dir": "iga-pages",
-      "zh_desc": "将前端与全栈项目部署到 IGA Pages。当用户提到 IGA Pages 或请求部署时触发"
+      "zh_desc": "将前端与全栈项目部署到 IGA Pages。当用户提到 IGA Pages 或请求部署时触发",
+      "tags": [
+        "iga",
+        "pages"
+      ]
     },
     {
       "en_name": "inventory-demand-planning",
@@ -1176,7 +1588,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "inventory-demand-planning",
-      "zh_desc": "需求预测、安全库存优化、补货计划与促销提升估计（多门店零售）。用于预测需求、设定安全库存、规划补货、管理促销或优化库存水平"
+      "zh_desc": "需求预测、安全库存优化、补货计划与促销提升估计（多门店零售）。用于预测需求、设定安全库存、规划补货、管理促销或优化库存水平",
+      "tags": [
+        "inventory",
+        "demand",
+        "planning"
+      ]
     },
     {
       "en_name": "investor-materials",
@@ -1187,7 +1604,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "investor-materials",
-      "zh_desc": "创建与更新融资演示、一页纸、投资人备忘录、加速器申请、财务模型与募资材料"
+      "zh_desc": "创建与更新融资演示、一页纸、投资人备忘录、加速器申请、财务模型与募资材料",
+      "tags": [
+        "investor",
+        "materials"
+      ]
     },
     {
       "en_name": "investor-outreach",
@@ -1198,7 +1619,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "investor-outreach",
-      "zh_desc": "起草冷邮件、warm intro 简介、跟进、更新邮件及募资用的投资人沟通"
+      "zh_desc": "起草冷邮件、warm intro 简介、跟进、更新邮件及募资用的投资人沟通",
+      "tags": [
+        "investor",
+        "outreach"
+      ]
     },
     {
       "en_name": "iterative-retrieval",
@@ -1209,7 +1634,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "iterative-retrieval",
-      "zh_desc": "逐步精炼上下文检索以解决子 agent 上下文问题的模式"
+      "zh_desc": "逐步精炼上下文检索以解决子 agent 上下文问题的模式",
+      "tags": [
+        "iterative",
+        "retrieval"
+      ]
     },
     {
       "en_name": "java-coding-standards",
@@ -1220,7 +1649,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "java-coding-standards",
-      "zh_desc": "Spring Boot 服务的 Java 编码规范：命名、不可变性、Optional 用法、Stream、异常、泛型等"
+      "zh_desc": "Spring Boot 服务的 Java 编码规范：命名、不可变性、Optional 用法、Stream、异常、泛型等",
+      "tags": [
+        "java",
+        "coding",
+        "standards"
+      ]
     },
     {
       "en_name": "jira-integration",
@@ -1231,7 +1665,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "jira-integration",
-      "zh_desc": "当用户需要获取 Jira 工单、分析需求、更新工单状态、添加评论或流转时使用"
+      "zh_desc": "当用户需要获取 Jira 工单、分析需求、更新工单状态、添加评论或流转时使用",
+      "tags": [
+        "jira",
+        "integration"
+      ]
     },
     {
       "en_name": "jpa-patterns",
@@ -1242,7 +1680,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "jpa-patterns",
-      "zh_desc": "JPA/Hibernate 模式：实体设计、关系、查询优化、事务、审计、索引、分页等"
+      "zh_desc": "JPA/Hibernate 模式：实体设计、关系、查询优化、事务、审计、索引、分页等",
+      "tags": [
+        "jpa",
+        "patterns"
+      ]
     },
     {
       "en_name": "kotlin-coroutines-flows",
@@ -1253,7 +1695,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "kotlin-coroutines-flows",
-      "zh_desc": "Android 与 KMP 的 Kotlin 协程与 Flow 模式——结构化并发、Flow 操作符、StateFlow、错误处理等"
+      "zh_desc": "Android 与 KMP 的 Kotlin 协程与 Flow 模式——结构化并发、Flow 操作符、StateFlow、错误处理等",
+      "tags": [
+        "kotlin",
+        "coroutines",
+        "flows"
+      ]
     },
     {
       "en_name": "kotlin-exposed-patterns",
@@ -1264,7 +1711,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "kotlin-exposed-patterns",
-      "zh_desc": "JetBrains Exposed ORM 模式：DSL 查询、DAO 模式、事务、HikariCP 连接池、Flyway 迁移等"
+      "zh_desc": "JetBrains Exposed ORM 模式：DSL 查询、DAO 模式、事务、HikariCP 连接池、Flyway 迁移等",
+      "tags": [
+        "kotlin",
+        "exposed",
+        "patterns"
+      ]
     },
     {
       "en_name": "kotlin-ktor-patterns",
@@ -1275,7 +1727,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "kotlin-ktor-patterns",
-      "zh_desc": "Ktor 服务端模式：路由 DSL、插件、认证、Koin DI、kotlinx.serialization、WebSockets 等"
+      "zh_desc": "Ktor 服务端模式：路由 DSL、插件、认证、Koin DI、kotlinx.serialization、WebSockets 等",
+      "tags": [
+        "kotlin",
+        "ktor",
+        "patterns"
+      ]
     },
     {
       "en_name": "kotlin-patterns",
@@ -1286,7 +1743,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "kotlin-patterns",
-      "zh_desc": "地道的 Kotlin 模式、最佳实践与约定，用于构建健壮、高效、可维护的 Kotlin 应用"
+      "zh_desc": "地道的 Kotlin 模式、最佳实践与约定，用于构建健壮、高效、可维护的 Kotlin 应用",
+      "tags": [
+        "kotlin",
+        "patterns"
+      ]
     },
     {
       "en_name": "kotlin-testing",
@@ -1297,7 +1758,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "kotlin-testing",
-      "zh_desc": "Kotlin 测试模式：Kotest、MockK、协程测试、属性测试与 Kover 覆盖率。遵循 TDD 方法"
+      "zh_desc": "Kotlin 测试模式：Kotest、MockK、协程测试、属性测试与 Kover 覆盖率。遵循 TDD 方法",
+      "tags": [
+        "kotlin",
+        "testing"
+      ]
     },
     {
       "en_name": "laravel-patterns",
@@ -1308,7 +1773,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "laravel-patterns",
-      "zh_desc": "Laravel 架构模式、路由/控制器、Eloquent ORM、服务层、队列、事件、缓存与 API 响应"
+      "zh_desc": "Laravel 架构模式、路由/控制器、Eloquent ORM、服务层、队列、事件、缓存与 API 响应",
+      "tags": [
+        "laravel",
+        "patterns"
+      ]
     },
     {
       "en_name": "laravel-plugin-discovery",
@@ -1319,7 +1788,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "laravel-plugin-discovery",
-      "zh_desc": "通过 LaraPlugins.io MCP 发现与评估 Laravel 包。用户想查找插件、检查包信息时触发"
+      "zh_desc": "通过 LaraPlugins.io MCP 发现与评估 Laravel 包。用户想查找插件、检查包信息时触发",
+      "tags": [
+        "laravel",
+        "plugin",
+        "discovery"
+      ]
     },
     {
       "en_name": "laravel-security",
@@ -1330,7 +1804,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "laravel-security",
-      "zh_desc": "Laravel 安全最佳实践：认证/授权、校验、CSRF、批量赋值、文件上传、密钥、限流等"
+      "zh_desc": "Laravel 安全最佳实践：认证/授权、校验、CSRF、批量赋值、文件上传、密钥、限流等",
+      "tags": [
+        "laravel",
+        "security"
+      ]
     },
     {
       "en_name": "laravel-tdd",
@@ -1341,7 +1819,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "laravel-tdd",
-      "zh_desc": "Laravel 的测试驱动开发：PHPUnit 与 Pest、工厂、数据库测试、Fake 与覆盖率目标"
+      "zh_desc": "Laravel 的测试驱动开发：PHPUnit 与 Pest、工厂、数据库测试、Fake 与覆盖率目标",
+      "tags": [
+        "laravel",
+        "tdd"
+      ]
     },
     {
       "en_name": "laravel-verification",
@@ -1352,7 +1834,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "laravel-verification",
-      "zh_desc": "Laravel 项目的验证闭环：环境检查、Lint、静态分析、带覆盖率的测试、安全扫描等"
+      "zh_desc": "Laravel 项目的验证闭环：环境检查、Lint、静态分析、带覆盖率的测试、安全扫描等",
+      "tags": [
+        "laravel",
+        "verification"
+      ]
     },
     {
       "en_name": "lead-intelligence",
@@ -1363,7 +1849,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "lead-intelligence",
-      "zh_desc": "AI 原生的销售线索情报与外联流水线。用 agent 驱动的信号评分替代 Apollo、Clay 与 ZoomInfo"
+      "zh_desc": "AI 原生的销售线索情报与外联流水线。用 agent 驱动的信号评分替代 Apollo、Clay 与 ZoomInfo",
+      "tags": [
+        "lead",
+        "intelligence"
+      ]
     },
     {
       "en_name": "liquid-glass-design",
@@ -1374,7 +1864,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "liquid-glass-design",
-      "zh_desc": "iOS 26 Liquid Glass 设计体系——动态玻璃材质，含模糊、反射与可交互形变，用于 SwiftUI"
+      "zh_desc": "iOS 26 Liquid Glass 设计体系——动态玻璃材质，含模糊、反射与可交互形变，用于 SwiftUI",
+      "tags": [
+        "liquid",
+        "glass",
+        "design"
+      ]
     },
     {
       "en_name": "logistics-exception-management",
@@ -1385,7 +1880,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "logistics-exception-management",
-      "zh_desc": "货运异常、延误、损坏、丢失与承运商争议处理。用于处置运输异常、货运索赔、交付问题或承运商争议"
+      "zh_desc": "货运异常、延误、损坏、丢失与承运商争议处理。用于处置运输异常、货运索赔、交付问题或承运商争议",
+      "tags": [
+        "logistics",
+        "exception",
+        "management"
+      ]
     },
     {
       "en_name": "manim-video",
@@ -1396,7 +1896,11 @@
       "has_references": true,
       "has_assets": true,
       "dir": "manim-video",
-      "zh_desc": "为技术概念、图表、系统图与产品演示构建可复用的 Manim 讲解动画，然后交付成果"
+      "zh_desc": "为技术概念、图表、系统图与产品演示构建可复用的 Manim 讲解动画，然后交付成果",
+      "tags": [
+        "manim",
+        "video"
+      ]
     },
     {
       "en_name": "market-research",
@@ -1407,7 +1911,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "market-research",
-      "zh_desc": "开展市场研究、竞品分析、投资人尽职调查与带来源归属的行业情报"
+      "zh_desc": "开展市场研究、竞品分析、投资人尽职调查与带来源归属的行业情报",
+      "tags": [
+        "market",
+        "research"
+      ]
     },
     {
       "en_name": "mcp-builder",
@@ -1418,7 +1926,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "mcp-builder",
-      "zh_desc": "创建高质量 MCP（模型上下文协议）服务器的指南，使 LLM 能与外部服务交互"
+      "zh_desc": "创建高质量 MCP（模型上下文协议）服务器的指南，使 LLM 能与外部服务交互",
+      "tags": [
+        "mcp",
+        "builder"
+      ]
     },
     {
       "en_name": "mcp-server-patterns",
@@ -1429,7 +1941,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "mcp-server-patterns",
-      "zh_desc": "使用 Node/TypeScript SDK 构建 MCP 服务器——工具、资源、提示、Zod 校验、stdio 与 Streamable HTTP"
+      "zh_desc": "使用 Node/TypeScript SDK 构建 MCP 服务器——工具、资源、提示、Zod 校验、stdio 与 Streamable HTTP",
+      "tags": [
+        "mcp",
+        "server",
+        "patterns"
+      ]
     },
     {
       "en_name": "nanoclaw-repl",
@@ -1440,7 +1957,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "nanoclaw-repl",
-      "zh_desc": "运维与扩展 NanoClaw v2——ECC 基于 claude -p 构建的零依赖、会话感知 REPL"
+      "zh_desc": "运维与扩展 NanoClaw v2——ECC 基于 claude -p 构建的零依赖、会话感知 REPL",
+      "tags": [
+        "nanoclaw",
+        "repl"
+      ]
     },
     {
       "en_name": "nestjs-patterns",
@@ -1451,7 +1972,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "nestjs-patterns",
-      "zh_desc": "NestJS 架构模式：模块、控制器、Provider、DTO 校验、守卫、拦截器、配置等"
+      "zh_desc": "NestJS 架构模式：模块、控制器、Provider、DTO 校验、守卫、拦截器、配置等",
+      "tags": [
+        "nestjs",
+        "patterns"
+      ]
     },
     {
       "en_name": "nextjs-turbopack",
@@ -1462,7 +1987,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "nextjs-turbopack",
-      "zh_desc": "Next.js 16+ 与 Turbopack——增量打包、文件系统缓存、开发速度，以及何时用 Turbopack 而非 webpack"
+      "zh_desc": "Next.js 16+ 与 Turbopack——增量打包、文件系统缓存、开发速度，以及何时用 Turbopack 而非 webpack",
+      "tags": [
+        "nextjs",
+        "turbopack"
+      ]
     },
     {
       "en_name": "nutrient-document-processing",
@@ -1473,7 +2002,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "nutrient-document-processing",
-      "zh_desc": "使用 Nutrient DWS API 处理、转换、OCR、提取、脱敏、签署与填写文档。支持 PDF、DOCX、XLSX 等"
+      "zh_desc": "使用 Nutrient DWS API 处理、转换、OCR、提取、脱敏、签署与填写文档。支持 PDF、DOCX、XLSX 等",
+      "tags": [
+        "nutrient",
+        "document",
+        "processing"
+      ]
     },
     {
       "en_name": "nuxt4-patterns",
@@ -1484,7 +2018,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "nuxt4-patterns",
-      "zh_desc": "Nuxt 4 应用模式：hydration 安全、性能、路由规则、懒加载，以及 SSR 安全的数据获取"
+      "zh_desc": "Nuxt 4 应用模式：hydration 安全、性能、路由规则、懒加载，以及 SSR 安全的数据获取",
+      "tags": [
+        "nuxt4",
+        "patterns"
+      ]
     },
     {
       "en_name": "obsidian-bases",
@@ -1495,7 +2033,11 @@
       "has_references": true,
       "has_assets": false,
       "dir": "obsidian-bases",
-      "zh_desc": "创建与编辑 Obsidian Bases（.base 文件），含视图、过滤、公式与汇总。处理 .base 文件时使用"
+      "zh_desc": "创建与编辑 Obsidian Bases（.base 文件），含视图、过滤、公式与汇总。处理 .base 文件时使用",
+      "tags": [
+        "obsidian",
+        "bases"
+      ]
     },
     {
       "en_name": "obsidian-cli",
@@ -1506,7 +2048,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "obsidian-cli",
-      "zh_desc": "通过 Obsidian CLI 与 Vault 交互，读取、创建、搜索并管理笔记、任务、属性等"
+      "zh_desc": "通过 Obsidian CLI 与 Vault 交互，读取、创建、搜索并管理笔记、任务、属性等",
+      "tags": [
+        "obsidian",
+        "cli"
+      ]
     },
     {
       "en_name": "obsidian-markdown",
@@ -1517,7 +2063,11 @@
       "has_references": true,
       "has_assets": false,
       "dir": "obsidian-markdown",
-      "zh_desc": "创建与编辑 Obsidian Flavored Markdown，含 Wiki 链接、嵌入、标注、属性及其他 Obsidian 专属语法"
+      "zh_desc": "创建与编辑 Obsidian Flavored Markdown，含 Wiki 链接、嵌入、标注、属性及其他 Obsidian 专属语法",
+      "tags": [
+        "obsidian",
+        "markdown"
+      ]
     },
     {
       "en_name": "openclaw-persona-forge",
@@ -1528,7 +2078,12 @@
       "has_references": true,
       "has_assets": false,
       "dir": "openclaw-persona-forge",
-      "zh_desc": "为 OpenClaw AI Agent 锻造龙虾灵魂方案：输出身份定位、SOUL.md、角色化底线规则、名字与头像生图提示词。用于创建、设计或定制 OpenClaw 龙虾灵魂"
+      "zh_desc": "为 OpenClaw AI Agent 锻造龙虾灵魂方案：输出身份定位、SOUL.md、角色化底线规则、名字与头像生图提示词。用于创建、设计或定制 OpenClaw 龙虾灵魂",
+      "tags": [
+        "openclaw",
+        "persona",
+        "forge"
+      ]
     },
     {
       "en_name": "opensource-pipeline",
@@ -1539,7 +2094,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "opensource-pipeline",
-      "zh_desc": "开源流水线：fork、清洗并打包私有项目以安全公开发布。串联 3 个 agent（forker 等）"
+      "zh_desc": "开源流水线：fork、清洗并打包私有项目以安全公开发布。串联 3 个 agent（forker 等）",
+      "tags": [
+        "opensource",
+        "pipeline"
+      ]
     },
     {
       "en_name": "openspec-apply-change",
@@ -1550,7 +2109,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "openspec-apply-change",
-      "zh_desc": "实现 OpenSpec 变更的 task。当用户想开始实现、继续实现或推进变更时使用"
+      "zh_desc": "实现 OpenSpec 变更的 task。当用户想开始实现、继续实现或推进变更时使用",
+      "tags": [
+        "openspec",
+        "apply",
+        "change"
+      ]
     },
     {
       "en_name": "openspec-archive-change",
@@ -1561,7 +2125,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "openspec-archive-change",
-      "zh_desc": "在实验性工作流中归档已完成变更。当用户想在完成变更后最终化并归档时使用"
+      "zh_desc": "在实验性工作流中归档已完成变更。当用户想在完成变更后最终化并归档时使用",
+      "tags": [
+        "openspec",
+        "archive",
+        "change"
+      ]
     },
     {
       "en_name": "openspec-explore",
@@ -1572,7 +2141,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "openspec-explore",
-      "zh_desc": "进入探索模式——用于探索想法、调查问题、澄清需求的思考伙伴。用于需求梳理时"
+      "zh_desc": "进入探索模式——用于探索想法、调查问题、澄清需求的思考伙伴。用于需求梳理时",
+      "tags": [
+        "openspec",
+        "explore"
+      ]
     },
     {
       "en_name": "openspec-propose",
@@ -1583,7 +2156,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "openspec-propose",
-      "zh_desc": "一步生成所有产物来提议新变更。当用户想快速描述他们想要的内容时使用"
+      "zh_desc": "一步生成所有产物来提议新变更。当用户想快速描述他们想要的内容时使用",
+      "tags": [
+        "openspec",
+        "propose"
+      ]
     },
     {
       "en_name": "performance-analysis",
@@ -1594,7 +2171,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "performance-analysis",
-      "zh_desc": "分析项目性能，含包体积与加载时间。当你想优化性能时使用"
+      "zh_desc": "分析项目性能，含包体积与加载时间。当你想优化性能时使用",
+      "tags": [
+        "performance",
+        "analysis"
+      ]
     },
     {
       "en_name": "perl-patterns",
@@ -1605,7 +2186,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "perl-patterns",
-      "zh_desc": "现代 Perl 5.36+ 习惯用法、最佳实践与约定，用于构建健壮、可维护的 Perl 应用"
+      "zh_desc": "现代 Perl 5.36+ 习惯用法、最佳实践与约定，用于构建健壮、可维护的 Perl 应用",
+      "tags": [
+        "perl",
+        "patterns"
+      ]
     },
     {
       "en_name": "perl-security",
@@ -1616,7 +2201,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "perl-security",
-      "zh_desc": "全面的 Perl 安全：taint 模式、输入校验、安全进程执行、DBI 参数化查询等"
+      "zh_desc": "全面的 Perl 安全：taint 模式、输入校验、安全进程执行、DBI 参数化查询等",
+      "tags": [
+        "perl",
+        "security"
+      ]
     },
     {
       "en_name": "perl-testing",
@@ -1627,7 +2216,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "perl-testing",
-      "zh_desc": "Perl 测试模式：Test2::V0、Test::More、prove 运行器、Mocking、Devel::Cover 覆盖率与 TDD 方法"
+      "zh_desc": "Perl 测试模式：Test2::V0、Test::More、prove 运行器、Mocking、Devel::Cover 覆盖率与 TDD 方法",
+      "tags": [
+        "perl",
+        "testing"
+      ]
     },
     {
       "en_name": "plankton-code-quality",
@@ -1638,7 +2231,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "plankton-code-quality",
-      "zh_desc": "使用 Plankton 在写作时强制执行代码质量——自动格式化、Lint 与 Claude 驱动的修复，作用于每个文件"
+      "zh_desc": "使用 Plankton 在写作时强制执行代码质量——自动格式化、Lint 与 Claude 驱动的修复，作用于每个文件",
+      "tags": [
+        "plankton",
+        "code",
+        "quality"
+      ]
     },
     {
       "en_name": "postgres-patterns",
@@ -1649,7 +2247,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "postgres-patterns",
-      "zh_desc": "PostgreSQL 数据库模式：查询优化、模式设计、索引与安全。基于 Supabase 最佳实践"
+      "zh_desc": "PostgreSQL 数据库模式：查询优化、模式设计、索引与安全。基于 Supabase 最佳实践",
+      "tags": [
+        "postgres",
+        "patterns"
+      ]
     },
     {
       "en_name": "product-lens",
@@ -1660,7 +2262,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "product-lens",
-      "zh_desc": "使用该技能在构建前验证\"为什么\"，进行产品诊断，并将模糊想法转化为规格"
+      "zh_desc": "使用该技能在构建前验证\"为什么\"，进行产品诊断，并将模糊想法转化为规格",
+      "tags": [
+        "product",
+        "lens"
+      ]
     },
     {
       "en_name": "production-scheduling",
@@ -1671,7 +2277,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "production-scheduling",
-      "zh_desc": "生产排程、作业排序、产线平衡、换型优化与瓶颈解决（离散/批量制造）。用于排产、解决瓶颈、优化换型、应对中断或平衡产线"
+      "zh_desc": "生产排程、作业排序、产线平衡、换型优化与瓶颈解决（离散/批量制造）。用于排产、解决瓶颈、优化换型、应对中断或平衡产线",
+      "tags": [
+        "production",
+        "scheduling"
+      ]
     },
     {
       "en_name": "project-flow-ops",
@@ -1682,7 +2292,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "project-flow-ops",
-      "zh_desc": "跨 GitHub 与 Linear 运营执行流，分诊 Issue 与 PR、关联活跃工作并保持同步"
+      "zh_desc": "跨 GitHub 与 Linear 运营执行流，分诊 Issue 与 PR、关联活跃工作并保持同步",
+      "tags": [
+        "project",
+        "flow",
+        "ops"
+      ]
     },
     {
       "en_name": "project-guidelines-example",
@@ -1693,7 +2308,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "project-guidelines-example",
-      "zh_desc": "基于真实生产应用的示例项目专属技能模板"
+      "zh_desc": "基于真实生产应用的示例项目专属技能模板",
+      "tags": [
+        "project",
+        "guidelines",
+        "example"
+      ]
     },
     {
       "en_name": "prompt-optimizer",
@@ -1704,7 +2324,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "prompt-optimizer",
-      "zh_desc": "分析原始提示词、识别意图与缺口、匹配 ECC 组件（skills/commands/agents/hooks）并输出可直接粘贴的优化提示词；仅作顾问、绝不代为执行任务。当用户想优化/改进提示词时触发，想直接执行任务时不触发"
+      "zh_desc": "分析原始提示词、识别意图与缺口、匹配 ECC 组件（skills/commands/agents/hooks）并输出可直接粘贴的优化提示词；仅作顾问、绝不代为执行任务。当用户想优化/改进提示词时触发，想直接执行任务时不触发",
+      "tags": [
+        "prompt",
+        "optimizer"
+      ]
     },
     {
       "en_name": "python-patterns",
@@ -1715,7 +2339,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "python-patterns",
-      "zh_desc": "Python 习惯用法、PEP 8 标准、类型提示与最佳实践，用于构建健壮、高效、可维护的 Python 应用"
+      "zh_desc": "Python 习惯用法、PEP 8 标准、类型提示与最佳实践，用于构建健壮、高效、可维护的 Python 应用",
+      "tags": [
+        "python",
+        "patterns"
+      ]
     },
     {
       "en_name": "python-testing",
@@ -1726,7 +2354,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "python-testing",
-      "zh_desc": "Python 测试策略：pytest、TDD 方法、fixtures、Mocking、参数化与覆盖率要求"
+      "zh_desc": "Python 测试策略：pytest、TDD 方法、fixtures、Mocking、参数化与覆盖率要求",
+      "tags": [
+        "python",
+        "testing"
+      ]
     },
     {
       "en_name": "pytorch-patterns",
@@ -1737,7 +2369,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "pytorch-patterns",
-      "zh_desc": "PyTorch 深度学习模式与最佳实践，用于构建健壮、高效、可复现的训练流水线"
+      "zh_desc": "PyTorch 深度学习模式与最佳实践，用于构建健壮、高效、可复现的训练流水线",
+      "tags": [
+        "pytorch",
+        "patterns"
+      ]
     },
     {
       "en_name": "quality-nonconformance",
@@ -1748,7 +2384,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "quality-nonconformance",
-      "zh_desc": "质量管控与不符合项调查、根本原因分析、纠正措施（CAPA）及供应商质量管理，覆盖 FDA/IATF 16949/AS9100 等受监管制造场景。用于调查不符合项、执行根因分析、管理 CAPA、解读 SPC 或处理供应商质量问题"
+      "zh_desc": "质量管控与不符合项调查、根本原因分析、纠正措施（CAPA）及供应商质量管理，覆盖 FDA/IATF 16949/AS9100 等受监管制造场景。用于调查不符合项、执行根因分析、管理 CAPA、解读 SPC 或处理供应商质量问题",
+      "tags": [
+        "quality",
+        "nonconformance"
+      ]
     },
     {
       "en_name": "ralphinho-rfc-pipeline",
@@ -1759,7 +2399,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "ralphinho-rfc-pipeline",
-      "zh_desc": "基于 RFC 驱动的多 agent DAG 执行模式，带质量门禁、合并队列与工作单元编排"
+      "zh_desc": "基于 RFC 驱动的多 agent DAG 执行模式，带质量门禁、合并队列与工作单元编排",
+      "tags": [
+        "ralphinho",
+        "rfc",
+        "pipeline"
+      ]
     },
     {
       "en_name": "regex-vs-llm-structured-text",
@@ -1770,7 +2415,13 @@
       "has_references": false,
       "has_assets": false,
       "dir": "regex-vs-llm-structured-text",
-      "zh_desc": "解析结构化文本时在正则与 LLM 之间选择的决策框架——从正则起步，仅在必要时引入 LLM"
+      "zh_desc": "解析结构化文本时在正则与 LLM 之间选择的决策框架——从正则起步，仅在必要时引入 LLM",
+      "tags": [
+        "regex",
+        "llm",
+        "structured",
+        "text"
+      ]
     },
     {
       "en_name": "remotion-video-creation",
@@ -1781,7 +2432,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "remotion-video-creation",
-      "zh_desc": "Remotion（React 视频创作）最佳实践。29 条领域专属规则，涵盖 3D、动画、音频、字幕等"
+      "zh_desc": "Remotion（React 视频创作）最佳实践。29 条领域专属规则，涵盖 3D、动画、音频、字幕等",
+      "tags": [
+        "remotion",
+        "video",
+        "creation"
+      ]
     },
     {
       "en_name": "repo-scan",
@@ -1792,7 +2448,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "repo-scan",
-      "zh_desc": "跨技术栈源码资产审计——为每个文件分类、检测内嵌的第三方库，并交付报告"
+      "zh_desc": "跨技术栈源码资产审计——为每个文件分类、检测内嵌的第三方库，并交付报告",
+      "tags": [
+        "repo",
+        "scan"
+      ]
     },
     {
       "en_name": "returns-reverse-logistics",
@@ -1803,7 +2463,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "returns-reverse-logistics",
-      "zh_desc": "退货授权、收货检验、处置决策、退款处理、欺诈检测与保修索赔管理。用于退货、逆向物流、退款决策、退货欺诈检测或保修索赔"
+      "zh_desc": "退货授权、收货检验、处置决策、退款处理、欺诈检测与保修索赔管理。用于退货、逆向物流、退款决策、退货欺诈检测或保修索赔",
+      "tags": [
+        "returns",
+        "reverse",
+        "logistics"
+      ]
     },
     {
       "en_name": "rules-distill",
@@ -1814,7 +2479,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "rules-distill",
-      "zh_desc": "扫描技能以提取跨切面原则，并蒸馏为规则——追加、修订或创建新规则文件"
+      "zh_desc": "扫描技能以提取跨切面原则，并蒸馏为规则——追加、修订或创建新规则文件",
+      "tags": [
+        "rules",
+        "distill"
+      ]
     },
     {
       "en_name": "run-tests",
@@ -1825,7 +2494,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "run-tests",
-      "zh_desc": "运行项目测试套件，含单元测试、组件测试与端到端测试。当你想验证时使用"
+      "zh_desc": "运行项目测试套件，含单元测试、组件测试与端到端测试。当你想验证时使用",
+      "tags": [
+        "run",
+        "tests"
+      ]
     },
     {
       "en_name": "rust-patterns",
@@ -1836,7 +2509,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "rust-patterns",
-      "zh_desc": "地道的 Rust 模式、所有权、错误处理、trait、并发与最佳实践，用于构建安全、高性能应用"
+      "zh_desc": "地道的 Rust 模式、所有权、错误处理、trait、并发与最佳实践，用于构建安全、高性能应用",
+      "tags": [
+        "rust",
+        "patterns"
+      ]
     },
     {
       "en_name": "rust-testing",
@@ -1847,7 +2524,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "rust-testing",
-      "zh_desc": "Rust 测试模式：单元测试、集成测试、异步测试、属性测试、Mocking 与覆盖率"
+      "zh_desc": "Rust 测试模式：单元测试、集成测试、异步测试、属性测试、Mocking 与覆盖率",
+      "tags": [
+        "rust",
+        "testing"
+      ]
     },
     {
       "en_name": "safety-guard",
@@ -1858,7 +2539,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "safety-guard",
-      "zh_desc": "在 production 系统上作业或自主运行 agent 时，用于防止破坏性操作"
+      "zh_desc": "在 production 系统上作业或自主运行 agent 时，用于防止破坏性操作",
+      "tags": [
+        "safety",
+        "guard"
+      ]
     },
     {
       "en_name": "santa-method",
@@ -1869,7 +2554,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "santa-method",
-      "zh_desc": "多 agent 对抗式验证与收敛循环。两个独立审查 agent 都必须通过后才输出"
+      "zh_desc": "多 agent 对抗式验证与收敛循环。两个独立审查 agent 都必须通过后才输出",
+      "tags": [
+        "santa",
+        "method"
+      ]
     },
     {
       "en_name": "search-first",
@@ -1880,7 +2569,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "search-first",
-      "zh_desc": "编码前先研究的工作流。在编写自定义代码前，搜索现有工具、库与模式。调用"
+      "zh_desc": "编码前先研究的工作流。在编写自定义代码前，搜索现有工具、库与模式。调用",
+      "tags": [
+        "search",
+        "first"
+      ]
     },
     {
       "en_name": "security-best-practices",
@@ -1891,7 +2584,12 @@
       "has_references": true,
       "has_assets": false,
       "dir": "security-best-practices",
-      "zh_desc": "执行语言与框架特定的安全最佳实践审查并给出改进建议。仅在相关场景触发"
+      "zh_desc": "执行语言与框架特定的安全最佳实践审查并给出改进建议。仅在相关场景触发",
+      "tags": [
+        "security",
+        "best",
+        "practices"
+      ]
     },
     {
       "en_name": "security-review",
@@ -1902,7 +2600,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "security-review",
-      "zh_desc": "新增认证、处理用户输入、使用密钥、创建 API 端点或实现相关逻辑时使用本技能"
+      "zh_desc": "新增认证、处理用户输入、使用密钥、创建 API 端点或实现相关逻辑时使用本技能",
+      "tags": [
+        "security",
+        "review"
+      ]
     },
     {
       "en_name": "security-scan",
@@ -1913,7 +2615,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "security-scan",
-      "zh_desc": "扫描 Claude Code 配置（.claude/ 目录）以发现安全漏洞、错误配置与注入风险"
+      "zh_desc": "扫描 Claude Code 配置（.claude/ 目录）以发现安全漏洞、错误配置与注入风险",
+      "tags": [
+        "security",
+        "scan"
+      ]
     },
     {
       "en_name": "shadcn",
@@ -1924,7 +2630,10 @@
       "has_references": false,
       "has_assets": true,
       "dir": "shadcn",
-      "zh_desc": "管理 shadcn 组件与项目——添加、搜索、修复、调试、美化与组合 UI"
+      "zh_desc": "管理 shadcn 组件与项目——添加、搜索、修复、调试、美化与组合 UI",
+      "tags": [
+        "shadcn"
+      ]
     },
     {
       "en_name": "skill-comply",
@@ -1935,7 +2644,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "skill-comply",
-      "zh_desc": "可视化技能、规则与 agent 定义是否真正被遵循——自动在 3 个提示规模上生成场景"
+      "zh_desc": "可视化技能、规则与 agent 定义是否真正被遵循——自动在 3 个提示规模上生成场景",
+      "tags": [
+        "skill",
+        "comply"
+      ]
     },
     {
       "en_name": "skill-creator",
@@ -1946,7 +2659,11 @@
       "has_references": true,
       "has_assets": true,
       "dir": "skill-creator",
-      "zh_desc": "创建新技能、修改与改进现有技能，并度量技能性能。当用户想创建技能时触发"
+      "zh_desc": "创建新技能、修改与改进现有技能，并度量技能性能。当用户想创建技能时触发",
+      "tags": [
+        "skill",
+        "creator"
+      ]
     },
     {
       "en_name": "skill-stocktake",
@@ -1957,7 +2674,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "skill-stocktake",
-      "zh_desc": "审计 Claude 技能与命令质量时使用。支持快速扫描（仅变更技能）与全量盘点"
+      "zh_desc": "审计 Claude 技能与命令质量时使用。支持快速扫描（仅变更技能）与全量盘点",
+      "tags": [
+        "skill",
+        "stocktake"
+      ]
     },
     {
       "en_name": "social-graph-ranker",
@@ -1968,7 +2689,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "social-graph-ranker",
-      "zh_desc": "加权社交图谱排序，用于发现 warm intro、桥梁评分与跨 X 和 LinkedIn 的网络缺口分析"
+      "zh_desc": "加权社交图谱排序，用于发现 warm intro、桥梁评分与跨 X 和 LinkedIn 的网络缺口分析",
+      "tags": [
+        "social",
+        "graph",
+        "ranker"
+      ]
     },
     {
       "en_name": "springboot-patterns",
@@ -1979,7 +2705,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "springboot-patterns",
-      "zh_desc": "Spring Boot 架构模式、REST API 设计、分层服务、数据访问、缓存、异步处理与日志"
+      "zh_desc": "Spring Boot 架构模式、REST API 设计、分层服务、数据访问、缓存、异步处理与日志",
+      "tags": [
+        "springboot",
+        "patterns"
+      ]
     },
     {
       "en_name": "springboot-security",
@@ -1990,7 +2720,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "springboot-security",
-      "zh_desc": "Spring Security 最佳实践：认证/授权、校验、CSRF、密钥、请求头、限流与依赖安全"
+      "zh_desc": "Spring Security 最佳实践：认证/授权、校验、CSRF、密钥、请求头、限流与依赖安全",
+      "tags": [
+        "springboot",
+        "security"
+      ]
     },
     {
       "en_name": "springboot-tdd",
@@ -2001,7 +2735,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "springboot-tdd",
-      "zh_desc": "Spring Boot 的测试驱动开发：JUnit 5、Mockito、MockMvc、Testcontainers 与 JaCoCo。用于新增功能时"
+      "zh_desc": "Spring Boot 的测试驱动开发：JUnit 5、Mockito、MockMvc、Testcontainers 与 JaCoCo。用于新增功能时",
+      "tags": [
+        "springboot",
+        "tdd"
+      ]
     },
     {
       "en_name": "springboot-verification",
@@ -2012,7 +2750,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "springboot-verification",
-      "zh_desc": "Spring Boot 项目的验证闭环：构建、静态分析、带覆盖率的测试、安全扫描与 diff 审查"
+      "zh_desc": "Spring Boot 项目的验证闭环：构建、静态分析、带覆盖率的测试、安全扫描与 diff 审查",
+      "tags": [
+        "springboot",
+        "verification"
+      ]
     },
     {
       "en_name": "strategic-compact",
@@ -2023,7 +2765,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "strategic-compact",
-      "zh_desc": "在逻辑间隔建议手动上下文压缩，以贯穿任务阶段保留上下文，而非任意截断"
+      "zh_desc": "在逻辑间隔建议手动上下文压缩，以贯穿任务阶段保留上下文，而非任意截断",
+      "tags": [
+        "strategic",
+        "compact"
+      ]
     },
     {
       "en_name": "structured-context-compressor",
@@ -2034,7 +2780,12 @@
       "has_references": true,
       "has_assets": false,
       "dir": "structured-context-compressor",
-      "zh_desc": "将长 agent 对话压缩为九部分续写摘要，保留请求、文件、错误、用户等关键上下文"
+      "zh_desc": "将长 agent 对话压缩为九部分续写摘要，保留请求、文件、错误、用户等关键上下文",
+      "tags": [
+        "structured",
+        "context",
+        "compressor"
+      ]
     },
     {
       "en_name": "swift-actor-persistence",
@@ -2045,7 +2796,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "swift-actor-persistence",
-      "zh_desc": "Swift 中使用 actor 的线程安全数据持久化——带文件后端存储的内存缓存，消除数据竞争"
+      "zh_desc": "Swift 中使用 actor 的线程安全数据持久化——带文件后端存储的内存缓存，消除数据竞争",
+      "tags": [
+        "swift",
+        "actor",
+        "persistence"
+      ]
     },
     {
       "en_name": "swift-concurrency-6-2",
@@ -2056,7 +2812,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "swift-concurrency-6-2",
-      "zh_desc": "Swift 6.2 易上手并发——默认单线程，@concurrent 用于显式后台卸载，隔离域控制"
+      "zh_desc": "Swift 6.2 易上手并发——默认单线程，@concurrent 用于显式后台卸载，隔离域控制",
+      "tags": [
+        "swift",
+        "concurrency"
+      ]
     },
     {
       "en_name": "swift-protocol-di-testing",
@@ -2067,7 +2827,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "swift-protocol-di-testing",
-      "zh_desc": "基于协议（Protocol）的依赖注入，用于可测试的 Swift 代码——Mock 文件系统、网络与外部 API"
+      "zh_desc": "基于协议（Protocol）的依赖注入，用于可测试的 Swift 代码——Mock 文件系统、网络与外部 API",
+      "tags": [
+        "swift",
+        "protocol",
+        "testing"
+      ]
     },
     {
       "en_name": "swiftui-patterns",
@@ -2078,7 +2843,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "swiftui-patterns",
-      "zh_desc": "SwiftUI 架构模式、@Observable 状态管理、视图组合、导航、性能优化等"
+      "zh_desc": "SwiftUI 架构模式、@Observable 状态管理、视图组合、导航、性能优化等",
+      "tags": [
+        "swiftui",
+        "patterns"
+      ]
     },
     {
       "en_name": "tdd-workflow",
@@ -2089,7 +2858,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "tdd-workflow",
-      "zh_desc": "编写新功能、修复 bug 或重构代码时使用。以 80% 覆盖率为目标强制执行测试驱动开发"
+      "zh_desc": "编写新功能、修复 bug 或重构代码时使用。以 80% 覆盖率为目标强制执行测试驱动开发",
+      "tags": [
+        "tdd",
+        "workflow"
+      ]
     },
     {
       "en_name": "team-builder",
@@ -2100,7 +2873,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "team-builder",
-      "zh_desc": "用于组合与派发并行团队的互动式 agent 选择器"
+      "zh_desc": "用于组合与派发并行团队的互动式 agent 选择器",
+      "tags": [
+        "team",
+        "builder"
+      ]
     },
     {
       "en_name": "theme-factory",
@@ -2111,7 +2888,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "theme-factory",
-      "zh_desc": "为产物（演示、文档、报告、HTML 落地页等）套用主题样式的工具包"
+      "zh_desc": "为产物（演示、文档、报告、HTML 落地页等）套用主题样式的工具包",
+      "tags": [
+        "theme",
+        "factory"
+      ]
     },
     {
       "en_name": "token-budget-advisor",
@@ -2122,7 +2903,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "token-budget-advisor",
-      "zh_desc": "在回答前让用户选择消耗的回答深度/长度/Token 预算，用于用户显式想控制回答长度、深度或 Token 用量的场景"
+      "zh_desc": "在回答前让用户选择消耗的回答深度/长度/Token 预算，用于用户显式想控制回答长度、深度或 Token 用量的场景",
+      "tags": [
+        "token",
+        "budget",
+        "advisor"
+      ]
     },
     {
       "en_name": "ui-demo",
@@ -2133,7 +2919,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "ui-demo",
-      "zh_desc": "使用 Playwright 录制精致的 UI 演示视频。当用户需要制作演示、操作演练、录屏时使用"
+      "zh_desc": "使用 Playwright 录制精致的 UI 演示视频。当用户需要制作演示、操作演练、录屏时使用",
+      "tags": [
+        "demo"
+      ]
     },
     {
       "en_name": "vercel-react-best-practices",
@@ -2144,7 +2933,13 @@
       "has_references": false,
       "has_assets": false,
       "dir": "vercel-react-best-practices",
-      "zh_desc": "来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。编写相关代码时应使用该技能"
+      "zh_desc": "来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。编写相关代码时应使用该技能",
+      "tags": [
+        "vercel",
+        "react",
+        "best",
+        "practices"
+      ]
     },
     {
       "en_name": "vercel-react-native-skills",
@@ -2155,7 +2950,13 @@
       "has_references": false,
       "has_assets": false,
       "dir": "vercel-react-native-skills",
-      "zh_desc": "React Native 与 Expo 构建高性能移动应用的最佳实践，涵盖组件、列表性能优化、动画与原生模块。用于 RN/Expo 开发、性能优化或原生 API 任务"
+      "zh_desc": "React Native 与 Expo 构建高性能移动应用的最佳实践，涵盖组件、列表性能优化、动画与原生模块。用于 RN/Expo 开发、性能优化或原生 API 任务",
+      "tags": [
+        "vercel",
+        "react",
+        "native",
+        "skills"
+      ]
     },
     {
       "en_name": "verification-loop",
@@ -2166,7 +2967,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "verification-loop",
-      "zh_desc": "Claude Code 会话的综合验证系统"
+      "zh_desc": "Claude Code 会话的综合验证系统",
+      "tags": [
+        "verification",
+        "loop"
+      ]
     },
     {
       "en_name": "video-editing",
@@ -2177,7 +2982,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "video-editing",
-      "zh_desc": "用于剪辑、结构化与增强真实素材的 AI 辅助视频编辑工作流。涵盖完整流水线"
+      "zh_desc": "用于剪辑、结构化与增强真实素材的 AI 辅助视频编辑工作流。涵盖完整流水线",
+      "tags": [
+        "video",
+        "editing"
+      ]
     },
     {
       "en_name": "video-use",
@@ -2188,7 +2997,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "video-use",
-      "zh_desc": "通过对话编辑任意视频。转录、剪辑、调色、生成叠加动画、烧录字幕——用于谈话类视频"
+      "zh_desc": "通过对话编辑任意视频。转录、剪辑、调色、生成叠加动画、烧录字幕——用于谈话类视频",
+      "tags": [
+        "video",
+        "use"
+      ]
     },
     {
       "en_name": "videodb",
@@ -2199,7 +3012,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "videodb",
-      "zh_desc": "看见、理解、操作视频与音频。从本地文件、URL、RTSP/直播流或桌面实时录制摄入"
+      "zh_desc": "看见、理解、操作视频与音频。从本地文件、URL、RTSP/直播流或桌面实时录制摄入",
+      "tags": [
+        "videodb"
+      ]
     },
     {
       "en_name": "visa-doc-translate",
@@ -2210,7 +3026,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "visa-doc-translate",
-      "zh_desc": "将签证申请材料（图片）翻译为英文，并生成含原文与译文的中英双语 PDF"
+      "zh_desc": "将签证申请材料（图片）翻译为英文，并生成含原文与译文的中英双语 PDF",
+      "tags": [
+        "visa",
+        "doc",
+        "translate"
+      ]
     },
     {
       "en_name": "web-artifacts-builder",
@@ -2221,7 +3042,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "web-artifacts-builder",
-      "zh_desc": "使用现代前端 Web 技术创建精致、多组件 claude.ai HTML 产物的工具套件"
+      "zh_desc": "使用现代前端 Web 技术创建精致、多组件 claude.ai HTML 产物的工具套件",
+      "tags": [
+        "web",
+        "artifacts",
+        "builder"
+      ]
     },
     {
       "en_name": "web-design-guidelines",
@@ -2232,7 +3058,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "web-design-guidelines",
-      "zh_desc": "审查 UI 代码是否符合 Web 界面规范。当用户要求\"审查我的 UI\"\"检查可访问性\"等时使用"
+      "zh_desc": "审查 UI 代码是否符合 Web 界面规范。当用户要求\"审查我的 UI\"\"检查可访问性\"等时使用",
+      "tags": [
+        "web",
+        "design",
+        "guidelines"
+      ]
     },
     {
       "en_name": "webapp-testing",
@@ -2243,7 +3074,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "webapp-testing",
-      "zh_desc": "与本地 Web 应用交互和测试的 Toolkit——浏览器自动化、端到端验证与 UI 检查"
+      "zh_desc": "与本地 Web 应用交互和测试的 Toolkit——浏览器自动化、端到端验证与 UI 检查",
+      "tags": [
+        "webapp",
+        "testing"
+      ]
     },
     {
       "en_name": "workspace-surface-audit",
@@ -2254,7 +3089,12 @@
       "has_references": false,
       "has_assets": false,
       "dir": "workspace-surface-audit",
-      "zh_desc": "审计活跃仓库、MCP 服务器、插件、连接器、环境面与 harness 配置，然后推荐最高优先级的改进"
+      "zh_desc": "审计活跃仓库、MCP 服务器、插件、连接器、环境面与 harness 配置，然后推荐最高优先级的改进",
+      "tags": [
+        "workspace",
+        "surface",
+        "audit"
+      ]
     },
     {
       "en_name": "writing-plans",
@@ -2265,7 +3105,11 @@
       "has_references": false,
       "has_assets": false,
       "dir": "writing-plans",
-      "zh_desc": "当你有多步任务的规格或需求、在动手写代码之前使用"
+      "zh_desc": "当你有多步任务的规格或需求、在动手写代码之前使用",
+      "tags": [
+        "writing",
+        "plans"
+      ]
     },
     {
       "en_name": "x-api",
@@ -2276,7 +3120,10 @@
       "has_references": false,
       "has_assets": false,
       "dir": "x-api",
-      "zh_desc": "X/Twitter API 集成，用于发推、线程、读取时间线、搜索与分析。涵盖 OAuth 认证流程"
+      "zh_desc": "X/Twitter API 集成，用于发推、线程、读取时间线、搜索与分析。涵盖 OAuth 认证流程",
+      "tags": [
+        "api"
+      ]
     }
   ]
 }

@@ -9,6 +9,7 @@ export interface Skill {
   zh_desc: string;
   category: string;
   dir: string;
+  tags: string[];
   has_scripts: boolean;
   has_references: boolean;
   has_assets: boolean;

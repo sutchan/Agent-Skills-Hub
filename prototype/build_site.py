@@ -127,6 +127,25 @@ def read_skill_meta(skill_dir):
     return meta
 
 
+# 从技能目录名派生关键词标签（按 -/_ 分词，过滤停用词与短词），保证每张卡片都有 tag
+_TAG_STOP = {
+    "ai", "the", "and", "for", "of", "to", "a", "an", "by", "in", "on", "up",
+    "v", "v1", "v2", "v3",
+}
+
+
+def _derive_tags(skill_dir):
+    seen = set()
+    tags = []
+    for raw in re.split(r"[-_]", skill_dir):
+        w = raw.strip().lower()
+        if len(w) >= 3 and w not in _TAG_STOP and not w.isdigit():
+            if w not in seen:
+                seen.add(w)
+                tags.append(w)
+    return tags
+
+
 def parse_readme_meta():
     """解析 README 顶部元信息（作者 / 仓库地址 / 总数）。"""
     meta = {"author": "", "repo": "", "count": ""}
@@ -166,6 +185,7 @@ def build_data():
             sm["category"] = readme_cat_map.get(entry, "其他")
         # 中文描述以 README 为准（已本地化），缺失则为空
         sm["zh_desc"] = readme_zh_map.get(entry, "")
+        sm["tags"] = _derive_tags(entry)
         skills.append(sm)
 
     # 分类顺序：优先 README 顺序，再补齐 frontmatter 中出现但 README 未列的分类

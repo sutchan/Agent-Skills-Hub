@@ -88,6 +88,18 @@ export function SkillCard({
             ))}
           </div>
         )}
+        {skill.tags && skill.tags.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {skill.tags.map((t) => (
+              <span
+                key={t}
+                className="inline-flex items-center rounded-full border border-border/70 px-2 py-0.5 text-[10px] font-medium text-muted-foreground"
+              >
+                #{t}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </Card>
   );

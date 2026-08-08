@@ -123,6 +123,27 @@ function readSkillMeta(skillDir) {
   return meta;
 }
 
+// 从技能目录名派生关键词标签（按 -/_ 分词，过滤停用词与短词），保证每张卡片都有 tag
+const TAG_STOP = new Set([
+  "ai", "the", "and", "for", "of", "to", "a", "an", "by", "in", "on", "up", "v", "v2", "v1", "v3",
+]);
+function deriveTags(skillDir) {
+  const words = skillDir
+    .split(/[-_]/)
+    .map((w) => w.trim().toLowerCase())
+    .filter((w) => w.length >= 3 && !TAG_STOP.has(w) && !/^\d+$/.test(w));
+  // 去重并保持出现顺序
+  const seen = new Set();
+  const tags = [];
+  for (const w of words) {
+    if (!seen.has(w)) {
+      seen.add(w);
+      tags.push(w);
+    }
+  }
+  return tags;
+}
+
 function parseReadmeMeta() {
   const lines = fs.readFileSync(README, "utf-8").split(/\r?\n/).slice(0, 15);
   const meta = { author: "", repo: "" };
@@ -152,6 +173,7 @@ function buildData() {
     if (!sm) continue;
     if (!sm.category) sm.category = catMap[entry] || "其他";
     sm.zh_desc = zhDescMap[entry] || "";
+    sm.tags = deriveTags(entry);
     skills.push(sm);
   }
 

@@ -80,6 +80,24 @@ export function SkillDetail({
         </div>
       )}
 
+      {skill.tags && skill.tags.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <span className="text-2xs font-medium uppercase tracking-wide text-muted-foreground">
+            标签
+          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {skill.tags.map((t) => (
+              <span
+                key={t}
+                className="inline-flex items-center rounded-full border border-border/70 px-2.5 py-1 text-xs font-medium text-muted-foreground"
+              >
+                #{t}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
       <a
         href={`${repo || "https://github.com/sutchan/Agent-Skills-Hub"}/tree/main/${skill.dir.replace(/\/$/, "")}`}
         target="_blank"

@@ -89,14 +89,14 @@ Props：
 ```
 { skill: Skill, lang: "zh"|"en", view: "grid"|"list", onOpen: (s)=>void, catEn: string }
 ```
-渲染：分类（`catEn`）→ 名称 → 别名（`en_name && en_name!==name` 时，`font-mono`）→ 描述（按语言回退，`line-clamp-2`/列表 `line-clamp-1`）→ 资源徽章（`has_scripts/references/assets` 条件）。
+渲染：分类（`catEn`）→ 名称 → 别名（`en_name && en_name!==name` 时，`font-mono`）→ 描述（按语言回退，`line-clamp-2`/列表 `line-clamp-1`）→ 资源徽章（`has_scripts/references/assets` 条件）→ 关键词标签（`#tags`，由 `build_site` 从目录名派生，每张卡片必有）。
 交互：`role="button"` + `tabIndex=0` + `Enter/Space` → `onOpen(skill)`。
 布局：`view==="list"` 时 `flex items-start gap-4` 横向。
 
 ### 13. SkillDetail 技能详情
 文件：`components/skill-detail.tsx`
 Props：`{ skill: Skill, lang, catEn }`。
-内容：标题 + 分类 Badge → 别名 → 描述 → 目录 `code` 块 → 资源标签组 → 仓库外链 `ExternalLink`（指向 `{repo}/tree/main/{skill.dir}`，`repo` 取自 `skills.json` 的 `meta.repo`）。
+内容：标题 + 分类 Badge → 别名 → 描述 → 目录 `code` 块 → 资源标签组 → 关键词标签（`#tags`）→ 仓库外链 `ExternalLink`（指向 `{repo}/tree/main/{skill.dir}`，`repo` 取自 `skills.json` 的 `meta.repo`）。
 
 > 说明：仓库内 Markdown 文档（README / CONTRIBUTING 等）中的技能链接使用相对路径
 > `skills/<name>/`，由 GitHub 自动解析；原型站点因跨域需外链，使用上述绝对 GitHub URL。
