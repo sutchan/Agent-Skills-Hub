@@ -1,12 +1,12 @@
 # Skills
 
-[![Skills](https://img.shields.io/badge/skills-198-blue)](README.en.md) [![License](https://img.shields.io/badge/license-see%20LICENSE-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![License](https://img.shields.io/badge/license-see%20LICENSE-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Author: Sut Chan
 >
 > Repository: https://github.com/sutchan/Agent-Skills-Hub
 >
-> A centrally managed collection of AI skills, containing 198 skill packs for development, design, testing, DevOps, agent engineering, and industry domains.
+> A centrally managed collection of AI skills, containing 200 skill packs for development, design, testing, DevOps, agent engineering, and industry domains.
 
 Each skill is a standalone directory containing `SKILL.md` (name + description metadata + usage notes) plus optional `scripts/`, `references/`, `assets/`, `agents/`.
 
@@ -105,7 +105,7 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[backend-patterns](skills/backend-patterns/)** — Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.
 - **[hexagonal-architecture](skills/hexagonal-architecture/)** — Design, implement, and refactor Ports & Adapters systems with clear domain boundaries, dependency inversion, and testable use-case orchestration across TypeScript, Java, Kotlin, and Go services.
 
-### Testing & Quality (19)
+### Testing & Quality (20)
 
 - **[ai-regression-testing](skills/ai-regression-testing/)** — Regression testing strategies for AI-assisted development. Sandbox-mode API testing without database dependencies, automated bug-check workflows, and patterns to catch AI blind spots where the same model writes and re…
 - **[browser-qa](skills/browser-qa/)** — Use this skill to automate visual testing and UI interaction verification using browser automation after deploying features.
@@ -126,8 +126,9 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[skill-comply](skills/skill-comply/)** — Visualize whether skills, rules, and agent definitions are actually followed — auto-generates scenarios at 3 prompt strictness levels, runs agents, classifies behavioral sequences, and reports compliance rates with fu…
 - **[tdd-workflow](skills/tdd-workflow/)** — Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.
 - **[verification-loop](skills/verification-loop/)** — A comprehensive verification system for Claude Code sessions.
+- **[webapp-testing](skills/webapp-testing/)** — Toolkit for interacting with and testing local web applications — browser automation, end-to-end verification, and UI inspection.
 
-### Agent & AI Engineering (18)
+### Agent & AI Engineering (20)
 
 - **[agent-browser](skills/agent-browser/)** — Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automatin…
 - **[agent-eval](skills/agent-eval/)** — Head-to-head comparison of coding agents (Claude Code, Aider, Codex, etc.) on custom tasks with pass rate, cost, time, and consistency metrics
@@ -139,6 +140,8 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[benchmark](skills/benchmark/)** — Use this skill to measure performance baselines, detect regressions before/after PRs, and compare stack alternatives.
 - **[continuous-agent-loop](skills/continuous-agent-loop/)** — Patterns for continuous autonomous agent loops with quality gates, evals, and recovery controls.
 - **[continuous-learning-v2](skills/continuous-learning-v2/)** — Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents. v2.1 adds project-scoped instincts to prevent cross-proj…
+- **[autonomous-loops](skills/autonomous-loops/)** — Architectures and patterns for autonomous Claude Code loops, used to orchestrate long-running automated tasks.
+- **[continuous-learning](skills/continuous-learning/)** — Automatically extract reusable patterns from Claude Code sessions, building a confidence-scored atomic capability library.
 - **[cost-aware-llm-pipeline](skills/cost-aware-llm-pipeline/)** — Cost optimization patterns for LLM API usage — model routing by task complexity, budget tracking, retry logic, and prompt caching.
 - **[data-scraper-agent](skills/data-scraper-agent/)** — Build a fully automated AI-powered data collection agent for any public source — job boards, prices, news, GitHub, sports, anything. Scrapes on a schedule, enriches data with a free LLM (Gemini Flash), stores results…
 - **[deep-research](skills/deep-research/)** — Multi-source deep research using firecrawl and exa MCPs. Searches the web, synthesizes findings, and delivers cited reports with source attribution. Use when the user wants thorough research on any topic with evidence…

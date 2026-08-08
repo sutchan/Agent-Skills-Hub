@@ -1,12 +1,12 @@
 # Agent Skills Hub
 
-[![技能数量](https://img.shields.io/badge/skills-198-blue)](README.md) [![许可证](https://img.shields.io/badge/license-查看%20LICENSE-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![许可证](https://img.shields.io/badge/license-查看%20LICENSE-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 >
-> 一个集中管理的 AI 技能（Skill）集合，包含 198 个面向开发、设计、
+> 一个集中管理的 AI 技能（Skill）集合，包含 200 个面向开发、设计、
 测试、DevOps、Agent 工程及各行业领域的技能包。
 
 每个技能是一个独立目录，内含 `SKILL.md`（技能说明与触发描述）以及
@@ -111,7 +111,7 @@
 - **[backend-patterns](skills/backend-patterns/)** — 后端架构模式、API 设计、数据库优化与 Node.js、Express 等服务端最佳实践。
 - **[hexagonal-architecture](skills/hexagonal-architecture/)** — 设计、实现与重构端口与适配器（Ports & Adapters）系统，具备清晰领域边界、依赖倒置与可测试性。
 
-### 测试与质量（19）
+### 测试与质量（20）
 
 - **[ai-regression-testing](skills/ai-regression-testing/)** — AI 辅助开发的回归测试策略。沙箱模式 API 测试（无数据库依赖），自动验证行为。
 - **[browser-qa](skills/browser-qa/)** — 部署前端后，使用浏览器自动化进行视觉测试与 UI 交互验证。
@@ -126,15 +126,16 @@
 - **[quality-nonconformance](skills/quality-nonconformance/)** — 质量管控与不符合项调查、根本原因分析、纠正措施（CAPA）及供应商质量管理，覆盖 FDA/IATF 16949/AS9100 等受监管制造场景。用于调查不符合项、执行根因分析、管理 CAPA、解读 SPC 或处理供应商质量问题。
 - **[run-tests](skills/run-tests/)** — 运行项目测试套件，含单元测试、组件测试与端到端测试。当你想验证时使用。
 - **[safety-guard](skills/safety-guard/)** — 在 production 系统上作业或自主运行 agent 时，用于防止破坏性操作。
-- **["security-best-practices"](skills/security-best-practices/)** — 执行语言与框架特定的安全最佳实践审查并给出改进建议。仅在相关场景触发。
+- **[security-best-practices](skills/security-best-practices/)** — 执行语言与框架特定的安全最佳实践审查并给出改进建议。仅在相关场景触发。
 - **[security-review](skills/security-review/)** — 新增认证、处理用户输入、使用密钥、创建 API 端点或实现相关逻辑时使用本技能。
 - **[security-scan](skills/security-scan/)** — 扫描 Claude Code 配置（.claude/ 目录）以发现安全漏洞、错误配置与注入风险。
 - **[skill-comply](skills/skill-comply/)** — 可视化技能、规则与 agent 定义是否真正被遵循——自动在 3 个提示规模上生成场景。
 - **[tdd-workflow](skills/tdd-workflow/)** — 编写新功能、修复 bug 或重构代码时使用。以 80% 覆盖率为目标强制执行测试驱动开发。
 - **[verification-loop](skills/verification-loop/)** — Claude Code 会话的综合验证系统。
+- **[webapp-testing](skills/webapp-testing/)** — 与本地 Web 应用交互和测试的 Toolkit——浏览器自动化、端到端验证与 UI 检查。
 
 
-### Agent 与 AI 工程（18）
+### Agent 与 AI 工程（20）
 
 - **[agent-browser](skills/agent-browser/)** — 面向 AI agent 的浏览器自动化 CLI。当用户需要与网站交互（导航页面等）时使用。
 - **[agent-eval](skills/agent-eval/)** — 在自定义任务上对编码 agent（Claude Code、Aider、Codex 等）进行头对头对比，含通过率、成本、耗时等。
@@ -146,6 +147,8 @@
 - **[benchmark](skills/benchmark/)** — 使用该技能测量性能基线、检测 PR 前后的回归，并对比技术栈方案。
 - **[continuous-agent-loop](skills/continuous-agent-loop/)** — 带质量门禁、评估与恢复控制的持续自主 agent 循环模式。
 - **[continuous-learning-v2](skills/continuous-learning-v2/)** — 基于本能的学习系统，通过 hook 观察会话，创建带置信度评分的原子本能。
+- **[autonomous-loops](skills/autonomous-loops/)** — 自主 Claude Code 循环的架构与模式，用于长时间运行的自动化任务编排。
+- **[continuous-learning](skills/continuous-learning/)** — 从 Claude Code 会话中自动提取可复用模式，构建带置信度的原子能力库。
 - **[cost-aware-llm-pipeline](skills/cost-aware-llm-pipeline/)** — LLM API 调用的成本优化模式——按任务复杂度路由模型、预算跟踪、重试逻辑等。
 - **[data-scraper-agent](skills/data-scraper-agent/)** — 为任意公开来源构建全自动的 AI 数据收集 agent——招聘网站、价格、新闻、GitHub 等。
 - **[deep-research](skills/deep-research/)** — 使用 firecrawl 与 exa MCP 进行多来源深度研究。检索网络、综合发现并交付带引用的结果。

@@ -49,6 +49,20 @@
 - 中文版与英文版均补充本地化说明段，明确技能描述为「中文目录 + 中文描述」
 - 修复 `tools/skills_readme.py`：verify 误将 `skills/` 路径前缀当作技能名导致全量误报；gen-en 生成链接路径补全 `skills/` 前缀
 
+## [1.4.0] - 2026-08-08
+
+### 数据一致性修复
+
+- 修复 `site/build_site.py`：frontmatter 解析时对 `name`/`description`/`category`
+  去除 YAML 引号包裹，根治 `security-best-practices` 的 name 被包裹为
+  `"security-best-practices"` 导致无法匹配磁盘与 README 的问题
+- 重新生成 `site/data/skills.json`：技能总数 197 → 200（与磁盘含 `SKILL.md`
+  的目录数一致），`meta.count` 196 → 200，分类计数全量同步
+- 补全 README 缺失的 3 个技能条目：`autonomous-loops`、`continuous-learning`、
+  `webapp-testing`（原仓库新增未同步至 README）
+- 修正 README 与 README.en.md 技能总数徽标/正文（198 → 200）及相应分类计数
+- 消除三向数据源不一致：磁盘（200）= `skills.json`（200）= README 链接（200）
+
 ## [1.3.0] - 2026-08-08
 
 ### 原型更新（site/ 展示页）

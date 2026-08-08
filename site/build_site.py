@@ -102,7 +102,11 @@ def read_skill_meta(skill_dir):
         for key in ("name", "description", "category"):
             km = re.search(rf"^{key}:\s*(.+)$", fm, re.MULTILINE)
             if km:
-                meta[key if key in ("name", "category") else "en_desc"] = km.group(1).strip()
+                val = km.group(1).strip()
+                # 去除 YAML 标量常见引号包裹（"..." 或 '...'），避免 name 带引号进入数据
+                if len(val) >= 2 and val[0] == val[-1] and val[0] in ("\"", "'"):
+                    val = val[1:-1].strip()
+                meta[key if key in ("name", "category") else "en_desc"] = val
     meta["has_scripts"] = os.path.isdir(os.path.join(skill_path, "scripts"))
     meta["has_references"] = os.path.isdir(os.path.join(skill_path, "references"))
     meta["has_assets"] = os.path.isdir(os.path.join(skill_path, "assets"))
