@@ -1,8 +1,8 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.5.0
+> 路径：`prototype/DESIGN.md` · 版本：1.7.0
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
-> 适用目录：`prototype/`（原 `site/`，已移入并重命名）。
+> 适用目录：`prototype/`（已重命名自 `site/`）。
 
 ---
 
@@ -12,142 +12,138 @@
 |------|------|
 | 极简（Minimal） | 克制的视觉语言，留白即设计；单一主色，避免渐变滥用与装饰性元素 |
 | 层级清晰（Hierarchy） | 通过字号、字重、色彩对比建立明确的信息层级，首屏 3 秒可读懂核心 |
-| 一致（Consistent） | 所有间距、圆角、阴影、动效遵循统一 Token，组件同源 |
-| 真实（Real Data） | 原型读取 `data/skills.json`（由 `build_site.py` 从磁盘 SKILL.md 生成），非占位假数据 |
+| 一致（Consistent） | 所有间距、圆角、阴影、动效遵循统一 Token，组件同源（shadcn/ui 基线） |
+| 真实（Real Data） | 原型读取 `data/skills.json`（由 `build_site.mjs`/`build_site.py` 从磁盘 SKILL.md 生成），非占位假数据 |
 | 无障碍（Accessible） | 对比度 ≥ WCAG AA，键盘可达，支持 `prefers-reduced-motion` |
 
 ---
 
 ## 2. 设计系统（Design Tokens）
 
-设计 Token 以 CSS 变量定义在 `app/globals.css` 的 `:root`（浅色）与 `:root[data-theme="dark"]`（深色）中，是全局唯一来源。
+设计 Token 以 **shadcn/ui CSS 变量（HSL 通道）** 定义在 `app/globals.css` 的 `:root`（浅色）与 `.dark`（深色）中，由 Tailwind 主题（`tailwind.config.ts`）消费。这是全局唯一来源。
 
-### 2.1 色彩
+### 2.1 色彩（HSL 通道，语义化命名）
 
 | Token | 浅色 | 深色 | 用途 |
 |-------|------|------|------|
-| `--bg` | `#fafafa` | `#09090b` | 页面背景 |
-| `--surface` | `#ffffff` | `#131316` | 卡片/弹窗表面 |
-| `--surface-2` | `#f4f4f5` | `#1c1c20` | 次级表面（按钮、标签底） |
-| `--surface-3` | `#ececee` | `#26262b` | 三级表面 |
-| `--border` | `#e4e4e7` | `#27272a` | 默认边框 |
-| `--border-strong` | `#d4d4d8` | `#3f3f46` | 悬停边框 |
-| `--text` | `#18181b` | `#fafafa` | 主文字 |
-| `--text-2` | `#3f3f46` | `#e4e4e7` | 次要文字 |
-| `--muted` | `#71717a` | `#a1a1aa` | 辅助文字 |
-| `--muted-2` | `#a1a1aa` | `#71717a` | 禁用/极弱 |
-| `--primary` | `#4f46e5` | `#818cf8` | **主色（单一靛蓝）** |
-| `--primary-hover` | `#4338ca` | `#a5b4fc` | 主色悬停 |
-| `--primary-soft` | `#eef2ff` | `#1e1b4b` | 主色浅底（聚焦环、徽章） |
-| `--primary-soft-border` | `#c7d2fe` | `#3730a3` | 主色浅底边框 |
-| `--accent` | `#059669` | `#34d399` | 强调（状态标签，低频使用） |
-| `--accent-soft` / `--accent-border` | `#ecfdf5` / `#a7f3d0` | `#052e1a` / `#065f46` | 强调浅底 |
+| `--background` | `0 0% 100%` | `224 28% 8%` | 页面背景 |
+| `--foreground` | `224 24% 12%` | `220 18% 92%` | 主文字 |
+| `--card` / `--card-foreground` | `0 0% 100%` / `224 24% 12%` | `224 24% 11%` / `220 18% 92%` | 卡片/弹窗表面 |
+| `--popover` / `--popover-foreground` | 同 card | 同 card（深） | 浮层表面 |
+| `--primary` / `--primary-foreground` | `243 75% 59%` / `0 0% 100%` | `243 80% 68%` / `224 32% 8%` | **主色（单一靛蓝）** |
+| `--secondary` / `--secondary-foreground` | `220 16% 96%` / `224 24% 18%` | `224 18% 18%` / `220 18% 88%` | 次级表面（按钮、标签底） |
+| `--muted` / `--muted-foreground` | `220 16% 96%` / `220 9% 46%` | `224 18% 16%` / `220 12% 60%` | 辅助表面 / 辅助文字 |
+| `--accent` / `--accent-foreground` | `243 75% 96%` / `243 60% 40%` | `243 40% 22%` / `243 90% 82%` | 主色浅底（聚焦环、徽章） |
+| `--destructive` / `--destructive-foreground` | `0 72% 51%` / `0 0% 100%` | `0 62% 52%` / `0 0% 100%` | 破坏性操作 |
+| `--border` / `--input` / `--ring` | `220 14% 90%` / 同 border / `243 75% 59%` | `224 16% 22%` / `224 16% 24%` / `243 80% 68%` | 边框 / 输入 / 聚焦环 |
+| `--radius` | `0.75rem` | 同 | 默认圆角基准 |
+| `--shadow-color` | `224 32% 20%` | `0 0% 0%` | 阴影色相（中性低透明） |
 
-色彩纪律：**主色仅用于主按钮、聚焦态、分类标识、选中态**；强调色仅用于 `scripts/references/assets` 等资源标签。禁止大面积渐变背景（Hero 仅保留极淡的光晕 `radial-gradient`，透明度 ≤ 0.6）。
+色彩纪律：**主色仅用于主按钮、聚焦态、分类标识、选中态**；强调色仅用于 `scripts/references/assets` 等资源标签。禁止大面积渐变背景（Hero 仅保留极淡光晕 `radial-gradient`，透明度 ≤ 0.08）。
 
 ### 2.2 字体
 
 | Token | 值 |
 |------|----|
-| `--font-sans` | `Inter, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif` |
-| `--font-mono` | `ui-monospace, SFMono-Regular, Menlo, Consolas, monospace` |
+| `--font-sans` | `ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif` |
+| `--font-mono` | `ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace` |
 
 - 基础字号 `15px`，行高 `1.6`
 - 大标题 `clamp(34px, 5.5vw, 52px)`，字重 `700`，字距 `-0.02em`
-- 卡片标题 `16px`，字重 `650`，字距 `-0.01em`
+- 卡片标题 `15px`，字重 `600`，字距 `-0.01em`
 - 英文 UI 文案首字母大写，中文不加字距
 
-### 2.3 间距（4 的倍数尺度）
+### 2.3 间距（4 的倍数尺度，Tailwind 默认 scale）
 
-| Token | 值 | 典型用途 |
-|-------|----|---------|
-| `--sp-1` | 4px | 标签内边距微调 |
-| `--sp-2` | 8px | 元素间紧凑间距 |
-| `--sp-3` | 12px | chip/标签内边距 |
-| `--sp-4` | 16px | 卡片内边距基准 |
-| `--sp-5` | 24px | 区块/工具栏内边距 |
-| `--sp-6` | 32px | 容器/章节间距 |
-| `--sp-7` | 48px | Hero 内边距、弹窗内边距 |
-| `--sp-8` | 64px | 大区块间距 |
+| 值 | 典型用途 |
+|----|---------|
+| `4px` (1) | 标签内边距微调 |
+| `8px` (2) | 元素间紧凑间距 |
+| `12px` (3) | chip/标签内边距 |
+| `16px` (4) | 卡片内边距基准 |
+| `24px` (6) | 区块/工具栏内边距 |
+| `32px` (8) | 容器/章节间距 |
+| `48px` (12) | Hero 内边距、弹窗内边距 |
+| `64px` (16) | 大区块间距 |
 
-### 2.4 圆角
+### 2.4 圆角（Tailwind 映射到 `--radius`）
 
 | Token | 值 | 用途 |
 |-------|----|------|
-| `--r-sm` | 8px | 标签、输入框 |
-| `--r-md` | 12px | 按钮、搜索框 |
-| `--r-lg` | 16px | 卡片（默认 `--radius`） |
-| `--r-xl` | 20px | 弹窗、统计条 |
-| `--r-pill` | 999px | chip、徽章、按钮胶囊 |
+| `rounded-sm` | `calc(--radius - 4px)` | 标签、输入框 |
+| `rounded-md` | `calc(--radius - 2px)` | 按钮、搜索框 |
+| `rounded-lg` | `--radius` (0.75rem) | 卡片（默认） |
+| `rounded-xl` | 1rem | 弹窗、统计条 |
+| `rounded-full` | 999px | chip、徽章、按钮胶囊 |
 
-### 2.5 阴影（分层次，浅而柔）
+### 2.5 阴影（分层次，浅而柔，带 `--shadow-color`）
 
 | Token | 值 |
 |-------|----|
-| `--shadow-xs` | `0 1px 2px rgba(24,24,27,.04)` |
-| `--shadow-sm` | `0 1px 3px rgba(24,24,27,.06), 0 1px 2px rgba(24,24,27,.04)` |
-| `--shadow-md` | `0 4px 12px rgba(24,24,27,.07), 0 2px 4px rgba(24,24,27,.04)` |
-| `--shadow-lg` | `0 12px 32px rgba(24,24,27,.10), 0 4px 8px rgba(24,24,27,.05)` |
+| `shadow-xs` | `0 1px 2px hsl(var(--shadow-color)/.04), 0 1px 3px hsl(var(--shadow-color)/.06)` |
+| `shadow-sm` | `0 1px 2px hsl(var(--shadow-color)/.05), 0 2px 6px -1px hsl(var(--shadow-color)/.08)` |
+| `shadow-md` | `0 4px 12px -2px hsl(var(--shadow-color)/.10), 0 2px 6px -2px hsl(var(--shadow-color)/.06)` |
+| `shadow-lg` | `0 12px 32px -8px hsl(var(--shadow-color)/.16), 0 4px 10px -4px hsl(var(--shadow-color)/.08)` |
 
 ### 2.6 图标
 
-- 全部使用**内联 SVG**（无外部依赖），描边图标 `strokeWidth=2`、圆角端点；填充图标仅用于搜索/主题切换。
-- 图标尺寸统一 `18–20px`；图标按钮点击区 `46×46px`（移动端 `42×42px`）。
-- 图标颜色继承 `currentColor`，随状态变化。
-- 图标集集中在 `Showcase.jsx` 的 `Icon` 对象：`search / sun / moon / grid / list / empty`。
+- 使用 **本地内联 SVG 图标集** `components/icons.tsx`（零外部依赖，避免安装/版本风险），统一 `24x24 viewBox` + `currentColor` 描边，等价于 lucide 风格。
+- 图标尺寸统一 `16-20px`（`h-4 w-4` / `h-5 w-5`），颜色继承 `currentColor` 随状态变化。
+- 业务图标语义：搜索 `Search`、主题 `Sun/Moon`、视图 `LayoutGrid/Rows3`、资源 `FileCode2/BookOpen/FolderOpen`、外链 `ExternalLink`、空态 `SlidersHorizontal`、品牌 `Boxes`、GitHub `Github`、关闭 `X`。
 
 ### 2.7 动效（Motion）
 
 | Token | 值 |
 |-------|----|
-| `--ease` | `cubic-bezier(0.22, 1, 0.36, 1)`（easeOutQuint，顺滑收尾） |
-| `--ease-in-out` | `cubic-bezier(0.4, 0, 0.2, 1)` |
-| `--dur-fast` | 140ms |
-| `--dur` | 220ms |
-| `--dur-slow` | 360ms |
+| `ease-out-quint` | `cubic-bezier(0.22, 1, 0.36, 1)`（顺滑收尾） |
+| `duration-200` | 200ms（交互反馈基准） |
+| `animate-fade-in` | `fade-in 0.3s easeOutQuint`（背景/遮罩） |
+| `animate-pop-in` | `pop-in 0.28s easeOutQuint`（弹窗卡片） |
+| `animate-slide-in-right` / `slide-out-right` | 移动端 Sheet 抽屉 |
 
 动效纪律：
-- 交互反馈（hover/active）仅用 `--dur-fast`，位移 ≤ 3px。
-- 弹窗：`fade`（背景）+ `pop`（卡片，`translateY(12px)→0, scale .98→1`）。
-- 必须尊重 `prefers-reduced-motion: reduce`——所有动画/过渡降为 `0.001ms`。
+- 交互反馈（hover/active）仅 200ms，位移 ≤ 3px（`active:scale-[0.98]`）。
+- 弹窗：背景 `fade` + 卡片 `pop`。
+- 必须尊重 `prefers-reduced-motion: reduce`——全局动画/过渡降为 `0.001ms`。
 
 ---
 
 ## 3. 组件库（Component Library）
 
-组件分三类：**基础（Base）**、**复合（Composite）**、**业务（Domain）**。以下为规范与代码位置（`app/Showcase.jsx` + `app/globals.css`）。
+组件分三类：**基础（Base）**、**复合（Composite）**、**业务（Domain）**。全部基于 shadcn/ui（new-york 风格）+ Tailwind 构建，禁止手写重复样式。
 
-### 3.1 基础组件（Base）
+### 3.1 基础组件（Base）— `components/ui/*`
 
-| 组件 | 类名 / 元素 | 状态 | 规范 |
-|------|------------|------|------|
-| 按钮 Button | `.btn` / `.btn-primary` / `.btn-ghost` | default / hover / active | 主按钮填充主色+阴影；幽灵按钮描边。active 下移 1px |
-| 图标按钮 IconButton | `.icon-btn` | default / hover / active / `.active`(选中) | 46×46，选中态填充主色反白 |
-| 标签 Tag | `.tag` / `.tag.has` | default / has | 浅底描边；`.has` 用强调色（绿）表示资源存在 |
-| Chip 分类筛选 | `.chip` | default / hover / `.active` | 胶囊，选中态反色（`--text` 底 + `--bg` 字） |
-| 输入框 Input | `#search` | default / focus | focus 主色边框 + 4px 主色浅底聚焦环 |
+| 组件 | 文件 | 变体/状态 |
+|------|------|-----------|
+| Button | `button.tsx` | `default/secondary/outline/ghost/destructive` × `default/sm/lg/icon`；`asChild` 支持 `a` 包装 |
+| Input | `input.tsx` | default / focus（ring） |
+| Badge | `badge.tsx` | `default/secondary/outline/muted/accent` |
+| Card | `card.tsx` | `Card/CardHeader/CardTitle/CardContent` |
+| Skeleton | `skeleton.tsx` | `animate-pulse` 占位 |
+| Separator | `separator.tsx` | horizontal / vertical |
+| Tabs | `tabs.tsx` | Radix Tabs（复合，可扩展多视图切换） |
+| Dialog | `dialog.tsx` | Radix Dialog（桌面详情弹窗） |
+| Sheet | `sheet.tsx` | Radix Dialog 改右侧抽屉（移动详情） |
 
-### 3.2 复合组件（Composite）
+### 3.2 复合/业务组件 — `components/*` + `app/page.tsx`
 
-| 组件 | 结构 | 规范 |
+| 组件 | 文件 | 说明 |
 |------|------|------|
-| Hero | `.hero > .hero-inner > .badge + h1 + .subtitle + .stats + .cta` | 居中、极淡光晕；标题字距收紧；统计条为胶囊卡片 |
-| Stat 统计条 | `.stats > .stat` | 两个数据（技能数/分类数），分隔竖线 |
-| Toolbar | `.toolbar > .toolbar-top + .filters` | sticky 吸顶，`scrolled` 态显示底边框；搜索框 + 三个图标按钮 + 分类 chip 横滑 |
-| Grid 网格 | `.grid` / `.grid.list` | `auto-fill minmax(300px,1fr)`；列表态单列、行内布局 |
-| Card 卡片 | `.card > .card-cat + .card-name + .card-alias? + .card-desc + .card-foot` | hover 上移 3px + 阴影提升 + 极淡主色光晕；`:focus-visible` 主色聚焦环 |
-| Modal 弹窗 | `.modal > .modal-backdrop + .modal-card` | 居中、最大宽 620px、最大高 88vh、滚动；Esc 关闭、点背景关闭、锁滚动 |
-| Empty 空状态 | `.empty` | 图标 + 标题 + 描述，虚线边框卡片 |
+| ThemeToggle | `components/theme-toggle.tsx` | 深浅主题切换，持久化 `localStorage.ash-theme`，首屏防闪烁由 `layout.tsx` 内联脚本处理 |
+| LangToggle | `components/lang-toggle.tsx` | 中英切换（受控，状态在 `page.tsx`），`aria-pressed` |
+| ViewToggle | `components/view-toggle.tsx` | 网格/列表切换（受控） |
+| SkillCard | `components/skill-card.tsx` | 网格/列表共用；`role=button`+`tabIndex=0`+`Enter/Space`；资源徽章条件渲染 |
+| SkillDetail | `components/skill-detail.tsx` | Dialog/Sheet 共用内容体；含目录、资源标签、仓库外链 |
+| 主页面 | `app/page.tsx` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式 Dialog/Sheet 调度 |
 
-### 3.3 业务组件（Domain）
+### 3.3 业务数据契约
 
-| 组件 | 数据来源 | 说明 |
-|------|----------|------|
-| SkillCard | `skills[].{name,en_name,category,zh_desc,en_desc,has_*}` | 展示单技能；`en_name` 与 `name` 不同才显示别名行 |
-| SkillModal | 同上 + `dir` | 详情弹窗；"查看 SKILL.md"链接到 `repo/tree/main/skills/{dir}/SKILL.md` |
-| CategoryFilter | `categories[].{name,en,count}` | 由磁盘分类动态生成，附加「全部」项 |
-| LangSwitch / ThemeSwitch | `localStorage` + `data-theme`/`data-lang` | 中英切换、深浅主题切换，持久化 |
-| ViewToggle | `view: grid | list` | 网格/列表切换，状态反映到 `.grid` 类名 |
+| 组件 | 数据来源 |
+|------|----------|
+| SkillCard / SkillDetail | `Skill{name,en_name,dir,category,zh_desc,en_desc,has_scripts,has_references,has_assets}` |
+| CategoryFilter（Chip） | `categories[]{name,en,count}` + 内置「全部」 |
+| 语言/主题 | `localStorage` + 根节点 `class="dark"` |
 
 ---
 
@@ -155,7 +151,8 @@
 
 ### 4.1 模式（Patterns）
 
-- **单一主任务流**：浏览 → 搜索/筛选 → 查看详情（弹窗）→ 跳转仓库。无多级路由，详情用模态而非新页面（保持原型轻量）。
+- **单一主任务流**：浏览 → 搜索/筛选 → 查看详情（弹窗/抽屉）→ 跳转仓库。无多级路由，详情用模态而非新页面（保持原型轻量）。
+- **响应式详情载体**：桌面（`>640px`）用 Dialog 居中弹窗；移动端（`≤640px`）用 Sheet 右侧抽屉（`matchMedia` 实时判定）。
 - **即时筛选**：搜索与分类筛选为受控状态、实时过滤，无需提交按钮。
 - **双语即时切换**：语言切换即时重渲 UI 文案与分类英文名，不刷新。
 
@@ -163,29 +160,29 @@
 
 | 场景 | 反馈 |
 |------|------|
-| 输入聚焦 | 主色边框 + 4px 主色浅底聚焦环 |
-| 按钮悬停/点击 | 颜色/阴影变化，active 下移 1px |
-| 卡片悬停 | 上移 3px + 阴影提升 + 极淡光晕 |
-| 筛选结果变化 | `result-count` 用 `aria-live="polite"` 播报数量 |
-| 弹窗打开 | 背景 `fade` + 卡片 `pop` 入场 |
+| 输入聚焦 | 主色边框 + 2px 主色聚焦环（`focus-visible:ring-2 ring-ring`） |
+| 按钮悬停/点击 | 颜色/阴影变化，`active:scale-[0.98]` |
+| 卡片悬停 | `hover:border-primary/40 hover:shadow-md` + 轻微上浮 |
+| 筛选结果变化 | 数量文本实时更新（可加 `aria-live="polite"`） |
+| 弹窗打开 | 背景 `fade` + 卡片 `pop`（桌面）/ 抽屉 `slide-in-right`（移动） |
 
 ### 4.3 错误（Error）
 
 - 原型为只读展示，无表单提交错误。
-- 边界情况：技能 `zh_desc`/`en_desc` 缺失时回退到另一语言（`lang ? en_desc || zh_desc : zh_desc || en_desc`）。
-- 仓库链接指向 `main` 分支固定路径，避免 404（若子路径不存在由 GitHub 处理）。
+- 边界情况：技能 `zh_desc`/`en_desc` 缺失时回退到另一语言。
+- 仓库链接指向 `github.com/{dir}`（动态构造），避免硬编码路径。
 
 ### 4.4 空状态（Empty）
 
-- 搜索/筛选无结果时显示 `.empty`：图标 + 标题「没有匹配的技能」+ 描述「换个关键词或分类试试」。
+- 搜索/筛选无结果时显示虚线边框卡片：图标 `SlidersHorizontal` + 标题「未找到匹配的技能」+ 描述 + 「清除筛选」按钮。
 - 不显示空白页；保持布局稳定。
 
 ### 4.5 键盘与可达性
 
 - 卡片 `role="button"` + `tabIndex=0`，支持 `Enter`/`Space` 打开。
-- 弹窗支持 `Esc` 关闭、`role="dialog"` `aria-modal="true"`。
-- 分类 chip 用 `role="tab"` + `aria-selected`。
-- 所有图标按钮带 `aria-label`。
+- 弹窗/抽屉基于 Radix，原生支持 `Esc` 关闭、焦点陷阱、`aria-modal`。
+- 分类 chip 用 `aria-pressed` 反映选中态。
+- 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
 
 ---
 
@@ -193,26 +190,28 @@
 
 | 断点 | 布局 |
 |------|------|
-| ≥ 721px | 网格 `minmax(300px,1fr)` 自适应多列；工具栏横排 |
-| ≤ 720px | 网格单列；列表视图卡片自动换行；统计条缩小 |
-| ≤ 420px | 图标按钮缩至 42px，间距收紧 |
+| `sm` ≥ 640px | 工具栏横排；详情用 Dialog |
+| `lg` ≥ 1024px | 网格 3 列（`lg:grid-cols-3`） |
+| `sm` ≥ 640px | 网格 2 列（`sm:grid-cols-2`） |
+| `< 640px` | 网格单列；详情用 Sheet 抽屉；分类 chip 横排可滚动 |
 
-- 移动端优先保证触控目标 ≥ 42px。
-- 分类 chip 横向滚动（`scrollbar-width: none` 隐藏滚动条）。
+- 移动端优先保证触控目标 ≥ 42px（按钮 `h-10`、图标按钮 `h-10 w-10`）。
+- 分类 chip 横向排列，超出可滚动。
 
 ---
 
 ## 6. 数据架构（Data Contract）
 
-- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → `build_site.py` → `data/skills.json` → 原型读取。
-- `skills.json` Schema（详见 `openspec/project.md` §4.5）：`meta{count,author,repo,generated_at}` + `categories[]{name,en,count}` + `skills[]{name,en_name,dir,category,zh_desc,en_desc,has_scripts,has_references,has_assets}`。
+- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → `build_site.mjs`（或 `build_site.py`）→ `data/skills.json` → 原型读取。
+- `skills.json` Schema（详见 `openspec/project.md` §4.5）：`meta{title,subtitle,author,repo,count,generated_at}` + `categories[]{name,en,count}` + `skills[]{name,en_name,dir,category,zh_desc,en_desc,has_scripts,has_references,has_assets}`。
 - 分类英文名为数据驱动（`categories[].en`），非硬编码。
-- 红色底线：数据契约须与 `build_site.py`、`openspec/project.md` 严格一致。
+- 红色底线：数据契约须与 `build_site.mjs`/`build_site.py`、`openspec/project.md` 严格一致。
 
 ---
 
 ## 7. 技术栈
 
-- Next.js 15（App Router）+ React 19，静态导出（`output: "export"`），无服务端。
+- Next.js 14（App Router）+ React 18，静态导出（`output: "export"`），无服务端。
+- UI 体系：**shadcn/ui（new-york）** + Tailwind CSS 3 + Radix UI + 本地内联 SVG 图标（`components/icons.tsx`）+ `tailwindcss-animate`。
+- 构建脚本：`npm run build`（`node build_site.mjs && next build`）；无 Python 环境时由 `build_site.mjs` 生成数据，Python 环境亦可运行 `build_site.py`。
 - 部署：腾讯云 EdgeOne（`edgeone.json`，`cd prototype && npm run build`，输出 `./prototype/out`）。
-- 无外部 UI 库、无图标库依赖（全部内联）。

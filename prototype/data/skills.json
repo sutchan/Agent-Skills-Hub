@@ -1,16 +1,17 @@
 {
   "meta": {
     "title": "Agent Skills Hub",
+    "title_zh": "Agent Skills Hub · 技能中心",
     "subtitle": "面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合",
     "author": "Sut Chan",
     "repo": "https://github.com/sutchan/Agent-Skills-Hub",
     "count": 200,
-    "generated_at": "2026-08-08T03:25:23"
+    "generated_at": "2026-08-08T06:25:35"
   },
   "categories": [
     {
       "name": "前端与 UI 设计",
-      "en": "Frontend & UI Design",
+      "en": "前端与 UI 设计",
       "count": 15
     },
     {

@@ -313,14 +313,14 @@ npm install
 # 本地开发预览
 npm run dev            # 打开 http://localhost:3000
 
-# 构建静态站点（prebuild 会自动先执行 build_site.py 生成数据）
+# 构建静态站点（会自动先执行 build_site.mjs 生成数据）
 npm run build          # 产物输出到 prototype/out/
 
 # 仅重新从 README 与 SKILL.md 生成数据（修改技能后执行；脚本位于 prototype/）
-python build_site.py
+node build_site.mjs    # 无 Python 环境用此；有 Python 亦可运行 build_site.py
 ```
 
-部署时将 `prototype/out/` 目录作为站点根目录发布即可。`out/` 内的数据由 `build_site.py` 自动生成，无需手动维护。
+部署时将 `prototype/out/` 目录作为站点根目录发布即可。`out/` 内的数据由 `build_site.mjs` 自动生成，无需手动维护。
 
 ## 技能检索
 

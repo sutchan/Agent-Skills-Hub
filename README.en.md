@@ -299,7 +299,7 @@ cd prototype
 npm install
 npm run dev      # http://localhost:3000
 npm run build    # output to prototype/out/
-python build_site.py   # regenerate data after editing skills
+node build_site.mjs   # regenerate data after editing skills (build_site.py also works)
 ```
 
 ### Finding a skill

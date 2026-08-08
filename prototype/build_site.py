@@ -9,6 +9,9 @@
 # 用法：
 #   python3 build_site.py            # 生成 data/skills.json
 #   python3 build_site.py --check    # CI 校验：已提交的 JSON 是否与最新生成一致
+#
+# 注：本仓库同时提供 Node 移植版 build_site.mjs（逻辑 1:1 对齐），
+#     供无 Python 环境使用；npm run build 默认调用 build_site.mjs。
 
 import json
 import os

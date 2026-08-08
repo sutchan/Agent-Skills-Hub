@@ -35,6 +35,17 @@ skills/scenarios/
 __pycache__/
 *.pyc
 
+# Node 依赖与构建产物（prototype 静态展示原型）
+node_modules/
+prototype/node_modules/
+prototype/out/
+*.tsbuildinfo
+
+# 密钥 / 凭证（禁止入库）
+.secret.key
+.env
+.env.local
+
 # 密钥 / 凭证（禁止入库）
 .secret.key
 .env

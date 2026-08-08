@@ -22,7 +22,7 @@ openspec archive <kebab-name>
 - **变更前**：先读 `openspec/project.md` 了解目录约定与一致性红线。
 - **写产物**：`proposal.md` 写「为什么」，`design.md` 写「怎么做」，`tasks.md` 写「步骤」。
 - **约束隔离**：`openspec instructions` 返回的 `context`/`rules` 是约束，不写入产物文件。
-- **数据纪律**：技能权威是 `skills/<name>/SKILL.md`；`prototype/data/skills.json` 由 `prototype/build_site.py` 生成，勿手改。
+- **数据纪律**：技能权威是 `skills/<name>/SKILL.md`；`prototype/data/skills.json` 由 `prototype/build_site.mjs`（或 `build_site.py`）生成，勿手改。
 - **无嵌套副本**：新技能只能落在 `skills/<name>/`，不得创建 `skills/<x>/skills/<name>/` 之类嵌套。
 
 ## 与本仓库技能的关系
