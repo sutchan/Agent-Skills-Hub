@@ -34,15 +34,19 @@
 
 | 令牌 | 明色值 | 暗色值 | 用途 |
 |---|---|---|---|
-| `--bg` | `#ffffff` | `#0a0a0a` | 页面背景 |
-| `--bg-subtle` | `#fafafa` | `#111111` | 卡片/区块背景 |
-| `--fg` | `#1a1a1a` | `#ededed` | 主文字 |
-| `--fg-muted` | `#6b7280` | `#9ca3af` | 次要文字、元信息 |
-| `--border` | `#e5e7eb` | `#262626` | 描边、分隔线 |
-| `--accent` | `#6d28d9` | `#a78bfa` | 主强调（链接、激活态、徽章） |
-| `--accent-soft` | `rgba(109,40,217,.08)` | `rgba(167,139,250,.12)` | 强调底色 |
+| `--bg` | `#f6f8fc` | `#0b0f1a` | 页面背景 |
+| `--bg-soft` | `#eef2f9` | `#111726` | Hero 渐变底 |
+| `--surface` | `#ffffff` | `#161d2e` | 卡片/控件背景 |
+| `--surface-2` | `#eef1f7` | `#1d2638` | 次级表面、标签底 |
+| `--border` | `#d8deea` | `#283248` | 描边、分隔线 |
+| `--text` | `#1f2738` | `#e7ecf5` | 主文字 |
+| `--text-strong` | `#0f1729` | `#ffffff` | 标题/强调文字 |
+| `--muted` | `#5b6577` | `#9aa6bd` | 次要文字、元信息 |
+| `--primary` | `#3b5bdb` | `#6d8bff` | 主色（链接、激活态、渐变起点） |
+| `--primary-2` | `#7048c8` | `#a06bff` | 主色渐变终点 |
+| `--accent` | `#0ca678` | `#34d8b4` | 强调（分类标签、徽章 `has`） |
 
-> 改动配色须同步修改 `app/globals.css` 两处变量块，并保持对比度 ≥ WCAG AA（4.5:1）。
+> 配色以 `app/globals.css` 的 `:root` 与 `:root[data-theme="dark"]` 为唯一事实来源，改动须同步两处变量块并保持对比度 ≥ WCAG AA（4.5:1）。
 
 ### 4.2 字体
 
@@ -55,48 +59,52 @@
 
 | 令牌 | 值 | 用途 |
 |---|---|---|
-| 半径 | `12px` | 卡片、输入框、按钮 |
-| 栅格间距 | `1rem`–`1.5rem` | 卡片网格 `gap` |
-| 页面边距 | 响应式（移动 `1rem`，桌面 `2rem`） | 容器 `max-width: 1200px` 居中 |
+| 半径 | `16px`（`--radius`，卡片）/ `14px`（输入框、chip）/ `12px`（按钮） | 圆角 |
+| 栅格间距 | `16px`（`--grid gap`） | 卡片网格间距 |
+| 页面边距 | 响应式（移动 `16–20px`，桌面 `20px`） | 容器 `max-width: 1160px` 居中 |
 
 ### 4.4 响应式断点
 
-| 视口 | 列数 | 说明 |
-|---|---|---|
-| `< 640px` | 1 | 移动端单列 |
-| `640–1024px` | 2 | 平板 |
-| `> 1024px` | 3 | 桌面 |
+| 视口 | 网格列数 | 列表视图 | 说明 |
+|---|---|---|---|
+| `< 600px` | 1 | 单列（卡片内元素换行） | 移动端 |
+| `≥ 600px` | `auto-fill, minmax(280px,1fr)` | 单列横向 | 桌面/平板 |
 
 ## 5. 布局与组件
 
 ### 5.1 页面结构（`app/page.jsx` → `Showcase`）
 
 ```
-┌─ Header（标题 / 副标题 / 双语切换 / 暗色自动）
-├─ Toolbar（搜索框 + 视图切换 grid|list + 结果计数）
-├─ FilterBar（分类锚点横向滚动，激活态 accent 下划线）
-├─ Main（技能卡片网格 / 列表）
-└─ Footer（生成时间 + 数据来源说明）
+┌─ Header（标题 / 副标题 / 双语切换 / 暗色自动 / 仓库 CTA）
+├─ Toolbar（搜索框 + 视图切换 grid|list + 语言/主题切换 + 结果计数）
+├─ FilterBar（分类 chip 横向滚动，激活态渐变填充，点击切换过滤）
+├─ Main（技能卡片：grid 多列 / list 单列横向，受视图切换控制）
+└─ Footer（技能总数 + 维护者 + 生成时间 + 数据来源说明）
 ```
 
 ### 5.2 技能卡片（`SkillCard`）
 
-字段：`name`（中文名）、`en_name`（英文名）、`en_desc`（英文简介）、`category`、
-徽章：`has_scripts` / `has_references` / `has_assets`（有则显示，无则隐藏）。
-交互：整卡为 `<a>` 链接至 `skills/<dir>/`；hover 上移 2px + 阴影加深（过渡 ≤ 200ms）。
+字段：`name`（中文名）、`en_name`（英文名，条件显示：当 `en_name !== name` 时以小字等宽字体展示）、`en_desc`（英文简介）、`zh_desc`（中文简介）、`category`。
+徽章：`has_scripts` / `has_references` / `has_assets`（有则显示 `has` 高亮态，无则灰显）。
+交互：整卡为 `role="button"` 的可点击区域（非 `<a>`），点击/Enter/Space 打开详情 Modal；hover 上移 4px + 阴影加深（过渡 ≤ 200ms）。
+视图差异：grid 为纵向卡片（描述 3 行截断）；list 为横向行（分类/别名/描述/徽章分栏，描述 2 行截断）。
 
-### 5.3 状态
+### 5.3 状态与交互流程
 
-- **空结果**：Toolbar 下方提示「未找到匹配的技能」。
-- **加载**：纯静态无加载态；`getSiteData` 同步读 JSON。
-- **过滤**：搜索（名称/英文名/描述/标签）+ 分类锚点 + 标签，三者取交集。
+- **过滤维度（仅两项取交集）**：① 关键词搜索（匹配 `name`/`zh_desc`/`en_desc`/`category`，大小写不敏感）；② 分类 chip（单选，「全部」复位）。
+- **视图切换**：Toolbar 右侧图标按钮在 `grid` / `list` 间切换，仅改变布局形态，不影响过滤结果。
+- **详情 Modal**：点击卡片打开，含分类、中/英名称、简介、状态徽章、「在仓库查看 SKILL.md」外链；Esc 关闭、点击遮罩关闭、打开时锁定 body 滚动。
+- **空结果**：过滤无匹配时显示提示文案。
+- **加载**：纯静态无加载态；`getSiteData` 同步读取 `skills.json`。
+- **明确排除**：技能数据无 `tags` 字段，`has_*` 为只读状态徽章，**不提供标签维度的过滤**（避免与原型早期描述歧义）。
 
 ## 6. 交互规范
 
-- 键盘：Tab 遍历卡片与过滤项，Enter 激活；焦点环 `outline: 2px solid var(--accent)`。
-- 语言切换：记忆到 `localStorage`（`lang` 键），默认跟随 `navigator.language`。
+- 键盘：Tab 遍历卡片与过滤项，Enter/Space 激活卡片打开 Modal；焦点环 `box-shadow: 0 0 0 3px rgba(109,139,255,.28)`（基于 `--primary`）。
+- 语言切换：记忆到 `localStorage`（`lang` 键），默认跟随 `navigator.language`，首屏由 `layout.jsx` 内联脚本注入避免闪烁。
+- 主题切换：记忆到 `localStorage`（`theme` 键），默认跟随 `prefers-color-scheme`，首屏内联脚本注入避免闪烁。
 - 动画：`transition` ≤ 200ms；`prefers-reduced-motion: reduce` 时置 0。
-- 锚点：`FilterBar` 分类链接使用 `slugify(英文分类名)` 生成 `#anchor`，与 `#cat-*` 区块 `id` 对应。
+- 分类导航：分类为 chip 按钮（单选切换过滤），**非锚点滚动**；无 `#cat-*` 区块跳转（消除早期描述歧义）。
 
 ## 7. 数据架构
 

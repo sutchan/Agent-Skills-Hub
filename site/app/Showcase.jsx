@@ -16,6 +16,8 @@ const UI = {
     toggleTheme: "切换深色 / 浅色主题",
     toggleLang: "Switch to English",
     clear: "清除筛选",
+    viewGrid: "网格视图",
+    viewList: "列表视图",
     showing: "显示",
     of: "/",
     empty: "没有匹配的技能，换个关键词试试。",
@@ -39,6 +41,8 @@ const UI = {
     toggleTheme: "Toggle dark / light theme",
     toggleLang: "切换到中文",
     clear: "Clear filters",
+    viewGrid: "Grid view",
+    viewList: "List view",
     showing: "Showing",
     of: " / ",
     empty: "No matching skills. Try another keyword.",
@@ -58,6 +62,7 @@ export default function Showcase({ data }) {
   const { meta, categories, skills } = data;
   const [activeCat, setActiveCat] = useState("全部");
   const [query, setQuery] = useState("");
+  const [view, setView] = useState("grid");
   const [modal, setModal] = useState(null);
   const [theme, setTheme] = useState("light");
   const [lang, setLang] = useState(() => {
@@ -228,6 +233,24 @@ export default function Showcase({ data }) {
                 </svg>
               )}
             </button>
+            <button
+              className="view-toggle"
+              onClick={() => setView(view === "grid" ? "list" : "grid")}
+              aria-label={view === "grid" ? t.viewList : t.viewGrid}
+              title={view === "grid" ? t.viewList : t.viewGrid}
+            >
+              {view === "grid" ? (
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" />
+                  <circle cx="3.5" cy="6" r="1.2" fill="currentColor" /><circle cx="3.5" cy="12" r="1.2" fill="currentColor" /><circle cx="3.5" cy="18" r="1.2" fill="currentColor" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
+              )}
+            </button>
           </div>
           <div className="filters" id="filters">
             {catList.map((c) => (
@@ -263,7 +286,7 @@ export default function Showcase({ data }) {
           )}
         </section>
 
-        <section className="grid" id="grid">
+        <section className={"grid " + view} id="grid">
           {filtered.map((s) => (
             <article
               key={s.dir}
@@ -282,6 +305,9 @@ export default function Showcase({ data }) {
             >
               <div className="card-cat">{catName(s.category)}</div>
               <h3 className="card-name">{s.name}</h3>
+              {s.en_name && s.en_name !== s.name && (
+                <div className="card-alias">{s.en_name}</div>
+              )}
               <p className="card-desc">
                 {lang === "en" ? s.en_desc || s.zh_desc : s.zh_desc || s.en_desc}
               </p>
@@ -322,6 +348,9 @@ export default function Showcase({ data }) {
             </button>
             <div className="modal-cat">{catName(modal.category)}</div>
             <h2 id="modal-title">{modal.name}</h2>
+            {modal.en_name && modal.en_name !== modal.name && (
+              <div className="modal-alias">{modal.en_name}</div>
+            )}
             <p className="modal-desc">
               {lang === "en" ? modal.en_desc || modal.zh_desc : modal.zh_desc || modal.en_desc}
             </p>
