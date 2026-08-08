@@ -170,7 +170,7 @@
 
 - 原型为只读展示，无表单提交错误。
 - 边界情况：技能 `zh_desc`/`en_desc` 缺失时回退到另一语言。
-- 仓库链接指向 `github.com/{dir}`（动态构造），避免硬编码路径。
+- 仓库链接指向 `{repo}/tree/main/{dir}`（动态构造，repo 取自 `skills.json` 的 `meta.repo`），避免硬编码路径。
 
 ### 4.4 空状态（Empty）
 

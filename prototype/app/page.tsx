@@ -220,6 +220,7 @@ export default function Page() {
                 skill={selected}
                 lang={lang}
                 catEn={catName(categories, selected.category)}
+                repo={meta.repo}
               />
             </>
           )}
@@ -239,6 +240,7 @@ export default function Page() {
                   skill={selected}
                   lang={lang}
                   catEn={catName(categories, selected.category)}
+                  repo={meta.repo}
                 />
               </div>
             </>

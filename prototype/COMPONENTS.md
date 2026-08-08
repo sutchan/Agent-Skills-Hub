@@ -96,7 +96,7 @@ Props：
 ### 13. SkillDetail 技能详情
 文件：`components/skill-detail.tsx`
 Props：`{ skill: Skill, lang, catEn }`。
-内容：标题 + 分类 Badge → 别名 → 描述 → 目录 `code` 块 → 资源标签组 → 仓库外链 `ExternalLink`（`https://github.com/{skill.dir}`）。
+内容：标题 + 分类 Badge → 别名 → 描述 → 目录 `code` 块 → 资源标签组 → 仓库外链 `ExternalLink`（`{repo}/tree/main/{skill.dir}`）。
 Dialog 与 Sheet 共用此内容体。
 
 ### 14. CategoryFilter（Chip）

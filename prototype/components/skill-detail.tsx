@@ -13,10 +13,12 @@ export function SkillDetail({
   skill,
   lang,
   catEn,
+  repo,
 }: {
   skill: Skill;
   lang: Lang;
   catEn: string;
+  repo?: string;
 }) {
   const title = lang === "zh" ? skill.name : skill.en_name || skill.name;
   const desc = lang === "zh" ? skill.zh_desc : skill.en_desc || skill.zh_desc;
@@ -79,7 +81,7 @@ export function SkillDetail({
       )}
 
       <a
-        href={`https://github.com/${skill.dir.replace(/\/$/, "")}`}
+        href={`${repo || "https://github.com/sutchan/Agent-Skills-Hub"}/tree/main/${skill.dir.replace(/\/$/, "")}`}
         target="_blank"
         rel="noreferrer noopener"
         className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
