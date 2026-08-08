@@ -38,7 +38,7 @@ __pycache__/
 # Node 依赖与构建产物（prototype 静态展示原型）
 node_modules/
 prototype/node_modules/
-prototype/out/
+# 注意：prototype/out/ 为预构建 HTML 高保真原型，属交付物，已入库（不忽略）
 *.tsbuildinfo
 
 # 密钥 / 凭证（禁止入库）

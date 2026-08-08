@@ -1,6 +1,4 @@
 {
-  "installCommand": "cd prototype && npm install",
-  "buildCommand": "cd prototype && npm run build",
   "outputDirectory": "./prototype/out",
   "nodeVersion": "22.11.0"
 }

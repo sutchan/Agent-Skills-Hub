@@ -304,23 +304,15 @@ git clone https://github.com/sutchan/Agent-Skills-Hub.git
 仓库内置一个基于 **Next.js** 的独立静态原型（`prototype/` 目录），使用静态导出（`output: export`），可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务，方便在线浏览全部技能。
 
 ```bash
-# 进入原型目录
-cd prototype
+# 原型为预构建静态 HTML，无需安装依赖或构建：
+# 直接用浏览器打开 prototype/out/index.html 即可预览（离线可用）。
 
-# 安装依赖
-npm install
-
-# 本地开发预览
-npm run dev            # 打开 http://localhost:3000
-
-# 构建静态站点（会自动先执行 build_site.mjs 生成数据）
-npm run build          # 产物输出到 prototype/out/
-
-# 仅重新从 README 与 SKILL.md 生成数据（修改技能后执行；脚本位于 prototype/）
-node build_site.mjs    # 无 Python 环境用此；有 Python 亦可运行 build_site.py
+# 如需本地起一个静态服务器（可选）：
+cd prototype/out && python3 -m http.server 8080
+# 然后访问 http://localhost:8080
 ```
 
-部署时将 `prototype/out/` 目录作为站点根目录发布即可。`out/` 内的数据由 `build_site.mjs` 自动生成，无需手动维护。
+部署时将 `prototype/out/` 目录作为站点根目录发布即可。原型为预构建静态产物，数据源以 `skills/<name>/SKILL.md` 为准。
 
 ## 技能检索
 

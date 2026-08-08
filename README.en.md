@@ -292,15 +292,14 @@ See the [skills-manager docs](https://github.com/xingkongliang/skills-manager) f
 
 ### Online showcase
 
-The repo ships a standalone static [Next.js](prototype/) prototype (`output: export`) deployable to EdgeOne / object storage for browsing all skills online.
+The repo ships a prebuilt static [HTML](prototype/out/) prototype for browsing all skills online. It is offline-ready and needs no build step.
 
 ```bash
-cd prototype
-npm install
-npm run dev      # http://localhost:3000
-npm run build    # output to prototype/out/
-node build_site.mjs   # regenerate data after editing skills (build_site.py also works)
+# Open prototype/out/index.html directly in a browser, or serve it:
+cd prototype/out && python3 -m http.server 8080   # http://localhost:8080
 ```
+
+Deploy `prototype/out/` as the site root to EdgeOne / object storage. The prototype is a prebuilt static artifact; its data source is `skills/<name>/SKILL.md`.
 
 ### Finding a skill
 

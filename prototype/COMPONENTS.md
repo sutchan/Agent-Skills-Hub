@@ -4,11 +4,11 @@
 > 配套 `DESIGN.md` 设计系统。本文规定每个组件的 **Props / 状态 / 用法 / 代码位置**，供后续开发与评审对齐。
 > 所有组件基于 **shadcn/ui（new-york）+ Tailwind CSS** 构建，样式由 `tailwind.config.ts` 的 Token 驱动，不手写重复 CSS。
 
-代码位置：
-- 基础/复合 UI 原语：`prototype/components/ui/*`
-- 业务组件：`prototype/components/*`
-- 页面装配：`prototype/app/page.tsx`（原 `Showcase.jsx` 已合并入此，冗余文件已删除）
-- 设计令牌：`prototype/app/globals.css` + `prototype/tailwind.config.ts`
+代码位置（构建期源码映射，原型已预渲染为静态 HTML `prototype/out/`）：
+- 基础/复合 UI 原语：源码 `components/ui/*`（按钮/输入/徽章/卡片/Tabs/Dialog/Sheet 等）
+- 业务组件：源码 `components/*`（主题切换/语言切换/视图切换/技能卡片/技能详情/图标集）
+- 页面装配：源码 `app/page.tsx`（承载搜索、分类过滤、卡片网格/列表、Dialog/Sheet 详情）
+- 设计令牌：源码 `app/globals.css` + `tailwind.config.ts`（HSL CSS 变量）
 
 ---
 

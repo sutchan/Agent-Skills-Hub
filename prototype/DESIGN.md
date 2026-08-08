@@ -210,9 +210,10 @@
 
 ---
 
-## 7. 技术栈
+## 7. 技术栈（构建期，产物已预渲染）
 
-- Next.js 14（App Router）+ React 18，静态导出（`output: "export"`），无服务端。
-- UI 体系：**shadcn/ui（new-york）** + Tailwind CSS 3 + Radix UI + 本地内联 SVG 图标（`components/icons.tsx`）+ `tailwindcss-animate`。
-- 构建脚本：`npm run build`（`node build_site.mjs && next build`）；无 Python 环境时由 `build_site.mjs` 生成数据，Python 环境亦可运行 `build_site.py`。
-- 部署：腾讯云 EdgeOne（`edgeone.json`，`cd prototype && npm run build`，输出 `./prototype/out`）。
+- 原型由 Next.js 14（App Router）+ React 18 静态导出（`output: "export"`）构建，无服务端。
+- UI 体系：**shadcn/ui（new-york）** + Tailwind CSS 3 + Radix UI + 本地内联 SVG 图标 + `tailwindcss-animate`。
+- 数据源：`skills/<name>/SKILL.md` → 构建期生成技能数据并预渲染进 `prototype/out/` 静态产物。
+- 分发形态：仓库仅保留预构建静态 HTML（`prototype/out/index.html` + `_next/` 资源）与设计文档（`DESIGN.md` / `COMPOMPONENTS.md`），Next.js 源码不随仓库分发。
+- 部署：腾讯云 EdgeOne（`edgeone.json`，以 `prototype/out/` 为站点根目录）。
