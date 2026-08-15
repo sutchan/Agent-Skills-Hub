@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.1] - 2026-08-15
+
+### 修复：线上部署技能数据全为 0 + 品牌标题拼接瑕疵
+
+- **根因（数据全 0）**：`package.json` 的 `build` 脚本仅运行 `build.mjs`，后者依赖预提交的 `skills-data.json`；EdgeOne 部署重新构建时若数据文件缺失/未就绪，`build.mjs` 抛 ENOENT 失败或产出空页面，导致线上 `SKILLS_DATA` 为空、统计与卡片全为 0
+- **修复**：`build` 脚本改为先 `build-skills-data.mjs` 生成数据再 `build.mjs` 内联，彻底消除对预提交数据文件的依赖，CI 重构建必产出 200 技能 / 13 分类
+- **标题瑕疵**：`index.html` 品牌名与副标题 `<small>` 间缺空格，渲染为「Skills HubAgent Skills Hub 原型」，已补空格
+- 版本号：package.json、index.html 头、README 徽章统一至 v1.14.1
+
 ## [1.14.0] - 2026-08-15
 
 ### feat: 分享功能 — 复制分析链接时同时复制随机项目宣传文案
