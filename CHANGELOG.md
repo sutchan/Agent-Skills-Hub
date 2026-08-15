@@ -2,6 +2,14 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.11.1] - 2026-08-15
+
+### 修复 EdgeOne Makers CI 依赖安装失败（ENOENT package.json）
+
+- **根因**：`edgeone.json` 未配置 `installCommand`，CI 默认执行 `npm install`，但仓库根目录无 `package.json`（原型为纯静态站点，`prototype/out/` 为已入库的预构建产物），导致 ENOENT 构建失败
+- **修复** `edgeone.json`：新增 `installCommand: ""` 跳过无意义依赖安装；新增 `buildCommand: "node prototype/build.mjs"` 在部署前重新生成自包含静态产物（`build.mjs` 仅依赖 Node 内置模块，无需 npm 安装）
+- 校验：`edgeone.json` 通过 `JSON.parse` 合法性检查；`build.mjs` 确认仅引用 `node:fs`/`node:path`/`node:url` 内置模块，CI 无需第三方依赖即可构建
+
 ## [1.9.1] - 2026-08-15
 
 ### 原型重构：纯 HTML 自包含高保真原型

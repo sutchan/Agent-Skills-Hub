@@ -1,4 +1,6 @@
 {
   "outputDirectory": "./prototype/out",
-  "nodeVersion": "22.11.0"
+  "nodeVersion": "22.11.0",
+  "installCommand": "",
+  "buildCommand": "node prototype/build.mjs"
 }
