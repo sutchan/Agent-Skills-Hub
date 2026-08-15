@@ -1,4 +1,4 @@
-/* prototype/src/app.css v1.13.1 — 组件与布局样式 (DESIGN.md)
+/* prototype/src/app.css v1.14.0 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
@@ -162,6 +162,20 @@ body.no-scroll { overflow: hidden; }
 .btn-primary:hover { background: var(--primary-strong); }
 .btn-ghost { background: var(--surface-2); color: var(--text-2); flex: 0 0 auto; padding: 0 16px; }
 .btn-ghost:hover { color: var(--text); }
+.btn-secondary { background: var(--surface-2); color: var(--primary); border: 1px solid var(--primary); flex: 0 0 auto; padding: 0 16px; }
+.btn-secondary:hover { background: var(--primary); color: #fff; }
+
+/* 分享复制结果轻量提示：底部居中上浮，3s 自动消失 */
+.toast {
+  position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px);
+  z-index: 60; padding: 10px 18px; border-radius: 10px;
+  background: var(--ink, #1f2937); color: #fff; font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  pointer-events: none; max-width: 86vw; text-align: center;
+}
+.toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.toast.err { background: #dc2626; }
 
 /* ---------- 移动端 Sheet ---------- */
 @media (max-width: 640px) {

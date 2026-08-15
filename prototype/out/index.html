@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.13.0 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.0 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -60,7 +60,7 @@ input { font-family: inherit; }
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-/* prototype/src/app.css v1.13.1 — 组件与布局样式 (DESIGN.md)
+/* prototype/src/app.css v1.14.0 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
@@ -224,6 +224,20 @@ body.no-scroll { overflow: hidden; }
 .btn-primary:hover { background: var(--primary-strong); }
 .btn-ghost { background: var(--surface-2); color: var(--text-2); flex: 0 0 auto; padding: 0 16px; }
 .btn-ghost:hover { color: var(--text); }
+.btn-secondary { background: var(--surface-2); color: var(--primary); border: 1px solid var(--primary); flex: 0 0 auto; padding: 0 16px; }
+.btn-secondary:hover { background: var(--primary); color: #fff; }
+
+/* 分享复制结果轻量提示：底部居中上浮，3s 自动消失 */
+.toast {
+  position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px);
+  z-index: 60; padding: 10px 18px; border-radius: 10px;
+  background: var(--ink, #1f2937); color: #fff; font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  pointer-events: none; max-width: 86vw; text-align: center;
+}
+.toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.toast.err { background: #dc2626; }
 
 /* ---------- 移动端 Sheet ---------- */
 @media (max-width: 640px) {
@@ -1737,7 +1751,7 @@ html[data-lang="zh"] .en { display: none; }
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.12.0 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.14.0 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -1769,7 +1783,15 @@ html[data-lang="zh"] .en { display: none; }
       "detail.openEn": "Open skill",
       "detail.zhName": "中文名", // 详情弹窗内中文名标题（预留）
       "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
-      "empty.clear": "清除筛选"
+      "empty.clear": "清除筛选",
+      "share.btn": "分享",
+      "share.copyOk": "已复制链接与宣传文案",
+      "share.copyFail": "复制失败，请手动复制",
+      "share.promos": [
+        "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，200+ 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
+        "🚀 Agent Skills Hub：200+ 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
+        "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，200+ 技能即插即用，开源免费！"
+      ]
     },
     en: {
       "brand.subtitle": "Agent Skills Hub Prototype",
@@ -1791,7 +1813,15 @@ html[data-lang="zh"] .en { display: none; }
       "detail.openEn": "Open skill",
       "detail.zhName": "Chinese name",
       "empty.desc": "Try a different keyword or category, or clear the current filter.",
-      "empty.clear": "Clear filters"
+      "empty.clear": "Clear filters",
+      "share.btn": "Share",
+      "share.copyOk": "Link & promo copied",
+      "share.copyFail": "Copy failed, please copy manually",
+      "share.promos": [
+        "😎 I found Agent Skills Hub — a library of 200+ high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
+        "🚀 Agent Skills Hub: 200+ curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
+        "💡 Want a stronger coding agent? Explore Agent Skills Hub: 200+ plug-and-play skills, open source and free!"
+      ]
     }
   };
 
@@ -1905,7 +1935,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/app.js v1.13.2 — 原型交互逻辑（无障碍增强 + 性能优化）
+  <script>// prototype/src/app.js v1.14.0 — 原型交互逻辑（无障碍增强 + 性能优化）
 // 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
 // 无障碍基线：卡片 role=button + tabIndex + 键盘可达；chip aria-pressed；
 // 统计区 aria-live=polite；弹窗 role=dialog + aria-modal + sr-only 标题。
@@ -2034,6 +2064,10 @@ function openDetail(name) {
     </div>
     <div class="dialog-foot" id="dialogFoot">
       <button class="btn btn-ghost" id="closeBtn2">${I18N.t("detail.close")}</button>
+      <button class="btn btn-secondary" id="shareBtn" data-name="${esc(s.name)}" aria-label="${I18N.t("share.btn")}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg>
+        <span class="zh">${I18N.t("share.btn", "zh")}</span><span class="en">${I18N.t("share.btn", "en")}</span>
+      </button>
       <a class="btn btn-primary" href="skills/${esc(s.name)}/" target="_blank" rel="noopener">
         <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
       </a>
@@ -2042,7 +2076,59 @@ function openDetail(name) {
   document.body.classList.add("no-scroll"); // 打开弹窗时锁定背景滚动
   const cb = $("#closeBtn"); if (cb) cb.onclick = closeDetail;
   const cb2 = $("#closeBtn2"); if (cb2) cb2.onclick = closeDetail;
+  const sb = $("#shareBtn");
+  if (sb) sb.onclick = () => shareSkill(sb.getAttribute("data-name"));
   if (cb) cb.focus(); // 焦点移入弹窗首个可聚焦元素，满足键盘用户可达
+}
+// 分享：复制「技能分析链接 + 随机宣传文案」，优先剪贴板 API，降级 execCommand
+function buildShareText(name) {
+  // 链接 = 站点根 + skills/<name>/（部署后自动带域名，离线回退相对路径）
+  let base = "skills/" + name + "/";
+  try {
+    const root = location.pathname.replace(/index\.html$/, "").replace(/\/$/, "");
+    base = location.origin + root + "/skills/" + name + "/";
+  } catch (e) { /* 无 location 环境保持相对路径 */ }
+  const promos = I18N.t("share.promos") || [];
+  const promo = promos.length ? promos[Math.floor(Math.random() * promos.length)] : "";
+  return base + "\n\n" + promo;
+}
+function shareSkill(name) {
+  if (!name) return;
+  const text = buildShareText(name);
+  const done = () => showToast(I18N.t("share.copyOk"));
+  const fail = () => showToast(I18N.t("share.copyFail"), true);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done, fail));
+  } else {
+    fallbackCopy(text, done, fail);
+  }
+}
+// 复制降级：创建临时 textarea + execCommand('copy')
+function fallbackCopy(text, done, fail) {
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", "");
+    ta.style.position = "absolute"; ta.style.left = "-9999px";
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    ok ? done() : fail();
+  } catch (e) { fail(); }
+}
+// 轻量 toast 反馈（role=status, aria-live=polite；3s 自动消失）
+let toastTimer = null;
+function showToast(msg, isErr) {
+  let el = $("#toast");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "toast"; el.className = "toast"; el.setAttribute("role", "status");
+    el.setAttribute("aria-live", "polite"); document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.toggle("err", !!isErr);
+  el.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 3000);
 }
 function closeDetail() {
   if (!overlay.classList.contains("open")) return;

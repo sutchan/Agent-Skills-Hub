@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.0] - 2026-08-15
+
+### feat: 分享功能 — 复制分析链接时同时复制随机项目宣传文案
+
+- **分享按钮**：技能详情弹窗新增「分享」按钮，点击将技能分析链接（`skills/<name>/`，部署后带域名）与一条**随机选取**的项目宣传文案一并复制到剪贴板
+- **多语言随机文案**：中/英各 3 条宣传文案，按当前界面语言随机取 1 条避免雷同；prototype（`i18n.js`）与 app（`lib/share.ts`）复用同一文案集合，避免漂移
+- **复制容错**：优先 `navigator.clipboard.writeText`，失败降级 `document.execCommand('copy')`，皆失败给出明确提示
+- **用户反馈**：复制成功/失败用轻量 toast（`role="status"` `aria-live="polite"`，3s 自动消失）提示
+- **两层实现**：prototype 静态原型与 app（Next.js）行为一致；规范更新至 `openspec/project.md §4.5.4` 与 `prototype/DESIGN.md §3.2/§4.2`
+- 版本号：prototype/src 改动文件头统一至 v1.14.0；app 包升至 v1.1.0
+
 ## [1.13.2] - 2026-08-15
 
 ### 修复：卡片技能名在中文模式下不显示

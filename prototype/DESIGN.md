@@ -137,6 +137,7 @@
 | ThemeToggle | `applyTheme()` | 深浅主题切换，写根节点 `data-theme` |
 | LangToggle | `I18N.toggleLang()` | 中英切换（受控），`I18N.syncDOM()` 同步 `data-lang` 与 `<html lang>` |
 | ViewToggle | `state.view` + `renderGrid()` | 网格/列表切换（受控） |
+| ShareButton | `shareSkill(name)` | 技能详情弹窗内的「分享」按钮；点击复制「技能链接 + 随机宣传文案」并 toast 反馈 |
 | SkillCard | `cardHTML()` | 网格/列表共用；`role=button`+`tabIndex=0`+`Enter/Space`；双语描述与分类标签 |
 | SkillDetail | `openDetail()` | 弹窗内容体；含中英文描述、分类、授权工具、本地仓库链接 |
 | 主页面 | `init()` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式弹窗调度 |
@@ -169,6 +170,7 @@
 | 卡片悬停 | `hover:border-primary/40 hover:shadow-md` + 轻微上浮 |
 | 筛选结果变化 | 数量文本实时更新（可加 `aria-live="polite"`） |
 | 弹窗打开 | 背景 `fade` + 卡片 `pop`（桌面）/ 抽屉 `slide-in-right`（移动） |
+| 复制分享链接 | 成功 toast「已复制链接」（`role="status"` `aria-live="polite"`）；失败 toast「复制失败，请手动复制」；3s 自动消失 |
 
 ### 4.3 错误（Error）
 

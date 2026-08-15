@@ -12,9 +12,11 @@
 
 | 路径 | 用途 |
 |------|------|
-| `app/` | Web 应用根目录（本目录） |
-| `app/src` / `app/app` | 应用源码（页面、组件、库） |
-| `app/public` | 静态资源（图标、字体等） |
+| `app/` | Web 应用根目录（本目录），同时作为 Next.js App Router 根 |
+| `app/page.tsx` / `app/layout.tsx` / `app/globals.css` | Next.js 应用入口（首页、根布局、全局样式） |
+| `app/components/` | 客户端组件（`AppShell` / `SkillsExplorer` / `SkillDialog` / `useShare`） |
+| `app/lib/` | 共享逻辑（`share.ts` 分享文案与复制、`skills.ts` 数据读取） |
+| `app/next.config.mjs` / `app/tsconfig.json` | Next.js 与 TypeScript 配置 |
 | `app/package.json` | 依赖与脚本（`dev` / `build` / `start`） |
 
 ## 约定

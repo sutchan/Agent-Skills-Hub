@@ -1,4 +1,4 @@
-// prototype/src/app.js v1.13.2 — 原型交互逻辑（无障碍增强 + 性能优化）
+// prototype/src/app.js v1.14.0 — 原型交互逻辑（无障碍增强 + 性能优化）
 // 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
 // 无障碍基线：卡片 role=button + tabIndex + 键盘可达；chip aria-pressed；
 // 统计区 aria-live=polite；弹窗 role=dialog + aria-modal + sr-only 标题。
@@ -127,6 +127,10 @@ function openDetail(name) {
     </div>
     <div class="dialog-foot" id="dialogFoot">
       <button class="btn btn-ghost" id="closeBtn2">${I18N.t("detail.close")}</button>
+      <button class="btn btn-secondary" id="shareBtn" data-name="${esc(s.name)}" aria-label="${I18N.t("share.btn")}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg>
+        <span class="zh">${I18N.t("share.btn", "zh")}</span><span class="en">${I18N.t("share.btn", "en")}</span>
+      </button>
       <a class="btn btn-primary" href="skills/${esc(s.name)}/" target="_blank" rel="noopener">
         <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
       </a>
@@ -135,7 +139,59 @@ function openDetail(name) {
   document.body.classList.add("no-scroll"); // 打开弹窗时锁定背景滚动
   const cb = $("#closeBtn"); if (cb) cb.onclick = closeDetail;
   const cb2 = $("#closeBtn2"); if (cb2) cb2.onclick = closeDetail;
+  const sb = $("#shareBtn");
+  if (sb) sb.onclick = () => shareSkill(sb.getAttribute("data-name"));
   if (cb) cb.focus(); // 焦点移入弹窗首个可聚焦元素，满足键盘用户可达
+}
+// 分享：复制「技能分析链接 + 随机宣传文案」，优先剪贴板 API，降级 execCommand
+function buildShareText(name) {
+  // 链接 = 站点根 + skills/<name>/（部署后自动带域名，离线回退相对路径）
+  let base = "skills/" + name + "/";
+  try {
+    const root = location.pathname.replace(/index\.html$/, "").replace(/\/$/, "");
+    base = location.origin + root + "/skills/" + name + "/";
+  } catch (e) { /* 无 location 环境保持相对路径 */ }
+  const promos = I18N.t("share.promos") || [];
+  const promo = promos.length ? promos[Math.floor(Math.random() * promos.length)] : "";
+  return base + "\n\n" + promo;
+}
+function shareSkill(name) {
+  if (!name) return;
+  const text = buildShareText(name);
+  const done = () => showToast(I18N.t("share.copyOk"));
+  const fail = () => showToast(I18N.t("share.copyFail"), true);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done, fail));
+  } else {
+    fallbackCopy(text, done, fail);
+  }
+}
+// 复制降级：创建临时 textarea + execCommand('copy')
+function fallbackCopy(text, done, fail) {
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", "");
+    ta.style.position = "absolute"; ta.style.left = "-9999px";
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    ok ? done() : fail();
+  } catch (e) { fail(); }
+}
+// 轻量 toast 反馈（role=status, aria-live=polite；3s 自动消失）
+let toastTimer = null;
+function showToast(msg, isErr) {
+  let el = $("#toast");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "toast"; el.className = "toast"; el.setAttribute("role", "status");
+    el.setAttribute("aria-live", "polite"); document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.toggle("err", !!isErr);
+  el.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 3000);
 }
 function closeDetail() {
   if (!overlay.classList.contains("open")) return;
