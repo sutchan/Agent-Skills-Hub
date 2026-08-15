@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.11.2] - 2026-08-15
+
+### 加固 EdgeOne CI 依赖安装修复（v1.11.1 修复未生效）
+
+- **根因复盘**：v1.11.1 在 `edgeone.json` 设 `installCommand: ""` 未生效，CLI 仍回退默认 `npm install` 并因根目录无 `package.json` 而 ENOENT 失败（空字符串被判定为"未设置"）
+- **双保险修复**：
+  1. 新增根 `package.json`（无 dependencies，含 `build` 脚本指向 `node prototype/build.mjs`），即使 CLI 回退默认 `npm install` 也会因有清单且零依赖而立即 exit 0
+  2. `edgeone.json` 的 `installCommand` 改为非空命令 `echo 'no npm dependencies to install'`，确保 CLI 执行它而非回退默认；`buildCommand` 改为 `npm run build`
+- 本地校验：`npm run build` 成功生成 `prototype/out/index.html`，两处 JSON 均合法
+
 ## [1.11.1] - 2026-08-15
 
 ### 修复 EdgeOne Makers CI 依赖安装失败（ENOENT package.json）
