@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.0.0 — 独立国际化模块
+// prototype/src/i18n.js v1.12.0 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -28,7 +28,9 @@
       "detail.close": "关闭 / Close",
       "detail.open": "查看技能",
       "detail.openEn": "Open skill",
-      "detail.zhName": "中文名" // 详情弹窗内中文名标题（预留）
+      "detail.zhName": "中文名", // 详情弹窗内中文名标题（预留）
+      "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
+      "empty.clear": "清除筛选"
     },
     en: {
       "brand.subtitle": "Agent Skills Hub Prototype",
@@ -48,7 +50,9 @@
       "detail.close": "Close / 关闭",
       "detail.open": "查看技能",
       "detail.openEn": "Open skill",
-      "detail.zhName": "Chinese name"
+      "detail.zhName": "Chinese name",
+      "empty.desc": "Try a different keyword or category, or clear the current filter.",
+      "empty.clear": "Clear filters"
     }
   };
 

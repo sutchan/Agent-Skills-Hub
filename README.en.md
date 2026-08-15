@@ -1,6 +1,6 @@
 # Skills
 
-[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.10.0-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.12.0-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Author: Sut Chan
 >
@@ -296,23 +296,28 @@ The repo provides two layers of web artifacts for both "browsing" and "developme
 
 | Directory | Type | Purpose |
 |-----------|------|---------|
-| `app/` | Runnable web app (**source**) | The project's real web app workspace (Next.js), supports `dev` / `build` / `start`, generating data from `skills/<name>/SKILL.md` at build time |
-| `prototype/` | Prebuilt static HTML prototype (**artifact**) | High-fidelity static prototype, browsable offline with no build, ready to deploy to EdgeOne / object storage |
+| `app/` | Runnable web app (**source**) | The project's web app source workspace, generating data from `skills/<name>/SKILL.md` at build time (see [`app/README.md`](app/README.md)) |
+| `prototype/` | Prebuilt static HTML prototype (**artifact**) | High-fidelity pure-static prototype (native HTML/CSS/JS), browsable offline with no build, ready to deploy to EdgeOne / object storage |
 
 #### Prototype (prototype/)
 
-The repo ships a prebuilt static [HTML](prototype/out/) prototype for browsing all skills online. It is offline-ready and needs no build step.
+The repo ships a high-fidelity static prototype built with native HTML/CSS/JS (no React/Next.js/Tailwind runtime). `prototype/src/` is inlined into a self-contained `prototype/out/index.html` by `prototype/build.mjs`, with i18n driven by the standalone module `prototype/src/i18n.js` (fail-safe `I18N.t()`).
 
 ```bash
 # Open prototype/out/index.html directly in a browser, or serve it:
-cd prototype/out && python3 -m http.server 8080   # http://localhost:8080
+cd prototype/out && python -m http.server 8080   # http://localhost:8080
+
+# Regenerate skills-data.json and rebuild the static artifact (zero npm deps):
+cd prototype
+node build-skills-data.mjs
+npm run build
 ```
 
 Deploy `prototype/out/` as the site root to EdgeOne / object storage. The prototype is a prebuilt static artifact; its data source is `skills/<name>/SKILL.md`.
 
 #### App (app/)
 
-`app/` is the runnable web app source workspace, hosting the real front-end application (Next.js 14 + React 18). Unlike `prototype/`'s prebuilt static prototype, `app/` is for actual development, iteration and build.
+`app/` is the runnable web app source workspace. Unlike `prototype/`'s prebuilt pure-static prototype, `app/` is for actual development, iteration and build (tech stack per [`app/README.md`](app/README.md)).
 
 ```bash
 cd app

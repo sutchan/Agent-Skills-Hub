@@ -1,16 +1,16 @@
 # 组件库规范（Component Library Spec）
 
-> 路径：`prototype/COMPONENTS.md` · 版本：1.9.1
+> 路径：`prototype/COMPONENTS.md` · 版本：1.12.0
 > 配套 `DESIGN.md` 设计系统。本文规定每个组件的 **Props / 状态 / 用法 / 代码位置**，供后续开发与评审对齐。
-> 所有组件基于 **shadcn/ui（new-york）+ Tailwind CSS** 构建，样式由 `tailwind.config.ts` 的 Token 驱动，不手写重复 CSS。
+> 原型落地为 **纯原生 HTML/CSS/JS**（非 React/Tailwind），样式由 `src/styles/tokens.css` + `src/app.css` 的 `:root` CSS 变量单一来源驱动，不手写重复 CSS。
 >
-> **原型落地（v1.9.1）**：`prototype/out/index.html` 用纯 HTML/CSS/JS 实现下表组件（顶栏、Hero、搜索、视图切换、分类条、卡片网格/列表、详情 Dialog/Sheet），状态由 `prototype/src/app.js` 管理，无需框架运行时。
+> **原型落地（v1.12.0）**：`prototype/out/index.html` 用纯 HTML/CSS/JS 实现下表组件（顶栏、Hero、搜索、视图切换、分类条、卡片网格/列表、详情 Dialog），状态由 `prototype/src/app.js` 管理，国际化由 `prototype/src/i18n.js` 驱动，无需框架运行时。
 
-代码位置（**构建期源码映射**，原型已预渲染为静态 HTML `prototype/out/`；Next.js 源码不随仓库分发，以下路径仅供理解静态产物实现与评审对齐）：
-- 基础/复合 UI 原语：源码 `components/ui/*`（按钮/输入/徽章/卡片/Tabs/Dialog/Sheet 等）
-- 业务组件：源码 `components/*`（主题切换/语言切换/视图切换/技能卡片/技能详情/图标集）
-- 页面装配：源码 `app/page.tsx`（承载搜索、分类过滤、卡片网格/列表、Dialog/Sheet 详情）
-- 设计令牌：源码 `app/globals.css` + `tailwind.config.ts`（HSL CSS 变量）
+代码位置（**原型源码映射**，源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/out/index.html`）：
+- 设计令牌：`src/styles/tokens.css`(`:root` CSS 变量) + `src/app.css`(组件样式)
+- 国际化：源码 `src/i18n.js`（`I18N.t()` / 语言状态 / DOM 同步）
+- 交互与渲染：源码 `src/app.js`（`cardHTML`/`openDetail`/`renderCats`/`renderGrid` 等）
+- 页面模板：源码 `src/index.html`
 
 ---
 
@@ -96,13 +96,9 @@ Props：
 布局：`view==="list"` 时 `flex items-start gap-4` 横向。
 
 ### 13. SkillDetail 技能详情
-文件：`components/skill-detail.tsx`
-Props：`{ skill: Skill, lang, catEn }`。
-内容：标题 + 分类 Badge → 别名 → 描述 → 目录 `code` 块 → 资源标签组 → 关键词标签（`#tags`）→ 仓库外链 `ExternalLink`（指向 `{repo}/tree/main/{skill.dir}`，`repo` 取自 `skills.json` 的 `meta.repo`）。
-
-> 说明：仓库内 Markdown 文档（README / CONTRIBUTING 等）中的技能链接使用相对路径
-> `skills/<name>/`，由 GitHub 自动解析；原型站点因跨域需外链，使用上述绝对 GitHub URL。
-Dialog 与 Sheet 共用此内容体。
+实现：`src/app.js` 的 `openDetail()` 渲染进 `#dialog`。
+内容：头像 + 标题（`#dialogVisibleTitle`）+ 英文别名 → 中文描述（`#dialogBlockZh`）→ 英文描述（`#dialogBlockEn`）→ 分类（`#dialogBlockCat`）→ 授权工具（`#dialogBlockTools`，条件渲染）→ 本地仓库链接按钮（`skills/<name>/`，部署后由 GitHub 自动解析为 `tree/main/skills/<name>/`，不依赖任何 `repo` 配置字段）。
+Dialog 由 `#dialog`（`role="dialog"` `aria-modal="true"` `aria-labelledby="dialogTitle"`）承载。
 
 ### 14. CategoryFilter（Chip）
 位置：`app/page.tsx` 内联 `Chip` 子组件。
@@ -114,15 +110,15 @@ Dialog 与 Sheet 共用此内容体。
 - 状态：`lang / view / query / activeCat / selected / sheetOpen / isMobile / loading`。
 - 响应式：`matchMedia("(max-width:640px)")` 决定详情用 Dialog 还是 Sheet。
 - 载入：120ms 骨架屏（`setLoading(false)`），SSG 下近乎瞬时但保证体验一致。
-- 过滤 `useMemo`：`activeCat` ∩ `query`（匹配 name/en_name/双语 desc/category）。
+- 过滤：`state.cat` ∩ `state.q`（匹配 `name`/`zh`/`description`/`category`，见 `app.js` 的 `matches()`）。
 
 ---
 
 ## 三、组件使用红线
 
-1. 新组件须复用 `DESIGN.md` 的 Tailwind Token（`bg-card`/`text-muted-foreground`/`shadow-md` 等），禁止硬编码颜色/间距值。
-2. 图标统一用 `components/icons.tsx` 本地内联 SVG 集（lucide 风格），禁止引入其他图标库或重复手绘。
-3. 所有可交互元素须有 `aria-label` 或语义角色；弹窗标题用 `sr-only` 保证可访问性。
-4. 动效时长只允许 200ms 基准 + `ease-out-quint`，且全局兼容 `prefers-reduced-motion`。
-5. 业务组件数据只读来自 `skills.json`，不内联假数据。
-6. 新增 UI 原语优先从 shadcn/ui 复制（new-york 风格），保持组件同源。
+1. 新组件须复用 `DESIGN.md` / `src/styles/tokens.css` 的 CSS 变量（`--surface`/`--text-2`/`--shadow-card` 等），禁止硬编码颜色/间距值。
+2. 图标统一用 `src/index.html` 内联 SVG（lucide 风格），禁止引入其他图标库或重复手绘。
+3. 所有可交互元素须有 `aria-label` 或语义角色；弹窗标题用 `sr-only`（`.sr-only` 工具类）保证可访问性。
+4. 动效时长只允许 ~200ms 基准 + `ease`，且全局兼容 `prefers-reduced-motion`（已在 tokens 中 transition 约束）。
+5. 业务数据只读来自 `prototype/skills-data.json`（扁平结构 `skill{name,category,zh,description,allowedTools}`），不内联假数据。
+6. 组件样式优先定义在 `src/styles/` 或 `src/app.css`，保持与令牌同源。

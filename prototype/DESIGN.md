@@ -1,10 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.9.1
+> 路径：`prototype/DESIGN.md` · 版本：1.13.0
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **原型实现方式（v1.9.1 起）**：`prototype/out/index.html` 为纯 HTML 自包含单文件——内联 `src/app.css`、`src/app.js` 与真实技能数据 `skills-data.json`，双击即可离线预览，无需 Next.js 构建。源码在 `prototype/src/`，由 `prototype/build.mjs` 注入数据构建。设计令牌与下文规范一一对应。
+> **原型实现方式（v1.9.1 起，v1.12.0 对齐）**：`prototype/out/index.html` 为纯 HTML 自包含单文件——由 `prototype/build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` + `src/app.css`、`src/i18n.js`、`src/app.js` 与真实技能数据 `prototype/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/out/` 为构建产物。
 
 ---
 
@@ -15,7 +15,7 @@
 | 极简（Minimal） | 克制的视觉语言，留白即设计；单一主色，避免渐变滥用与装饰性元素 |
 | 层级清晰（Hierarchy） | 通过字号、字重、色彩对比建立明确的信息层级，首屏 3 秒可读懂核心 |
 | 一致（Consistent） | 所有间距、圆角、阴影、动效遵循统一 Token，组件同源（shadcn/ui 基线） |
-| 真实（Real Data） | 原型数据为构建期从磁盘 `skills/<name>/SKILL.md` 生成并预渲染进 `prototype/out/`（由 `build_site.mjs`/`build_site.py` 生成），非占位假数据 |
+| 真实（Real Data） | 原型数据为构建期从磁盘 `skills/<name>/SKILL.md` 由 `prototype/build-skills-data.mjs` 生成 `skills-data.json`，再由 `prototype/build.mjs` 注入并预渲染进 `prototype/out/`，非占位假数据 |
 | 无障碍（Accessible） | 对比度 ≥ WCAG AA，键盘可达，支持 `prefers-reduced-motion` |
 
 ---
@@ -32,12 +32,12 @@
 | `--foreground` | `224 24% 12%` | `220 18% 92%` | 主文字 |
 | `--card` / `--card-foreground` | `0 0% 100%` / `224 24% 12%` | `224 24% 11%` / `220 18% 92%` | 卡片/弹窗表面 |
 | `--popover` / `--popover-foreground` | 同 card | 同 card（深） | 浮层表面 |
-| `--primary` / `--primary-foreground` | `243 75% 59%` / `0 0% 100%` | `243 80% 68%` / `224 32% 8%` | **主色（单一靛蓝）** |
+| `--primary` / `--primary-foreground` | `142 71% 38%` / `0 0% 100%` | `142 71% 60%` / `224 32% 8%` | **主色（单一绿色）** |
 | `--secondary` / `--secondary-foreground` | `220 16% 96%` / `224 24% 18%` | `224 18% 18%` / `220 18% 88%` | 次级表面（按钮、标签底） |
 | `--muted` / `--muted-foreground` | `220 16% 96%` / `220 9% 46%` | `224 18% 16%` / `220 12% 60%` | 辅助表面 / 辅助文字 |
-| `--accent` / `--accent-foreground` | `243 75% 96%` / `243 60% 40%` | `243 40% 22%` / `243 90% 82%` | 主色浅底（聚焦环、徽章） |
+| `--accent` / `--accent-foreground` | `142 71% 96%` / `142 60% 32%` | `142 40% 22%` / `142 90% 82%` | 主色浅底（聚焦环、徽章） |
 | `--destructive` / `--destructive-foreground` | `0 72% 51%` / `0 0% 100%` | `0 62% 52%` / `0 0% 100%` | 破坏性操作 |
-| `--border` / `--input` / `--ring` | `220 14% 90%` / 同 border / `243 75% 59%` | `224 16% 22%` / `224 16% 24%` / `243 80% 68%` | 边框 / 输入 / 聚焦环 |
+| `--border` / `--input` / `--ring` | `220 14% 90%` / 同 border / `142 71% 38%` | `224 16% 22%` / `224 16% 24%` / `142 71% 60%` | 边框 / 输入 / 聚焦环 |
 | `--radius` | `0.75rem` | 同 | 默认圆角基准 |
 | `--shadow-color` | `224 32% 20%` | `0 0% 0%` | 阴影色相（中性低透明） |
 
@@ -116,7 +116,7 @@
 
 ### 3.1 基础组件（Base）— `components/ui/*`（构建期源码映射）
 
-> 以下组件文件均为**原型构建期源码路径**（Next.js 源码不随仓库分发）；仓库仅保留其预渲染产物 `prototype/out/`。此处列出供理解静态产物的实现结构与评审对齐。
+> 以下组件为**原型源码结构映射**（源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/out/index.html`）；此处列出供理解静态产物的实现结构与评审对齐。注：当前实现为原生 HTML/CSS/JS（非 React 组件文件），以下按职责对应到 `src/app.js` 中的渲染函数。
 
 | 组件 | 文件 | 变体/状态 |
 |------|------|-----------|
@@ -130,24 +130,24 @@
 | Dialog | `dialog.tsx` | Radix Dialog（桌面详情弹窗） |
 | Sheet | `sheet.tsx` | Radix Dialog 改右侧抽屉（移动详情） |
 
-### 3.2 复合/业务组件 — `components/*` + `app/page.tsx`（构建期源码映射）
+### 3.2 复合/业务组件（对应 `src/app.js` 渲染函数）
 
-| 组件 | 文件 | 说明 |
+| 职责 | 实现 | 说明 |
 |------|------|------|
-| ThemeToggle | `components/theme-toggle.tsx` | 深浅主题切换，持久化 `localStorage.ash-theme`，首屏防闪烁由 `layout.tsx` 内联脚本处理 |
-| LangToggle | `components/lang-toggle.tsx` | 中英切换（受控，状态在 `page.tsx`），`aria-pressed` |
-| ViewToggle | `components/view-toggle.tsx` | 网格/列表切换（受控） |
-| SkillCard | `components/skill-card.tsx` | 网格/列表共用；`role=button`+`tabIndex=0`+`Enter/Space`；资源徽章条件渲染 |
-| SkillDetail | `components/skill-detail.tsx` | Dialog/Sheet 共用内容体；含目录、资源标签、仓库外链 |
-| 主页面 | `app/page.tsx` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式 Dialog/Sheet 调度 |
+| ThemeToggle | `applyTheme()` | 深浅主题切换，写根节点 `data-theme` |
+| LangToggle | `I18N.toggleLang()` | 中英切换（受控），`I18N.syncDOM()` 同步 `data-lang` 与 `<html lang>` |
+| ViewToggle | `state.view` + `renderGrid()` | 网格/列表切换（受控） |
+| SkillCard | `cardHTML()` | 网格/列表共用；`role=button`+`tabIndex=0`+`Enter/Space`；双语描述与分类标签 |
+| SkillDetail | `openDetail()` | 弹窗内容体；含中英文描述、分类、授权工具、本地仓库链接 |
+| 主页面 | `init()` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式弹窗调度 |
 
 ### 3.3 业务数据契约
 
-| 组件 | 数据来源 |
+| 组件 | 数据来源（`skills-data.json` 扁平结构） |
 |------|----------|
-| SkillCard / SkillDetail | `Skill{name,en_name,dir,category,zh_desc,en_desc,has_scripts,has_references,has_assets}` |
-| CategoryFilter（Chip） | `categories[]{name,en,count}` + 内置「全部」 |
-| 语言/主题 | `localStorage` + 根节点 `class="dark"` |
+| SkillCard / SkillDetail | `skill{name, category, zh, description, allowedTools}` |
+| CategoryFilter（Chip） | `categories[](string)` + 内置「全部」；计数由 `app.js` 预聚合 `catCounts` |
+| 语言/主题 | 根节点 `data-lang` / `data-theme` 属性 |
 
 ---
 
@@ -173,13 +173,13 @@
 ### 4.3 错误（Error）
 
 - 原型为只读展示，无表单提交错误。
-- 边界情况：技能 `zh_desc`/`en_desc` 缺失时回退到另一语言。
+- 边界情况：技能 `zh`/`description` 缺失时由 `esc()` 安全降级为空串，i18n 缺失 key 时由 `I18N.t()` 回退 zh / key 原文，均不崩溃。
 - 仓库内 Markdown 文档（README / CONTRIBUTING 等）的技能链接使用相对路径 `skills/<name>/`，由 GitHub 自动解析，避免硬编码用户名。
-- 原型站点的"在仓库中查看"为跨域外链，使用 `{repo}/tree/main/{dir}`（动态构造，`repo` 取自 `skills.json` 的 `meta.repo`）。
+- 原型站点详情弹窗的"查看技能"使用本地相对路径 `skills/<name>/`（部署后由 GitHub 自动解析为 `tree/main/skills/<name>/`），不依赖任何外部 `repo` 配置字段。
 
 ### 4.4 空状态（Empty）
 
-- 搜索/筛选无结果时显示虚线边框卡片：图标 `SlidersHorizontal` + 标题「未找到匹配的技能」+ 描述 + 「清除筛选」按钮。
+- 搜索/筛选无结果时显示空状态区（`#emptyState`）：图标 + 双语标题「未找到匹配的技能」+ 描述 + 「清除筛选」按钮（`#clearFilters`，点击重置 `q`/`cat` 并重渲染）。
 - 不显示空白页；保持布局稳定。
 
 ### 4.5 键盘与可达性
@@ -207,18 +207,18 @@
 
 ## 6. 数据架构（Data Contract）
 
-- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → `build_site.mjs`（或 `build_site.py`）→ 构建期技能数据 → 预渲染进 `prototype/out/` 静态产物（仓库已入库 `prototype/out/`，无需手改产物）。
-- 数据 Schema（详见 `openspec/project.md` §4.5）：`meta{title,subtitle,author,repo,count,generated_at}` + `categories[]{name,en,count}` + `skills[]{name,en_name,dir,category,zh_desc,en_desc,has_scripts,has_references,has_assets}`。
-- 分类英文名为数据驱动（`categories[].en`），非硬编码。
+- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → `prototype/build-skills-data.mjs`（生成 `prototype/skills-data.json`）→ `prototype/build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/out/index.html` 静态产物（仓库已入库 `prototype/out/`，如需更新数据重跑两脚本即可）。
+- 数据 Schema（实际为扁平结构）：`{ total:number, categories:string[], skills: Skill[] }`，其中 `Skill{ name, category, zh, description, allowedTools }`（字段名与 `openspec/project.md` §4.5 的 `name/en_name/dir/zh_desc/en_desc/...` 命名不同，以 `skills-data.json` 实际字段为准）。
+- 分类英文名为文档映射（`tools/_skill_readme_lib.py` 的 `CATEGORY_EN`），非数据内嵌。
 - 注意：`app/` 是项目**可运行 Web 应用**源码工作区（见 `app/README.md`），与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`。
-- 红色底线：数据契约须与 `build_site.mjs`/`build_site.py`、`openspec/project.md` 严格一致。
+- 红色底线：数据契约须与 `build-skills-data.mjs`/`build.mjs`、`openspec/project.md` 严格一致。
 
 ---
 
 ## 7. 技术栈（构建期，产物已预渲染）
 
-- 原型由 Next.js 14（App Router）+ React 18 静态导出（`output: "export"`）构建，无服务端。
-- UI 体系：**shadcn/ui（new-york）** + Tailwind CSS 3 + Radix UI + 本地内联 SVG 图标 + `tailwindcss-animate`。
-- 数据源：`skills/<name>/SKILL.md` → 构建期生成技能数据并预渲染进 `prototype/out/` 静态产物。
-- 分发形态：仓库仅保留预构建静态 HTML（`prototype/out/index.html` + `_next/` 资源）与设计文档（`DESIGN.md` / `COMPOMPONENTS.md`），Next.js 源码不随仓库分发。
-- 部署：腾讯云 EdgeOne（`edgeone.json`，以 `prototype/out/` 为站点根目录）。
+- 原型为**纯静态原生实现**：`src/index.html`（HTML 模板）+ `src/styles/tokens.css` + `src/app.css`（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind/HSL）+ `src/i18n.js`（独立国际化模块）+ `src/app.js`（原生 JS 渲染与交互，无 React/Next.js/Radix）。
+- 构建：`prototype/build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/out/index.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
+- 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/out/index.html`。
+- 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/out/index.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
+- 部署：腾讯云 EdgeOne（`edgeone.json`，以 `prototype/out/` 为站点根目录；`installCommand` 跳过依赖安装，`buildCommand` 执行 `npm run build` 重新生成产物）。

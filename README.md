@@ -1,6 +1,6 @@
 # Agent Skills Hub
 
-[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.10.0-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.13.0-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
@@ -305,27 +305,32 @@ git clone https://github.com/sutchan/Agent-Skills-Hub.git
 
 | 目录 | 类型 | 用途 |
 |------|------|------|
-| `app/` | 可运行 Web 应用（**源码**） | 项目的真实 Web 应用工作区（Next.js），可 `dev` / `build` / `start`，从 `skills/<name>/SKILL.md` 实时生成数据 |
-| `prototype/` | 预构建静态 HTML 原型（**交付物**） | 高保真静态原型，无需构建即可离线浏览全部技能，适合一键部署到 EdgeOne / 对象存储 |
+| `app/` | 可运行 Web 应用（**源码**） | 项目的应用源码工作区，从 `skills/<name>/SKILL.md` 实时生成数据（详见 [`app/README.md`](app/README.md)） |
+| `prototype/` | 预构建静态 HTML 原型（**交付物**） | 高保真纯静态原型（原生 HTML/CSS/JS），无需构建即可离线浏览全部技能，适合一键部署到 EdgeOne / 对象存储 |
 
 ### 原型（prototype/）
 
-仓库内置一个基于 **Next.js** 的独立静态原型，使用静态导出（`output: export`）预构建为纯静态 HTML，可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务。
+仓库内置一个高保真静态原型，由原生 HTML/CSS/JS 实现（`prototype/src/` 经 `prototype/build.mjs` 注入真实数据生成自包含 `prototype/out/index.html`），**无需 React/Next.js/Tailwind 运行时**，可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务。国际化由独立模块 `prototype/src/i18n.js` 驱动（`I18N.t()` 容错兜底，翻译缺失也不崩溃）。
 
 ```bash
 # 原型为预构建静态 HTML，无需安装依赖或构建：
 # 直接用浏览器打开 prototype/out/index.html 即可预览（离线可用）。
 
 # 如需本地起一个静态服务器（可选）：
-cd prototype/out && python3 -m http.server 8080
+cd prototype/out && python -m http.server 8080
 # 然后访问 http://localhost:8080
+
+# 如需从磁盘 skills/ 重新生成数据并重建静态产物（零 npm 依赖）：
+cd prototype
+node build-skills-data.mjs   # 重新生成 skills-data.json
+npm run build                # 重新生成 out/index.html
 ```
 
 部署时将 `prototype/out/` 目录作为站点根目录发布即可。原型为预构建静态产物，数据源以 `skills/<name>/SKILL.md` 为准。
 
 ### 应用（app/）
 
-`app/` 是项目 Web 应用的可开发源码工作区，承载可运行的前端应用（基于 Next.js 14 + React 18）。与 `prototype/` 的「预构建静态原型」不同，`app/` 用于实际开发、迭代与构建。
+`app/` 是项目 Web 应用的可开发源码工作区。与 `prototype/` 的「预构建纯静态原型」不同，`app/` 用于实际开发、迭代与构建（具体技术栈见 [`app/README.md`](app/README.md)）。
 
 ```bash
 cd app

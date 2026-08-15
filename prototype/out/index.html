@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.0.0 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.12.0 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 原型</title>
-  <style>/* prototype/src/app.css v1.0.0 — 高保真原型设计系统 (DESIGN.md) */
+  <style>/* prototype/src/styles/tokens.css v1.13.0 — 设计令牌 + reset（DESIGN.md §2） */
 :root {
   --bg: #f7f8fa;
   --surface: #ffffff;
@@ -14,9 +14,9 @@
   --text: #1a1d23;
   --text-2: #5b6472;
   --text-3: #8a93a3;
-  --primary: #4f46e5;
-  --primary-weak: #eef0fe;
-  --primary-strong: #4338ca;
+  --primary: #16a34a;
+  --primary-weak: #e7f6ec;
+  --primary-strong: #15803d;
   --danger: #e5484d;
   --radius: 14px;
   --radius-sm: 10px;
@@ -34,9 +34,9 @@ html[data-theme="dark"] {
   --text: #e7ebf1;
   --text-2: #a3adbd;
   --text-3: #6b7484;
-  --primary: #818cf8;
-  --primary-weak: #232644;
-  --primary-strong: #a5b0ff;
+  --primary: #4ade80;
+  --primary-weak: #16291f;
+  --primary-strong: #86efac;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, .4);
   --shadow-pop: 0 16px 40px rgba(0, 0, 0, .6);
 }
@@ -54,6 +54,15 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 input { font-family: inherit; }
 
+/* 仅供屏幕阅读器（sr-only）— 弹窗标题等无障碍语义（COMPONENTS #7） */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* prototype/src/app.css v1.13.0 — 组件与布局样式 (DESIGN.md)
+   设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
+
 /* ---------- 顶栏 ---------- */
 .topbar {
   position: sticky; top: 0; z-index: 30;
@@ -69,7 +78,7 @@ input { font-family: inherit; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; }
 .brand .logo {
   width: 32px; height: 32px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  background: linear-gradient(135deg, var(--primary), #22c55e);
   display: grid; place-items: center; color: #fff; font-size: 16px; font-weight: 800;
 }
 .brand small { display: block; font-size: 11px; font-weight: 500; color: var(--text-3); }
@@ -138,7 +147,7 @@ input { font-family: inherit; }
 .card .avatar {
   width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
   display: grid; place-items: center; font-weight: 700; font-size: 16px; color: #fff;
-  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  background: linear-gradient(135deg, var(--primary), #22c55e);
 }
 .grid.list .card { flex-direction: row; align-items: center; gap: 14px; padding: 14px 18px; }
 .grid.list .card .body { flex: 1; }
@@ -201,6 +210,21 @@ input { font-family: inherit; }
   .grid.list .card .desc { display: -webkit-box; }
 }
 
+/* ---------- 卡片键盘焦点环（无障碍） ---------- */
+.card:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ---------- 空状态（DESIGN §4.4） ---------- */
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 6px; padding: 64px 24px; color: var(--text-2);
+}
+.empty-state svg { color: var(--text-3); margin-bottom: 8px; }
+.empty-state .empty-title { font-size: 17px; font-weight: 700; color: var(--text); }
+.empty-state .empty-desc { font-size: 13.5px; max-width: 320px; }
+.empty-state #clearFilters { margin-top: 10px; }
+
+
 /* 语言切换后英文描述 */
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
@@ -214,8 +238,8 @@ html[data-lang="zh"] .en { display: none; }
         <span>Skills Hub<small data-i18n="brand.subtitle">Agent Skills Hub 原型</small></span>
       </a>
       <div class="topbar-spacer"></div>
-      <button class="icon-btn" id="langBtn" title="语言 / Language" data-i18n="lang.toggle">中 / EN</button>
-      <button class="icon-btn" id="themeBtn" title="主题 / Theme" data-i18n="theme.toggle">
+      <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言 / Switch language" data-i18n="lang.toggle">中 / EN</button>
+      <button class="icon-btn" id="themeBtn" title="主题 / Theme" aria-label="切换主题 / Switch theme" data-i18n="theme.toggle">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon">
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
@@ -229,7 +253,7 @@ html[data-lang="zh"] .en { display: none; }
     <h1 class="en" id="heroTitleEn" data-i18n="hero.title">Discover & reuse 200+ high-quality agent skills</h1>
     <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
     <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
-    <div class="stats" id="heroStats">
+    <div class="stats" id="heroStats" aria-live="polite">
       <div class="stat"><div class="num" id="statTotal">0</div><div class="label zh" data-i18n="stat.total">技能总数</div><div class="label en" data-i18n="stat.total">Total skills</div></div>
       <div class="stat"><div class="num" id="statCats">0</div><div class="label zh" data-i18n="stat.cats">分类</div><div class="label en" data-i18n="stat.cats">Categories</div></div>
       <div class="stat"><div class="num" id="statShown">0</div><div class="label zh" data-i18n="stat.shown">当前展示</div><div class="label en" data-i18n="stat.shown">Shown</div></div>
@@ -239,7 +263,7 @@ html[data-lang="zh"] .en { display: none; }
   <div class="controls" id="searchControls">
     <div class="search" id="searchBox">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
-      <input id="searchInput" type="text" placeholder="搜索技能名称或描述…" />
+      <input id="searchInput" type="search" aria-label="搜索技能 / Search skills" placeholder="搜索技能名称或描述…" />
     </div>
     <div class="view-toggle" id="viewToggle">
       <button data-view="grid" class="active" title="网格">
@@ -251,9 +275,9 @@ html[data-lang="zh"] .en { display: none; }
     </div>
   </div>
 
-  <nav class="cats" id="categoryNav"><div class="cats-scroll" id="cats"></div></nav>
+  <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="cats-scroll" id="cats"></div></nav>
 
-  <main class="grid" id="grid" aria-label="技能列表"></main>
+  <main class="grid" id="grid" aria-label="技能列表" aria-live="polite"></main>
 
   <div class="overlay" id="overlay">
     <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"></div>
@@ -1679,7 +1703,7 @@ html[data-lang="zh"] .en { display: none; }
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.0.0 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.12.0 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -1709,7 +1733,9 @@ html[data-lang="zh"] .en { display: none; }
       "detail.close": "关闭 / Close",
       "detail.open": "查看技能",
       "detail.openEn": "Open skill",
-      "detail.zhName": "中文名" // 详情弹窗内中文名标题（预留）
+      "detail.zhName": "中文名", // 详情弹窗内中文名标题（预留）
+      "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
+      "empty.clear": "清除筛选"
     },
     en: {
       "brand.subtitle": "Agent Skills Hub Prototype",
@@ -1729,7 +1755,9 @@ html[data-lang="zh"] .en { display: none; }
       "detail.close": "Close / 关闭",
       "detail.open": "查看技能",
       "detail.openEn": "Open skill",
-      "detail.zhName": "Chinese name"
+      "detail.zhName": "Chinese name",
+      "empty.desc": "Try a different keyword or category, or clear the current filter.",
+      "empty.clear": "Clear filters"
     }
   };
 
@@ -1843,8 +1871,10 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/app.js v1.0.0 — 原型交互逻辑
+  <script>// prototype/src/app.js v1.12.0 — 原型交互逻辑（无障碍增强 + 性能优化）
 // 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
+// 无障碍基线：卡片 role=button + tabIndex + 键盘可达；chip aria-pressed；
+// 统计区 aria-live=polite；弹窗 role=dialog + aria-modal + sr-only 标题。
 const state = { q: "", cat: "全部", view: "grid", theme: "light" };
 const $ = (s) => document.querySelector(s);
 const grid = $("#grid");
@@ -1855,17 +1885,23 @@ function initials(name) {
   const s = name.replace(/[-_]/g, " ").trim();
   return (s[0] || "S").toUpperCase();
 }
+// 防止 XSS：转义特殊字符后再拼入 innerHTML
 function esc(str) {
   return String(str || "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
+// 分类计数预聚合（避免每次渲染类别时全量遍历技能，O(n) 一次）
+const catCounts = (() => {
+  const m = new Map();
+  SKILLS_DATA.skills.forEach((s) => m.set(s.category, (m.get(s.category) || 0) + 1));
+  return m;
+})();
+
+// 关键词匹配：对齐规范 4.5.3①（name / zh / en / category 不敏感匹配）
 function matches(s) {
   if (state.cat !== "全部" && s.category !== state.cat) return false;
   if (!state.q) return true;
   const q = state.q.toLowerCase();
-  return (s.name + " " + s.zh + " " + s.description).toLowerCase().includes(q);
-}
-function pick(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+  return (s.name + " " + s.zh + " " + s.description + " " + s.category).toLowerCase().includes(q);
 }
 
 // ---------- 渲染 ----------
@@ -1878,14 +1914,17 @@ function renderCats() {
   const cats = ["全部", ...SKILLS_DATA.categories];
   $("#cats").innerHTML = cats
     .map((c) => {
-      const n = c === "全部" ? SKILLS_DATA.total : SKILLS_DATA.skills.filter((s) => s.category === c).length;
-      return `<button class="chip ${c === state.cat ? "active" : ""}" data-cat="${esc(c)}">${esc(c)}<span class="c">${n}</span></button>`;
+      const n = c === "全部" ? SKILLS_DATA.total : (catCounts.get(c) || 0);
+      const active = c === state.cat;
+      // aria-pressed 反映分类选中态（COMPONENTS #14）
+      return `<button class="chip ${active ? "active" : ""}" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)}<span class="c">${n}</span></button>`;
     })
     .join("");
 }
 function cardHTML(s) {
-  const listCls = state.view === "list" ? "" : "";
-  return `<article class="card" data-name="${esc(s.name)}">
+  // 卡片可键盘可达：role=button + tabIndex=0 + 语义 aria-label（COMPONENTS #12）
+  const label = s.zh ? `${s.zh}（${s.name}）` : s.name;
+  return `<article class="card" data-name="${esc(s.name)}" role="button" tabindex="0" aria-label="${esc(label)}">
     <div class="avatar">${initials(s.name)}</div>
     <div class="body">
       <div class="name">${esc(s.zh || s.name)}
@@ -1897,13 +1936,22 @@ function cardHTML(s) {
     </div>
   </article>`;
 }
+function emptyHTML() {
+  // 空状态：图标 + 标题 + 描述 + 清除筛选按钮（DESIGN §4.4）
+  return `<div class="empty-state" id="emptyState">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M6 6v14a2 2 0 002 2h8a2 2 0 002-2V6M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2M10 11v6M14 11v6"/></svg>
+    <div class="empty-title zh">${I18N.t("empty", "zh")}</div>
+    <div class="empty-title en">${I18N.t("empty", "en")}</div>
+    <p class="empty-desc zh">${I18N.t("empty.desc", "zh")}</p>
+    <p class="empty-desc en">${I18N.t("empty.desc", "en")}</p>
+    <button class="btn btn-ghost" id="clearFilters">${I18N.t("empty.clear")}</button>
+  </div>`;
+}
 function renderGrid() {
   const filtered = SKILLS_DATA.skills.filter(matches);
   renderStats(filtered);
   grid.className = "grid" + (state.view === "list" ? " list" : "");
-  grid.innerHTML = filtered.length
-    ? filtered.map(cardHTML).join("")
-    : `<div class="empty zh">${I18N.t("empty", "zh")}</div><div class="empty en">${I18N.t("empty", "en")}</div>`;
+  grid.innerHTML = filtered.length ? filtered.map(cardHTML).join("") : emptyHTML();
 }
 
 // ---------- 详情弹窗 ----------
@@ -1917,23 +1965,24 @@ function openDetail(name) {
     .map((t) => `<span class="tool">${esc(t)}</span>`)
     .join("");
   $("#dialog").innerHTML = `
-    <div class="dialog-head">
+    <div class="sr-only" id="dialogTitle">${esc(s.zh || s.name)}</div>
+    <div class="dialog-head" id="dialogHead">
       <div class="avatar">${initials(s.name)}</div>
       <div>
-        <h2>${esc(s.zh || s.name)}</h2>
+        <h2 id="dialogVisibleTitle">${esc(s.zh || s.name)}</h2>
         <div class="sub en">${esc(s.name)}</div>
       </div>
-      <button class="icon-btn dialog-close" id="closeBtn" aria-label="关闭">
+      <button class="icon-btn dialog-close" id="closeBtn" aria-label="${I18N.t("detail.close")}">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
       </button>
     </div>
-    <div class="dialog-body">
-      <div class="block"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.zhTitle", "en")}</h3><p class="zh">${esc(s.zh)}</p></div>
-      <div class="block"><h3 class="zh">${I18N.t("detail.enTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p class="en">${esc(s.description)}</p></div>
-      <div class="block"><h3>${I18N.t("detail.catTitle")}</h3><p>${esc(s.category)}</p></div>
-      ${tools ? `<div class="block"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${tools}</div></div>` : ""}
+    <div class="dialog-body" id="dialogBody">
+      <div class="block" id="dialogBlockZh"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.zhTitle", "en")}</h3><p class="zh">${esc(s.zh)}</p></div>
+      <div class="block" id="dialogBlockEn"><h3 class="zh">${I18N.t("detail.enTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p class="en">${esc(s.description)}</p></div>
+      <div class="block" id="dialogBlockCat"><h3>${I18N.t("detail.catTitle")}</h3><p>${esc(s.category)}</p></div>
+      ${tools ? `<div class="block" id="dialogBlockTools"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${tools}</div></div>` : ""}
     </div>
-    <div class="dialog-foot">
+    <div class="dialog-foot" id="dialogFoot">
       <button class="btn btn-ghost" id="closeBtn2">${I18N.t("detail.close")}</button>
       <a class="btn btn-primary" href="skills/${esc(s.name)}/" target="_blank" rel="noopener">
         <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
@@ -1956,11 +2005,20 @@ function applyTheme() {
 function applyLang() {
   // 语言状态与 DOM 同步统一交给 I18N 模块，保证文案随语言联动且不崩溃
   I18N.syncDOM();
+  // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
+  const si = $("#searchInput");
+  if (si) si.placeholder = I18N.t("search.placeholder");
 }
 
 // ---------- 事件绑定 ----------
 function bind() {
-  $("#searchInput").addEventListener("input", (e) => { state.q = e.target.value; renderGrid(); });
+  // 轻量防抖，避免每次按键全量重渲染（性能）
+  let t;
+  $("#searchInput").addEventListener("input", (e) => {
+    clearTimeout(t);
+    const v = e.target.value;
+    t = setTimeout(() => { state.q = v; renderGrid(); }, 120);
+  });
   $("#viewToggle").addEventListener("click", (e) => {
     const b = e.target.closest("button"); if (!b) return;
     state.view = b.dataset.view;
@@ -1971,10 +2029,25 @@ function bind() {
     const b = e.target.closest(".chip"); if (!b) return;
     state.cat = b.dataset.cat; renderCats(); renderGrid();
   });
+  // 卡片点击（鼠标）与键盘（Enter/Space）统一打开详情
   grid.addEventListener("click", (e) => {
     const c = e.target.closest(".card"); if (c) openDetail(c.dataset.name);
   });
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) closeDetail(); });
+  grid.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const c = e.target.closest(".card"); if (!c) return;
+    e.preventDefault();
+    openDetail(c.dataset.name);
+  });
+  // 空状态清除筛选按钮
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) { closeDetail(); return; }
+    if (e.target.closest("#clearFilters")) {
+      state.q = ""; state.cat = "全部";
+      const si = $("#searchInput"); if (si) si.value = "";
+      renderCats(); renderGrid();
+    }
+  });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetail(); });
   $("#themeBtn").addEventListener("click", () => { state.theme = state.theme === "light" ? "dark" : "light"; applyTheme(); });
   $("#langBtn").addEventListener("click", () => { I18N.toggleLang(); });

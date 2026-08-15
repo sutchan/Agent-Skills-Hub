@@ -1,51 +1,5 @@
-/* prototype/src/app.css v1.0.0 — 高保真原型设计系统 (DESIGN.md) */
-:root {
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --surface-2: #f1f3f5;
-  --border: #e4e7ec;
-  --text: #1a1d23;
-  --text-2: #5b6472;
-  --text-3: #8a93a3;
-  --primary: #4f46e5;
-  --primary-weak: #eef0fe;
-  --primary-strong: #4338ca;
-  --danger: #e5484d;
-  --radius: 14px;
-  --radius-sm: 10px;
-  --shadow-card: 0 1px 2px rgba(16, 24, 40, .05), 0 1px 3px rgba(16, 24, 40, .04);
-  --shadow-pop: 0 12px 32px rgba(16, 24, 40, .16), 0 4px 12px rgba(16, 24, 40, .08);
-  --font-sans: "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-en: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --maxw: 1200px;
-}
-html[data-theme="dark"] {
-  --bg: #0d0f14;
-  --surface: #161a22;
-  --surface-2: #1e232d;
-  --border: #2a313d;
-  --text: #e7ebf1;
-  --text-2: #a3adbd;
-  --text-3: #6b7484;
-  --primary: #818cf8;
-  --primary-weak: #232644;
-  --primary-strong: #a5b0ff;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, .4);
-  --shadow-pop: 0 16px 40px rgba(0, 0, 0, .6);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
-body {
-  font-family: var(--font-sans);
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.6;
-  transition: background .2s ease, color .2s ease;
-}
-a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-input { font-family: inherit; }
+/* prototype/src/app.css v1.13.0 — 组件与布局样式 (DESIGN.md)
+   设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 顶栏 ---------- */
 .topbar {
@@ -62,7 +16,7 @@ input { font-family: inherit; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; }
 .brand .logo {
   width: 32px; height: 32px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  background: linear-gradient(135deg, var(--primary), #22c55e);
   display: grid; place-items: center; color: #fff; font-size: 16px; font-weight: 800;
 }
 .brand small { display: block; font-size: 11px; font-weight: 500; color: var(--text-3); }
@@ -131,7 +85,7 @@ input { font-family: inherit; }
 .card .avatar {
   width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
   display: grid; place-items: center; font-weight: 700; font-size: 16px; color: #fff;
-  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  background: linear-gradient(135deg, var(--primary), #22c55e);
 }
 .grid.list .card { flex-direction: row; align-items: center; gap: 14px; padding: 14px 18px; }
 .grid.list .card .body { flex: 1; }
@@ -193,6 +147,21 @@ input { font-family: inherit; }
   .card .desc { display: none; }
   .grid.list .card .desc { display: -webkit-box; }
 }
+
+/* ---------- 卡片键盘焦点环（无障碍） ---------- */
+.card:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ---------- 空状态（DESIGN §4.4） ---------- */
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 6px; padding: 64px 24px; color: var(--text-2);
+}
+.empty-state svg { color: var(--text-3); margin-bottom: 8px; }
+.empty-state .empty-title { font-size: 17px; font-weight: 700; color: var(--text); }
+.empty-state .empty-desc { font-size: 13.5px; max-width: 320px; }
+.empty-state #clearFilters { margin-top: 10px; }
+
 
 /* 语言切换后英文描述 */
 html[data-lang="en"] .zh { display: none; }

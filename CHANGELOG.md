@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.12.0] - 2026-08-15
+
+### 代码审查：无障碍增强、性能优化、规范对齐与模块拆分
+
+- **无障碍（WCAG AA 基线）**：卡片补充 `role=button`+`tabIndex=0`+`aria-label` 并支持 Enter/Space 键打开；分类 chip 加 `aria-pressed`；统计区与结果网格加 `aria-live=polite`；弹窗 `role=dialog`+`aria-modal`+`sr-only` 标题；图标按钮/搜索框/分类 nav 补 `aria-label`；聚焦环 `.card:focus-visible`
+- **空状态增强**：新增图标 + 双语描述 + 「清除筛选」按钮（`#clearFilters`），对齐 DESIGN §4.4
+- **性能优化**：分类计数由每次渲染全量遍历改为预聚合 `catCounts`（O(n) 一次）；关键词匹配补全 `category` 字段（对齐规范 4.5.3①）；搜索输入加 120ms 防抖
+- **健壮性**：删除未使用 `pick` 函数与空 `listCls` 计算；搜索框占位符随语言由 `I18N.t()` 驱动；i18n 容错兜底保持不变
+- **模块拆分**：`app.css` 拆出 `src/styles/tokens.css`（设计令牌 + reset + `.sr-only`）；`tools/skills_readme.py`(265行) 拆出纯函数层 `tools/_skill_readme_lib.py`（解析/读取），主文件降为编排层。所有源文件 ≤200 行
+- **规范对齐（DESIGN.md / COMPONENTS.md）**：修正过时引用（Next.js/React/Tailwind → 纯原生 HTML/CSS/JS；`build_site.mjs`/`skills.json 的 meta.repo` → `build.mjs`/`skills-data.json` 扁平结构）；README/README.en 同步纯静态实现与构建命令、`app/` 技术栈断言去具体化
+- **版本号统一**：prototype/src 各文件头、package.json、README 徽章统一至 v1.12.0
+
 ## [1.11.2] - 2026-08-15
 
 ### 加固 EdgeOne CI 依赖安装修复（v1.11.1 修复未生效）
@@ -43,6 +55,16 @@
 - **动态文案集中**：`prototype/src/app.js` 的空状态、详情弹窗标题改用 `I18N.t(key)`，语言状态与 `data-lang`/`<html lang>` 同步统一交给模块
 - **构建管道** `prototype/build.mjs`：新增 `{{I18N}}` 占位符，将 `i18n.js` 内联进 `out/index.html`（保证 `I18N` 在 `app.js` 前加载）
 - 校验：Node 单测覆盖字典覆盖、缺失 key 兜底、非法语言忽略、字典损坏不抛错；构建产物已验证内联且无残留占位符
+
+## [1.13.0] - 2026-08-15
+
+### 主色调由紫色改为绿色 + 设计文档对齐
+
+- `prototype/src/styles/tokens.css`：浅色 `--primary` `#4f46e5`→`#16a34a`、`--primary-weak` `#eef0fe`→`#e7f6ec`、`--primary-strong` `#4338ca`→`#15803d`；深色 `--primary` `#818cf8`→`#4ade80`、`--primary-weak` `#232644`→`#16291f`、`--primary-strong` `#a5b0ff`→`#86efac`
+- `prototype/src/app.css`：品牌 logo 与卡片头像渐变末端 `#8b5cf6`→`#22c55e`（2 处）
+- `prototype/DESIGN.md`：§2.1 色彩表 `--primary`/`--accent`/`--ring` 的 HSL 值与描述同步为绿色（原文档 HSL 仍写紫，已修正为 `142 71%` 绿相，消除文档与代码脱节）
+- `prototype/out/index.html`：重跑 `node build.mjs` 重新生成自包含产物，已无紫色残留（校验 0 处）
+- 校验：仅替换色值，未改动 DOM 结构与交互逻辑；语义化 id（上轮 v1.10.0 已加）保持不动；对比度仍满足 WCAG AA
 
 ## [1.10.0] - 2026-08-15
 
