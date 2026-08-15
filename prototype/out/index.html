@@ -1905,7 +1905,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/app.js v1.13.0 — 原型交互逻辑（无障碍增强 + 性能优化）
+  <script>// prototype/src/app.js v1.13.2 — 原型交互逻辑（无障碍增强 + 性能优化）
 // 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
 // 无障碍基线：卡片 role=button + tabIndex + 键盘可达；chip aria-pressed；
 // 统计区 aria-live=polite；弹窗 role=dialog + aria-modal + sr-only 标题。
@@ -1967,14 +1967,16 @@ function renderCats() {
     })
     .join("");
 }
+// 卡片可键盘可达：role=button + tabIndex=0 + 语义 aria-label（COMPONENTS #12）
+// 主标题显示中文名（zh）；英文技能名（name）作为 badge 始终可见——
+// 它是技能的稳定标识，且用户常按英文名检索/调用，故不受语言切换隐藏规则影响
 function cardHTML(s) {
-  // 卡片可键盘可达：role=button + tabIndex=0 + 语义 aria-label（COMPONENTS #12）
   const label = s.zh ? `${s.zh}（${s.name}）` : s.name;
   return `<article class="card" data-name="${esc(s.name)}" role="button" tabindex="0" aria-label="${esc(label)}">
     <div class="avatar">${initials(s.name)}</div>
     <div class="body">
       <div class="name">${esc(s.zh || s.name)}
-        <span class="badge en">${esc(s.name)}</span>
+        <span class="badge">${esc(s.name)}</span>
       </div>
       <div class="desc zh">${esc(s.zh)}</div>
       <div class="desc en">${esc(s.description)}</div>
