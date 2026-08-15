@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.14.0 — 独立国际化模块
+// prototype/src/i18n.js v1.14.2 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -14,7 +14,7 @@
       "brand.subtitle": "Agent Skills Hub 原型",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
-      "hero.title": "发现并复用 200+ 高质量 Agent 技能",
+      "hero.title": "发现并复用 {n} 高质量 Agent 技能",
       "hero.subtitle": "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。",
       "stat.total": "技能总数",
       "stat.cats": "分类",
@@ -44,7 +44,7 @@
       "brand.subtitle": "Agent Skills Hub Prototype",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
-      "hero.title": "Discover & reuse 200+ high-quality agent skills",
+      "hero.title": "Discover & reuse {n} high-quality agent skills",
       "hero.subtitle": "Browse by category, search, or inspect skill details — ready to drop into your coding agent.",
       "stat.total": "Total skills",
       "stat.cats": "Categories",

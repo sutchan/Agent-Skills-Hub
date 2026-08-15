@@ -1,9 +1,11 @@
-// prototype/src/app.js v1.14.0 — 原型交互逻辑（无障碍增强 + 性能优化）
+// prototype/src/app.js v1.14.2 — 原型交互逻辑（无障碍增强 + 性能优化）
 // 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
 // 无障碍基线：卡片 role=button + tabIndex + 键盘可达；chip aria-pressed；
 // 统计区 aria-live=polite；弹窗 role=dialog + aria-modal + sr-only 标题。
 // UX 增强：主题/语言偏好持久化；弹窗焦点陷阱 + 关闭后焦点归还 + 背景锁滚动。
 const LS_THEME = "ash-theme", LS_LANG = "ash-lang";
+// 技能在 GitHub 仓库中的真实目录（纯静态部署无 skills/<name>/ 路由，故指向仓库 tree）
+const SKILL_REPO_BASE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function loadPref(key, fallback) {
   try { const v = localStorage.getItem(key); return v || fallback; } catch (e) { return fallback; }
 }
@@ -48,6 +50,15 @@ function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
   $("#statShown").textContent = filtered.length;
+}
+// hero 标题数字动态注入，避免与统计脱节（{n} 由 i18n 文案占位，syncDOM 填充后替换）
+function refreshHeroCount() {
+  const n = SKILLS_DATA.total + "+";
+  ["heroTitleZh", "heroTitleEn"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = (el.textContent || "").replace(/\{n\}/g, n);
+  });
 }
 function renderCats() {
   const cats = ["全部", ...SKILLS_DATA.categories];
@@ -131,7 +142,7 @@ function openDetail(name) {
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg>
         <span class="zh">${I18N.t("share.btn", "zh")}</span><span class="en">${I18N.t("share.btn", "en")}</span>
       </button>
-      <a class="btn btn-primary" href="skills/${esc(s.name)}/" target="_blank" rel="noopener">
+      <a class="btn btn-primary" href="${SKILL_REPO_BASE + encodeURIComponent(s.name)}" target="_blank" rel="noopener">
         <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
       </a>
     </div>`;
@@ -145,12 +156,8 @@ function openDetail(name) {
 }
 // 分享：复制「技能分析链接 + 随机宣传文案」，优先剪贴板 API，降级 execCommand
 function buildShareText(name) {
-  // 链接 = 站点根 + skills/<name>/（部署后自动带域名，离线回退相对路径）
-  let base = "skills/" + name + "/";
-  try {
-    const root = location.pathname.replace(/index\.html$/, "").replace(/\/$/, "");
-    base = location.origin + root + "/skills/" + name + "/";
-  } catch (e) { /* 无 location 环境保持相对路径 */ }
+  // 纯静态部署无 skills/<name>/ 路由，统一指向 GitHub 仓库对应技能目录（真实存在）
+  const base = SKILL_REPO_BASE + encodeURIComponent(name);
   const promos = I18N.t("share.promos") || [];
   const promo = promos.length ? promos[Math.floor(Math.random() * promos.length)] : "";
   return base + "\n\n" + promo;
@@ -225,6 +232,7 @@ function applyLang() {
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
   const si = $("#searchInput");
   if (si) si.placeholder = I18N.t("search.placeholder");
+  refreshHeroCount(); // syncDOM 重置 hero 标题后重新填入动态数字
 }
 
 // ---------- 事件绑定 ----------

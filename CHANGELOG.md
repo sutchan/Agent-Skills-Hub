@@ -2,6 +2,14 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.2] - 2026-08-15
+
+### 修复：失效链接、hero 标题硬编码、版本号不一致
+
+- **失效链接**：详情弹窗「查看技能」按钮与分享文案链接原指向 `skills/<name>/`，纯静态部署无此路由必 404；统一改为 GitHub 仓库真实技能目录 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>`
+- **hero 标题硬编码**：`hero.title` 写死 "200+"，与动态统计脱节；改用 `{n}` 占位符 + `refreshHeroCount()` 注入 `SKILLS_DATA.total`，语言切换后也同步刷新
+- **版本号统一**：prototype/src 五个文件头（app.js/i18n.js/app.css/tokens.css/index.html）与 package.json/README 徽章统一至 v1.14.2
+
 ## [1.14.1] - 2026-08-15
 
 ### 修复：线上部署技能数据全为 0 + 品牌标题拼接瑕疵
