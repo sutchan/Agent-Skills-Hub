@@ -39,6 +39,8 @@ __pycache__/
 node_modules/
 prototype/node_modules/
 # 注意：prototype/out/ 为预构建 HTML 高保真原型，属交付物，已入库（不忽略）
+# 但 out/_next/ 是 Next.js 瞬时构建产物（哈希化 JS/CSS），每次 build 都会变更，应忽略
+prototype/out/_next/
 *.tsbuildinfo
 
 # 密钥 / 凭证（禁止入库）
