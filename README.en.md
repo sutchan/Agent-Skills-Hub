@@ -1,6 +1,6 @@
 # Skills
 
-[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![License](https://img.shields.io/badge/license-see%20LICENSE-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.9.1-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Author: Sut Chan
 >
@@ -350,7 +350,10 @@ Per-skill licenses are in each directory's `LICENSE` file (e.g. [skill-creator/L
 
 - [Changelog](CHANGELOG.md) — version & change history
 - [Contributing](CONTRIBUTING.md) — how to add/update skills
-- [License](LICENSE) — project license
+- [Code of Conduct](CODE_OF_CONDUCT.md) — community standards (Contributor Covenant)
+- [Security Policy](SECURITY.md) — private vulnerability reporting and security red lines
+- [Support](SUPPORT.md) — where to get help, FAQ and contact channels
+- [License](LICENSE) — project license (MIT)
 - [中文文档](README.md) — Chinese README
 - [Workspace](agent-skills-hub.code-workspace) — workspace config
 - Repository: https://github.com/sutchan/Agent-Skills-Hub

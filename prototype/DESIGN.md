@@ -1,8 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.7.0
+> 路径：`prototype/DESIGN.md` · 版本：1.9.1
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
+>
+> **原型实现方式（v1.9.1 起）**：`prototype/out/index.html` 为纯 HTML 自包含单文件——内联 `src/app.css`、`src/app.js` 与真实技能数据 `skills-data.json`，双击即可离线预览，无需 Next.js 构建。源码在 `prototype/src/`，由 `prototype/build.mjs` 注入数据构建。设计令牌与下文规范一一对应。
 
 ---
 

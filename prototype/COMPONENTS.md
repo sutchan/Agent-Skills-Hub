@@ -1,8 +1,10 @@
 # 组件库规范（Component Library Spec）
 
-> 路径：`prototype/COMPONENTS.md` · 版本：1.7.0
+> 路径：`prototype/COMPONENTS.md` · 版本：1.9.1
 > 配套 `DESIGN.md` 设计系统。本文规定每个组件的 **Props / 状态 / 用法 / 代码位置**，供后续开发与评审对齐。
 > 所有组件基于 **shadcn/ui（new-york）+ Tailwind CSS** 构建，样式由 `tailwind.config.ts` 的 Token 驱动，不手写重复 CSS。
+>
+> **原型落地（v1.9.1）**：`prototype/out/index.html` 用纯 HTML/CSS/JS 实现下表组件（顶栏、Hero、搜索、视图切换、分类条、卡片网格/列表、详情 Dialog/Sheet），状态由 `prototype/src/app.js` 管理，无需框架运行时。
 
 代码位置（**构建期源码映射**，原型已预渲染为静态 HTML `prototype/out/`；Next.js 源码不随仓库分发，以下路径仅供理解静态产物实现与评审对齐）：
 - 基础/复合 UI 原语：源码 `components/ui/*`（按钮/输入/徽章/卡片/Tabs/Dialog/Sheet 等）

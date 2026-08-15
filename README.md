@@ -1,6 +1,6 @@
 # Agent Skills Hub
 
-[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![许可证](https://img.shields.io/badge/license-查看%20LICENSE-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.9.1-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
@@ -365,7 +365,10 @@ grep -rl "test" skills/*/SKILL.md
 
 - [变更记录](CHANGELOG.md) — 版本与重要变更记录（遵循 Keep a Changelog 与 SemVer）
 - [贡献指南](CONTRIBUTING.md) — 如何新增/更新技能并保持 README 同步
+- [行为准则](CODE_OF_CONDUCT.md) — 社区参与的基本准则（Contributor Covenant）
+- [安全政策](SECURITY.md) — 漏洞私密报告渠道与项目安全红线
+- [获取支持](SUPPORT.md) — 问题反馈、FAQ 与联系渠道
 - [英文文档](README.en.md) — English README
-- [许可证](LICENSE) — 项目整体许可证
+- [许可证](LICENSE) — 项目整体许可证（MIT）
 - 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 - 工作区配置：[agent-skills-hub.code-workspace](agent-skills-hub.code-workspace)

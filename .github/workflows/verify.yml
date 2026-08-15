@@ -7,12 +7,16 @@ on:
       - 'README.md'
       - 'README.en.md'
       - 'tools/**'
+      - 'prototype/**'
+      - 'app/**'
   pull_request:
     paths:
       - 'skills/**'
       - 'README.md'
       - 'README.en.md'
       - 'tools/**'
+      - 'prototype/**'
+      - 'app/**'
 
 jobs:
   verify:

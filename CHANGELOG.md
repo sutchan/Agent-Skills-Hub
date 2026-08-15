@@ -2,6 +2,33 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.9.1] - 2026-08-15
+
+### 原型重构：纯 HTML 自包含高保真原型
+
+- **重构 `prototype/out/index.html`**：从 Next.js 预渲染产物改为**纯 HTML 自包含单文件原型**，内联 CSS + JS + 真实技能数据，双击即可离线预览，零构建依赖
+- **新增数据管道** `prototype/build-skills-data.mjs`：从磁盘 `skills/<name>/SKILL.md` 与 `README.md` 真实提取 200 个技能、13 个分类（名称、中文/英文描述、授权工具），生成 `prototype/skills-data.json`
+- **新增原型源码** `prototype/src/`（`index.html` 模板 + `app.css` 设计系统 + `app.js` 交互逻辑），按职责拆分且均 ≤200 行
+- **新增构建脚本** `prototype/build.mjs`：将 `src` 模板与真实数据内联为自包含 `out/index.html`（约 91 KB）
+- **实现交互**：实时搜索、分类筛选（带计数）、网格/列表视图切换、技能详情弹窗（桌面 Dialog + 移动端底部 Sheet）、中英语言切换、深浅主题切换、Esc/点击遮罩关闭
+- **对齐设计系统** `prototype/DESIGN.md` / `COMPONENTS.md`：语义色板、圆角、阴影、PingFang/微软雅黑字体栈、响应式断点（桌面 Dialog / 移动 Sheet）
+- 清理 `out/` 下旧 Next.js 导出遗留文件（`_next/`、`404.html`、`icon.svg`、`index.txt`）
+- 校验：`node prototype/build-skills-data.mjs && node prototype/build.mjs` 可复现；产物不依赖 `out/_next/` 资源
+
+## [1.9.0] - 2026-08-15
+
+### 社区健康文件（Community Health Files）完善 + CI 修复
+
+- **新增行为准则** `CODE_OF_CONDUCT.md`：基于 Contributor Covenant v2.1，明确承诺、准则、执行流程与举报渠道
+- **新增安全政策** `SECURITY.md`：声明受支持版本（latest/main）、私密漏洞报告渠道（GitHub Security Advisory + 邮箱）、处理流程与项目安全红线
+- **新增支持文档** `SUPPORT.md`：问题反馈渠道、FAQ、行为准则与维护者信息
+- **新增 Issue 模板**：`bug_report.yml`（缺陷）、`feature_request.yml`（功能建议）、`config.yml`（关闭空白 Issue，引导安全漏洞与讨论到对应渠道）
+- **新增 PR 模板** `.github/PULL_REQUEST_TEMPLATE.md`：集成 `<type>: <描述>` 提交规范、README 一致性校验与 CHANGELOG 检查清单
+- **新增依赖自动化** `.github/dependabot.yml`：对 `app/`、`prototype/` 的 npm 与根目录 GitHub Actions 执行每周自动升级
+- **修复失效 CI** `.github/workflows/site.yml`：原 `site/**` 路径指向已重命名为 `prototype/` 的废弃目录，改为 `prototype/**` + `app/**` 双构建任务（prototype 以 `node prototype/build-skills-data.mjs` 校验 `skills-data.json`、app Next.js 构建），与新目录结构一致
+- **同步 README** `README.md` / `README.en.md`：顶部新增版本徽章（v1.9.0）、MIT 许可标注；「相关文档」补列 CODE_OF_CONDUCT / SECURITY / SUPPORT
+- 校验：新增 Health Files 不引入构建依赖；CI 路径与 `prototype/build_site.mjs`、`app/` 实际入口对齐
+
 ## [1.8.0] - 2026-08-08
 
 ### 新增 app/ Web 应用工作区 + 文档索引更新
@@ -188,6 +215,7 @@
 [1.0.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.2
 [1.0.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.3
 [1.0.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.4
+[1.9.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.9.0
 
 ## [1.0.3] - 2026-07-31
 
