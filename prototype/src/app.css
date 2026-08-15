@@ -1,4 +1,4 @@
-/* prototype/src/app.css v1.13.0 — 组件与布局样式 (DESIGN.md)
+/* prototype/src/app.css v1.13.1 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
@@ -38,7 +38,7 @@ body.no-scroll { overflow: hidden; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; }
 .brand .logo {
   width: 32px; height: 32px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--primary), #22c55e);
+  background: linear-gradient(135deg, var(--primary), #3fae7c);
   display: grid; place-items: center; color: #fff; font-size: 16px; font-weight: 800;
 }
 .brand small { display: block; font-size: 11px; font-weight: 500; color: var(--text-3); }
@@ -114,7 +114,7 @@ body.no-scroll { overflow: hidden; }
 .card .avatar {
   width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
   display: grid; place-items: center; font-weight: 700; font-size: 16px; color: #fff;
-  background: linear-gradient(135deg, var(--primary), #22c55e);
+  background: linear-gradient(135deg, var(--primary), #3fae7c);
 }
 .grid.list .card { flex-direction: row; align-items: center; gap: 14px; padding: 14px 18px; }
 .grid.list .card .body { flex: 1; }
