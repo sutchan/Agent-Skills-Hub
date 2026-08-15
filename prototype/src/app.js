@@ -1,4 +1,4 @@
-// prototype/src/app.js v1.14.2 — 原型交互逻辑（无障碍增强 + 性能优化）
+// prototype/src/app.js v1.14.3 — 原型交互逻辑（无障碍增强 + 性能优化）
 // 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
 // 无障碍基线：卡片 role=button + tabIndex + 键盘可达；chip aria-pressed；
 // 统计区 aria-live=polite；弹窗 role=dialog + aria-modal + sr-only 标题。
@@ -159,7 +159,10 @@ function buildShareText(name) {
   // 纯静态部署无 skills/<name>/ 路由，统一指向 GitHub 仓库对应技能目录（真实存在）
   const base = SKILL_REPO_BASE + encodeURIComponent(name);
   const promos = I18N.t("share.promos") || [];
-  const promo = promos.length ? promos[Math.floor(Math.random() * promos.length)] : "";
+  const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
+  const promo = promos.length
+    ? promos[Math.floor(Math.random() * promos.length)].replace(/\{n\}/g, n)
+    : "";
   return base + "\n\n" + promo;
 }
 function shareSkill(name) {

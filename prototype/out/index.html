@@ -1751,7 +1751,7 @@ html[data-lang="zh"] .en { display: none; }
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.14.2 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.14.3 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -1788,9 +1788,9 @@ html[data-lang="zh"] .en { display: none; }
       "share.copyOk": "已复制链接与宣传文案",
       "share.copyFail": "复制失败，请手动复制",
       "share.promos": [
-        "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，200+ 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
-        "🚀 Agent Skills Hub：200+ 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
-        "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，200+ 技能即插即用，开源免费！"
+        "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
+        "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
+        "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，{n} 技能即插即用，开源免费！"
       ]
     },
     en: {
@@ -1809,7 +1809,7 @@ html[data-lang="zh"] .en { display: none; }
       "detail.catTitle": "Category / 分类",
       "detail.toolsTitle": "Allowed tools / 授权工具",
       "detail.close": "Close / 关闭",
-      "detail.open": "查看技能",
+      "detail.open": "Open skill",
       "detail.openEn": "Open skill",
       "detail.zhName": "Chinese name",
       "empty.desc": "Try a different keyword or category, or clear the current filter.",
@@ -1818,9 +1818,9 @@ html[data-lang="zh"] .en { display: none; }
       "share.copyOk": "Link & promo copied",
       "share.copyFail": "Copy failed, please copy manually",
       "share.promos": [
-        "😎 I found Agent Skills Hub — a library of 200+ high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
-        "🚀 Agent Skills Hub: 200+ curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
-        "💡 Want a stronger coding agent? Explore Agent Skills Hub: 200+ plug-and-play skills, open source and free!"
+        "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
+        "🚀 Agent Skills Hub: {n} curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
+        "💡 Want a stronger coding agent? Explore Agent Skills Hub: {n} plug-and-play skills, open source and free!"
       ]
     }
   };
@@ -1935,7 +1935,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/app.js v1.14.2 — 原型交互逻辑（无障碍增强 + 性能优化）
+  <script>// prototype/src/app.js v1.14.3 — 原型交互逻辑（无障碍增强 + 性能优化）
 // 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
 // 无障碍基线：卡片 role=button + tabIndex + 键盘可达；chip aria-pressed；
 // 统计区 aria-live=polite；弹窗 role=dialog + aria-modal + sr-only 标题。
@@ -2096,7 +2096,10 @@ function buildShareText(name) {
   // 纯静态部署无 skills/<name>/ 路由，统一指向 GitHub 仓库对应技能目录（真实存在）
   const base = SKILL_REPO_BASE + encodeURIComponent(name);
   const promos = I18N.t("share.promos") || [];
-  const promo = promos.length ? promos[Math.floor(Math.random() * promos.length)] : "";
+  const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
+  const promo = promos.length
+    ? promos[Math.floor(Math.random() * promos.length)].replace(/\{n\}/g, n)
+    : "";
   return base + "\n\n" + promo;
 }
 function shareSkill(name) {

@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.14.2 — 独立国际化模块
+// prototype/src/i18n.js v1.14.3 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -35,9 +35,9 @@
       "share.copyOk": "已复制链接与宣传文案",
       "share.copyFail": "复制失败，请手动复制",
       "share.promos": [
-        "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，200+ 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
-        "🚀 Agent Skills Hub：200+ 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
-        "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，200+ 技能即插即用，开源免费！"
+        "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
+        "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
+        "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，{n} 技能即插即用，开源免费！"
       ]
     },
     en: {
@@ -56,7 +56,7 @@
       "detail.catTitle": "Category / 分类",
       "detail.toolsTitle": "Allowed tools / 授权工具",
       "detail.close": "Close / 关闭",
-      "detail.open": "查看技能",
+      "detail.open": "Open skill",
       "detail.openEn": "Open skill",
       "detail.zhName": "Chinese name",
       "empty.desc": "Try a different keyword or category, or clear the current filter.",
@@ -65,9 +65,9 @@
       "share.copyOk": "Link & promo copied",
       "share.copyFail": "Copy failed, please copy manually",
       "share.promos": [
-        "😎 I found Agent Skills Hub — a library of 200+ high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
-        "🚀 Agent Skills Hub: 200+ curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
-        "💡 Want a stronger coding agent? Explore Agent Skills Hub: 200+ plug-and-play skills, open source and free!"
+        "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
+        "🚀 Agent Skills Hub: {n} curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
+        "💡 Want a stronger coding agent? Explore Agent Skills Hub: {n} plug-and-play skills, open source and free!"
       ]
     }
   };
