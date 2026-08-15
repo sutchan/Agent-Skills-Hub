@@ -60,7 +60,7 @@ input { font-family: inherit; }
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-/* prototype/src/app.css v1.14.2 — 组件与布局样式 (DESIGN.md)
+/* prototype/src/app.css v1.14.4 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
@@ -180,10 +180,11 @@ body.no-scroll { overflow: hidden; }
 }
 .grid.list .card { flex-direction: row; align-items: center; gap: 14px; padding: 14px 18px; }
 .grid.list .card .body { flex: 1; }
-.card .name { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.card .name { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .card .badge {
   font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px;
   background: var(--primary-weak); color: var(--primary-strong);
+  flex-shrink: 0;
 }
 .card .desc { color: var(--text-2); font-size: 13.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .grid.list .card .desc { -webkit-line-clamp: 1; }
