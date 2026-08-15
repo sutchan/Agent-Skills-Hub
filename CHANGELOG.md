@@ -15,6 +15,25 @@
 - 清理 `out/` 下旧 Next.js 导出遗留文件（`_next/`、`404.html`、`icon.svg`、`index.txt`）
 - 校验：`node prototype/build-skills-data.mjs && node prototype/build.mjs` 可复现；产物不依赖 `out/_next/` 资源
 
+## [1.11.0] - 2026-08-15
+
+### 国际化独立模块化 + 容错降级
+
+- **新增独立 i18n 模块** `prototype/src/i18n.js`：集中管理 zh/en 文案字典，对外暴露 `t(key)`、`getLang()`、`setLang()`、`toggleLang()`、`onLangChange()`、`syncDOM()`，与 UI 渲染解耦
+- **容错设计**：`t(key)` 在任何情况下都不抛错——目标语言缺失回退 zh，仍缺失返回 key 原文；字典被外部篡改/加载失败时降级到 HTML 原始双写文案，应用不崩溃
+- **静态文案数据驱动**：`prototype/src/index.html` 的 13 处双语文案加 `data-i18n` 占位，启动时由 i18n 模块按 `zh`/`en` 类填充
+- **动态文案集中**：`prototype/src/app.js` 的空状态、详情弹窗标题改用 `I18N.t(key)`，语言状态与 `data-lang`/`<html lang>` 同步统一交给模块
+- **构建管道** `prototype/build.mjs`：新增 `{{I18N}}` 占位符，将 `i18n.js` 内联进 `out/index.html`（保证 `I18N` 在 `app.js` 前加载）
+- 校验：Node 单测覆盖字典覆盖、缺失 key 兜底、非法语言忽略、字典损坏不抛错；构建产物已验证内联且无残留占位符
+
+## [1.10.0] - 2026-08-15
+
+### 原型页语义化 id 增强（可访问性与锚点）
+
+- `prototype/src/index.html`：为顶栏（`siteHeader`/`topbarInner`/`brandLink`）、英雄区（`hero`/`heroTitleZh`/`heroTitleEn`/`heroSubtitleZh`/`heroSubtitleEn`/`heroStats`）、搜索控制区（`searchControls`/`searchBox`）、分类导航（`categoryNav`）、主列表（`grid` 增加 `aria-label`）与弹窗容器（`dialog` 增加 `aria-modal` + `aria-labelledby`）补充语义化 id 与可访问性属性
+- `prototype/src/app.js`：详情弹窗模板内区块（`dialogHead`/`dialogBody`/`dialogFoot`/`dialogBlockZh`/`dialogBlockEn`/`dialogBlockCat`/`dialogBlockTools`）与标题（`dialogTitle`，关联 `aria-labelledby`）、空状态（`emptyStateZh`/`emptyStateEn`）补充语义化 id
+- 校验：新增 id 均为纯结构属性，未改动既有 `state`/`bind()` 选择器逻辑，向后兼容；JS 仍通过既有 `#grid`/`#cats`/`#searchInput` 等引用，无破坏性变更
+
 ## [1.9.0] - 2026-08-15
 
 ### 社区健康文件（Community Health Files）完善 + CI 修复
@@ -216,6 +235,8 @@
 [1.0.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.3
 [1.0.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.4
 [1.9.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.9.0
+[1.9.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.9.1
+[1.10.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.10.0
 
 ## [1.0.3] - 2026-07-31
 

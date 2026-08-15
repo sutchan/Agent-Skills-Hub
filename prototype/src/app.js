@@ -1,5 +1,6 @@
-// prototype/src/app.js v1.0.0 — 原型交互逻辑
-const state = { q: "", cat: "全部", view: "grid", lang: "zh", theme: "light" };
+// prototype/src/app.js v1.11.0 — 原型交互逻辑
+// 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
+const state = { q: "", cat: "全部", view: "grid", theme: "light" };
 const $ = (s) => document.querySelector(s);
 const grid = $("#grid");
 const overlay = $("#overlay");
@@ -57,7 +58,7 @@ function renderGrid() {
   grid.className = "grid" + (state.view === "list" ? " list" : "");
   grid.innerHTML = filtered.length
     ? filtered.map(cardHTML).join("")
-    : `<div class="empty zh">未找到匹配的技能</div><div class="empty en">No matching skills</div>`;
+    : `<div class="empty zh" id="emptyStateZh">${I18N.t("empty", "zh")}</div><div class="empty en" id="emptyStateEn">${I18N.t("empty", "en")}</div>`;
 }
 
 // ---------- 详情弹窗 ----------
@@ -71,26 +72,26 @@ function openDetail(name) {
     .map((t) => `<span class="tool">${esc(t)}</span>`)
     .join("");
   $("#dialog").innerHTML = `
-    <div class="dialog-head">
+    <div class="dialog-head" id="dialogHead">
       <div class="avatar">${initials(s.name)}</div>
       <div>
-        <h2>${esc(s.zh || s.name)}</h2>
+        <h2 id="dialogTitle">${esc(s.zh || s.name)}</h2>
         <div class="sub en">${esc(s.name)}</div>
       </div>
       <button class="icon-btn dialog-close" id="closeBtn" aria-label="关闭">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
       </button>
     </div>
-    <div class="dialog-body">
-      <div class="block"><h3 class="zh">中文描述</h3><h3 class="en">Description (zh)</h3><p class="zh">${esc(s.zh)}</p></div>
-      <div class="block"><h3 class="zh">英文说明</h3><h3 class="en">Description (en)</h3><p class="en">${esc(s.description)}</p></div>
-      <div class="block"><h3>分类 / Category</h3><p>${esc(s.category)}</p></div>
-      ${tools ? `<div class="block"><h3>授权工具 / Allowed tools</h3><div class="tools">${tools}</div></div>` : ""}
+    <div class="dialog-body" id="dialogBody">
+      <div class="block" id="dialogBlockZh"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.zhTitle", "en")}</h3><p class="zh">${esc(s.zh)}</p></div>
+      <div class="block" id="dialogBlockEn"><h3 class="zh">${I18N.t("detail.enTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p class="en">${esc(s.description)}</p></div>
+      <div class="block" id="dialogBlockCat"><h3>${I18N.t("detail.catTitle")}</h3><p>${esc(s.category)}</p></div>
+      ${tools ? `<div class="block" id="dialogBlockTools"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${tools}</div></div>` : ""}
     </div>
-    <div class="dialog-foot">
-      <button class="btn btn-ghost" id="closeBtn2">关闭 / Close</button>
+    <div class="dialog-foot" id="dialogFoot">
+      <button class="btn btn-ghost" id="closeBtn2">${I18N.t("detail.close")}</button>
       <a class="btn btn-primary" href="skills/${esc(s.name)}/" target="_blank" rel="noopener">
-        <span class="zh">查看技能</span><span class="en">Open skill</span>
+        <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
       </a>
     </div>`;
   overlay.classList.add("open");
@@ -107,7 +108,10 @@ function applyTheme() {
     ? '<path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"></path>'
     : '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>';
 }
-function applyLang() { document.documentElement.setAttribute("data-lang", state.lang); }
+function applyLang() {
+  // 语言状态与 DOM 同步统一交给 I18N 模块，保证文案随语言联动且不崩溃
+  I18N.syncDOM();
+}
 
 // ---------- 事件绑定 ----------
 function bind() {
@@ -128,7 +132,7 @@ function bind() {
   overlay.addEventListener("click", (e) => { if (e.target === overlay) closeDetail(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetail(); });
   $("#themeBtn").addEventListener("click", () => { state.theme = state.theme === "light" ? "dark" : "light"; applyTheme(); });
-  $("#langBtn").addEventListener("click", () => { state.lang = state.lang === "zh" ? "en" : "zh"; applyLang(); });
+  $("#langBtn").addEventListener("click", () => { I18N.toggleLang(); });
 }
 
 // ---------- 启动 ----------

@@ -207,15 +207,15 @@ html[data-lang="zh"] .en { display: none; }
 </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#">
+  <header class="topbar" id="siteHeader">
+    <div class="topbar-inner" id="topbarInner">
+      <a class="brand" id="brandLink" href="#">
         <span class="logo">S</span>
-        <span>Skills Hub<small>Agent Skills Hub 原型</small></span>
+        <span>Skills Hub<small data-i18n="brand.subtitle">Agent Skills Hub 原型</small></span>
       </a>
       <div class="topbar-spacer"></div>
-      <button class="icon-btn" id="langBtn" title="语言 / Language">中 / EN</button>
-      <button class="icon-btn" id="themeBtn" title="主题 / Theme">
+      <button class="icon-btn" id="langBtn" title="语言 / Language" data-i18n="lang.toggle">中 / EN</button>
+      <button class="icon-btn" id="themeBtn" title="主题 / Theme" data-i18n="theme.toggle">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon">
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
@@ -224,20 +224,20 @@ html[data-lang="zh"] .en { display: none; }
     </div>
   </header>
 
-  <section class="hero">
-    <h1 class="zh">发现并复用 200+ 高质量 Agent 技能</h1>
-    <h1 class="en">Discover & reuse 200+ high-quality agent skills</h1>
-    <p class="zh">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
-    <p class="en">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
-    <div class="stats">
-      <div class="stat"><div class="num" id="statTotal">0</div><div class="label zh">技能总数</div><div class="label en">Total skills</div></div>
-      <div class="stat"><div class="num" id="statCats">0</div><div class="label zh">分类</div><div class="label en">Categories</div></div>
-      <div class="stat"><div class="num" id="statShown">0</div><div class="label zh">当前展示</div><div class="label en">Shown</div></div>
+  <section class="hero" id="hero">
+    <h1 class="zh" id="heroTitleZh" data-i18n="hero.title">发现并复用 200+ 高质量 Agent 技能</h1>
+    <h1 class="en" id="heroTitleEn" data-i18n="hero.title">Discover & reuse 200+ high-quality agent skills</h1>
+    <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
+    <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
+    <div class="stats" id="heroStats">
+      <div class="stat"><div class="num" id="statTotal">0</div><div class="label zh" data-i18n="stat.total">技能总数</div><div class="label en" data-i18n="stat.total">Total skills</div></div>
+      <div class="stat"><div class="num" id="statCats">0</div><div class="label zh" data-i18n="stat.cats">分类</div><div class="label en" data-i18n="stat.cats">Categories</div></div>
+      <div class="stat"><div class="num" id="statShown">0</div><div class="label zh" data-i18n="stat.shown">当前展示</div><div class="label en" data-i18n="stat.shown">Shown</div></div>
     </div>
   </section>
 
-  <div class="controls">
-    <div class="search">
+  <div class="controls" id="searchControls">
+    <div class="search" id="searchBox">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
       <input id="searchInput" type="text" placeholder="搜索技能名称或描述…" />
     </div>
@@ -251,12 +251,12 @@ html[data-lang="zh"] .en { display: none; }
     </div>
   </div>
 
-  <nav class="cats"><div class="cats-scroll" id="cats"></div></nav>
+  <nav class="cats" id="categoryNav"><div class="cats-scroll" id="cats"></div></nav>
 
-  <main class="grid" id="grid"></main>
+  <main class="grid" id="grid" aria-label="技能列表"></main>
 
   <div class="overlay" id="overlay">
-    <div class="dialog" id="dialog" role="dialog" aria-modal="true"></div>
+    <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"></div>
   </div>
 
   <script>const SKILLS_DATA = {
@@ -1679,8 +1679,173 @@ html[data-lang="zh"] .en { display: none; }
     }
   ]
 };</script>
+  <script>// prototype/src/i18n.js v1.0.0 — 独立国际化模块
+// 设计目标：
+//   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
+//   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
+//      保证「即使翻译文件/字典出错，应用也不会崩溃」。
+//   3. 语言状态、切换、DOM 同步全部收敛到本模块，与 UI 渲染解耦。
+(function (global) {
+  "use strict";
+
+  // ---------- 1. 翻译字典（唯一来源） ----------
+  // 若本字典在运行时被外部篡改或加载失败，模块仍可通过兜底逻辑运行。
+  var translations = {
+    zh: {
+      "brand.subtitle": "Agent Skills Hub 原型",
+      "lang.toggle": "中 / EN",
+      "theme.toggle": "主题 / Theme",
+      "hero.title": "发现并复用 200+ 高质量 Agent 技能",
+      "hero.subtitle": "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。",
+      "stat.total": "技能总数",
+      "stat.cats": "分类",
+      "stat.shown": "当前展示",
+      "search.placeholder": "搜索技能名称或描述…",
+      "empty": "未找到匹配的技能",
+      "detail.zhTitle": "中文描述",
+      "detail.enTitle": "英文说明",
+      "detail.catTitle": "分类 / Category",
+      "detail.toolsTitle": "授权工具 / Allowed tools",
+      "detail.close": "关闭 / Close",
+      "detail.open": "查看技能",
+      "detail.openEn": "Open skill",
+      "detail.zhName": "中文名" // 详情弹窗内中文名标题（预留）
+    },
+    en: {
+      "brand.subtitle": "Agent Skills Hub Prototype",
+      "lang.toggle": "中 / EN",
+      "theme.toggle": "主题 / Theme",
+      "hero.title": "Discover & reuse 200+ high-quality agent skills",
+      "hero.subtitle": "Browse by category, search, or inspect skill details — ready to drop into your coding agent.",
+      "stat.total": "Total skills",
+      "stat.cats": "Categories",
+      "stat.shown": "Shown",
+      "search.placeholder": "Search skills by name or description…",
+      "empty": "No matching skills",
+      "detail.zhTitle": "Description (zh)",
+      "detail.enTitle": "Description (en)",
+      "detail.catTitle": "Category / 分类",
+      "detail.toolsTitle": "Allowed tools / 授权工具",
+      "detail.close": "Close / 关闭",
+      "detail.open": "查看技能",
+      "detail.openEn": "Open skill",
+      "detail.zhName": "Chinese name"
+    }
+  };
+
+  var SUPPORTED = ["zh", "en"];
+  var FALLBACK = "zh";
+
+  // ---------- 2. 状态（带容错默认值） ----------
+  var current = FALLBACK;
+  var listeners = [];
+
+  function safeGet(obj, path) {
+    try {
+      return obj && obj[path];
+    } catch (e) {
+      return undefined;
+    }
+  }
+
+  // ---------- 3. 核心翻译函数（永不抛错） ----------
+  // 降级策略：目标语言缺失 -> 回退 zh -> 仍缺失则返回 key 原文
+  function t(key, lang) {
+    try {
+      var l = lang || current;
+      if (!key) return "";
+      var dict = safeGet(translations, l);
+      var val = safeGet(dict, key);
+      if (val === undefined || val === null || val === "") {
+        // 回退到兜底语言
+        var fb = safeGet(translations, FALLBACK);
+        val = safeGet(fb, key);
+      }
+      if (val === undefined || val === null || val === "") {
+        // 最终兜底：返回 key 本身，保证页面有可见文本且不崩溃
+        return String(key);
+      }
+      return String(val);
+    } catch (e) {
+      // 任何意外错误都不向外传播
+      return key ? String(key) : "";
+    }
+  }
+
+  // ---------- 4. 语言状态管理 ----------
+  function getLang() {
+    return current;
+  }
+  function isSupported(lang) {
+    return SUPPORTED.indexOf(lang) !== -1;
+  }
+  function setLang(lang) {
+    if (!isSupported(lang)) return current; // 忽略非法语言，保持现状
+    current = lang;
+    syncDOM();
+    emit();
+    return current;
+  }
+  function toggleLang() {
+    return setLang(current === "zh" ? "en" : "zh");
+  }
+  function onLangChange(cb) {
+    if (typeof cb === "function") listeners.push(cb);
+  }
+  function emit() {
+    for (var i = 0; i < listeners.length; i++) {
+      try { listeners[i](current); } catch (e) { /* 单个监听出错不影响其他 */ }
+    }
+  }
+
+  // ---------- 5. DOM 同步（属性 + 静态文案填充） ----------
+  // 即使字典出错，这里也会被 try/catch 包住，不会阻断应用其余逻辑。
+  function syncDOM() {
+    try {
+      var root = document.documentElement;
+      if (root) {
+        root.setAttribute("data-lang", current);
+        root.setAttribute("lang", current); // 同步可访问性/SEO 的 lang 属性
+      }
+      // 填充所有带 data-i18n 的静态节点：
+      //   .zh 节点取 zh 文案，.en 节点取 en 文案；
+      //   若节点无 .zh/.en 类，则按当前语言取。
+      var nodes = document.querySelectorAll("[data-i18n]");
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var key = node.getAttribute("data-i18n");
+        var text;
+        if (node.classList.contains("en")) text = t(key, "en");
+        else if (node.classList.contains("zh")) text = t(key, "zh");
+        else text = t(key, current);
+        if (text) node.textContent = text;
+      }
+    } catch (e) {
+      // 同步失败不应影响交互逻辑
+    }
+  }
+
+  // ---------- 6. 对外暴露 ----------
+  var api = {
+    translations: translations,
+    supported: SUPPORTED,
+    fallback: FALLBACK,
+    t: t,
+    getLang: getLang,
+    setLang: setLang,
+    toggleLang: toggleLang,
+    onLangChange: onLangChange,
+    syncDOM: syncDOM
+  };
+
+  // 兼容全局与模块化两种引入方式
+  global.I18N = api;
+  if (typeof module !== "undefined" && module.exports) module.exports = api;
+})(typeof window !== "undefined" ? window : this);
+</script>
   <script>// prototype/src/app.js v1.0.0 — 原型交互逻辑
-const state = { q: "", cat: "全部", view: "grid", lang: "zh", theme: "light" };
+// 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
+const state = { q: "", cat: "全部", view: "grid", theme: "light" };
 const $ = (s) => document.querySelector(s);
 const grid = $("#grid");
 const overlay = $("#overlay");
@@ -1738,7 +1903,7 @@ function renderGrid() {
   grid.className = "grid" + (state.view === "list" ? " list" : "");
   grid.innerHTML = filtered.length
     ? filtered.map(cardHTML).join("")
-    : `<div class="empty zh">未找到匹配的技能</div><div class="empty en">No matching skills</div>`;
+    : `<div class="empty zh">${I18N.t("empty", "zh")}</div><div class="empty en">${I18N.t("empty", "en")}</div>`;
 }
 
 // ---------- 详情弹窗 ----------
@@ -1763,15 +1928,15 @@ function openDetail(name) {
       </button>
     </div>
     <div class="dialog-body">
-      <div class="block"><h3 class="zh">中文描述</h3><h3 class="en">Description (zh)</h3><p class="zh">${esc(s.zh)}</p></div>
-      <div class="block"><h3 class="zh">英文说明</h3><h3 class="en">Description (en)</h3><p class="en">${esc(s.description)}</p></div>
-      <div class="block"><h3>分类 / Category</h3><p>${esc(s.category)}</p></div>
-      ${tools ? `<div class="block"><h3>授权工具 / Allowed tools</h3><div class="tools">${tools}</div></div>` : ""}
+      <div class="block"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.zhTitle", "en")}</h3><p class="zh">${esc(s.zh)}</p></div>
+      <div class="block"><h3 class="zh">${I18N.t("detail.enTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p class="en">${esc(s.description)}</p></div>
+      <div class="block"><h3>${I18N.t("detail.catTitle")}</h3><p>${esc(s.category)}</p></div>
+      ${tools ? `<div class="block"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${tools}</div></div>` : ""}
     </div>
     <div class="dialog-foot">
-      <button class="btn btn-ghost" id="closeBtn2">关闭 / Close</button>
+      <button class="btn btn-ghost" id="closeBtn2">${I18N.t("detail.close")}</button>
       <a class="btn btn-primary" href="skills/${esc(s.name)}/" target="_blank" rel="noopener">
-        <span class="zh">查看技能</span><span class="en">Open skill</span>
+        <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
       </a>
     </div>`;
   overlay.classList.add("open");
@@ -1788,7 +1953,10 @@ function applyTheme() {
     ? '<path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"></path>'
     : '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>';
 }
-function applyLang() { document.documentElement.setAttribute("data-lang", state.lang); }
+function applyLang() {
+  // 语言状态与 DOM 同步统一交给 I18N 模块，保证文案随语言联动且不崩溃
+  I18N.syncDOM();
+}
 
 // ---------- 事件绑定 ----------
 function bind() {
@@ -1809,7 +1977,7 @@ function bind() {
   overlay.addEventListener("click", (e) => { if (e.target === overlay) closeDetail(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetail(); });
   $("#themeBtn").addEventListener("click", () => { state.theme = state.theme === "light" ? "dark" : "light"; applyTheme(); });
-  $("#langBtn").addEventListener("click", () => { state.lang = state.lang === "zh" ? "en" : "zh"; applyLang(); });
+  $("#langBtn").addEventListener("click", () => { I18N.toggleLang(); });
 }
 
 // ---------- 启动 ----------

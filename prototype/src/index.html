@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.0.0 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.11.0 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -8,15 +8,15 @@
   <style>{{CSS}}</style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#">
+  <header class="topbar" id="siteHeader">
+    <div class="topbar-inner" id="topbarInner">
+      <a class="brand" id="brandLink" href="#">
         <span class="logo">S</span>
-        <span>Skills Hub<small>Agent Skills Hub 原型</small></span>
+        <span>Skills Hub<small data-i18n="brand.subtitle">Agent Skills Hub 原型</small></span>
       </a>
       <div class="topbar-spacer"></div>
-      <button class="icon-btn" id="langBtn" title="语言 / Language">中 / EN</button>
-      <button class="icon-btn" id="themeBtn" title="主题 / Theme">
+      <button class="icon-btn" id="langBtn" title="语言 / Language" data-i18n="lang.toggle">中 / EN</button>
+      <button class="icon-btn" id="themeBtn" title="主题 / Theme" data-i18n="theme.toggle">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon">
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
@@ -25,20 +25,20 @@
     </div>
   </header>
 
-  <section class="hero">
-    <h1 class="zh">发现并复用 200+ 高质量 Agent 技能</h1>
-    <h1 class="en">Discover & reuse 200+ high-quality agent skills</h1>
-    <p class="zh">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
-    <p class="en">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
-    <div class="stats">
-      <div class="stat"><div class="num" id="statTotal">0</div><div class="label zh">技能总数</div><div class="label en">Total skills</div></div>
-      <div class="stat"><div class="num" id="statCats">0</div><div class="label zh">分类</div><div class="label en">Categories</div></div>
-      <div class="stat"><div class="num" id="statShown">0</div><div class="label zh">当前展示</div><div class="label en">Shown</div></div>
+  <section class="hero" id="hero">
+    <h1 class="zh" id="heroTitleZh" data-i18n="hero.title">发现并复用 200+ 高质量 Agent 技能</h1>
+    <h1 class="en" id="heroTitleEn" data-i18n="hero.title">Discover & reuse 200+ high-quality agent skills</h1>
+    <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
+    <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
+    <div class="stats" id="heroStats">
+      <div class="stat"><div class="num" id="statTotal">0</div><div class="label zh" data-i18n="stat.total">技能总数</div><div class="label en" data-i18n="stat.total">Total skills</div></div>
+      <div class="stat"><div class="num" id="statCats">0</div><div class="label zh" data-i18n="stat.cats">分类</div><div class="label en" data-i18n="stat.cats">Categories</div></div>
+      <div class="stat"><div class="num" id="statShown">0</div><div class="label zh" data-i18n="stat.shown">当前展示</div><div class="label en" data-i18n="stat.shown">Shown</div></div>
     </div>
   </section>
 
-  <div class="controls">
-    <div class="search">
+  <div class="controls" id="searchControls">
+    <div class="search" id="searchBox">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
       <input id="searchInput" type="text" placeholder="搜索技能名称或描述…" />
     </div>
@@ -52,15 +52,16 @@
     </div>
   </div>
 
-  <nav class="cats"><div class="cats-scroll" id="cats"></div></nav>
+  <nav class="cats" id="categoryNav"><div class="cats-scroll" id="cats"></div></nav>
 
-  <main class="grid" id="grid"></main>
+  <main class="grid" id="grid" aria-label="技能列表"></main>
 
   <div class="overlay" id="overlay">
-    <div class="dialog" id="dialog" role="dialog" aria-modal="true"></div>
+    <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"></div>
   </div>
 
   <script>const SKILLS_DATA = {{DATA}};</script>
+  <script>{{I18N}}</script>
   <script>{{JS}}</script>
 </body>
 </html>
