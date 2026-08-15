@@ -1,6 +1,28 @@
 /* prototype/src/app.css v1.13.0 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
+/* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
+/* 键盘焦点可见：仅对键盘用户显示焦点环，避免鼠标点击残留描边 */
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 6px; }
+/* 打开弹窗时锁定背景滚动 */
+body.no-scroll { overflow: hidden; }
+/* 尊重用户的减少动效偏好（无障碍 WCAG 2.3.3） */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
+/* 回到顶部按钮：默认隐藏，滚动超阈值后淡入 */
+.to-top {
+  position: fixed; right: 20px; bottom: 20px; z-index: 40;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--primary); color: #fff;
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-pop);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.to-top:hover { background: var(--primary-strong); }
+
 /* ---------- 顶栏 ---------- */
 .topbar {
   position: sticky; top: 0; z-index: 30;
@@ -57,7 +79,14 @@
 .view-toggle button.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow-card); }
 
 /* ---------- 分类条 ---------- */
-.cats { max-width: var(--maxw); margin: 18px auto 0; padding: 0 24px; }
+.cats { max-width: var(--maxw); margin: 18px auto 0; padding: 0 24px; position: relative; }
+/* 右侧渐隐遮罩：提示分类可横向滚动，溢出时可见（纯装饰，不挡交互） */
+.cats::after {
+  content: ""; position: absolute; top: 0; right: 0; bottom: 4px; width: 40px;
+  background: linear-gradient(to right, transparent, var(--bg));
+  pointer-events: none; opacity: 0; transition: opacity .2s ease;
+}
+.cats.overflow::after { opacity: 1; }
 .cats-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
 .cats-scroll::-webkit-scrollbar { display: none; }
 .chip {

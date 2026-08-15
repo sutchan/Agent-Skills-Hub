@@ -94,9 +94,11 @@ function renderGrid() {
 }
 
 // ---------- 详情弹窗 ----------
+let lastFocused = null; // 记录打开弹窗前的焦点元素，关闭后归还
 function openDetail(name) {
   const s = SKILLS_DATA.skills.find((x) => x.name === name);
   if (!s) return;
+  lastFocused = document.activeElement;
   const tools = (s.allowedTools || "")
     .split(",")
     .map((t) => t.trim())
@@ -128,10 +130,28 @@ function openDetail(name) {
       </a>
     </div>`;
   overlay.classList.add("open");
-  $("#closeBtn").onclick = closeDetail;
-  $("#closeBtn2").onclick = closeDetail;
+  document.body.classList.add("no-scroll"); // 打开弹窗时锁定背景滚动
+  const cb = $("#closeBtn"); if (cb) cb.onclick = closeDetail;
+  const cb2 = $("#closeBtn2"); if (cb2) cb2.onclick = closeDetail;
+  if (cb) cb.focus(); // 焦点移入弹窗首个可聚焦元素，满足键盘用户可达
 }
-function closeDetail() { overlay.classList.remove("open"); }
+function closeDetail() {
+  if (!overlay.classList.contains("open")) return;
+  overlay.classList.remove("open");
+  document.body.classList.remove("no-scroll");
+  // 焦点归还到打开前的元素，避免键盘焦点丢失
+  if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+  lastFocused = null;
+}
+// 焦点陷阱：Tab 在弹窗内循环，不逃逸到背景（无障碍）
+function trapFocus(e) {
+  if (!overlay.classList.contains("open") || e.key !== "Tab") return;
+  const f = overlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if (!f.length) return;
+  const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+}
 
 // ---------- 主题 / 语言 ----------
 function applyTheme() {
@@ -143,7 +163,7 @@ function applyTheme() {
 }
 function applyLang() {
   // 语言状态与 DOM 同步统一交给 I18N 模块，保证文案随语言联动且不崩溃
-  I18N.syncDOM();
+  I18N.setLang(state.lang); // 以持久化/默认语言为准初始化
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
   const si = $("#searchInput");
   if (si) si.placeholder = I18N.t("search.placeholder");
@@ -187,9 +207,38 @@ function bind() {
       renderCats(); renderGrid();
     }
   });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetail(); });
-  $("#themeBtn").addEventListener("click", () => { state.theme = state.theme === "light" ? "dark" : "light"; applyTheme(); });
-  $("#langBtn").addEventListener("click", () => { I18N.toggleLang(); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDetail();
+    trapFocus(e); // 弹窗内焦点陷阱
+  });
+  $("#themeBtn").addEventListener("click", () => {
+    state.theme = state.theme === "light" ? "dark" : "light";
+    applyTheme(); savePref(LS_THEME, state.theme); // 持久化主题偏好
+  });
+  $("#langBtn").addEventListener("click", () => {
+    I18N.toggleLang();
+    state.lang = I18N.getLang();
+    savePref(LS_LANG, state.lang); // 持久化语言偏好
+  });
+  // 回到顶部按钮：长列表滚动后出现，点击平滑回到顶部
+  const toTop = $("#toTop");
+  if (toTop) {
+    window.addEventListener("scroll", () => {
+      toTop.classList.toggle("show", window.scrollY > 600);
+    }, { passive: true });
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  }
+  // 分类条溢出指示：内容超出可视宽度时显示右侧渐隐遮罩
+  const catsNav = $("#categoryNav");
+  const catsScroll = $("#cats");
+  function updateCatsOverflow() {
+    if (!catsNav || !catsScroll) return;
+    catsNav.classList.toggle("overflow", catsScroll.scrollWidth - catsScroll.clientWidth > 4);
+  }
+  catsScroll && catsScroll.addEventListener("scroll", updateCatsOverflow, { passive: true });
+  window.addEventListener("resize", updateCatsOverflow, { passive: true });
+  // 初次渲染后下一帧检测（DOM 已布局）
+  requestAnimationFrame(updateCatsOverflow);
 }
 
 // ---------- 启动 ----------

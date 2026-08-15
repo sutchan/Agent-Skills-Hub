@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.12.0 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.13.0 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -59,6 +59,11 @@
   <div class="overlay" id="overlay">
     <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"></div>
   </div>
+
+  <!-- 回到顶部按钮：长列表滚动后出现，提升长页面导航效率（id 供脚本精确选取） -->
+  <button class="to-top" id="toTop" aria-label="回到顶部 / Back to top" title="回到顶部 / Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+  </button>
 
   <script>const SKILLS_DATA = {{DATA}};</script>
   <script>{{I18N}}</script>

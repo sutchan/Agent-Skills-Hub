@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.13.0] - 2026-08-15
+
+### UI/UX 完善：偏好持久化、弹窗无障碍与长列表导航
+
+- **偏好持久化**：主题（明/暗）与语言（中/英）写入 localStorage，刷新后保持，避免每次重置
+- **弹窗无障碍增强**：打开弹窗时焦点移入、Tab 焦点陷阱不逃逸背景、`Esc`/遮罩关闭后焦点归还触发卡片；打开期间锁定背景滚动（`body.no-scroll`）
+- **全局可访问性**：`:focus-visible` 仅键盘焦点显示焦点环；`prefers-reduced-motion` 下停用过渡动画（WCAG 2.3.3）
+- **长列表导航**：新增「回到顶部」按钮（`#toTop`），滚动超阈值淡入、点击平滑回顶；分类条右侧溢出渐隐遮罩提示可横向滚动
+- 版本号：prototype/src 改动文件头统一至 v1.13.0
+
 ## [1.12.0] - 2026-08-15
 
 ### 代码审查：无障碍增强、性能优化、规范对齐与模块拆分
@@ -277,6 +287,7 @@
 [1.9.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.9.0
 [1.9.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.9.1
 [1.10.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.10.0
+[1.13.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.13.0
 
 ## [1.0.3] - 2026-07-31
 
