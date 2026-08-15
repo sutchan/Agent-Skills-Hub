@@ -1,10 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.13.1
+> 路径：`prototype/DESIGN.md` · 版本：1.14.6
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **原型实现方式（v1.9.1 起，v1.12.0 对齐）**：`prototype/out/index.html` 为纯 HTML 自包含单文件——由 `prototype/build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` + `src/app.css`、`src/i18n.js`、`src/app.js` 与真实技能数据 `prototype/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/out/` 为构建产物。
+> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts）**：`prototype/out/index.html` 为纯 HTML 自包含单文件——由 `prototype/build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` + `src/app.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `prototype/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/out/` 为构建产物。
 
 ---
 

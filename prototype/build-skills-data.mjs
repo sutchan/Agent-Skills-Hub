@@ -1,4 +1,4 @@
-// prototype/build-skills-data.mjs v1.0.0
+// prototype/build-skills-data.mjs v1.14.6
 // 从磁盘真实技能数据生成自包含 JSON，供静态 HTML 原型使用。
 import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -22,6 +22,15 @@ function parseFrontmatter(text) {
     fm[key] = val;
   }
   return fm;
+}
+
+// 将 allowed-tools 规范为字符串数组：YAML 列表已为数组则清洗，逗号分隔字符串则 split
+function normalizeTools(raw) {
+  if (Array.isArray(raw)) return raw.map((x) => String(x).trim()).filter(Boolean);
+  return String(raw || "")
+    .split(",")
+    .map((x) => x.trim())
+    .filter(Boolean);
 }
 
 function parseReadme() {
@@ -57,7 +66,7 @@ function main() {
       category: meta.category || "其他",
       zh: meta.zh || "",
       description: fm.description || "",
-      allowedTools: fm["allowed-tools"] || "",
+      allowedTools: normalizeTools(fm["allowed-tools"]),
     });
   }
   const order = [];

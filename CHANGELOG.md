@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.6] - 2026-08-15
+
+### 重构与规范对齐：脚本拆分、分享链接回归规范、文档同步
+
+- **分享/查看链接回归规范**：`openDetail` 与 `buildShareText` 的链接由硬编码 GitHub 绝对 URL 改回相对路径 `skills/<name>/`，对齐 openspec §4.5.4 与 DESIGN §4.3（部署后由 GitHub 自动解析为 tree/main/skills/<name>/，不依赖外部 repo 配置）
+- **脚本拆分（>200 行规则）**：`src/app.js`（317 行）按职责拆分为 `src/parts/` 五模块（01-state / 02-render / 03-detail / 04-interactions / 05-main），`build.mjs` 改为按序拼接 `src/parts/*.js`，保持同作用域、函数声明 hoist
+- **无障碍**：修正详情弹窗 `aria-labelledby` 指向真实存在的 `dialogVisibleTitle`（原先引用不存在的 `dialogTitle`）
+- **文档对齐**：DESIGN.md / COMPONENTS.md 版本与「实现方式 / 源码映射」描述同步为 parts 拆分形态
+- **修复数据层 bug**：`build-skills-data.mjs` 的 `allowedTools` 原本原样存为逗号分隔字符串，导致详情弹窗 `openDetail` 调用 `.map` 崩溃（点击卡片无反应）；新增 `normalizeTools()` 规范为数组，渲染层 `03-detail.js` 同时加 `Array.isArray` 防御性兜底；已验证 200 技能全部可安全打开详情
+- **版本号**：prototype/src 全部文件头、package.json、README 徽章统一至 v1.14.6
+
 ## [1.14.5] - 2026-08-15
 
 ### 修复：卡片 skill 名字丢失（主标题语义错位）

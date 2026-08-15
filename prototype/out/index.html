@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.2 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.6 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 原型</title>
-  <style>/* prototype/src/styles/tokens.css v1.14.2 — 设计令牌 + reset（DESIGN.md §2） */
+  <style>/* prototype/src/styles/tokens.css v1.14.6 — 设计令牌 + reset（DESIGN.md §2） */
 :root {
   --bg: #f7f8fa;
   --surface: #ffffff;
@@ -60,7 +60,7 @@ input { font-family: inherit; }
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-/* prototype/src/app.css v1.14.4 — 组件与布局样式 (DESIGN.md)
+/* prototype/src/app.css v1.14.6 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
@@ -324,7 +324,7 @@ html[data-lang="zh"] .en { display: none; }
   <main class="grid" id="grid" aria-label="技能列表" aria-live="polite"></main>
 
   <div class="overlay" id="overlay">
-    <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"></div>
+    <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogVisibleTitle"></div>
   </div>
 
   <!-- 回到顶部按钮：长列表滚动后出现，提升长页面导航效率（id 供脚本精确选取） -->
@@ -355,1404 +355,1418 @@ html[data-lang="zh"] .en { display: none; }
       "category": "Agent 与 AI 工程",
       "zh": "面向 AI agent 的浏览器自动化 CLI。当用户需要与网站交互（导航页面等）时使用",
       "description": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction.",
-      "allowedTools": "Bash(npx agent-browser:*), Bash(agent-browser:*)"
+      "allowedTools": [
+        "Bash(npx agent-browser:*)",
+        "Bash(agent-browser:*)"
+      ]
     },
     {
       "name": "agent-eval",
       "category": "Agent 与 AI 工程",
       "zh": "在自定义任务上对编码 agent（Claude Code、Aider、Codex 等）进行头对头对比，含通过率、成本、耗时等",
       "description": "Head-to-head comparison of coding agents (Claude Code, Aider, Codex, etc.) on custom tasks with pass rate, cost, time, and consistency metrics",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "agent-harness-construction",
       "category": "Agent 与 AI 工程",
       "zh": "设计与优化 AI agent 的动作空间、工具定义与观察格式化，以提升完成率",
       "description": "Design and optimize AI agent action spaces, tool definitions, and observation formatting for higher completion rates.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "agent-payment-x402",
       "category": "Agent 与 AI 工程",
       "zh": "为 AI agent 添加 x402 支付能力——按任务预算、支出控制，以及通过 MCP 工具实现的非托管钱包",
       "description": "Add x402 payment execution to AI agents — per-task budgets, spending controls, and non-custodial wallets via MCP tools. Use when agents need to pay for APIs, services, or other agents.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "agentic-engineering",
       "category": "Agent 与 AI 工程",
       "zh": "以评估优先执行、任务拆解与成本感知的模型路由，作为 agentic 工程师运作",
       "description": "Operate as an agentic engineer using eval-first execution, decomposition, and cost-aware model routing.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "ai-first-engineering",
       "category": "Agent 与 AI 工程",
       "zh": "面向 AI agent 产出大部分实现代码的团队的工程运作模式",
       "description": "Engineering operating model for teams where AI agents generate a large share of implementation output.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "ai-regression-testing",
       "category": "测试与质量",
       "zh": "AI 辅助开发的回归测试策略。沙箱模式 API 测试（无数据库依赖），自动验证行为",
       "description": "Regression testing strategies for AI-assisted development. Sandbox-mode API testing without database dependencies, automated bug-check workflows, and patterns to catch AI blind spots where the same model writes and reviews code.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "algorithmic-art",
       "category": "视频与媒体",
       "zh": "使用 p5.js 配合种子随机与交互式参数探索创作算法艺术。当用户需要时触发",
       "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "android-clean-architecture",
       "category": "架构与设计",
       "zh": "Android 与 Kotlin Multiplatform 项目的整洁架构模式——模块结构、依赖规则、UseCase 设计等",
       "description": "Clean Architecture patterns for Android and Kotlin Multiplatform projects — module structure, dependency rules, UseCases, Repositories, and data layer patterns.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "api-design",
       "category": "前端与 UI 设计",
       "zh": "REST API 设计模式，涵盖资源命名、状态码、分页、过滤、错误响应、版本控制等",
       "description": "REST API design patterns including resource naming, status codes, pagination, filtering, error responses, versioning, and rate limiting for production APIs.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "architecture-decision-records",
       "category": "架构与设计",
       "zh": "将 Claude Code 会话中的架构决策记录为结构化 ADR。自动检测决策时机并记录",
       "description": "Capture architectural decisions made during Claude Code sessions as structured ADRs. Auto-detects decision moments, records context, alternatives considered, and rationale. Maintains an ADR log so future developers understand why the codebase is shaped the way it is.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "article-writing",
       "category": "内容、文档与写作",
       "zh": "以独特语体撰写文章、指南、博客、教程、简报及其他长文内容",
       "description": "Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive voice derived from supplied examples or brand guidance. Use when the user wants polished written content longer than a paragraph, especially when voice consistency, structure, and credibility matter.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "autonomous-agent-harness",
       "category": "Agent 与 AI 工程",
       "zh": "将 Claude Code 转变为具备持久记忆、定时任务、计算机使用的完全自主 agent 系统",
       "description": "Transform Claude Code into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone agent frameworks (Hermes, AutoGPT) by leveraging Claude Code's native crons, dispatch, MCP tools, and memory. Use when the user wants continuous autonomous operation, scheduled tasks, or a self-directing agent loop.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "autonomous-loops",
       "category": "Agent 与 AI 工程",
       "zh": "自主 Claude Code 循环的架构与模式，用于长时间运行的自动化任务编排",
       "description": "Patterns and architectures for autonomous Claude Code loops — from simple sequential pipelines to RFC-driven multi-agent DAG systems.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "backend-patterns",
       "category": "架构与设计",
       "zh": "后端架构模式、API 设计、数据库优化与 Node.js、Express 等服务端最佳实践",
       "description": "Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "benchmark",
       "category": "Agent 与 AI 工程",
       "zh": "使用该技能测量性能基线、检测 PR 前后的回归，并对比技术栈方案",
       "description": "Use this skill to measure performance baselines, detect regressions before/after PRs, and compare stack alternatives.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "blueprint",
       "category": "上下文与提示工程",
       "zh": "将一句话目标拆解为多会话、多 Agent 工程项目的分步构建计划，每步含自包含上下文简报。用于复杂多 PR 任务或需多会话的路线图规划",
       "description": ">-",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "brainstorming",
       "category": "内容、文档与写作",
       "zh": "任何创造性工作（创建功能、构建组件、添加功能或修整）前必须使用本技能",
       "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "brand-guidelines",
       "category": "前端与 UI 设计",
       "zh": "将 Anthropic 官方品牌色与字体应用于各类产物，使其符合 Anthropic 品牌规范",
       "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "brand-voice",
       "category": "前端与 UI 设计",
       "zh": "从真实文章、随笔、发布说明、文档或站点文案中提炼写作风格画像，并在后续内容中复用",
       "description": "Build a source-derived writing style profile from real posts, essays, launch notes, docs, or site copy, then reuse that profile across content, outreach, and social workflows. Use when the user wants voice consistency without generic AI writing tropes.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "browser-qa",
       "category": "测试与质量",
       "zh": "部署前端后，使用浏览器自动化进行视觉测试与 UI 交互验证",
       "description": "Use this skill to automate visual testing and UI interaction verification using browser automation after deploying features.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "build-deploy",
       "category": "DevOps 与基础设施",
       "zh": "将项目构建并部署到不同环境。当你想为部署做准备时使用",
       "description": "Build and deploy the project to different environments. Use when you want to prepare the project for deployment.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "bun-runtime",
       "category": "后端、语言与框架",
       "zh": "Bun 作为运行时、包管理器、打包器与测试运行器。何时选择 Bun 而非 Node、迁移说明及 Vercel 支持",
       "description": "Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "canary-watch",
       "category": "DevOps 与基础设施",
       "zh": "部署、合并或依赖升级后，监控已部署 URL 是否出现回归",
       "description": "Use this skill to monitor a deployed URL for regressions after deploys, merges, or dependency upgrades.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "canvas-design",
       "category": "前端与 UI 设计",
       "zh": "运用设计理念在 `.png` 与 `.pdf` 文档中创作精美的视觉作品。当用户需要生成图像化文档时使用",
       "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "carrier-relationship-management",
       "category": "行业领域",
       "zh": "承运商组合管理、运费费率谈判、绩效追踪、运力分配与战略关系维护。用于管理承运商、谈判费率、评估承运商绩效或制定货运策略",
       "description": ">",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "ck",
       "category": "生产力与工具",
       "zh": "Claude Code 的持久化逐项目记忆。会话开始时自动加载项目上下文，用 git 跟踪会话历史",
       "description": "Persistent per-project memory for Claude Code. Auto-loads project context on session start, tracks sessions with git activity, and writes to native memory. Commands run deterministic Node.js scripts — behavior is consistent across model versions.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "claude-api",
       "category": "其他",
       "zh": "Anthropic Claude API 的 Python 与 TypeScript 模式。涵盖 Messages API、流式、工具使用、视觉、扩展思考等",
       "description": "Anthropic Claude API patterns for Python and TypeScript. Covers Messages API, streaming, tool use, vision, extended thinking, batches, prompt caching, and Claude Agent SDK. Use when building applications with the Claude API or Anthropic SDKs.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "claude-devfleet",
       "category": "DevOps 与基础设施",
       "zh": "通过 Claude DevFleet 编排多 agent 编码任务——规划项目、在隔离工作区派发并行 agent",
       "description": "Orchestrate multi-agent coding tasks via Claude DevFleet — plan projects, dispatch parallel agents in isolated worktrees, monitor progress, and read structured reports.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "click-path-audit",
       "category": "生产力与工具",
       "zh": "追踪每个面向用户的按钮/触点经过的完整状态变更序列，以发现各函数单独正常但组合后出 bug 的位置",
       "description": "Trace every user-facing button/touchpoint through its full state change sequence to find bugs where functions individually work but cancel each other out, produce wrong final state, or leave the UI in an inconsistent state. Use when: systematic debugging found no bugs but users report broken buttons, or after any major refactor touching shared state stores.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "clickhouse-io",
       "category": "数据与机器学习",
       "zh": "ClickHouse 数据库模式、查询优化、分析与数据工程最佳实践，面向高性能场景",
       "description": "ClickHouse database patterns, query optimization, analytics, and data engineering best practices for high-performance analytical workloads.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "code-quality-check",
       "category": "测试与质量",
       "zh": "运行代码质量检查，含 Lint、类型检查与代码格式化。当你想确保代码符合规范时使用",
       "description": "Run code quality checks including linting, type checking, and code formatting. Use when you want to ensure code follows project standards.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "code-reviewer",
       "category": "测试与质量",
       "zh": "对指定文件夹内的代码进行全面审查，包含规范性检查、Bug检测、性能优化建议、可读性评估和基于华为Java编程规范的质量评分；当用户需要审查代码质量、发现潜在问题、评估代码规范符合度或生成代码审查报告时使用",
       "description": "对指定文件夹内的代码进行全面审查，包含规范性检查、Bug检测、性能优化建议、可读性评估和基于华为Java编程规范的质量评分；当用户需要审查代码质量、发现潜在问题、评估代码规范符合度或生成代码审查报告时使用",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "code-stats",
       "category": "测试与质量",
       "zh": "生成代码统计与分析报告。当你想了解代码库结构与指标时使用",
       "description": "Generate code statistics and analysis reports. Use when you want to understand the codebase structure and metrics.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "codebase-onboarding",
       "category": "其他",
       "zh": "分析陌生代码库并生成结构化上手指南，含架构图、关键入口、关注点等",
       "description": "Analyze an unfamiliar codebase and generate a structured onboarding guide with architecture map, key entry points, conventions, and a starter CLAUDE.md. Use when joining a new project or setting up Claude Code for the first time in a repo.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "coding-standards",
       "category": "测试与质量",
       "zh": "通用编码规范、最佳实践与模式，面向 TypeScript、JavaScript、React 与 Node.js 开发",
       "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "compose-multiplatform-patterns",
       "category": "后端、语言与框架",
       "zh": "Compose Multiplatform 与 Jetpack Compose 模式（KMP 项目）——状态管理、导航、主题、性能优化等",
       "description": "Compose Multiplatform and Jetpack Compose patterns for KMP projects — state management, navigation, theming, performance, and platform-specific UI.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "configure-ecc",
       "category": "DevOps 与基础设施",
       "zh": "Everything Claude Code 的交互式安装器——引导用户选择并安装技能与规则",
       "description": "Interactive installer for Everything Claude Code — guides users through selecting and installing skills and rules to user-level or project-level directories, verifies paths, and optionally optimizes installed files.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "connections-optimizer",
       "category": "DevOps 与基础设施",
       "zh": "以\"先审查再剪枝\"的方式重组用户的 X 与 LinkedIn 网络，给出添加/关注建议与渠道专属策略",
       "description": "Reorganize the user's X and LinkedIn network with review-first pruning, add/follow recommendations, and channel-specific warm outreach drafted in the user's real voice. Use when the user wants to clean up following lists, grow toward current priorities, or rebalance a social graph around higher-signal relationships.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "content-engine",
       "category": "内容、文档与写作",
       "zh": "为 X、LinkedIn、TikTok、YouTube、简报与再加工的多平台内容创建原生内容系统",
       "description": "Create platform-native content systems for X, LinkedIn, TikTok, YouTube, newsletters, and repurposed multi-platform campaigns. Use when the user wants social posts, threads, scripts, content calendars, or one source asset adapted cleanly across platforms.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "content-hash-cache-pattern",
       "category": "内容、文档与写作",
       "zh": "使用 SHA-256 内容哈希缓存昂贵的文件处理结果——与路径无关、自动失效，带服务层",
       "description": "Cache expensive file processing results using SHA-256 content hashes — path-independent, auto-invalidating, with service layer separation.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "context-budget",
       "category": "上下文与提示工程",
       "zh": "审计 Claude Code 在 agent、技能、MCP 服务器与规则间的上下文窗口消耗。识别膨胀、冗余等",
       "description": "Audits Claude Code context window consumption across agents, skills, MCP servers, and rules. Identifies bloat, redundant components, and produces prioritized token-savings recommendations.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "continuous-agent-loop",
       "category": "Agent 与 AI 工程",
       "zh": "带质量门禁、评估与恢复控制的持续自主 agent 循环模式",
       "description": "Patterns for continuous autonomous agent loops with quality gates, evals, and recovery controls.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "continuous-learning",
       "category": "Agent 与 AI 工程",
       "zh": "从 Claude Code 会话中自动提取可复用模式，构建带置信度的原子能力库",
       "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "continuous-learning-v2",
       "category": "Agent 与 AI 工程",
       "zh": "基于本能的学习系统，通过 hook 观察会话，创建带置信度评分的原子本能",
       "description": "Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents. v2.1 adds project-scoped instincts to prevent cross-project contamination.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "cost-aware-llm-pipeline",
       "category": "Agent 与 AI 工程",
       "zh": "LLM API 调用的成本优化模式——按任务复杂度路由模型、预算跟踪、重试逻辑等",
       "description": "Cost optimization patterns for LLM API usage — model routing by task complexity, budget tracking, retry logic, and prompt caching.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "cpp-coding-standards",
       "category": "后端、语言与框架",
       "zh": "基于 C++ Core Guidelines 的 C++ 编码规范。用于编写、审查或重构 C++ 代码时",
       "description": "C++ coding standards based on the C++ Core Guidelines (isocpp.github.io). Use when writing, reviewing, or refactoring C++ code to enforce modern, safe, and idiomatic practices.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "cpp-testing",
       "category": "后端、语言与框架",
       "zh": "仅用于编写/更新/修复 C++ 测试、配置 GoogleTest/CTest、诊断失败或偶发测试等场景",
       "description": "Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "crosspost",
       "category": "内容、文档与写作",
       "zh": "跨 X、LinkedIn、Threads 与 Bluesky 的多平台内容分发。按平台适配内容",
       "description": "Multi-platform content distribution across X, LinkedIn, Threads, and Bluesky. Adapts content per platform using content-engine patterns. Never posts identical content cross-platform. Use when the user wants to distribute content across social platforms.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "csharp-testing",
       "category": "后端、语言与框架",
       "zh": "C# 与 .NET 测试模式：xUnit、FluentAssertions、Mocking、集成测试与测试组织最佳实践",
       "description": "C# and .NET testing patterns with xUnit, FluentAssertions, mocking, integration tests, and test organization best practices.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "customer-billing-ops",
       "category": "行业领域",
       "zh": "运营客户账单工作流，如订阅、退款、流失分诊、账单门户挽回与套餐变更等",
       "description": "Operate customer billing workflows such as subscriptions, refunds, churn triage, billing-portal recovery, and plan analysis using connected billing tools like Stripe. Use when the user needs to help a customer, inspect subscription state, or manage revenue-impacting billing operations.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "customs-trade-compliance",
       "category": "行业领域",
       "zh": "海关单证、税则归类、关税优化、受限方筛查与多辖区贸易合规。用于报关清关、税则归类、贸易合规、进出口单证或关税优化",
       "description": ">",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "dart-flutter-patterns",
       "category": "后端、语言与框架",
       "zh": "生产可用的 Dart 与 Flutter 模式：空安全、不可变状态、异步组合、Widget 架构等",
       "description": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "data-scraper-agent",
       "category": "Agent 与 AI 工程",
       "zh": "为任意公开来源构建全自动的 AI 数据收集 agent——招聘网站、价格、新闻、GitHub 等",
       "description": "Build a fully automated AI-powered data collection agent for any public source — job boards, prices, news, GitHub, sports, anything. Scrapes on a schedule, enriches data with a free LLM (Gemini Flash), stores results in Notion/Sheets/Supabase, and learns from user feedback. Runs 100% free on GitHub Actions. Use when the user wants to monitor, collect, or track any public data automatically.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "database-migrations",
       "category": "DevOps 与基础设施",
       "zh": "数据库迁移最佳实践：模式变更、数据迁移、回滚与零停机部署",
       "description": "Database migration best practices for schema changes, data migrations, rollbacks, and zero-downtime deployments across PostgreSQL, MySQL, and common ORMs (Prisma, Drizzle, Kysely, Django, TypeORM, golang-migrate).",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "deep-research",
       "category": "Agent 与 AI 工程",
       "zh": "使用 firecrawl 与 exa MCP 进行多来源深度研究。检索网络、综合发现并交付带引用的结果",
       "description": "Multi-source deep research using firecrawl and exa MCPs. Searches the web, synthesizes findings, and delivers cited reports with source attribution. Use when the user wants thorough research on any topic with evidence and citations.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "defuddle",
       "category": "数据与机器学习",
       "zh": "使用 Defuddle CLI 从网页提取干净的 Markdown 内容，去除杂讯与导航以节省 token",
       "description": "Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "dependency-management",
       "category": "其他",
       "zh": "管理项目依赖，包括检查更新与安全漏洞。当你想确保依赖健康时使用",
       "description": "Manage project dependencies including checking for updates and security vulnerabilities. Use when you want to ensure dependencies are up-to-date and secure.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "deployment-patterns",
       "category": "DevOps 与基础设施",
       "zh": "部署工作流、CI/CD 流水线模式、Docker 容器化、健康检查、回滚策略与生产实践",
       "description": "Deployment workflows, CI/CD pipeline patterns, Docker containerization, health checks, rollback strategies, and production readiness checklists for web applications.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "design-system",
       "category": "前端与 UI 设计",
       "zh": "用于生成或审查设计系统、检查视觉一致性，并评审涉及样式的 PR",
       "description": "Use this skill to generate or audit design systems, check visual consistency, and review PRs that touch styling.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "django-patterns",
       "category": "后端、语言与框架",
       "zh": "Django 架构模式、DRF 的 REST API 设计、ORM 最佳实践、缓存、信号、中间件与产品化",
       "description": "Django architecture patterns, REST API design with DRF, ORM best practices, caching, signals, middleware, and production-grade Django apps.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "django-security",
       "category": "后端、语言与框架",
       "zh": "Django 安全最佳实践：认证、授权、CSRF 防护、SQL 注入与 XSS 防护等",
       "description": "Django security best practices, authentication, authorization, CSRF protection, SQL injection prevention, XSS prevention, and secure deployment configurations.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "django-tdd",
       "category": "后端、语言与框架",
       "zh": "Django 测试策略：pytest-django、TDD 方法、factory_boy、Mocking、覆盖率及 Django REST 测试",
       "description": "Django testing strategies with pytest-django, TDD methodology, factory_boy, mocking, coverage, and testing Django REST Framework APIs.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "django-verification",
       "category": "后端、语言与框架",
       "zh": "Django 项目的验证闭环：迁移、Lint、带覆盖率的测试、安全扫描与部署就绪检查",
       "description": "Verification loop for Django projects: migrations, linting, tests with coverage, security scans, and deployment readiness checks before release or PR.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "dmux-workflows",
       "category": "生产力与工具",
       "zh": "使用 dmux（面向 AI agent 的 tmux 面板管理器）进行多 agent 编排。跨项目的并行 agent 工作流模式",
       "description": "Multi-agent orchestration using dmux (tmux pane manager for AI agents). Patterns for parallel agent workflows across Claude Code, Codex, OpenCode, and other harnesses. Use when running multiple agent sessions in parallel or coordinating multi-agent development workflows.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "doc-coauthoring",
       "category": "内容、文档与写作",
       "zh": "引导用户通过结构化工作流协同撰写文档。用户想写文档时触发",
       "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "docker-patterns",
       "category": "DevOps 与基础设施",
       "zh": "本地开发、容器安全、网络、卷策略与多容器编排的 Docker 与 Docker Compose 模式",
       "description": "Docker and Docker Compose patterns for local development, container security, networking, volume strategies, and multi-service orchestration.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "documentation-lookup",
       "category": "内容、文档与写作",
       "zh": "通过 Context7 MCP 使用最新库与框架文档，而非训练数据。在安装问题、API 调用等场景激活",
       "description": "Use up-to-date library and framework docs via Context7 MCP instead of training data. Activates for setup questions, API references, code examples, or when the user names a framework (e.g. React, Next.js, Prisma).",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "dogfood",
       "category": "上下文与提示工程",
       "zh": "系统性地探索与测试 Web 应用，发现 bug、UX 问题及其他问题。当用户要求\"dogfood\"等时使用",
       "description": "Systematically explore and test a web application to find bugs, UX issues, and other problems. Use when asked to \"dogfood\", \"QA\", \"exploratory test\", \"find issues\", \"bug hunt\", \"test this app/site/platform\", or review the quality of a web application. Produces a structured report with full reproduction evidence -- step-by-step screenshots, repro videos, and detailed repro steps for every issue -- so findings can be handed directly to the responsible teams.",
-      "allowedTools": "Bash(agent-browser:*), Bash(npx agent-browser:*)"
+      "allowedTools": [
+        "Bash(agent-browser:*)",
+        "Bash(npx agent-browser:*)"
+      ]
     },
     {
       "name": "dotnet-patterns",
       "category": "后端、语言与框架",
       "zh": "地道的 C# 与 .NET 模式、约定、依赖注入、async/await 及构建健壮应用的实践",
       "description": "Idiomatic C# and .NET patterns, conventions, dependency injection, async/await, and best practices for building robust, maintainable .NET applications.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "e2e-testing",
       "category": "测试与质量",
       "zh": "Playwright 端到端测试模式、Page Object Model、配置、CI/CD 集成、产物管理与偶发测试处理",
       "description": "Playwright E2E testing patterns, Page Object Model, configuration, CI/CD integration, artifact management, and flaky test strategies.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "energy-procurement",
       "category": "行业领域",
       "zh": "电力与天然气采购、费率优化、需量电费管理、可再生 PPA 评估与多设施能源成本管理。用于采购能源、优化费率、管理需量电费、评估 PPA 或制定能源策略",
       "description": ">",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "enterprise-agent-ops",
       "category": "Agent 与 AI 工程",
       "zh": "以可观测性、安全边界与生命周期管理运营长生命周期的 agent 工作负载",
       "description": "Operate long-lived agent workloads with observability, security boundaries, and lifecycle management.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "eval-harness",
       "category": "Agent 与 AI 工程",
       "zh": "实现评估驱动开发（EDD）原则的 Claude Code 会话形式化评估框架",
       "description": "Formal evaluation framework for Claude Code sessions implementing eval-driven development (EDD) principles",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "exa-search",
       "category": "数据与机器学习",
       "zh": "通过 Exa MCP 进行神经搜索，面向网络、代码与公司研究。当用户需要网络搜索、代码示例时触发",
       "description": "Neural search via Exa MCP for web, code, and company research. Use when the user needs web search, code examples, company intel, people lookup, or AI-powered deep research with Exa's neural search engine.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "executing-plans",
       "category": "上下文与提示工程",
       "zh": "当你有书面实现计划，要在独立会话中执行并带审查检查点时使用",
       "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "fal-ai-media",
       "category": "视频与媒体",
       "zh": "通过 fal.ai MCP 统一生成媒体——图像、视频与音频。涵盖文生图（Nano Banana）、文/图生视频等",
       "description": "Unified media generation via fal.ai MCP — image, video, and audio. Covers text-to-image (Nano Banana), text/image-to-video (Seedance, Kling, Veo 3), text-to-speech (CSM-1B), and video-to-audio (ThinkSound). Use when the user wants to generate images, videos, or audio with AI.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "figma",
       "category": "前端与 UI 设计",
       "zh": "通过 Figma MCP 服务获取设计上下文、截图、变量与资源，并将设计稿转换为代码",
       "description": "Use the Figma MCP server to fetch design context, screenshots, variables, and assets from Figma, and to translate Figma nodes into production code. Trigger when a task involves Figma URLs, node IDs, design-to-code implementation, or Figma MCP setup and troubleshooting.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "file-deduplicator",
       "category": "生产力与工具",
       "zh": "扫描项目目录，基于内容哈希找出重复文件，并检测空文件/无效文件，安全（默认 dry-run）地清理冗余。当用户想要查找/删除重复、冗余或无效文件时使用",
       "description": "扫描项目目录，基于内容哈希找出重复文件，并检测空文件/无效文件，安全（默认 dry-run）地清理冗余。Use when the user wants to find/remove duplicate, redundant, or invalid files in a project.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "find-orphans",
       "category": "生产力与工具",
       "zh": "查找项目中的孤儿文件、未使用组件与死代码。当用户需要清理代码、查找孤儿文件、删除无用代码时使用",
       "description": "Finds orphaned files, unused components, and dead code in projects. Use when 清理代码, 查找孤儿文件, 删除无用代码, cleanup, find unused, or removing legacy code.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "flutter-dart-code-review",
       "category": "测试与质量",
       "zh": "与库无关的 Flutter/Dart 代码审查清单，涵盖 Widget 最佳实践、状态管理（BLoC 等）模式",
       "description": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "foundation-models-on-device",
       "category": "Agent 与 AI 工程",
       "zh": "Apple FoundationModels 框架的端侧 LLM——文本生成、@Generable 引导生成、工具调用等",
       "description": "Apple FoundationModels framework for on-device LLM — text generation, guided generation with @Generable, tool calling, and snapshot streaming in iOS 26+.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "frontend-design",
       "category": "前端与 UI 设计",
       "zh": "构建新 UI 或重塑现有界面时的差异化、有意图的视觉设计指引，帮助提升美感",
       "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "frontend-patterns",
       "category": "前端与 UI 设计",
       "zh": "前端开发模式：React、Next.js、状态管理、性能优化与 UI 最佳实践",
       "description": "Frontend development patterns for React, Next.js, state management, performance optimization, and UI best practices.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "frontend-skill",
       "category": "前端与 UI 设计",
       "zh": "当任务需要视觉表现力强的落地页、网站、应用、原型、演示或游戏 UI 时使用",
       "description": "Use when the task asks for a visually strong landing page, website, app, prototype, demo, or game UI. This skill enforces restrained composition, image-led hierarchy, cohesive content structure, and tasteful motion while avoiding generic cards, weak branding, and UI clutter.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "frontend-slides",
       "category": "前端与 UI 设计",
       "zh": "从零创建或将 PowerPoint 文件转换为动画丰富、惊艳的 HTML 演示文稿",
       "description": "Create stunning, animation-rich HTML presentations from scratch or by converting PowerPoint files. Use when the user wants to build a presentation, convert a PPT/PPTX to web, or create slides for a talk/pitch. Helps non-designers discover their aesthetic through visual exploration rather than abstract choices.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "gan-style-harness",
       "category": "数据与机器学习",
       "zh": "受 GAN 启发的生成器-评估器 agent 框架，用于自主构建高质量应用。基于 Anthropic 思路",
       "description": "GAN-inspired Generator-Evaluator agent harness for building high-quality applications autonomously. Based on Anthropic's March 2026 harness design paper.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "gh-cli",
       "category": "DevOps 与基础设施",
       "zh": "GitHub CLI（gh）的全面参考：仓库、Issue、PR、Actions、项目、发布、Gist 等",
       "description": "GitHub CLI (gh) comprehensive reference for repositories, issues, pull requests, Actions, projects, releases, gists, codespaces, organizations, extensions, and all GitHub operations from the command line.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "git-commit",
       "category": "DevOps 与基础设施",
       "zh": "执行 git commit，含约定式提交信息分析、智能暂存与信息生成。当需要时触发",
       "description": "Execute git commit with conventional commit message analysis, intelligent staging, and message generation. Use when user asks to commit changes, create a git commit, or mentions \"/commit\". Supports: (1) Auto-detecting type and scope from changes, (2) Generating conventional commit messages from diff, (3) Interactive commit with optional type/scope/description overrides, (4) Intelligent file staging for logical grouping",
-      "allowedTools": "Bash"
+      "allowedTools": [
+        "Bash"
+      ]
     },
     {
       "name": "git-workflow",
       "category": "DevOps 与基础设施",
       "zh": "Git 工作流模式：分支策略、提交约定、merge 与 rebase、冲突解决等",
       "description": "Git workflow patterns including branching strategies, commit conventions, merge vs rebase, conflict resolution, and collaborative development best practices for teams of all sizes.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "golang-patterns",
       "category": "后端、语言与框架",
       "zh": "地道的 Go 模式、最佳实践与约定，用于构建健壮、高效、可维护的 Go 应用",
       "description": "Idiomatic Go patterns, best practices, and conventions for building robust, efficient, and maintainable Go applications.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "golang-testing",
       "category": "后端、语言与框架",
       "zh": "Go 测试模式：表驱动测试、子测试、基准测试、模糊测试与测试覆盖率。遵循 TDD 方法",
       "description": "Go testing patterns including table-driven tests, subtests, benchmarks, fuzzing, and test coverage. Follows TDD methodology with idiomatic Go practices.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "google-workspace-ops",
       "category": "行业领域",
       "zh": "将 Google Drive、Docs、Sheets 与 Slides 作为统一工作流面，用于计划、追踪、演示与共享文档",
       "description": "Operate across Google Drive, Docs, Sheets, and Slides as one workflow surface for plans, trackers, decks, and shared documents. Use when the user needs to find, summarize, edit, migrate, or clean up Google Workspace assets without dropping to raw tool calls.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "healthcare-cdss-patterns",
       "category": "行业领域",
       "zh": "临床决策支持系统（CDSS）开发模式。药物相互作用检查、剂量校验、临床场景等",
       "description": "Clinical Decision Support System (CDSS) development patterns. Drug interaction checking, dose validation, clinical scoring (NEWS2, qSOFA), alert severity classification, and integration into EMR workflows.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "healthcare-emr-patterns",
       "category": "行业领域",
       "zh": "医疗应用的 EMR/EHR 开发模式。临床安全、就诊工作流、处方生成等",
       "description": "EMR/EHR development patterns for healthcare applications. Clinical safety, encounter workflows, prescription generation, clinical decision support integration, and accessibility-first UI for medical data entry.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "healthcare-eval-harness",
       "category": "Agent 与 AI 工程",
       "zh": "医疗应用部署的患者安全评估框架。针对 CDSS 准确性、PHI 合规等的自动化测试套件",
       "description": "Patient safety evaluation harness for healthcare application deployments. Automated test suites for CDSS accuracy, PHI exposure, clinical workflow integrity, and integration compliance. Blocks deployments on safety failures.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "healthcare-phi-compliance",
       "category": "行业领域",
       "zh": "医疗应用的受保护健康信息（PHI）与个人可识别信息（PII）合规模式",
       "description": "Protected Health Information (PHI) and Personally Identifiable Information (PII) compliance patterns for healthcare applications. Covers data classification, access control, audit trails, encryption, and common leak vectors.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "hexagonal-architecture",
       "category": "架构与设计",
       "zh": "设计、实现与重构端口与适配器（Ports & Adapters）系统，具备清晰领域边界、依赖倒置与可测试性",
       "description": "Design, implement, and refactor Ports & Adapters systems with clear domain boundaries, dependency inversion, and testable use-case orchestration across TypeScript, Java, Kotlin, and Go services.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "iga-pages",
       "category": "生产力与工具",
       "zh": "将前端与全栈项目部署到 IGA Pages。当用户提到 IGA Pages 或请求部署时触发",
       "description": "Deploy frontend and full-stack projects to IGA Pages. Use when the user mentions IGA Pages or requests deployment (\"deploy my app\", \"publish this site\", \"push this live\", \"deploy and give me the link\", \"create a preview deployment\", \"deploy to IGA Pages\", \"ship to production\"), or wants to develop an API (\"write an API\", \"create an endpoint\", \"build a backend service\").",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "inventory-demand-planning",
       "category": "行业领域",
       "zh": "需求预测、安全库存优化、补货计划与促销提升估计（多门店零售）。用于预测需求、设定安全库存、规划补货、管理促销或优化库存水平",
       "description": ">",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "investor-materials",
       "category": "内容、文档与写作",
       "zh": "创建与更新融资演示、一页纸、投资人备忘录、加速器申请、财务模型与募资材料",
       "description": "Create and update pitch decks, one-pagers, investor memos, accelerator applications, financial models, and fundraising materials. Use when the user needs investor-facing documents, projections, use-of-funds tables, milestone plans, or materials that must stay internally consistent across multiple fundraising assets.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "investor-outreach",
       "category": "内容、文档与写作",
       "zh": "起草冷邮件、warm intro 简介、跟进、更新邮件及募资用的投资人沟通",
       "description": "Draft cold emails, warm intro blurbs, follow-ups, update emails, and investor communications for fundraising. Use when the user wants outreach to angels, VCs, strategic investors, or accelerators and needs concise, personalized, investor-facing messaging.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "iterative-retrieval",
       "category": "数据与机器学习",
       "zh": "逐步精炼上下文检索以解决子 agent 上下文问题的模式",
       "description": "Pattern for progressively refining context retrieval to solve the subagent context problem",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "java-coding-standards",
       "category": "后端、语言与框架",
       "zh": "Spring Boot 服务的 Java 编码规范：命名、不可变性、Optional 用法、Stream、异常、泛型等",
       "description": "Java coding standards for Spring Boot services: naming, immutability, Optional usage, streams, exceptions, generics, and project layout.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "jira-integration",
       "category": "其他",
       "zh": "当用户需要获取 Jira 工单、分析需求、更新工单状态、添加评论或流转时使用",
       "description": "Use this skill when retrieving Jira tickets, analyzing requirements, updating ticket status, adding comments, or transitioning issues. Provides Jira API patterns via MCP or direct REST calls.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "jpa-patterns",
       "category": "后端、语言与框架",
       "zh": "JPA/Hibernate 模式：实体设计、关系、查询优化、事务、审计、索引、分页等",
       "description": "JPA/Hibernate patterns for entity design, relationships, query optimization, transactions, auditing, indexing, pagination, and pooling in Spring Boot.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "kotlin-coroutines-flows",
       "category": "后端、语言与框架",
       "zh": "Android 与 KMP 的 Kotlin 协程与 Flow 模式——结构化并发、Flow 操作符、StateFlow、错误处理等",
       "description": "Kotlin Coroutines and Flow patterns for Android and KMP — structured concurrency, Flow operators, StateFlow, error handling, and testing.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "kotlin-exposed-patterns",
       "category": "后端、语言与框架",
       "zh": "JetBrains Exposed ORM 模式：DSL 查询、DAO 模式、事务、HikariCP 连接池、Flyway 迁移等",
       "description": "JetBrains Exposed ORM patterns including DSL queries, DAO pattern, transactions, HikariCP connection pooling, Flyway migrations, and repository pattern.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "kotlin-ktor-patterns",
       "category": "后端、语言与框架",
       "zh": "Ktor 服务端模式：路由 DSL、插件、认证、Koin DI、kotlinx.serialization、WebSockets 等",
       "description": "Ktor server patterns including routing DSL, plugins, authentication, Koin DI, kotlinx.serialization, WebSockets, and testApplication testing.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "kotlin-patterns",
       "category": "后端、语言与框架",
       "zh": "地道的 Kotlin 模式、最佳实践与约定，用于构建健壮、高效、可维护的 Kotlin 应用",
       "description": "Idiomatic Kotlin patterns, best practices, and conventions for building robust, efficient, and maintainable Kotlin applications with coroutines, null safety, and DSL builders.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "kotlin-testing",
       "category": "后端、语言与框架",
       "zh": "Kotlin 测试模式：Kotest、MockK、协程测试、属性测试与 Kover 覆盖率。遵循 TDD 方法",
       "description": "Kotlin testing patterns with Kotest, MockK, coroutine testing, property-based testing, and Kover coverage. Follows TDD methodology with idiomatic Kotlin practices.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "laravel-patterns",
       "category": "后端、语言与框架",
       "zh": "Laravel 架构模式、路由/控制器、Eloquent ORM、服务层、队列、事件、缓存与 API 响应",
       "description": "Laravel architecture patterns, routing/controllers, Eloquent ORM, service layers, queues, events, caching, and API resources for production apps.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "laravel-plugin-discovery",
       "category": "后端、语言与框架",
       "zh": "通过 LaraPlugins.io MCP 发现与评估 Laravel 包。用户想查找插件、检查包信息时触发",
       "description": "Discover and evaluate Laravel packages via LaraPlugins.io MCP. Use when the user wants to find plugins, check package health, or assess Laravel/PHP compatibility.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "laravel-security",
       "category": "后端、语言与框架",
       "zh": "Laravel 安全最佳实践：认证/授权、校验、CSRF、批量赋值、文件上传、密钥、限流等",
       "description": "Laravel security best practices for authn/authz, validation, CSRF, mass assignment, file uploads, secrets, rate limiting, and secure deployment.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "laravel-tdd",
       "category": "后端、语言与框架",
       "zh": "Laravel 的测试驱动开发：PHPUnit 与 Pest、工厂、数据库测试、Fake 与覆盖率目标",
       "description": "Test-driven development for Laravel with PHPUnit and Pest, factories, database testing, fakes, and coverage targets.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "laravel-verification",
       "category": "后端、语言与框架",
       "zh": "Laravel 项目的验证闭环：环境检查、Lint、静态分析、带覆盖率的测试、安全扫描等",
       "description": "Verification loop for Laravel projects: env checks, linting, static analysis, tests with coverage, security scans, and deployment readiness.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "lead-intelligence",
       "category": "行业领域",
       "zh": "AI 原生的销售线索情报与外联流水线。用 agent 驱动的信号评分替代 Apollo、Clay 与 ZoomInfo",
       "description": "AI-native lead intelligence and outreach pipeline. Replaces Apollo, Clay, and ZoomInfo with agent-powered signal scoring, mutual ranking, warm path discovery, source-derived voice modeling, and channel-specific outreach across email, LinkedIn, and X. Use when the user wants to find, qualify, and reach high-value contacts.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "liquid-glass-design",
       "category": "前端与 UI 设计",
       "zh": "iOS 26 Liquid Glass 设计体系——动态玻璃材质，含模糊、反射与可交互形变，用于 SwiftUI",
       "description": "iOS 26 Liquid Glass design system — dynamic glass material with blur, reflection, and interactive morphing for SwiftUI, UIKit, and WidgetKit.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "logistics-exception-management",
       "category": "行业领域",
       "zh": "货运异常、延误、损坏、丢失与承运商争议处理。用于处置运输异常、货运索赔、交付问题或承运商争议",
       "description": ">",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "manim-video",
       "category": "视频与媒体",
       "zh": "为技术概念、图表、系统图与产品演示构建可复用的 Manim 讲解动画，然后交付成果",
       "description": "Production pipeline for mathematical and technical animations using Manim Community Edition. Creates 3Blue1Brown-style explainer videos, algorithm visualizations, equation derivations, architecture diagrams, and data stories. Use when users request: animated explanations, math animations, concept visualizations, algorithm walkthroughs, technical explainers, 3Blue1Brown style videos, or any programmatic animation with geometric/mathematical content.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "market-research",
       "category": "内容、文档与写作",
       "zh": "开展市场研究、竞品分析、投资人尽职调查与带来源归属的行业情报",
       "description": "Conduct market research, competitive analysis, investor due diligence, and industry intelligence with source attribution and decision-oriented summaries. Use when the user wants market sizing, competitor comparisons, fund research, technology scans, or research that informs business decisions.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "mcp-builder",
       "category": "生产力与工具",
       "zh": "创建高质量 MCP（模型上下文协议）服务器的指南，使 LLM 能与外部服务交互",
       "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "mcp-server-patterns",
       "category": "生产力与工具",
       "zh": "使用 Node/TypeScript SDK 构建 MCP 服务器——工具、资源、提示、Zod 校验、stdio 与 Streamable HTTP",
       "description": "Build MCP servers with Node/TypeScript SDK — tools, resources, prompts, Zod validation, stdio vs Streamable HTTP. Use Context7 or official MCP docs for latest API.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "nanoclaw-repl",
       "category": "生产力与工具",
       "zh": "运维与扩展 NanoClaw v2——ECC 基于 claude -p 构建的零依赖、会话感知 REPL",
       "description": "Operate and extend NanoClaw v2, ECC's zero-dependency session-aware REPL built on claude -p.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "nestjs-patterns",
       "category": "后端、语言与框架",
       "zh": "NestJS 架构模式：模块、控制器、Provider、DTO 校验、守卫、拦截器、配置等",
       "description": "NestJS architecture patterns for modules, controllers, providers, DTO validation, guards, interceptors, config, and production-grade TypeScript backends.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "nextjs-turbopack",
       "category": "后端、语言与框架",
       "zh": "Next.js 16+ 与 Turbopack——增量打包、文件系统缓存、开发速度，以及何时用 Turbopack 而非 webpack",
       "description": "Next.js 16+ and Turbopack — incremental bundling, FS caching, dev speed, and when to use Turbopack vs webpack.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "nutrient-document-processing",
       "category": "其他",
       "zh": "使用 Nutrient DWS API 处理、转换、OCR、提取、脱敏、签署与填写文档。支持 PDF、DOCX、XLSX 等",
       "description": "Process, convert, OCR, extract, redact, sign, and fill documents using the Nutrient DWS API. Works with PDFs, DOCX, XLSX, PPTX, HTML, and images.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "nuxt4-patterns",
       "category": "后端、语言与框架",
       "zh": "Nuxt 4 应用模式：hydration 安全、性能、路由规则、懒加载，以及 SSR 安全的数据获取",
       "description": "Nuxt 4 app patterns for hydration safety, performance, route rules, lazy loading, and SSR-safe data fetching with useFetch and useAsyncData.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "obsidian-bases",
       "category": "生产力与工具",
       "zh": "创建与编辑 Obsidian Bases（.base 文件），含视图、过滤、公式与汇总。处理 .base 文件时使用",
       "description": "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "obsidian-cli",
       "category": "生产力与工具",
       "zh": "通过 Obsidian CLI 与 Vault 交互，读取、创建、搜索并管理笔记、任务、属性等",
       "description": "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "obsidian-markdown",
       "category": "生产力与工具",
       "zh": "创建与编辑 Obsidian Flavored Markdown，含 Wiki 链接、嵌入、标注、属性及其他 Obsidian 专属语法",
       "description": "Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "openclaw-persona-forge",
       "category": "生产力与工具",
       "zh": "为 OpenClaw AI Agent 锻造龙虾灵魂方案：输出身份定位、SOUL.md、角色化底线规则、名字与头像生图提示词。用于创建、设计或定制 OpenClaw 龙虾灵魂",
       "description": "|-",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "opensource-pipeline",
       "category": "生产力与工具",
       "zh": "开源流水线：fork、清洗并打包私有项目以安全公开发布。串联 3 个 agent（forker 等）",
       "description": "Open-source pipeline: fork, sanitize, and package private projects for safe public release. Chains 3 agents (forker, sanitizer, packager). Triggers: '/opensource', 'open source this', 'make this public', 'prepare for open source'.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "openspec-apply-change",
       "category": "上下文与提示工程",
       "zh": "实现 OpenSpec 变更的 task。当用户想开始实现、继续实现或推进变更时使用",
       "description": "Implement tasks from an OpenSpec change. Use when the user wants to start implementing, continue implementation, or work through tasks.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "openspec-archive-change",
       "category": "上下文与提示工程",
       "zh": "在实验性工作流中归档已完成变更。当用户想在完成变更后最终化并归档时使用",
       "description": "Archive a completed change in the experimental workflow. Use when the user wants to finalize and archive a change after implementation is complete.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "openspec-explore",
       "category": "上下文与提示工程",
       "zh": "进入探索模式——用于探索想法、调查问题、澄清需求的思考伙伴。用于需求梳理时",
       "description": "Enter explore mode - a thinking partner for exploring ideas, investigating problems, and clarifying requirements. Use when the user wants to think through something before or during a change.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "openspec-propose",
       "category": "上下文与提示工程",
       "zh": "一步生成所有产物来提议新变更。当用户想快速描述他们想要的内容时使用",
       "description": "Propose a new change with all artifacts generated in one step. Use when the user wants to quickly describe what they want to build and get a complete proposal with design, specs, and tasks ready for implementation.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "performance-analysis",
       "category": "上下文与提示工程",
       "zh": "分析项目性能，含包体积与加载时间。当你想优化性能时使用",
       "description": "Analyze project performance including bundle size and load times. Use when you want to optimize performance.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "perl-patterns",
       "category": "后端、语言与框架",
       "zh": "现代 Perl 5.36+ 习惯用法、最佳实践与约定，用于构建健壮、可维护的 Perl 应用",
       "description": "Modern Perl 5.36+ idioms, best practices, and conventions for building robust, maintainable Perl applications.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "perl-security",
       "category": "后端、语言与框架",
       "zh": "全面的 Perl 安全：taint 模式、输入校验、安全进程执行、DBI 参数化查询等",
       "description": "Comprehensive Perl security covering taint mode, input validation, safe process execution, DBI parameterized queries, web security (XSS/SQLi/CSRF), and perlcritic security policies.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "perl-testing",
       "category": "后端、语言与框架",
       "zh": "Perl 测试模式：Test2::V0、Test::More、prove 运行器、Mocking、Devel::Cover 覆盖率与 TDD 方法",
       "description": "Perl testing patterns using Test2::V0, Test::More, prove runner, mocking, coverage with Devel::Cover, and TDD methodology.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "plankton-code-quality",
       "category": "测试与质量",
       "zh": "使用 Plankton 在写作时强制执行代码质量——自动格式化、Lint 与 Claude 驱动的修复，作用于每个文件",
       "description": "Write-time code quality enforcement using Plankton — auto-formatting, linting, and Claude-powered fixes on every file edit via hooks.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "postgres-patterns",
       "category": "后端、语言与框架",
       "zh": "PostgreSQL 数据库模式：查询优化、模式设计、索引与安全。基于 Supabase 最佳实践",
       "description": "PostgreSQL database patterns for query optimization, schema design, indexing, and security. Based on Supabase best practices.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "product-lens",
       "category": "内容、文档与写作",
       "zh": "使用该技能在构建前验证\"为什么\"，进行产品诊断，并将模糊想法转化为规格",
       "description": "Use this skill to validate the \"why\" before building, run product diagnostics, and convert vague ideas into specs.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "production-scheduling",
       "category": "行业领域",
       "zh": "生产排程、作业排序、产线平衡、换型优化与瓶颈解决（离散/批量制造）。用于排产、解决瓶颈、优化换型、应对中断或平衡产线",
       "description": ">",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "project-flow-ops",
       "category": "其他",
       "zh": "跨 GitHub 与 Linear 运营执行流，分诊 Issue 与 PR、关联活跃工作并保持同步",
       "description": "Operate execution flow across GitHub and Linear by triaging issues and pull requests, linking active work, and keeping GitHub public-facing while Linear remains the internal execution layer. Use when the user wants backlog control, PR triage, or GitHub-to-Linear coordination.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "project-guidelines-example",
       "category": "其他",
       "zh": "基于真实生产应用的示例项目专属技能模板",
       "description": "Example project-specific skill template based on a real production application.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "prompt-optimizer",
       "category": "Agent 与 AI 工程",
       "zh": "分析原始提示词、识别意图与缺口、匹配 ECC 组件（skills/commands/agents/hooks）并输出可直接粘贴的优化提示词；仅作顾问、绝不代为执行任务。当用户想优化/改进提示词时触发，想直接执行任务时不触发",
       "description": ">-",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "python-patterns",
       "category": "后端、语言与框架",
       "zh": "Python 习惯用法、PEP 8 标准、类型提示与最佳实践，用于构建健壮、高效、可维护的 Python 应用",
       "description": "Pythonic idioms, PEP 8 standards, type hints, and best practices for building robust, efficient, and maintainable Python applications.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "python-testing",
       "category": "测试与质量",
       "zh": "Python 测试策略：pytest、TDD 方法、fixtures、Mocking、参数化与覆盖率要求",
       "description": "Python testing strategies using pytest, TDD methodology, fixtures, mocking, parametrization, and coverage requirements.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "pytorch-patterns",
       "category": "数据与机器学习",
       "zh": "PyTorch 深度学习模式与最佳实践，用于构建健壮、高效、可复现的训练流水线",
       "description": "PyTorch deep learning patterns and best practices for building robust, efficient, and reproducible training pipelines, model architectures, and data loading.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "quality-nonconformance",
       "category": "测试与质量",
       "zh": "质量管控与不符合项调查、根本原因分析、纠正措施（CAPA）及供应商质量管理，覆盖 FDA/IATF 16949/AS9100 等受监管制造场景。用于调查不符合项、执行根因分析、管理 CAPA、解读 SPC 或处理供应商质量问题",
       "description": ">",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "ralphinho-rfc-pipeline",
       "category": "生产力与工具",
       "zh": "基于 RFC 驱动的多 agent DAG 执行模式，带质量门禁、合并队列与工作单元编排",
       "description": "RFC-driven multi-agent DAG execution pattern with quality gates, merge queues, and work unit orchestration.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "regex-vs-llm-structured-text",
       "category": "数据与机器学习",
       "zh": "解析结构化文本时在正则与 LLM 之间选择的决策框架——从正则起步，仅在必要时引入 LLM",
       "description": "Decision framework for choosing between regex and LLM when parsing structured text — start with regex, add LLM only for low-confidence edge cases.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "remotion-video-creation",
       "category": "视频与媒体",
       "zh": "Remotion（React 视频创作）最佳实践。29 条领域专属规则，涵盖 3D、动画、音频、字幕等",
       "description": "Best practices for Remotion - Video creation in React. 29 domain-specific rules covering 3D, animations, audio, captions, charts, transitions, and more.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "repo-scan",
       "category": "生产力与工具",
       "zh": "跨技术栈源码资产审计——为每个文件分类、检测内嵌的第三方库，并交付报告",
       "description": "Cross-stack source code asset audit — classifies every file, detects embedded third-party libraries, and delivers actionable four-level verdicts per module with interactive HTML reports.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "returns-reverse-logistics",
       "category": "行业领域",
       "zh": "退货授权、收货检验、处置决策、退款处理、欺诈检测与保修索赔管理。用于退货、逆向物流、退款决策、退货欺诈检测或保修索赔",
       "description": ">",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "rules-distill",
       "category": "上下文与提示工程",
       "zh": "扫描技能以提取跨切面原则，并蒸馏为规则——追加、修订或创建新规则文件",
       "description": "Scan skills to extract cross-cutting principles and distill them into rules — append, revise, or create new rule files",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "run-tests",
       "category": "测试与质量",
       "zh": "运行项目测试套件，含单元测试、组件测试与端到端测试。当你想验证时使用",
       "description": "Run the project's test suite including unit tests, component tests, and end-to-end tests. Use when you want to verify code functionality.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "rust-patterns",
       "category": "后端、语言与框架",
       "zh": "地道的 Rust 模式、所有权、错误处理、trait、并发与最佳实践，用于构建安全、高性能应用",
       "description": "Idiomatic Rust patterns, ownership, error handling, traits, concurrency, and best practices for building safe, performant applications.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "rust-testing",
       "category": "后端、语言与框架",
       "zh": "Rust 测试模式：单元测试、集成测试、异步测试、属性测试、Mocking 与覆盖率",
       "description": "Rust testing patterns including unit tests, integration tests, async testing, property-based testing, mocking, and coverage. Follows TDD methodology.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "safety-guard",
       "category": "测试与质量",
       "zh": "在 production 系统上作业或自主运行 agent 时，用于防止破坏性操作",
       "description": "Use this skill to prevent destructive operations when working on production systems or running agents autonomously.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "santa-method",
       "category": "内容、文档与写作",
       "zh": "多 agent 对抗式验证与收敛循环。两个独立审查 agent 都必须通过后才输出",
       "description": "Multi-agent adversarial verification with convergence loop. Two independent review agents must both pass before output ships.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "search-first",
       "category": "上下文与提示工程",
       "zh": "编码前先研究的工作流。在编写自定义代码前，搜索现有工具、库与模式。调用",
       "description": "Research-before-coding workflow. Search for existing tools, libraries, and patterns before writing custom code. Invokes the researcher agent.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "security-best-practices",
       "category": "测试与质量",
       "zh": "执行语言与框架特定的安全最佳实践审查并给出改进建议。仅在相关场景触发",
       "description": "Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "security-review",
       "category": "测试与质量",
       "zh": "新增认证、处理用户输入、使用密钥、创建 API 端点或实现相关逻辑时使用本技能",
       "description": "Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "security-scan",
       "category": "测试与质量",
       "zh": "扫描 Claude Code 配置（.claude/ 目录）以发现安全漏洞、错误配置与注入风险",
       "description": "Scan your Claude Code configuration (.claude/ directory) for security vulnerabilities, misconfigurations, and injection risks using AgentShield. Checks CLAUDE.md, settings.json, MCP servers, hooks, and agent definitions.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "shadcn",
       "category": "前端与 UI 设计",
       "zh": "管理 shadcn 组件与项目——添加、搜索、修复、调试、美化与组合 UI",
       "description": "Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI. Provides project context, component docs, and usage examples. Applies when working with shadcn/ui, component registries, presets, --preset codes, or any project with a components.json file. Also triggers for \"shadcn init\", \"create an app with --preset\", or \"switch to --preset\".",
-      "allowedTools": "Bash(npx shadcn@latest *), Bash(pnpm dlx shadcn@latest *), Bash(bunx --bun shadcn@latest *)"
+      "allowedTools": [
+        "Bash(npx shadcn@latest *)",
+        "Bash(pnpm dlx shadcn@latest *)",
+        "Bash(bunx --bun shadcn@latest *)"
+      ]
     },
     {
       "name": "skill-comply",
       "category": "测试与质量",
       "zh": "可视化技能、规则与 agent 定义是否真正被遵循——自动在 3 个提示规模上生成场景",
       "description": "Visualize whether skills, rules, and agent definitions are actually followed — auto-generates scenarios at 3 prompt strictness levels, runs agents, classifies behavioral sequences, and reports compliance rates with full tool call timelines",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "skill-creator",
       "category": "生产力与工具",
       "zh": "创建新技能、修改与改进现有技能，并度量技能性能。当用户想创建技能时触发",
       "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "skill-stocktake",
       "category": "生产力与工具",
       "zh": "审计 Claude 技能与命令质量时使用。支持快速扫描（仅变更技能）与全量盘点",
       "description": "Use when auditing Claude skills and commands for quality. Supports Quick Scan (changed skills only) and Full Stocktake modes with sequential subagent batch evaluation.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "social-graph-ranker",
       "category": "数据与机器学习",
       "zh": "加权社交图谱排序，用于发现 warm intro、桥梁评分与跨 X 和 LinkedIn 的网络缺口分析",
       "description": "Weighted social-graph ranking for warm intro discovery, bridge scoring, and network gap analysis across X and LinkedIn. Use when the user wants the reusable graph-ranking engine itself, not the broader outreach or network-maintenance workflow layered on top of it.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "springboot-patterns",
       "category": "后端、语言与框架",
       "zh": "Spring Boot 架构模式、REST API 设计、分层服务、数据访问、缓存、异步处理与日志",
       "description": "Spring Boot architecture patterns, REST API design, layered services, data access, caching, async processing, and logging. Use for Java Spring Boot backend work.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "springboot-security",
       "category": "后端、语言与框架",
       "zh": "Spring Security 最佳实践：认证/授权、校验、CSRF、密钥、请求头、限流与依赖安全",
       "description": "Spring Security best practices for authn/authz, validation, CSRF, secrets, headers, rate limiting, and dependency security in Java Spring Boot services.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "springboot-tdd",
       "category": "后端、语言与框架",
       "zh": "Spring Boot 的测试驱动开发：JUnit 5、Mockito、MockMvc、Testcontainers 与 JaCoCo。用于新增功能时",
       "description": "Test-driven development for Spring Boot using JUnit 5, Mockito, MockMvc, Testcontainers, and JaCoCo. Use when adding features, fixing bugs, or refactoring.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "springboot-verification",
       "category": "后端、语言与框架",
       "zh": "Spring Boot 项目的验证闭环：构建、静态分析、带覆盖率的测试、安全扫描与 diff 审查",
       "description": "Verification loop for Spring Boot projects: build, static analysis, tests with coverage, security scans, and diff review before release or PR.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "strategic-compact",
       "category": "上下文与提示工程",
       "zh": "在逻辑间隔建议手动上下文压缩，以贯穿任务阶段保留上下文，而非任意截断",
       "description": "Suggests manual context compaction at logical intervals to preserve context through task phases rather than arbitrary auto-compaction.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "structured-context-compressor",
       "category": "上下文与提示工程",
       "zh": "将长 agent 对话压缩为九部分续写摘要，保留请求、文件、错误、用户等关键上下文",
       "description": "Compress a long agent conversation into a nine-part continuation summary that preserves request, files, errors, user messages, current work, and the next aligned step.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "swift-actor-persistence",
       "category": "后端、语言与框架",
       "zh": "Swift 中使用 actor 的线程安全数据持久化——带文件后端存储的内存缓存，消除数据竞争",
       "description": "Thread-safe data persistence in Swift using actors — in-memory cache with file-backed storage, eliminating data races by design.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "swift-concurrency-6-2",
       "category": "后端、语言与框架",
       "zh": "Swift 6.2 易上手并发——默认单线程，@concurrent 用于显式后台卸载，隔离域控制",
       "description": "Swift 6.2 Approachable Concurrency — single-threaded by default, @concurrent for explicit background offloading, isolated conformances for main actor types.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "swift-protocol-di-testing",
       "category": "后端、语言与框架",
       "zh": "基于协议（Protocol）的依赖注入，用于可测试的 Swift 代码——Mock 文件系统、网络与外部 API",
       "description": "Protocol-based dependency injection for testable Swift code — mock file system, network, and external APIs using focused protocols and Swift Testing.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "swiftui-patterns",
       "category": "后端、语言与框架",
       "zh": "SwiftUI 架构模式、@Observable 状态管理、视图组合、导航、性能优化等",
       "description": "SwiftUI architecture patterns, state management with @Observable, view composition, navigation, performance optimization, and modern iOS/macOS UI best practices.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "tdd-workflow",
       "category": "测试与质量",
       "zh": "编写新功能、修复 bug 或重构代码时使用。以 80% 覆盖率为目标强制执行测试驱动开发",
       "description": "Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "team-builder",
       "category": "内容、文档与写作",
       "zh": "用于组合与派发并行团队的互动式 agent 选择器",
       "description": "Interactive agent picker for composing and dispatching parallel teams",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "theme-factory",
       "category": "前端与 UI 设计",
       "zh": "为产物（演示、文档、报告、HTML 落地页等）套用主题样式的工具包",
       "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "token-budget-advisor",
       "category": "上下文与提示工程",
       "zh": "在回答前让用户选择消耗的回答深度/长度/Token 预算，用于用户显式想控制回答长度、深度或 Token 用量的场景",
       "description": ">-",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "ui-demo",
       "category": "前端与 UI 设计",
       "zh": "使用 Playwright 录制精致的 UI 演示视频。当用户需要制作演示、操作演练、录屏时使用",
       "description": "Record polished UI demo videos using Playwright. Use when the user asks to create a demo, walkthrough, screen recording, or tutorial video of a web application. Produces WebM videos with visible cursor, natural pacing, and professional feel.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "vercel-react-best-practices",
       "category": "其他",
       "zh": "来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。编写相关代码时应使用该技能",
       "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "vercel-react-native-skills",
       "category": "其他",
       "zh": "React Native 与 Expo 构建高性能移动应用的最佳实践，涵盖组件、列表性能优化、动画与原生模块。用于 RN/Expo 开发、性能优化或原生 API 任务",
       "description": "",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "verification-loop",
       "category": "测试与质量",
       "zh": "Claude Code 会话的综合验证系统",
       "description": "A comprehensive verification system for Claude Code sessions.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "video-editing",
       "category": "视频与媒体",
       "zh": "用于剪辑、结构化与增强真实素材的 AI 辅助视频编辑工作流。涵盖完整流水线",
       "description": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "video-use",
       "category": "视频与媒体",
       "zh": "通过对话编辑任意视频。转录、剪辑、调色、生成叠加动画、烧录字幕——用于谈话类视频",
       "description": "Edit any video by conversation. Transcribe, cut, color grade, generate overlay animations, burn subtitles — for talking heads, montages, tutorials, travel, interviews. No presets, no menus. Ask questions, confirm the plan, execute, iterate, persist. Production-correctness rules are hard; everything else is artistic freedom.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "videodb",
       "category": "视频与媒体",
       "zh": "看见、理解、操作视频与音频。从本地文件、URL、RTSP/直播流或桌面实时录制摄入",
       "description": "See, Understand, Act on video and audio. See- ingest from local files, URLs, RTSP/live feeds, or live record desktop; return realtime context and playable stream links. Understand- extract frames, build visual/semantic/temporal indexes, and search moments with timestamps and auto-clips. Act- transcode and normalize (codec, fps, resolution, aspect ratio), perform timeline edits (subtitles, text/image overlays, branding, audio overlays, dubbing, translation), generate media assets (image, audio, video), and create real time alerts for events from live streams or desktop capture.",
-      "allowedTools": "Read Grep Glob Bash(python:*)"
+      "allowedTools": [
+        "Read Grep Glob Bash(python:*)"
+      ]
     },
     {
       "name": "visa-doc-translate",
       "category": "行业领域",
       "zh": "将签证申请材料（图片）翻译为英文，并生成含原文与译文的中英双语 PDF",
       "description": "Translate visa application documents (images) to English and create a bilingual PDF with original and translation",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "web-artifacts-builder",
       "category": "生产力与工具",
       "zh": "使用现代前端 Web 技术创建精致、多组件 claude.ai HTML 产物的工具套件",
       "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "web-design-guidelines",
       "category": "前端与 UI 设计",
       "zh": "审查 UI 代码是否符合 Web 界面规范。当用户要求\"审查我的 UI\"\"检查可访问性\"等时使用",
       "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "webapp-testing",
       "category": "测试与质量",
       "zh": "与本地 Web 应用交互和测试的 Toolkit——浏览器自动化、端到端验证与 UI 检查",
       "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "workspace-surface-audit",
       "category": "生产力与工具",
       "zh": "审计活跃仓库、MCP 服务器、插件、连接器、环境面与 harness 配置，然后推荐最高优先级的改进",
       "description": "Audit the active repo, MCP servers, plugins, connectors, env surfaces, and harness setup, then recommend the highest-value ECC-native skills, hooks, agents, and operator workflows. Use when the user wants help setting up Claude Code or understanding what capabilities are actually available in their environment.",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "writing-plans",
       "category": "内容、文档与写作",
       "zh": "当你有多步任务的规格或需求、在动手写代码之前使用",
       "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
-      "allowedTools": ""
+      "allowedTools": []
     },
     {
       "name": "x-api",
       "category": "其他",
       "zh": "X/Twitter API 集成，用于发推、线程、读取时间线、搜索与分析。涵盖 OAuth 认证流程",
       "description": "X/Twitter API integration for posting tweets, threads, reading timelines, search, and analytics. Covers OAuth auth patterns, rate limits, and platform-native content posting. Use when the user wants to interact with X programmatically.",
-      "allowedTools": ""
+      "allowedTools": []
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.14.3 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.14.6 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -1936,54 +1950,59 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/app.js v1.14.5 — 原型交互逻辑（无障碍增强 + 性能优化）
-// 国际化交由独立模块 I18N（见 i18n.js）管理，本文件不再维护语言字典。
-// 无障碍基线：卡片 role=button + tabIndex + 键盘可达；chip aria-pressed；
-// 统计区 aria-live=polite；弹窗 role=dialog + aria-modal + sr-only 标题。
-// UX 增强：主题/语言偏好持久化；弹窗焦点陷阱 + 关闭后焦点归还 + 背景锁滚动。
+  <script>// prototype/src/parts/01-state.js v1.14.6 — 常量、偏好状态与纯工具函数
 const LS_THEME = "ash-theme", LS_LANG = "ash-lang";
-// 技能在 GitHub 仓库中的真实目录（纯静态部署无 skills/<name>/ 路由，故指向仓库 tree）
-const SKILL_REPO_BASE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
+const VIEW_GRID = "grid", VIEW_LIST = "list";
+const DEBOUNCE_MS = 120;
+
+const state = {
+  theme: "light",
+  lang: "zh",
+  view: VIEW_GRID,
+  query: "",
+  cat: null,
+};
+
 function loadPref(key, fallback) {
-  try { const v = localStorage.getItem(key); return v || fallback; } catch (e) { return fallback; }
+  try { const v = localStorage.getItem(key); return v == null ? fallback : v; } catch (e) { return fallback; }
 }
 function savePref(key, val) {
-  try { localStorage.setItem(key, val); } catch (e) { /* 隐私模式等场景静默降级 */ }
+  try { localStorage.setItem(key, val); } catch (e) { /* 隐私模式忽略 */ }
 }
-const state = {
-  q: "", cat: "全部", view: "grid",
-  theme: loadPref(LS_THEME, "light"),
-  lang: loadPref(LS_LANG, "zh")
-};
-const $ = (s) => document.querySelector(s);
-const grid = $("#grid");
-const overlay = $("#overlay");
 
-// ---------- 工具函数 ----------
+// 取名字首字母（无空格则取前两位），用于头像
 function initials(name) {
-  const s = name.replace(/[-_]/g, " ").trim();
-  return (s[0] || "S").toUpperCase();
+  const clean = (name || "").replace(/[^A-Za-z0-9]/g, " ");
+  const parts = clean.trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return "?";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
-// 防止 XSS：转义特殊字符后再拼入 innerHTML
-function esc(str) {
-  return String(str || "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// 防 XSS：转义 HTML 特殊字符（属性用双引号包裹，单引号无需转义）
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
-// 分类计数预聚合（避免每次渲染类别时全量遍历技能，O(n) 一次）
-const catCounts = (() => {
+
+// 预聚合分类计数（Map: cat -> count），renderCats 直接查表
+function catCounts() {
   const m = new Map();
   SKILLS_DATA.skills.forEach((s) => m.set(s.category, (m.get(s.category) || 0) + 1));
   return m;
-})();
-
-// 关键词匹配：对齐规范 4.5.3①（name / zh / en / category 不敏感匹配）
-function matches(s) {
-  if (state.cat !== "全部" && s.category !== state.cat) return false;
-  if (!state.q) return true;
-  const q = state.q.toLowerCase();
-  return (s.name + " " + s.zh + " " + s.description + " " + s.category).toLowerCase().includes(q);
 }
 
-// ---------- 渲染 ----------
+// 搜索匹配：名称 / 描述 / 分类（不区分大小写）
+function matches(s, q) {
+  if (!q) return true;
+  const hay = (s.name + " " + s.zh + " " + s.description + " " + s.category).toLowerCase();
+  return hay.includes(q.toLowerCase());
+}
+
+// prototype/src/parts/02-render.js v1.14.6 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
@@ -1998,22 +2017,19 @@ function refreshHeroCount() {
     el.textContent = (el.textContent || "").replace(/\{n\}/g, n);
   });
 }
-function renderCats() {
-  const cats = ["全部", ...SKILLS_DATA.categories];
-  $("#cats").innerHTML = cats
-    .map((c) => {
-      const n = c === "全部" ? SKILLS_DATA.total : (catCounts.get(c) || 0);
-      const active = c === state.cat;
-      // aria-pressed 反映分类选中态（COMPONENTS #14）
-      return `<button class="chip ${active ? "active" : ""}" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)}<span class="c">${n}</span></button>`;
-    })
-    .join("");
+
+function renderCats(counts) {
+  const cats = SKILLS_DATA.categories;
+  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  cats.forEach((c) => {
+    const active = state.cat === c;
+    items.push(`<button class="chip" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
+  });
+  $("#cats").innerHTML = items.join("");
 }
-// 卡片可键盘可达：role=button + tabIndex=0 + 语义 aria-label（COMPONENTS #12）
-// 主标题显示中文名（zh）；英文技能名（name）作为 badge 始终可见——
-// 它是技能的稳定标识，且用户常按英文名检索/调用，故不受语言切换隐藏规则影响
+
+// 卡片：主标题显示技能英文名（权威标识、简短、永不丢失），中文描述交给 .desc
 function cardHTML(s) {
-  // 主标题明确显示技能名（英文名，权威标识且简短，永不丢失）；中文描述留给 .desc
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   return `<article class="card" data-name="${esc(s.name)}" role="button" tabindex="0" aria-label="${esc(label)}">
     <div class="avatar">${initials(s.name)}</div>
@@ -2025,76 +2041,103 @@ function cardHTML(s) {
     </div>
   </article>`;
 }
+
 function emptyHTML() {
-  // 空状态：图标 + 标题 + 描述 + 清除筛选按钮（DESIGN §4.4）
-  return `<div class="empty-state" id="emptyState">
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M6 6v14a2 2 0 002 2h8a2 2 0 002-2V6M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2M10 11v6M14 11v6"/></svg>
-    <div class="empty-title zh">${I18N.t("empty", "zh")}</div>
-    <div class="empty-title en">${I18N.t("empty", "en")}</div>
-    <p class="empty-desc zh">${I18N.t("empty.desc", "zh")}</p>
-    <p class="empty-desc en">${I18N.t("empty.desc", "en")}</p>
-    <button class="btn btn-ghost" id="clearFilters">${I18N.t("empty.clear")}</button>
+  return `<div id="emptyState" class="empty-state" aria-live="polite">
+    <div class="empty-title">${I18N.t("empty.title")}</div>
+    <div class="empty-desc">${I18N.t("empty.desc")}</div>
+    <button id="clearFilters" class="btn btn-ghost">${I18N.t("empty.clear")}</button>
   </div>`;
 }
+
 function renderGrid() {
-  const filtered = SKILLS_DATA.skills.filter(matches);
-  renderStats(filtered);
-  grid.className = "grid" + (state.view === "list" ? " list" : "");
-  grid.innerHTML = filtered.length ? filtered.map(cardHTML).join("") : emptyHTML();
+  const q = state.query.trim();
+  const list = SKILLS_DATA.skills.filter((s) => matches(s, q) && (!state.cat || s.category === state.cat));
+  const counts = catCounts();
+  renderStats(list);
+  renderCats(counts);
+  const grid = $("#grid");
+  grid.className = "grid " + state.view;
+  grid.setAttribute("aria-live", "polite");
+  grid.innerHTML = list.length ? list.map(cardHTML).join("") : emptyHTML();
 }
 
-// ---------- 详情弹窗 ----------
-let lastFocused = null; // 记录打开弹窗前的焦点元素，关闭后归还
-function openDetail(name) {
-  const s = SKILLS_DATA.skills.find((x) => x.name === name);
-  if (!s) return;
-  lastFocused = document.activeElement;
-  const tools = (s.allowedTools || "")
-    .split(",")
-    .map((t) => t.trim())
-    .filter(Boolean)
-    .map((t) => `<span class="tool">${esc(t)}</span>`)
-    .join("");
-  $("#dialog").innerHTML = `
-    <div class="sr-only" id="dialogTitle">${esc(s.zh || s.name)}</div>
-    <div class="dialog-head" id="dialogHead">
-      <div class="avatar">${initials(s.name)}</div>
+// 将 HTML 字符串转为首个元素（用于弹窗插入）
+function htmlToEl(html) {
+  const t = document.createElement("template");
+  t.innerHTML = html.trim();
+  return t.content.firstElementChild;
+}
+
+// prototype/src/parts/03-detail.js v1.14.6 — 详情弹窗、键盘可达性与分享
+function openDetail(s) {
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
+  // 本地仓库链接用相对路径 skills/<name>/（部署后由 GitHub 自动解析为 tree/main/skills/<name>/）
+  const html = `
+    <div id="dialogHead" class="dialog-head">
+      <div class="d-avatar">${initials(s.name)}</div>
       <div>
-        <h2 id="dialogVisibleTitle">${esc(s.zh || s.name)}</h2>
-        <div class="sub en">${esc(s.name)}</div>
+        <h2 id="dialogVisibleTitle" class="dialog-title">${esc(s.name)}</h2>
+        <div id="dialogBlockCat" class="dialog-cat">${esc(s.category)}</div>
       </div>
-      <button class="icon-btn dialog-close" id="closeBtn" aria-label="${I18N.t("detail.close")}">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-      </button>
+      <button id="closeBtn" class="icon-btn" aria-label="${I18N.t("detail.close", "zh")}">✕</button>
     </div>
-    <div class="dialog-body" id="dialogBody">
-      <div class="block" id="dialogBlockZh"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.zhTitle", "en")}</h3><p class="zh">${esc(s.zh)}</p></div>
-      <div class="block" id="dialogBlockEn"><h3 class="zh">${I18N.t("detail.enTitle", "zh")}</h3><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p class="en">${esc(s.description)}</p></div>
-      <div class="block" id="dialogBlockCat"><h3>${I18N.t("detail.catTitle")}</h3><p>${esc(s.category)}</p></div>
-      ${tools ? `<div class="block" id="dialogBlockTools"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${tools}</div></div>` : ""}
+    <div id="dialogBody" class="dialog-body">
+      <section id="dialogBlockZh" class="block"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><p>${esc(s.zh)}</p></section>
+      <section id="dialogBlockEn" class="block"><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p>${esc(s.description)}</p></section>
+      <section id="dialogBlockTools" class="block"><h3>${I18N.t("detail.tools")}</h3><div class="tools">${(Array.isArray(s.allowedTools) ? s.allowedTools : String(s.allowedTools || "").split(",").map((t) => t.trim()).filter(Boolean)).map((t) => `<code>${esc(t)}</code>`).join("")}</div></section>
     </div>
-    <div class="dialog-foot" id="dialogFoot">
-      <button class="btn btn-ghost" id="closeBtn2">${I18N.t("detail.close")}</button>
-      <button class="btn btn-secondary" id="shareBtn" data-name="${esc(s.name)}" aria-label="${I18N.t("share.btn")}">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg>
-        <span class="zh">${I18N.t("share.btn", "zh")}</span><span class="en">${I18N.t("share.btn", "en")}</span>
-      </button>
-      <a class="btn btn-primary" href="${SKILL_REPO_BASE + encodeURIComponent(s.name)}" target="_blank" rel="noopener">
+    <div id="dialogFoot" class="dialog-foot">
+      <a class="btn btn-primary" href="skills/${encodeURIComponent(s.name)}/" target="_blank" rel="noopener">
         <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
       </a>
+      <button id="shareBtn" class="btn btn-ghost">${I18N.t("share.btn")}</button>
     </div>`;
+  dialog.innerHTML = html;
   overlay.classList.add("open");
-  document.body.classList.add("no-scroll"); // 打开弹窗时锁定背景滚动
-  const cb = $("#closeBtn"); if (cb) cb.onclick = closeDetail;
-  const cb2 = $("#closeBtn2"); if (cb2) cb2.onclick = closeDetail;
-  const sb = $("#shareBtn");
-  if (sb) sb.onclick = () => shareSkill(sb.getAttribute("data-name"));
-  if (cb) cb.focus(); // 焦点移入弹窗首个可聚焦元素，满足键盘用户可达
+  document.body.style.overflow = "hidden";
+  trapFocus(dialog);
+  $("#closeBtn").addEventListener("click", closeDetail);
+  $("#shareBtn").addEventListener("click", () => shareSkill(s));
 }
-// 分享：复制「技能分析链接 + 随机宣传文案」，优先剪贴板 API，降级 execCommand
+
+function closeDetail() {
+  const overlay = $("#overlay");
+  overlay.classList.remove("open");
+  document.body.style.overflow = "";
+  $("#dialog").innerHTML = "";
+}
+
+// 焦点陷阱：Tab 在弹窗内循环，Esc 关闭（无障碍）
+function trapFocus(container) {
+  const focusables = container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if (!focusables.length) return;
+  const first = focusables[0], last = focusables[focusables.length - 1];
+  first.focus();
+  container.addEventListener("keydown", function onKey(e) {
+    if (e.key === "Escape") { closeDetail(); container.removeEventListener("keydown", onKey); }
+    if (e.key !== "Tab") return;
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+}
+
+function shareSkill(s) {
+  const text = buildShareText(s.name);
+  if (navigator.share) {
+    navigator.share({ title: "Agent Skills Hub", text, url: location.href }).catch(() => {});
+  } else if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => showToast(I18N.t("share.copied"))).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+// 规范要求相对路径 skills/<name>/：部署后由 GitHub 自动解析为 tree/main/skills/<name>/，
+// 离线/无 location 场景回退相对路径（不依赖任何外部 repo 配置字段）
 function buildShareText(name) {
-  // 纯静态部署无 skills/<name>/ 路由，统一指向 GitHub 仓库对应技能目录（真实存在）
-  const base = SKILL_REPO_BASE + encodeURIComponent(name);
+  const base = "skills/" + encodeURIComponent(name) + "/";
   const promos = I18N.t("share.promos") || [];
   const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
   const promo = promos.length
@@ -2102,156 +2145,121 @@ function buildShareText(name) {
     : "";
   return base + "\n\n" + promo;
 }
-function shareSkill(name) {
-  if (!name) return;
-  const text = buildShareText(name);
-  const done = () => showToast(I18N.t("share.copyOk"));
-  const fail = () => showToast(I18N.t("share.copyFail"), true);
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done, fail));
-  } else {
-    fallbackCopy(text, done, fail);
-  }
-}
-// 复制降级：创建临时 textarea + execCommand('copy')
-function fallbackCopy(text, done, fail) {
+
+// 复制降级方案（无 Clipboard API 时）
+function fallbackCopy(text) {
   try {
     const ta = document.createElement("textarea");
-    ta.value = text; ta.setAttribute("readonly", "");
-    ta.style.position = "absolute"; ta.style.left = "-9999px";
-    document.body.appendChild(ta); ta.select();
-    const ok = document.execCommand("copy");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
     document.body.removeChild(ta);
-    ok ? done() : fail();
-  } catch (e) { fail(); }
-}
-// 轻量 toast 反馈（role=status, aria-live=polite；3s 自动消失）
-let toastTimer = null;
-function showToast(msg, isErr) {
-  let el = $("#toast");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "toast"; el.className = "toast"; el.setAttribute("role", "status");
-    el.setAttribute("aria-live", "polite"); document.body.appendChild(el);
+    showToast(I18N.t("share.copied"));
+  } catch (e) {
+    showToast(I18N.t("share.failed"));
   }
-  el.textContent = msg;
-  el.classList.toggle("err", !!isErr);
-  el.classList.add("show");
-  if (toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove("show"), 3000);
-}
-function closeDetail() {
-  if (!overlay.classList.contains("open")) return;
-  overlay.classList.remove("open");
-  document.body.classList.remove("no-scroll");
-  // 焦点归还到打开前的元素，避免键盘焦点丢失
-  if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
-  lastFocused = null;
-}
-// 焦点陷阱：Tab 在弹窗内循环，不逃逸到背景（无障碍）
-function trapFocus(e) {
-  if (!overlay.classList.contains("open") || e.key !== "Tab") return;
-  const f = overlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-  if (!f.length) return;
-  const first = f[0], last = f[f.length - 1];
-  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 }
 
-// ---------- 主题 / 语言 ----------
+function showToast(msg) {
+  const t = $("#toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove("show"), 2000);
+}
+
+// prototype/src/parts/04-interactions.js v1.14.6 — 主题/语言切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
-  const sun = state.theme === "dark";
-  $("#themeIcon").innerHTML = sun
-    ? '<path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"></path>'
-    : '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>';
+  const btn = $("#themeBtn");
+  if (btn) btn.setAttribute("aria-label", I18N.t("theme.toggle"));
 }
+
 function applyLang() {
-  // 语言状态与 DOM 同步统一交给 I18N 模块，保证文案随语言联动且不崩溃
-  I18N.setLang(state.lang); // 以持久化/默认语言为准初始化
+  I18N.setLang(state.lang);
+  const btn = $("#langBtn");
+  if (btn) btn.setAttribute("aria-label", I18N.t("lang.toggle"));
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
   const si = $("#searchInput");
   if (si) si.placeholder = I18N.t("search.placeholder");
   refreshHeroCount(); // syncDOM 重置 hero 标题后重新填入动态数字
 }
 
-// ---------- 事件绑定 ----------
 function bind() {
-  // 轻量防抖，避免每次按键全量重渲染（性能）
+  // 主题
+  $("#themeBtn").addEventListener("click", () => {
+    state.theme = state.theme === "light" ? "dark" : "light";
+    savePref(LS_THEME, state.theme);
+    applyTheme();
+  });
+  // 语言
+  $("#langBtn").addEventListener("click", () => {
+    state.lang = state.lang === "zh" ? "en" : "zh";
+    savePref(LS_LANG, state.lang);
+    applyLang();
+  });
+  // 搜索（防抖）
   let t;
   $("#searchInput").addEventListener("input", (e) => {
     clearTimeout(t);
     const v = e.target.value;
-    t = setTimeout(() => { state.q = v; renderGrid(); }, 120);
+    t = setTimeout(() => { state.query = v; renderGrid(); }, DEBOUNCE_MS);
   });
-  $("#viewToggle").addEventListener("click", (e) => {
-    const b = e.target.closest("button"); if (!b) return;
-    state.view = b.dataset.view;
-    $("#viewToggle").querySelectorAll("button").forEach((x) => x.classList.toggle("active", x === b));
+  // 视图切换
+  document.querySelectorAll(".view-btn").forEach((b) => {
+    b.addEventListener("click", () => {
+      state.view = b.dataset.view;
+      document.querySelectorAll(".view-btn").forEach((x) => x.classList.toggle("active", x === b));
+      renderGrid();
+    });
+  });
+  // 分类导航（事件委托）
+  $("#cats").addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    state.cat = chip.dataset.cat || null;
     renderGrid();
   });
-  $("#cats").addEventListener("click", (e) => {
-    const b = e.target.closest(".chip"); if (!b) return;
-    state.cat = b.dataset.cat; renderCats(); renderGrid();
+  // 卡片点击/键盘打开详情（事件委托）
+  $("#grid").addEventListener("click", (e) => {
+    const card = e.target.closest(".card");
+    if (!card) return;
+    const s = SKILLS_DATA.skills.find((x) => x.name === card.dataset.name);
+    if (s) openDetail(s);
   });
-  // 卡片点击（鼠标）与键盘（Enter/Space）统一打开详情
-  grid.addEventListener("click", (e) => {
-    const c = e.target.closest(".card"); if (c) openDetail(c.dataset.name);
-  });
-  grid.addEventListener("keydown", (e) => {
+  $("#grid").addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
-    const c = e.target.closest(".card"); if (!c) return;
+    const card = e.target.closest(".card");
+    if (!card) return;
     e.preventDefault();
-    openDetail(c.dataset.name);
+    const s = SKILLS_DATA.skills.find((x) => x.name === card.dataset.name);
+    if (s) openDetail(s);
   });
-  // 空状态清除筛选按钮
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) { closeDetail(); return; }
-    if (e.target.closest("#clearFilters")) {
-      state.q = ""; state.cat = "全部";
-      const si = $("#searchInput"); if (si) si.value = "";
-      renderCats(); renderGrid();
-    }
+  // 空状态清除筛选（事件委托到 grid 已覆盖，这里兜底 document 级）
+  document.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cat = null; $("#searchInput").value = ""; renderGrid(); }
   });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeDetail();
-    trapFocus(e); // 弹窗内焦点陷阱
-  });
-  $("#themeBtn").addEventListener("click", () => {
-    state.theme = state.theme === "light" ? "dark" : "light";
-    applyTheme(); savePref(LS_THEME, state.theme); // 持久化主题偏好
-  });
-  $("#langBtn").addEventListener("click", () => {
-    I18N.toggleLang();
-    state.lang = I18N.getLang();
-    savePref(LS_LANG, state.lang); // 持久化语言偏好
-  });
-  // 回到顶部按钮：长列表滚动后出现，点击平滑回到顶部
-  const toTop = $("#toTop");
-  if (toTop) {
-    window.addEventListener("scroll", () => {
-      toTop.classList.toggle("show", window.scrollY > 600);
-    }, { passive: true });
-    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-  }
-  // 分类条溢出指示：内容超出可视宽度时显示右侧渐隐遮罩
-  const catsNav = $("#categoryNav");
-  const catsScroll = $("#cats");
-  function updateCatsOverflow() {
-    if (!catsNav || !catsScroll) return;
-    catsNav.classList.toggle("overflow", catsScroll.scrollWidth - catsScroll.clientWidth > 4);
-  }
-  catsScroll && catsScroll.addEventListener("scroll", updateCatsOverflow, { passive: true });
-  window.addEventListener("resize", updateCatsOverflow, { passive: true });
-  // 初次渲染后下一帧检测（DOM 已布局）
-  requestAnimationFrame(updateCatsOverflow);
+  // 弹窗遮罩点击关闭
+  $("#overlay").addEventListener("click", (e) => { if (e.target.id === "overlay") closeDetail(); });
+  // 回到顶部
+  $("#toTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 }
 
-// ---------- 启动 ----------
+// prototype/src/parts/05-main.js v1.14.6 — 应用启动编排
 function init() {
-  applyTheme(); applyLang(); renderCats(); renderGrid(); bind();
+  // 从偏好恢复（localStorage 不可用时回退默认）
+  state.theme = loadPref(LS_THEME, "light");
+  state.lang = loadPref(LS_LANG, "zh");
+  applyTheme();
+  applyLang(); // 内部触发 I18N.setLang -> syncDOM 填充全站文案
+  bind();
+  renderGrid();
 }
-init();
+
+document.addEventListener("DOMContentLoaded", init);
 </script>
 </body>
 </html>

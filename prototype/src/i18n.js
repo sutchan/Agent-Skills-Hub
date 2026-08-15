@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.14.3 — 独立国际化模块
+// prototype/src/i18n.js v1.14.6 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
