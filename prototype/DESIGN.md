@@ -4,7 +4,7 @@
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts）**：`prototype/out/index.html` 为纯 HTML 自包含单文件——由根目录 `build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` + `src/app.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `prototype/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/out/` 为构建产物（构建脚本 `build.mjs`/`build-skills-data.mjs` 置于仓库根，不混入原型目录）。
+> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts）**：`prototype/out/index.html` 为纯 HTML 自包含单文件——由根目录 `build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` + `src/app.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `data/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/out/` 为构建产物（构建脚本 `build.mjs`/`build-skills-data.mjs` 置于仓库根，不混入原型目录）。
 
 ---
 
@@ -15,7 +15,7 @@
 | 极简（Minimal） | 克制的视觉语言，留白即设计；单一主色，避免渐变滥用与装饰性元素 |
 | 层级清晰（Hierarchy） | 通过字号、字重、色彩对比建立明确的信息层级，首屏 3 秒可读懂核心 |
 | 一致（Consistent） | 所有间距、圆角、阴影、动效遵循统一 Token，组件同源（shadcn/ui 基线） |
-| 真实（Real Data） | 原型数据为构建期从磁盘 `skills/<name>/SKILL.md` 由根目录 `build-skills-data.mjs` 生成 `prototype/skills-data.json`，再由根目录 `build.mjs` 注入并预渲染进 `prototype/out/`，非占位假数据 |
+| 真实（Real Data） | 原型数据为构建期从磁盘 `skills/<name>/SKILL.md` 由根目录 `build-skills-data.mjs` 生成 `data/skills-data.json`，再由根目录 `build.mjs` 注入并预渲染进 `prototype/out/`，非占位假数据 |
 | 无障碍（Accessible） | 对比度 ≥ WCAG AA，键盘可达，支持 `prefers-reduced-motion` |
 
 ---
@@ -209,7 +209,7 @@
 
 ## 6. 数据架构（Data Contract）
 
-- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `prototype/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/out/index.html` 静态产物（仓库已入库 `prototype/out/`，如需更新数据重跑两脚本即可）。
+- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `data/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/out/index.html` 静态产物（仓库已入库 `prototype/out/`，如需更新数据重跑两脚本即可）。
 - 数据 Schema（实际为扁平结构）：`{ total:number, categories:string[], skills: Skill[] }`，其中 `Skill{ name, category, zh, description, allowedTools }`（字段名与 `openspec/project.md` §4.5 的 `name/en_name/dir/zh_desc/en_desc/...` 命名不同，以 `skills-data.json` 实际字段为准）。
 - 分类英文名为文档映射（`tools/_skill_readme_lib.py` 的 `CATEGORY_EN`），非数据内嵌。
 - 注意：`app/` 是项目**可运行 Web 应用**源码工作区（见 `app/README.md`），与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`。
@@ -221,6 +221,6 @@
 
 - 原型为**纯静态原生实现**：`src/index.html`（HTML 模板）+ `src/styles/tokens.css` + `src/app.css`（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind/HSL）+ `src/i18n.js`（独立国际化模块）+ `src/app.js`（原生 JS 渲染与交互，无 React/Next.js/Radix）。
 - 构建：根目录 `build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/out/index.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
-- 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/out/index.html`。
+- 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/out/index.html`。
 - 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/out/index.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
 - 部署：腾讯云 EdgeOne（`edgeone.json`，以 `prototype/out/` 为站点根目录；`installCommand` 跳过依赖安装，`buildCommand` 执行 `npm run build` 重新生成产物）。

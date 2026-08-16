@@ -21,7 +21,7 @@ const js = readdirSync(PARTS_DIR)
   .map((f) => readFileSync(join(PARTS_DIR, f), "utf8"))
   .join("\n");
 const i18n = readFileSync(join(SRC, "i18n.js"), "utf8");
-const data = readFileSync(join(PROTO, "skills-data.json"), "utf8");
+const data = readFileSync(join(__dirname, "data", "skills-data.json"), "utf8");
 
 // 注意：replacement 字符串中 `$$` 会被解释为字面 `$`，导致 parts 里的 `const $$`
 // 在产物中变成 `const $` 造成重复声明语法错误。统一使用函数式替换规避。

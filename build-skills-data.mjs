@@ -5,11 +5,11 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-// 脚本已移出 prototype/ 到仓库根目录；技能数据与 README 在仓库根
+// 脚本已移出 prototype/ 到仓库根目录；技能数据输出到仓库根 /data
 const ROOT = __dirname;
 const SKILLS_DIR = join(ROOT, "skills");
 const README = join(ROOT, "README.md");
-const OUT = join(ROOT, "prototype", "skills-data.json");
+const OUT = join(ROOT, "data", "skills-data.json");
 
 function parseFrontmatter(text) {
   const m = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
