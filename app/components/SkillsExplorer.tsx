@@ -1,10 +1,11 @@
-// app/components/SkillsExplorer.tsx v1.1.3 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.1.6 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
 "use client";
 
 import { useMemo, useState } from "react";
 import type { Skill } from "../lib/skills";
 import type { Lang } from "../lib/share";
 import { SkillDialog } from "./SkillDialog";
+import { track } from "../lib/analytics";
 
 interface Props {
   skills: Skill[];
@@ -50,7 +51,10 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
           type="search"
           placeholder={t.search}
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={(e) => {
+            setQ(e.target.value);
+            if (e.target.value) track("search", { query: e.target.value });
+          }}
           aria-label={t.search}
         />
       </div>
@@ -62,7 +66,10 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
               key={c}
               className={"chip" + (c === cat ? " active" : "")}
               aria-pressed={c === cat}
-              onClick={() => setCat(c)}
+              onClick={() => {
+                setCat(c);
+                track("filter_category", { category: c });
+              }}
             >
               {c}
             </button>
@@ -77,7 +84,7 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
       {filtered.length ? (
         <div className="grid">
           {filtered.map((s) => (
-            <button key={s.name} className="card" role="button" onClick={() => setOpen(s)}>
+            <button key={s.name} className="card" role="button" onClick={() => { track("view_skill", { skill: s.name, category: s.category }); setOpen(s); }}>
               <div className="title-row">
                 <div className="avatar sm">{(s.name || "?").slice(0, 2).toUpperCase()}</div>
                 <div className="card-title">{s.zh || s.name}</div>

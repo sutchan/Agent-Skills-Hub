@@ -1,4 +1,4 @@
-// app/components/SkillDialog.tsx v1.1.4 — 技能详情弹窗（含分享按钮）
+// app/components/SkillDialog.tsx v1.1.6 — 技能详情弹窗（含分享按钮）
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -6,6 +6,7 @@ import type { Skill } from "../lib/skills";
 import type { Lang } from "../lib/share";
 import { SHARE_FEEDBACK } from "../lib/share";
 import { useShare } from "./useShare";
+import { track } from "../lib/analytics";
 
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
@@ -126,7 +127,7 @@ export function SkillDialog({ skill, lang, total, onClose }: Props) {
             id="shareBtn"
             className="btn btn-secondary"
             aria-label={SHARE_FEEDBACK[lang].btn}
-            onClick={() => shareSkill(skill.name)}
+            onClick={() => { track("share_skill", { skill: skill.name }); shareSkill(skill.name); }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13" />

@@ -1,5 +1,6 @@
-// prototype/src/parts/04-interactions.js v1.14.16 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.14.19 — 主题/语言切换与事件绑定
 function applyTheme() {
+  track("toggle_theme", { theme: state.theme });
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
   if (btn) {
@@ -10,6 +11,7 @@ function applyTheme() {
 }
 
 function applyLang() {
+  track("toggle_lang", { lang: state.lang });
   I18N.setLang(state.lang);
   const btn = $("#langBtn");
   if (btn) {
@@ -42,13 +44,14 @@ function bind() {
   $("#searchInput").addEventListener("input", (e) => {
     clearTimeout(t);
     const v = e.target.value;
-    t = setTimeout(() => { state.query = v; renderGrid(); }, DEBOUNCE_MS);
+    t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
   // 视图切换
   document.querySelectorAll(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
       state.view = b.dataset.view;
       document.querySelectorAll(".view-btn").forEach((x) => x.classList.toggle("active", x === b));
+      track("toggle_view", { view: state.view });
       renderGrid();
     });
   });
@@ -57,6 +60,7 @@ function bind() {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     state.cat = chip.dataset.cat || null;
+    track("filter_category", { category: state.cat || "all" });
     renderGrid();
   });
   // 卡片点击/键盘打开详情（事件委托）

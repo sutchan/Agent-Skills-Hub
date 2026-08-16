@@ -1,7 +1,16 @@
-// prototype/src/parts/01-state.js v1.14.15 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.14.19 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+// 统计事件上报：仅当页面已注入 GA（window.gtag 存在）时上报，否则静默（不报错、不依赖第三方）
+function track(event, params) {
+  try {
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", event, params || {});
+    }
+  } catch (e) { /* 统计失败不影响主流程 */ }
+}
 
 const LS_THEME = "ash-theme", LS_LANG = "ash-lang";
 const VIEW_GRID = "grid", VIEW_LIST = "list";

@@ -2,6 +2,25 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.20] - 2026-08-16
+
+### feat: 全站接入 Google Analytics (GA4)
+
+- **app（Next.js）全站注入**：`layout.tsx` 用 `next/script`（strategy=afterInteractive）注入 GA4，覆盖所有路由页面；ID 优先取环境变量 `GA_MEASUREMENT_ID`，缺省回退 `G-WQDDVB14PF`
+- **app 事件埋点**：新增 `lib/analytics.ts` 的 `track()`（仅当 `window.gtag` 存在时上报，否则静默）；`SkillsExplorer` 在搜索/分类筛选/查看技能处上报，`SkillDialog` 在分享处上报，与 prototype 埋点语义一致
+- **prototype**：已于 v1.14.19 接入（构建期 `{{ANALYTICS}}` 注入），本次全站覆盖包含 app 层
+- **范围**：prototype 静态站 + app Next.js 应用两个部署面全部页面
+- **版本号同步**：package.json → v1.14.20、app/package.json → v1.1.6；app/layout.tsx、components/SkillsExplorer.tsx、components/SkillDialog.tsx、lib/analytics.ts → v1.1.6
+
+## [1.14.19] - 2026-08-16
+
+### feat: 接入 Google Analytics (GA4) 统计
+
+- **构建注入**：`index.html` 的 `<head>` 新增 `{{ANALYTICS}}` 占位；`build.mjs` 读取环境变量 `GA_MEASUREMENT_ID`（缺省回退 `G-WQDDVB14PF`）生成 GA4 脚本并内联，本地构建无需设变量即可生成空占位，避免 ID 硬编码进仓库
+- **事件埋点**：`parts/01-state.js` 新增 `track()` 工具（仅当 `window.gtag` 存在时上报，否则静默）；`04-interactions.js` 在主题/语言/搜索/视图/分类筛选处上报，`03-detail.js` 在查看技能与分享处上报（`view_skill` / `share_skill` 等）
+- **范围**：仅 prototype 静态站（主部署面）；app 层 Next 代码未接入 EdgeOne 部署，暂不加
+- **版本号同步**：package.json → v1.14.19；prototype/src/index.html、build.mjs、parts/01-04 → v1.14.19
+
 ## [1.14.18] - 2026-08-16
 
 ### fix: 去除部署页面「原型」字样残留，统一品牌定位文案

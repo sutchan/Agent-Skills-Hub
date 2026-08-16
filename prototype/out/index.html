@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.18 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.19 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -283,6 +283,14 @@ html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
 </style>
+  <!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WQDDVB14PF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WQDDVB14PF');
+</script>
 </head>
 <body>
   <header class="topbar" id="siteHeader">
@@ -1968,10 +1976,19 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/parts/01-state.js v1.14.15 — 常量、偏好状态与纯工具函数
+  <script>// prototype/src/parts/01-state.js v1.14.19 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+// 统计事件上报：仅当页面已注入 GA（window.gtag 存在）时上报，否则静默（不报错、不依赖第三方）
+function track(event, params) {
+  try {
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", event, params || {});
+    }
+  } catch (e) { /* 统计失败不影响主流程 */ }
+}
 
 const LS_THEME = "ash-theme", LS_LANG = "ash-lang";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
@@ -2094,10 +2111,11 @@ function htmlToEl(html) {
   return t.content.firstElementChild;
 }
 
-// prototype/src/parts/03-detail.js v1.14.15 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.19 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
+  track("view_skill", { skill: s.name, category: s.category });
   const overlay = $("#overlay");
   const dialog = $("#dialog");
   // 记录打开前的焦点元素，关闭后归还（WCAG 焦点管理）
@@ -2157,6 +2175,7 @@ function trapFocus(container) {
 }
 
 function shareSkill(s) {
+  track("share_skill", { skill: s.name });
   const text = buildShareText(s.name);
   if (navigator.share) {
     navigator.share({ title: "Agent Skills Hub", text, url: location.href }).catch(() => {});
@@ -2204,8 +2223,9 @@ function showToast(msg) {
   t._timer = setTimeout(() => t.classList.remove("show"), 2000);
 }
 
-// prototype/src/parts/04-interactions.js v1.14.16 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.14.19 — 主题/语言切换与事件绑定
 function applyTheme() {
+  track("toggle_theme", { theme: state.theme });
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
   if (btn) {
@@ -2216,6 +2236,7 @@ function applyTheme() {
 }
 
 function applyLang() {
+  track("toggle_lang", { lang: state.lang });
   I18N.setLang(state.lang);
   const btn = $("#langBtn");
   if (btn) {
@@ -2248,13 +2269,14 @@ function bind() {
   $("#searchInput").addEventListener("input", (e) => {
     clearTimeout(t);
     const v = e.target.value;
-    t = setTimeout(() => { state.query = v; renderGrid(); }, DEBOUNCE_MS);
+    t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
   // 视图切换
   document.querySelectorAll(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
       state.view = b.dataset.view;
       document.querySelectorAll(".view-btn").forEach((x) => x.classList.toggle("active", x === b));
+      track("toggle_view", { view: state.view });
       renderGrid();
     });
   });
@@ -2263,6 +2285,7 @@ function bind() {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     state.cat = chip.dataset.cat || null;
+    track("filter_category", { category: state.cat || "all" });
     renderGrid();
   });
   // 卡片点击/键盘打开详情（事件委托）

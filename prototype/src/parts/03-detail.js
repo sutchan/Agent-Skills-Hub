@@ -1,7 +1,8 @@
-// prototype/src/parts/03-detail.js v1.14.15 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.19 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
+  track("view_skill", { skill: s.name, category: s.category });
   const overlay = $("#overlay");
   const dialog = $("#dialog");
   // 记录打开前的焦点元素，关闭后归还（WCAG 焦点管理）
@@ -61,6 +62,7 @@ function trapFocus(container) {
 }
 
 function shareSkill(s) {
+  track("share_skill", { skill: s.name });
   const text = buildShareText(s.name);
   if (navigator.share) {
     navigator.share({ title: "Agent Skills Hub", text, url: location.href }).catch(() => {});

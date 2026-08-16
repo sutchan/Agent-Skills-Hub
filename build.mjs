@@ -1,4 +1,4 @@
-// build.mjs v1.14.15 — 将 src 模板 + 真实数据内联为自包含 out/index.html
+// build.mjs v1.14.19 — 将 src 模板 + 真实数据内联为自包含 out/index.html
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -23,13 +23,28 @@ const js = readdirSync(PARTS_DIR)
 const i18n = readFileSync(join(SRC, "i18n.js"), "utf8");
 const data = readFileSync(join(__dirname, "data", "skills-data.json"), "utf8");
 
+// 统计代码注入：GA4 Measurement ID 优先取环境变量，缺省回退到仓库配置值。
+// 本地构建无需设环境变量即可生成空占位，避免把 ID 硬编码进仓库（部署时由 CI 注入更合规）。
+const GA_ID = process.env.GA_MEASUREMENT_ID || "G-WQDDVB14PF";
+const analytics = GA_ID
+  ? `<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${GA_ID}');
+</script>`
+  : "";
+
 // 注意：replacement 字符串中 `$$` 会被解释为字面 `$`，导致 parts 里的 `const $$`
 // 在产物中变成 `const $` 造成重复声明语法错误。统一使用函数式替换规避。
 const out = htmlTpl
   .replace("{{CSS}}", () => css)
   .replace("{{DATA}}", () => data)
   .replace("{{I18N}}", () => i18n)
-  .replace("{{JS}}", () => js);
+  .replace("{{JS}}", () => js)
+  .replace("{{ANALYTICS}}", () => analytics);
 
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(join(OUT_DIR, "index.html"), out, "utf8");
