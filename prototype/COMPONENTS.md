@@ -120,5 +120,5 @@ Dialog 由 `#dialog`（`role="dialog"` `aria-modal="true"` `aria-labelledby="dia
 2. 图标统一用 `src/index.html` 内联 SVG（lucide 风格），禁止引入其他图标库或重复手绘。
 3. 所有可交互元素须有 `aria-label` 或语义角色；弹窗标题用 `sr-only`（`.sr-only` 工具类）保证可访问性。
 4. 动效时长只允许 ~200ms 基准 + `ease`，且全局兼容 `prefers-reduced-motion`（已在 tokens 中 transition 约束）。
-5. 业务数据只读来自 `prototype/skills-data.json`（扁平结构 `skill{name,category,zh,description,allowedTools}`），不内联假数据。
+5. 业务数据只读来自 `data/skills-data.json`（扁平结构 `skill{name,category,zh,description,allowedTools}`），不内联假数据。
 6. 组件样式优先定义在 `src/styles/` 或 `src/app.css`，保持与令牌同源。
