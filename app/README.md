@@ -23,7 +23,7 @@
 
 - 技能权威来源始终是 `skills/<name>/SKILL.md`，勿在应用中硬编码技能数据。
 - 仓库内 Markdown 文档的技能链接使用相对路径 `skills/<name>/`。
-- 跨域外链使用 `{repo}/tree/main/skills/<name>/`（repo 取自数据 `repo` 字段）。
+- 跨域外链使用 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>/`，由 `SkillDialog.tsx` 的 `REPO_SKILLS_TREE` 常量维护。
 
 ## 本地开发
 

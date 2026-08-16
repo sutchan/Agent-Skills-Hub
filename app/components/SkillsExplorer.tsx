@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.1.6 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.1.7 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
 "use client";
 
 import { useMemo, useState } from "react";
@@ -6,6 +6,13 @@ import type { Skill } from "../lib/skills";
 import type { Lang } from "../lib/share";
 import { SkillDialog } from "./SkillDialog";
 import { track } from "../lib/analytics";
+
+// 由类别名稳定派生色相（0-359），与 prototype 的 catHue 算法一致，保证两层同分类同色
+function catHue(c: string): number {
+  let h = 0;
+  for (let i = 0; i < c.length; i++) h = (h * 31 + c.charCodeAt(i)) % 360;
+  return h;
+}
 
 interface Props {
   skills: Skill[];
@@ -65,6 +72,7 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
             <button
               key={c}
               className={"chip" + (c === cat ? " active" : "")}
+              style={{ "--hue": c === "全部" ? 220 : catHue(c) } as React.CSSProperties}
               aria-pressed={c === cat}
               onClick={() => {
                 setCat(c);

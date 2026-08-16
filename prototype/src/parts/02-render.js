@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.15 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.21 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
@@ -11,18 +11,22 @@ function refreshHeroCount() {
   document.getElementById("heroTitleEn").textContent = I18N.t("hero.title", "en").replace(/\{n\}/g, n);
 }
 
+// 由类别名稳定派生一个色相（0-359），使同一分类始终得到同一淡彩色背景
+function catHue(c) {
+  let h = 0;
+  for (let i = 0; i < c.length; i++) h = (h * 31 + c.charCodeAt(i)) % 360;
+  return h;
+}
+
 function renderCats(counts) {
   const cats = SKILLS_DATA.categories;
-  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  // 全部：固定主色 hue，保证与分类标签视觉一致
+  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:220" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cat === c;
-    items.push(`<button class="chip" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
+    items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
   });
   $("#cats").innerHTML = items.join("");
-  // 分类条横向溢出检测：超出可视宽度时给容器加 overflow 类，触发右侧渐隐遮罩
-  const nav = $("#categoryNav");
-  const scroll = $("#cats");
-  if (nav && scroll) nav.classList.toggle("overflow", scroll.scrollWidth > scroll.clientWidth + 1);
 }
 
 // 卡片：主标题显示技能英文名（权威标识、简短、永不丢失），中文描述交给 .desc

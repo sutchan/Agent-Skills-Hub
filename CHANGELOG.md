@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.21] - 2026-08-16
+
+### fix: 消除两层分享反馈文案漂移并修正文档/注释
+
+- **分享反馈文案对齐（openspec §4.5.4）**：`app/lib/share.ts` 的 `SHARE_FEEDBACK.ok` 由 `已复制链接与宣传文案` / `Link & promo copied` 改为与 `prototype/src/i18n.js` 的 `share.copied` 逐字一致：`已复制到剪贴板` / `Copied to clipboard`，消除 prototype 与 app 两层漂移
+- **app/README.md 过时说明修正**：原「repo 取自数据 `repo` 字段」改为「由 `SkillDialog.tsx` 的 `REPO_SKILLS_TREE` 常量维护」，与当前无 `repo` 字段的数据及硬编码实现一致
+- **app/next.config.mjs 注释修正**：「原型 app」措辞改为「Web 应用」，app 为真实 Next.js 应用而非原型
+- **版本号同步**：package.json → v1.14.21；app/package.json → v1.1.7；app/lib/share.ts、app/next.config.mjs 头注释 → v1.1.7
+
 ## [1.14.20] - 2026-08-16
 
 ### feat: 全站接入 Google Analytics (GA4)

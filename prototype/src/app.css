@@ -87,23 +87,22 @@ html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
 
 /* ---------- 分类条 ---------- */
 .cats { max-width: var(--maxw); margin: 18px auto 0; padding: 0 24px; position: relative; }
-/* 右侧渐隐遮罩：提示分类可横向滚动，溢出时可见（纯装饰，不挡交互） */
-.cats::after {
-  content: ""; position: absolute; top: 0; right: 0; bottom: 4px; width: 40px;
-  background: linear-gradient(to right, transparent, var(--bg));
-  pointer-events: none; opacity: 0; transition: opacity .2s ease;
-}
-.cats.overflow::after { opacity: 1; }
-.cats-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
-.cats-scroll::-webkit-scrollbar { display: none; }
+/* 换行布局：分类标签自动折行，不再横向滚动（避免溢出问题） */
+.cats-scroll { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 4px; }
 .chip {
+  --hue: 220;
   white-space: nowrap; padding: 8px 14px; border-radius: 999px;
-  background: var(--surface); border: 1px solid var(--border);
-  color: var(--text-2); font-size: 13px; font-weight: 500; transition: .15s;
+  /* 淡淡彩色背景：由 --hue 区分不同分类；深色主题下 color-mix 自动适配 */
+  background: color-mix(in srgb, hsl(var(--hue) 70% 50%) 14%, var(--surface));
+  border: 1px solid color-mix(in srgb, hsl(var(--hue) 70% 50%) 28%, var(--border));
+  color: color-mix(in srgb, hsl(var(--hue) 70% 32%) 70%, var(--text-2));
+  font-size: 13px; font-weight: 500; transition: .15s;
 }
-.chip:hover { border-color: var(--primary); color: var(--primary); }
-.chip.active { background: var(--primary); border-color: var(--primary); color: #fff; }
-.chip .c { opacity: .7; margin-left: 6px; font-size: 12px; }
+.chip:hover { border-color: hsl(var(--hue) 70% 50%); color: hsl(var(--hue) 70% 36%); }
+.chip.active {
+  background: hsl(var(--hue) 70% 50%); border-color: hsl(var(--hue) 70% 50%); color: #fff;
+}
+.chip .chip-count { opacity: .7; margin-left: 6px; font-size: 12px; }
 
 /* ---------- 网格 / 列表 ---------- */
 .grid {
