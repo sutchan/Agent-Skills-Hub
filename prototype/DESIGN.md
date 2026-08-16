@@ -45,14 +45,19 @@
 
 ### 2.2 字体
 
-| Token | 值 |
-|------|----|
-| `--font-sans` | `ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif` |
-| `--font-mono` | `ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace` |
+参考 Claude（Anthropic）官方品牌字体体系：标题使用衬线（Anthropic Serif，外部实现以 `Georgia` 为官方回退），正文/界面使用无衬线系统栈（Anthropic Sans，外部实现以 `system-ui` 为回退）。本项目为纯静态/Next.js 实现，不内嵌自定义字体，统一采用以下回退栈。
+
+| Token | 值 | 用途 |
+|------|----|------|
+| `--font-display` | `Georgia, "Times New Roman", "Songti SC", "STSong", serif` | 标题/品牌名/卡片名（衬线，对标 Anthropic Serif） |
+| `--font-sans` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif` | 正文与界面（无衬线，对标 Anthropic Sans） |
+| `--font-en` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | 英文 UI 文案 |
+| `--font-mono` | `ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace` | 代码/英文名等宽展示 |
 
 - 基础字号 `15px`，行高 `1.6`
-- 大标题 `clamp(34px, 5.5vw, 52px)`，字重 `700`，字距 `-0.02em`
-- 卡片标题 `15px`，字重 `600`，字距 `-0.01em`
+- 大标题 `clamp(34px, 5.5vw, 52px)`，字重 `700`，字距 `-0.02em`，字体 `--font-display`
+- 卡片标题 `15px`，字重 `600`，字距 `-0.01em`，字体 `--font-display`
+- 品牌名、弹窗标题、空状态标题均使用 `--font-display` 衬线，与正文无衬线形成层级对比
 - 英文 UI 文案首字母大写，中文不加字距
 
 ### 2.3 间距（4 的倍数尺度，Tailwind 默认 scale）

@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.24] - 2026-08-16
+
+### feat: 字体体系优化（参考 Claude/Anthropic 设计）
+
+- **背景**：参考 Claude（Anthropic）官方品牌字体（标题 Anthropic Serif、正文 Anthropic Sans、代码 Anthropic Mono），外部实现以 `Georgia`/`system-ui` 系统栈回退，不内嵌自定义字体
+- **prototype**：`tokens.css` 新增 `--font-display`（衬线标题）、新增 `--font-mono`，`--font-sans` 调整为贴近 Anthropic Sans 的系统栈；`app.css` 的 `.hero h1` / `.brand` / `.card .name` / `.dialog-head h2` / `.empty-state .empty-title` 改用 `--font-display` 衬线
+- **app（Next.js）**：`globals.css` 同步新增 `--font-display`/`--font-mono`、调整 `--font-sans`，`.brand` / `.card-title` / `.dialog-head h2` 衬线化
+- **文档**：`prototype/DESIGN.md` §2.2 字体表更新为 Claude 风格体系与回退栈说明
+- **版本号同步**：package.json → v1.14.24；prototype/src/styles/tokens.css、prototype/src/app.css → v1.14.24；app/package.json → v1.1.8、app/globals.css → v1.1.8
+
 ## [1.14.23] - 2026-08-16
 
 ### fix: 卡片分类标签 .cat-tag 加对应淡彩色背景

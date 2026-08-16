@@ -1,6 +1,6 @@
 {
   "name": "agent-skills-hub-app",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "private": true,
   "description": "Agent Skills Hub 项目 Web 应用",
   "scripts": {
