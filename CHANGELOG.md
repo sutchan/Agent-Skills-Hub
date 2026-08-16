@@ -2,6 +2,14 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.22] - 2026-08-16
+
+### fix: 分类条溢出改换行 + 淡彩色背景区分
+
+- **prototype**：`app.css` 的 `.cats-scroll` 由横向滚动改为 `flex-wrap: wrap`，移除横向溢出渐隐遮罩（`.cats::after` / `.cats.overflow`）；`.chip` 改为按 `--hue` 着色（color-mix 淡彩色背景+边框+文字），active 时加深；`02-render.js` 给每个 chip 注入 `--hue`（类别名 hash 派生），移除 overflow 检测逻辑
+- **app（Next.js）**：`globals.css` 的 `.cats-scroll` 同步改 `flex-wrap: wrap`，`.chip` 加 `--hue` 淡彩色背景；`SkillsExplorer.tsx` 新增 `catHue()`（与 prototype 同算法）并给 chip 注入 `--hue`，「全部」固定 hue 220
+- **版本号同步**：package.json → v1.14.22、app/package.json → v1.1.7；prototype/src/parts/02-render.js → v1.14.22、app/components/SkillsExplorer.tsx → v1.1.7
+
 ## [1.14.21] - 2026-08-16
 
 ### fix: 消除两层分享反馈文案漂移并修正文档/注释

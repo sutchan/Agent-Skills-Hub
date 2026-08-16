@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.21 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.22 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
