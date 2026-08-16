@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.16 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.18 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agent Skills Hub · 原型</title>
+  <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
   <style>/* prototype/src/styles/tokens.css v1.14.15 — 设计令牌 + reset（DESIGN.md §2） */
 :root {
   --bg: #f7f8fa;
@@ -289,7 +289,7 @@ html[data-lang="zh"] .en { display: none; }
     <div class="topbar-inner" id="topbarInner">
       <a class="brand" id="brandLink" href="#">
         <span class="logo">S</span>
-        <span>Skills Hub <small data-i18n="brand.subtitle">Agent Skills Hub 原型</small></span>
+        <span>Skills Hub <small data-i18n="brand.subtitle">高质量 Agent 技能库</small></span>
       </a>
       <div class="topbar-spacer"></div>
       <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言 / Switch language" aria-pressed="false">中</button>
@@ -1782,7 +1782,7 @@ html[data-lang="zh"] .en { display: none; }
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.14.17 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.14.18 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -1795,7 +1795,7 @@ html[data-lang="zh"] .en { display: none; }
   // 若本字典在运行时被外部篡改或加载失败，模块仍可通过兜底逻辑运行。
   var translations = {
     zh: {
-      "brand.subtitle": "Agent Skills Hub 原型",
+      "brand.subtitle": "高质量 Agent 技能库",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
       "hero.title": "发现并复用 {n} 个高质量 Agent 技能",
@@ -1826,7 +1826,7 @@ html[data-lang="zh"] .en { display: none; }
       ]
     },
     en: {
-      "brand.subtitle": "Agent Skills Hub Prototype",
+      "brand.subtitle": "Curated agent skill library",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
       "hero.title": "Discover & reuse {n} high-quality agent skills",

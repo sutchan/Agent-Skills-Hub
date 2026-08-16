@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.18] - 2026-08-16
+
+### fix: 去除部署页面「原型」字样残留，统一品牌定位文案
+
+- **页面 title**：`Agent Skills Hub · 原型` → `Agent Skills Hub · 高质量 Agent 技能目录`
+- **顶栏副标题（brand.subtitle）**：
+  - zh：`Agent Skills Hub 原型` → `高质量 Agent 技能库`
+  - en：`Agent Skills Hub Prototype` → `Curated agent skill library`
+- **同步范围**：`prototype/src/index.html`（title + 静态兜底）、`prototype/src/i18n.js`（zh/en 字典）；重建 `prototype/out/index.html` 部署产物
+- **说明**：`prototype/src/*` 文件头注释、`out/index.html` 内的源码署名注释及 frontend-skill 技能描述中的「原型」属内部注释/数据内容，不向用户展示，无需更改
+- **版本号同步**：package.json → v1.14.18；prototype/src/index.html、i18n.js 头注释 → v1.14.18
+
 ## [1.14.17] - 2026-08-16
 
 ### docs: 修复文案漂移与死键，统一品牌展示名
