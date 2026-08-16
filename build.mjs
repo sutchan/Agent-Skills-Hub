@@ -4,8 +4,10 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const SRC = join(__dirname, "src");
-const OUT_DIR = join(__dirname, "out");
+// 脚本已移出 prototype/ 到仓库根目录；原型源位于 prototype/
+const PROTO = join(__dirname, "prototype");
+const SRC = join(PROTO, "src");
+const OUT_DIR = join(PROTO, "out");
 
 const htmlTpl = readFileSync(join(SRC, "index.html"), "utf8");
 // 设计令牌与组件样式分文件维护，按序拼接为单一内联样式（tokens 在前，变量先定义）
@@ -19,7 +21,7 @@ const js = readdirSync(PARTS_DIR)
   .map((f) => readFileSync(join(PARTS_DIR, f), "utf8"))
   .join("\n");
 const i18n = readFileSync(join(SRC, "i18n.js"), "utf8");
-const data = readFileSync(join(__dirname, "skills-data.json"), "utf8");
+const data = readFileSync(join(PROTO, "skills-data.json"), "utf8");
 
 // 注意：replacement 字符串中 `$$` 会被解释为字面 `$`，导致 parts 里的 `const $$`
 // 在产物中变成 `const $` 造成重复声明语法错误。统一使用函数式替换规避。

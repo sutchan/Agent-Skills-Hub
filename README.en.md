@@ -301,7 +301,7 @@ The repo provides two layers of web artifacts for both "browsing" and "developme
 
 #### Prototype (prototype/)
 
-The repo ships a high-fidelity static prototype built with native HTML/CSS/JS (no React/Next.js/Tailwind runtime). `prototype/src/` is inlined into a self-contained `prototype/out/index.html` by `prototype/build.mjs`, with i18n driven by the standalone module `prototype/src/i18n.js` (fail-safe `I18N.t()`).
+The repo ships a high-fidelity static prototype built with native HTML/CSS/JS (no React/Next.js/Tailwind runtime). `prototype/src/` is inlined into a self-contained `prototype/out/index.html` by the root `build.mjs`, with i18n driven by the standalone module `prototype/src/i18n.js` (fail-safe `I18N.t()`).
 
 ```bash
 # Open prototype/out/index.html directly in a browser, or serve it:

@@ -310,7 +310,7 @@ git clone https://github.com/sutchan/Agent-Skills-Hub.git
 
 ### 原型（prototype/）
 
-仓库内置一个高保真静态原型，由原生 HTML/CSS/JS 实现（`prototype/src/` 经 `prototype/build.mjs` 注入真实数据生成自包含 `prototype/out/index.html`），**无需 React/Next.js/Tailwind 运行时**，可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务。国际化由独立模块 `prototype/src/i18n.js` 驱动（`I18N.t()` 容错兜底，翻译缺失也不崩溃）。
+仓库内置一个高保真静态原型，由原生 HTML/CSS/JS 实现（`prototype/src/` 经根目录 `build.mjs` 注入真实数据生成自包含 `prototype/out/index.html`），**无需 React/Next.js/Tailwind 运行时**，可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务。国际化由独立模块 `prototype/src/i18n.js` 驱动（`I18N.t()` 容错兜底，翻译缺失也不崩溃）。
 
 ```bash
 # 原型为预构建静态 HTML，无需安装依赖或构建：
