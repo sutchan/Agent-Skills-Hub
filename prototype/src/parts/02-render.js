@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.22 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.23 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
@@ -40,7 +40,7 @@ function cardHTML(s) {
       </div>
       <div class="desc zh">${esc(s.zh)}</div>
       <div class="desc en">${esc(s.description)}</div>
-      <div class="meta"><span class="cat-tag">${esc(s.category)}</span></div>
+      <div class="meta"><span class="cat-tag" style="--hue:${catHue(s.category)}">${esc(s.category)}</span></div>
     </div>
   </article>`;
 }

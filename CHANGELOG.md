@@ -2,6 +2,13 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.23] - 2026-08-16
+
+### fix: 卡片分类标签 .cat-tag 加对应淡彩色背景
+
+- **prototype**：`02-render.js` 的 `cardHTML` 给 `.cat-tag` 注入 `--hue`（由类别名经 `catHue()` 派生，与分类条同算法）；`app.css` 的 `.cat-tag` 由纯灰边样式改为 `color-mix` 淡彩色背景+边框+文字，与 `.chip` 视觉一致
+- **版本号同步**：package.json → v1.14.23；prototype/src/app.css → v1.14.23、prototype/src/parts/02-render.js → v1.14.23
+
 ## [1.14.22] - 2026-08-16
 
 ### fix: 分类条溢出改换行 + 淡彩色背景区分

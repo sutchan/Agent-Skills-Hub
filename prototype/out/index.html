@@ -60,7 +60,7 @@ input { font-family: inherit; }
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-/* prototype/src/app.css v1.14.15 — 组件与布局样式 (DESIGN.md)
+/* prototype/src/app.css v1.14.23 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
@@ -149,23 +149,22 @@ html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
 
 /* ---------- 分类条 ---------- */
 .cats { max-width: var(--maxw); margin: 18px auto 0; padding: 0 24px; position: relative; }
-/* 右侧渐隐遮罩：提示分类可横向滚动，溢出时可见（纯装饰，不挡交互） */
-.cats::after {
-  content: ""; position: absolute; top: 0; right: 0; bottom: 4px; width: 40px;
-  background: linear-gradient(to right, transparent, var(--bg));
-  pointer-events: none; opacity: 0; transition: opacity .2s ease;
-}
-.cats.overflow::after { opacity: 1; }
-.cats-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
-.cats-scroll::-webkit-scrollbar { display: none; }
+/* 换行布局：分类标签自动折行，不再横向滚动（避免溢出问题） */
+.cats-scroll { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 4px; }
 .chip {
+  --hue: 220;
   white-space: nowrap; padding: 8px 14px; border-radius: 999px;
-  background: var(--surface); border: 1px solid var(--border);
-  color: var(--text-2); font-size: 13px; font-weight: 500; transition: .15s;
+  /* 淡淡彩色背景：由 --hue 区分不同分类；深色主题下 color-mix 自动适配 */
+  background: color-mix(in srgb, hsl(var(--hue) 70% 50%) 14%, var(--surface));
+  border: 1px solid color-mix(in srgb, hsl(var(--hue) 70% 50%) 28%, var(--border));
+  color: color-mix(in srgb, hsl(var(--hue) 70% 32%) 70%, var(--text-2));
+  font-size: 13px; font-weight: 500; transition: .15s;
 }
-.chip:hover { border-color: var(--primary); color: var(--primary); }
-.chip.active { background: var(--primary); border-color: var(--primary); color: #fff; }
-.chip .c { opacity: .7; margin-left: 6px; font-size: 12px; }
+.chip:hover { border-color: hsl(var(--hue) 70% 50%); color: hsl(var(--hue) 70% 36%); }
+.chip.active {
+  background: hsl(var(--hue) 70% 50%); border-color: hsl(var(--hue) 70% 50%); color: #fff;
+}
+.chip .chip-count { opacity: .7; margin-left: 6px; font-size: 12px; }
 
 /* ---------- 网格 / 列表 ---------- */
 .grid {
@@ -199,7 +198,7 @@ html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
 .card .desc.zh { margin-top: 8px; }
 .grid.list .card .desc { -webkit-line-clamp: 1; }
 .card .meta { display: flex; gap: 8px; align-items: center; color: var(--text-3); font-size: 12px; }
-.card .cat-tag { font-size: 11px; color: var(--text-3); border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px; }
+.card .cat-tag { --hue: 220; font-size: 11px; white-space: nowrap; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, hsl(var(--hue) 70% 50%) 14%, var(--surface)); border: 1px solid color-mix(in srgb, hsl(var(--hue) 70% 50%) 28%, var(--border)); color: color-mix(in srgb, hsl(var(--hue) 70% 32%) 70%, var(--text-2)); }
 
 .empty { text-align: center; color: var(--text-3); padding: 60px 20px; }
 
@@ -2041,7 +2040,7 @@ function matches(s, q) {
   return hay.includes(q.toLowerCase());
 }
 
-// prototype/src/parts/02-render.js v1.14.15 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.23 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
@@ -2054,18 +2053,22 @@ function refreshHeroCount() {
   document.getElementById("heroTitleEn").textContent = I18N.t("hero.title", "en").replace(/\{n\}/g, n);
 }
 
+// 由类别名稳定派生一个色相（0-359），使同一分类始终得到同一淡彩色背景
+function catHue(c) {
+  let h = 0;
+  for (let i = 0; i < c.length; i++) h = (h * 31 + c.charCodeAt(i)) % 360;
+  return h;
+}
+
 function renderCats(counts) {
   const cats = SKILLS_DATA.categories;
-  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  // 全部：固定主色 hue，保证与分类标签视觉一致
+  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:220" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cat === c;
-    items.push(`<button class="chip" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
+    items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
   });
   $("#cats").innerHTML = items.join("");
-  // 分类条横向溢出检测：超出可视宽度时给容器加 overflow 类，触发右侧渐隐遮罩
-  const nav = $("#categoryNav");
-  const scroll = $("#cats");
-  if (nav && scroll) nav.classList.toggle("overflow", scroll.scrollWidth > scroll.clientWidth + 1);
 }
 
 // 卡片：主标题显示技能英文名（权威标识、简短、永不丢失），中文描述交给 .desc
@@ -2079,7 +2082,7 @@ function cardHTML(s) {
       </div>
       <div class="desc zh">${esc(s.zh)}</div>
       <div class="desc en">${esc(s.description)}</div>
-      <div class="meta"><span class="cat-tag">${esc(s.category)}</span></div>
+      <div class="meta"><span class="cat-tag" style="--hue:${catHue(s.category)}">${esc(s.category)}</span></div>
     </div>
   </article>`;
 }
