@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.1.1 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.1.2 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
 "use client";
 
 import { useMemo, useState } from "react";
@@ -78,8 +78,10 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
         <div className="grid">
           {filtered.map((s) => (
             <button key={s.name} className="card" role="button" onClick={() => setOpen(s)}>
-              <div className="avatar sm">{(s.name || "?").slice(0, 2).toUpperCase()}</div>
-              <div className="card-title">{s.zh || s.name}</div>
+              <div className="title-row">
+                <div className="avatar sm">{(s.name || "?").slice(0, 2).toUpperCase()}</div>
+                <div className="card-title">{s.zh || s.name}</div>
+              </div>
               <div className="card-sub en">{s.name}</div>
               <div className="card-cat">{s.category}</div>
             </button>

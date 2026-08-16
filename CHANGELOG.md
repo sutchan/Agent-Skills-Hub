@@ -2,6 +2,14 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.10] - 2026-08-16
+
+### 优化：卡片头像与名称同行
+
+- **prototype**：`02-render.js` 的 `cardHTML` 将 `.avatar` 移入 `.body` 并与 `.name` 包进新增的 `.title-row`（flex 横向）；`app.css` 移除旧的独立 `.card .avatar` 规则，新增 `.title-row { display:flex; align-items:center; gap:10px }`，列表视图（list）保持兼容
+- **app（Next.js）**：`SkillsExplorer.tsx` 卡片把 `.avatar.sm` 与 `.card-title` 包进 `.title-row`；`globals.css` 新增 `.title-row` 并实现同行，移除 `.card-title` 多余上边距
+- **版本号同步**：prototype/src/parts/02-render.js → v1.14.10；app/components/SkillsExplorer.tsx → v1.1.2；package.json → v1.14.10、app/package.json → v1.1.2
+
 ## [1.14.9] - 2026-08-16
 
 ### 修复：详情弹窗 i18n key 与分享文案漂移

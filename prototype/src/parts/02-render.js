@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.8 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.10 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
@@ -29,9 +29,11 @@ function renderCats(counts) {
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   return `<article class="card" data-name="${esc(s.name)}" role="button" tabindex="0" aria-label="${esc(label)}">
-    <div class="avatar">${initials(s.name)}</div>
     <div class="body">
-      <div class="name">${esc(s.name)}</div>
+      <div class="title-row">
+        <div class="avatar">${initials(s.name)}</div>
+        <div class="name">${esc(s.name)}</div>
+      </div>
       <div class="desc zh">${esc(s.zh)}</div>
       <div class="desc en">${esc(s.description)}</div>
       <div class="meta"><span class="cat-tag">${esc(s.category)}</span></div>
