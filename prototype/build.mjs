@@ -1,4 +1,4 @@
-// prototype/build.mjs v1.14.8 — 将 src 模板 + 真实数据内联为自包含 out/index.html
+// prototype/build.mjs v1.14.9 — 将 src 模板 + 真实数据内联为自包含 out/index.html
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -21,11 +21,13 @@ const js = readdirSync(PARTS_DIR)
 const i18n = readFileSync(join(SRC, "i18n.js"), "utf8");
 const data = readFileSync(join(__dirname, "skills-data.json"), "utf8");
 
+// 注意：replacement 字符串中 `$$` 会被解释为字面 `$`，导致 parts 里的 `const $$`
+// 在产物中变成 `const $` 造成重复声明语法错误。统一使用函数式替换规避。
 const out = htmlTpl
-  .replace("{{CSS}}", css)
-  .replace("{{DATA}}", data)
-  .replace("{{I18N}}", i18n)
-  .replace("{{JS}}", js);
+  .replace("{{CSS}}", () => css)
+  .replace("{{DATA}}", () => data)
+  .replace("{{I18N}}", () => i18n)
+  .replace("{{JS}}", () => js);
 
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(join(OUT_DIR, "index.html"), out, "utf8");

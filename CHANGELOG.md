@@ -11,6 +11,7 @@
 - **修复 app 层 `allowedTools` 类型契约崩溃风险**：`lib/skills.ts` 的 `Skill.allowedTools` 由 `string` 改为 `string[]`（与 `build-skills-data.mjs` 实际输出一致），`SkillDialog` 移除 `.split(",")` 调用，避免数组调用 split 抛 `TypeError`
 - **修复 app 弹窗焦点陷阱失效与 Escape 冒泡**：焦点移出弹窗（如 body）时按方向拉回边界；Escape 时 `preventDefault` 后关闭
 - **版本号同步**：prototype/src/parts/03-detail.js → v1.14.9；app 层 7 个被改文件头 → v1.1.1；package.json → v1.14.9、app/package.json → v1.1.1
+- **修复构建产物 JS 语法错误导致全站白屏（🔴 严重）**：`build.mjs` 用 `String.replace` 注入 `js` 片段时，`$$` 在替换字符串中被解释为字面 `$`，使 parts 里的 `const $$ = ...` 在 `out/index.html` 中塌缩为 `const $ = ...`，与上方 `const $` 重复声明触发 `SyntaxError`，整段脚本不执行、统计与卡片恒为 0；改为函数式替换 `() => js` 规避特殊字符解释。同等处理 `{{CSS}}/{{DATA}}/{{I18N}}`。`build.mjs` 头版本 → v1.14.9
 
 ## [1.14.8] - 2026-08-16
 
