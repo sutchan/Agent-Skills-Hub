@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.9] - 2026-08-16
+
+### 修复：详情弹窗 i18n key 与分享文案漂移
+
+- **修复弹窗授权工具标题显示 key 原文**：`03-detail.js` 引用不存在的 `detail.tools`，回退为字面量 `"detail.tools"`；改为正确的 `detail.toolsTitle`
+- **修复 app 层分享文案硬编码 `"200+"` 与 prototype 漂移（违反 openspec §4.5.4.3）**：`lib/share.ts` 文案改为 `{n}` 占位并在 `buildShareText` 注入 `SKILLS_DATA.total`，与 prototype 动态数量一致；`useShare`/`SkillDialog`/`SkillsExplorer`/`AppShell`/`page` 透传 `total`
+- **修复 app 层 `allowedTools` 类型契约崩溃风险**：`lib/skills.ts` 的 `Skill.allowedTools` 由 `string` 改为 `string[]`（与 `build-skills-data.mjs` 实际输出一致），`SkillDialog` 移除 `.split(",")` 调用，避免数组调用 split 抛 `TypeError`
+- **修复 app 弹窗焦点陷阱失效与 Escape 冒泡**：焦点移出弹窗（如 body）时按方向拉回边界；Escape 时 `preventDefault` 后关闭
+- **版本号同步**：prototype/src/parts/03-detail.js → v1.14.9；app 层 7 个被改文件头 → v1.1.1；package.json → v1.14.9、app/package.json → v1.1.1
+
 ## [1.14.8] - 2026-08-16
 
 ### 修复：原型运行时崩溃与交互失效

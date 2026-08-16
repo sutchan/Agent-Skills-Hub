@@ -1,4 +1,4 @@
-// app/lib/skills.ts v1.1.0 — 技能数据读取与类型
+// app/lib/skills.ts v1.1.1 — 技能数据读取与类型
 // 权威数据源：prototype/skills-data.json（构建期由 scripts/generate-data.mjs 生成）。
 // 在 Next.js 服务端组件中以 fs 读取，避免客户端拉取大体积 JSON。
 
@@ -10,12 +10,15 @@ export interface Skill {
   zh: string;
   description: string;
   category: string;
-  allowedTools?: string;
+  // build-skills-data.mjs 经 normalizeTools() 已规范为 string[]（见 prototype 修复 v1.14.6）。
+  // 这里以 string[] 为权威类型，渲染层无需再 split。
+  allowedTools?: string[];
   tags?: string[];
 }
 
 export interface SkillsData {
-  meta: { count: number; generatedAt: string };
+  // 与 build-skills-data.mjs 生成结构一致：{ total, categories, skills }
+  total: number;
   categories: string[];
   skills: Skill[];
 }
@@ -25,9 +28,15 @@ const DATA_PATH = path.resolve(process.cwd(), "..", "prototype", "skills-data.js
 export function loadSkills(): SkillsData {
   try {
     const raw = fs.readFileSync(DATA_PATH, "utf8");
-    return JSON.parse(raw) as SkillsData;
+    const data = JSON.parse(raw) as SkillsData;
+    // 防御性兜底：即使数据异常也保证字段存在，避免渲染层崩溃
+    return {
+      total: data.total || (data.skills ? data.skills.length : 0),
+      categories: data.categories || [],
+      skills: data.skills || [],
+    };
   } catch (e) {
     // 容错：数据缺失时返回空结构，页面不崩溃
-    return { meta: { count: 0, generatedAt: "" }, categories: [], skills: [] };
+    return { total: 0, categories: [], skills: [] };
   }
 }

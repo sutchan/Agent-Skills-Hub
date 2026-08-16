@@ -1,4 +1,4 @@
-// app/components/useShare.ts v1.1.0 — 分享交互 Hook（复制 + toast）
+// app/components/useShare.ts v1.1.1 — 分享交互 Hook（复制 + toast）
 "use client";
 
 import { useCallback, useRef, useState } from "react";
@@ -11,7 +11,7 @@ export interface ToastState {
 }
 
 /** 分享交互：复制「技能链接+随机文案」并给出 toast 反馈（openspec §4.5.4） */
-export function useShare(lang: Lang) {
+export function useShare(lang: Lang, total = 0) {
   const [toast, setToast] = useState<ToastState>({ msg: "", isErr: false, show: false });
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -24,11 +24,11 @@ export function useShare(lang: Lang) {
   const shareSkill = useCallback(
     async (name: string) => {
       if (!name) return;
-      const text = buildShareText(name, lang);
+      const text = buildShareText(name, lang, total);
       const ok = await copyShareText(text);
       showToast(ok ? SHARE_FEEDBACK[lang].ok : SHARE_FEEDBACK[lang].fail, !ok);
     },
-    [lang, showToast]
+    [lang, total, showToast]
   );
 
   return { toast, shareSkill };

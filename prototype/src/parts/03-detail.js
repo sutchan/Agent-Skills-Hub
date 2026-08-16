@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.14.8 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.9 — 详情弹窗、键盘可达性与分享
 function openDetail(s) {
   const overlay = $("#overlay");
   const dialog = $("#dialog");
@@ -17,7 +17,7 @@ function openDetail(s) {
     <div id="dialogBody" class="dialog-body">
       <section id="dialogBlockZh" class="block"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><p>${esc(s.zh)}</p></section>
       <section id="dialogBlockEn" class="block"><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p>${esc(s.description)}</p></section>
-      <section id="dialogBlockTools" class="block"><h3>${I18N.t("detail.tools")}</h3><div class="tools">${(Array.isArray(s.allowedTools) ? s.allowedTools : String(s.allowedTools || "").split(",").map((t) => t.trim()).filter(Boolean)).map((t) => `<code>${esc(t)}</code>`).join("")}</div></section>
+      <section id="dialogBlockTools" class="block"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${(Array.isArray(s.allowedTools) ? s.allowedTools : String(s.allowedTools || "").split(",").map((t) => t.trim()).filter(Boolean)).map((t) => `<code>${esc(t)}</code>`).join("")}</div></section>
     </div>
     <div id="dialogFoot" class="dialog-foot">
       <a class="btn btn-primary" href="skills/${encodeURIComponent(s.name)}/" target="_blank" rel="noopener">

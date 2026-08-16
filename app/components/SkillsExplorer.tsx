@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.1.0 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.1.1 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
 "use client";
 
 import { useMemo, useState } from "react";
@@ -10,6 +10,7 @@ interface Props {
   skills: Skill[];
   categories: string[];
   lang: Lang;
+  total: number;
 }
 
 const UI: Record<Lang, { search: string; all: string; total: string; shown: string; empty: string }> = {
@@ -18,7 +19,7 @@ const UI: Record<Lang, { search: string; all: string; total: string; shown: stri
 };
 
 /** 技能浏览主组件：筛选 + 卡片网格 + 详情弹窗（openspec §4.5 展示页交互） */
-export function SkillsExplorer({ skills, categories, lang }: Props) {
+export function SkillsExplorer({ skills, categories, lang, total }: Props) {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("全部");
   const [open, setOpen] = useState<Skill | null>(null);
@@ -88,7 +89,7 @@ export function SkillsExplorer({ skills, categories, lang }: Props) {
         <div className="empty">{t.empty}</div>
       )}
 
-      {open && <SkillDialog skill={open} lang={lang} onClose={() => setOpen(null)} />}
+      {open && <SkillDialog skill={open} lang={lang} total={total} onClose={() => setOpen(null)} />}
     </main>
   );
 }

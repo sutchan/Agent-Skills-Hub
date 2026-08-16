@@ -1,4 +1,4 @@
-// app/components/SkillDialog.tsx v1.1.0 — 技能详情弹窗（含分享按钮）
+// app/components/SkillDialog.tsx v1.1.1 — 技能详情弹窗（含分享按钮）
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -10,12 +10,13 @@ import { useShare } from "./useShare";
 interface Props {
   skill: Skill;
   lang: Lang;
+  total: number;
   onClose: () => void;
 }
 
 /** 技能详情弹窗：展示中英描述、分类、授权工具，并提供「分享」按钮（openspec §3.2 ShareButton） */
-export function SkillDialog({ skill, lang, onClose }: Props) {
-  const { shareSkill, toast } = useShare(lang);
+export function SkillDialog({ skill, lang, total, onClose }: Props) {
+  const { shareSkill, toast } = useShare(lang, total);
   const lastFocused = useRef<HTMLElement | null>(null);
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
@@ -39,26 +40,37 @@ export function SkillDialog({ skill, lang, onClose }: Props) {
     if (!f || !f.length) return;
     const first = f[0];
     const last = f[f.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
+    const active = document.activeElement as HTMLElement | null;
+    const inDialog = active && overlayRef.current?.contains(active);
+    if (!inDialog) {
+      e.preventDefault();
+      (e.shiftKey ? last : first).focus();
+      return;
+    }
+    if (e.shiftKey && active === first) {
       e.preventDefault();
       last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
+    } else if (!e.shiftKey && active === last) {
       e.preventDefault();
       first.focus();
     }
   };
 
-  const tools = (skill.allowedTools || "")
-    .split(",")
-    .map((t) => t.trim())
-    .filter(Boolean);
+  // allowedTools 在数据源已规范为 string[]（build-skills-data.mjs normalizeTools），无需再 split
+  const tools = Array.isArray(skill.allowedTools)
+    ? skill.allowedTools.map((t) => String(t).trim()).filter(Boolean)
+    : [];
 
   return (
     <div
       className="overlay open"
       ref={overlayRef}
       onKeyDown={(e) => {
-        if (e.key === "Escape") onClose();
+        if (e.key === "Escape") {
+          e.preventDefault();
+          onClose();
+          return;
+        }
         trap(e);
       }}
       onClick={(e) => {
