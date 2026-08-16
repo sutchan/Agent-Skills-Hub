@@ -1,4 +1,4 @@
-/* app/globals.css v1.1.0 — 应用全局样式（对齐 prototype 设计令牌） */
+/* app/globals.css v1.1.5 — 应用全局样式（对齐 prototype 设计令牌） */
 :root {
   --bg: #f7f8fa;
   --surface: #ffffff;
@@ -13,8 +13,20 @@
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-en: "Inter", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
+/* 深色主题令牌（与 prototype tokens.css 对齐） */
+html[data-theme="dark"] {
+  --bg: #0f1115;
+  --surface: #171a21;
+  --surface-2: #1f2530;
+  --border: #2a313c;
+  --text: #e7ebf0;
+  --text-2: #9aa4b2;
+  --primary: #6366f1;
+  --primary-strong: #818cf8;
+  --shadow-pop: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); transition: background .2s, color .2s; }
 body.no-scroll { overflow: hidden; }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 6px; }
 button { font-family: inherit; cursor: pointer; }
@@ -23,8 +35,12 @@ button { font-family: inherit; cursor: pointer; }
 .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
 .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px; }
 .logo { font-size: 22px; }
-.icon-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); border-radius: 10px; height: 40px; padding: 0 14px; font-weight: 600; }
-.icon-btn:hover { color: var(--text); }
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
+.icon-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); border-radius: 10px; height: 40px; padding: 0 14px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s, transform .1s, box-shadow .15s; }
+.icon-btn:hover { color: var(--text); background: var(--surface); box-shadow: var(--shadow-pop); }
+.icon-btn:active { transform: scale(.94); }
+.icon-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
 
 .toolbar { margin-top: 10px; }
 .search-input { width: 100%; height: 44px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); padding: 0 16px; font-size: 14px; }

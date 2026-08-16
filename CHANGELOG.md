@@ -2,6 +2,30 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.17] - 2026-08-16
+
+### docs: 修复文案漂移与死键，统一品牌展示名
+
+- **分享文案漂移修复（openspec §4.5.4.3）**：`app/lib/share.ts` 的 `SHARE_PROMOS` 原与 `prototype/src/i18n.js` 的 `share.promos` 完全不同且注释声称「逐字对齐」；现以 i18n 为权威逐字统一，消除 app 与原型分享文案不一致
+- **品牌名统一为 `Agent Skills Hub`（空格）**：app 分享文案中 3 处 `Agent-Skills-Hub` 连字符改为空格展示名（与 `app/layout.tsx` metadata、`index.html` title 一致）；npm 包名 `agent-skills-hub-app` 与 GitHub 仓库 URL 中 `Agent-Skills-Hub` 因属技术标识保持连字符真实形态（最佳实践：展示名空格、技术标识连字符）
+- **清理原型 i18n 死键**：删除从未被引用的 `share.copyOk`/`share.copyFail`/`empty`（zh+en）；`detail.catTitle`/`detail.zhName` 标注为预留键
+- **hero 文案优化**：`hero.title` 由「发现并复用 {n} 高质量 Agent 技能」改为「发现并复用 {n} 个高质量 Agent 技能」（补量词更通顺）
+- **用词统一**：`SkillsExplorer` 统计文案「当前显示」→「当前展示」，与原型 `stat.shown` 一致
+- **版本号同步**：package.json → v1.14.17；prototype/src/i18n.js → v1.14.17；app/lib/share.ts → v1.1.3；app/components/SkillsExplorer.tsx → v1.1.3
+
+## [1.14.16] - 2026-08-16
+
+### 优化：语言/主题切换按钮（原型 + 应用）
+
+- **prototype**：
+  - `index.html`：语言按钮文本改为显示「目标语言」（zh→`EN`、en→`中`），更直接；主题按钮增加月亮图标组（`<g class="theme-moon">`），由 CSS 按 `data-theme` 切换太阳/月亮
+  - `app.css`：`.icon-btn` 增加 `:focus-visible` 焦点环、`:active` 缩放反馈与过渡统一；新增主题图标太阳/月亮显隐规则
+  - `04-interactions.js`：`applyLang` 设置按钮文本与 `aria-pressed`（当前语言）；`applyTheme` 设置 `themeBtn` 的 `aria-pressed`（深色为 true）
+- **app（Next.js）**：
+  - `AppShell.tsx`：新增主题切换按钮（太阳/月亮 SVG、`aria-pressed`）与 `data-theme` 同步；语言按钮文本改目标语言并加 `aria-pressed`；新增 `.topbar-actions` 容器包裹两个按钮
+  - `globals.css`：补全深色主题令牌（`html[data-theme="dark"]`），`.icon-btn` 增加 focus/active 反馈与 hover 阴影；新增 `.topbar-actions`
+- **版本号同步**：package.json → v1.14.16、app/package.json → v1.1.5；prototype/src/index.html、parts/04-interactions.js → v1.14.16
+
 ## [1.14.15] - 2026-08-16
 
 ### docs: 对齐代码与原型/规范文档（版本号与事实一致性）

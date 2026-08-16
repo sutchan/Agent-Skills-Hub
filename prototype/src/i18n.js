@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.14.15 — 独立国际化模块
+// prototype/src/i18n.js v1.14.17 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -14,26 +14,23 @@
       "brand.subtitle": "Agent Skills Hub 原型",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
-      "hero.title": "发现并复用 {n} 高质量 Agent 技能",
+      "hero.title": "发现并复用 {n} 个高质量 Agent 技能",
       "hero.subtitle": "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。",
       "stat.total": "技能总数",
       "stat.cats": "分类",
       "stat.shown": "当前展示",
       "search.placeholder": "搜索技能名称或描述…",
-      "empty": "未找到匹配的技能",
       "detail.zhTitle": "中文描述",
       "detail.enTitle": "英文说明",
-      "detail.catTitle": "分类 / Category",
+      "detail.catTitle": "分类 / Category", // 预留：详情弹窗分类标题
       "detail.toolsTitle": "授权工具 / Allowed tools",
       "detail.close": "关闭 / Close",
       "detail.open": "查看技能",
       "detail.openEn": "Open skill",
-      "detail.zhName": "中文名", // 详情弹窗内中文名标题（预留）
+      "detail.zhName": "中文名", // 预留：详情弹窗内中文名标题
       "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
       "empty.clear": "清除筛选",
       "share.btn": "分享",
-      "share.copyOk": "已复制链接与宣传文案",
-      "share.copyFail": "复制失败，请手动复制",
       "share.copied": "已复制到剪贴板",
       "share.failed": "复制失败，请手动复制",
       "filter.all": "全部",
@@ -54,20 +51,17 @@
       "stat.cats": "Categories",
       "stat.shown": "Shown",
       "search.placeholder": "Search skills by name or description…",
-      "empty": "No matching skills",
       "detail.zhTitle": "Description (zh)",
       "detail.enTitle": "Description (en)",
-      "detail.catTitle": "Category / 分类",
+      "detail.catTitle": "Category / 分类", // 预留：详情弹窗分类标题
       "detail.toolsTitle": "Allowed tools / 授权工具",
       "detail.close": "Close / 关闭",
       "detail.open": "Open skill",
       "detail.openEn": "Open skill",
-      "detail.zhName": "Chinese name",
+      "detail.zhName": "Chinese name", // 预留：详情弹窗内中文名标题
       "empty.desc": "Try a different keyword or category, or clear the current filter.",
       "empty.clear": "Clear filters",
       "share.btn": "Share",
-      "share.copyOk": "Link & promo copied",
-      "share.copyFail": "Copy failed, please copy manually",
       "share.copied": "Copied to clipboard",
       "share.failed": "Copy failed, please copy manually",
       "filter.all": "All",

@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.1.2 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.1.3 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
 "use client";
 
 import { useMemo, useState } from "react";
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const UI: Record<Lang, { search: string; all: string; total: string; shown: string; empty: string }> = {
-  zh: { search: "按名称或描述搜索技能…", all: "全部", total: "技能总数", shown: "当前显示", empty: "未找到匹配的技能" },
+  zh: { search: "按名称或描述搜索技能…", all: "全部", total: "技能总数", shown: "当前展示", empty: "未找到匹配的技能" },
   en: { search: "Search skills by name or description…", all: "All", total: "Total skills", shown: "Shown", empty: "No matching skills" },
 };
 

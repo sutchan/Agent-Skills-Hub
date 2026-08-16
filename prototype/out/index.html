@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.15 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.16 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -108,9 +108,16 @@ body.no-scroll { overflow: hidden; }
 .icon-btn {
   width: 38px; height: 38px; border-radius: 10px;
   display: grid; place-items: center; color: var(--text-2);
-  border: 1px solid transparent; transition: .15s;
+  border: 1px solid transparent; transition: background .15s, color .15s, transform .1s, box-shadow .15s;
+  cursor: pointer; font-size: 14px; font-weight: 700;
 }
 .icon-btn:hover { background: var(--surface-2); color: var(--text); }
+.icon-btn:active { transform: scale(.94); }
+.icon-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+/* 主题图标按当前主题切换：浅色显示太阳，深色显示月亮 */
+html[data-theme="dark"] #themeIcon .theme-sun { display: none; }
+html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
+#themeIcon .theme-moon { display: none; }
 
 /* ---------- Hero ---------- */
 .hero { max-width: var(--maxw); margin: 0 auto; padding: 40px 24px 8px; }
@@ -285,11 +292,14 @@ html[data-lang="zh"] .en { display: none; }
         <span>Skills Hub <small data-i18n="brand.subtitle">Agent Skills Hub 原型</small></span>
       </a>
       <div class="topbar-spacer"></div>
-      <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言 / Switch language" data-i18n="lang.toggle">中 / EN</button>
-      <button class="icon-btn" id="themeBtn" title="主题 / Theme" aria-label="切换主题 / Switch theme" data-i18n="theme.toggle">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon">
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+      <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言 / Switch language" aria-pressed="false">中</button>
+      <button class="icon-btn" id="themeBtn" title="主题 / Theme" aria-label="切换主题 / Switch theme" aria-pressed="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="themeIcon">
+          <g class="theme-sun">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+          </g>
+          <path class="theme-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" style="display:none"></path>
         </svg>
       </button>
     </div>
@@ -1772,7 +1782,7 @@ html[data-lang="zh"] .en { display: none; }
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.14.15 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.14.17 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -1788,26 +1798,23 @@ html[data-lang="zh"] .en { display: none; }
       "brand.subtitle": "Agent Skills Hub 原型",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
-      "hero.title": "发现并复用 {n} 高质量 Agent 技能",
+      "hero.title": "发现并复用 {n} 个高质量 Agent 技能",
       "hero.subtitle": "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。",
       "stat.total": "技能总数",
       "stat.cats": "分类",
       "stat.shown": "当前展示",
       "search.placeholder": "搜索技能名称或描述…",
-      "empty": "未找到匹配的技能",
       "detail.zhTitle": "中文描述",
       "detail.enTitle": "英文说明",
-      "detail.catTitle": "分类 / Category",
+      "detail.catTitle": "分类 / Category", // 预留：详情弹窗分类标题
       "detail.toolsTitle": "授权工具 / Allowed tools",
       "detail.close": "关闭 / Close",
       "detail.open": "查看技能",
       "detail.openEn": "Open skill",
-      "detail.zhName": "中文名", // 详情弹窗内中文名标题（预留）
+      "detail.zhName": "中文名", // 预留：详情弹窗内中文名标题
       "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
       "empty.clear": "清除筛选",
       "share.btn": "分享",
-      "share.copyOk": "已复制链接与宣传文案",
-      "share.copyFail": "复制失败，请手动复制",
       "share.copied": "已复制到剪贴板",
       "share.failed": "复制失败，请手动复制",
       "filter.all": "全部",
@@ -1828,20 +1835,17 @@ html[data-lang="zh"] .en { display: none; }
       "stat.cats": "Categories",
       "stat.shown": "Shown",
       "search.placeholder": "Search skills by name or description…",
-      "empty": "No matching skills",
       "detail.zhTitle": "Description (zh)",
       "detail.enTitle": "Description (en)",
-      "detail.catTitle": "Category / 分类",
+      "detail.catTitle": "Category / 分类", // 预留：详情弹窗分类标题
       "detail.toolsTitle": "Allowed tools / 授权工具",
       "detail.close": "Close / 关闭",
       "detail.open": "Open skill",
       "detail.openEn": "Open skill",
-      "detail.zhName": "Chinese name",
+      "detail.zhName": "Chinese name", // 预留：详情弹窗内中文名标题
       "empty.desc": "Try a different keyword or category, or clear the current filter.",
       "empty.clear": "Clear filters",
       "share.btn": "Share",
-      "share.copyOk": "Link & promo copied",
-      "share.copyFail": "Copy failed, please copy manually",
       "share.copied": "Copied to clipboard",
       "share.failed": "Copy failed, please copy manually",
       "filter.all": "All",
@@ -2200,17 +2204,26 @@ function showToast(msg) {
   t._timer = setTimeout(() => t.classList.remove("show"), 2000);
 }
 
-// prototype/src/parts/04-interactions.js v1.14.15 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.14.16 — 主题/语言切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
-  if (btn) btn.setAttribute("aria-label", I18N.t("theme.toggle"));
+  if (btn) {
+    btn.setAttribute("aria-label", I18N.t("theme.toggle"));
+    // aria-pressed 表示当前是否处于深色（按钮状态语义）
+    btn.setAttribute("aria-pressed", state.theme === "dark" ? "true" : "false");
+  }
 }
 
 function applyLang() {
   I18N.setLang(state.lang);
   const btn = $("#langBtn");
-  if (btn) btn.setAttribute("aria-label", I18N.t("lang.toggle"));
+  if (btn) {
+    // 按钮文本直接显示「将要切换到的语言」，更直观；aria-pressed 反映当前语言
+    btn.textContent = state.lang === "zh" ? "EN" : "中";
+    btn.setAttribute("aria-label", I18N.t("lang.toggle"));
+    btn.setAttribute("aria-pressed", state.lang === "en" ? "true" : "false");
+  }
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
   const si = $("#searchInput");
   if (si) si.placeholder = I18N.t("search.placeholder");

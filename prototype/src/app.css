@@ -46,9 +46,16 @@ body.no-scroll { overflow: hidden; }
 .icon-btn {
   width: 38px; height: 38px; border-radius: 10px;
   display: grid; place-items: center; color: var(--text-2);
-  border: 1px solid transparent; transition: .15s;
+  border: 1px solid transparent; transition: background .15s, color .15s, transform .1s, box-shadow .15s;
+  cursor: pointer; font-size: 14px; font-weight: 700;
 }
 .icon-btn:hover { background: var(--surface-2); color: var(--text); }
+.icon-btn:active { transform: scale(.94); }
+.icon-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+/* 主题图标按当前主题切换：浅色显示太阳，深色显示月亮 */
+html[data-theme="dark"] #themeIcon .theme-sun { display: none; }
+html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
+#themeIcon .theme-moon { display: none; }
 
 /* ---------- Hero ---------- */
 .hero { max-width: var(--maxw); margin: 0 auto; padding: 40px 24px 8px; }

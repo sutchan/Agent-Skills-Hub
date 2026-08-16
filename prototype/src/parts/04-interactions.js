@@ -1,14 +1,23 @@
-// prototype/src/parts/04-interactions.js v1.14.15 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.14.16 — 主题/语言切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
-  if (btn) btn.setAttribute("aria-label", I18N.t("theme.toggle"));
+  if (btn) {
+    btn.setAttribute("aria-label", I18N.t("theme.toggle"));
+    // aria-pressed 表示当前是否处于深色（按钮状态语义）
+    btn.setAttribute("aria-pressed", state.theme === "dark" ? "true" : "false");
+  }
 }
 
 function applyLang() {
   I18N.setLang(state.lang);
   const btn = $("#langBtn");
-  if (btn) btn.setAttribute("aria-label", I18N.t("lang.toggle"));
+  if (btn) {
+    // 按钮文本直接显示「将要切换到的语言」，更直观；aria-pressed 反映当前语言
+    btn.textContent = state.lang === "zh" ? "EN" : "中";
+    btn.setAttribute("aria-label", I18N.t("lang.toggle"));
+    btn.setAttribute("aria-pressed", state.lang === "en" ? "true" : "false");
+  }
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
   const si = $("#searchInput");
   if (si) si.placeholder = I18N.t("search.placeholder");
