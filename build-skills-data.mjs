@@ -1,4 +1,4 @@
-// build-skills-data.mjs v1.14.14
+// build-skills-data.mjs v1.14.15
 // 从磁盘真实技能数据生成自包含 JSON，供静态 HTML 原型使用。
 import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";

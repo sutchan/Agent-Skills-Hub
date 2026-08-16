@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.14.12 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.15 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {

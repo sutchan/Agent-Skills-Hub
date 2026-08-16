@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.14.8 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.14.15 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));

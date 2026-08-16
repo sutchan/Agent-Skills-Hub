@@ -1,10 +1,10 @@
 # 组件库规范（Component Library Spec）
 
-> 路径：`prototype/COMPONENTS.md` · 版本：1.14.6
+> 路径：`prototype/COMPONENTS.md` · 版本：1.14.14
 > 配套 `DESIGN.md` 设计系统。本文规定每个组件的 **Props / 状态 / 用法 / 代码位置**，供后续开发与评审对齐。
 > 原型落地为 **纯原生 HTML/CSS/JS**（非 React/Tailwind），样式由 `src/styles/tokens.css` + `src/app.css` 的 `:root` CSS 变量单一来源驱动，不手写重复 CSS。
 >
-> **原型落地（v1.12.0）**：`prototype/out/index.html` 用纯 HTML/CSS/JS 实现下表组件（顶栏、Hero、搜索、视图切换、分类条、卡片网格/列表、详情 Dialog），状态由 `prototype/src/app.js` 管理，国际化由 `prototype/src/i18n.js` 驱动，无需框架运行时。
+> **原型落地（v1.12.0）**：`prototype/out/index.html` 用纯 HTML/CSS/JS 实现下表组件（顶栏、Hero、搜索、视图切换、分类条、卡片网格/列表、详情 Dialog），状态与交互由 `prototype/src/parts/*.js` 管理（01-state 常量/偏好/工具、02-render 渲染、03-detail 弹窗与分享、04-interactions 主题/语言/事件、05-main 启动编排），国际化由 `prototype/src/i18n.js` 驱动，无需框架运行时。
 
 代码位置（**原型源码映射**，源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/out/index.html`）：
 - 设计令牌：`src/styles/tokens.css`(`:root` CSS 变量) + `src/app.css`(组件样式)
@@ -68,10 +68,10 @@
 ## 二、业务组件（Domain · `components`）
 
 ### 9. ThemeToggle 主题切换
-文件：`components/theme-toggle.tsx`
-- 状态：`dark`（首次挂载读 `document.documentElement.classList`）。
-- 切换：toggle 根节点 `dark` 类 + 写 `localStorage.ash-theme`。
-- 防闪烁：`layout.tsx` 首屏内联脚本在渲染前应用主题。
+文件：`components/theme-toggle.tsx`（原型对应 `src/parts/04-interactions.js` 的 `applyTheme()`）
+- 状态：`light`/`dark`（首次挂载读 `document.documentElement` 的 `data-theme` 属性）。
+- 切换：`04-interactions.js` 写根节点 `data-theme` 属性 + 写 `localStorage` 的 `ash-theme` key（见 `01-state.js` 的 `LS_THEME`）。
+- 防闪烁：HTML 模板内联脚本在渲染前应用主题。
 - 图标：`Moon`/`Sun`，`aria-label` 双语语义。
 
 ### 10. LangToggle 语言切换
@@ -91,18 +91,18 @@ Props：
 ```
 { skill: Skill, lang: "zh"|"en", view: "grid"|"list", onOpen: (s)=>void, catEn: string }
 ```
-渲染：分类（`catEn`）→ 名称 → 别名（`en_name && en_name!==name` 时，`font-mono`）→ 描述（按语言回退，`line-clamp-2`/列表 `line-clamp-1`）→ 资源徽章（`has_scripts/references/assets` 条件）→ 关键词标签（`#tags`，由 `build_site` 从目录名派生，每张卡片必有）。
+渲染：分类（`catEn`）→ 名称（`name` 英文目录名，卡片主标题）→ 中文描述（`zh`，`.desc.zh` 行）→ 英文描述（`description` 详情页 en 视图/回退，`line-clamp-2`/列表 `line-clamp-1`）→ 授权工具（`allowedTools` 条件）→ 关键词标签（`#tags`，由 `build.mjs` 从目录名派生，每张卡片必有）。
 交互：`role="button"` + `tabIndex=0` + `Enter/Space` → `onOpen(skill)`。
 布局：`view==="list"` 时 `flex items-start gap-4` 横向。
 
 ### 13. SkillDetail 技能详情
-实现：`src/app.js` 的 `openDetail()` 渲染进 `#dialog`。
+实现：`src/parts/03-detail.js` 的 `openDetail()` 渲染进 `#dialog`。
 内容：头像 + 标题（`#dialogVisibleTitle`）+ 英文别名 → 中文描述（`#dialogBlockZh`）→ 英文描述（`#dialogBlockEn`）→ 分类（`#dialogBlockCat`）→ 授权工具（`#dialogBlockTools`，条件渲染）→ 本地仓库链接按钮（`skills/<name>/`，部署后由 GitHub 自动解析为 `tree/main/skills/<name>/`，不依赖任何 `repo` 配置字段）。
 Dialog 由 `#dialog`（`role="dialog"` `aria-modal="true"` `aria-labelledby="dialogTitle"`）承载。
 
 ### 14. CategoryFilter（Chip）
-位置：`app/page.tsx` 内联 `Chip` 子组件。
-数据源：`categories[]` + 内置「全部」（`activeCat===null`）。
+位置：`src/parts/04-interactions.js` 的 `bindChips()`（原型）/ `app/page.tsx`（应用层）。
+数据源：`categories[]`（对象数组 `{name, count}`）+ 内置「全部」（`activeCat===null`）；计数由 `01-state.js` 的 `catCounts()` 按 `state.categories` 聚合。
 交互：点击 `setActiveCat`（再次点击取消）；`aria-pressed` 反映选中；选中态 `border-primary bg-primary text-primary-foreground`。
 
 ### 15. 主页面装配（合并自旧 Showcase.jsx）
@@ -110,7 +110,7 @@ Dialog 由 `#dialog`（`role="dialog"` `aria-modal="true"` `aria-labelledby="dia
 - 状态：`lang / view / query / activeCat / selected / sheetOpen / isMobile / loading`。
 - 响应式：`matchMedia("(max-width:640px)")` 决定详情用 Dialog 还是 Sheet。
 - 载入：120ms 骨架屏（`setLoading(false)`），SSG 下近乎瞬时但保证体验一致。
-- 过滤：`state.cat` ∩ `state.q`（匹配 `name`/`zh`/`description`/`category`，见 `app.js` 的 `matches()`）。
+- 过滤：`state.cat` ∩ `state.q`（匹配 `name`/`zh`/`description`/`category`，见 `src/parts/01-state.js` 的 `matches()`）。
 
 ---
 

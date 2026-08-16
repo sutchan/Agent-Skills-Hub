@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.15] - 2026-08-16
+
+### docs: 对齐代码与原型/规范文档（版本号与事实一致性）
+
+- **文件头注释刷写**：`prototype/src/` 全部 9 个源文件（index.html/tokens.css/app.css/i18n.js/parts/01-05）头注释版本 v1.14.8~v1.14.12 → v1.14.15；构建脚本 build.mjs/build-skills-data.mjs → v1.14.15
+- **COMPONENTS.md 对齐代码**：移除不存在的 `app.js` 引用（状态/渲染/详情改为 `parts/*.js`）；ThemeToggle 恢复与代码一致的 `ash-theme` key 与 `data-theme` 属性；SkillCard 渲染改为 `name/zh/description/allowedTools`；CategoryFilter 数据源改为 `categories[]{name,count}` + `01-state.js` 的 `catCounts()`；文档版本 1.14.6 → 1.14.15
+- **DESIGN.md 对齐代码**：版本 1.14.6 → 1.14.15；§6 数据契约移除过时的「字段名与 openspec 不同」描述（openspec 已对齐）；§7 技术栈 `src/app.js` → `src/parts/*.js`；§2.6 图标说明修正为 `index.html` 内联 SVG（移除不存在的 app.css :root 变量）
+- **版本号同步**：package.json → v1.14.15
+
 ## [1.14.14] - 2026-08-16
 
 ### 修复：代码评审发现的文档/路径一致性问题

@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.14.6
+> 路径：`prototype/DESIGN.md` · 版本：1.14.14
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -89,7 +89,7 @@
 
 ### 2.6 图标
 
-- 使用 **本地内联 SVG 图标集**（定义在 `prototype/src/app.css` 的 `:root` 变量与 `index.html` 模板中，随 `prototype/src/` 源码分发），零外部依赖，统一 `24x24 viewBox` + `currentColor` 描边，等价于 lucide 风格。
+- 使用 **本地内联 SVG 图标集**（定义在 `prototype/src/index.html` 模板中，随 `prototype/src/` 源码分发），零外部依赖，统一 `24x24 viewBox` + `currentColor` 描边，等价于 lucide 风格。
 - 图标尺寸统一 `16-20px`（`h-4 w-4` / `h-5 w-5`），颜色继承 `currentColor` 随状态变化。
 - 业务图标语义：搜索 `Search`、主题 `Sun/Moon`、视图 `LayoutGrid/Rows3`、资源 `FileCode2/BookOpen/FolderOpen`、外链 `ExternalLink`、空态 `SlidersHorizontal`、品牌 `Boxes`、GitHub `Github`、关闭 `X`。
 
@@ -210,7 +210,7 @@
 ## 6. 数据架构（Data Contract）
 
 - **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `data/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/out/index.html` 静态产物（仓库已入库 `prototype/out/`，如需更新数据重跑两脚本即可）。
-- 数据 Schema（实际为扁平结构）：`{ total:number, categories:string[], skills: Skill[] }`，其中 `Skill{ name, category, zh, description, allowedTools }`（字段名与 `openspec/project.md` §4.5 的 `name/en_name/dir/zh_desc/en_desc/...` 命名不同，以 `skills-data.json` 实际字段为准）。
+- 数据 Schema（实际为扁平结构）：`{ total:number, categories:[{name,count}], skills: Skill[] }`，其中 `Skill{ name, category, zh, description, allowedTools }`，与 `openspec/project.md` §4.5 的 `skills-data.json` Schema 严格一致。
 - 分类英文名为文档映射（`tools/_skill_readme_lib.py` 的 `CATEGORY_EN`），非数据内嵌。
 - 注意：`app/` 是项目**可运行 Web 应用**源码工作区（见 `app/README.md`），与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`。
 - 红色底线：数据契约须与 `build-skills-data.mjs`/`build.mjs`、`openspec/project.md` 严格一致。
@@ -219,7 +219,7 @@
 
 ## 7. 技术栈（构建期，产物已预渲染）
 
-- 原型为**纯静态原生实现**：`src/index.html`（HTML 模板）+ `src/styles/tokens.css` + `src/app.css`（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind/HSL）+ `src/i18n.js`（独立国际化模块）+ `src/app.js`（原生 JS 渲染与交互，无 React/Next.js/Radix）。
+- 原型为**纯静态原生实现**：`src/index.html`（HTML 模板）+ `src/styles/tokens.css` + `src/app.css`（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind/HSL）+ `src/i18n.js`（独立国际化模块）+ `src/parts/*.js`（原生 JS 渲染与交互，按职责拆分 01-state / 02-render / 03-detail / 04-interactions / 05-main，无 React/Next.js/Radix）。
 - 构建：根目录 `build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/out/index.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
 - 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/out/index.html`。
 - 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/out/index.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
