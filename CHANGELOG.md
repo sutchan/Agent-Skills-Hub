@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.25] - 2026-08-16
+
+### fix: 统一页面元素间距至 4 的倍数尺度
+
+- **依据**：对齐 `prototype/DESIGN.md` §2.3 间距规范（4 的倍数），消除两层非规范值
+- **prototype**：`.cats` 上间距 18px→16px、`.grid` 上间距 22px→24px、`.stat .label` 加 `margin-top:2px` 避免与数字贴太紧、`.desc.zh` 间距 8px→6px 避免与卡片 gap 叠加成 16px 双倍过松
+- **app（Next.js）**：`.toolbar` 上间距 10px→12px、`.stat` 外边距 14px→16px、`.grid` gap 14px→16px、`.card` 内 gap 4px→8px（缓解标题/描述/分类贴太紧）、`.dialog-body` gap 14px→16px
+- **版本号同步**：package.json → v1.14.25；prototype/src/app.css → v1.14.25；app/package.json → v1.1.9、app/globals.css → v1.1.9
+
 ## [1.14.24] - 2026-08-16
 
 ### feat: 字体体系优化（参考 Claude/Anthropic 设计）
@@ -11,6 +20,12 @@
 - **app（Next.js）**：`globals.css` 同步新增 `--font-display`/`--font-mono`、调整 `--font-sans`，`.brand` / `.card-title` / `.dialog-head h2` 衬线化
 - **文档**：`prototype/DESIGN.md` §2.2 字体表更新为 Claude 风格体系与回退栈说明
 - **版本号同步**：package.json → v1.14.24；prototype/src/styles/tokens.css、prototype/src/app.css → v1.14.24；app/package.json → v1.1.8、app/globals.css → v1.1.8
+
+### 文档同步（补齐历史遗漏）
+
+- **README 版本徽章**：中英文 `version-v1.14.18` → `v1.14.24`，与 package.json / CHANGELOG 顶部一致
+- **CHANGELOG release 锚点**：补全 v1.0.5–v1.14.24 缺失的 `[x.y.z]:` 链接定义，使所有版本小节标题可点击
+- 注：README 技能数仍为 200（与分类明细自洽），磁盘 `skills/` 目录实有 204 个，后续建议用 `tools/skills_readme.py` 重生成对齐
 
 ## [1.14.23] - 2026-08-16
 
@@ -557,6 +572,47 @@
 [1.9.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.9.1
 [1.10.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.10.0
 [1.13.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.13.0
+[1.0.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.5
+[1.0.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.6
+[1.1.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.1.0
+[1.2.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.2.0
+[1.3.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.3.0
+[1.4.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.4.0
+[1.5.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.5.0
+[1.6.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.6.0
+[1.7.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.7.0
+[1.8.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.8.0
+[1.11.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.11.0
+[1.11.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.11.1
+[1.11.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.11.2
+[1.12.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.12.0
+[1.13.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.13.1
+[1.13.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.13.2
+[1.14.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.0
+[1.14.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.1
+[1.14.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.2
+[1.14.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.3
+[1.14.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.4
+[1.14.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.5
+[1.14.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.6
+[1.14.7]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.7
+[1.14.8]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.8
+[1.14.9]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.9
+[1.14.10]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.10
+[1.14.11]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.11
+[1.14.12]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.12
+[1.14.13]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.13
+[1.14.14]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.14
+[1.14.15]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.15
+[1.14.16]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.16
+[1.14.17]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.17
+[1.14.18]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.18
+[1.14.19]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.19
+[1.14.20]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.20
+[1.14.21]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.21
+[1.14.22]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.22
+[1.14.23]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.23
+[1.14.24]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.24
 
 ## [1.0.3] - 2026-07-31
 
