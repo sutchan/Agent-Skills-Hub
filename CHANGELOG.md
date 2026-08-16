@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.12] - 2026-08-16
+
+### 优化：查看技能按钮指向 GitHub 仓库
+
+- **prototype**：`03-detail.js` 新增 `REPO_SKILLS_TREE` 常量（`https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/`），`.btn-primary`「查看技能」由相对路径 `skills/<name>/` 改为绝对 GitHub 仓库链接，跨部署环境稳定可用
+- **app（Next.js）**：`SkillDialog.tsx` 同步新增 `REPO_SKILLS_TREE` 常量，`.btn-primary` href 改为 GitHub 仓库绝对链接（经 `encodeURIComponent` 编码名称）
+- **说明**：分享文案里的相对路径 `skills/<name>/` 仍按 openspec §4.5.4 保留（分享语义不同，未改动）
+- **版本号同步**：prototype/src/parts/03-detail.js → v1.14.12；app/components/SkillDialog.tsx → v1.1.4；package.json → v1.14.12、app/package.json → v1.1.4
+
 ## [1.14.11] - 2026-08-16
 
 ### 优化：缩小卡片头像尺寸 + 中文描述上间距

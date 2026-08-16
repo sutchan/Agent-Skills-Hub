@@ -1,10 +1,11 @@
-// prototype/src/parts/03-detail.js v1.14.9 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.12 — 详情弹窗、键盘可达性与分享
+// 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
+const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
   const overlay = $("#overlay");
   const dialog = $("#dialog");
   // 记录打开前的焦点元素，关闭后归还（WCAG 焦点管理）
   dialog._lastFocused = document.activeElement;
-  // 本地仓库链接用相对路径 skills/<name>/（部署后由 GitHub 自动解析为 tree/main/skills/<name>/）
   const html = `
     <div id="dialogHead" class="dialog-head">
       <div class="d-avatar">${initials(s.name)}</div>
@@ -20,7 +21,7 @@ function openDetail(s) {
       <section id="dialogBlockTools" class="block"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${(Array.isArray(s.allowedTools) ? s.allowedTools : String(s.allowedTools || "").split(",").map((t) => t.trim()).filter(Boolean)).map((t) => `<code>${esc(t)}</code>`).join("")}</div></section>
     </div>
     <div id="dialogFoot" class="dialog-foot">
-      <a class="btn btn-primary" href="skills/${encodeURIComponent(s.name)}/" target="_blank" rel="noopener">
+      <a class="btn btn-primary" href="${REPO_SKILLS_TREE}${encodeURIComponent(s.name)}/" target="_blank" rel="noopener">
         <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
       </a>
       <button id="shareBtn" class="btn btn-ghost">${I18N.t("share.btn")}</button>
