@@ -1,5 +1,7 @@
 # 贡献指南
 
+> 路径：`.github/CONTRIBUTING.md` · 版本：1.13.1
+
 欢迎为 Agent Skills Hub 贡献技能与改进！
 
 ## 新增技能
@@ -56,4 +58,4 @@
 ## 许可证
 
 - 各技能许可证见其目录内 `LICENSE` 文件。
-- 项目整体许可证见根目录 [`LICENSE`](LICENSE)。
+- 项目整体许可证见根目录 [`LICENSE`](../LICENSE)。

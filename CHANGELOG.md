@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.7] - 2026-08-16
+
+### 文档：Health Files 统一迁移至 `.github/`
+
+- 将 `CODE_OF_CONDUCT.md` / `SECURITY.md` / `SUPPORT.md` / `CONTRIBUTING.md` 从仓库根目录迁移至 `.github/`，作为 Community Health Files 的单一来源（GitHub 优先读取 `.github/`）
+- 补全 `.github/` 完整集合：行为准则、安全政策、支持渠道、贡献指南，内容与根目录版本对齐并补充版本标识与修正文案笔误
+- 同步更新 `README.md` / `README.en.md` 中相关文档链接至 `.github/` 路径；修正 `.github/CONTRIBUTING.md` 内 `LICENSE` 相对路径
+- 升级至 v1.14.7
+
 ## [1.14.6] - 2026-08-15
 
 ### 重构与规范对齐：脚本拆分、分享链接回归规范、文档同步
