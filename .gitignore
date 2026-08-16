@@ -51,8 +51,3 @@ prototype/out/_next/
 .secret.key
 .env
 .env.local
-
-# 密钥 / 凭证（禁止入库）
-.secret.key
-.env
-.env.local
