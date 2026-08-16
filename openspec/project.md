@@ -41,44 +41,42 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 ## 4.5 数据结构与接口标准（展示页）
 
-展示页（原型）为**预构建静态产物**：`prototype/out/index.html` + `prototype/out/_next/` 静态资源，技能数据在构建期由 `build_site.mjs`（或 `build_site.py`）从磁盘 `skills/<name>/SKILL.md` 生成并预渲染进 HTML/JS bundle。仓库随附的 `prototype/out/` 即为最终交付物，**数据源以磁盘 `skills/<name>/SKILL.md` 为准**，勿手改产物；如需修订展示效果，应基于源码重新构建并同步 `prototype/out/`。
+展示页（原型）为**预构建静态产物**：`prototype/out/index.html` 为单一自包含文件（CSS/JS/数据/i18n 全部内联），技能数据在构建期由仓库根 `build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 生成 `data/skills-data.json`，再由仓库根 `build.mjs` 内联注入并预渲染进 HTML。仓库随附的 `prototype/out/` 即为最终交付物，**数据源以磁盘 `skills/<name>/SKILL.md` 为准**，勿手改产物；如需修订展示效果，应重跑构建脚本并同步 `prototype/out/index.html`。
 
-### 4.5.1 `skills.json` Schema
+### 4.5.1 `skills-data.json` Schema
 
 ```jsonc
 {
-  "meta":   { "title", "subtitle", "author", "repo", "count", "generated_at" },
-  "categories": [ { "name": "中文分类名", "en": "English Category", "count": 整数 } ],
+  "total":      整数,                         // 技能总数（200）
+  "categories": [ { "name": "中文分类名", "count": 整数 } ],
   "skills": [ {
-    "name":        "中文技能名",
-    "en_name":     "english-skill-name",   // 英文别名；UI 仅当 en_name !== name 时展示
-    "en_desc":     "English description",   // 英文简介（en 视图 / 回退）
-    "zh_desc":     "中文简介",              // 中文简介（zh 视图 / 回退）
-    "category":    "中文分类名",            // 必须命中 categories[].name
-    "dir":         "skills/<dir>/",         // 磁盘目录名，须真实存在
-    "has_scripts":     boolean,             // 是否有 scripts/（只读徽章）
-    "has_references":  boolean,             // 是否有 references/（只读徽章）
-    "has_assets":      boolean              // 是否有 assets/（只读徽章）
+    "name":         "english-skill-name",     // 英文名（SKILL.md 目录名），卡片主标题
+    "category":     "中文分类名",             // 必须命中 categories[].name
+    "zh":           "中文简介",               // 中文描述（卡片 .desc.zh）
+    "description":  "English description",    // 英文简介（详情页 en 视图 / 回退）
+    "allowedTools": [ "string", ... ]         // 授权工具列表
   } ]
 }
 ```
+
+> 注：原型与 app 共用同一扁平结构；分类仅存中文名，`count` 由脚本统计写入，不存 en_name / meta 嵌套。
 
 ### 4.5.2 原型形态与数据来源
 
 | 项 | 说明 |
 |---|---|
-| 形态 | 原型为**预构建静态 HTML**（`prototype/out/index.html` + `prototype/out/_next/` 静态资源），可离线打开，无运行时依赖，不随源码分发 |
-| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md`（frontmatter + 正文），原型在构建时已将 200 技能 / 13 分类预渲染进 HTML/JS bundle |
+| 形态 | 原型为**预构建自包含静态 HTML**（`prototype/out/index.html` 单文件内联全部资源），可离线打开，无运行时依赖，不随源码分发 |
+| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md`（frontmatter + 正文），`build-skills-data.mjs` 生成 `data/skills-data.json`，`build.mjs` 已将 200 技能 / 13 分类预渲染进 `prototype/out/index.html` |
 | 分类归属 | 取 `SKILL.md` frontmatter `category`，回退 `README.md` 的 `### 分类（N）` 标题 |
 | 中文描述 | 取自 `README.md` 的 `- **[name](skills/name/)** — desc` 映射 |
-| 计数 | `meta.count` = 技能总数（200）；各分类计数动态写入 |
+| 计数 | `total` = 技能总数（200）；各分类 `count` 由脚本统计写入 |
 
 ### 4.5.3 展示页交互规则（已固化进静态产物）
 
-1. **过滤维度两项**：① 关键词搜索（`name`/`zh_desc`/`en_desc`/`category` 不敏感匹配）；② 分类单选（chip 切换，「全部」复位）。二者取交集。
+1. **过滤维度两项**：① 关键词搜索（`name`/`zh`/`description`/`category` 不敏感匹配）；② 分类单选（chip 切换，「全部」复位）。二者取交集。
 2. **标签展示**：卡片与详情页展示由目录名派生的关键词 `#tags`（如 `agent-browser` → `#agent #browser`），仅作展示，不提供标签维度过滤。
 3. **视图切换**：`grid`（多列卡片）/ `list`（单列横向）仅改变布局，不影响过滤结果。
-4. **英文别名展示**：仅当 `en_name !== name` 时渲染英文别名，避免与中文名重复。
+4. **中文别名展示**：卡片主标题显示英文名 `name`，中文描述在 `.desc.zh` 行展示，不另渲染英文别名。
 
 ### 4.5.4 分享功能规则（prototype 与 app 两层共通）
 
@@ -100,13 +98,13 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 2. **无嵌套副本**：技能不得出现在非 `skills/<name>/` 的位置（如 `skills/video-use/skills/`、`skills/tools/` 均为非法）。
 3. **数据有效性**：原型展示的技能必须与磁盘 `skills/<name>/SKILL.md` 一致；删除技能时同步清理 `README.md`。
 4. **展示页规范**：UI 设计须对齐 `prototype/DESIGN.md`（配色令牌、响应式、可访问性、交互流程）。
-5. **原型可复现**：HTML 原型由 Next.js 源码（`prototype/` 历史版本）构建；如需修订展示效果，应基于源码重新构建并将 `prototype/out/` 同步回仓库；`prototype/DESIGN.md` 与 `prototype/COMPONENTS.md` 须与实际产物一致。
+5. **原型可复现**：HTML 原型由仓库根 `build.mjs` 将 `prototype/src/` 模板 + `data/skills-data.json` 内联构建为 `prototype/out/index.html`；如需修订展示效果，应重跑 `npm run build` 并将产物同步回仓库；`prototype/DESIGN.md` 与 `prototype/COMPONENTS.md` 须与实际产物一致。
 
 ## 6. 版本与发布
 
 - 语义化版本（SemVer），变更在 `CHANGELOG.md` 追加条目。
-- 展示页版本见 `prototype/package.json`（`version`）。
-- 发版步骤：更新 `skills.json`（重跑脚本）→ 更新 `CHANGELOG.md` → 打 tag。
+- 展示页版本见仓库根 `package.json`（`version`）。
+- 发版步骤：更新 `data/skills-data.json`（重跑 `npm run build`）→ 更新 `CHANGELOG.md` → 打 tag。
 
 ## 7. 提交信息规范
 

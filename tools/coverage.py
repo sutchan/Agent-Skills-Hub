@@ -19,7 +19,13 @@ def main():
     min_ratio = None
     args = sys.argv[1:]
     if "--threshold" in args:
-        threshold = float(args[args.index("--threshold") + 1])
+        ti = args.index("--threshold")
+        if ti + 1 >= len(args):
+            sys.exit("错误：--threshold 需要跟一个数值参数")
+        try:
+            threshold = float(args[ti + 1])
+        except ValueError:
+            sys.exit(f"错误：--threshold 参数无效：{args[ti + 1]!r}")
     if "--min-translated-ratio" in args:
         min_ratio = float(args[args.index("--min-translated-ratio") + 1])
 

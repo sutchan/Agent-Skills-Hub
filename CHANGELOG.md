@@ -2,6 +2,29 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.14] - 2026-08-16
+
+### 修复：代码评审发现的文档/路径一致性问题
+
+- **README 构建命令修正**：原 `cd prototype && node build-skills-data.mjs && npm run build` 已失效（脚本已移至仓库根），改为根目录 `npm run build`（生成 `data/skills-data.json` + `prototype/out/index.html`）
+- **app/lib/skills.ts 路径稳健化**：`DATA_PATH` 由 `process.cwd()/../data` 改为 `path.resolve(__dirname, "..", "..", "data", ...)`，避免 EdgeOne 在仓库根执行构建时 cwd 偏差导致读空数据
+- **版本徽章同步**：README.md / README.en.md 徽章 v1.14.8 → v1.14.14
+- **openspec/project.md §4.5 对齐实际实现**：`skills.json` Schema 改为真实 `skills-data.json` 扁平结构（`name/category/zh/description/allowedTools`）；形态表移除不存在的 `_next/`；§4.5.3 字段名 `zh_desc/en_desc/en_name` → `zh/description/name`；§5.5 构建方式改为 `build.mjs`；§6 发版步骤引用 `skills.json` → `data/skills-data.json`
+- **app/README.md 修正**：产物文件名 `skills.json` → `skills-data.json`；外链说明移除不存在的 `meta.repo`
+- **tools/coverage.py 健壮性**：`--threshold` 参数加边界与类型校验，避免末尾参数 `IndexError`
+- **版本号同步**：package.json → v1.14.14；build-skills-data.mjs / build.mjs → v1.14.14；app/lib/skills.ts → v1.1.2
+
+## [1.14.13] - 2026-08-16
+
+### 重构：技能数据源 skills-data.json 移入 /data 目录
+
+- **目录整理**：将 `skills-data.json` 从根目录移入独立 `/data` 目录（由 git mv 保留历史），清理 `prototype/` 下残留副本，使 `prototype/` 仅保留 html 原型与文档
+- **build-skills-data.mjs**：`OUT` 由 `prototype/skills-data.json` 改为 `data/skills-data.json`
+- **build.mjs**：读取数据路径由 `prototype/skills-data.json` 改为 `data/skills-data.json`（仍内联注入 `prototype/out/index.html`，部署后线上不受路径影响）
+- **app/lib/skills.ts**：`DATA_PATH` 由 `../prototype/skills-data.json` 改为 `../data/skills-data.json`，注释同步更新
+- **文档**：DESIGN.md / COMPONENTS.md 中数据路径引用同步更新为 `data/skills-data.json`
+- **版本号同步**：package.json → v1.14.13；build-skills-data.mjs → v1.14.13；build.mjs → v1.14.13
+
 ## [1.14.12] - 2026-08-16
 
 ### 优化：查看技能按钮指向 GitHub 仓库

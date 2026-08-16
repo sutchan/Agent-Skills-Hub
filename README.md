@@ -1,6 +1,6 @@
 # Agent Skills Hub
 
-[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.8-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.13-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
@@ -320,10 +320,8 @@ git clone https://github.com/sutchan/Agent-Skills-Hub.git
 cd prototype/out && python -m http.server 8080
 # 然后访问 http://localhost:8080
 
-# 如需从磁盘 skills/ 重新生成数据并重建静态产物（零 npm 依赖）：
-cd prototype
-node build-skills-data.mjs   # 重新生成 skills-data.json
-npm run build                # 重新生成 out/index.html
+# 如需从磁盘 skills/ 重新生成数据并重建静态产物（零 npm 依赖，在仓库根目录执行）：
+npm run build                # 生成 data/skills-data.json + prototype/out/index.html
 ```
 
 部署时将 `prototype/out/` 目录作为站点根目录发布即可。原型为预构建静态产物，数据源以 `skills/<name>/SKILL.md` 为准。
