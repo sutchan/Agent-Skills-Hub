@@ -1,17 +1,14 @@
-// prototype/src/parts/02-render.js v1.14.6 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.8 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
   $("#statShown").textContent = filtered.length;
 }
-// hero 标题数字动态注入，避免与统计脱节（{n} 由 i18n 文案占位，syncDOM 填充后替换）
+// hero 标题数字动态注入：直接由 i18n 文案替换 {n}，避免依赖模板残留占位符
 function refreshHeroCount() {
-  const n = SKILLS_DATA.total + "+";
-  ["heroTitleZh", "heroTitleEn"].forEach((id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = (el.textContent || "").replace(/\{n\}/g, n);
-  });
+  const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
+  document.getElementById("heroTitleZh").textContent = I18N.t("hero.title", "zh").replace(/\{n\}/g, n);
+  document.getElementById("heroTitleEn").textContent = I18N.t("hero.title", "en").replace(/\{n\}/g, n);
 }
 
 function renderCats(counts) {
@@ -22,6 +19,10 @@ function renderCats(counts) {
     items.push(`<button class="chip" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
   });
   $("#cats").innerHTML = items.join("");
+  // 分类条横向溢出检测：超出可视宽度时给容器加 overflow 类，触发右侧渐隐遮罩
+  const nav = $("#categoryNav");
+  const scroll = $("#cats");
+  if (nav && scroll) nav.classList.toggle("overflow", scroll.scrollWidth > scroll.clientWidth + 1);
 }
 
 // 卡片：主标题显示技能英文名（权威标识、简短、永不丢失），中文描述交给 .desc

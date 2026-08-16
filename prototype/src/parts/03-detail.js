@@ -1,7 +1,9 @@
-// prototype/src/parts/03-detail.js v1.14.6 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.8 — 详情弹窗、键盘可达性与分享
 function openDetail(s) {
   const overlay = $("#overlay");
   const dialog = $("#dialog");
+  // 记录打开前的焦点元素，关闭后归还（WCAG 焦点管理）
+  dialog._lastFocused = document.activeElement;
   // 本地仓库链接用相对路径 skills/<name>/（部署后由 GitHub 自动解析为 tree/main/skills/<name>/）
   const html = `
     <div id="dialogHead" class="dialog-head">
@@ -25,7 +27,7 @@ function openDetail(s) {
     </div>`;
   dialog.innerHTML = html;
   overlay.classList.add("open");
-  document.body.style.overflow = "hidden";
+  document.body.classList.add("no-scroll");
   trapFocus(dialog);
   $("#closeBtn").addEventListener("click", closeDetail);
   $("#shareBtn").addEventListener("click", () => shareSkill(s));
@@ -33,9 +35,14 @@ function openDetail(s) {
 
 function closeDetail() {
   const overlay = $("#overlay");
+  const dialog = $("#dialog");
   overlay.classList.remove("open");
-  document.body.style.overflow = "";
-  $("#dialog").innerHTML = "";
+  document.body.classList.remove("no-scroll");
+  dialog.innerHTML = "";
+  // 归还焦点到打开前的元素，避免 Tab 顺序跳到页面顶部
+  if (dialog._lastFocused && typeof dialog._lastFocused.focus === "function") {
+    dialog._lastFocused.focus();
+  }
 }
 
 // 焦点陷阱：Tab 在弹窗内循环，Esc 关闭（无障碍）

@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.8] - 2026-08-16
+
+### 修复：原型运行时崩溃与交互失效
+
+- **修复全局 `$` 未定义导致白屏（🔴 严重）**：`src/parts/*.js` 全程使用 `$()` 选择器但无任何文件定义，运行至首个 `$()` 调用即抛 `ReferenceError` 整页崩溃；在 `01-state.js` 新增共享的 `$` / `$$` 辅助函数，统一供各 parts 使用
+- **修复视图切换失效**：`04-interactions.js` 用 `.view-btn` 选择器绑定 grid/list 切换按钮，但 `index.html` 按钮无该类名，点击无反应；为两个按钮补 `view-btn` 类
+- **修复分享反馈无载体**：`03-detail.js` 的 `showToast` 取 `#toast` 节点但该节点在模板中缺失，复制提示永不显示且触发 null 报错；`index.html` 补 `<div class="toast" id="toast" role="status" aria-live="polite">`
+- **补全缺失的 i18n key**：`parts` 引用的 `filter.all` / `empty.title` / `share.copied` / `share.failed` 在字典中不存在，回退为 key 原文；`i18n.js` 中英字典补齐四者
+- **启用分类条溢出遮罩**：`renderCats` 末尾新增 `scrollWidth > clientWidth` 检测并 toggle `#categoryNav.overflow`，驱动 CSS 右侧渐隐遮罩
+- **弹窗滚动锁定统一**：`openDetail`/`closeDetail` 由 `body.style.overflow` 内联改为 `body.no-scroll` 语义类
+- **弹窗焦点回归（WCAG）**：`openDetail` 记录打开前焦点元素，`closeDetail` 关闭后归还，避免 Tab 顺序跳回页面顶部
+- **hero 计数解耦**：`refreshHeroCount` 改为直接读取 i18n 文案替换 `{n}`，不再依赖模板残留占位符
+- **版本号同步**：prototype/src 全部被改文件头（01~05 parts、i18n、index.html、app.css、tokens.css）、package.json（原 1.14.6 未同步，本次一并修正为 1.14.8）统一至 v1.14.8
+
 ## [1.14.7] - 2026-08-16
 
 ### 文档：Health Files 统一迁移至 `.github/`

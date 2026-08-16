@@ -1,4 +1,4 @@
-// prototype/build.mjs v1.14.6 — 将 src 模板 + 真实数据内联为自包含 out/index.html
+// prototype/build.mjs v1.14.8 — 将 src 模板 + 真实数据内联为自包含 out/index.html
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";

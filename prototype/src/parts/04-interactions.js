@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.14.6 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.14.8 — 主题/语言切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");

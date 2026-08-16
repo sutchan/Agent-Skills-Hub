@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.14.6 — 独立国际化模块
+// prototype/src/i18n.js v1.14.8 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -34,6 +34,10 @@
       "share.btn": "分享",
       "share.copyOk": "已复制链接与宣传文案",
       "share.copyFail": "复制失败，请手动复制",
+      "share.copied": "已复制到剪贴板",
+      "share.failed": "复制失败，请手动复制",
+      "filter.all": "全部",
+      "empty.title": "未找到匹配的技能",
       "share.promos": [
         "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
         "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
@@ -64,6 +68,10 @@
       "share.btn": "Share",
       "share.copyOk": "Link & promo copied",
       "share.copyFail": "Copy failed, please copy manually",
+      "share.copied": "Copied to clipboard",
+      "share.failed": "Copy failed, please copy manually",
+      "filter.all": "All",
+      "empty.title": "No matching skills",
       "share.promos": [
         "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
         "🚀 Agent Skills Hub: {n} curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
