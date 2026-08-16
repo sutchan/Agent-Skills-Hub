@@ -22,7 +22,7 @@
 
 ## 2. 设计系统（Design Tokens）
 
-设计 Token 以 **shadcn/ui CSS 变量（HSL 通道）** 定义在 `app/globals.css` 的 `:root`（浅色）与 `.dark`（深色）中，由 Tailwind 主题（`tailwind.config.ts`）消费。这是全局唯一来源。
+设计 Token 以 **shadcn/ui CSS 变量（HSL 通道）** 定义在 `prototype/src/styles/tokens.css` 的 `:root`（浅色）与 `.dark`（深色）中，由 `prototype/src/app.css` 直接消费（原型为纯原生 CSS，无 Tailwind/React 运行时）。这是全局唯一来源。
 
 ### 2.1 色彩（HSL 通道，语义化命名）
 
@@ -89,7 +89,7 @@
 
 ### 2.6 图标
 
-- 使用 **本地内联 SVG 图标集** `components/icons.tsx`（构建期源码路径，**原型源码不随仓库分发**，仅保留预渲染静态产物 `prototype/out/`；此处注明仅供理解实现），零外部依赖，统一 `24x24 viewBox` + `currentColor` 描边，等价于 lucide 风格。
+- 使用 **本地内联 SVG 图标集**（定义在 `prototype/src/app.css` 的 `:root` 变量与 `index.html` 模板中，随 `prototype/src/` 源码分发），零外部依赖，统一 `24x24 viewBox` + `currentColor` 描边，等价于 lucide 风格。
 - 图标尺寸统一 `16-20px`（`h-4 w-4` / `h-5 w-5`），颜色继承 `currentColor` 随状态变化。
 - 业务图标语义：搜索 `Search`、主题 `Sun/Moon`、视图 `LayoutGrid/Rows3`、资源 `FileCode2/BookOpen/FolderOpen`、外链 `ExternalLink`、空态 `SlidersHorizontal`、品牌 `Boxes`、GitHub `Github`、关闭 `X`。
 
@@ -116,7 +116,7 @@
 
 ### 3.1 基础组件（Base）— `components/ui/*`（构建期源码映射）
 
-> 以下组件为**原型源码结构映射**（源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/out/index.html`）；此处列出供理解静态产物的实现结构与评审对齐。注：当前实现为原生 HTML/CSS/JS（非 React 组件文件），以下按职责对应到 `src/app.js` 中的渲染函数。
+> 以下组件为**原型源码结构映射**（源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/out/index.html`）；此处列出供理解静态产物的实现结构与评审对齐。注：当前实现为原生 HTML/CSS/JS（非 React 组件文件），交互脚本已按职责拆分到 `src/parts/`（01-state / 02-render / 03-detail / 04-interactions / 05-main），以下按职责对应到对应 parts 模块的渲染/交互函数。
 
 | 组件 | 文件 | 变体/状态 |
 |------|------|-----------|
@@ -134,19 +134,19 @@
 
 | 职责 | 实现 | 说明 |
 |------|------|------|
-| ThemeToggle | `applyTheme()` | 深浅主题切换，写根节点 `data-theme` |
-| LangToggle | `I18N.toggleLang()` | 中英切换（受控），`I18N.syncDOM()` 同步 `data-lang` 与 `<html lang>` |
-| ViewToggle | `state.view` + `renderGrid()` | 网格/列表切换（受控） |
-| ShareButton | `shareSkill(name)` | 技能详情弹窗内的「分享」按钮；点击复制「技能链接 + 随机宣传文案」并 toast 反馈 |
-| SkillCard | `cardHTML()` | 网格/列表共用；`role=button`+`tabIndex=0`+`Enter/Space`；双语描述与分类标签 |
-| SkillDetail | `openDetail()` | 弹窗内容体；含中英文描述、分类、授权工具、本地仓库链接 |
-| 主页面 | `init()` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式弹窗调度 |
+| ThemeToggle | `04-interactions.js` 的 `applyTheme()` | 深浅主题切换，写根节点 `data-theme` |
+| LangToggle | `i18n.js` 的 `I18N.toggleLang()` | 中英切换（受控），`I18N.syncDOM()` 同步 `data-lang` 与 `<html lang>` |
+| ViewToggle | `01-state.js` 的 `state.view` + `02-render.js` 的 `renderGrid()` | 网格/列表切换（受控） |
+| ShareButton | `03-detail.js` 的 `shareSkill(name)` | 技能详情弹窗内的「分享」按钮；点击复制「技能链接 + 随机宣传文案」并 toast 反馈 |
+| SkillCard | `02-render.js` 的 `cardHTML()` | 网格/列表共用；`role=button`+`tabIndex=0`+`Enter/Space`；双语描述与分类标签 |
+| SkillDetail | `03-detail.js` 的 `openDetail()` | 弹窗内容体；含中英文描述、分类、授权工具、本地仓库链接 |
+| 主页面 | `05-main.js` 的 `init()` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式弹窗调度 |
 
 ### 3.3 业务数据契约
 
 | 组件 | 数据来源（`skills-data.json` 扁平结构） |
 |------|----------|
-| SkillCard / SkillDetail | `skill{name, category, zh, description, allowedTools}` |
+| SkillCard / SkillDetail | `skill{name, category, zh, description, allowedTools}`（含 `name` 为权威标识） |
 | CategoryFilter（Chip） | `categories[](string)` + 内置「全部」；计数由 `app.js` 预聚合 `catCounts` |
 | 语言/主题 | 根节点 `data-lang` / `data-theme` 属性 |
 
