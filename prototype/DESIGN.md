@@ -14,7 +14,7 @@
 |------|------|
 | 极简（Minimal） | 克制的视觉语言，留白即设计；单一主色，避免渐变滥用与装饰性元素 |
 | 层级清晰（Hierarchy） | 通过字号、字重、色彩对比建立明确的信息层级，首屏 3 秒可读懂核心 |
-| 一致（Consistent） | 所有间距、圆角、阴影、动效遵循统一 Token，组件同源（shadcn/ui 基线） |
+| 一致（Consistent） | 所有间距、圆角、阴影、动效遵循统一 Token，视觉基线参考 shadcn/ui（**仅为设计风格参考，原型无 shadcn/Tailwind/Radix 运行时**） |
 | 真实（Real Data） | 原型数据为构建期从磁盘 `skills/<name>/SKILL.md` 由根目录 `build-skills-data.mjs` 生成 `data/skills-data.json`，再由根目录 `build.mjs` 注入并预渲染进 `prototype/out/`，非占位假数据 |
 | 无障碍（Accessible） | 对比度 ≥ WCAG AA，键盘可达，支持 `prefers-reduced-motion` |
 
@@ -60,7 +60,7 @@
 - 品牌名、弹窗标题、空状态标题均使用 `--font-display` 衬线，与正文无衬线形成层级对比
 - 英文 UI 文案首字母大写，中文不加字距
 
-### 2.3 间距（4 的倍数尺度，Tailwind 默认 scale）
+### 2.3 间距（4 的倍数尺度，取值约定参照 Tailwind 默认值）
 
 | 值 | 典型用途 |
 |----|---------|
@@ -73,7 +73,7 @@
 | `48px` (12) | Hero 内边距、弹窗内边距 |
 | `64px` (16) | 大区块间距 |
 
-### 2.4 圆角（Tailwind 映射到 `--radius`）
+### 2.4 圆角（映射到 `--radius` 设计令牌）
 
 | Token | 值 | 用途 |
 |-------|----|------|
@@ -117,7 +117,7 @@
 
 ## 3. 组件库（Component Library）
 
-组件分三类：**基础（Base）**、**复合（Composite）**、**业务（Domain）**。全部基于 shadcn/ui（new-york 风格）+ Tailwind 构建，禁止手写重复样式。
+组件分三类：**基础（Base）**、**复合（Composite）**、**业务（Domain）**。视觉风格参考 shadcn/ui（new-york），原型以**纯原生 CSS/JS 实现**（无 Tailwind/React/Radix 运行时），禁止手写重复样式。
 
 ### 3.1 基础组件（Base）— `components/ui/*`（构建期源码映射）
 
@@ -131,9 +131,9 @@
 | Card | `card.tsx` | `Card/CardHeader/CardTitle/CardContent` |
 | Skeleton | `skeleton.tsx` | `animate-pulse` 占位 |
 | Separator | `separator.tsx` | horizontal / vertical |
-| Tabs | `tabs.tsx` | Radix Tabs（复合，可扩展多视图切换） |
-| Dialog | `dialog.tsx` | Radix Dialog（桌面详情弹窗） |
-| Sheet | `sheet.tsx` | Radix Dialog 改右侧抽屉（移动详情） |
+| Tabs | `parts/05-main.js` 视图切换 | 原生实现（Radix Tabs 风格的可访问性模式，无 Radix 依赖） |
+| Dialog | `parts/03-detail.js` `openDetail()` | 原生实现（Radix Dialog 风格焦点陷阱 + `aria-modal`，无 Radix 依赖） |
+| Sheet | 响应式同 Dialog | 移动端同 Dialog 弹窗（原生，无独立 Radix Sheet） |
 
 ### 3.2 复合/业务组件（对应 `src/app.js` 渲染函数）
 
@@ -182,7 +182,7 @@
 - 原型为只读展示，无表单提交错误。
 - 边界情况：技能 `zh`/`description` 缺失时由 `esc()` 安全降级为空串，i18n 缺失 key 时由 `I18N.t()` 回退 zh / key 原文，均不崩溃。
 - 仓库内 Markdown 文档（README / CONTRIBUTING 等）的技能链接使用相对路径 `skills/<name>/`，由 GitHub 自动解析，避免硬编码用户名。
-- 原型站点详情弹窗的"查看技能"使用本地相对路径 `skills/<name>/`（部署后由 GitHub 自动解析为 `tree/main/skills/<name>/`），不依赖任何外部 `repo` 配置字段。
+- 原型站点详情弹窗的"查看技能"使用绝对 GitHub 链接 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>/`，由 `prototype/src/parts/03-detail.js` 的 `REPO_SKILLS_TREE` 常量维护；app 层 `SkillDialog.tsx` 同样硬编码该常量，两层保持一致。
 
 ### 4.4 空状态（Empty）
 
@@ -192,7 +192,7 @@
 ### 4.5 键盘与可达性
 
 - 卡片 `role="button"` + `tabIndex=0`，支持 `Enter`/`Space` 打开。
-- 弹窗/抽屉基于 Radix，原生支持 `Esc` 关闭、焦点陷阱、`aria-modal`。
+- 弹窗为**原生实现**，按 Radix Dialog 风格提供 `Esc` 关闭、焦点陷阱、`aria-modal`（详见 §7，无 Radix 运行时）。
 - 分类 chip 用 `aria-pressed` 反映选中态。
 - 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
 

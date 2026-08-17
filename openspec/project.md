@@ -17,7 +17,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 | `README.md` | 技能清单（中文描述映射） | ✅ 中频 |
 | `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据 | ✅ 中频 |
 | `prototype/` | 预构建静态 HTML 高保真原型（打开 `prototype/out/index.html` 预览） | ✅ 中频 |
-| `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（已预构建产物，源码不随仓库分发） | ✅ 中频 |
+| `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（源码 `prototype/src/` 随仓库分发，`prototype/out/` 为构建产物） | ✅ 中频 |
 | `tools/` | 仓库级脚本（`coverage.py`、`skills_readme.py`） | ◻️ 低频 |
 | `openspec/` | OpenSpec 变更产物 | ✅ 本目录 |
 
@@ -66,8 +66,8 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 | 项 | 说明 |
 |---|---|
 | 形态 | 原型为**预构建自包含静态 HTML**（`prototype/out/index.html` 单文件内联全部资源），可离线打开，无运行时依赖，不随源码分发 |
-| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md`（frontmatter + 正文），`build-skills-data.mjs` 生成 `data/skills-data.json`，`build.mjs` 已将 200 技能 / 13 分类预渲染进 `prototype/out/index.html` |
-| 分类归属 | 取 `SKILL.md` frontmatter `category`，回退 `README.md` 的 `### 分类（N）` 标题 |
+| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md` 正文（`build-skills-data.mjs` 解析正文提取英文描述；frontmatter 为可选字段，当前技能均未使用），`build-skills-data.mjs` 生成 `data/skills-data.json`，`build.mjs` 已将 200 技能 / 13 分类预渲染进 `prototype/out/index.html` |
+| 分类归属 | 技能目录当前未使用 `SKILL.md` frontmatter（实测 200/200 文件无 frontmatter），分类**完全取自 `README.md` 的 `### 分类（N）` 标题**映射（`build-skills-data.mjs` 仅 `readmeMap[name]` 取分类） |
 | 中文描述 | 取自 `README.md` 的 `- **[name](skills/name/)** — desc` 映射 |
 | 计数 | `total` = 技能总数（200）；各分类 `count` 由脚本统计写入 |
 

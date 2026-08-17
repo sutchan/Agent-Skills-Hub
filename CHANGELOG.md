@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.27] - 2026-08-17
+
+### docs: 对齐原型/规范文档与项目代码事实
+
+- **外链路径描述（P0 行为冲突）**：DESIGN §3.2、COMPONENTS §13 原称「查看技能」用本地相对路径 `skills/<name>/` 由 GitHub 解析，实际代码 `03-detail.js` 与 app `SkillDialog.tsx` 均硬编码绝对 GitHub 链接 `REPO_SKILLS_TREE`；文档改为与代码一致（绝对链接，由常量维护，两层对齐）
+- **分类归属来源（P0 事实错误）**：openspec §4.5.2 原称「取 SKILL.md frontmatter category，回退 README」；实测 200/200 SKILL.md 无 frontmatter，分类完全来自 README 解析（`build-skills-data.mjs` 仅 `readmeMap[name]`）；同步修正 §4.5.2 数据来源（frontmatter 为可选当前未用）
+- **源码分发描述自相矛盾（P0 事实错误）**：openspec §2 目录表曾称「DESIGN/COMPONENTS 已预构建、源码不随仓库分发」，与 DESIGN §1 承认 `prototype/src/` 随仓库分发矛盾；改为「源码随仓库分发，out/ 为构建产物」
+- **Radix/Tailwind 误导措辞（P1）**：DESIGN §3-§4 多处将原型实现称为「shadcn 基线 / Tailwind 构建 / Radix Tabs/Dialog/Sheet」；已改为「视觉风格参考 shadcn，原型纯原生 CSS/JS 实现，无 Radix/Tailwind 运行时」，组件表标注 Radix 风格可访问性模式
+- **版本号同步**：package.json → v1.14.27（注：DESIGN.md/COMPONENTS.md/openspec 文档无文件头版本号，无需改）
+
 ## [1.14.26] - 2026-08-17
 
 ### fix: 修复覆盖率脚本崩溃与详情弹窗焦点/分享反馈缺陷

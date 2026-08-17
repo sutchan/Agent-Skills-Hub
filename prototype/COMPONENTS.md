@@ -97,7 +97,7 @@ Props：
 
 ### 13. SkillDetail 技能详情
 实现：`src/parts/03-detail.js` 的 `openDetail()` 渲染进 `#dialog`。
-内容：头像 + 标题（`#dialogVisibleTitle`）+ 英文别名 → 中文描述（`#dialogBlockZh`）→ 英文描述（`#dialogBlockEn`）→ 分类（`#dialogBlockCat`）→ 授权工具（`#dialogBlockTools`，条件渲染）→ 本地仓库链接按钮（`skills/<name>/`，部署后由 GitHub 自动解析为 `tree/main/skills/<name>/`，不依赖任何 `repo` 配置字段）。
+内容：头像 + 标题（`#dialogVisibleTitle`）+ 英文别名 → 中文描述（`#dialogBlockZh`）→ 英文描述（`#dialogBlockEn`）→ 分类（`#dialogBlockCat`）→ 授权工具（`#dialogBlockTools`，条件渲染）→ 仓库链接按钮（绝对 GitHub 链接 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>/`，由 `REPO_SKILLS_TREE` 常量维护，与 app 层 `SkillDialog.tsx` 硬编码实现保持一致）。
 Dialog 由 `#dialog`（`role="dialog"` `aria-modal="true"` `aria-labelledby="dialogTitle"`）承载。
 
 ### 14. CategoryFilter（Chip）
