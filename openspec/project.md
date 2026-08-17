@@ -12,7 +12,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 | 路径 | 用途 | 是否变更常客 |
 |---|---|---|
-| `skills/<name>/SKILL.md` | 单个技能定义（frontmatter + 正文） | ✅ 高频 |
+| `skills/<name>/SKILL.md` | 单个技能定义（正文为主，frontmatter 可选，当前技能均未使用） | ✅ 高频 |
 | `skills/<name>/references/`、`scripts/`、`assets/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `README.md` | 技能清单（中文描述映射） | ✅ 中频 |
 | `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据 | ✅ 中频 |

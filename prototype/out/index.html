@@ -64,7 +64,7 @@ input { font-family: inherit; }
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-/* prototype/src/app.css v1.14.25 — 组件与布局样式 (DESIGN.md)
+/* prototype/src/app.css v1.14.26 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
@@ -164,7 +164,7 @@ html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
   color: color-mix(in srgb, hsl(var(--hue) 70% 32%) 70%, var(--text-2));
   font-size: 13px; font-weight: 500; transition: .15s;
 }
-.chip:hover { border-color: hsl(var(--hue) 70% 50%); color: hsl(var(--hue) 70% 36%); }
+.chip:hover { border-color: hsl(var(--hue) 70% 50%); color: hsl(var(--hue) 75% 42%); }
 .chip.active {
   background: hsl(var(--hue) 70% 50%); border-color: hsl(var(--hue) 70% 50%); color: #fff;
 }
@@ -202,7 +202,13 @@ html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
 .card .desc.zh { margin-top: 6px; }
 .grid.list .card .desc { -webkit-line-clamp: 1; }
 .card .meta { display: flex; gap: 8px; align-items: center; color: var(--text-3); font-size: 12px; }
-.card .cat-tag { --hue: 220; font-size: 11px; white-space: nowrap; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, hsl(var(--hue) 70% 50%) 14%, var(--surface)); border: 1px solid color-mix(in srgb, hsl(var(--hue) 70% 50%) 28%, var(--border)); color: color-mix(in srgb, hsl(var(--hue) 70% 32%) 70%, var(--text-2)); }
+.card .cat-tag { --hue: 220; font-size: 11px; white-space: nowrap; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, hsl(var(--hue) 70% 50%) 14%, var(--surface)); border: 1px solid color-mix(in srgb, hsl(var(--hue) 70% 50%) 28%, var(--border)); color: color-mix(in srgb, hsl(var(--hue) 70% 42%) 65%, var(--text-2)); }
+
+/* 深色模式：提升淡彩色文字亮度，避免小字号/彩字在暗背景上可读性差 */
+html[data-theme="dark"] .cat-tag { color: color-mix(in srgb, hsl(var(--hue) 70% 55%) 70%, var(--text)); border-color: color-mix(in srgb, hsl(var(--hue) 70% 50%) 45%, var(--border)); }
+html[data-theme="dark"] .chip { color: color-mix(in srgb, hsl(var(--hue) 70% 55%) 55%, var(--text)); }
+html[data-theme="dark"] .chip:hover { color: hsl(var(--hue) 80% 65%); }
+html[data-theme="dark"] .btn-ghost { color: var(--text); }
 
 .empty { text-align: center; color: var(--text-3); padding: 60px 20px; }
 
@@ -236,8 +242,8 @@ html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
 }
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:hover { background: var(--primary-strong); }
-.btn-ghost { background: var(--surface-2); color: var(--text-2); flex: 0 0 auto; padding: 0 16px; }
-.btn-ghost:hover { color: var(--text); }
+.btn-ghost { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); flex: 0 0 auto; padding: 0 16px; }
+.btn-ghost:hover { color: var(--text); border-color: var(--text-3); }
 .btn-secondary { background: var(--surface-2); color: var(--primary); border: 1px solid var(--primary); flex: 0 0 auto; padding: 0 16px; }
 .btn-secondary:hover { background: var(--primary); color: #fff; }
 
@@ -2118,7 +2124,7 @@ function htmlToEl(html) {
   return t.content.firstElementChild;
 }
 
-// prototype/src/parts/03-detail.js v1.14.26 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.28 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -2213,10 +2219,10 @@ function copyToClipboard(text) {
   }
 }
 
-// 规范要求相对路径 skills/<name>/：部署后由 GitHub 自动解析为 tree/main/skills/<name>/，
-// 离线/无 location 场景回退相对路径（不依赖任何外部 repo 配置字段）
+// 分享链接使用绝对 GitHub URL（与 #dialog 的「查看技能」按钮一致的 REPO_SKILLS_TREE 常量），
+// 保证复制到外部平台（微信/Twitter 等）后可直接点击打开，与 app 层 share.ts 行为对齐（openspec §4.5.4）
 function buildShareText(name) {
-  const base = "skills/" + encodeURIComponent(name) + "/";
+  const base = REPO_SKILLS_TREE + encodeURIComponent(name) + "/";
   const promos = I18N.t("share.promos") || [];
   const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
   const promo = promos.length

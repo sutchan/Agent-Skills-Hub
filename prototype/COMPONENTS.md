@@ -27,7 +27,7 @@
 
 尺寸：`default`(h-10) / `sm`(h-8) / `lg`(h-11) / `icon`(h-10 w-10)。
 状态：`hover`（变深/阴影提升）、`active:scale-[0.98]`、`focus-visible:ring-2 ring-ring ring-offset-2`。
-`asChild`：通过 Radix `Slot` 将样式应用到 `<a>`（如 GitHub 外链）。
+`asChild`：通过 Radix `Slot` 将样式应用到 `<a>`（如 GitHub 外链，app 层实现）。
 
 ### 2. Input 输入
 文件：`components/ui/input.tsx`
@@ -53,13 +53,13 @@
 `horizontal` / `vertical`，`bg-border`。详情弹窗内分区。
 
 ### 7. Dialog 弹窗（桌面详情）
-文件：`components/ui/dialog.tsx`（Radix Dialog）
+文件：`components/ui/dialog.tsx`（Radix Dialog，app 层实现）
 入场：`data-[state=open]:animate-pop-in` + 遮罩 `animate-fade-in`。
 结构：`Dialog > DialogContent > DialogHeader > DialogTitle(sr-only) + SkillDetail`。
 行为：原生 `Esc` 关闭、点遮罩关闭、焦点陷阱、`aria-modal`。
 
 ### 8. Sheet 抽屉（移动详情）
-文件：`components/ui/sheet.tsx`（Radix Dialog 改右侧抽屉）
+文件：`components/ui/sheet.tsx`（Radix Dialog 改右侧抽屉，app 层实现）
 入场：`animate-slide-in-right` / 关闭 `animate-slide-out-right`。
 `side="right"`，`sm:max-w-md`。结构与 Dialog 对齐，共用 `SkillDetail`。
 

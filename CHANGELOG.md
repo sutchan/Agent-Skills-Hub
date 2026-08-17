@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.28] - 2026-08-17
+
+### fix: 修复分享链接为相对路径且对齐原型/规范文档
+
+- **分享链接不可达（真 bug）**：`prototype/src/parts/03-detail.js` 的 `buildShareText` 原生成相对路径 `skills/<name>/`，复制到微信/Twitter 等外部平台后无法点击打开；改为使用 `REPO_SKILLS_TREE` 绝对 GitHub URL 拼接，与弹窗「查看技能」按钮、app 层 `share.ts` 行为一致（openspec §4.5.4 两层复用）
+- **误导注释清理**：移除 03-detail.js 中「规范要求相对路径、离线回退相对路径」的过期注释（实现已用绝对链接，与 app 层一致）
+- **COMPONENTS.md Radix 措辞**：第 30/56/62 行的 Radix `Slot`/Dialog/Sheet 标注为「app 层实现」，避免与「原型纯原生」混淆
+- **openspec 目录表 frontmatter 措辞**：`skills/<name>/SKILL.md` 由「frontmatter + 正文」改为「正文为主，frontmatter 可选当前未用」，与 §4.5.2 一致
+- **版本号同步**：package.json → v1.14.28；prototype/src/parts/03-detail.js 头注释 → v1.14.28
+
 ## [1.14.27] - 2026-08-17
 
 ### docs: 对齐原型/规范文档与项目代码事实
@@ -20,6 +30,15 @@
 - **详情弹窗焦点陷阱监听器泄漏**：`trapFocus` 每次打开在 `#dialog` 上新增 keydown 监听，但仅 Esc 关闭路径移除，点关闭按钮/遮罩关闭时不移除，多次打开后监听器累积叠加；改为将 `onKey` 存为 `dialog._onKey`，`closeDetail` 统一移除（覆盖所有关闭路径）
 - **分享无反馈且吞错误**：`shareSkill` 在原 `navigator.share` 分支 `.catch(()=>{})` 吞错、成功/失败均不 toast、失败不回退；改为成功/失败均 toast 提示，非用户取消的失败回退到剪贴板复制，新增统一 `copyToClipboard` 入口，与 app 层 `useShare` 行为对齐（openspec §4.5.4）
 - **版本号同步**：package.json → v1.14.26；prototype/src/parts/03-detail.js 头注释 → v1.14.26；tools/coverage.py 头注释 → 1.0.1
+
+## [1.14.26] - 2026-08-17
+
+### fix: 修复深色模式下部分按钮可读性差的问题
+
+- **问题**：深色背景下 `.btn-ghost` 无边框与背景融合、`.chip`/`.cat-tag` 彩字亮度过低（32%/36%）对比度不足，小字号难以辨认
+- **prototype**：`.btn-ghost` 加 `--border` 边框 + hover 提亮；`.chip` 文字 32%→42%、hover 36%→42%；`.cat-tag` 文字 32%→42%；新增 `html[data-theme="dark"]` 覆盖块，将 chip/cat-tag/btn-ghost 文字在暗背景下进一步提亮（hue 55%/65%）
+- **app（Next.js）**：同步 `.chip`/`.btn-ghost` 提亮与边框；深色块补充 chip/btn-ghost 覆盖（app 卡片分类标签 `.card-cat` 用 primary 色深色下对比度充足，无需调整）
+- **版本号同步**：package.json → v1.14.26；prototype/src/app.css → v1.14.26；app/package.json → v1.1.10、app/globals.css → v1.1.10
 
 ## [1.14.25] - 2026-08-16
 

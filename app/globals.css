@@ -1,4 +1,4 @@
-/* app/globals.css v1.1.9 — 应用全局样式（对齐 prototype 设计令牌） */
+/* app/globals.css v1.1.10 — 应用全局样式（对齐 prototype 设计令牌） */
 :root {
   --bg: #f7f8fa;
   --surface: #ffffff;
@@ -29,6 +29,10 @@ html[data-theme="dark"] {
   --primary-strong: #818cf8;
   --shadow-pop: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
+/* 深色模式：提升淡彩色文字亮度，避免彩字/小字号在暗背景上可读性差 */
+html[data-theme="dark"] .chip { color: color-mix(in srgb, hsl(var(--hue) 70% 55%) 55%, var(--text)); }
+html[data-theme="dark"] .chip:hover { color: hsl(var(--hue) 80% 65%); }
+html[data-theme="dark"] .btn-ghost { color: var(--text); }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); transition: background .2s, color .2s; }
 body.no-scroll { overflow: hidden; }
@@ -56,11 +60,11 @@ button { font-family: inherit; cursor: pointer; }
   --hue: 220;
   border: 1px solid color-mix(in srgb, hsl(var(--hue) 70% 50%) 28%, var(--border));
   background: color-mix(in srgb, hsl(var(--hue) 70% 50%) 14%, var(--surface));
-  color: color-mix(in srgb, hsl(var(--hue) 70% 32%) 70%, var(--text-2));
+  color: color-mix(in srgb, hsl(var(--hue) 70% 42%) 65%, var(--text-2));
   border-radius: 999px; height: 36px; padding: 0 14px; font-size: 13px; white-space: nowrap;
   transition: background .15s, color .15s, border-color .15s;
 }
-.chip:hover { border-color: hsl(var(--hue) 70% 50%); color: hsl(var(--hue) 70% 36%); }
+.chip:hover { border-color: hsl(var(--hue) 70% 50%); color: hsl(var(--hue) 75% 42%); }
 .chip.active { background: hsl(var(--hue) 70% 50%); color: #fff; border-color: hsl(var(--hue) 70% 50%); }
 
 .stat { margin: 16px 0; color: var(--text-2); font-size: 13px; }
@@ -93,8 +97,8 @@ button { font-family: inherit; cursor: pointer; }
 .btn { flex: 1; height: 42px; border-radius: 11px; font-weight: 600; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border: none; transition: .15s; }
 .btn-primary { background: var(--primary); color: #fff; }
 .btn-primary:hover { background: var(--primary-strong); }
-.btn-ghost { background: var(--surface-2); color: var(--text-2); flex: 0 0 auto; padding: 0 16px; }
-.btn-ghost:hover { color: var(--text); }
+.btn-ghost { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); flex: 0 0 auto; padding: 0 16px; }
+.btn-ghost:hover { color: var(--text); border-color: var(--text-3); }
 .btn-secondary { background: var(--surface-2); color: var(--primary); border: 1px solid var(--primary); flex: 0 0 auto; padding: 0 16px; }
 .btn-secondary:hover { background: var(--primary); color: #fff; }
 

@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.14.26 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.28 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -93,10 +93,10 @@ function copyToClipboard(text) {
   }
 }
 
-// 规范要求相对路径 skills/<name>/：部署后由 GitHub 自动解析为 tree/main/skills/<name>/，
-// 离线/无 location 场景回退相对路径（不依赖任何外部 repo 配置字段）
+// 分享链接使用绝对 GitHub URL（与 #dialog 的「查看技能」按钮一致的 REPO_SKILLS_TREE 常量），
+// 保证复制到外部平台（微信/Twitter 等）后可直接点击打开，与 app 层 share.ts 行为对齐（openspec §4.5.4）
 function buildShareText(name) {
-  const base = "skills/" + encodeURIComponent(name) + "/";
+  const base = REPO_SKILLS_TREE + encodeURIComponent(name) + "/";
   const promos = I18N.t("share.promos") || [];
   const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
   const promo = promos.length
