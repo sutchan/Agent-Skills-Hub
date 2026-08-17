@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.26] - 2026-08-17
+
+### fix: 修复覆盖率脚本崩溃与详情弹窗焦点/分享反馈缺陷
+
+- **tools/coverage.py 崩溃（必现）**：原 `re.match(...)` 对无 frontmatter 的 SKILL.md 返回 None，随后 `text[m.end():]` 抛 AttributeError，导致脚本对所有 200 个技能文件 100% 崩溃、CI 门禁/翻译统计完全失效；改为无 frontmatter 时整篇视为正文参与 CJK 占比统计（版本 1.0.0→1.0.1）
+- **详情弹窗焦点陷阱监听器泄漏**：`trapFocus` 每次打开在 `#dialog` 上新增 keydown 监听，但仅 Esc 关闭路径移除，点关闭按钮/遮罩关闭时不移除，多次打开后监听器累积叠加；改为将 `onKey` 存为 `dialog._onKey`，`closeDetail` 统一移除（覆盖所有关闭路径）
+- **分享无反馈且吞错误**：`shareSkill` 在原 `navigator.share` 分支 `.catch(()=>{})` 吞错、成功/失败均不 toast、失败不回退；改为成功/失败均 toast 提示，非用户取消的失败回退到剪贴板复制，新增统一 `copyToClipboard` 入口，与 app 层 `useShare` 行为对齐（openspec §4.5.4）
+- **版本号同步**：package.json → v1.14.26；prototype/src/parts/03-detail.js 头注释 → v1.14.26；tools/coverage.py 头注释 → 1.0.1
+
 ## [1.14.25] - 2026-08-16
 
 ### fix: 统一页面元素间距至 4 的倍数尺度

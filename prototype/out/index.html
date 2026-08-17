@@ -2118,7 +2118,7 @@ function htmlToEl(html) {
   return t.content.firstElementChild;
 }
 
-// prototype/src/parts/03-detail.js v1.14.19 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.26 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -2160,6 +2160,11 @@ function closeDetail() {
   const dialog = $("#dialog");
   overlay.classList.remove("open");
   document.body.classList.remove("no-scroll");
+  // 移除焦点陷阱的 keydown 监听，避免多次打开后监听器在 #dialog 上累积叠加
+  if (typeof dialog._onKey === "function") {
+    dialog.removeEventListener("keydown", dialog._onKey);
+    dialog._onKey = null;
+  }
   dialog.innerHTML = "";
   // 归还焦点到打开前的元素，避免 Tab 顺序跳到页面顶部
   if (dialog._lastFocused && typeof dialog._lastFocused.focus === "function") {
@@ -2173,20 +2178,35 @@ function trapFocus(container) {
   if (!focusables.length) return;
   const first = focusables[0], last = focusables[focusables.length - 1];
   first.focus();
-  container.addEventListener("keydown", function onKey(e) {
-    if (e.key === "Escape") { closeDetail(); container.removeEventListener("keydown", onKey); }
+  // 保存引用供 closeDetail 统一移除（无论通过 Esc 还是关闭按钮/遮罩关闭都能清理）
+  container._onKey = function onKey(e) {
+    if (e.key === "Escape") { closeDetail(); return; }
     if (e.key !== "Tab") return;
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  });
+  };
+  container.addEventListener("keydown", container._onKey);
 }
 
 function shareSkill(s) {
   track("share_skill", { skill: s.name });
   const text = buildShareText(s.name);
   if (navigator.share) {
-    navigator.share({ title: "Agent Skills Hub", text, url: location.href }).catch(() => {});
-  } else if (navigator.clipboard && navigator.clipboard.writeText) {
+    // 系统分享：成功/失败都给出可见反馈；被取消或失败则回退到剪贴板复制
+    navigator.share({ title: "Agent Skills Hub", text, url: location.href })
+      .then(() => showToast(I18N.t("share.copied")))
+      .catch((err) => {
+        if (err && err.name === "AbortError") return; // 用户主动取消，不回退
+        copyToClipboard(text);
+      });
+  } else {
+    copyToClipboard(text);
+  }
+}
+
+// 统一的剪贴板复制入口：优先 Clipboard API，失败降级到 textarea execCommand
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => showToast(I18N.t("share.copied"))).catch(() => fallbackCopy(text));
   } else {
     fallbackCopy(text);
