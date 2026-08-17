@@ -1,10 +1,28 @@
-// app/components/AppShell.tsx v1.14.29 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
+// app/components/AppShell.tsx v1.14.34 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
 "use client";
 
 import { useEffect, useState } from "react";
 import type { Skill } from "../lib/skills";
 import type { Lang } from "../lib/share";
 import { SkillsExplorer } from "./SkillsExplorer";
+
+// 品牌标记：三节点汇聚中心 Hub，主绿对齐设计系统 --primary #2e9e6b（与 app/public/ 资产同源）
+function BrandMark() {
+  return (
+    <svg className="logo" width="22" height="22" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
+      <rect width="32" height="32" rx="8" fill="#2e9e6b" />
+      <g fill="#fff" stroke="#fff" strokeWidth="1.4" strokeLinecap="round">
+        <line x1="16" y1="16" x2="16" y2="7.5" opacity=".55" />
+        <line x1="16" y1="16" x2="24.5" y2="21" opacity=".55" />
+        <line x1="16" y1="16" x2="7.5" y2="21" opacity=".55" />
+        <circle cx="16" cy="16" r="3.4" fill="#fff" stroke="none" />
+        <circle cx="16" cy="7.5" r="2.3" stroke="none" />
+        <circle cx="24.5" cy="21" r="2.3" stroke="none" />
+        <circle cx="7.5" cy="21" r="2.3" stroke="none" />
+      </g>
+    </svg>
+  );
+}
 
 interface Props {
   skills: Skill[];
@@ -26,7 +44,7 @@ export function AppShell({ skills, categories, total }: Props) {
     <div className="app-shell" data-lang={lang} data-theme={dark ? "dark" : "light"}>
       <header className="topbar">
         <div className="brand">
-          <span className="logo">🛠️</span>
+          <BrandMark />
           <span className="brand-name">Agent Skills Hub</span>
         </div>
         <div className="topbar-actions">

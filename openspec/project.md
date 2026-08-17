@@ -1,6 +1,6 @@
 # Project Specification — Agent Skills Hub
 
-> 路径：`openspec/project.md` · 版本：1.14.28
+> 路径：`openspec/project.md` · 版本：1.14.31
 > 本文件是 OpenSpec 的项目级规范（project spec），定义变更工作流、产物约定与本仓库结构对齐方式。
 > 已落地能力基线见 [`spec.md`](spec.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 > 配套技能：`skills/openspec-propose`、`skills/openspec-apply-change`、`skills/openspec-explore`、`skills/openspec-archive-change`。
@@ -99,7 +99,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 1. **单一数据源**：技能权威 = `skills/<name>/SKILL.md`；原型为预构建静态产物，**数据源以磁盘 SKILL.md 为准**；`data/skills-data.json` 为构建产物，**勿手改**，重跑 `npm run build` 再生。
 2. **无嵌套副本**：技能不得出现在非 `skills/<name>/` 的位置（如 `skills/video-use/skills/`、`skills/tools/` 均为非法）。
 3. **数据有效性**：原型展示的技能必须与磁盘 `skills/<name>/SKILL.md` 一致；删除技能时同步清理 `README.md`。
-4. **展示页规范**：UI 设计须对齐 `prototype/DESIGN.md`（配色令牌、响应式、可访问性、交互流程）。
+4. **展示页规范**：UI 设计须对齐 `prototype/DESIGN.md`（配色令牌、响应式、可访问性、交互流程、§8 品牌形象规范）。
 5. **原型可复现**：HTML 原型由仓库根 `build.mjs` 将 `prototype/src/` 模板 + `data/skills-data.json` 内联构建为 `prototype/out/index.html`；如需修订展示效果，应重跑 `npm run build` 并将产物同步回仓库；`prototype/DESIGN.md` 与 `prototype/COMPONENTS.md` 须与实际产物一致。
 
 ## 6. 版本与发布

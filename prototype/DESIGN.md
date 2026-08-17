@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.14.29
+> 路径：`prototype/DESIGN.md` · 版本：1.14.33
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -231,3 +231,61 @@
 - 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/out/index.html`。
 - 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/out/index.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
 - 部署：腾讯云 EdgeOne（`edgeone.json`，以 `prototype/out/` 为站点根目录；`installCommand` 跳过依赖安装，`buildCommand` 执行 `npm run build` 重新生成产物）。
+
+---
+
+## 8. 品牌形象规范（Brand Identity）
+
+品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标），由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源生成（保留在 `app/` 以符合 Next.js 约定）。所有资产在 `README.md`「品牌资产」章节统一索引。
+
+> 版本：v1.14.34 — 品牌资产目录由仓库根 `brand/` 迁至 `app/public/`（Next.js 以 `/` 提供），`app/icon.svg` 应用图标保留于 `app/` 同源。
+
+### 8.1 标志释义（Logo）
+
+三节点（技能）经连线汇聚至中心 Hub 圆点，象征「技能 → 统一中心枢纽」的产品定位；圆角方形承载（对齐 `--radius: 0.75rem` 视觉语言），主绿填充。
+
+| 变体 | 文件 | 用途 | 背景 |
+|------|------|------|------|
+| 彩色主标志 | `logo.svg` | 官网页眉、README 头图、文档封面 | 浅/深皆可（自身含底） |
+| 单色版 | `app/public/logo-monochrome.svg` | 页脚、浅色文档、印刷单色场景 | 浅色 |
+| 网站图标 | `app/public/favicon.svg` | 浏览器标签、书签 | 透明（纯绿图形） |
+| 应用图标 | `app/icon.svg` | Next.js `app/` 的 favicon / apple-touch（源自 `app/public/favicon.svg`） | 透明（纯绿图形） |
+
+### 8.2 标志网格与安全区
+
+- 画布 `viewBox="0 0 32 32"`，图形在 32×32 内居中，圆角 `rx="8"`。
+- **安全区**：标志四周保留 ≥ 1/8 画布（即 4px@32）留白，避免与文字/边框贴合。
+- **最小尺寸**：独立展示 ≥ 24×24px（或 16px 仅作 favicon）；低于 16px 建议仅用 `favicon.svg` 纯图形。
+
+### 8.3 品牌配色（Brand Palette）
+
+标志与界面共用同一套主绿，禁用其它色相作为主品牌色。
+
+| 名称 | 色值 | HSL 通道 | 用途 |
+|------|------|----------|------|
+| 品牌主绿（浅） | `#2e9e6b` | `152 56% 40%` | 标志填充、主按钮、聚焦环（`--primary` 浅） |
+| 品牌主绿（深/悬停） | `#5cc98c` | `146 52% 60%` | logo 渐变终点、深色模式 `--primary` 提亮（`--primary` 深） |
+| 单色深底 | `#10231a` | `152 50% 9%` | 单色标志底、深背景反白 |
+| 反白 | `#ffffff` | `0 0% 100%` | 标志内图形、深色文字 |
+
+> 品牌主绿即设计系统 `--primary`（§2.1），两者必须保持同一 HSL 通道，禁止漂移。`logo.svg` 使用浅→深绿线性渐变（`#2e9e6b`→`#5cc98c`，端点分别对应上述两行）；`favicon.svg`/`app/icon.svg` 为纯 `#2e9e6b` 无渐变，保证 16px 下清晰。
+
+### 8.4 favicon 规格
+
+- 格式：SVG（矢量，自适应任意 DPI）；如目标平台仅接受位图，由 `favicon.svg` 栅格化为 32×32 / 180×180（apple-touch）PNG。
+- 颜色：纯 `#2e9e6b` 底 + 反白图形，无渐变（保证 16px 下清晰）。
+- 部署：`prototype/out/favicon.svg` 由根 `build.mjs` 从 `app/public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons.icon = "/icon.svg"` 引用（该 `/icon.svg` 对应 `app/icon.svg`，与 `app/public/favicon.svg` 同源）。
+
+### 8.5 禁用示例（Don'ts）
+
+- ❌ 修改主绿色相（如改用蓝/紫）或降低饱和度至灰绿。
+- ❌ 拉伸、压扁、旋转标志或改动节点相对位置。
+- ❌ 在标志图形上叠加文字、阴影或额外装饰。
+- ❌ 在对比度不足的浅灰背景使用彩色标志却不保留圆角底（应优先用含底的 `logo.svg`）。
+- ❌ 用等位图（JPG/PNG）替代矢量源，导致缩放失真。
+
+### 8.6 使用约定
+
+- 页眉品牌区：标志（22×22）+ 文字「Agent Skills Hub」（衬线 `--font-display`），见 `app/components/AppShell.tsx` 的 `BrandMark()` 与原型 `prototype/src/index.html` 的 `.brand`。
+- 代码内联引用：`app/icon.svg` 与 `app/public/favicon.svg` 同源图形，原型用 data-URI 内联 + 外链 `favicon.svg` 双重声明（见 `prototype/src/index.html` `<head>`）。
+- 品牌资产变更须同步：①本 §8 与 README「品牌资产」；②`app/icon.svg` 与 `app/public/favicon.svg` 同源；③版本号 bump。

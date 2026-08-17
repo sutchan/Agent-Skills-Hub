@@ -1,6 +1,6 @@
 # Agent Skills Hub
 
-[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.24-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.34-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
@@ -339,6 +339,20 @@ npm run start    # 启动生产服务
 ```
 
 应用以 `skills/<name>/SKILL.md` 为权威数据源，构建期生成技能数据供前端读取（详见 [`app/README.md`](app/README.md)）。
+
+## 品牌资产
+
+项目采用统一的矢量品牌标志与网站图标，主色为品牌绿 `#2e9e6b`（HSL `152 56% 40%`），与设计系统 `--primary` 同源（深色模式提亮为 `#5cc98c` / `146 52% 60%`）。所有资产为 SVG，可无限缩放。品牌资产统一存放于 [`app/public/`](app/public/) 目录（单一来源，`/logo.svg`、`/favicon.svg` 等由 Next.js 以 `/` 提供）；`app/icon.svg` 为 Next.js 部署图标，与 `app/public/favicon.svg` 同源生成。
+
+| 资产 | 文件 | 说明 |
+|------|------|------|
+| 彩色主标志 | [`app/public/logo.svg`](app/public/logo.svg) | 圆角方底 + 三节点汇聚 Hub，用于页眉、文档封面 |
+| 单色标志 | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | 深墨绿底 + 主绿图形，用于浅色页脚/印刷 |
+| 网站图标 | [`app/public/favicon.svg`](app/public/favicon.svg) | 纯绿无渐变，浏览器标签与书签 |
+| 应用图标 | [`app/icon.svg`](app/icon.svg) | Next.js 自动识别为 favicon / apple-touch（源自 `app/public/favicon.svg`） |
+
+- 标志释义、安全区、最小尺寸、配色板与禁用示例见 [`prototype/DESIGN.md` §8 品牌形象规范](prototype/DESIGN.md)。
+- 部署：`prototype/out/favicon.svg` 由根 `build.mjs` 从 `app/public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons` 引用 `app/icon.svg`。
 
 ## 技能检索
 

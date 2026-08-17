@@ -1,5 +1,5 @@
-// build.mjs v1.14.29 — 将 src 模板 + 真实数据内联为自包含 out/index.html
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
+// build.mjs v1.14.34 — 将 src 模板 + 真实数据内联为自包含 out/index.html
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -48,4 +48,13 @@ const out = htmlTpl
 
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(join(OUT_DIR, "index.html"), out, "utf8");
+
+// 复制品牌 favicon 到 out/，使原型部署后 <link rel="icon" href="favicon.svg"> 可达（data URI 仍保证离线自包含）
+// 品牌资产统一存放于 app/public/（单一来源），app/icon.svg 为应用图标同源生成
+const favSrc = join(__dirname, "app", "public", "favicon.svg");
+if (existsSync(favSrc)) {
+  copyFileSync(favSrc, join(OUT_DIR, "favicon.svg"));
+  console.log("Copied favicon.svg -> prototype/out/favicon.svg");
+}
+
 console.log(`Built self-contained prototype -> ${join(OUT_DIR, "index.html")} (${(out.length / 1024).toFixed(1)} KB)`);

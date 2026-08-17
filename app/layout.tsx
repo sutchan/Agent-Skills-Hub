@@ -6,6 +6,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Agent Skills Hub",
   description: "Discover & reuse 200+ high-quality agent skills.",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 // GA4 Measurement ID：优先取环境变量，缺省回退仓库配置值（本地/部署皆可生效）

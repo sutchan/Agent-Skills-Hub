@@ -2,6 +2,43 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.34] - 2026-08-17
+
+### refactor: 品牌资产迁入 app/public，应用图标保留于 app/
+
+- **品牌资产迁移**：将仓库根 `brand/` 目录的 `logo.svg`/`logo-monochrome.svg`/`favicon.svg` 移入 `app/public/`，由 Next.js 以 `/logo.svg`、`/favicon.svg` 等路径统一提供（单一来源）
+- **应用图标不动**：`app/icon.svg` 保留在 `app/`（Next.js 约定自动识别为 favicon/apple-touch），与 `app/public/favicon.svg` 同源
+- **`build.mjs` 复制源更新**：favicon 复制源由 `brand/favicon.svg` 改为 `app/public/favicon.svg`；构建验证通过
+- **文档同步路径**：`README.md`/`README.en.md`「品牌资产」章节与 `prototype/DESIGN.md` §8 全部引用改为 `app/public/`；清理根目录遗留临时验证脚本 `_verify_brand.cjs`/`_verify_out.cjs`
+- **版本号同步**：package.json → v1.14.34；build.mjs / AppShell.tsx 头注释 → v1.14.34
+
+## [1.14.33] - 2026-08-17
+
+### fix: 设计系统主绿降饱和统一
+
+- 设计系统 `--primary` 主绿统一为降饱和 `#2e9e6b`（HSL `152 56% 40%`），logo 渐变端点 `#2e9e6b→#5cc98c`；favicon/应用图标纯 `#2e9e6b` 无渐变（详见 `prototype/DESIGN.md` §8）
+- 版本号同步至 v1.14.33（补录：本轮改动此前未写入 CHANGELOG）
+
+## [1.14.32] - 2026-08-17
+
+### chore: 品牌资产集中到 brand/ 目录
+
+- **建立 `brand/` 单一来源目录**：将根目录 `logo.svg`/`favicon.svg`/`logo-monochrome.svg` 移入 `brand/`，作为品牌视觉资产的统一存放位置，消除根目录资产碎片化
+- **保留 `app/icon.svg`**：因 Next.js 约定 `app/icon.svg` 自动识别为 favicon / apple-touch，保留在 `app/`，并在 DESIGN §8.6 注明其与 `brand/favicon.svg` 同源生成关系
+- **`build.mjs` 复制源更新**：从 `brand/favicon.svg` 复制至 `prototype/out/favicon.svg`（头注释升至 v1.14.32）
+- **文档同步路径**：`README.md`/`README.en.md`「品牌资产」章节与 `prototype/DESIGN.md` §8 全部引用改为 `brand/` 路径；版本徽章、DESIGN 头、`package.json` 同步至 v1.14.32
+- 验证：`node build.mjs` 成功，`prototype/out/favicon.svg` 正确从 `brand/` 复制
+
+## [1.14.31] - 2026-08-17
+
+### docs: 完善品牌形象规范与资产索引
+
+- **新增单色品牌标志**：仓库根新增 `logo-monochrome.svg`（深墨绿底 `#10231a` + 主绿图形），用于浅色页脚/印刷单色场景，与彩色 `logo.svg`、纯绿 `favicon.svg`/`app/icon.svg` 构成完整变体体系
+- **品牌资产注释规范化**：`logo.svg`/`favicon.svg`/`app/icon.svg` 补充分版本与释义注释（v1.14.31），`favicon.svg` 标注「纯绿无渐变、适配 16-32px」规格
+- **DESIGN.md 新增 §8 品牌形象规范**：覆盖标志释义、变体与安全区、最小尺寸、品牌配色板（主绿 HSL 通道同源 `--primary`）、favicon 规格、禁用示例（Don'ts）与使用约定，作为品牌视觉事实来源
+- **文档同步品牌资产**：`README.md`/`README.en.md` 新增「品牌资产」章节索引四类 SVG 并指向 DESIGN §8；版本徽章升至 v1.14.31；`openspec/project.md` 展示页规范引用 §8，版本头同步
+- **版本号同步**：根 `package.json` → v1.14.31；`prototype/DESIGN.md` 版本头 → v1.14.31；`openspec/project.md` 版本头 → v1.14.31
+
 ## [1.14.30] - 2026-08-17
 
 ### fix: 修复语言切换分类文案不刷新并优化检索性能
@@ -10,6 +47,13 @@
 - **性能优化（matches 检索串缓存）**：`02-render.js` 的 `matches()` 原每次输入对全部 200 条重复拼接+小写化检索串；改为 `05-main` 初始化时预计算并缓存 `s._hay`，搜索时直接 `includes`
 - **性能优化（O(1) 技能查找）**：`04-interactions.js` 卡片点击/回车原用 `SKILLS_DATA.skills.find(name===)` 线性扫描；新增 `01-state` 共享 `SKILL_MAP`（`name -> skill`），改为 `SKILL_MAP.get()`
 - **版本号同步**：package.json → v1.14.30；prototype/src/parts 01/04/05 头注释 → v1.14.30
+
+### feat: 完善项目品牌形象（logo / favicon）
+
+- **新增统一品牌标记**：设计「三节点汇聚中心 Hub」SVG 标识（主绿 `#2f9e63` 对齐设计系统），符号化表达「skills 聚合到 hub」语义；仓库根新增权威矢量资产 `logo.svg`（渐变版，供文档/README）、`favicon.svg`（纯绿版，站点 favicon）
+- **app 层注入品牌**：`app/icon.svg`（Next.js 自动识别为 favicon）；`app/layout.tsx` 的 `metadata.icons` 指向 `/icon.svg`（含 apple-touch）；`app/components/AppShell.tsx` 将emoji 占位「🛠️」替换为内联同款品牌 SVG 标记
+- **prototype 层注入品牌**：`prototype/src/index.html` 头部加入自包含 data URI favicon（离线可预览）+ 外部 `favicon.svg`/`apple-touch-icon` 回退；body 顶部「S」占位符替换为内联品牌 SVG 标记；`build.mjs` 构建时复制 `favicon.svg` 到 `prototype/out/`，确保部署后可达
+- **版本号同步**：`prototype/src/index.html` 头注释 → v1.14.30；`app/components/AppShell.tsx`、`app/layout.tsx`、`build.mjs` 头注释 → v1.14.30
 
 ## [1.14.29] - 2026-08-17
 
@@ -671,6 +715,15 @@
 [1.14.22]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.22
 [1.14.23]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.23
 [1.14.24]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.24
+[1.14.25]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.25
+[1.14.26]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.26
+[1.14.27]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.27
+[1.14.28]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.28
+[1.14.29]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.29
+[1.14.30]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.30
+[1.14.31]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.31
+[1.14.32]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.32
+[1.14.33]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.33
 
 ## [1.0.3] - 2026-07-31
 
