@@ -2,11 +2,14 @@
 
 本文件供 AI 编码助手（如 CodeBuddy / Claude）在处理本仓库变更时遵循。
 
+> 路径：`openspec/AGENTS.md` · 版本：1.14.28
+> 变更前先读 [`spec.md`](spec.md) 了解当前能力基线，再读 [`project.md`](project.md) 了解约定。
+
 ## 快速开始
 
 ```bash
 # 1. 提出变更（生成 proposal/design/tasks 三件套）
-openspec new change <kebab-name>
+openspec create change <kebab-name>   # 依实际 CLI 版本，等效子命令亦可
 openspec status --change <kebab-name> --json   # 查看产物依赖顺序
 openspec instructions <artifact-id> --change <kebab-name> --json
 
@@ -19,7 +22,7 @@ openspec archive <kebab-name>
 
 ## 角色契约
 
-- **变更前**：先读 `openspec/project.md` 了解目录约定与一致性红线。
+- **变更前**：先读 `openspec/spec.md` 了解当前能力基线，再读 `openspec/project.md` 了解目录约定与一致性红线。
 - **写产物**：`proposal.md` 写「为什么」，`design.md` 写「怎么做」，`tasks.md` 写「步骤」。
 - **约束隔离**：`openspec instructions` 返回的 `context`/`rules` 是约束，不写入产物文件。
 - **数据纪律**：技能权威是 `skills/<name>/SKILL.md`；原型为预构建静态 HTML（`prototype/out/`），数据源以磁盘 SKILL.md 为准，勿手改产物。`app/` 为可运行 Web 应用源码工作区，构建期同样以 SKILL.md 为权威数据源。
