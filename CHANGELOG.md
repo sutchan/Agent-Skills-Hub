@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.30] - 2026-08-17
+
+### fix: 修复语言切换分类文案不刷新并优化检索性能
+
+- **i18n bug（真实）**：原型层分类筛选区「全部」等文案由 `renderCats` 用 `I18N.t` 动态生成（非 `data-i18n` 静态属性），但 `applyLang()` 切换语言后未重渲染网格，导致切换语言后分类 chips 仍显示旧语言；`applyLang` 末尾补充 `renderGrid()` 刷新（app 层 `SkillsExplorer` 的 `cats` 由 `useMemo([lang])` 重算，本无此问题）
+- **性能优化（matches 检索串缓存）**：`02-render.js` 的 `matches()` 原每次输入对全部 200 条重复拼接+小写化检索串；改为 `05-main` 初始化时预计算并缓存 `s._hay`，搜索时直接 `includes`
+- **性能优化（O(1) 技能查找）**：`04-interactions.js` 卡片点击/回车原用 `SKILLS_DATA.skills.find(name===)` 线性扫描；新增 `01-state` 共享 `SKILL_MAP`（`name -> skill`），改为 `SKILL_MAP.get()`
+- **版本号同步**：package.json → v1.14.30；prototype/src/parts 01/04/05 头注释 → v1.14.30
+
 ## [1.14.29] - 2026-08-17
 
 ### 设计系统对齐与代码/原型一致性

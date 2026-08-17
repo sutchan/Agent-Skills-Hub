@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.14.29 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.14.30 — 主题/语言切换与事件绑定
 function applyTheme() {
   track("toggle_theme", { theme: state.theme });
   document.documentElement.setAttribute("data-theme", state.theme);
@@ -24,6 +24,9 @@ function applyLang() {
   const si = $("#searchInput");
   if (si) si.placeholder = I18N.t("search.placeholder");
   refreshHeroCount(); // syncDOM 重置 hero 标题后重新填入动态数字
+  // 分类筛选区的「全部」等文案由 renderCats 用 I18N.t 动态生成（非 data-i18n 静态属性），
+  // 语言切换后必须重渲染网格才能刷新分类文案，否则切换语言后 chips 仍显示旧语言
+  renderGrid();
 }
 
 function bind() {
@@ -67,7 +70,7 @@ function bind() {
   $("#grid").addEventListener("click", (e) => {
     const card = e.target.closest(".card");
     if (!card) return;
-    const s = SKILLS_DATA.skills.find((x) => x.name === card.dataset.name);
+    const s = SKILL_MAP.get(card.dataset.name);
     if (s) openDetail(s);
   });
   $("#grid").addEventListener("keydown", (e) => {
@@ -75,7 +78,7 @@ function bind() {
     const card = e.target.closest(".card");
     if (!card) return;
     e.preventDefault();
-    const s = SKILLS_DATA.skills.find((x) => x.name === card.dataset.name);
+    const s = SKILL_MAP.get(card.dataset.name);
     if (s) openDetail(s);
   });
   // 空状态清除筛选（事件委托到 grid 已覆盖，这里兜底 document 级）
