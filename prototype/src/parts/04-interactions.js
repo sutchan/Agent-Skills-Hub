@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.14.19 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.14.29 — 主题/语言切换与事件绑定
 function applyTheme() {
   track("toggle_theme", { theme: state.theme });
   document.documentElement.setAttribute("data-theme", state.theme);

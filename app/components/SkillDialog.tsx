@@ -1,4 +1,4 @@
-// app/components/SkillDialog.tsx v1.1.6 — 技能详情弹窗（含分享按钮）
+// app/components/SkillDialog.tsx v1.14.29 — 技能详情弹窗（含分享按钮）
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -9,6 +9,7 @@ import { useShare } from "./useShare";
 import { track } from "../lib/analytics";
 
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
+// 与 prototype（DESIGN.md §4.3）两层共用同一绝对链接常量，避免外部平台无法点击（相对路径仅用于分享离线回退）
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 
 interface Props {

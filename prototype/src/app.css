@@ -1,4 +1,4 @@
-/* prototype/src/app.css v1.14.26 — 组件与布局样式 (DESIGN.md)
+/* prototype/src/app.css v1.14.29 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
@@ -83,7 +83,7 @@ html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
 .search input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-weak); }
 .view-toggle { display: flex; background: var(--surface-2); border-radius: 10px; padding: 3px; }
 .view-toggle button { padding: 9px 12px; border-radius: 8px; color: var(--text-2); display: grid; place-items: center; }
-.view-toggle button.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow-card); }
+.view-toggle button.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
 
 /* ---------- 分类条 ---------- */
 .cats { max-width: var(--maxw); margin: 16px auto 0; padding: 0 24px; position: relative; }
@@ -112,11 +112,11 @@ html[data-theme="dark"] #themeIcon .theme-moon { display: block; }
 .grid.list { grid-template-columns: 1fr; gap: 10px; }
 .card {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 18px; box-shadow: var(--shadow-card); cursor: pointer;
+  padding: 18px; box-shadow: var(--shadow-xs); cursor: pointer;
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   display: flex; flex-direction: column; gap: 8px;
 }
-.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
 /* avatar 与 name 同行（标题行）：grid 视图下横向排列 */
 .card .title-row { display: flex; align-items: center; gap: 10px; }
 .card .avatar {

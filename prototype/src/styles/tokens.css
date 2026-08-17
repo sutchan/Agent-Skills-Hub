@@ -1,42 +1,100 @@
-/* prototype/src/styles/tokens.css v1.14.24 — 设计令牌 + reset（DESIGN.md §2） */
+/* prototype/src/styles/tokens.css v1.14.29 — 设计令牌 + reset（DESIGN.md §2 事实来源）
+ *
+ * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
+ * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）仅用于 prototype/src/app.css 的历史消费名兼容，
+ * 全部映射到语义令牌；后续清理轮次可移除别名、让 app.css 直接消费语义令牌。
+ */
+
 :root {
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --surface-2: #f1f3f5;
-  --border: #e4e7ec;
-  --text: #1a1d23;
-  --text-2: #5b6472;
-  --text-3: #8a93a3;
-  --primary: #2e9e6b;
-  --primary-weak: #e6f4ec;
-  --primary-strong: #24815a;
-  --danger: #e5484d;
-  --radius: 14px;
-  --radius-sm: 10px;
-  --shadow-card: 0 1px 2px rgba(16, 24, 40, .05), 0 1px 3px rgba(16, 24, 40, .04);
-  --shadow-pop: 0 12px 32px rgba(16, 24, 40, .16), 0 4px 12px rgba(16, 24, 40, .08);
-  /* Claude/Anthropic 风格字体体系：标题用衬线（Anthropic Serif → 官方回退 Georgia），
-     正文/界面用无衬线系统栈（Anthropic Sans → system-ui 回退） */
+  /* ===== 语义化 HSL 令牌（DESIGN §2.1 色彩，单一事实来源） ===== */
+  --background: 0 0% 100%;          /* 页面背景 */
+  --foreground: 224 24% 12%;        /* 主文字 */
+  --card: 0 0% 100%;                /* 卡片/弹窗表面 */
+  --card-foreground: 224 24% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 24% 12%;
+  --primary: 152 56% 40%;           /* 单一主色（降饱和绿） */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 16% 96%;         /* 次级表面 */
+  --secondary-foreground: 224 24% 18%;
+  --muted: 220 16% 96%;             /* 辅助表面 */
+  --muted-foreground: 220 9% 46%;   /* 辅助文字 */
+  --accent: 152 56% 95%;            /* 主色浅底（聚焦环/徽章） */
+  --accent-foreground: 152 56% 33%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 14% 90%;
+  --input: 220 14% 90%;
+  --ring: 152 56% 40%;
+  --radius: 0.75rem;                /* 默认圆角基准 */
+  --shadow-color: 224 32% 20%;
+
+  /* ===== 阴影分层（DESIGN §2.5，浅而柔） ===== */
+  --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .04), 0 1px 3px hsl(var(--shadow-color) / .06);
+  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .05), 0 2px 6px -1px hsl(var(--shadow-color) / .08);
+  --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / .10), 0 2px 6px -2px hsl(var(--shadow-color) / .06);
+  --shadow-lg: 0 12px 32px -8px hsl(var(--shadow-color) / .16), 0 4px 10px -4px hsl(var(--shadow-color) / .08);
+  --shadow-pop: var(--shadow-lg);
+
+  /* ===== 字体（DESIGN §2.2） ===== */
   --font-display: Georgia, "Times New Roman", "Songti SC", "STSong", serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --font-en: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
   --maxw: 1200px;
+
+  /* ===== 扁平桥接别名（兼容 app.css 历史消费名，后续清理） ===== */
+  --bg: hsl(var(--background));
+  --surface: hsl(var(--card));
+  --surface-2: hsl(var(--secondary));
+  --text: hsl(var(--foreground));
+  --text-2: hsl(var(--muted-foreground));
+  --text-3: hsl(var(--muted-foreground) / .9);
+  --primary-weak: hsl(var(--accent));
+  --primary-strong: hsl(var(--primary) / 1);
+  --shadow-card: var(--shadow-sm);
 }
+
+/* 深色主题（DESIGN §2.1 深色列） */
 html[data-theme="dark"] {
-  --bg: #0d0f14;
-  --surface: #161a22;
-  --surface-2: #1e232d;
-  --border: #2a313d;
-  --text: #e7ebf1;
-  --text-2: #a3adbd;
-  --text-3: #6b7484;
-  --primary: #5cc98c;
-  --primary-weak: #14271e;
-  --primary-strong: #7fe0a6;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, .4);
-  --shadow-pop: 0 16px 40px rgba(0, 0, 0, .6);
+  --background: 224 28% 8%;
+  --foreground: 220 18% 92%;
+  --card: 224 24% 11%;
+  --card-foreground: 220 18% 92%;
+  --popover: 224 24% 11%;
+  --popover-foreground: 220 18% 92%;
+  --primary: 146 52% 60%;
+  --primary-foreground: 224 32% 8%;
+  --secondary: 224 18% 18%;
+  --secondary-foreground: 220 18% 88%;
+  --muted: 224 18% 16%;
+  --muted-foreground: 220 12% 60%;
+  --accent: 146 52% 22%;
+  --accent-foreground: 146 52% 82%;
+  --destructive: 0 62% 52%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 224 16% 22%;
+  --input: 224 16% 24%;
+  --ring: 146 52% 60%;
+  --shadow-color: 0 0% 0%;
+
+  --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .4);
+  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .5), 0 2px 6px -1px hsl(var(--shadow-color) / .4);
+  --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / .5), 0 2px 6px -2px hsl(var(--shadow-color) / .4);
+  --shadow-lg: 0 16px 40px -8px hsl(var(--shadow-color) / .6), 0 4px 12px -4px hsl(var(--shadow-color) / .4);
+
+  --bg: hsl(var(--background));
+  --surface: hsl(var(--card));
+  --surface-2: hsl(var(--secondary));
+  --text: hsl(var(--foreground));
+  --text-2: hsl(var(--muted-foreground));
+  --text-3: hsl(var(--muted-foreground) / .9);
+  --primary-weak: hsl(var(--accent));
+  --primary-strong: hsl(var(--primary) / 1);
+  --shadow-card: var(--shadow-sm);
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 body {

@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.1.5 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
+// app/components/AppShell.tsx v1.14.29 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
 "use client";
 
 import { useEffect, useState } from "react";

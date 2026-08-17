@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.29] - 2026-08-17
+
+### 设计系统对齐与代码/原型一致性
+
+- **统一设计令牌事实来源（DESIGN §2）**：`prototype/src/styles/tokens.css` 重写为 shadcn/ui 风格 HSL 语义令牌（`--background`/`--primary`/`--card`/`--muted`/`--ring`/`--radius`/`--shadow-*` 等），作为全局唯一来源；保留扁平桥接别名（`--bg`/`--surface`/`--text-2` …）供 `app.css` 历史消费名兼容
+- **app 与 prototype 视觉对齐（不引入 Tailwind/Radix 运行时）**：`app/globals.css` 重构为与 prototype 同源的 HSL 语义令牌体系，**主色由靛蓝 `#4f46e5` 统一为绿色** `152 56% 40%`（对齐原型单一主色），修正 `--font-en` 误用 mono、深色主题色相偏差；修复 `app/README.md` 中已删除目录与失效统计的说明
+- **修复文档与代码偏差（文档规范同步）**：`DESIGN.md` 修正深色主题选择器描述（`.dark` → 代码实际的 `html[data-theme="dark"]`）、阴影表补充 `--shadow-color` 与 `shadow-pop` 条目；`COMPONENTS.md` 修正对已不存在的 `src/app.js` 的引用，改为 `src/parts/*.js`
+- **版本线统一**：prototype 各源码/构建脚本头注释（tokens/app.css/index.html/i18n/parts 01-05/build.mjs）+ 根 `build.mjs`/`build-skills-data.mjs` 统一至 v1.14.29；`app/` 组件文件头（AppShell/SkillsExplorer/SkillDialog/layout）统一至 v1.14.29，消除 1.1.x 与全局版本脱节；根 `package.json` 升至 1.14.29（app/package.json 保持子项目独立版本 1.1.10）
+- **原型视觉微调（极简质感）**：卡片静止态阴影由 `--shadow-sm` 降至 `--shadow-xs`、hover 提升至 `--shadow-md`，增强悬浮层次；视图切换激活态用 `--shadow-sm`
+- **复查纠正回归**：撤销对 `app/components/SkillDialog.tsx` 的 `REPO_SKILLS_TREE` 误改（相对路径会致外部平台无法点击），恢复与 DESIGN §4.3 / openspec §4.5.4 一致的绝对 GitHub 链接，保持 app 与原型两层一致
+
 ## [1.14.28] - 2026-08-17
 
 ### fix: 修复分享链接为相对路径且对齐原型/规范文档

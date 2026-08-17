@@ -1,38 +1,97 @@
-/* app/globals.css v1.1.10 — 应用全局样式（对齐 prototype 设计令牌） */
+/* app/globals.css v1.14.29 — 应用全局样式（与 prototype 设计令牌同源，DESIGN.md §2 事实来源）
+ *
+ * 令牌体系与 prototype/src/styles/tokens.css 完全一致（HSL 语义令牌 + 扁平桥接别名），
+ * 主色统一为绿色（原型单一主色），确保 app 与原型视觉对齐、单一事实来源。
+ */
+
 :root {
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --surface-2: #f1f3f6;
-  --border: #e6e8ec;
-  --text: #1f2733;
-  --text-2: #6b7280;
-  --primary: #4f46e5;
-  --primary-strong: #4338ca;
-  --shadow-pop: 0 10px 30px rgba(15, 23, 42, 0.15);
-  --maxw: 1180px;
-  /* Claude/Anthropic 风格字体体系：标题衬线（Anthropic Serif → 回退 Georgia），
-     正文/界面无衬线系统栈（Anthropic Sans → system-ui 回退）；--font-en 用作英文/数据等宽展示 */
+  /* ===== 语义化 HSL 令牌（DESIGN §2.1，与 prototype 同源） ===== */
+  --background: 0 0% 100%;
+  --foreground: 224 24% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 224 24% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 24% 12%;
+  --primary: 152 56% 40%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 16% 96%;
+  --secondary-foreground: 224 24% 18%;
+  --muted: 220 16% 96%;
+  --muted-foreground: 220 9% 46%;
+  --accent: 152 56% 95%;
+  --accent-foreground: 152 56% 33%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 14% 90%;
+  --input: 220 14% 90%;
+  --ring: 152 56% 40%;
+  --radius: 0.75rem;
+  --shadow-color: 224 32% 20%;
+
+  --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .04), 0 1px 3px hsl(var(--shadow-color) / .06);
+  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .05), 0 2px 6px -1px hsl(var(--shadow-color) / .08);
+  --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / .10), 0 2px 6px -2px hsl(var(--shadow-color) / .06);
+  --shadow-lg: 0 12px 32px -8px hsl(var(--shadow-color) / .16), 0 4px 10px -4px hsl(var(--shadow-color) / .08);
+  --shadow-pop: var(--shadow-lg);
+
   --font-display: Georgia, "Times New Roman", "Songti SC", "STSong", serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-  --font-en: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --font-en: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --maxw: 1200px;
+
+  /* 扁平桥接别名（兼容 app 组件历史消费名） */
+  --bg: hsl(var(--background));
+  --surface: hsl(var(--card));
+  --surface-2: hsl(var(--secondary));
+  --text: hsl(var(--foreground));
+  --text-2: hsl(var(--muted-foreground));
+  --text-3: hsl(var(--muted-foreground) / .9);
+  --primary-weak: hsl(var(--accent));
+  --primary-strong: hsl(var(--primary) / 1);
+  --shadow-card: var(--shadow-sm);
 }
-/* 深色主题令牌（与 prototype tokens.css 对齐） */
+
+/* 深色主题（与 prototype tokens.css 对齐） */
 html[data-theme="dark"] {
-  --bg: #0f1115;
-  --surface: #171a21;
-  --surface-2: #1f2530;
-  --border: #2a313c;
-  --text: #e7ebf0;
-  --text-2: #9aa4b2;
-  --primary: #6366f1;
-  --primary-strong: #818cf8;
-  --shadow-pop: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --background: 224 28% 8%;
+  --foreground: 220 18% 92%;
+  --card: 224 24% 11%;
+  --card-foreground: 220 18% 92%;
+  --popover: 224 24% 11%;
+  --popover-foreground: 220 18% 92%;
+  --primary: 146 52% 60%;
+  --primary-foreground: 224 32% 8%;
+  --secondary: 224 18% 18%;
+  --secondary-foreground: 220 18% 88%;
+  --muted: 224 18% 16%;
+  --muted-foreground: 220 12% 60%;
+  --accent: 146 52% 22%;
+  --accent-foreground: 146 52% 82%;
+  --destructive: 0 62% 52%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 224 16% 22%;
+  --input: 224 16% 24%;
+  --ring: 146 52% 60%;
+  --shadow-color: 0 0% 0%;
+
+  --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .4);
+  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .5), 0 2px 6px -1px hsl(var(--shadow-color) / .4);
+  --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / .5), 0 2px 6px -2px hsl(var(--shadow-color) / .4);
+  --shadow-lg: 0 16px 40px -8px hsl(var(--shadow-color) / .6), 0 4px 12px -4px hsl(var(--shadow-color) / .4);
+
+  --bg: hsl(var(--background));
+  --surface: hsl(var(--card));
+  --surface-2: hsl(var(--secondary));
+  --text: hsl(var(--foreground));
+  --text-2: hsl(var(--muted-foreground));
+  --text-3: hsl(var(--muted-foreground) / .9);
+  --primary-weak: hsl(var(--accent));
+  --primary-strong: hsl(var(--primary) / 1);
+  --shadow-card: var(--shadow-sm);
 }
-/* 深色模式：提升淡彩色文字亮度，避免彩字/小字号在暗背景上可读性差 */
-html[data-theme="dark"] .chip { color: color-mix(in srgb, hsl(var(--hue) 70% 55%) 55%, var(--text)); }
-html[data-theme="dark"] .chip:hover { color: hsl(var(--hue) 80% 65%); }
-html[data-theme="dark"] .btn-ghost { color: var(--text); }
+
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); transition: background .2s, color .2s; }
 body.no-scroll { overflow: hidden; }
@@ -49,10 +108,9 @@ button { font-family: inherit; cursor: pointer; }
 .icon-btn:active { transform: scale(.94); }
 .icon-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
-
 .toolbar { margin-top: 12px; }
-.search-input { width: 100%; height: 44px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); padding: 0 16px; font-size: 14px; }
-.search-input:focus { border-color: var(--primary); }
+.search-input { width: 100%; height: 44px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); padding: 0 16px; font-size: 14px; color: var(--text); }
+.search-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px var(--primary-weak); }
 
 .cats { margin-top: 16px; position: relative; }
 .cats-scroll { display: flex; flex-wrap: wrap; gap: 8px; padding-bottom: 4px; }
@@ -70,8 +128,8 @@ button { font-family: inherit; cursor: pointer; }
 .stat { margin: 16px 0; color: var(--text-2); font-size: 13px; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-.card { text-align: left; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; transition: .15s; }
-.card:hover { border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); box-shadow: 0 6px 18px rgba(15,23,42,.08); transform: translateY(-2px); }
+.card { text-align: left; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; box-shadow: var(--shadow-card); }
+.card:hover { border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); box-shadow: var(--shadow-pop); transform: translateY(-2px); }
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: var(--primary); color: #fff; display: grid; place-items: center; font-weight: 700; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; }
 .title-row { display: flex; align-items: center; gap: 10px; }
@@ -80,9 +138,9 @@ button { font-family: inherit; cursor: pointer; }
 .card-cat { color: var(--primary); font-size: 12px; }
 .empty { padding: 60px 0; text-align: center; color: var(--text-2); }
 
-.overlay { position: fixed; inset: 0; background: rgba(15,23,42,.5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50; }
+.overlay { position: fixed; inset: 0; background: hsl(224 32% 20% / .5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50; backdrop-filter: blur(2px); }
 .overlay.open { display: flex; }
-.dialog { background: var(--surface); border-radius: 18px; width: min(640px, 100%); max-height: 86vh; overflow: auto; box-shadow: var(--shadow-pop); }
+.dialog { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; width: min(640px, 100%); max-height: 86vh; overflow: auto; box-shadow: var(--shadow-pop); }
 .dialog-head { display: flex; align-items: center; gap: 12px; padding: 20px 24px; border-bottom: 1px solid var(--border); }
 .dialog-head h2 { margin: 0; font-family: var(--font-display); font-size: 18px; }
 .dialog-head .sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }
@@ -102,12 +160,12 @@ button { font-family: inherit; cursor: pointer; }
 .btn-secondary { background: var(--surface-2); color: var(--primary); border: 1px solid var(--primary); flex: 0 0 auto; padding: 0 16px; }
 .btn-secondary:hover { background: var(--primary); color: #fff; }
 
-.toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px); z-index: 60; padding: 10px 18px; border-radius: 10px; background: #1f2937; color: #fff; font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,.18); opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s; pointer-events: none; max-width: 86vw; text-align: center; }
+.toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px); z-index: 60; padding: 10px 18px; border-radius: 10px; background: hsl(var(--shadow-color) / .9); color: #fff; font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px hsl(0 0% 0% / .18); opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s; pointer-events: none; max-width: 86vw; text-align: center; }
 .toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
-.toast.err { background: #dc2626; }
+.toast.err { background: hsl(var(--destructive)); }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }

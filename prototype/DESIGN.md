@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.14.14
+> 路径：`prototype/DESIGN.md` · 版本：1.14.29
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -22,7 +22,7 @@
 
 ## 2. 设计系统（Design Tokens）
 
-设计 Token 以 **shadcn/ui CSS 变量（HSL 通道）** 定义在 `prototype/src/styles/tokens.css` 的 `:root`（浅色）与 `.dark`（深色）中，由 `prototype/src/app.css` 直接消费（原型为纯原生 CSS，无 Tailwind/React 运行时）。这是全局唯一来源。
+设计 Token 以 **shadcn/ui CSS 变量（HSL 通道）** 定义在 `prototype/src/styles/tokens.css` 的 `:root`（浅色）与 `html[data-theme="dark"]`（深色，主题由 `<html data-theme>` 切换）中，由 `prototype/src/app.css` 直接消费（原型为纯原生 CSS，无 Tailwind/React 运行时）。这是全局唯一来源。
 
 ### 2.1 色彩（HSL 通道，语义化命名）
 
@@ -87,10 +87,12 @@
 
 | Token | 值 |
 |-------|----|
+| `--shadow-color` | `224 32% 20%`（浅）/ `0 0% 0%`（深）— 阴影色相，统一低透明 |
 | `shadow-xs` | `0 1px 2px hsl(var(--shadow-color)/.04), 0 1px 3px hsl(var(--shadow-color)/.06)` |
 | `shadow-sm` | `0 1px 2px hsl(var(--shadow-color)/.05), 0 2px 6px -1px hsl(var(--shadow-color)/.08)` |
 | `shadow-md` | `0 4px 12px -2px hsl(var(--shadow-color)/.10), 0 2px 6px -2px hsl(var(--shadow-color)/.06)` |
 | `shadow-lg` | `0 12px 32px -8px hsl(var(--shadow-color)/.16), 0 4px 10px -4px hsl(var(--shadow-color)/.08)` |
+| `shadow-pop` | `var(--shadow-lg)`（弹窗/浮层专用，桌面 Dialog 与卡片 hover 使用） |
 
 ### 2.6 图标
 
