@@ -248,7 +248,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅），由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源生成（保留在 `app/` 以符合 Next.js 约定）。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.14.36 — `app/public/banner.svg` README 横幅（品牌主绿渐变 + 复用 logo 图形 + 项目名/副标题），在 `README.md`/`README.en.md` 标题下引用。
+> 版本：v1.14.37 — `app/public/banner.svg` README 横幅（品牌主绿渐变 + 复用 logo Hub `<symbol>` + 项目名/副标题，无衬线字体、含 `<title>`/`<desc>` 无障碍），在 `README.md`/`README.en.md` 标题下引用。
 
 ### 8.1 标志释义（Logo）
 

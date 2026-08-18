@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.37] - 2026-08-18
+
+### fix/brand: 重做 README 横幅，修复字体/无障碍/同源复用/事实脱节
+
+- **字体规范统一**：标题与正文由衬线 `Georgia` 改为无衬线品牌字体栈（Inter/系统字体 + 中文 PingFang/微软雅黑），对齐设计系统与全局品牌调性
+- **无障碍增强**：新增 `<title>`/`aria-labelledby` 与 `<desc>`，补充 `lang="zh-CN"`，屏幕阅读器可正确朗读横幅含义
+- **同源复用 Hub 图形**：banner 内联 `<symbol id="ash-hub">` 定义三节点 Hub，`<use>` 引用，与 `logo.svg` 造型单一来源，避免未来 logo 调整时 banner 漂移
+- **消除 id 冲突隐患**：渐变 id 加 `ash-` 命名空间前缀（`ash-banner-bg`/`ash-banner-logo`）
+- **事实脱节修复**：移除写死的 `200+` 计数（与磁盘实有技能数口径不一），改为中性 "Open-source & free curated agent skills"，避免社交预览缓存旧值与仓库真相矛盾
+- **版本同步**：banner 头注释与 package.json → v1.14.37
+
 ## [1.14.36] - 2026-08-18
 
 ### feat: 新增 README banner 横幅
@@ -751,6 +762,10 @@
 [1.14.31]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.31
 [1.14.32]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.32
 [1.14.33]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.33
+[1.14.34]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.34
+[1.14.35]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.35
+[1.14.36]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.36
+[1.14.37]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.37
 
 ## [1.0.3] - 2026-07-31
 
