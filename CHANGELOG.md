@@ -2,6 +2,30 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.41] - 2026-08-18
+
+### fix: 排除腾讯云 EO 与 Vercel 部署问题
+
+- **Vercel 缺失配置**：新增 `vercel.json`，显式指定 `installCommand`/`buildCommand` 进入 `app/` 构建 Next.js、`outputDirectory` 为 `app/.next`、`rootDirectory` 为仓库根（保留对 `data/` 的访问），避免 Vercel 默认误把根 `package.json` 静态原型当作项目而构建失败
+- **Next.js App Router 目录冲突**：`app/` 目录名与 Next App Router 约定目录同名导致 `next build` 报 "Couldn't find any pages or app directory"；将路由文件（`layout/page/components/lib/globals.css/icon.svg`）移入 `app/app/`，`tsconfig` 的 `@/*` 指向 `./app/*`，修复构建失败
+- **app 数据缺失**：`app/lib/skills.ts` 原从 `../../data` 读取仓库根 `data/skills-data.json`，Vercel 以 `app/` 为 Root 时无法访问；新增 `app/scripts/sync-data.cjs`（向上查找仓库根）在 `prebuild`/`predev` 同步数据到 `app/app/data/`，`skills.ts` 改为读取本地副本，`app/.gitignore` 忽略该副本保持单一来源
+- **globals.css 注释块格式错误**：头部裸 `*` 行导致 cssnano 压缩 "Unexpected '/'"; 修正为合法块注释，修复生产构建失败
+- **版本同步**：根 package.json → v1.14.41；app package.json → v1.1.13；相关头注释与 README 徽章同步
+
+## [1.1.12] - 2026-08-18
+
+### fix: app 层左上角 logo 尺寸调整至 64px
+
+- **app**（AppShell.tsx / globals.css）：`BrandMark` SVG 与 `.logo` 基础尺寸由 22/40px 统一为 64px，与 prototype 左上角 logo 对齐；页脚 logo 维持 20px 覆盖
+
+## [1.14.40] - 2026-08-18
+
+### fix: 页脚去除规范/Specs 与品牌资产/Brand 链接，README 指向 GitHub 仓库
+
+- **prototype**（src/index.html）：页脚 `footer-links` 移除「规范 / Specs」(`openspec/project.md`) 与「品牌资产 / Brand」(`app/public/logo.svg`)；「README」链接由相对路径 `README.md` 改为 GitHub 仓库绝对地址 `https://github.com/sutchan/Agent-Skills-Hub#readme`（避免静态部署后 404）
+- **app**（AppShell.tsx）：同步移除页脚同样两项链接，README 链接同样改为 GitHub 仓库绝对地址
+- **版本号同步**：package.json → v1.14.40；app/components/AppShell.tsx 头 → v1.14.40
+
 ## [1.14.39] - 2026-08-18
 
 ### brand: 以 favicon 为品牌标准规范统一所有资产

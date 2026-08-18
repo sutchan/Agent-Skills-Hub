@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.14.38 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
+// app/components/AppShell.tsx v1.14.40 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
 "use client";
 
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import { SkillsExplorer } from "./SkillsExplorer";
 // 品牌标记：三节点汇聚中心 Hub，主绿对齐设计系统 --primary #2e9e6b（与 app/public/ 资产同源）
 function BrandMark() {
   return (
-    <svg className="logo" width="22" height="22" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
+    <svg className="logo" width="64" height="64" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
       <rect width="32" height="32" rx="8" fill="#2e9e6b" />
       <g fill="#fff" stroke="#fff" strokeWidth="1.4" strokeLinecap="round">
         <line x1="16" y1="16" x2="16" y2="7.5" opacity=".55" />
@@ -96,9 +96,7 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
           </div>
           <nav className="footer-links" id="footerLinks" aria-label="页脚导航 / Footer links">
             <a className="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener">GitHub</a>
-            <a className="footer-link" href="README.md">README</a>
-            <a className="footer-link" href="openspec/project.md">规范 / Specs</a>
-            <a className="footer-link" href="/logo.svg">品牌资产 / Brand</a>
+            <a className="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener">README</a>
           </nav>
         </div>
         <div className="footer-bottom" id="footerBottom">

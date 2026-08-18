@@ -1,5 +1,6 @@
-// app/lib/skills.ts v1.1.2 — 技能数据读取与类型
-// 权威数据源：data/skills-data.json（构建期由 build-skills-data.mjs 生成）。
+// app/app/lib/skills.ts v1.1.13 — 技能数据读取与类型
+// 数据源：app/app/data/skills-data.json（由 app/scripts/sync-data.cjs 从仓库根
+// data/skills-data.json 同步，构建期由 build-skills-data.mjs 生成）。
 // 在 Next.js 服务端组件中以 fs 读取，避免客户端拉取大体积 JSON。
 
 import fs from "node:fs";
@@ -23,7 +24,7 @@ export interface SkillsData {
   skills: Skill[];
 }
 
-const DATA_PATH = path.resolve(__dirname, "..", "..", "data", "skills-data.json");
+const DATA_PATH = path.resolve(__dirname, "..", "data", "skills-data.json");
 
 export function loadSkills(): SkillsData {
   try {
