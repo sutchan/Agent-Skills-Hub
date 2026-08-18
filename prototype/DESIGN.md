@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.14.33
+> 路径：`prototype/DESIGN.md` · 版本：1.14.38
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -246,9 +246,9 @@
 
 ## 8. 品牌形象规范（Brand Identity）
 
-品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅），由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源生成（保留在 `app/` 以符合 Next.js 约定）。所有资产在 `README.md`「品牌资产」章节统一索引。
+品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`brand/hub.svg`](brand/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use color="...">` 控制图形色），`logo/favicon/icon/mono/banner` 均内联同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.14.37 — `app/public/banner.svg` README 横幅（品牌主绿渐变 + 复用 logo Hub `<symbol>` + 项目名/副标题，无衬线字体、含 `<title>`/`<desc>` 无障碍），在 `README.md`/`README.en.md` 标题下引用。
+> 版本：v1.14.38 — banner 标题改衬线展示体（Georgia/中文宋体），正文无衬线；新增 `banner-og.svg`（1.91:1）社交分享变体；所有标志内联 `brand/hub.svg` 同源 `<symbol>` 并补 `xlink:href` 回退；文字加墨绿描边滤镜保证 WCAG AA；装饰改为品牌波纹点阵。
 
 ### 8.1 标志释义（Logo）
 
@@ -259,7 +259,8 @@
 | 彩色主标志 | `logo.svg` | 官网页眉、README 头图、文档封面 | 浅/深皆可（自身含底） |
 | 单色版 | `app/public/logo-monochrome.svg` | 页脚、浅色文档、印刷单色场景 | 浅色 |
 | 网站图标 | `app/public/favicon.svg` | 浏览器标签、书签 | 透明（纯绿图形） |
-| README 横幅 | `app/public/banner.svg` | `README.md`/`README.en.md` 标题下顶部 hero（1200×400，主绿渐变 + 项目名/副标题） | 浅/深皆可（自身含底） |
+| README 横幅 | `app/public/banner.svg` | `README.md`/`README.en.md` 标题下顶部 hero（1200×400，主绿渐变 + 衬线项目名/副标题） | 浅/深皆可（自身含底） |
+| 社交分享横幅 | `app/public/banner-og.svg` | Open Graph / 社交卡（Twitter·X、LinkedIn 等，1.91:1 = 1200×628），避免文字被裁切 | 浅/深皆可（自身含底） |
 | 应用图标 | `app/icon.svg` | Next.js `app/` 的 favicon / apple-touch（源自 `app/public/favicon.svg`） | 透明（纯绿图形） |
 
 ### 8.2 标志网格与安全区

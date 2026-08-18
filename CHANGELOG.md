@@ -2,6 +2,28 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.39] - 2026-08-18
+
+### brand: 以 favicon 为品牌标准规范统一所有资产
+
+- **Hub 图形单一来源对齐**：以 `app/public/favicon.svg`（`#2e9e6b` 纯主绿、无渐变、symbol `stroke-width="1.4"` 连线 `opacity=".55"` 节点 `stroke="none"`）为基准，回退 `banner.svg` 中偏离的新版线框，使全部 7 个品牌资产（`favicon/icon/logo/logo-monochrome/banner/banner-og/brand/hub`）的 Hub 图形本体逐字符一致
+- **保留语义化配色**：纯色（`favicon/icon`）、渐变（`logo/banner`）、单色（`logo-monochrome`）、源 symbol 无底板（`brand/hub.svg`）按各自用途保留，仅统一图形造型
+- **版本同步**：package.json 与 banner 头注释 → v1.14.39，README/README.en 版本徽章同步
+
+## [1.14.38] - 2026-08-18
+
+### brand: 全面实施 banner/标志改进并新增社交分享横幅
+
+- **主标题改衬线展示体**：`banner.svg` 项目名用 Georgia / 中文宋体（Songti SC）衬线字体，正文仍无衬线，形成展示层级对比
+- **新增社交分享横幅 `banner-og.svg`**（1200×628，1.91:1）：用于 Open Graph / Twitter·X / LinkedIn 社交卡，避免 3:1 横幅在 OG 场景文字被裁切
+- **品牌图形单一来源**：新增 [`brand/hub.svg`](brand/hub.svg) 定义 `<symbol id="ash-hub">`（`currentColor` 驱动），`logo/favicon/icon/mono/banner` 全部内联同源 symbol，造型一处维护
+- **兼容性回退**：所有标志 `<use>` 补 `xlink:href` + 声明 `xmlns:xlink`，兼容旧版渲染器（邮件/Inkscape）
+- **可读性（WCAG AA）**：文案加墨绿 `#10231a` 描边滤镜（`feMorphology` 膨胀 + 合并），标题字号由 68 升至 76，强化层级
+- **装饰改为品牌波纹点阵**：以右下为中心扩散的同心淡圆，呼应「技能汇聚」语义，替代原对称白圆
+- **渐变角度差异化**：背景 135° 对角、logo 45° 反向，增加微对比；`<svg>` 补 `focusable="false"`
+- **文案打磨**：英文行改为 "Curated, open-source agent skills — free to use"，中英对应统一
+- **版本同步**：package.json 与全部品牌资产头注释 → v1.14.38
+
 ## [1.14.37] - 2026-08-18
 
 ### fix/brand: 重做 README 横幅，修复字体/无障碍/同源复用/事实脱节
@@ -766,6 +788,7 @@
 [1.14.35]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.35
 [1.14.36]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.36
 [1.14.37]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.37
+[1.14.38]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.38
 
 ## [1.0.3] - 2026-07-31
 

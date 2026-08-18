@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.14.37-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.14.39-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Author: Sut Chan
 >
@@ -333,14 +333,15 @@ The app uses `skills/<name>/SKILL.md` as the authoritative data source, generati
 
 ### Brand Assets
 
-The project uses a unified vector logo and favicon in brand green `#2f9e63` (HSL `152 56% 40%`), sharing the same hue as the design system `--primary`. All assets are SVG and scale infinitely. Brand assets live in the [`app/public/`](app/public/) directory (single source of truth, served by Next.js as `/logo.svg`, `/favicon.svg`, etc.); `app/icon.svg` is the Next.js deploy icon, generated from `app/public/favicon.svg`.
+The project uses a unified vector logo and favicon in brand green `#2e9e6b` (HSL `152 56% 40%`), sharing the same hue as the design system `--primary` (light mode brightens to `#5cc98c` / `146 52% 60%`). All assets are SVG and scale infinitely. The brand glyph (three nodes converging to a hub) has a single source of truth in [`brand/hub.svg`](brand/hub.svg) as `<symbol id="ash-hub">` (driven by `currentColor`); all marks live in the [`app/public/`](app/public/) directory (served by Next.js as `/logo.svg`, `/favicon.svg`, etc.) and inline the same symbol so the shape stays in one place; `app/icon.svg` is the Next.js deploy icon, generated from `app/public/favicon.svg`.
 
 | Asset | File | Description |
 |-------|------|-------------|
 | Color logo | [`app/public/logo.svg`](app/public/logo.svg) | Rounded-square tile with three nodes converging to a hub; for headers and covers |
-| Monochrome logo | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | Dark-green tile with brand-green glyph; for light footers / print |
+| Monochrome logo | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | Dark-green tile (`#10231a`) with brand-green glyph; for light footers / print |
 | Favicon | [`app/public/favicon.svg`](app/public/favicon.svg) | Solid green, no gradient; for browser tabs and bookmarks |
-| README banner | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 brand-green gradient + title/subtitle, hero under the title |
+| README banner | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 brand-green gradient + serif title/subtitle, hero under the title |
+| Social share banner | [`app/public/banner-og.svg`](app/public/banner-og.svg) | 1200×628 (1.91:1) Open Graph / social card, text-safe |
 | App icon | [`app/icon.svg`](app/icon.svg) | Auto-detected by Next.js as favicon / apple-touch (from `app/public/favicon.svg`) |
 
 - Logo meaning, safe area, minimum size, palette and don'ts: see [`prototype/DESIGN.md` §8 Brand Identity](prototype/DESIGN.md).

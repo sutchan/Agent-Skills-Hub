@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.37-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.39-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
@@ -344,14 +344,15 @@ npm run start    # 启动生产服务
 
 ## 品牌资产
 
-项目采用统一的矢量品牌标志与网站图标，主色为品牌绿 `#2e9e6b`（HSL `152 56% 40%`），与设计系统 `--primary` 同源（深色模式提亮为 `#5cc98c` / `146 52% 60%`）。所有资产为 SVG，可无限缩放。品牌资产统一存放于 [`app/public/`](app/public/) 目录（单一来源，`/logo.svg`、`/favicon.svg` 等由 Next.js 以 `/` 提供）；`app/icon.svg` 为 Next.js 部署图标，与 `app/public/favicon.svg` 同源生成。
+项目采用统一的矢量品牌标志与网站图标，主色为品牌绿 `#2e9e6b`（HSL `152 56% 40%`），与设计系统 `--primary` 同源（深色模式提亮为 `#5cc98c` / `146 52% 60%`）。所有资产为 SVG，可无限缩放。品牌图形（三节点 Hub）唯一来源为 [`brand/hub.svg`](brand/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动）；标志/图标统一存放于 [`app/public/`](app/public/) 目录（由 Next.js 以 `/` 提供），均内联同源 symbol 保持造型单一来源；`app/icon.svg` 为 Next.js 部署图标，与 `app/public/favicon.svg` 同源。
 
 | 资产 | 文件 | 说明 |
 |------|------|------|
 | 彩色主标志 | [`app/public/logo.svg`](app/public/logo.svg) | 圆角方底 + 三节点汇聚 Hub，用于页眉、文档封面 |
 | 单色标志 | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | 深墨绿底 + 主绿图形，用于浅色页脚/印刷 |
 | 网站图标 | [`app/public/favicon.svg`](app/public/favicon.svg) | 纯绿无渐变，浏览器标签与书签 |
-| README 横幅 | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 主绿渐变 + 项目名/副标题，标题下 hero 图 |
+| README 横幅 | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 主绿渐变 + 衬线项目名/副标题，标题下 hero 图 |
+| 社交分享横幅 | [`app/public/banner-og.svg`](app/public/banner-og.svg) | 1200×628（1.91:1）Open Graph / 社交卡，避免文字裁切 |
 | 应用图标 | [`app/icon.svg`](app/icon.svg) | Next.js 自动识别为 favicon / apple-touch（源自 `app/public/favicon.svg`） |
 
 - 标志释义、安全区、最小尺寸、配色板与禁用示例见 [`prototype/DESIGN.md` §8 品牌形象规范](prototype/DESIGN.md)。
