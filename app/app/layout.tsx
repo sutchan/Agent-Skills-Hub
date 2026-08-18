@@ -1,4 +1,4 @@
-// app/layout.tsx v1.14.29 — 根布局（含全站 GA4 注入）
+// app/layout.tsx v1.14.46 — 根布局（含全站 GA4 注入）
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   title: "Agent Skills Hub",
   description: "Discover & reuse 200+ high-quality agent skills.",
   icons: {
-    icon: "/icon.svg",
-    apple: "/icon.svg",
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
   },
 };
 

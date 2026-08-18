@@ -2,6 +2,22 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.46] - 2026-08-18
+
+### fix: 修正 app favicon 引用 404
+
+- **根因**：v1.14.38 重构删除 `app/public/icon.svg`，但 `app/app/layout.tsx` 的 `metadata.icons.icon` / `apple` 仍指向已删除的 `/icon.svg`，导致 Next.js 部署后浏览器标签图标与 apple-touch-icon 均 404
+- **修复**：`metadata.icons.icon` 与 `apple` 改为 `/favicon.svg`（对应 `app/public/favicon.svg`，已存在且为 `brand/hub.svg` symbol 同源资产）
+- **版本同步**：`app/app/layout.tsx` 头注释、根 `package.json`、README/README.en 版本徽章升至 v1.14.46
+
+## [1.14.45] - 2026-08-18
+
+### fix: 原型 logo 改用同源 symbol 引用
+
+- **原型图形单一来源化**：`prototype/src/index.html` 在 `<body>` 内联隐藏 `<svg><symbol id="ash-hub">`（内容与 `brand/hub.svg` 一致，currentColor 驱动），页眉与页脚 logo 由硬编码重复内联 SVG 改为 `<use href="#ash-hub" color="#fff">` 同源引用，落实 DESIGN §8.2「标志统一用 `<use>` 引用 symbol」要求
+- **全局记忆校正**：品牌资产管理方案从「集中 brand/」更新为真实架构「`brand/hub.svg`(symbol 源) + `app/public/`(资产目录)」，各资产 `<use>` 同源、主色 `#2e9e6b` 与 `--primary` 严格一致
+- **版本同步**：`prototype/src/index.html` 头注释、根 `package.json`、`prototype/DESIGN.md`、README/README.en 版本徽章升至 v1.14.45
+
 ## [1.14.44] - 2026-08-18
 
 ### docs: 对齐规范文档与实现、补语义化 id、统一版本
