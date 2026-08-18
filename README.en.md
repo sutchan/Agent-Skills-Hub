@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.14.43-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.14.44-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Author: Sut Chan
 >
@@ -303,19 +303,17 @@ The repo provides two layers of web artifacts for both "browsing" and "developme
 
 #### Prototype (prototype/)
 
-The repo ships a high-fidelity static prototype built with native HTML/CSS/JS (no React/Next.js/Tailwind runtime). `prototype/src/` is inlined into a self-contained `prototype/out/index.html` by the root `build.mjs`, with i18n driven by the standalone module `prototype/src/i18n.js` (fail-safe `I18N.t()`).
+The repo ships a high-fidelity static prototype built with native HTML/CSS/JS (no React/Next.js/Tailwind runtime). `prototype/src/` is inlined into a self-contained `prototype/index.html` by the root `build.mjs`, with i18n driven by the standalone module `prototype/src/i18n.js` (fail-safe `I18N.t()`).
 
 ```bash
-# Open prototype/out/index.html directly in a browser, or serve it:
-cd prototype/out && python -m http.server 8080   # http://localhost:8080
+# Open prototype/index.html directly in a browser, or serve it:
+cd prototype && python -m http.server 8080   # http://localhost:8080
 
-# Regenerate skills-data.json and rebuild the static artifact (zero npm deps):
-cd prototype
-node build-skills-data.mjs
-npm run build
+# Regenerate skills-data.json and rebuild the static artifact (zero npm deps, run at repo root):
+npm run build                # generates data/skills-data.json + prototype/index.html
 ```
 
-Deploy `prototype/out/` as the site root to EdgeOne / object storage. The prototype is a prebuilt static artifact; its data source is `skills/<name>/SKILL.md`.
+Deploy `prototype/` as the site root to EdgeOne / object storage. The prototype is a prebuilt static artifact; its data source is `skills/<name>/SKILL.md`.
 
 #### App (app/)
 
@@ -345,7 +343,7 @@ The project uses a unified vector logo and favicon in brand green `#2e9e6b` (HSL
 | App icon | [`app/icon.svg`](app/icon.svg) | Auto-detected by Next.js as favicon / apple-touch (from `app/public/favicon.svg`) |
 
 - Logo meaning, safe area, minimum size, palette and don'ts: see [`prototype/DESIGN.md` §8 Brand Identity](prototype/DESIGN.md).
-- Deploy: `prototype/out/favicon.svg` is copied from `app/public/favicon.svg` by root `build.mjs`; `app/` references `app/icon.svg` via `app/layout.tsx` `metadata.icons`.
+- Deploy: `prototype/favicon.svg` is copied from `app/public/favicon.svg` by root `build.mjs`; `app/` references `app/icon.svg` via `app/layout.tsx` `metadata.icons`.
 
 ### Finding a skill
 

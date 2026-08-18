@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`openspec/spec.md` · 版本：1.14.38
+> 路径：`openspec/spec.md` · 版本：1.14.44
 > 本文件固化**当前已落地能力**的基线规范，作为变更的起点与回退基准。
 > 详细数据契约、交互与分享规则见 [`project.md`](project.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 
@@ -16,7 +16,7 @@
 
 ## 2. 数据契约（已落地）
 
-展示页与任何消费方共享的数据结构，由 `build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 解析生成，输出至仓库根 `data/skills-data.json`，再由 `build.mjs` 内联进 `prototype/out/index.html`。
+展示页与任何消费方共享的数据结构，由 `build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 解析生成，输出至仓库根 `data/skills-data.json`，再由 `build.mjs` 内联进 `prototype/index.html`。
 
 ### 2.1 技能条目（SkillEntry）
 ```ts
@@ -33,7 +33,7 @@ type SkillEntry = {
 ```ts
 type SkillsData = {
   total: number;           // = skills.length（动态统计，非硬编码）
-  categories: { category: string; count: number }[];  // 13 个中文分类 + 计数
+  categories: string[];    // 去重后的中文分类名（由 skills[].category 推导，不存 count）
   skills: SkillEntry[];
 };
 ```
@@ -48,7 +48,7 @@ type SkillsData = {
 
 ## 3. 展示页交互（已落地）
 
-`prototype/out/index.html` 为自包含静态页（无 React/Next 运行时）：
+`prototype/index.html` 为自包含静态页（无 React/Next 运行时）：
 
 - **搜索**：前端关键词匹配 `name` / `zh` / `description`，输入即时过滤。
 - **分类筛选**：点击分类标签过滤；"全部"重置。
@@ -69,7 +69,7 @@ type SkillsData = {
 
 ## 5. 构建与发版（已落地）
 
-- **构建**：根 `package.json` 的 `npm run build` = `node build-skills-data.mjs && node build.mjs`，产物 `data/skills-data.json` + `prototype/out/index.html`。
+- **构建**：根 `package.json` 的 `npm run build` = `node build-skills-data.mjs && node build.mjs`，产物 `data/skills-data.json` + `prototype/index.html`。
 - **发版步骤**：bump `package.json` version → 重跑 build → 同步 README 徽章/CHANGELOG → 打 tag `vX.Y.Z` 推送。
 - **CI**：`.github/workflows/` 校验 `prototype/skills-data.json`（注：实际产物路径为仓库根 `data/skills-data.json`，CI 脚本应据此核对）。
 
@@ -78,7 +78,7 @@ type SkillsData = {
 ## 6. 一致性红线（已落地）
 
 1. `data/skills-data.json` 为构建产物，勿手改，重跑 `npm run build` 再生。
-2. 设计令牌仅改 `tokens.css`，禁止在 `app.css`/`out/index.html` 散写颜色字面量（改后须 rebuild）。
+2. 设计令牌仅改 `tokens.css`，禁止在 `components.css`/`responsive.css`/`index.html` 散写颜色字面量（改后须 rebuild）。
 3. README 中英文、CHANGELOG、package.json 版本号三者一致。
 4. 技能 `category` 与 README 分类名严格一致。
 

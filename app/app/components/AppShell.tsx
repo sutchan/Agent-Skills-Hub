@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.14.40 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
+// app/components/AppShell.tsx v1.14.44 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
 "use client";
 
 import { useEffect, useState } from "react";
@@ -43,8 +43,8 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
 
   return (
     <div className="app-shell" data-lang={lang} data-theme={dark ? "dark" : "light"}>
-      <header className="topbar">
-        <div className="brand">
+      <header className="topbar" id="appHeader">
+        <div className="brand" id="brandBlock">
           <BrandMark />
           <span className="brand-name">Agent Skills Hub</span>
         </div>

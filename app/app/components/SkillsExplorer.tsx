@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.14.29 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.14.44 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
 "use client";
 
 import { useMemo, useState } from "react";
@@ -90,7 +90,7 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
       </div>
 
       {filtered.length ? (
-        <div className="grid">
+        <div className="grid" id="skillsGrid">
           {filtered.map((s) => (
             <button key={s.name} className="card" role="button" onClick={() => { track("view_skill", { skill: s.name, category: s.category }); setOpen(s); }}>
               <div className="title-row">
@@ -103,7 +103,7 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
           ))}
         </div>
       ) : (
-        <div className="empty">{t.empty}</div>
+        <div className="empty" id="emptyState">{t.empty}</div>
       )}
 
       {open && <SkillDialog skill={open} lang={lang} total={total} onClose={() => setOpen(null)} />}

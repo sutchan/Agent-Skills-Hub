@@ -1,10 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.14.42
+> 路径：`prototype/DESIGN.md` · 版本：1.14.44
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts）**：`prototype/index.html` 为纯 HTML 自包含单文件——由根目录 `build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` + `src/app.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `data/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 为构建产物（构建脚本 `build.mjs`/`build-skills-data.mjs` 置于仓库根，不混入原型目录）。
+> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts，v1.14.42 样式拆分为 tokens/base/layout/components/responsive）**：`prototype/index.html` 为纯 HTML 自包含单文件——由根目录 `build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` 及按序拼接的 `src/styles/base.css` + `src/styles/layout.css` + `src/styles/components.css` + `src/styles/responsive.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `data/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物（构建脚本 `build.mjs`/`build-skills-data.mjs` 置于仓库根，不混入原型目录）。
 
 ---
 
@@ -22,7 +22,7 @@
 
 ## 2. 设计系统（Design Tokens）
 
-设计 Token 以 **shadcn/ui CSS 变量（HSL 通道）** 定义在 `prototype/src/styles/tokens.css` 的 `:root`（浅色）与 `html[data-theme="dark"]`（深色，主题由 `<html data-theme>` 切换）中，由 `prototype/src/app.css` 直接消费（原型为纯原生 CSS，无 Tailwind/React 运行时）。这是全局唯一来源。
+设计 Token 以 **shadcn/ui CSS 变量（HSL 通道）** 定义在 `prototype/src/styles/tokens.css` 的 `:root`（浅色）与 `html[data-theme="dark"]`（深色，主题由 `<html data-theme>` 切换）中，由 `prototype/src/styles/base.css`/`layout.css`/`components.css`/`responsive.css` 直接消费（原型为纯原生 CSS，无 Tailwind/React 运行时）。这是全局唯一来源。
 
 ### 2.1 色彩（HSL 通道，语义化命名）
 
@@ -206,7 +206,7 @@
   - **版本与协议**（`footer-bottom`）：项目版本 `footer-ver`（来自根 `package.json`，由 `build.mjs` 注入 `{{VERSION}}` / app 经 `page.tsx` 读取传入）+ 分隔符 + 开源协议声明 `footer-copy`。
 - 文案遵循全局 i18n：原型层 `footer.desc` / `footer.copyright` 用 `data-i18n` + `.zh`/`.en` 类随语言切换；`app/` 层以 `lang` 条件渲染。
 - 链接统一 `target="_blank" rel="noopener"` 外链，内链用相对路径；品牌 logo 与页眉同源（三节点 Hub SVG）。
-- 样式在 `prototype/src/app.css` 与 `app/globals.css` 同步维护，主色与令牌同源；移动端 `footer-inner` 竖向堆叠。
+- 样式在 `prototype/src/styles/components.css` 与 `app/globals.css` 同步维护，主色与令牌同源；移动端 `footer-inner` 竖向堆叠。
 
 ---
 
@@ -236,7 +236,7 @@
 
 ## 7. 技术栈（构建期，产物已预渲染）
 
-- 原型为**纯静态原生实现**：`src/index.html`（HTML 模板）+ `src/styles/tokens.css` + `src/app.css`（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind/HSL）+ `src/i18n.js`（独立国际化模块）+ `src/parts/*.js`（原生 JS 渲染与交互，按职责拆分 01-state / 02-render / 03-detail / 04-interactions / 05-main，无 React/Next.js/Radix）。
+- 原型为**纯静态原生实现**：`src/index.html`（HTML 模板）+ `src/styles/tokens.css` + `src/styles/base.css`/`layout.css`/`components.css`/`responsive.css`（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind/HSL）+ `src/i18n.js`（独立国际化模块）+ `src/parts/*.js`（原生 JS 渲染与交互，按职责拆分 01-state / 02-render / 03-detail / 04-interactions / 05-main，无 React/Next.js/Radix）。
 - 构建：根目录 `build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/index.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
 - 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/index.html`。
 - 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/index.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
@@ -248,7 +248,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`brand/hub.svg`](brand/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use color="...">` 控制图形色），`logo/favicon/icon/mono/banner` 均内联同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.14.42 — banner 标题改衬线展示体（Georgia/中文宋体），正文无衬线；新增 `banner-og.svg`（1.91:1）社交分享变体；所有标志内联 `brand/hub.svg` 同源 `<symbol>` 并补 `xlink:href` 回退；文字加墨绿描边滤镜保证 WCAG AA；装饰改为品牌波纹点阵。
+> 版本：v1.14.44 — 文档与实现对齐：产物路径统一为 `prototype/`（去除 `prototype/out/` 旧引用）；样式引用对齐 v1.14.42 的 tokens/base/layout/components/responsive 拆分；`skills-data.json` 数据契约修正为 `categories: string[]`。
 
 ### 8.1 标志释义（Logo）
 

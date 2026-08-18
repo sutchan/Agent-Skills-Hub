@@ -1,13 +1,13 @@
 # 组件库规范（Component Library Spec）
 
-> 路径：`prototype/COMPONENTS.md` · 版本：1.14.42
+> 路径：`prototype/COMPONENTS.md` · 版本：1.14.44
 > 配套 `DESIGN.md` 设计系统。本文规定每个组件的 **Props / 状态 / 用法 / 代码位置**，供后续开发与评审对齐。
-> 原型落地为 **纯原生 HTML/CSS/JS**（非 React/Tailwind），样式由 `src/styles/tokens.css` + `src/app.css` 的 `:root` CSS 变量单一来源驱动，不手写重复 CSS。
+> 原型落地为 **纯原生 HTML/CSS/JS**（非 React/Tailwind），样式由 `src/styles/tokens.css` + `src/styles/base.css`/`layout.css`/`components.css`/`responsive.css` 的 `:root` CSS 变量单一来源驱动，不手写重复 CSS。
 >
 > **原型落地（v1.12.0）**：`prototype/index.html` 用纯 HTML/CSS/JS 实现下表组件（顶栏、Hero、搜索、视图切换、分类条、卡片网格/列表、详情 Dialog），状态与交互由 `prototype/src/parts/*.js` 管理（01-state 常量/偏好/工具、02-render 渲染、03-detail 弹窗与分享、04-interactions 主题/语言/事件、05-main 启动编排），国际化由 `prototype/src/i18n.js` 驱动，无需框架运行时。
 
 代码位置（**原型源码映射**，源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/index.html`）：
-- 设计令牌：`src/styles/tokens.css`(`:root` CSS 变量) + `src/app.css`(组件样式)
+- 设计令牌：`src/styles/tokens.css`(`:root` CSS 变量) + `src/styles/components.css`(组件样式)
 - 国际化：源码 `src/i18n.js`（`I18N.t()` / 语言状态 / DOM 同步）
 - 交互与渲染：源码 `src/parts/*.js`（按序拼接：`01-state` 常量与工具、`02-render` 渲染、`03-detail` 弹窗与分享、`04-interactions` 主题/语言/事件、`05-main` 启动编排）
 - 页面模板：源码 `src/index.html`
@@ -121,4 +121,4 @@ Dialog 由 `#dialog`（`role="dialog"` `aria-modal="true"` `aria-labelledby="dia
 3. 所有可交互元素须有 `aria-label` 或语义角色；弹窗标题用 `sr-only`（`.sr-only` 工具类）保证可访问性。
 4. 动效时长只允许 ~200ms 基准 + `ease`，且全局兼容 `prefers-reduced-motion`（已在 tokens 中 transition 约束）。
 5. 业务数据只读来自 `data/skills-data.json`（扁平结构 `skill{name,category,zh,description,allowedTools}`），不内联假数据。
-6. 组件样式优先定义在 `src/styles/` 或 `src/app.css`，保持与令牌同源。
+6. 组件样式优先定义在 `src/styles/`（`tokens.css`/`base.css`/`layout.css`/`components.css`/`responsive.css`），保持与令牌同源。

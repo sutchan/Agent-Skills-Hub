@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.44] - 2026-08-18
+
+### docs: 对齐规范文档与实现、补语义化 id、统一版本
+
+- **规范文档对齐 `openspec/`**：`spec.md`/`project.md`/`AGENTS.md` 头版本更新至 v1.14.44；修正产物路径 `prototype/out/` → `prototype/`（v1.14.42 已将 HTML 产物移出 `out/` 子目录）；修正 `skills-data.json` 数据契约 `categories` 为 `string[]`（实为去重中文分类名，非 `{category,count}[]`）
+- **规范文档对齐 `prototype/`**：`DESIGN.md`/`COMPONENTS.md` 头版本更新至 v1.14.44；样式引用由已废弃的 `src/app.css` 对齐至 v1.14.42 拆分后的 `src/styles/{tokens,base,layout,components,responsive}.css`
+- **语义化 id（app 层）**：`AppShell.tsx` 的 `header.topbar`/`brand` 加 `id="appHeader"`/`id="brandBlock"`；`SkillsExplorer.tsx` 的 grid 加 `id="skillsGrid"`、空状态加 `id="emptyState"`（顶部按钮、搜索框、分类、页脚等 id 此前已具备）
+- **构建脚本修复**：`package.json` 的 `serve` 脚本由 `prototype/out` 修正为 `prototype`，与 `build.mjs` 实际产物目录一致
+- **版本统一**：`package.json`/`README*` 徽章同步至 v1.14.44
+
 ## [1.14.43] - 2026-08-18
 
 ### fix: 完善原型无障碍、社交分享与 DOM 锚点

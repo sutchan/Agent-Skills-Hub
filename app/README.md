@@ -12,12 +12,15 @@
 
 | 路径 | 用途 |
 |------|------|
-| `app/` | Web 应用根目录（本目录），同时作为 Next.js App Router 根 |
-| `app/page.tsx` / `app/layout.tsx` / `app/globals.css` | Next.js 应用入口（首页、根布局、全局样式） |
-| `app/components/` | 客户端组件（`AppShell` / `SkillsExplorer` / `SkillDialog` / `useShare`） |
-| `app/lib/` | 共享逻辑（`share.ts` 分享文案与复制、`skills.ts` 数据读取） |
+| `app/` | Web 应用工作区根（含 `next.config.mjs` / `tsconfig.json` / `package.json` / `scripts/`） |
+| `app/app/` | Next.js App Router 根（因仓库 `app/` 工作区与 App Router 约定目录同名，路由代码置于 `app/app/`） |
+| `app/app/page.tsx` / `app/app/layout.tsx` / `app/app/globals.css` | Next.js 应用入口（首页、根布局、全局样式） |
+| `app/app/components/` | 客户端组件（`AppShell` / `SkillsExplorer` / `SkillDialog` / `useShare`） |
+| `app/app/lib/` | 共享逻辑（`share.ts` 分享文案与复制、`skills.ts` 数据读取、`analytics.ts` GA4 上报） |
+| `app/app/data/` | 构建期由 `scripts/sync-data.cjs` 从仓库根 `data/` 同步的技能数据副本（gitignore） |
+| `app/scripts/sync-data.cjs` | 预构建/预开发钩子，将仓库根 `data/skills-data.json` 同步到 `app/app/data/` |
 | `app/next.config.mjs` / `app/tsconfig.json` | Next.js 与 TypeScript 配置 |
-| `app/package.json` | 依赖与脚本（`dev` / `build` / `start`） |
+| `app/package.json` | 依赖与脚本（`dev` / `build` / `start`，含 `predev`/`prebuild` 同步数据） |
 
 ## 约定
 

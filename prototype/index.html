@@ -23,8 +23,8 @@
   <style>/* prototype/src/styles/tokens.css v1.14.29 — 设计令牌 + reset（DESIGN.md §2 事实来源）
  *
  * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
- * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）仅用于 prototype/src/app.css 的历史消费名兼容，
- * 全部映射到语义令牌；后续清理轮次可移除别名、让 app.css 直接消费语义令牌。
+ * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）为历史兼容保留，供 base/layout/components 模块消费，
+ * 全部映射到语义令牌；后续清理轮次可移除别名、让各样式模块直接消费语义令牌。
  */
 
 :root {
@@ -384,7 +384,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.14.43</span>
+      <span class="footer-ver" id="footerVer">v1.14.44</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>

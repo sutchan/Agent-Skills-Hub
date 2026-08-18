@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.43-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.44-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
@@ -312,21 +312,21 @@ git clone https://github.com/sutchan/Agent-Skills-Hub.git
 
 ### 原型（prototype/）
 
-仓库内置一个高保真静态原型，由原生 HTML/CSS/JS 实现（`prototype/src/` 经根目录 `build.mjs` 注入真实数据生成自包含 `prototype/out/index.html`），**无需 React/Next.js/Tailwind 运行时**，可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务。国际化由独立模块 `prototype/src/i18n.js` 驱动（`I18N.t()` 容错兜底，翻译缺失也不崩溃）。
+仓库内置一个高保真静态原型，由原生 HTML/CSS/JS 实现（`prototype/src/` 经根目录 `build.mjs` 注入真实数据生成自包含 `prototype/index.html`），**无需 React/Next.js/Tailwind 运行时**，可一键部署到腾讯云 EdgeOne / 对象存储等静态托管服务。国际化由独立模块 `prototype/src/i18n.js` 驱动（`I18N.t()` 容错兜底，翻译缺失也不崩溃）。
 
 ```bash
 # 原型为预构建静态 HTML，无需安装依赖或构建：
-# 直接用浏览器打开 prototype/out/index.html 即可预览（离线可用）。
+# 直接用浏览器打开 prototype/index.html 即可预览（离线可用）。
 
 # 如需本地起一个静态服务器（可选）：
-cd prototype/out && python -m http.server 8080
+cd prototype && python -m http.server 8080
 # 然后访问 http://localhost:8080
 
 # 如需从磁盘 skills/ 重新生成数据并重建静态产物（零 npm 依赖，在仓库根目录执行）：
-npm run build                # 生成 data/skills-data.json + prototype/out/index.html
+npm run build                # 生成 data/skills-data.json + prototype/index.html
 ```
 
-部署时将 `prototype/out/` 目录作为站点根目录发布即可。原型为预构建静态产物，数据源以 `skills/<name>/SKILL.md` 为准。
+部署时将 `prototype/` 目录作为站点根目录发布即可。原型为预构建静态产物，数据源以 `skills/<name>/SKILL.md` 为准。
 
 ### 应用（app/）
 
@@ -356,7 +356,7 @@ npm run start    # 启动生产服务
 | 应用图标 | [`app/icon.svg`](app/icon.svg) | Next.js 自动识别为 favicon / apple-touch（源自 `app/public/favicon.svg`） |
 
 - 标志释义、安全区、最小尺寸、配色板与禁用示例见 [`prototype/DESIGN.md` §8 品牌形象规范](prototype/DESIGN.md)。
-- 部署：`prototype/out/favicon.svg` 由根 `build.mjs` 从 `app/public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons` 引用 `app/icon.svg`。
+- 部署：`prototype/favicon.svg` 由根 `build.mjs` 从 `app/public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons` 引用 `app/icon.svg`。
 
 ## 技能检索
 
