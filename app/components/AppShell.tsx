@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.14.34 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
+// app/components/AppShell.tsx v1.14.35 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
 "use client";
 
 import { useEffect, useState } from "react";
@@ -28,10 +28,11 @@ interface Props {
   skills: Skill[];
   categories: string[];
   total: number;
+  version?: string;
 }
 
 /** 应用外壳：管理当前界面语言（中/英）与主题（浅/深），承载技能浏览与分享。 */
-export function AppShell({ skills, categories, total }: Props) {
+export function AppShell({ skills, categories, total, version = "" }: Props) {
   const [lang, setLang] = useState<Lang>("zh");
   const [dark, setDark] = useState(false);
 
@@ -78,6 +79,38 @@ export function AppShell({ skills, categories, total }: Props) {
         </div>
       </header>
       <SkillsExplorer skills={skills} categories={categories} lang={lang} total={total} />
+
+      {/* 页脚区：品牌 + 导航链接 + 版本/协议（id 供测试与无障碍定位） */}
+      <footer className="site-footer" id="siteFooter">
+        <div className="footer-inner" id="footerInner">
+          <div className="footer-brand" id="footerBrand">
+            <a className="footer-logo" id="footerLogo" href="#" aria-label="Agent Skills Hub">
+              <BrandMark />
+              <span>Skills Hub</span>
+            </a>
+            {lang === "zh" ? (
+              <p className="footer-desc" id="footerDescZh">高质量 Agent 技能目录，按分类浏览、搜索、即取即用。</p>
+            ) : (
+              <p className="footer-desc" id="footerDescEn">A curated directory of high-quality agent skills — browse, search, and reuse.</p>
+            )}
+          </div>
+          <nav className="footer-links" id="footerLinks" aria-label="页脚导航 / Footer links">
+            <a className="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener">GitHub</a>
+            <a className="footer-link" href="README.md">README</a>
+            <a className="footer-link" href="openspec/project.md">规范 / Specs</a>
+            <a className="footer-link" href="/logo.svg">品牌资产 / Brand</a>
+          </nav>
+        </div>
+        <div className="footer-bottom" id="footerBottom">
+          {version && <span className="footer-ver" id="footerVer">v{version}</span>}
+          {version && <span className="footer-sep" aria-hidden="true">·</span>}
+          {lang === "zh" ? (
+            <span className="footer-copy" id="footerCopyZh">开源免费 · MIT 协议</span>
+          ) : (
+            <span className="footer-copy" id="footerCopyEn">Open source · MIT License</span>
+          )}
+        </div>
+      </footer>
     </div>
   );
 }

@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.35] - 2026-08-18
+
+### feat: 页面新增页脚区（原型 + 应用代码同步）
+
+- **原型层**：`index.html` 在技能网格后新增语义化 `<footer id="siteFooter">`，含品牌区（logo/名称/简介）、导航链接（GitHub/README/规范/品牌资产）与版本+协议行
+- **版本注入**：`build.mjs` 新增 `{{VERSION}}` 占位符，从根 `package.json` 读取项目版本注入页脚，避免硬编码漂移
+- **i18n 同步**：`i18n.js` 新增 `footer.desc` / `footer.copyright`，zh/en 双语随语言切换
+- **样式**：`app.css` 新增页脚样式（移动端竖向堆叠），与 `app/globals.css` 对齐
+- **应用层**：`AppShell.tsx` 新增 footer（`lang` 条件渲染），`page.tsx` 服务端读取根 `package.json` 版本经 `version` prop 传入
+- **规范文档**：`DESIGN.md` 新增 §4.6 页脚区设计规范
+- 版本号同步至 v1.14.35（app 层 page.tsx → v1.1.3、globals.css → v1.1.12）
+
 ## [1.14.34] - 2026-08-17
 
 ### refactor: 品牌资产迁入 app/public，应用图标保留于 app/

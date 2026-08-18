@@ -1,4 +1,4 @@
-// build.mjs v1.14.34 — 将 src 模板 + 真实数据内联为自包含 out/index.html
+// build.mjs v1.14.35 — 将 src 模板 + 真实数据内联为自包含 out/index.html
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -22,6 +22,11 @@ const js = readdirSync(PARTS_DIR)
   .join("\n");
 const i18n = readFileSync(join(SRC, "i18n.js"), "utf8");
 const data = readFileSync(join(__dirname, "data", "skills-data.json"), "utf8");
+// 项目版本取自根 package.json（单一权威源），注入页脚展示（避免硬编码漂移）
+const PROJECT_VERSION = (() => {
+  try { return JSON.parse(readFileSync(join(__dirname, "package.json"), "utf8")).version; }
+  catch (e) { return ""; }
+})();
 
 // 统计代码注入：GA4 Measurement ID 优先取环境变量，缺省回退到仓库配置值。
 // 本地构建无需设环境变量即可生成空占位，避免把 ID 硬编码进仓库（部署时由 CI 注入更合规）。
@@ -44,7 +49,8 @@ const out = htmlTpl
   .replace("{{DATA}}", () => data)
   .replace("{{I18N}}", () => i18n)
   .replace("{{JS}}", () => js)
-  .replace("{{ANALYTICS}}", () => analytics);
+  .replace("{{ANALYTICS}}", () => analytics)
+  .replace("{{VERSION}}", () => PROJECT_VERSION);
 
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(join(OUT_DIR, "index.html"), out, "utf8");

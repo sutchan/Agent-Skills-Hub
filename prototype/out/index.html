@@ -356,6 +356,42 @@ html[data-theme="dark"] .btn-ghost { color: var(--text); }
 /* 语言切换后英文描述 */
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
+
+/* ---------- 页脚区（DESIGN §4.6） ---------- */
+.site-footer {
+  margin-top: 56px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-2);
+}
+.footer-inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 32px 24px 20px;
+  display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+}
+.footer-brand { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.footer-logo { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; }
+.footer-logo .logo { border-radius: 6px; }
+.footer-desc { margin: 0; font-size: 13px; line-height: 1.6; color: var(--text-2); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
+.footer-link {
+  font-size: 13px; color: var(--text-2); text-decoration: none;
+  transition: color .15s;
+}
+.footer-link:hover { color: var(--primary); }
+.footer-bottom {
+  max-width: var(--maxw); margin: 0 auto; padding: 14px 24px 28px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--text-3);
+  border-top: 1px dashed var(--border);
+}
+.footer-ver { font-family: var(--font-mono); color: var(--text-2); }
+.footer-sep { opacity: .6; }
+.footer-copy { color: var(--text-3); }
+
+@media (max-width: 640px) {
+  .footer-inner { flex-direction: column; gap: 18px; padding-left: 16px; padding-right: 16px; }
+  .footer-bottom { padding-left: 16px; padding-right: 16px; }
+}
 </style>
   <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WQDDVB14PF"></script>
@@ -428,6 +464,43 @@ html[data-lang="zh"] .en { display: none; }
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="cats-scroll" id="cats"></div></nav>
 
   <main class="grid" id="grid" aria-label="技能列表" aria-live="polite"></main>
+
+  <!-- 页脚区：品牌 + 导航链接 + 版本/协议（id 供脚本与测试精确选取；文案随语言切换） -->
+  <footer class="site-footer" id="siteFooter">
+    <div class="footer-inner" id="footerInner">
+      <div class="footer-brand" id="footerBrand">
+        <a class="footer-logo" id="footerLogo" href="#" aria-label="Agent Skills Hub">
+          <svg class="logo" style="width:20px;height:20px" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
+            <rect width="32" height="32" rx="8" fill="#2e9e6b" />
+            <g fill="#fff" stroke="#fff" stroke-width="1.4" stroke-linecap="round">
+              <line x1="16" y1="16" x2="16" y2="7.5" opacity=".55" />
+              <line x1="16" y1="16" x2="24.5" y2="21" opacity=".55" />
+              <line x1="16" y1="16" x2="7.5" y2="21" opacity=".55" />
+              <circle cx="16" cy="16" r="3.4" fill="#fff" stroke="none" />
+              <circle cx="16" cy="7.5" r="2.3" stroke="none" />
+              <circle cx="24.5" cy="21" r="2.3" stroke="none" />
+              <circle cx="7.5" cy="21" r="2.3" stroke="none" />
+            </g>
+          </svg>
+          <span>Skills Hub</span>
+        </a>
+        <p class="footer-desc zh" id="footerDescZh" data-i18n="footer.desc">高质量 Agent 技能目录，按分类浏览、搜索、即取即用。</p>
+        <p class="footer-desc en" id="footerDescEn" data-i18n="footer.desc">A curated directory of high-quality agent skills — browse, search, and reuse.</p>
+      </div>
+      <nav class="footer-links" id="footerLinks" aria-label="页脚导航 / Footer links">
+        <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener">GitHub</a>
+        <a class="footer-link" href="README.md">README</a>
+        <a class="footer-link" href="openspec/project.md">规范 / Specs</a>
+        <a class="footer-link" href="app/public/logo.svg">品牌资产 / Brand</a>
+      </nav>
+    </div>
+    <div class="footer-bottom" id="footerBottom">
+      <span class="footer-ver" id="footerVer">v1.14.34</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
+      <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
+    </div>
+  </footer>
 
   <div class="overlay" id="overlay">
     <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogVisibleTitle"></div>
@@ -1916,7 +1989,9 @@ html[data-lang="zh"] .en { display: none; }
         "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
         "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
         "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，{n} 技能即插即用，开源免费！"
-      ]
+      ],
+      "footer.desc": "高质量 Agent 技能目录，按分类浏览、搜索、即取即用。",
+      "footer.copyright": "开源免费 · MIT 协议"
     },
     en: {
       "brand.subtitle": "Curated agent skill library",
@@ -1947,7 +2022,9 @@ html[data-lang="zh"] .en { display: none; }
         "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
         "🚀 Agent Skills Hub: {n} curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
         "💡 Want a stronger coding agent? Explore Agent Skills Hub: {n} plug-and-play skills, open source and free!"
-      ]
+      ],
+      "footer.desc": "A curated directory of high-quality agent skills — browse, search, and reuse.",
+      "footer.copyright": "Open source · MIT License"
     }
   };
 

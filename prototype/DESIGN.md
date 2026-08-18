@@ -198,6 +198,16 @@
 - 分类 chip 用 `aria-pressed` 反映选中态。
 - 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
 
+### 4.6 页脚区（Footer）
+
+- 位于技能网格 `<main>` 之后、`overlay` 之前，作为页面收尾区块（语义化 `<footer id="siteFooter">`）。
+- 结构分两段：
+  - **品牌与导航**（`footer-inner`）：左侧品牌区（`footer-brand` 含 logo + 名称 + 简介 `footer-desc`），右侧导航链接列（`footer-links`，含 GitHub 仓库、README、规范文档、品牌资产）。
+  - **版本与协议**（`footer-bottom`）：项目版本 `footer-ver`（来自根 `package.json`，由 `build.mjs` 注入 `{{VERSION}}` / app 经 `page.tsx` 读取传入）+ 分隔符 + 开源协议声明 `footer-copy`。
+- 文案遵循全局 i18n：原型层 `footer.desc` / `footer.copyright` 用 `data-i18n` + `.zh`/`.en` 类随语言切换；`app/` 层以 `lang` 条件渲染。
+- 链接统一 `target="_blank" rel="noopener"` 外链，内链用相对路径；品牌 logo 与页眉同源（三节点 Hub SVG）。
+- 样式在 `prototype/src/app.css` 与 `app/globals.css` 同步维护，主色与令牌同源；移动端 `footer-inner` 竖向堆叠。
+
 ---
 
 ## 5. 响应式（Responsive）

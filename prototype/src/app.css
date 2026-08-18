@@ -1,4 +1,4 @@
-/* prototype/src/app.css v1.14.34 — 组件与布局样式 (DESIGN.md)
+/* prototype/src/app.css v1.14.35 — 组件与布局样式 (DESIGN.md)
    设计令牌与 reset 已拆分至 src/styles/tokens.css，由 build.mjs 顺序拼接。 */
 
 /* ---------- 全局 UX 增强（无障碍 + 动效 + 长列表） ---------- */
@@ -229,3 +229,39 @@ html[data-theme="dark"] .btn-ghost { color: var(--text); }
 /* 语言切换后英文描述 */
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
+
+/* ---------- 页脚区（DESIGN §4.6） ---------- */
+.site-footer {
+  margin-top: 56px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-2);
+}
+.footer-inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 32px 24px 20px;
+  display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; justify-content: space-between;
+}
+.footer-brand { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.footer-logo { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; }
+.footer-logo .logo { border-radius: 6px; }
+.footer-desc { margin: 0; font-size: 13px; line-height: 1.6; color: var(--text-2); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
+.footer-link {
+  font-size: 13px; color: var(--text-2); text-decoration: none;
+  transition: color .15s;
+}
+.footer-link:hover { color: var(--primary); }
+.footer-bottom {
+  max-width: var(--maxw); margin: 0 auto; padding: 14px 24px 28px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--text-3);
+  border-top: 1px dashed var(--border);
+}
+.footer-ver { font-family: var(--font-mono); color: var(--text-2); }
+.footer-sep { opacity: .6; }
+.footer-copy { color: var(--text-3); }
+
+@media (max-width: 640px) {
+  .footer-inner { flex-direction: column; gap: 18px; padding-left: 16px; padding-right: 16px; }
+  .footer-bottom { padding-left: 16px; padding-right: 16px; }
+}

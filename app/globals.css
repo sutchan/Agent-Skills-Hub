@@ -1,4 +1,4 @@
-/* app/globals.css v1.1.11 — 应用全局样式（对齐 prototype 设计令牌） */
+/* app/globals.css v1.1.12 — 应用全局样式（对齐 prototype 设计令牌） */
  *
  * 令牌体系与 prototype/src/styles/tokens.css 完全一致（HSL 语义令牌 + 扁平桥接别名），
  * 主色统一为绿色（原型单一主色），确保 app 与原型视觉对齐、单一事实来源。
@@ -168,4 +168,23 @@ button { font-family: inherit; cursor: pointer; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
+
+/* ---------- 页脚区（对齐 prototype DESIGN §4.6） ---------- */
+.site-footer { margin-top: 56px; border-top: 1px solid var(--border); background: var(--surface); color: var(--text-2); }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; padding: 32px 24px 20px; display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; }
+.footer-brand { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.footer-logo { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; }
+.footer-logo .logo { width: 20px; height: 20px; border-radius: 6px; }
+.footer-desc { margin: 0; font-size: 13px; line-height: 1.6; color: var(--text-2); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
+.footer-link { font-size: 13px; color: var(--text-2); text-decoration: none; transition: color .15s; }
+.footer-link:hover { color: var(--primary); }
+.footer-bottom { max-width: var(--maxw); margin: 0 auto; padding: 14px 24px 28px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-3); border-top: 1px dashed var(--border); }
+.footer-ver { font-family: var(--font-mono); color: var(--text-2); }
+.footer-sep { opacity: .6; }
+.footer-copy { color: var(--text-3); }
+
+@media (max-width: 640px) {
+  .footer-inner { flex-direction: column; gap: 18px; }
 }
