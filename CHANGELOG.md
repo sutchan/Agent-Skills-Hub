@@ -12,6 +12,12 @@
 - **文档同步路径**：`README.md`/`README.en.md`「品牌资产」章节与 `prototype/DESIGN.md` §8 全部引用改为 `app/public/`；清理根目录遗留临时验证脚本 `_verify_brand.cjs`/`_verify_out.cjs`
 - **版本号同步**：package.json → v1.14.34；build.mjs / AppShell.tsx 头注释 → v1.14.34
 
+### fix: 调整 logo 尺寸、主标题字号并修复头像背景丢失
+
+- **prototype**：`.brand .logo` 尺寸 32px→64px（圆角 16px、内部图标 28px）；`.hero h1` 主标题 30px→36px；修复 `.avatar` 背景丢失 bug——原背景写在 `.card .avatar`（特异性限定）导致弹窗头像（`.dialog-head .avatar`）不命中而丢失渐变，抽取基础 `.avatar` 规则承载渐变背景，卡片与弹窗共用
+- **app（Next.js）**：顶栏主标题 `.brand` 18px→24px、`.logo` 22px→40px（emoji 图标按视觉协调放大）；app 层 `.avatar` 基础规则本身含背景，无此 bug
+- **版本号同步**：prototype/src/app.css 头 → v1.14.34；app/package.json → v1.1.11、app/globals.css 头 → v1.1.11
+
 ## [1.14.33] - 2026-08-17
 
 ### fix: 设计系统主绿降饱和统一

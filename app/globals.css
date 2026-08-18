@@ -1,4 +1,4 @@
-/* app/globals.css v1.14.29 — 应用全局样式（与 prototype 设计令牌同源，DESIGN.md §2 事实来源）
+/* app/globals.css v1.1.11 — 应用全局样式（对齐 prototype 设计令牌） */
  *
  * 令牌体系与 prototype/src/styles/tokens.css 完全一致（HSL 语义令牌 + 扁平桥接别名），
  * 主色统一为绿色（原型单一主色），确保 app 与原型视觉对齐、单一事实来源。
@@ -100,8 +100,8 @@ button { font-family: inherit; cursor: pointer; }
 
 .app-shell { max-width: var(--maxw); margin: 0 auto; padding: 0 24px 64px; }
 .topbar { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
-.brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; }
-.logo { font-size: 22px; }
+.brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 24px; }
+.logo { font-size: 40px; line-height: 1; }
 .topbar-actions { display: flex; align-items: center; gap: 8px; }
 .icon-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); border-radius: 10px; height: 40px; padding: 0 14px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s, transform .1s, box-shadow .15s; }
 .icon-btn:hover { color: var(--text); background: var(--surface); box-shadow: var(--shadow-pop); }
