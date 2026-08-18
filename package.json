@@ -7,5 +7,8 @@
     "build": "node build-skills-data.mjs && node build.mjs",
     "serve": "node build.mjs && npx --yes serve prototype"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.11.0"
+  }
 }

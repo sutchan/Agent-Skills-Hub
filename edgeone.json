@@ -1,6 +1,6 @@
 {
   "outputDirectory": "./prototype",
-  "nodeVersion": "22.11.0",
+  "nodeVersion": "24.11.0",
   "installCommand": "echo 'no npm dependencies to install'",
   "buildCommand": "npm run build"
 }
