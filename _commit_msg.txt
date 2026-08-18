@@ -1,8 +1,0 @@
-fix: 原型 logo 同源 symbol 化并修正 app favicon 引用
-
-- 原型页眉/页脚 logo 改用 <use href="#ash-hub"> 同源引用 brand/hub.svg symbol，落实 DESIGN 8.2
-- app/layout.tsx 的 metadata.icons 由已删除的 /icon.svg 改指 /favicon.svg，修复部署后图标 404
-- 全局品牌记忆校正为 brand/hub.svg(symbol 源)+app/public/(资产目录) 架构
-- 版本升至 v1.14.46，同步 CHANGELOG/README 徽章/DESIGN 头注释
-
-Co-Authored-By: Claude <noreply@anthropic.com>
