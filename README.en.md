@@ -1,6 +1,8 @@
-# Skills
+# Agent Skills Hub
 
-[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.14.35-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+![Agent Skills Hub Banner](app/public/banner.svg)
+
+[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.14.36-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Author: Sut Chan
 >
@@ -338,6 +340,7 @@ The project uses a unified vector logo and favicon in brand green `#2f9e63` (HSL
 | Color logo | [`app/public/logo.svg`](app/public/logo.svg) | Rounded-square tile with three nodes converging to a hub; for headers and covers |
 | Monochrome logo | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | Dark-green tile with brand-green glyph; for light footers / print |
 | Favicon | [`app/public/favicon.svg`](app/public/favicon.svg) | Solid green, no gradient; for browser tabs and bookmarks |
+| README banner | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 brand-green gradient + title/subtitle, hero under the title |
 | App icon | [`app/icon.svg`](app/icon.svg) | Auto-detected by Next.js as favicon / apple-touch (from `app/public/favicon.svg`) |
 
 - Logo meaning, safe area, minimum size, palette and don'ts: see [`prototype/DESIGN.md` §8 Brand Identity](prototype/DESIGN.md).

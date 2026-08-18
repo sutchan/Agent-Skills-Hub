@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.36] - 2026-08-18
+
+### feat: 新增 README banner 横幅
+
+- 新增 `app/public/banner.svg`（1200×400，品牌主绿渐变 `#2e9e6b→#5cc98c`，复用 logo 三节点 Hub 图形 + 项目名/副标题），作为品牌资产单一来源
+- `README.md`/`README.en.md` 标题下引用 banner（`![Agent Skills Hub Banner](app/public/banner.svg)`）；英文版标题同步修正为 `Agent Skills Hub`
+- 文档同步：`DESIGN.md` §8 新增 banner 资产说明与表格行；README 中英「品牌资产」章节表格补充 banner 行
+- 版本号同步至 v1.14.36
+
 ## [1.14.35] - 2026-08-18
 
 ### feat: 页面新增页脚区（原型 + 应用代码同步）

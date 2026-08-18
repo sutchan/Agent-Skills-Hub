@@ -1,6 +1,8 @@
 # Agent Skills Hub
 
-[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.35-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+![Agent Skills Hub Banner](app/public/banner.svg)
+
+[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.36-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >
@@ -349,6 +351,7 @@ npm run start    # 启动生产服务
 | 彩色主标志 | [`app/public/logo.svg`](app/public/logo.svg) | 圆角方底 + 三节点汇聚 Hub，用于页眉、文档封面 |
 | 单色标志 | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | 深墨绿底 + 主绿图形，用于浅色页脚/印刷 |
 | 网站图标 | [`app/public/favicon.svg`](app/public/favicon.svg) | 纯绿无渐变，浏览器标签与书签 |
+| README 横幅 | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 主绿渐变 + 项目名/副标题，标题下 hero 图 |
 | 应用图标 | [`app/icon.svg`](app/icon.svg) | Next.js 自动识别为 favicon / apple-touch（源自 `app/public/favicon.svg`） |
 
 - 标志释义、安全区、最小尺寸、配色板与禁用示例见 [`prototype/DESIGN.md` §8 品牌形象规范](prototype/DESIGN.md)。

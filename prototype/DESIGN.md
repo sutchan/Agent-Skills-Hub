@@ -246,9 +246,9 @@
 
 ## 8. 品牌形象规范（Brand Identity）
 
-品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标），由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源生成（保留在 `app/` 以符合 Next.js 约定）。所有资产在 `README.md`「品牌资产」章节统一索引。
+品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅），由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源生成（保留在 `app/` 以符合 Next.js 约定）。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.14.34 — 品牌资产目录由仓库根 `brand/` 迁至 `app/public/`（Next.js 以 `/` 提供），`app/icon.svg` 应用图标保留于 `app/` 同源。
+> 版本：v1.14.36 — `app/public/banner.svg` README 横幅（品牌主绿渐变 + 复用 logo 图形 + 项目名/副标题），在 `README.md`/`README.en.md` 标题下引用。
 
 ### 8.1 标志释义（Logo）
 
@@ -259,6 +259,7 @@
 | 彩色主标志 | `logo.svg` | 官网页眉、README 头图、文档封面 | 浅/深皆可（自身含底） |
 | 单色版 | `app/public/logo-monochrome.svg` | 页脚、浅色文档、印刷单色场景 | 浅色 |
 | 网站图标 | `app/public/favicon.svg` | 浏览器标签、书签 | 透明（纯绿图形） |
+| README 横幅 | `app/public/banner.svg` | `README.md`/`README.en.md` 标题下顶部 hero（1200×400，主绿渐变 + 项目名/副标题） | 浅/深皆可（自身含底） |
 | 应用图标 | `app/icon.svg` | Next.js `app/` 的 favicon / apple-touch（源自 `app/public/favicon.svg`） | 透明（纯绿图形） |
 
 ### 8.2 标志网格与安全区
