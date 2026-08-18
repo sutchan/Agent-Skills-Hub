@@ -7,12 +7,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // 脚本已移出 prototype/ 到仓库根目录；原型源位于 prototype/
 const PROTO = join(__dirname, "prototype");
 const SRC = join(PROTO, "src");
-const OUT_DIR = join(PROTO, "out");
+// 产物直接输出到 prototype/ 根目录（index.html + favicon.svg），不再嵌套 out/ 子目录，
+// 使 prototype/index.html 即部署入口，edgeone.json 的 outputDirectory 指向 ./prototype。
+const OUT_DIR = PROTO;
 
 const htmlTpl = readFileSync(join(SRC, "index.html"), "utf8");
 // 设计令牌与组件样式分文件维护，按序拼接为单一内联样式（tokens 在前，变量先定义）
 const STYLES_DIR = join(SRC, "styles");
-const css = readFileSync(join(STYLES_DIR, "tokens.css"), "utf8") + "\n" + readFileSync(join(SRC, "app.css"), "utf8");
+// 样式按职责拆分为多个模块（src/styles/*），按显式顺序拼接（tokens 必须先定义变量）：
+// tokens(设计令牌) → base(全局UX/焦点/动效/toast) → layout(顶栏/Hero/控制/分类/网格/页脚)
+// → components(卡片/分类chip/按钮/弹窗) → responsive(媒体查询，必须最后以保证覆盖)
+const CSS_ORDER = ["tokens.css", "base.css", "layout.css", "components.css", "responsive.css"];
+const css = CSS_ORDER
+  .map((f) => readFileSync(join(STYLES_DIR, f), "utf8"))
+  .join("\n");
 // 交互逻辑按职责拆分为 src/parts/* 多模块，按文件名顺序拼接为单一脚本（同作用域，函数声明 hoist）
 const PARTS_DIR = join(SRC, "parts");
 const js = readdirSync(PARTS_DIR)
@@ -55,12 +63,12 @@ const out = htmlTpl
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(join(OUT_DIR, "index.html"), out, "utf8");
 
-// 复制品牌 favicon 到 out/，使原型部署后 <link rel="icon" href="favicon.svg"> 可达（data URI 仍保证离线自包含）
+// 复制品牌 favicon 到 prototype/ 根目录，使原型部署后 <link rel="icon" href="favicon.svg"> 可达（data URI 仍保证离线自包含）
 // 品牌资产统一存放于 app/public/（单一来源），app/icon.svg 为应用图标同源生成
 const favSrc = join(__dirname, "app", "public", "favicon.svg");
 if (existsSync(favSrc)) {
   copyFileSync(favSrc, join(OUT_DIR, "favicon.svg"));
-  console.log("Copied favicon.svg -> prototype/out/favicon.svg");
+  console.log("Copied favicon.svg -> prototype/favicon.svg");
 }
 
 console.log(`Built self-contained prototype -> ${join(OUT_DIR, "index.html")} (${(out.length / 1024).toFixed(1)} KB)`);

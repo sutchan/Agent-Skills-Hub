@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.42] - 2026-08-18
+
+### refactor: 优化 prototype 目录结构并将样式按职责拆分
+
+- **产物移出 out/ 子目录**：`build.mjs` 的 `OUT_DIR` 由 `prototype/out` 改为 `prototype/`，构建产物直接输出 `prototype/index.html` + `prototype/favicon.svg`，删除 `prototype/out/` 嵌套；`edgeone.json` 的 `outputDirectory` 由 `./prototype/out` 改为 `./prototype`，使 `prototype/index.html` 即部署入口
+- **CSS 按职责拆分**（修复 app.css 268 行超 200 行规则）：原 `prototype/src/app.css` 拆分为 `src/styles/` 下 `base.css`（全局 UX/无障碍/动效/toast）、`layout.css`（顶栏/Hero/控制/分类/网格/弹窗/页脚）、`components.css`（卡片/chip/按钮/弹窗操作区）、`responsive.css`（媒体查询，最后加载保证覆盖）；`build.mjs` 改为按显式顺序 `tokens→base→layout→components→responsive` 拼接
+- **文档同步**：`DESIGN.md`/`COMPONENTS.md` 的 `prototype/out/` 引用更新为 `prototype/` 与 `prototype/index.html`，头版本同步至 v1.14.42；README 徽章同步
+- **版本同步**：根 package.json → v1.14.42
+
 ## [1.14.41] - 2026-08-18
 
 ### fix: 排除腾讯云 EO 与 Vercel 部署问题

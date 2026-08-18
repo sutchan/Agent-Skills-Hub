@@ -1,10 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.14.38
+> 路径：`prototype/DESIGN.md` · 版本：1.14.42
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts）**：`prototype/out/index.html` 为纯 HTML 自包含单文件——由根目录 `build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` + `src/app.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `data/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/out/` 为构建产物（构建脚本 `build.mjs`/`build-skills-data.mjs` 置于仓库根，不混入原型目录）。
+> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts）**：`prototype/index.html` 为纯 HTML 自包含单文件——由根目录 `build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` + `src/app.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `data/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 为构建产物（构建脚本 `build.mjs`/`build-skills-data.mjs` 置于仓库根，不混入原型目录）。
 
 ---
 
@@ -15,7 +15,7 @@
 | 极简（Minimal） | 克制的视觉语言，留白即设计；单一主色，避免渐变滥用与装饰性元素 |
 | 层级清晰（Hierarchy） | 通过字号、字重、色彩对比建立明确的信息层级，首屏 3 秒可读懂核心 |
 | 一致（Consistent） | 所有间距、圆角、阴影、动效遵循统一 Token，视觉基线参考 shadcn/ui（**仅为设计风格参考，原型无 shadcn/Tailwind/Radix 运行时**） |
-| 真实（Real Data） | 原型数据为构建期从磁盘 `skills/<name>/SKILL.md` 由根目录 `build-skills-data.mjs` 生成 `data/skills-data.json`，再由根目录 `build.mjs` 注入并预渲染进 `prototype/out/`，非占位假数据 |
+| 真实（Real Data） | 原型数据为构建期从磁盘 `skills/<name>/SKILL.md` 由根目录 `build-skills-data.mjs` 生成 `data/skills-data.json`，再由根目录 `build.mjs` 注入并预渲染进 `prototype/`，非占位假数据 |
 | 无障碍（Accessible） | 对比度 ≥ WCAG AA，键盘可达，支持 `prefers-reduced-motion` |
 
 ---
@@ -123,7 +123,7 @@
 
 ### 3.1 基础组件（Base）— `components/ui/*`（构建期源码映射）
 
-> 以下组件为**原型源码结构映射**（源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/out/index.html`）；此处列出供理解静态产物的实现结构与评审对齐。注：当前实现为原生 HTML/CSS/JS（非 React 组件文件），交互脚本已按职责拆分到 `src/parts/`（01-state / 02-render / 03-detail / 04-interactions / 05-main），以下按职责对应到对应 parts 模块的渲染/交互函数。
+> 以下组件为**原型源码结构映射**（源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/index.html`）；此处列出供理解静态产物的实现结构与评审对齐。注：当前实现为原生 HTML/CSS/JS（非 React 组件文件），交互脚本已按职责拆分到 `src/parts/`（01-state / 02-render / 03-detail / 04-interactions / 05-main），以下按职责对应到对应 parts 模块的渲染/交互函数。
 
 | 组件 | 文件 | 变体/状态 |
 |------|------|-----------|
@@ -226,7 +226,7 @@
 
 ## 6. 数据架构（Data Contract）
 
-- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `data/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/out/index.html` 静态产物（仓库已入库 `prototype/out/`，如需更新数据重跑两脚本即可）。
+- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `data/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/index.html` 静态产物（仓库已入库 `prototype/`，如需更新数据重跑两脚本即可）。
 - 数据 Schema（实际为扁平结构）：`{ total:number, categories:[{name,count}], skills: Skill[] }`，其中 `Skill{ name, category, zh, description, allowedTools }`，与 `openspec/project.md` §4.5 的 `skills-data.json` Schema 严格一致。
 - 分类英文名为文档映射（`tools/_skill_readme_lib.py` 的 `CATEGORY_EN`），非数据内嵌。
 - 注意：`app/` 是项目**可运行 Web 应用**源码工作区（见 `app/README.md`），与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`。
@@ -237,10 +237,10 @@
 ## 7. 技术栈（构建期，产物已预渲染）
 
 - 原型为**纯静态原生实现**：`src/index.html`（HTML 模板）+ `src/styles/tokens.css` + `src/app.css`（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind/HSL）+ `src/i18n.js`（独立国际化模块）+ `src/parts/*.js`（原生 JS 渲染与交互，按职责拆分 01-state / 02-render / 03-detail / 04-interactions / 05-main，无 React/Next.js/Radix）。
-- 构建：根目录 `build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/out/index.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
-- 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/out/index.html`。
-- 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/out/index.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
-- 部署：腾讯云 EdgeOne（`edgeone.json`，以 `prototype/out/` 为站点根目录；`installCommand` 跳过依赖安装，`buildCommand` 执行 `npm run build` 重新生成产物）。
+- 构建：根目录 `build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/index.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
+- 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/index.html`。
+- 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/index.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
+- 部署：腾讯云 EdgeOne（`edgeone.json`，以 `prototype/` 为站点根目录；`installCommand` 跳过依赖安装，`buildCommand` 执行 `npm run build` 重新生成产物）。
 
 ---
 
@@ -248,7 +248,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`brand/hub.svg`](brand/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use color="...">` 控制图形色），`logo/favicon/icon/mono/banner` 均内联同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.14.38 — banner 标题改衬线展示体（Georgia/中文宋体），正文无衬线；新增 `banner-og.svg`（1.91:1）社交分享变体；所有标志内联 `brand/hub.svg` 同源 `<symbol>` 并补 `xlink:href` 回退；文字加墨绿描边滤镜保证 WCAG AA；装饰改为品牌波纹点阵。
+> 版本：v1.14.42 — banner 标题改衬线展示体（Georgia/中文宋体），正文无衬线；新增 `banner-og.svg`（1.91:1）社交分享变体；所有标志内联 `brand/hub.svg` 同源 `<symbol>` 并补 `xlink:href` 回退；文字加墨绿描边滤镜保证 WCAG AA；装饰改为品牌波纹点阵。
 
 ### 8.1 标志释义（Logo）
 
@@ -286,7 +286,7 @@
 
 - 格式：SVG（矢量，自适应任意 DPI）；如目标平台仅接受位图，由 `favicon.svg` 栅格化为 32×32 / 180×180（apple-touch）PNG。
 - 颜色：纯 `#2e9e6b` 底 + 反白图形，无渐变（保证 16px 下清晰）。
-- 部署：`prototype/out/favicon.svg` 由根 `build.mjs` 从 `app/public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons.icon = "/icon.svg"` 引用（该 `/icon.svg` 对应 `app/icon.svg`，与 `app/public/favicon.svg` 同源）。
+- 部署：`prototype/favicon.svg` 由根 `build.mjs` 从 `app/public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons.icon = "/icon.svg"` 引用（该 `/icon.svg` 对应 `app/icon.svg`，与 `app/public/favicon.svg` 同源）。
 
 ### 8.5 禁用示例（Don'ts）
 
