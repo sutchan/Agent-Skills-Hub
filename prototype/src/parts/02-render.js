@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.29 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.43 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
@@ -29,10 +29,15 @@ function renderCats(counts) {
   $("#cats").innerHTML = items.join("");
 }
 
+// 由技能名派生稳定且 URL/ID 安全的 slug（小写中划线），供卡片 id 锚点与 E2E 定位
+function skillSlug(name) {
+  return String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
 // 卡片：主标题显示技能英文名（权威标识、简短、永不丢失），中文描述交给 .desc
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
-  return `<article class="card" data-name="${esc(s.name)}" role="button" tabindex="0" aria-label="${esc(label)}">
+  return `<article class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" role="button" tabindex="0" aria-label="${esc(label)}">
     <div class="body">
       <div class="title-row">
         <div class="avatar">${initials(s.name)}</div>

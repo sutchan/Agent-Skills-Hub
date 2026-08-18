@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.43] - 2026-08-18
+
+### fix: 完善原型无障碍、社交分享与 DOM 锚点
+
+- **社交分享 meta（OG/Twitter Card）**：`prototype/src/index.html` 新增 Open Graph 与 Twitter Card 元标签，`og:image`/`twitter:image` 指向 `banner-og.svg`；`build.mjs` 同步复制 `app/public/banner-og.svg` 到 `prototype/` 根
+- **卡片语义化 id**：`02-render.js` 的 `cardHTML` 新增 `id="skill-<slug>"`（slug 由技能名派生），便于锚点跳转与 E2E 精确选取（保留既有 `data-name`）
+- **reduced-motion 优化**：`base.css` 在 `prefers-reduced-motion` 下去除 `.to-top`/`.toast` 的 transform 位移，仅保留淡入，避免瞬跳（WCAG 2.3.3）
+- **文档头注释同步**：`index.html`/`02-render.js`/`base.css`/`build.mjs` 头版本更新至 v1.14.43；README 徽章同步
+- **数据一致性已确认**：磁盘 `skills/` 共 204 目录，其中 `.skills-manager`/`cache`/`logs`/`scenarios` 为非技能目录（无 SKILL.md），生成器正确跳过；有效技能 **200** 个与 README 声明一致，无需改动
+
 ## [1.14.42] - 2026-08-18
 
 ### refactor: 优化 prototype 目录结构并将样式按职责拆分

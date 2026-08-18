@@ -1,4 +1,4 @@
-// build.mjs v1.14.35 — 将 src 模板 + 真实数据内联为自包含 out/index.html
+// build.mjs v1.14.43 — 将 src 模板 + 真实数据内联为自包含 prototype/index.html（产物直出 prototype/ 根）
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -69,6 +69,12 @@ const favSrc = join(__dirname, "app", "public", "favicon.svg");
 if (existsSync(favSrc)) {
   copyFileSync(favSrc, join(OUT_DIR, "favicon.svg"));
   console.log("Copied favicon.svg -> prototype/favicon.svg");
+}
+// 复制社交分享横幅（Open Graph / Twitter Card），供 index.html 的 og:image 引用
+const ogSrc = join(__dirname, "app", "public", "banner-og.svg");
+if (existsSync(ogSrc)) {
+  copyFileSync(ogSrc, join(OUT_DIR, "banner-og.svg"));
+  console.log("Copied banner-og.svg -> prototype/banner-og.svg");
 }
 
 console.log(`Built self-contained prototype -> ${join(OUT_DIR, "index.html")} (${(out.length / 1024).toFixed(1)} KB)`);
