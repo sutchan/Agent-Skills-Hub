@@ -2,6 +2,14 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.50] - 2026-08-19
+
+### fix: 重建 prototype/index.html 为 173，补齐 v1.14.49 遗漏的原型产物
+
+- **重建原型产物**：v1.14.49 虽将 README 与 `data/skills-data.json` 清理为 173，但 `prototype/index.html`（out 产物）仍内嵌旧 200 条数据；本次重新执行 `npm run build`，以磁盘 173 个技能重建 `prototype/index.html`（107.4 KB），消除原型中 27 个幽灵技能导致的「查看技能」404
+- **源码注释同步**：`prototype/src/parts/01-state.js` 索引扫描注释「200 条」→「173 条」
+- **版本号同步**：根 `package.json` → v1.14.50，README/README.en 版本徽章、`src/index.html` 头注释同步
+
 ## [1.14.49] - 2026-08-19
 
 ### refactor: 技能数据以磁盘实况重建为 173，README 移除原型描述
@@ -251,8 +259,6 @@
 - **详情弹窗焦点陷阱监听器泄漏**：`trapFocus` 每次打开在 `#dialog` 上新增 keydown 监听，但仅 Esc 关闭路径移除，点关闭按钮/遮罩关闭时不移除，多次打开后监听器累积叠加；改为将 `onKey` 存为 `dialog._onKey`，`closeDetail` 统一移除（覆盖所有关闭路径）
 - **分享无反馈且吞错误**：`shareSkill` 在原 `navigator.share` 分支 `.catch(()=>{})` 吞错、成功/失败均不 toast、失败不回退；改为成功/失败均 toast 提示，非用户取消的失败回退到剪贴板复制，新增统一 `copyToClipboard` 入口，与 app 层 `useShare` 行为对齐（openspec §4.5.4）
 - **版本号同步**：package.json → v1.14.26；prototype/src/parts/03-detail.js 头注释 → v1.14.26；tools/coverage.py 头注释 → 1.0.1
-
-## [1.14.26] - 2026-08-17
 
 ### fix: 修复深色模式下部分按钮可读性差的问题
 
@@ -546,6 +552,14 @@
 - **长列表导航**：新增「回到顶部」按钮（`#toTop`），滚动超阈值淡入、点击平滑回顶；分类条右侧溢出渐隐遮罩提示可横向滚动
 - 版本号：prototype/src 改动文件头统一至 v1.13.0
 
+### 主色调由紫色改为绿色 + 设计文档对齐
+
+- `prototype/src/styles/tokens.css`：浅色 `--primary` `#4f46e5`→`#16a34a`、`--primary-weak` `#eef0fe`→`#e7f6ec`、`--primary-strong` `#4338ca`→`#15803d`；深色 `--primary` `#818cf8`→`#4ade80`、`--primary-weak` `#232644`→`#16291f`、`--primary-strong` `#a5b0ff`→`#86efac`
+- `prototype/src/app.css`：品牌 logo 与卡片头像渐变末端 `#8b5cf6`→`#22c55e`（2 处）
+- `prototype/DESIGN.md`：§2.1 色彩表 `--primary`/`--accent`/`--ring` 的 HSL 值与描述同步为绿色（原文档 HSL 仍写紫，已修正为 `142 71%` 绿相，消除文档与代码脱节）
+- `prototype/out/index.html`：重跑 `node build.mjs` 重新生成自包含产物，已无紫色残留（校验 0 处）
+- 校验：仅替换色值，未改动 DOM 结构与交互逻辑；语义化 id（上轮 v1.10.0 已加）保持不动；对比度仍满足 WCAG AA
+
 ## [1.12.0] - 2026-08-15
 
 ### 代码审查：无障碍增强、性能优化、规范对齐与模块拆分
@@ -599,25 +613,6 @@
 - **动态文案集中**：`prototype/src/app.js` 的空状态、详情弹窗标题改用 `I18N.t(key)`，语言状态与 `data-lang`/`<html lang>` 同步统一交给模块
 - **构建管道** `prototype/build.mjs`：新增 `{{I18N}}` 占位符，将 `i18n.js` 内联进 `out/index.html`（保证 `I18N` 在 `app.js` 前加载）
 - 校验：Node 单测覆盖字典覆盖、缺失 key 兜底、非法语言忽略、字典损坏不抛错；构建产物已验证内联且无残留占位符
-
-## [1.13.1] - 2026-08-15
-
-### 样式优化：降低绿色主色调饱和度提升文字可读性
-
-- **主色调降饱和**：浅色 `--primary` `#16a34a`→`#2e9e6b`、深色 `#4ade80`→`#5cc98c`，降低饱和度并微调明度
-- **白字对比度**：主按钮/选中态绿底白字对比度达 WCAG AA（≥4.5:1），文字更清晰可读
-- **同步**：DESIGN.md 主色 HSL 表（142 71%→152 56% / 146 52%）、渐变端点、原型产物 `out/index.html` 一并更新
-- 版本号：prototype/src 改动文件头统一至 v1.13.1
-
-## [1.13.0] - 2026-08-15
-
-### 主色调由紫色改为绿色 + 设计文档对齐
-
-- `prototype/src/styles/tokens.css`：浅色 `--primary` `#4f46e5`→`#16a34a`、`--primary-weak` `#eef0fe`→`#e7f6ec`、`--primary-strong` `#4338ca`→`#15803d`；深色 `--primary` `#818cf8`→`#4ade80`、`--primary-weak` `#232644`→`#16291f`、`--primary-strong` `#a5b0ff`→`#86efac`
-- `prototype/src/app.css`：品牌 logo 与卡片头像渐变末端 `#8b5cf6`→`#22c55e`（2 处）
-- `prototype/DESIGN.md`：§2.1 色彩表 `--primary`/`--accent`/`--ring` 的 HSL 值与描述同步为绿色（原文档 HSL 仍写紫，已修正为 `142 71%` 绿相，消除文档与代码脱节）
-- `prototype/out/index.html`：重跑 `node build.mjs` 重新生成自包含产物，已无紫色残留（校验 0 处）
-- 校验：仅替换色值，未改动 DOM 结构与交互逻辑；语义化 id（上轮 v1.10.0 已加）保持不动；对比度仍满足 WCAG AA
 
 ## [1.10.0] - 2026-08-15
 
@@ -737,6 +732,41 @@
 - 修正「测试与质量」「Agent 与 AI 工程」分类计数（20 → 19），使各分类合计与总数一致
 - 中文版与英文版均补充本地化说明段，明确技能描述为「中文目录 + 中文描述」
 - 修复 `tools/skills_readme.py`：verify 误将 `skills/` 路径前缀当作技能名导致全量误报；gen-en 生成链接路径补全 `skills/` 前缀
+
+### 文档
+
+- 删除冗余技能，技能总数由 201 调整为 199
+- `continuous-learning`：已有 `continuous-learning-v2` 替代，删除旧版
+- `webapp-testing-2`：与 `e2e-testing` / `browser-qa` 功能重叠且命名遗留 `-2`，删除
+- 同步更新 `README.md`、`README.en.md`（分类计数与总数）与 `site/data/skills.json`
+
+## [1.0.4] - 2026-07-31
+
+### 文档
+
+- 重构 `README.en.md` 为真正的英文文档：英文标题/栏目/说明，技能描述由 `gen-en` 从各 `SKILL.md` 自动提取（英文技能保留英文描述，中文技能保留中文描述）
+- 英文版补充「Repository Structure」「Usage（含 skills-manager 一键安装、Next.js 在线展示、技能检索）」「Contributing」「Related Documents」等章节
+- 修正英文版仓库链接（旧 `skills-chinese` → `Agent-Skills-Hub`）与 workspace 文件名引用
+- 增强 `tools/skills_readme.py` 的 `read_description`：正确解析 YAML 折叠块标量（`|`/`>`/`|-`/`>-`），修复中文技能描述被截断或误取标记符号的问题
+- 修复后 `gen-en` 产出描述完整，`verify` 校验通过（199 个技能一致）
+
+## [1.0.5] - 2026-07-31
+
+### 文档
+
+- 删除冗余技能 `autonomous-loops`：其 `SKILL.md` 已声明 canonical 名改为 `continuous-agent-loop`，保留一个版本避免破坏现有工作流，与 `continuous-learning`（v2 替代 v1）、`webapp-testing-2`（遗留 `-2` 命名）同属被替代/遗留命名的冗余清理
+- 同步更新 `README.md`、`README.en.md`（总数 199→198，「Agent 与 AI 工程」分类 19→18）与 `site/data/skills.json`
+- 清理临时分析文件 `descs.txt`、`sim.txt`
+
+## [1.0.6] - 2026-07-31
+
+### 功能
+
+- `site` 展示页新增中英文切换功能
+- `Showcase.jsx`：新增 `lang` 状态与 `toggleLang`；界面文案（标题、按钮、统计标签、搜索占位、分类名、空态、页脚）双语化；分类名维护中文→英文映射；卡片与弹窗按当前语言显示对应描述（缺失时回退另一语言）
+- `layout.jsx`：新增首屏 `lang` 内联脚本，避免语言切换闪烁，同步 `<html lang>`
+- `globals.css`：新增 `.lang-toggle` 按钮样式，卡片/弹窗描述样式合并为 `.card-desc` / `.modal-desc`
+- 语言偏好持久化到 `localStorage`，默认跟随浏览器语言
 
 ## [1.4.0] - 2026-08-08
 
@@ -897,40 +927,4 @@
 [1.14.47]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.47
 [1.14.48]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.48
 [1.14.49]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.49
-
-## [1.0.3] - 2026-07-31
-
-### 文档
-
-- 删除冗余技能，技能总数由 201 调整为 199
-- `continuous-learning`：已有 `continuous-learning-v2` 替代，删除旧版
-- `webapp-testing-2`：与 `e2e-testing` / `browser-qa` 功能重叠且命名遗留 `-2`，删除
-- 同步更新 `README.md`、`README.en.md`（分类计数与总数）与 `site/data/skills.json`
-
-## [1.0.4] - 2026-07-31
-
-### 文档
-
-- 重构 `README.en.md` 为真正的英文文档：英文标题/栏目/说明，技能描述由 `gen-en` 从各 `SKILL.md` 自动提取（英文技能保留英文描述，中文技能保留中文描述）
-- 英文版补充「Repository Structure」「Usage（含 skills-manager 一键安装、Next.js 在线展示、技能检索）」「Contributing」「Related Documents」等章节
-- 修正英文版仓库链接（旧 `skills-chinese` → `Agent-Skills-Hub`）与 workspace 文件名引用
-- 增强 `tools/skills_readme.py` 的 `read_description`：正确解析 YAML 折叠块标量（`|`/`>`/`|-`/`>-`），修复中文技能描述被截断或误取标记符号的问题
-- 修复后 `gen-en` 产出描述完整，`verify` 校验通过（199 个技能一致）
-
-## [1.0.5] - 2026-07-31
-
-### 文档
-
-- 删除冗余技能 `autonomous-loops`：其 `SKILL.md` 已声明 canonical 名改为 `continuous-agent-loop`，保留一个版本避免破坏现有工作流，与 `continuous-learning`（v2 替代 v1）、`webapp-testing-2`（遗留 `-2` 命名）同属被替代/遗留命名的冗余清理
-- 同步更新 `README.md`、`README.en.md`（总数 199→198，「Agent 与 AI 工程」分类 19→18）与 `site/data/skills.json`
-- 清理临时分析文件 `descs.txt`、`sim.txt`
-
-## [1.0.6] - 2026-07-31
-
-### 功能
-
-- `site` 展示页新增中英文切换功能
-- `Showcase.jsx`：新增 `lang` 状态与 `toggleLang`；界面文案（标题、按钮、统计标签、搜索占位、分类名、空态、页脚）双语化；分类名维护中文→英文映射；卡片与弹窗按当前语言显示对应描述（缺失时回退另一语言）
-- `layout.jsx`：新增首屏 `lang` 内联脚本，避免语言切换闪烁，同步 `<html lang>`
-- `globals.css`：新增 `.lang-toggle` 按钮样式，卡片/弹窗描述样式合并为 `.card-desc` / `.modal-desc`
-- 语言偏好持久化到 `localStorage`，默认跟随浏览器语言
+[1.14.50]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.50

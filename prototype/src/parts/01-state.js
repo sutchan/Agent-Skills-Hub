@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.14.30 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.14.50 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -56,7 +56,7 @@ function catCounts() {
   return m;
 }
 
-// 名称 -> 技能对象索引（01-state 共享作用域），避免每次卡片点击线性扫描 200 条
+// 名称 -> 技能对象索引（01-state 共享作用域），避免每次卡片点击线性扫描 173 条
 let SKILL_MAP = new Map();
 
 // 搜索匹配：名称 / 描述 / 分类（不区分大小写）
