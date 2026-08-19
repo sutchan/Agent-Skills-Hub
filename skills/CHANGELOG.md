@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.53] - 2026-08-19
+
+### refactor: 完善 YAML 折叠标量解析并同步 openspec 文档版本头
+
+- **build-skills-data.mjs 支持折叠/字面量块标量**：修复 `description: >`/`>-`/`|`/`|-` 后内容未完整解析、展示页残留 `>-`/`>` 等垃圾串的问题；现正确折叠缩进行为单段描述，并去除行内 YAML 注释（`stripInlineComment`）
+- **openspec 版本头同步**：`openspec/project.md`/`spec.md` 头注释 → 1.14.53；`spec.md` §1「版本权威源当前」同步为 1.14.53
+- **版本号同步**：根 `package.json` → v1.14.53，README/README.en 版本徽章同步
+- 注：`data/skills-data.json` 与 `prototype/index.html` 技能数受磁盘 `skills/` 实况驱动（当前磁盘含 SKILL.md 的技能目录在整理中），本次未重新 build 以免破坏进行中的技能库变更
+
+## [1.14.52] - 2026-08-19
+
+### refactor: 原型修复未定义 CSS 变量、补全分类选中态并清理死代码
+
+- **修复未定义 CSS 变量**：`layout.css`/`components.css`/`base.css` 多处引用未定义的 `--ink`（文字色）、`--gradient`（Hero/头像背景），导致浅色下白字不可见、深色下破损；统一改用已定义的语义/桥接令牌（`--text`/`--primary`/`--primary-foreground`），Hero 按 DESIGN §2.1 改为主绿底 + 极淡光晕
+- **修正文字色误用**：多处把 `--muted`（表面色）当文字色，浅色下对比不足；改为 `--text-2`（辅助文字），符合 DESIGN §2.1/§8.3 单一主色纪律
+- **补全分类 chip 选中态**：render 生成 `chip active` 但 CSS 缺失 `.chip.active`，分类选中无视觉反馈；补上 hover/active 态与 `chip-count` 样式，并删除 layout.css 中无对应元素的孤儿 `.cat` 定义
+- **清理死代码**：移除 `02-render.js` 中 `catHue()` 与 `--hue` 内联（CSS 从不消费，且与单一主色规范冲突）
+- **修复 meta 技能数漂移**：`index.html` meta/og/twitter 描述硬编码 `173` 与实际 165 不符，改为 `{SKILLS_TOTAL}` 占位符由 `build.mjs` 注入真实数据 total，单一来源
+- **版本号同步**：根 `package.json` → v1.14.52，被改文件头注释（`src/index.html`、`styles/base|layout|components.css`、`parts/01|02`、`build.mjs`）同步；重建 `prototype/index.html` 产物
+
 ## [1.14.50] - 2026-08-19
 
 ### fix: 重建 prototype/index.html 为 173，补齐 v1.14.49 遗漏的原型产物
@@ -928,3 +948,5 @@
 [1.14.48]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.48
 [1.14.49]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.49
 [1.14.50]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.50
+[1.14.52]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.52
+[1.14.53]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.53
