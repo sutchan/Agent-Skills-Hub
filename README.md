@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.46-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![技能数量](https://img.shields.io/badge/skills-200-blue)](README.md) [![版本](https://img.shields.io/badge/version-v1.14.47-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 作者：Sut Chan
 >

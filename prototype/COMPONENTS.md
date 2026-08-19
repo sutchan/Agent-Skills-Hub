@@ -1,6 +1,6 @@
 # 组件库规范（Component Library Spec）
 
-> 路径：`prototype/COMPONENTS.md` · 版本：1.14.44
+> 路径：`prototype/COMPONENTS.md` · 版本：1.14.47
 > 配套 `DESIGN.md` 设计系统。本文规定每个组件的 **Props / 状态 / 用法 / 代码位置**，供后续开发与评审对齐。
 > 原型落地为 **纯原生 HTML/CSS/JS**（非 React/Tailwind），样式由 `src/styles/tokens.css` + `src/styles/base.css`/`layout.css`/`components.css`/`responsive.css` 的 `:root` CSS 变量单一来源驱动，不手写重复 CSS。
 >
@@ -102,7 +102,7 @@ Dialog 由 `#dialog`（`role="dialog"` `aria-modal="true"` `aria-labelledby="dia
 
 ### 14. CategoryFilter（Chip）
 位置：`src/parts/04-interactions.js` 的 `bindChips()`（原型）/ `app/page.tsx`（应用层）。
-数据源：`categories[]`（对象数组 `{name, count}`）+ 内置「全部」（`activeCat===null`）；计数由 `01-state.js` 的 `catCounts()` 按 `state.categories` 聚合。
+数据源：`categories[]`（去重中文分类名 `string[]`）+ 内置「全部」（`activeCat===null`）；计数由 `01-state.js` 的 `catCounts()` 按 `state.categories` 聚合。
 交互：点击 `setActiveCat`（再次点击取消）；`aria-pressed` 反映选中；选中态 `border-primary bg-primary text-primary-foreground`。
 
 ### 15. 主页面装配（合并自旧 Showcase.jsx）

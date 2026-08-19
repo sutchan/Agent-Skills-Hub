@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.14.45
+> 路径：`prototype/DESIGN.md` · 版本：1.14.47
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -227,7 +227,7 @@
 ## 6. 数据架构（Data Contract）
 
 - **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `data/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/index.html` 静态产物（仓库已入库 `prototype/`，如需更新数据重跑两脚本即可）。
-- 数据 Schema（实际为扁平结构）：`{ total:number, categories:[{name,count}], skills: Skill[] }`，其中 `Skill{ name, category, zh, description, allowedTools }`，与 `openspec/project.md` §4.5 的 `skills-data.json` Schema 严格一致。
+- 数据 Schema（实际为扁平结构）：`{ total:number, categories: string[], skills: Skill[] }`，其中 `Skill{ name, category, zh, description, allowedTools }`，`categories` 为去重后的中文分类名 `string[]`（由 `skills[].category` 推导，无 count），与 `openspec/project.md` §4.5 的 `skills-data.json` Schema 严格一致。
 - 分类英文名为文档映射（`tools/_skill_readme_lib.py` 的 `CATEGORY_EN`），非数据内嵌。
 - 注意：`app/` 是项目**可运行 Web 应用**源码工作区（见 `app/README.md`），与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`。
 - 红色底线：数据契约须与 `build-skills-data.mjs`/`build.mjs`、`openspec/project.md` 严格一致。
@@ -248,7 +248,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`brand/hub.svg`](brand/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use color="...">` 控制图形色），`logo/favicon/icon/mono/banner` 均内联同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.14.44 — 文档与实现对齐：产物路径统一为 `prototype/`（去除 `prototype/out/` 旧引用）；样式引用对齐 v1.14.42 的 tokens/base/layout/components/responsive 拆分；`skills-data.json` 数据契约修正为 `categories: string[]`。
+> 版本：v1.14.47 — 文档与实现对齐：产物路径统一为 `prototype/`（去除 `prototype/out/` 旧引用）；样式引用对齐 v1.14.42 的 tokens/base/layout/components/responsive 拆分；`skills-data.json` 数据契约修正为 `categories: string[]`。
 
 ### 8.1 标志释义（Logo）
 

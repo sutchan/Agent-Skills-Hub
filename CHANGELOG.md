@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.47] - 2026-08-19
+
+### docs: 同步规范文档版本头与数据事实（204→200、categories string[]）
+
+- **版本头同步**：`openspec/project.md`/`spec.md`/`AGENTS.md`、`prototype/DESIGN.md`/`COMPONENTS.md` 头部版本由 v1.14.44~45 统一升至 v1.14.47，与根 `package.json`/README/CHANGELOG 对齐
+- **数据事实修正（"约 204" → 200）**：`openspec/project.md` §4.5.1/§4.5.2、`openspec/spec.md` §2.3 中「当前约 204」与磁盘实况脱节，统一改为 200（与 README 声明、`data/skills-data.json` 的 `total` 一致）
+- **spec.md 版本权威源过时**：§1「版本权威源当前 1.14.38」过时，改为动态描述（指向 `package.json`，避免再次脱节）
+- **spec.md CI 路径错误**：§5 注释「CI 脚本 `prototype/skills-data.json`」改为实际产物路径 `data/skills-data.json`
+- **数据契约修正（`categories` 为 `string[]`）**：`prototype/DESIGN.md` §6 数据 Schema 与 `COMPONENTS.md` §14 原写 `categories:[{name,count}]` 对象数组，实际为去重中文分类名 `string[]`，同步修正
+- **版本号同步**：根 `package.json` → v1.14.47
+
 ## [1.14.46] - 2026-08-18
 
 ### fix: 修正 app favicon 引用 404
@@ -858,6 +869,15 @@
 [1.14.36]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.36
 [1.14.37]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.37
 [1.14.38]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.38
+[1.14.39]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.39
+[1.14.40]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.40
+[1.14.41]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.41
+[1.14.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.42
+[1.14.43]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.43
+[1.14.44]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.44
+[1.14.45]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.45
+[1.14.46]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.46
+[1.14.47]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.47
 
 ## [1.0.3] - 2026-07-31
 
