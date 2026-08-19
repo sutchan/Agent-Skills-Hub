@@ -1,4 +1,4 @@
-/* prototype/src/styles/base.css v1.14.43 — 全局 UX 增强（无障碍 + 动效 + 反馈）
+/* prototype/src/styles/base.css v1.14.52 — 全局 UX 增强（无障碍 + 动效 + 反馈）
    设计令牌来自 tokens.css，组件布局见 layout.css / components.css。 */
 
 /* 键盘焦点可见：仅对键盘用户显示焦点环，避免鼠标点击残留描边 */
@@ -16,7 +16,7 @@ body.no-scroll { overflow: hidden; }
 .to-top {
   position: fixed; right: 20px; bottom: 20px; z-index: 40;
   width: 44px; height: 44px; border-radius: 50%;
-  background: var(--primary); color: #fff;
+  background: var(--primary); color: hsl(var(--primary-foreground));
   display: grid; place-items: center;
   box-shadow: var(--shadow-pop);
   opacity: 0; visibility: hidden; transform: translateY(8px);
@@ -29,7 +29,7 @@ body.no-scroll { overflow: hidden; }
 .toast {
   position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px);
   z-index: 60; padding: 10px 18px; border-radius: 10px;
-  background: var(--ink, #1f2937); color: #fff; font-size: 14px; font-weight: 500;
+  background: #1f2937; color: #fff; font-size: 14px; font-weight: 500;
   box-shadow: 0 8px 24px rgba(0,0,0,.18);
   opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s;
   pointer-events: none; max-width: 86vw; text-align: center;

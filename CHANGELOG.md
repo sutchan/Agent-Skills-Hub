@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.52] - 2026-08-19
+
+### refactor: 原型修复未定义 CSS 变量、补全分类选中态并清理死代码
+
+- **修复未定义 CSS 变量**：`layout.css`/`components.css`/`base.css` 多处引用未定义的 `--ink`（文字色）、`--gradient`（Hero/头像背景），导致浅色下白字不可见、深色下破损；统一改用已定义的语义/桥接令牌（`--text`/`--primary`/`--primary-foreground`），Hero 按 DESIGN §2.1 改为主绿底 + 极淡光晕
+- **修正文字色误用**：多处把 `--muted`（表面色）当文字色，浅色下对比不足；改为 `--text-2`（辅助文字），符合 DESIGN §2.1/§8.3 单一主色纪律
+- **补全分类 chip 选中态**：render 生成 `chip active` 但 CSS 缺失 `.chip.active`，分类选中无视觉反馈；补上 hover/active 态与 `chip-count` 样式，并删除 layout.css 中无对应元素的孤儿 `.cat` 定义
+- **清理死代码**：移除 `02-render.js` 中 `catHue()` 与 `--hue` 内联（CSS 从不消费，且与单一主色规范冲突）
+- **修复 meta 技能数漂移**：`index.html` meta/og/twitter 描述硬编码 `173` 与实际 165 不符，改为 `{SKILLS_TOTAL}` 占位符由 `build.mjs` 注入真实数据 total，单一来源
+- **版本号同步**：根 `package.json` → v1.14.52，被改文件头注释（`src/index.html`、`styles/base|layout|components.css`、`parts/01|02`、`build.mjs`）同步；重建 `prototype/index.html` 产物
+
 ## [1.14.50] - 2026-08-19
 
 ### fix: 重建 prototype/index.html 为 173，补齐 v1.14.49 遗漏的原型产物

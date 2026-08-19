@@ -1,4 +1,4 @@
-// build.mjs v1.14.43 — 将 src 模板 + 真实数据内联为自包含 prototype/index.html（产物直出 prototype/ 根）
+// build.mjs v1.14.52 — 将 src 模板 + 真实数据内联为自包含 prototype/index.html（产物直出 prototype/ 根）
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -30,6 +30,11 @@ const js = readdirSync(PARTS_DIR)
   .join("\n");
 const i18n = readFileSync(join(SRC, "i18n.js"), "utf8");
 const data = readFileSync(join(__dirname, "data", "skills-data.json"), "utf8");
+// 真实技能总数（数据单一来源），用于注入 meta description / og:description / twitter:description，
+// 避免 SEO/分享文案与磁盘技能实况漂移
+const SKILLS_TOTAL = (() => {
+  try { return JSON.parse(data).total; } catch (e) { return 0; }
+})();
 // 项目版本取自根 package.json（单一权威源），注入页脚展示（避免硬编码漂移）
 const PROJECT_VERSION = (() => {
   try { return JSON.parse(readFileSync(join(__dirname, "package.json"), "utf8")).version; }
@@ -58,7 +63,8 @@ const out = htmlTpl
   .replace("{{I18N}}", () => i18n)
   .replace("{{JS}}", () => js)
   .replace("{{ANALYTICS}}", () => analytics)
-  .replace("{{VERSION}}", () => PROJECT_VERSION);
+  .replace("{{VERSION}}", () => PROJECT_VERSION)
+  .replace(/\{SKILLS_TOTAL\}/g, () => String(SKILLS_TOTAL));
 
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(join(OUT_DIR, "index.html"), out, "utf8");

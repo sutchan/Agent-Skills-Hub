@@ -1,10 +1,10 @@
 {
-  "total": 173,
+  "total": 165,
   "categories": [
-    "Agent 与 AI 工程",
     "架构与设计",
     "前端与 UI 设计",
     "内容、文档与写作",
+    "Agent 与 AI 工程",
     "上下文与提示工程",
     "测试与质量",
     "DevOps 与基础设施",
@@ -16,16 +16,6 @@
     "视频与媒体"
   ],
   "skills": [
-    {
-      "name": "agent-browser",
-      "category": "Agent 与 AI 工程",
-      "zh": "面向 AI agent 的浏览器自动化 CLI。当用户需要与网站交互（导航页面等）时使用",
-      "description": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction.",
-      "allowedTools": [
-        "Bash(npx agent-browser:*)",
-        "Bash(agent-browser:*)"
-      ]
-    },
     {
       "name": "android-clean-architecture",
       "category": "架构与设计",
@@ -160,13 +150,6 @@
       "allowedTools": []
     },
     {
-      "name": "code-reviewer",
-      "category": "测试与质量",
-      "zh": "对指定文件夹内的代码进行全面审查，包含规范性检查、Bug检测、性能优化建议、可读性评估和基于华为Java编程规范的质量评分；当用户需要审查代码质量、发现潜在问题、评估代码规范符合度或生成代码审查报告时使用",
-      "description": "对指定文件夹内的代码进行全面审查，包含规范性检查、Bug检测、性能优化建议、可读性评估和基于华为Java编程规范的质量评分；当用户需要审查代码质量、发现潜在问题、评估代码规范符合度或生成代码审查报告时使用",
-      "allowedTools": []
-    },
-    {
       "name": "code-stats",
       "category": "测试与质量",
       "zh": "生成代码统计与分析报告。当你想了解代码库结构与指标时使用",
@@ -199,13 +182,6 @@
       "category": "行业领域",
       "zh": "运营客户账单工作流，如订阅、退款、流失分诊、账单门户挽回与套餐变更等",
       "description": "Operate customer billing workflows such as subscriptions, refunds, churn triage, billing-portal recovery, and plan analysis using connected billing tools like Stripe. Use when the user needs to help a customer, inspect subscription state, or manage revenue-impacting billing operations.",
-      "allowedTools": []
-    },
-    {
-      "name": "dart-flutter-patterns",
-      "category": "后端、语言与框架",
-      "zh": "生产可用的 Dart 与 Flutter 模式：空安全、不可变状态、异步组合、Widget 架构，以及 BLoC/Riverpod/Provider 状态管理、GoRouter 导航、Dio 网络与整洁架构",
-      "description": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture.",
       "allowedTools": []
     },
     {
@@ -907,13 +883,6 @@
       "allowedTools": []
     },
     {
-      "name": "ralphinho-rfc-pipeline",
-      "category": "生产力与工具",
-      "zh": "基于 RFC 驱动的多 agent DAG 执行模式，带质量门禁、合并队列与工作单元编排",
-      "description": "RFC-driven multi-agent DAG execution pattern with quality gates, merge queues, and work unit orchestration.",
-      "allowedTools": []
-    },
-    {
       "name": "regex-vs-llm-structured-text",
       "category": "数据与机器学习",
       "zh": "解析结构化文本时在正则与 LLM 之间选择的决策框架——从正则起步，仅在必要时引入 LLM",
@@ -991,13 +960,6 @@
       "allowedTools": []
     },
     {
-      "name": "security-best-practices",
-      "category": "测试与质量",
-      "zh": "执行语言与框架特定的安全最佳实践审查并给出改进建议。仅在相关场景触发",
-      "description": "Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks.",
-      "allowedTools": []
-    },
-    {
       "name": "security-review",
       "category": "测试与质量",
       "zh": "新增认证、处理用户输入、使用密钥、创建 API 端点或实现相关逻辑时使用本技能",
@@ -1010,17 +972,6 @@
       "zh": "扫描 Claude Code 配置（.claude/ 目录）以发现安全漏洞、错误配置与注入风险",
       "description": "Scan your Claude Code configuration (.claude/ directory) for security vulnerabilities, misconfigurations, and injection risks using AgentShield. Checks CLAUDE.md, settings.json, MCP servers, hooks, and agent definitions.",
       "allowedTools": []
-    },
-    {
-      "name": "shadcn",
-      "category": "前端与 UI 设计",
-      "zh": "管理 shadcn 组件与项目——添加、搜索、修复、调试、美化与组合 UI",
-      "description": "Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI. Provides project context, component docs, and usage examples. Applies when working with shadcn/ui, component registries, presets, --preset codes, or any project with a components.json file. Also triggers for \"shadcn init\", \"create an app with --preset\", or \"switch to --preset\".",
-      "allowedTools": [
-        "Bash(npx shadcn@latest *)",
-        "Bash(pnpm dlx shadcn@latest *)",
-        "Bash(bunx --bun shadcn@latest *)"
-      ]
     },
     {
       "name": "skill-comply",
@@ -1153,20 +1104,6 @@
       "category": "前端与 UI 设计",
       "zh": "使用 Playwright 录制精致的 UI 演示视频。当用户需要制作演示、操作演练、录屏时使用",
       "description": "Record polished UI demo videos using Playwright. Use when the user asks to create a demo, walkthrough, screen recording, or tutorial video of a web application. Produces WebM videos with visible cursor, natural pacing, and professional feel.",
-      "allowedTools": []
-    },
-    {
-      "name": "vercel-react-best-practices",
-      "category": "其他",
-      "zh": "来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。编写相关代码时应使用该技能",
-      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
-      "allowedTools": []
-    },
-    {
-      "name": "vercel-react-native-skills",
-      "category": "其他",
-      "zh": "React Native 与 Expo 构建高性能移动应用的最佳实践，涵盖组件、列表性能优化、动画与原生模块。用于 RN/Expo 开发、性能优化或原生 API 任务",
-      "description": "",
       "allowedTools": []
     },
     {

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.50 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.52 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 173 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 165 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 173+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 165+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 173+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 165+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -137,7 +137,7 @@ input { font-family: inherit; }
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-/* prototype/src/styles/base.css v1.14.43 — 全局 UX 增强（无障碍 + 动效 + 反馈）
+/* prototype/src/styles/base.css v1.14.52 — 全局 UX 增强（无障碍 + 动效 + 反馈）
    设计令牌来自 tokens.css，组件布局见 layout.css / components.css。 */
 
 /* 键盘焦点可见：仅对键盘用户显示焦点环，避免鼠标点击残留描边 */
@@ -155,7 +155,7 @@ body.no-scroll { overflow: hidden; }
 .to-top {
   position: fixed; right: 20px; bottom: 20px; z-index: 40;
   width: 44px; height: 44px; border-radius: 50%;
-  background: var(--primary); color: #fff;
+  background: var(--primary); color: hsl(var(--primary-foreground));
   display: grid; place-items: center;
   box-shadow: var(--shadow-pop);
   opacity: 0; visibility: hidden; transform: translateY(8px);
@@ -168,7 +168,7 @@ body.no-scroll { overflow: hidden; }
 .toast {
   position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px);
   z-index: 60; padding: 10px 18px; border-radius: 10px;
-  background: var(--ink, #1f2937); color: #fff; font-size: 14px; font-weight: 500;
+  background: #1f2937; color: #fff; font-size: 14px; font-weight: 500;
   box-shadow: 0 8px 24px rgba(0,0,0,.18);
   opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s;
   pointer-events: none; max-width: 86vw; text-align: center;
@@ -180,18 +180,18 @@ body.no-scroll { overflow: hidden; }
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
 
-/* prototype/src/styles/layout.css v1.14.42 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.14.52 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏 */
 .topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
 .brand .logo { width: 28px; height: 28px; }
 .lang-switch { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--surface-2); }
-.lang-switch button { border: 0; background: transparent; padding: 6px 12px; font-size: 13px; color: var(--muted); cursor: pointer; }
-.lang-switch button.active { background: var(--primary); color: #fff; }
+.lang-switch button { border: 0; background: transparent; padding: 6px 12px; font-size: 13px; color: var(--text-2); cursor: pointer; }
+.lang-switch button.active { background: var(--primary); color: hsl(var(--primary-foreground)); }
 
 /* Hero 区 */
-.hero { text-align: center; padding: 48px 24px 28px; background: var(--gradient); color: #fff; }
+.hero { text-align: center; padding: 48px 24px 28px; background: radial-gradient(1200px 400px at 50% -10%, hsl(var(--primary) / .22), transparent 70%), hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
 .hero h1 { font-size: clamp(28px, 5vw, 40px); margin: 0 0 8px; letter-spacing: -.5px; }
 .hero p { margin: 0 auto; max-width: 640px; opacity: .92; font-size: 16px; }
 .hero .meta { margin-top: 14px; display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
@@ -200,18 +200,21 @@ html[data-lang="zh"] .en { display: none; }
 /* 控制区（搜索 + 排序 + 分类） */
 .controls { position: sticky; top: 56px; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
 .search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
-.search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 15px; color: var(--ink); }
+.search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 15px; color: var(--text); }
 .search .icon { opacity: .6; }
-.sort { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); }
-.sort select { border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; background: var(--surface-2); color: var(--ink); font-size: 14px; }
-.cats { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
-.cat { border: 1px solid var(--border); background: var(--surface-2); color: var(--ink); padding: 7px 14px; border-radius: 999px; cursor: pointer; font-size: 13px; transition: all .15s ease; }
-.cat:hover { border-color: var(--primary); color: var(--primary); }
-.cat.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+.sort { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-2); }
+.sort select { border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; background: var(--surface-2); color: var(--text); font-size: 14px; }
+/* 分类筛选条：桌面换行，移动端横向可滚动（DESIGN §5） */
+.cats { width: 100%; overflow: hidden; }
+.cats-scroll { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 640px) {
+  .cats-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
+  .cats-scroll::-webkit-scrollbar { display: none; }
+}
 
 /* 网格与卡片容器 */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 24px; max-width: 1200px; margin: 0 auto; }
-.empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 60px 16px; }
+.empty { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 60px 16px; }
 
 /* 弹窗（扩展详情） */
 .overlay { position: fixed; inset: 0; z-index: 50; background: rgba(15,23,42,.5); display: none; }
@@ -222,47 +225,51 @@ html[data-lang="zh"] .en { display: none; }
 .dialog-body { padding: 22px; overflow: auto; }
 
 /* 空状态提示（搜索无结果等） */
-.empty-state { text-align: center; color: var(--muted); padding: 40px 16px; }
-.empty-state .big { font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.empty-state { text-align: center; color: var(--text-2); padding: 40px 16px; }
+.empty-state .big { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
 
 /* 页脚 */
 .site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }
 .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
 .footer-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
 .footer-brand .logo { width: 26px; height: 26px; }
-.footer-desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.footer-desc { color: var(--text-2); font-size: 13px; margin-top: 4px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
-.footer-link { color: var(--muted); text-decoration: none; font-size: 13px; }
+.footer-link { color: var(--text-2); text-decoration: none; font-size: 13px; }
 .footer-link:hover { color: var(--primary); }
-.footer-bottom { max-width: 1200px; margin: 16px auto 0; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--muted); font-size: 12px; }
-.footer-ver { font-weight: 600; color: var(--ink); }
+.footer-bottom { max-width: 1200px; margin: 16px auto 0; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--text-2); font-size: 12px; }
+.footer-ver { font-weight: 600; color: var(--text); }
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
 
-/* prototype/src/styles/components.css v1.14.42 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.14.52 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
-/* 分类 chip（卡片内标签） */
-.chip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+/* 分类 chip（筛选器 + 卡片内标签）；统一映射到主色，禁止异色相（DESIGN §8.3） */
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); font-size: 13px; color: var(--text-2); cursor: pointer; transition: border-color .15s ease, color .15s ease, background .15s ease; }
+.chip:hover { border-color: var(--primary); color: var(--primary); }
+.chip.active { background: var(--primary); border-color: var(--primary); color: hsl(var(--primary-foreground)); }
+.chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
+.chip.active .chip-count { opacity: 1; }
 
 /* 技能卡片 */
 .card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 18px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; overflow: hidden; }
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
 .card:focus-visible { border-color: var(--primary); }
 .card .top { display: flex; align-items: center; gap: 10px; }
-.card .avatar { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--gradient); color: #fff; font-weight: 700; font-size: 15px; }
+.card .avatar { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-weight: 700; font-size: 15px; }
 .card h3 { margin: 0; font-size: 16px; }
-.card .desc { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card .desc { margin: 0; color: var(--text-2); font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
 .card .cat-tag { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--primary) 12%, var(--surface)); color: var(--primary-strong); border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border)); }
-.card .stat { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); }
-.card .stat b { color: var(--ink); }
-.card .src-badge { position: absolute; top: 12px; right: 12px; font-size: 10px; padding: 2px 7px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
+.card .stat { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); }
+.card .stat b { color: var(--text); }
+.card .src-badge { position: absolute; top: 12px; right: 12px; font-size: 10px; padding: 2px 7px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); text-transform: uppercase; letter-spacing: .4px; }
 
 /* 弹窗操作按钮（GitHub / 复制 / 关闭） */
-.btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--ink); cursor: pointer; font-size: 14px; text-decoration: none; transition: all .15s ease; }
+.btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font-size: 14px; text-decoration: none; transition: all .15s ease; }
 .btn:hover { border-color: var(--primary); color: var(--primary); }
-.btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
-.btn.primary:hover { background: var(--primary-strong); color: #fff; }
+.btn.primary { background: var(--primary); border-color: var(--primary); color: hsl(var(--primary-foreground)); }
+.btn.primary:hover { background: var(--primary-strong); color: hsl(var(--primary-foreground)); }
 
 /* 弹窗底部操作区 */
 .dialog-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 22px; border-top: 1px solid var(--border); }
@@ -332,8 +339,8 @@ html[data-lang="zh"] .en { display: none; }
   </header>
 
   <section class="hero" id="hero">
-    <h1 class="zh" id="heroTitleZh" data-i18n="hero.title">发现并复用 173+ 高质量 Agent 技能</h1>
-    <h1 class="en" id="heroTitleEn" data-i18n="hero.title">Discover & reuse 173+ high-quality agent skills</h1>
+    <h1 class="zh" id="heroTitleZh" data-i18n="hero.title">发现并复用 {n} 个高质量 Agent 技能</h1>
+    <h1 class="en" id="heroTitleEn" data-i18n="hero.title">Discover & reuse {n} high-quality agent skills</h1>
     <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
     <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
     <div class="stats" id="heroStats" aria-live="polite">
@@ -382,7 +389,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.14.50</span>
+      <span class="footer-ver" id="footerVer">v1.14.52</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -402,12 +409,12 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 173,
+  "total": 165,
   "categories": [
-    "Agent 与 AI 工程",
     "架构与设计",
     "前端与 UI 设计",
     "内容、文档与写作",
+    "Agent 与 AI 工程",
     "上下文与提示工程",
     "测试与质量",
     "DevOps 与基础设施",
@@ -419,16 +426,6 @@ html[data-lang="zh"] .en { display: none; }
     "视频与媒体"
   ],
   "skills": [
-    {
-      "name": "agent-browser",
-      "category": "Agent 与 AI 工程",
-      "zh": "面向 AI agent 的浏览器自动化 CLI。当用户需要与网站交互（导航页面等）时使用",
-      "description": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction.",
-      "allowedTools": [
-        "Bash(npx agent-browser:*)",
-        "Bash(agent-browser:*)"
-      ]
-    },
     {
       "name": "android-clean-architecture",
       "category": "架构与设计",
@@ -563,13 +560,6 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": []
     },
     {
-      "name": "code-reviewer",
-      "category": "测试与质量",
-      "zh": "对指定文件夹内的代码进行全面审查，包含规范性检查、Bug检测、性能优化建议、可读性评估和基于华为Java编程规范的质量评分；当用户需要审查代码质量、发现潜在问题、评估代码规范符合度或生成代码审查报告时使用",
-      "description": "对指定文件夹内的代码进行全面审查，包含规范性检查、Bug检测、性能优化建议、可读性评估和基于华为Java编程规范的质量评分；当用户需要审查代码质量、发现潜在问题、评估代码规范符合度或生成代码审查报告时使用",
-      "allowedTools": []
-    },
-    {
       "name": "code-stats",
       "category": "测试与质量",
       "zh": "生成代码统计与分析报告。当你想了解代码库结构与指标时使用",
@@ -602,13 +592,6 @@ html[data-lang="zh"] .en { display: none; }
       "category": "行业领域",
       "zh": "运营客户账单工作流，如订阅、退款、流失分诊、账单门户挽回与套餐变更等",
       "description": "Operate customer billing workflows such as subscriptions, refunds, churn triage, billing-portal recovery, and plan analysis using connected billing tools like Stripe. Use when the user needs to help a customer, inspect subscription state, or manage revenue-impacting billing operations.",
-      "allowedTools": []
-    },
-    {
-      "name": "dart-flutter-patterns",
-      "category": "后端、语言与框架",
-      "zh": "生产可用的 Dart 与 Flutter 模式：空安全、不可变状态、异步组合、Widget 架构，以及 BLoC/Riverpod/Provider 状态管理、GoRouter 导航、Dio 网络与整洁架构",
-      "description": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture.",
       "allowedTools": []
     },
     {
@@ -1310,13 +1293,6 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": []
     },
     {
-      "name": "ralphinho-rfc-pipeline",
-      "category": "生产力与工具",
-      "zh": "基于 RFC 驱动的多 agent DAG 执行模式，带质量门禁、合并队列与工作单元编排",
-      "description": "RFC-driven multi-agent DAG execution pattern with quality gates, merge queues, and work unit orchestration.",
-      "allowedTools": []
-    },
-    {
       "name": "regex-vs-llm-structured-text",
       "category": "数据与机器学习",
       "zh": "解析结构化文本时在正则与 LLM 之间选择的决策框架——从正则起步，仅在必要时引入 LLM",
@@ -1394,13 +1370,6 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": []
     },
     {
-      "name": "security-best-practices",
-      "category": "测试与质量",
-      "zh": "执行语言与框架特定的安全最佳实践审查并给出改进建议。仅在相关场景触发",
-      "description": "Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks.",
-      "allowedTools": []
-    },
-    {
       "name": "security-review",
       "category": "测试与质量",
       "zh": "新增认证、处理用户输入、使用密钥、创建 API 端点或实现相关逻辑时使用本技能",
@@ -1413,17 +1382,6 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "扫描 Claude Code 配置（.claude/ 目录）以发现安全漏洞、错误配置与注入风险",
       "description": "Scan your Claude Code configuration (.claude/ directory) for security vulnerabilities, misconfigurations, and injection risks using AgentShield. Checks CLAUDE.md, settings.json, MCP servers, hooks, and agent definitions.",
       "allowedTools": []
-    },
-    {
-      "name": "shadcn",
-      "category": "前端与 UI 设计",
-      "zh": "管理 shadcn 组件与项目——添加、搜索、修复、调试、美化与组合 UI",
-      "description": "Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI. Provides project context, component docs, and usage examples. Applies when working with shadcn/ui, component registries, presets, --preset codes, or any project with a components.json file. Also triggers for \"shadcn init\", \"create an app with --preset\", or \"switch to --preset\".",
-      "allowedTools": [
-        "Bash(npx shadcn@latest *)",
-        "Bash(pnpm dlx shadcn@latest *)",
-        "Bash(bunx --bun shadcn@latest *)"
-      ]
     },
     {
       "name": "skill-comply",
@@ -1556,20 +1514,6 @@ html[data-lang="zh"] .en { display: none; }
       "category": "前端与 UI 设计",
       "zh": "使用 Playwright 录制精致的 UI 演示视频。当用户需要制作演示、操作演练、录屏时使用",
       "description": "Record polished UI demo videos using Playwright. Use when the user asks to create a demo, walkthrough, screen recording, or tutorial video of a web application. Produces WebM videos with visible cursor, natural pacing, and professional feel.",
-      "allowedTools": []
-    },
-    {
-      "name": "vercel-react-best-practices",
-      "category": "其他",
-      "zh": "来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。编写相关代码时应使用该技能",
-      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
-      "allowedTools": []
-    },
-    {
-      "name": "vercel-react-native-skills",
-      "category": "其他",
-      "zh": "React Native 与 Expo 构建高性能移动应用的最佳实践，涵盖组件、列表性能优化、动画与原生模块。用于 RN/Expo 开发、性能优化或原生 API 任务",
-      "description": "",
       "allowedTools": []
     },
     {
@@ -1836,7 +1780,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/parts/01-state.js v1.14.50 — 常量、偏好状态与纯工具函数
+  <script>// prototype/src/parts/01-state.js v1.14.52 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -1894,7 +1838,7 @@ function catCounts() {
   return m;
 }
 
-// 名称 -> 技能对象索引（01-state 共享作用域），避免每次卡片点击线性扫描 173 条
+// 名称 -> 技能对象索引（01-state 共享作用域），避免每次卡片点击线性扫描全部技能
 let SKILL_MAP = new Map();
 
 // 搜索匹配：名称 / 描述 / 分类（不区分大小写）
@@ -1905,7 +1849,7 @@ function matches(s, q) {
   return hay.includes(q.toLowerCase());
 }
 
-// prototype/src/parts/02-render.js v1.14.43 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.52 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
@@ -1918,20 +1862,12 @@ function refreshHeroCount() {
   document.getElementById("heroTitleEn").textContent = I18N.t("hero.title", "en").replace(/\{n\}/g, n);
 }
 
-// 由类别名稳定派生一个色相（0-359），使同一分类始终得到同一淡彩色背景
-function catHue(c) {
-  let h = 0;
-  for (let i = 0; i < c.length; i++) h = (h * 31 + c.charCodeAt(i)) % 360;
-  return h;
-}
-
 function renderCats(counts) {
   const cats = SKILLS_DATA.categories;
-  // 全部：固定主色 hue，保证与分类标签视觉一致
-  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:220" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cat === c;
-    items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
+    items.push(`<button class="chip" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
   });
   $("#cats").innerHTML = items.join("");
 }
@@ -1952,7 +1888,7 @@ function cardHTML(s) {
       </div>
       <div class="desc zh">${esc(s.zh)}</div>
       <div class="desc en">${esc(s.description)}</div>
-      <div class="meta"><span class="cat-tag" style="--hue:${catHue(s.category)}">${esc(s.category)}</span></div>
+      <div class="meta"><span class="cat-tag">${esc(s.category)}</span></div>
     </div>
   </article>`;
 }

@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.43 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.52 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
@@ -11,20 +11,12 @@ function refreshHeroCount() {
   document.getElementById("heroTitleEn").textContent = I18N.t("hero.title", "en").replace(/\{n\}/g, n);
 }
 
-// 由类别名稳定派生一个色相（0-359），使同一分类始终得到同一淡彩色背景
-function catHue(c) {
-  let h = 0;
-  for (let i = 0; i < c.length; i++) h = (h * 31 + c.charCodeAt(i)) % 360;
-  return h;
-}
-
 function renderCats(counts) {
   const cats = SKILLS_DATA.categories;
-  // 全部：固定主色 hue，保证与分类标签视觉一致
-  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:220" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cat === c;
-    items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
+    items.push(`<button class="chip" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
   });
   $("#cats").innerHTML = items.join("");
 }
@@ -45,7 +37,7 @@ function cardHTML(s) {
       </div>
       <div class="desc zh">${esc(s.zh)}</div>
       <div class="desc en">${esc(s.description)}</div>
-      <div class="meta"><span class="cat-tag" style="--hue:${catHue(s.category)}">${esc(s.category)}</span></div>
+      <div class="meta"><span class="cat-tag">${esc(s.category)}</span></div>
     </div>
   </article>`;
 }
