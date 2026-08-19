@@ -1,0 +1,45 @@
+name: Site Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'prototype/**'
+      - 'app/**'
+      - 'skills/**'
+      - 'README.md'
+      - 'tools/**'
+  pull_request:
+    paths:
+      - 'prototype/**'
+      - 'app/**'
+      - 'skills/**'
+      - 'README.md'
+      - 'tools/**'
+
+jobs:
+  build-prototype:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Regenerate prototype skill data from skills/
+        # prototype 无 package.json，直接以 node 运行预构建脚本
+        run: node prototype/build-skills-data.mjs
+      - name: Verify skills-data.json is up to date
+        # 若 skills/ 已更新但 skills-data.json 未重新生成，CI 在此拦截
+        run: git diff --exit-code prototype/skills-data.json
+
+  build-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install app dependencies
+        run: cd app && npm ci
+      - name: Build app (Next.js)
+        run: cd app && npm run build

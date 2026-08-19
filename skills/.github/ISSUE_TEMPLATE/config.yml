@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安全漏洞报告
+    url: https://github.com/sutchan/Agent-Skills-Hub/security/advisories/new
+    about: 请勿用公开 Issue 报告安全漏洞，请通过私密 Security Advisory 提交
+  - name: 使用讨论 / 问答
+    url: https://github.com/sutchan/Agent-Skills-Hub/discussions
+    about: 使用技巧、技能推荐、最佳实践等开放式交流请到 Discussions

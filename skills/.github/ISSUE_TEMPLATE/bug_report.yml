@@ -1,0 +1,54 @@
+name: 缺陷报告（Bug Report）
+description: 报告技能、文档或展示页的问题
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请尽量提供可复现的信息，便于我们快速定位。
+  - type: dropdown
+    id: area
+    attributes:
+      label: 问题区域
+      description: 问题主要出现在哪里？
+      options:
+        - 某个技能（skills/<name>/）
+        - README / README.en.md 文档
+        - 在线展示页（app/ 或 prototype/）
+        - 工具脚本（tools/）
+        - 其他
+    validations:
+      required: true
+  - type: input
+    id: skill_name
+    attributes:
+      label: 技能名称（如适用）
+      description: 若与某个技能相关，请填写其目录名，如 python-testing
+      placeholder: skills/<name>/
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: 问题描述
+      description: 清晰简洁地描述问题现象
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 如何让问题再次发生？
+      placeholder: |
+        1. 进入 '...'
+        2. 运行 '...'
+        3. 看到错误 '...'
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+      description: 你期望发生什么？
+  - type: textarea
+    id: context
+    attributes:
+      label: 附加信息
+      description: 环境、版本、截图或日志等

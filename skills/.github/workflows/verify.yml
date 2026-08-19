@@ -1,0 +1,54 @@
+name: Verify README
+
+on:
+  push:
+    paths:
+      - 'skills/**'
+      - 'README.md'
+      - 'README.en.md'
+      - 'tools/**'
+      - 'prototype/**'
+      - 'app/**'
+  pull_request:
+    paths:
+      - 'skills/**'
+      - 'README.md'
+      - 'README.en.md'
+      - 'tools/**'
+      - 'prototype/**'
+      - 'app/**'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify README matches skills/
+        run: python tools/skills_readme.py verify
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Translation coverage
+        run: python tools/coverage.py --min-translated-ratio 0.02
+
+  en-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Ensure README.en.md is generated from source
+        # 若 README.en.md 与源码不一致，提示贡献者运行 gen-en（不阻断 PR）
+        continue-on-error: true
+        run: |
+          python tools/skills_readme.py gen-en
+          git diff --exit-code README.en.md

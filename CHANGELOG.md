@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.53] - 2026-08-19
+
+### refactor: 完善 YAML 折叠标量解析并同步 openspec 文档版本头
+
+- **build-skills-data.mjs 支持折叠/字面量块标量**：修复 `description: >`/`>-`/`|`/`|-` 后内容未完整解析、展示页残留 `>-`/`>` 等垃圾串的问题；现正确折叠缩进行为单段描述，并去除行内 YAML 注释（`stripInlineComment`）
+- **openspec 版本头同步**：`openspec/project.md`/`spec.md` 头注释 → 1.14.53；`spec.md` §1「版本权威源当前」同步为 1.14.53
+- **版本号同步**：根 `package.json` → v1.14.53，README/README.en 版本徽章同步
+- 注：`data/skills-data.json` 与 `prototype/index.html` 技能数受磁盘 `skills/` 实况驱动（当前磁盘含 SKILL.md 的技能目录在整理中），本次未重新 build 以免破坏进行中的技能库变更
+
 ## [1.14.52] - 2026-08-19
 
 ### refactor: 原型修复未定义 CSS 变量、补全分类选中态并清理死代码
@@ -939,3 +948,5 @@
 [1.14.48]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.48
 [1.14.49]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.49
 [1.14.50]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.50
+[1.14.52]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.52
+[1.14.53]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.53
