@@ -2,13 +2,13 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Skills](https://img.shields.io/badge/skills-200-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.14.47-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Skills](https://img.shields.io/badge/skills-173-blue)](README.en.md) [![Version](https://img.shields.io/badge/version-v1.14.49-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Author: Sut Chan
 >
 > Repository: https://github.com/sutchan/Agent-Skills-Hub
 >
-> A centrally managed collection of AI skills, containing 200 skill packs for development, design, testing, DevOps, agent engineering, and industry domains.
+> A centrally managed collection of AI skills, containing 173 skill packs for development, design, testing, DevOps, agent engineering, and industry domains.
 
 Each skill is a standalone directory containing `SKILL.md` (name + description metadata + usage notes) plus optional `scripts/`, `references/`, `assets/`, `agents/`.
 
@@ -36,12 +36,10 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 
 ## Skill Categories
 
-### Frontend & UI Design (15)
+### Frontend & UI Design (13)
 
 - **[api-design](skills/api-design/)** — REST API design patterns including resource naming, status codes, pagination, filtering, error responses, versioning, and rate limiting for production APIs.
-- **[brand-guidelines](skills/brand-guidelines/)** — Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company desi…
 - **[brand-voice](skills/brand-voice/)** — Build a source-derived writing style profile from real posts, essays, launch notes, docs, or site copy, then reuse that profile across content, outreach, and social workflows. Use when the user wants voice consistency…
-- **[canvas-design](skills/canvas-design/)** — Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual desi…
 - **[design-system](skills/design-system/)** — Use this skill to generate or audit design systems, check visual consistency, and review PRs that touch styling.
 - **[figma](skills/figma/)** — Use the Figma MCP server to fetch design context, screenshots, variables, and assets from Figma, and to translate Figma nodes into production code. Trigger when a task involves Figma URLs, node IDs, design-to-code imp…
 - **[frontend-design](skills/frontend-design/)** — Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
@@ -54,13 +52,10 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[ui-demo](skills/ui-demo/)** — Record polished UI demo videos using Playwright. Use when the user asks to create a demo, walkthrough, screen recording, or tutorial video of a web application. Produces WebM videos with visible cursor, natural pacing…
 - **[web-design-guidelines](skills/web-design-guidelines/)** — Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".
 
-### Backend, Languages & Frameworks (43)
+### Backend, Languages & Frameworks (40)
 
 - **[bun-runtime](skills/bun-runtime/)** — Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support.
-- **[compose-multiplatform-patterns](skills/compose-multiplatform-patterns/)** — Compose Multiplatform and Jetpack Compose patterns for KMP projects — state management, navigation, theming, performance, and platform-specific UI.
 - **[cpp-coding-standards](skills/cpp-coding-standards/)** — C++ coding standards based on the C++ Core Guidelines (isocpp.github.io). Use when writing, reviewing, or refactoring C++ code to enforce modern, safe, and idiomatic practices.
-- **[cpp-testing](skills/cpp-testing/)** — Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers.
-- **[csharp-testing](skills/csharp-testing/)** — C# and .NET testing patterns with xUnit, FluentAssertions, mocking, integration tests, and test organization best practices.
 - **[dart-flutter-patterns](skills/dart-flutter-patterns/)** — Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networ…
 - **[django-patterns](skills/django-patterns/)** — Django architecture patterns, REST API design with DRF, ORM best practices, caching, signals, middleware, and production-grade Django apps.
 - **[django-security](skills/django-security/)** — Django security best practices, authentication, authorization, CSRF protection, SQL injection prevention, XSS prevention, and secure deployment configurations.
@@ -107,9 +102,8 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[backend-patterns](skills/backend-patterns/)** — Backend architecture patterns, API design, database optimization, and server-side best practices for Node.js, Express, and Next.js API routes.
 - **[hexagonal-architecture](skills/hexagonal-architecture/)** — Design, implement, and refactor Ports & Adapters systems with clear domain boundaries, dependency inversion, and testable use-case orchestration across TypeScript, Java, Kotlin, and Go services.
 
-### Testing & Quality (20)
+### Testing & Quality (18)
 
-- **[ai-regression-testing](skills/ai-regression-testing/)** — Regression testing strategies for AI-assisted development. Sandbox-mode API testing without database dependencies, automated bug-check workflows, and patterns to catch AI blind spots where the same model writes and re…
 - **[browser-qa](skills/browser-qa/)** — Use this skill to automate visual testing and UI interaction verification using browser automation after deploying features.
 - **[code-quality-check](skills/code-quality-check/)** — Run code quality checks including linting, type checking, and code formatting. Use when you want to ensure code follows project standards.
 - **[code-reviewer](skills/code-reviewer/)** — 对指定文件夹内的代码进行全面审查，包含规范性检查、Bug检测、性能优化建议、可读性评估和基于华为Java编程规范的质量评分；当用户需要审查代码质量、发现潜在问题、评估代码规范符合度或生成代码审查报告时使用
@@ -128,22 +122,12 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[skill-comply](skills/skill-comply/)** — Visualize whether skills, rules, and agent definitions are actually followed — auto-generates scenarios at 3 prompt strictness levels, runs agents, classifies behavioral sequences, and reports compliance rates with fu…
 - **[tdd-workflow](skills/tdd-workflow/)** — Use this skill when writing new features, fixing bugs, or refactoring code. Enforces test-driven development with 80%+ coverage including unit, integration, and E2E tests.
 - **[verification-loop](skills/verification-loop/)** — A comprehensive verification system for Claude Code sessions.
-- **[webapp-testing](skills/webapp-testing/)** — Toolkit for interacting with and testing local web applications — browser automation, end-to-end verification, and UI inspection.
 
-### Agent & AI Engineering (20)
+### Agent & AI Engineering (11)
 
 - **[agent-browser](skills/agent-browser/)** — Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automatin…
-- **[agent-eval](skills/agent-eval/)** — Head-to-head comparison of coding agents (Claude Code, Aider, Codex, etc.) on custom tasks with pass rate, cost, time, and consistency metrics
-- **[agent-harness-construction](skills/agent-harness-construction/)** — Design and optimize AI agent action spaces, tool definitions, and observation formatting for higher completion rates.
-- **[agent-payment-x402](skills/agent-payment-x402/)** — Add x402 payment execution to AI agents — per-task budgets, spending controls, and non-custodial wallets via MCP tools. Use when agents need to pay for APIs, services, or other agents.
-- **[agentic-engineering](skills/agentic-engineering/)** — Operate as an agentic engineer using eval-first execution, decomposition, and cost-aware model routing.
-- **[ai-first-engineering](skills/ai-first-engineering/)** — Engineering operating model for teams where AI agents generate a large share of implementation output.
 - **[autonomous-agent-harness](skills/autonomous-agent-harness/)** — Transform Claude Code into a fully autonomous agent system with persistent memory, scheduled operations, computer use, and task queuing. Replaces standalone agent frameworks (Hermes, AutoGPT) by leveraging Claude Code…
 - **[benchmark](skills/benchmark/)** — Use this skill to measure performance baselines, detect regressions before/after PRs, and compare stack alternatives.
-- **[continuous-agent-loop](skills/continuous-agent-loop/)** — Patterns for continuous autonomous agent loops with quality gates, evals, and recovery controls.
-- **[continuous-learning-v2](skills/continuous-learning-v2/)** — Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents. v2.1 adds project-scoped instincts to prevent cross-proj…
-- **[autonomous-loops](skills/autonomous-loops/)** — Architectures and patterns for autonomous Claude Code loops, used to orchestrate long-running automated tasks.
-- **[continuous-learning](skills/continuous-learning/)** — Automatically extract reusable patterns from Claude Code sessions, building a confidence-scored atomic capability library.
 - **[cost-aware-llm-pipeline](skills/cost-aware-llm-pipeline/)** — Cost optimization patterns for LLM API usage — model routing by task complexity, budget tracking, retry logic, and prompt caching.
 - **[data-scraper-agent](skills/data-scraper-agent/)** — Build a fully automated AI-powered data collection agent for any public source — job boards, prices, news, GitHub, sports, anything. Scrapes on a schedule, enriches data with a free LLM (Gemini Flash), stores results…
 - **[deep-research](skills/deep-research/)** — Multi-source deep research using firecrawl and exa MCPs. Searches the web, synthesizes findings, and delivers cited reports with source attribution. Use when the user wants thorough research on any topic with evidence…
@@ -153,13 +137,10 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[healthcare-eval-harness](skills/healthcare-eval-harness/)** — Patient safety evaluation harness for healthcare application deployments. Automated test suites for CDSS accuracy, PHI exposure, clinical workflow integrity, and integration compliance. Blocks deployments on safety fa…
 - **[prompt-optimizer](skills/prompt-optimizer/)** — Analyze raw prompts, identify intent and gaps, match ECC components (skills/commands/agents/hooks), and output a ready-to-paste optimized prompt. Advisory role only — never executes the task itself. TRIGGER when: user…
 
-### DevOps & Infrastructure (11)
+### DevOps & Infrastructure (8)
 
 - **[build-deploy](skills/build-deploy/)** — Build and deploy the project to different environments. Use when you want to prepare the project for deployment.
-- **[canary-watch](skills/canary-watch/)** — Use this skill to monitor a deployed URL for regressions after deploys, merges, or dependency upgrades.
 - **[claude-devfleet](skills/claude-devfleet/)** — Orchestrate multi-agent coding tasks via Claude DevFleet — plan projects, dispatch parallel agents in isolated worktrees, monitor progress, and read structured reports.
-- **[configure-ecc](skills/configure-ecc/)** — Interactive installer for Everything Claude Code — guides users through selecting and installing skills and rules to user-level or project-level directories, verifies paths, and optionally optimizes installed files.
-- **[connections-optimizer](skills/connections-optimizer/)** — Reorganize the user's X and LinkedIn network with review-first pruning, add/follow recommendations, and channel-specific warm outreach drafted in the user's real voice. Use when the user wants to clean up following li…
 - **[database-migrations](skills/database-migrations/)** — Database migration best practices for schema changes, data migrations, rollbacks, and zero-downtime deployments across PostgreSQL, MySQL, and common ORMs (Prisma, Drizzle, Kysely, Django, TypeORM, golang-migrate).
 - **[deployment-patterns](skills/deployment-patterns/)** — Deployment workflows, CI/CD pipeline patterns, Docker containerization, health checks, rollback strategies, and production readiness checklists for web applications.
 - **[docker-patterns](skills/docker-patterns/)** — Docker and Docker Compose patterns for local development, container security, networking, volume strategies, and multi-service orchestration.
@@ -178,13 +159,9 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[regex-vs-llm-structured-text](skills/regex-vs-llm-structured-text/)** — Decision framework for choosing between regex and LLM when parsing structured text — start with regex, add LLM only for low-confidence edge cases.
 - **[social-graph-ranker](skills/social-graph-ranker/)** — Weighted social-graph ranking for warm intro discovery, bridge scoring, and network gap analysis across X and LinkedIn. Use when the user wants the reusable graph-ranking engine itself, not the broader outreach or net…
 
-### Content, Docs & Writing (14)
+### Content, Docs & Writing (10)
 
 - **[article-writing](skills/article-writing/)** — Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive voice derived from supplied examples or brand guidance. Use when the user wants polished written content l…
-- **[brainstorming](skills/brainstorming/)** — You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.
-- **[content-engine](skills/content-engine/)** — Create platform-native content systems for X, LinkedIn, TikTok, YouTube, newsletters, and repurposed multi-platform campaigns. Use when the user wants social posts, threads, scripts, content calendars, or one source a…
-- **[content-hash-cache-pattern](skills/content-hash-cache-pattern/)** — Cache expensive file processing results using SHA-256 content hashes — path-independent, auto-invalidating, with service layer separation.
-- **[crosspost](skills/crosspost/)** — Multi-platform content distribution across X, LinkedIn, Threads, and Bluesky. Adapts content per platform using content-engine patterns. Never posts identical content cross-platform. Use when the user wants to distrib…
 - **[doc-coauthoring](skills/doc-coauthoring/)** — Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users…
 - **[documentation-lookup](skills/documentation-lookup/)** — Use up-to-date library and framework docs via Context7 MCP instead of training data. Activates for setup questions, API references, code examples, or when the user names a framework (e.g. React, Next.js, Prisma).
 - **[investor-materials](skills/investor-materials/)** — Create and update pitch decks, one-pagers, investor memos, accelerator applications, financial models, and fundraising materials. Use when the user needs investor-facing documents, projections, use-of-funds tables, mi…
@@ -195,9 +172,8 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[team-builder](skills/team-builder/)** — Interactive agent picker for composing and dispatching parallel teams
 - **[writing-plans](skills/writing-plans/)** — Use when you have a spec or requirements for a multi-step task, before touching code
 
-### Video & Media (7)
+### Video & Media (6)
 
-- **[algorithmic-art](skills/algorithmic-art/)** — Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems…
 - **[fal-ai-media](skills/fal-ai-media/)** — Unified media generation via fal.ai MCP — image, video, and audio. Covers text-to-image (Nano Banana), text/image-to-video (Seedance, Kling, Veo 3), text-to-speech (CSM-1B), and video-to-audio (ThinkSound). Use when t…
 - **[manim-video](skills/manim-video/)** — Build reusable Manim explainers for technical concepts, graphs, system diagrams, and product walkthroughs, then hand off to the wider ECC video stack if needed. Use when the user wants a clean animated explainer rathe…
 - **[remotion-video-creation](skills/remotion-video-creation/)** — Best practices for Remotion - Video creation in React. 29 domain-specific rules covering 3D, animations, audio, captions, charts, transitions, and more.
@@ -205,11 +181,10 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[video-use](skills/video-use/)** — Edit any video by conversation. Transcribe, cut, color grade, generate overlay animations, burn subtitles — for talking heads, montages, tutorials, travel, interviews. No presets, no menus. Ask questions, confirm the…
 - **[videodb](skills/videodb/)** — See, Understand, Act on video and audio. See- ingest from local files, URLs, RTSP/live feeds, or live record desktop; return realtime context and playable stream links. Understand- extract frames, build visual/semanti…
 
-### Industry Domains (14)
+### Industry Domains (13)
 
 - **[carrier-relationship-management](skills/carrier-relationship-management/)** — Codified expertise for managing carrier portfolios, negotiating freight rates, tracking carrier performance, allocating freight, and maintaining strategic carrier relationships. Informed by transportation managers wit…
 - **[customer-billing-ops](skills/customer-billing-ops/)** — Operate customer billing workflows such as subscriptions, refunds, churn triage, billing-portal recovery, and plan analysis using connected billing tools like Stripe. Use when the user needs to help a customer, inspec…
-- **[customs-trade-compliance](skills/customs-trade-compliance/)** — Codified expertise for customs documentation, tariff classification, duty optimization, restricted party screening, and regulatory compliance across multiple jurisdictions. Informed by trade compliance specialists wit…
 - **[energy-procurement](skills/energy-procurement/)** — Codified expertise for electricity and gas procurement, tariff optimization, demand charge management, renewable PPA evaluation, and multi-facility energy cost management. Informed by energy procurement managers with…
 - **[google-workspace-ops](skills/google-workspace-ops/)** — Operate across Google Drive, Docs, Sheets, and Slides as one workflow surface for plans, trackers, decks, and shared documents. Use when the user needs to find, summarize, edit, migrate, or clean up Google Workspace a…
 - **[healthcare-cdss-patterns](skills/healthcare-cdss-patterns/)** — Clinical Decision Support System (CDSS) development patterns. Drug interaction checking, dose validation, clinical scoring (NEWS2, qSOFA), alert severity classification, and integration into EMR workflows.
@@ -245,10 +220,9 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[web-artifacts-builder](skills/web-artifacts-builder/)** — Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, o…
 - **[workspace-surface-audit](skills/workspace-surface-audit/)** — Audit the active repo, MCP servers, plugins, connectors, env surfaces, and harness setup, then recommend the highest-value ECC-native skills, hooks, agents, and operator workflows. Use when the user wants help setting…
 
-### Context & Prompt Engineering (14)
+### Context & Prompt Engineering (13)
 
 - **[blueprint](skills/blueprint/)** — Turn a one-line objective into a step-by-step construction plan for multi-session, multi-agent engineering projects. Each step has a self-contained context brief so a fresh agent can execute it cold. Includes adversar…
-- **[context-budget](skills/context-budget/)** — Audits Claude Code context window consumption across agents, skills, MCP servers, and rules. Identifies bloat, redundant components, and produces prioritized token-savings recommendations.
 - **[dogfood](skills/dogfood/)** — Systematically explore and test a web application to find bugs, UX issues, and other problems. Use when asked to "dogfood", "QA", "exploratory test", "find issues", "bug hunt", "test this app/site/platform", or review…
 - **[executing-plans](skills/executing-plans/)** — Use when you have a written implementation plan to execute in a separate session with review checkpoints
 - **[openspec-apply-change](skills/openspec-apply-change/)** — Implement tasks from an OpenSpec change. Use when the user wants to start implementing, continue implementation, or work through tasks.
@@ -262,10 +236,9 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - **[structured-context-compressor](skills/structured-context-compressor/)** — Compress a long agent conversation into a nine-part continuation summary that preserves request, files, errors, user messages, current work, and the next aligned step.
 - **[token-budget-advisor](skills/token-budget-advisor/)** — Offers the user an informed choice about how much response depth to consume before answering. Use this skill when the user explicitly wants to control response length, depth, or token budget. TRIGGER when: "token budg…
 
-### Other (10)
+### Other (9)
 
 - **[claude-api](skills/claude-api/)** — Anthropic Claude API patterns for Python and TypeScript. Covers Messages API, streaming, tool use, vision, extended thinking, batches, prompt caching, and Claude Agent SDK. Use when building applications with the Clau…
-- **[codebase-onboarding](skills/codebase-onboarding/)** — Analyze an unfamiliar codebase and generate a structured onboarding guide with architecture map, key entry points, conventions, and a starter CLAUDE.md. Use when joining a new project or setting up Claude Code for the…
 - **[dependency-management](skills/dependency-management/)** — Manage project dependencies including checking for updates and security vulnerabilities. Use when you want to ensure dependencies are up-to-date and secure.
 - **[jira-integration](skills/jira-integration/)** — Use this skill when retrieving Jira tickets, analyzing requirements, updating ticket status, adding comments, or transitioning issues. Provides Jira API patterns via MCP or direct REST calls.
 - **[nutrient-document-processing](skills/nutrient-document-processing/)** — Process, convert, OCR, extract, redact, sign, and fill documents using the Nutrient DWS API. Works with PDFs, DOCX, XLSX, PPTX, HTML, and images.
@@ -294,30 +267,15 @@ See the [skills-manager docs](https://github.com/xingkongliang/skills-manager) f
 
 ### Online showcase
 
-The repo provides two layers of web artifacts for both "browsing" and "development":
+The repo provides a runnable web app for browsing all skills:
 
 | Directory | Type | Purpose |
 |-----------|------|---------|
 | `app/` | Runnable web app (**source**) | The project's web app source workspace, generating data from `skills/<name>/SKILL.md` at build time (see [`app/README.md`](app/README.md)) |
-| `prototype/` | Prebuilt static HTML prototype (**artifact**) | High-fidelity pure-static prototype (native HTML/CSS/JS), browsable offline with no build, ready to deploy to EdgeOne / object storage |
-
-#### Prototype (prototype/)
-
-The repo ships a high-fidelity static prototype built with native HTML/CSS/JS (no React/Next.js/Tailwind runtime). `prototype/src/` is inlined into a self-contained `prototype/index.html` by the root `build.mjs`, with i18n driven by the standalone module `prototype/src/i18n.js` (fail-safe `I18N.t()`).
-
-```bash
-# Open prototype/index.html directly in a browser, or serve it:
-cd prototype && python -m http.server 8080   # http://localhost:8080
-
-# Regenerate skills-data.json and rebuild the static artifact (zero npm deps, run at repo root):
-npm run build                # generates data/skills-data.json + prototype/index.html
-```
-
-Deploy `prototype/` as the site root to EdgeOne / object storage. The prototype is a prebuilt static artifact; its data source is `skills/<name>/SKILL.md`.
 
 #### App (app/)
 
-`app/` is the runnable web app source workspace. Unlike `prototype/`'s prebuilt pure-static prototype, `app/` is for actual development, iteration and build (tech stack per [`app/README.md`](app/README.md)).
+`app/` is the runnable web app source workspace, for actual development, iteration and build (tech stack per [`app/README.md`](app/README.md)).
 
 ```bash
 cd app
@@ -341,9 +299,6 @@ The project uses a unified vector logo and favicon in brand green `#2e9e6b` (HSL
 | README banner | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 brand-green gradient + serif title/subtitle, hero under the title |
 | Social share banner | [`app/public/banner-og.svg`](app/public/banner-og.svg) | 1200×628 (1.91:1) Open Graph / social card, text-safe |
 | App icon | [`app/icon.svg`](app/icon.svg) | Auto-detected by Next.js as favicon / apple-touch (from `app/public/favicon.svg`) |
-
-- Logo meaning, safe area, minimum size, palette and don'ts: see [`prototype/DESIGN.md` §8 Brand Identity](prototype/DESIGN.md).
-- Deploy: `prototype/favicon.svg` is copied from `app/public/favicon.svg` by root `build.mjs`; `app/` references `app/icon.svg` via `app/layout.tsx` `metadata.icons`.
 
 ### Finding a skill
 

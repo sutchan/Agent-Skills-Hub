@@ -2,6 +2,23 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.49] - 2026-08-19
+
+### refactor: 技能数据以磁盘实况重建为 173，README 移除原型描述
+
+- **重建技能数据为 173**：`build-skills-data.mjs` 以磁盘 `skills/`（含 `SKILL.md` 的 173 个目录）为权威源重新生成 `data/skills-data.json`，并重建 `prototype/index.html` 静态产物；彻底消除此前 data/README 中 27 个「幽灵技能」（如 `agent-eval`、`webapp-testing`、`brainstorming`、`brand-guidelines` 等磁盘不存在条目），避免「查看技能」链接 404
+- **README 移除原型描述**：`README.md` 与 `README.en.md` 删除「在线展示页面」中的 `prototype/` 行、「原型（prototype/）」整节及品牌资产中对 `prototype/DESIGN.md` 的引用，README 仅保留 `app/` Web 应用介绍
+- **技能清单与计数同步**：中英文 README 各分类计数与总技能数（200→173）同步更新，与磁盘实况一致
+- **版本号同步**：根 `package.json` → v1.14.49，README/README.en 版本徽章同步
+
+## [1.14.48] - 2026-08-19
+
+### docs: 核对并同步 README 技能中文描述与 SKILL.md 一致
+
+- **逐技能核对**：以磁盘实况（本地 173 个含 `SKILL.md` 的技能）为准，逐一比对 `README.md` 中各技能中文描述与其 `SKILL.md` 的 `description` 字段语义，绝大多数描述已准确一致
+- **描述修订**：`manim-video`（补全为数学/技术动画生产管线、3Blue1Brown 风格）、`dart-flutter-patterns`（补全 BLoC/Riverpod/Provider 状态管理、GoRouter、Dio、整洁架构）两处中文描述完善为更贴合 SKILL.md
+- **版本号同步**：根 `package.json` → v1.14.48，README/README.en 版本徽章同步
+
 ## [1.14.47] - 2026-08-19
 
 ### docs: 同步规范文档版本头与数据事实（204→200、categories string[]）
@@ -878,6 +895,8 @@
 [1.14.45]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.45
 [1.14.46]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.46
 [1.14.47]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.47
+[1.14.48]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.48
+[1.14.49]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.49
 
 ## [1.0.3] - 2026-07-31
 

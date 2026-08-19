@@ -382,7 +382,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.14.47</span>
+      <span class="footer-ver" id="footerVer">v1.14.49</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -402,21 +402,21 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 200,
+  "total": 173,
   "categories": [
     "Agent 与 AI 工程",
-    "测试与质量",
-    "视频与媒体",
     "架构与设计",
     "前端与 UI 设计",
     "内容、文档与写作",
     "上下文与提示工程",
+    "测试与质量",
     "DevOps 与基础设施",
     "后端、语言与框架",
     "行业领域",
     "生产力与工具",
     "其他",
-    "数据与机器学习"
+    "数据与机器学习",
+    "视频与媒体"
   ],
   "skills": [
     {
@@ -428,55 +428,6 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(npx agent-browser:*)",
         "Bash(agent-browser:*)"
       ]
-    },
-    {
-      "name": "agent-eval",
-      "category": "Agent 与 AI 工程",
-      "zh": "在自定义任务上对编码 agent（Claude Code、Aider、Codex 等）进行头对头对比，含通过率、成本、耗时等",
-      "description": "Head-to-head comparison of coding agents (Claude Code, Aider, Codex, etc.) on custom tasks with pass rate, cost, time, and consistency metrics",
-      "allowedTools": []
-    },
-    {
-      "name": "agent-harness-construction",
-      "category": "Agent 与 AI 工程",
-      "zh": "设计与优化 AI agent 的动作空间、工具定义与观察格式化，以提升完成率",
-      "description": "Design and optimize AI agent action spaces, tool definitions, and observation formatting for higher completion rates.",
-      "allowedTools": []
-    },
-    {
-      "name": "agent-payment-x402",
-      "category": "Agent 与 AI 工程",
-      "zh": "为 AI agent 添加 x402 支付能力——按任务预算、支出控制，以及通过 MCP 工具实现的非托管钱包",
-      "description": "Add x402 payment execution to AI agents — per-task budgets, spending controls, and non-custodial wallets via MCP tools. Use when agents need to pay for APIs, services, or other agents.",
-      "allowedTools": []
-    },
-    {
-      "name": "agentic-engineering",
-      "category": "Agent 与 AI 工程",
-      "zh": "以评估优先执行、任务拆解与成本感知的模型路由，作为 agentic 工程师运作",
-      "description": "Operate as an agentic engineer using eval-first execution, decomposition, and cost-aware model routing.",
-      "allowedTools": []
-    },
-    {
-      "name": "ai-first-engineering",
-      "category": "Agent 与 AI 工程",
-      "zh": "面向 AI agent 产出大部分实现代码的团队的工程运作模式",
-      "description": "Engineering operating model for teams where AI agents generate a large share of implementation output.",
-      "allowedTools": []
-    },
-    {
-      "name": "ai-regression-testing",
-      "category": "测试与质量",
-      "zh": "AI 辅助开发的回归测试策略。沙箱模式 API 测试（无数据库依赖），自动验证行为",
-      "description": "Regression testing strategies for AI-assisted development. Sandbox-mode API testing without database dependencies, automated bug-check workflows, and patterns to catch AI blind spots where the same model writes and reviews code.",
-      "allowedTools": []
-    },
-    {
-      "name": "algorithmic-art",
-      "category": "视频与媒体",
-      "zh": "使用 p5.js 配合种子随机与交互式参数探索创作算法艺术。当用户需要时触发",
-      "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
-      "allowedTools": []
     },
     {
       "name": "android-clean-architecture",
@@ -514,13 +465,6 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": []
     },
     {
-      "name": "autonomous-loops",
-      "category": "Agent 与 AI 工程",
-      "zh": "自主 Claude Code 循环的架构与模式，用于长时间运行的自动化任务编排",
-      "description": "Patterns and architectures for autonomous Claude Code loops — from simple sequential pipelines to RFC-driven multi-agent DAG systems.",
-      "allowedTools": []
-    },
-    {
       "name": "backend-patterns",
       "category": "架构与设计",
       "zh": "后端架构模式、API 设计、数据库优化与 Node.js、Express 等服务端最佳实践",
@@ -539,20 +483,6 @@ html[data-lang="zh"] .en { display: none; }
       "category": "上下文与提示工程",
       "zh": "将一句话目标拆解为多会话、多 Agent 工程项目的分步构建计划，每步含自包含上下文简报。用于复杂多 PR 任务或需多会话的路线图规划",
       "description": ">-",
-      "allowedTools": []
-    },
-    {
-      "name": "brainstorming",
-      "category": "内容、文档与写作",
-      "zh": "任何创造性工作（创建功能、构建组件、添加功能或修整）前必须使用本技能",
-      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
-      "allowedTools": []
-    },
-    {
-      "name": "brand-guidelines",
-      "category": "前端与 UI 设计",
-      "zh": "将 Anthropic 官方品牌色与字体应用于各类产物，使其符合 Anthropic 品牌规范",
-      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
       "allowedTools": []
     },
     {
@@ -581,20 +511,6 @@ html[data-lang="zh"] .en { display: none; }
       "category": "后端、语言与框架",
       "zh": "Bun 作为运行时、包管理器、打包器与测试运行器。何时选择 Bun 而非 Node、迁移说明及 Vercel 支持",
       "description": "Bun as runtime, package manager, bundler, and test runner. When to choose Bun vs Node, migration notes, and Vercel support.",
-      "allowedTools": []
-    },
-    {
-      "name": "canary-watch",
-      "category": "DevOps 与基础设施",
-      "zh": "部署、合并或依赖升级后，监控已部署 URL 是否出现回归",
-      "description": "Use this skill to monitor a deployed URL for regressions after deploys, merges, or dependency upgrades.",
-      "allowedTools": []
-    },
-    {
-      "name": "canvas-design",
-      "category": "前端与 UI 设计",
-      "zh": "运用设计理念在 `.png` 与 `.pdf` 文档中创作精美的视觉作品。当用户需要生成图像化文档时使用",
-      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
       "allowedTools": []
     },
     {
@@ -661,80 +577,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": []
     },
     {
-      "name": "codebase-onboarding",
-      "category": "其他",
-      "zh": "分析陌生代码库并生成结构化上手指南，含架构图、关键入口、关注点等",
-      "description": "Analyze an unfamiliar codebase and generate a structured onboarding guide with architecture map, key entry points, conventions, and a starter CLAUDE.md. Use when joining a new project or setting up Claude Code for the first time in a repo.",
-      "allowedTools": []
-    },
-    {
       "name": "coding-standards",
       "category": "测试与质量",
       "zh": "通用编码规范、最佳实践与模式，面向 TypeScript、JavaScript、React 与 Node.js 开发",
       "description": "Universal coding standards, best practices, and patterns for TypeScript, JavaScript, React, and Node.js development.",
-      "allowedTools": []
-    },
-    {
-      "name": "compose-multiplatform-patterns",
-      "category": "后端、语言与框架",
-      "zh": "Compose Multiplatform 与 Jetpack Compose 模式（KMP 项目）——状态管理、导航、主题、性能优化等",
-      "description": "Compose Multiplatform and Jetpack Compose patterns for KMP projects — state management, navigation, theming, performance, and platform-specific UI.",
-      "allowedTools": []
-    },
-    {
-      "name": "configure-ecc",
-      "category": "DevOps 与基础设施",
-      "zh": "Everything Claude Code 的交互式安装器——引导用户选择并安装技能与规则",
-      "description": "Interactive installer for Everything Claude Code — guides users through selecting and installing skills and rules to user-level or project-level directories, verifies paths, and optionally optimizes installed files.",
-      "allowedTools": []
-    },
-    {
-      "name": "connections-optimizer",
-      "category": "DevOps 与基础设施",
-      "zh": "以\"先审查再剪枝\"的方式重组用户的 X 与 LinkedIn 网络，给出添加/关注建议与渠道专属策略",
-      "description": "Reorganize the user's X and LinkedIn network with review-first pruning, add/follow recommendations, and channel-specific warm outreach drafted in the user's real voice. Use when the user wants to clean up following lists, grow toward current priorities, or rebalance a social graph around higher-signal relationships.",
-      "allowedTools": []
-    },
-    {
-      "name": "content-engine",
-      "category": "内容、文档与写作",
-      "zh": "为 X、LinkedIn、TikTok、YouTube、简报与再加工的多平台内容创建原生内容系统",
-      "description": "Create platform-native content systems for X, LinkedIn, TikTok, YouTube, newsletters, and repurposed multi-platform campaigns. Use when the user wants social posts, threads, scripts, content calendars, or one source asset adapted cleanly across platforms.",
-      "allowedTools": []
-    },
-    {
-      "name": "content-hash-cache-pattern",
-      "category": "内容、文档与写作",
-      "zh": "使用 SHA-256 内容哈希缓存昂贵的文件处理结果——与路径无关、自动失效，带服务层",
-      "description": "Cache expensive file processing results using SHA-256 content hashes — path-independent, auto-invalidating, with service layer separation.",
-      "allowedTools": []
-    },
-    {
-      "name": "context-budget",
-      "category": "上下文与提示工程",
-      "zh": "审计 Claude Code 在 agent、技能、MCP 服务器与规则间的上下文窗口消耗。识别膨胀、冗余等",
-      "description": "Audits Claude Code context window consumption across agents, skills, MCP servers, and rules. Identifies bloat, redundant components, and produces prioritized token-savings recommendations.",
-      "allowedTools": []
-    },
-    {
-      "name": "continuous-agent-loop",
-      "category": "Agent 与 AI 工程",
-      "zh": "带质量门禁、评估与恢复控制的持续自主 agent 循环模式",
-      "description": "Patterns for continuous autonomous agent loops with quality gates, evals, and recovery controls.",
-      "allowedTools": []
-    },
-    {
-      "name": "continuous-learning",
-      "category": "Agent 与 AI 工程",
-      "zh": "从 Claude Code 会话中自动提取可复用模式，构建带置信度的原子能力库",
-      "description": "Automatically extract reusable patterns from Claude Code sessions and save them as learned skills for future use.",
-      "allowedTools": []
-    },
-    {
-      "name": "continuous-learning-v2",
-      "category": "Agent 与 AI 工程",
-      "zh": "基于本能的学习系统，通过 hook 观察会话，创建带置信度评分的原子本能",
-      "description": "Instinct-based learning system that observes sessions via hooks, creates atomic instincts with confidence scoring, and evolves them into skills/commands/agents. v2.1 adds project-scoped instincts to prevent cross-project contamination.",
       "allowedTools": []
     },
     {
@@ -752,27 +598,6 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": []
     },
     {
-      "name": "cpp-testing",
-      "category": "后端、语言与框架",
-      "zh": "仅用于编写/更新/修复 C++ 测试、配置 GoogleTest/CTest、诊断失败或偶发测试等场景",
-      "description": "Use only when writing/updating/fixing C++ tests, configuring GoogleTest/CTest, diagnosing failing or flaky tests, or adding coverage/sanitizers.",
-      "allowedTools": []
-    },
-    {
-      "name": "crosspost",
-      "category": "内容、文档与写作",
-      "zh": "跨 X、LinkedIn、Threads 与 Bluesky 的多平台内容分发。按平台适配内容",
-      "description": "Multi-platform content distribution across X, LinkedIn, Threads, and Bluesky. Adapts content per platform using content-engine patterns. Never posts identical content cross-platform. Use when the user wants to distribute content across social platforms.",
-      "allowedTools": []
-    },
-    {
-      "name": "csharp-testing",
-      "category": "后端、语言与框架",
-      "zh": "C# 与 .NET 测试模式：xUnit、FluentAssertions、Mocking、集成测试与测试组织最佳实践",
-      "description": "C# and .NET testing patterns with xUnit, FluentAssertions, mocking, integration tests, and test organization best practices.",
-      "allowedTools": []
-    },
-    {
       "name": "customer-billing-ops",
       "category": "行业领域",
       "zh": "运营客户账单工作流，如订阅、退款、流失分诊、账单门户挽回与套餐变更等",
@@ -780,16 +605,9 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": []
     },
     {
-      "name": "customs-trade-compliance",
-      "category": "行业领域",
-      "zh": "海关单证、税则归类、关税优化、受限方筛查与多辖区贸易合规。用于报关清关、税则归类、贸易合规、进出口单证或关税优化",
-      "description": ">",
-      "allowedTools": []
-    },
-    {
       "name": "dart-flutter-patterns",
       "category": "后端、语言与框架",
-      "zh": "生产可用的 Dart 与 Flutter 模式：空安全、不可变状态、异步组合、Widget 架构等",
+      "zh": "生产可用的 Dart 与 Flutter 模式：空安全、不可变状态、异步组合、Widget 架构，以及 BLoC/Riverpod/Provider 状态管理、GoRouter 导航、Dio 网络与整洁架构",
       "description": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture.",
       "allowedTools": []
     },
@@ -1263,7 +1081,7 @@ html[data-lang="zh"] .en { display: none; }
     {
       "name": "manim-video",
       "category": "视频与媒体",
-      "zh": "为技术概念、图表、系统图与产品演示构建可复用的 Manim 讲解动画，然后交付成果",
+      "zh": "基于 Manim Community Edition 的数学与技术动画生产管线，产出 3Blue1Brown 风格讲解视频、算法可视化、公式推导、架构图与数据故事",
       "description": "Production pipeline for mathematical and technical animations using Manim Community Edition. Creates 3Blue1Brown-style explainer videos, algorithm visualizations, equation derivations, architecture diagrams, and data stories. Use when users request: animated explanations, math animations, concept visualizations, algorithm walkthroughs, technical explainers, 3Blue1Brown style videos, or any programmatic animation with geometric/mathematical content.",
       "allowedTools": []
     },
@@ -1803,13 +1621,6 @@ html[data-lang="zh"] .en { display: none; }
       "category": "前端与 UI 设计",
       "zh": "审查 UI 代码是否符合 Web 界面规范。当用户要求\"审查我的 UI\"\"检查可访问性\"等时使用",
       "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
-      "allowedTools": []
-    },
-    {
-      "name": "webapp-testing",
-      "category": "测试与质量",
-      "zh": "与本地 Web 应用交互和测试的 Toolkit——浏览器自动化、端到端验证与 UI 检查",
-      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
       "allowedTools": []
     },
     {

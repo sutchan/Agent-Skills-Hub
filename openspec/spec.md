@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`openspec/spec.md` · 版本：1.14.47
+> 路径：`openspec/spec.md` · 版本：1.14.48
 > 本文件固化**当前已落地能力**的基线规范，作为变更的起点与回退基准。
 > 详细数据契约、交互与分享规则见 [`project.md`](project.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 
@@ -10,7 +10,7 @@
 
 - **项目定位**：Agent 技能集合仓库，提供 `skills/`（原始技能）、`prototype/`（静态展示页）、`app/`（Next.js 应用工作区）三套资产。
 - **设计令牌权威源**：`prototype/src/styles/tokens.css`（单一来源，浅/深双主题）。主色绿：浅 `#2e9e6b`、深 `#5cc98c`。
-- **版本权威源**：仓库根 `package.json` 的 `version`（当前 1.14.47）。README 中英文徽章、CHANGELOG 顶部须与之保持一致。
+- **版本权威源**：仓库根 `package.json` 的 `version`（当前 1.14.48）。README 中英文徽章、CHANGELOG 顶部须与之保持一致。
 
 ---
 
@@ -42,7 +42,7 @@ type SkillsData = {
 - `category` 必须与 README 分类标题（英文 README 的 `### Category (N)`）**名称一致**；中文 README 分类标题用 `### 分类（N）` 形式。
 - `zh` 取自中文 README 表格第二列；英文 `description` 取自 SKILL.md 原文。
 - `data/skills-data.json` 为**构建产物，勿手改**，重跑 `npm run build` 再生。
-- 当前磁盘技能目录 **200** 个（与 README 声明、`data/skills-data.json` 的 `total` 一致）。
+- 当前磁盘技能目录 **173** 个（与 README 声明、`data/skills-data.json` 的 `total` 一致）。
 
 ---
 

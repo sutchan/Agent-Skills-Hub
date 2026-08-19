@@ -9,9 +9,9 @@ export type Lang = "zh" | "en";
  *  品牌名统一为 Agent Skills Hub（与 app/layout.tsx metadata、原型 title 一致）。 */
 export const SHARE_PROMOS: Record<Lang, string[]> = {
   zh: [
-    "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，即取即用！",
-    "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、查看详情，提升你的 AI 编码工作流。",
-    "💡 想让你的 Coding Agent 更强？来看看 Agent Skills Hub：{n} 个即插即用的技能，开源免费！",
+    "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
+    "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
+    "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，{n} 技能即插即用，开源免费！",
   ],
   en: [
     "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
