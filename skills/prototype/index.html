@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<!-- prototype/src/index.html v1.14.56 — Agent Skills Hub 高保真原型模板 -->
+<html lang="zh" data-theme="light" data-lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 33 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Agent Skills Hub" />
+  <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
+  <meta property="og:description" content="集中管理 33+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:image" content="banner-og.svg" />
+  <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
+  <meta name="twitter:description" content="集中管理 33+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:image" content="banner-og.svg" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <style>/* prototype/src/styles/tokens.css v1.14.56 — 设计令牌 + reset（DESIGN.md §2 事实来源）
+ *
+ * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
+ * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）为历史兼容保留，供 base/layout/components 模块消费，
+ * 全部映射到语义令牌；后续清理轮次可移除别名、让各样式模块直接消费语义令牌。
+ */
+
+:root {
+  /* ===== 语义化 HSL 令牌（DESIGN §2.1 色彩，单一事实来源） ===== */
+  --background: 0 0% 100%;          /* 页面背景 */
+  --foreground: 224 24% 12%;        /* 主文字 */
+  --card: 0 0% 100%;                /* 卡片/弹窗表面 */
+  --card-foreground: 224 24% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 24% 12%;
+  --primary: 152 56% 40%;           /* 单一主色（降饱和绿） */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 16% 96%;         /* 次级表面 */
+  --secondary-foreground: 224 24% 18%;
+  --muted: 220 16% 96%;             /* 辅助表面 */
+  --muted-foreground: 220 9% 46%;   /* 辅助文字 */
+  --accent: 152 56% 95%;            /* 主色浅底（聚焦环/徽章） */
+  --accent-foreground: 152 56% 33%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 14% 90%;
+  --input: 220 14% 90%;
+  --ring: 152 56% 40%;
+  --radius: 0.75rem;                /* 默认圆角基准 */
+  --shadow-color: 224 32% 20%;
+
+  /* ===== 阴影分层（DESIGN §2.5，浅而柔） ===== */
+  --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .04), 0 1px 3px hsl(var(--shadow-color) / .06);
+  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .05), 0 2px 6px -1px hsl(var(--shadow-color) / .08);
+  --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / .10), 0 2px 6px -2px hsl(var(--shadow-color) / .06);
+  --shadow-lg: 0 12px 32px -8px hsl(var(--shadow-color) / .16), 0 4px 10px -4px hsl(var(--shadow-color) / .08);
+  --shadow-pop: var(--shadow-lg);
+
+  /* ===== 字体（DESIGN §2.2） ===== */
+  --font-display: Georgia, "Times New Roman", "Songti SC", "STSong", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-en: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --maxw: 1200px;
+
+  /* ===== 扁平桥接别名（兼容 app.css 历史消费名，后续清理） ===== */
+  --bg: hsl(var(--background));
+  --surface: hsl(var(--card));
+  --surface-2: hsl(var(--secondary));
+  --text: hsl(var(--foreground));
+  --text-2: hsl(var(--muted-foreground));
+  --text-3: hsl(var(--muted-foreground) / .9);
+  --primary-weak: hsl(var(--accent));
+  --primary-strong: hsl(var(--primary) / 1);
+  --shadow-card: var(--shadow-sm);
+}
+
+/* 深色主题（DESIGN §2.1 深色列） */
+html[data-theme="dark"] {
+  --background: 224 28% 8%;
+  --foreground: 220 18% 92%;
+  --card: 224 24% 11%;
+  --card-foreground: 220 18% 92%;
+  --popover: 224 24% 11%;
+  --popover-foreground: 220 18% 92%;
+  --primary: 146 52% 60%;
+  --primary-foreground: 224 32% 8%;
+  --secondary: 224 18% 18%;
+  --secondary-foreground: 220 18% 88%;
+  --muted: 224 18% 16%;
+  --muted-foreground: 220 12% 60%;
+  --accent: 146 52% 22%;
+  --accent-foreground: 146 52% 82%;
+  --destructive: 0 62% 52%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 224 16% 22%;
+  --input: 224 16% 24%;
+  --ring: 146 52% 60%;
+  --shadow-color: 0 0% 0%;
+
+  --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .4);
+  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .5), 0 2px 6px -1px hsl(var(--shadow-color) / .4);
+  --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / .5), 0 2px 6px -2px hsl(var(--shadow-color) / .4);
+  --shadow-lg: 0 16px 40px -8px hsl(var(--shadow-color) / .6), 0 4px 12px -4px hsl(var(--shadow-color) / .4);
+
+  --bg: hsl(var(--background));
+  --surface: hsl(var(--card));
+  --surface-2: hsl(var(--secondary));
+  --text: hsl(var(--foreground));
+  --text-2: hsl(var(--muted-foreground));
+  --text-3: hsl(var(--muted-foreground) / .9);
+  --primary-weak: hsl(var(--accent));
+  --primary-strong: hsl(var(--primary) / 1);
+  --shadow-card: var(--shadow-sm);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  transition: background .2s ease, color .2s ease;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+input { font-family: inherit; }
+
+/* 仅供屏幕阅读器（sr-only）— 弹窗标题等无障碍语义（COMPONENTS #7） */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* prototype/src/styles/base.css v1.14.56 — 全局 UX 增强（无障碍 + 动效 + 反馈）
+   设计令牌来自 tokens.css，组件布局见 layout.css / components.css。 */
+
+/* 键盘焦点可见：仅对键盘用户显示焦点环，避免鼠标点击残留描边 */
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 6px; }
+/* 打开弹窗时锁定背景滚动 */
+body.no-scroll { overflow: hidden; }
+/* 尊重用户的减少动效偏好（无障碍 WCAG 2.3.3） */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+  /* 回到顶部 / 分享提示：禁用位移动画，仅保留淡入，避免 reduced-motion 下瞬跳位移 */
+  .to-top, .toast { transform: none !important; }
+}
+
+/* 回到顶部按钮：默认隐藏，滚动超阈值后淡入 */
+.to-top {
+  position: fixed; right: 20px; bottom: 20px; z-index: 40;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--primary); color: hsl(var(--primary-foreground));
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-pop);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.to-top:hover { background: var(--primary-strong); }
+
+/* 分享复制结果轻量提示：底部居中上浮，3s 自动消失 */
+.toast {
+  position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px);
+  z-index: 60; padding: 10px 18px; border-radius: 10px;
+  background: #1f2937; color: #fff; font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  pointer-events: none; max-width: 86vw; text-align: center;
+}
+.toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.toast.err { background: #dc2626; }
+
+/* 语言切换后英文/中文描述互斥显示 */
+html[data-lang="en"] .zh { display: none; }
+html[data-lang="zh"] .en { display: none; }
+
+/* prototype/src/styles/layout.css v1.14.56 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+
+/* 顶部栏 */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.brand .logo { width: 28px; height: 28px; }
+.lang-switch { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--surface-2); }
+.lang-switch button { border: 0; background: transparent; padding: 6px 12px; font-size: 13px; color: var(--text-2); cursor: pointer; }
+.lang-switch button.active { background: var(--primary); color: hsl(var(--primary-foreground)); }
+
+/* Hero 区 */
+.hero { text-align: center; padding: 48px 24px 28px; background: radial-gradient(1200px 400px at 50% -10%, hsl(var(--primary) / .22), transparent 70%), hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+.hero h1 { font-size: clamp(28px, 5vw, 40px); margin: 0 0 8px; letter-spacing: -.5px; }
+.hero p { margin: 0 auto; max-width: 640px; opacity: .92; font-size: 16px; }
+.hero .meta { margin-top: 14px; display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.hero .pill { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.28); padding: 4px 12px; border-radius: 999px; font-size: 13px; }
+
+/* 控制区（搜索 + 排序 + 分类） */
+.controls { position: sticky; top: 56px; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
+.search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 15px; color: var(--text); }
+.search .icon { opacity: .6; }
+.sort { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-2); }
+.sort select { border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; background: var(--surface-2); color: var(--text); font-size: 14px; }
+/* 分类筛选条：桌面换行，移动端横向可滚动（DESIGN §5） */
+.cats { width: 100%; overflow: hidden; }
+.cats-scroll { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 640px) {
+  .cats-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
+  .cats-scroll::-webkit-scrollbar { display: none; }
+}
+
+/* 网格与卡片容器 */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 24px; max-width: 1200px; margin: 0 auto; }
+.empty { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 60px 16px; }
+
+/* 弹窗（扩展详情） */
+.overlay { position: fixed; inset: 0; z-index: 50; background: rgba(15,23,42,.5); display: none; }
+.overlay.show { display: block; }
+.dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; }
+.dialog.show { display: flex; }
+.dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 20px 22px; border-bottom: 1px solid var(--border); }
+.dialog-body { padding: 22px; overflow: auto; }
+
+/* 空状态提示（搜索无结果等） */
+.empty-state { text-align: center; color: var(--text-2); padding: 40px 16px; }
+.empty-state .big { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+
+/* 页脚 */
+.site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.footer-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.footer-brand .logo { width: 26px; height: 26px; }
+.footer-desc { color: var(--text-2); font-size: 13px; margin-top: 4px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.footer-link { color: var(--text-2); text-decoration: none; font-size: 13px; }
+.footer-link:hover { color: var(--primary); }
+.footer-bottom { max-width: 1200px; margin: 16px auto 0; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--text-2); font-size: 12px; }
+.footer-ver { font-weight: 600; color: var(--text); }
+.footer-sep { opacity: .5; }
+.footer-copy { margin-left: auto; }
+
+/* prototype/src/styles/components.css v1.14.56 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+
+/* 分类 chip（筛选器 + 卡片内标签）；统一映射到主色，禁止异色相（DESIGN §8.3） */
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); font-size: 13px; color: var(--text-2); cursor: pointer; transition: border-color .15s ease, color .15s ease, background .15s ease; }
+.chip:hover { border-color: var(--primary); color: var(--primary); }
+.chip.active { background: var(--primary); border-color: var(--primary); color: hsl(var(--primary-foreground)); }
+.chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
+.chip.active .chip-count { opacity: 1; }
+
+/* 技能卡片 */
+.card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 18px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; overflow: hidden; }
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
+.card:focus-visible { border-color: var(--primary); }
+.card .top { display: flex; align-items: center; gap: 10px; }
+.card .avatar { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-weight: 700; font-size: 15px; }
+.card h3 { margin: 0; font-size: 16px; }
+.card .desc { margin: 0; color: var(--text-2); font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.card .cat-tag { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--primary) 12%, var(--surface)); color: var(--primary-strong); border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border)); }
+.card .stat { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); }
+.card .stat b { color: var(--text); }
+.card .src-badge { position: absolute; top: 12px; right: 12px; font-size: 10px; padding: 2px 7px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); text-transform: uppercase; letter-spacing: .4px; }
+
+/* 弹窗操作按钮（GitHub / 复制 / 关闭） */
+.btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font-size: 14px; text-decoration: none; transition: all .15s ease; }
+.btn:hover { border-color: var(--primary); color: var(--primary); }
+.btn.primary { background: var(--primary); border-color: var(--primary); color: hsl(var(--primary-foreground)); }
+.btn.primary:hover { background: var(--primary-strong); color: hsl(var(--primary-foreground)); }
+
+/* 弹窗底部操作区 */
+.dialog-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 22px; border-top: 1px solid var(--border); }
+
+/* prototype/src/styles/responsive.css v1.14.56 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
+
+@media (max-width: 640px) {
+  .topbar { padding: 10px 16px; }
+  .hero { padding: 36px 16px 22px; }
+  .controls { padding: 12px 16px; top: 52px; }
+  .search { flex: 1 1 100%; }
+  .grid { padding: 16px; gap: 12px; grid-template-columns: 1fr; }
+  .dialog { width: 96vw; height: 90vh; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-copy { margin-left: 0; }
+}
+
+@media (max-width: 640px) {
+  .card .desc { -webkit-line-clamp: 4; line-clamp: 4; }
+}
+</style>
+  <!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WQDDVB14PF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WQDDVB14PF');
+</script>
+</head>
+<body>
+  <!-- 品牌图形单一来源 symbol（与 brand/hub.svg 内容一致，currentColor 驱动；DESIGN §8.2） -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="ash-hub" viewBox="0 0 32 32">
+      <g fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+        <line x1="16" y1="16" x2="16" y2="7.5" opacity=".55" />
+        <line x1="16" y1="16" x2="24.5" y2="21" opacity=".55" />
+        <line x1="16" y1="16" x2="7.5" y2="21" opacity=".55" />
+        <circle cx="16" cy="16" r="3.4" fill="currentColor" stroke="none" />
+        <circle cx="16" cy="7.5" r="2.3" stroke="none" />
+        <circle cx="24.5" cy="21" r="2.3" stroke="none" />
+        <circle cx="7.5" cy="21" r="2.3" stroke="none" />
+      </g>
+    </symbol>
+  </svg>
+  <header class="topbar" id="siteHeader">
+    <div class="topbar-inner" id="topbarInner">
+      <a class="brand" id="brandLink" href="#">
+        <svg class="logo" style="width:22px;height:22px" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
+          <rect width="32" height="32" rx="8" fill="#2e9e6b" />
+          <use href="#ash-hub" xlink:href="#ash-hub" width="32" height="32" color="#fff" />
+        </svg>
+        <span>Skills Hub <small data-i18n="brand.subtitle">高质量 Agent 技能库</small></span>
+      </a>
+      <div class="topbar-spacer"></div>
+      <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言 / Switch language" aria-pressed="false">中</button>
+      <button class="icon-btn" id="themeBtn" title="主题 / Theme" aria-label="切换主题 / Switch theme" aria-pressed="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="themeIcon">
+          <g class="theme-sun">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+          </g>
+          <path class="theme-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" style="display:none"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <h1 class="zh" id="heroTitleZh" data-i18n="hero.title">发现并复用 {n} 个高质量 Agent 技能</h1>
+    <h1 class="en" id="heroTitleEn" data-i18n="hero.title">Discover & reuse {n} high-quality agent skills</h1>
+    <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
+    <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
+    <div class="stats" id="heroStats" aria-live="polite">
+      <div class="stat"><div class="num" id="statTotal">0</div><div class="label zh" data-i18n="stat.total">技能总数</div><div class="label en" data-i18n="stat.total">Total skills</div></div>
+      <div class="stat"><div class="num" id="statCats">0</div><div class="label zh" data-i18n="stat.cats">分类</div><div class="label en" data-i18n="stat.cats">Categories</div></div>
+      <div class="stat"><div class="num" id="statShown">0</div><div class="label zh" data-i18n="stat.shown">当前展示</div><div class="label en" data-i18n="stat.shown">Shown</div></div>
+    </div>
+  </section>
+
+  <div class="controls" id="searchControls">
+    <div class="search" id="searchBox">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+      <input id="searchInput" type="search" aria-label="搜索技能 / Search skills" placeholder="搜索技能名称或描述…" />
+    </div>
+    <div class="view-toggle" id="viewToggle">
+      <button class="view-btn active" data-view="grid" title="网格">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+      </button>
+      <button class="view-btn" data-view="list" title="列表">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="cats-scroll" id="cats"></div></nav>
+
+  <main class="grid" id="grid" aria-label="技能列表" aria-live="polite"></main>
+
+  <!-- 页脚区：品牌 + 导航链接 + 版本/协议（id 供脚本与测试精确选取；文案随语言切换） -->
+  <footer class="site-footer" id="siteFooter">
+    <div class="footer-inner" id="footerInner">
+      <div class="footer-brand" id="footerBrand">
+        <a class="footer-logo" id="footerLogo" href="#" aria-label="Agent Skills Hub">
+          <svg class="logo" style="width:20px;height:20px" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
+            <rect width="32" height="32" rx="8" fill="#2e9e6b" />
+            <use href="#ash-hub" xlink:href="#ash-hub" width="32" height="32" color="#fff" />
+          </svg>
+          <span>Skills Hub</span>
+        </a>
+        <p class="footer-desc zh" id="footerDescZh" data-i18n="footer.desc">高质量 Agent 技能目录，按分类浏览、搜索、即取即用。</p>
+        <p class="footer-desc en" id="footerDescEn" data-i18n="footer.desc">A curated directory of high-quality agent skills — browse, search, and reuse.</p>
+      </div>
+      <nav class="footer-links" id="footerLinks" aria-label="页脚导航 / Footer links">
+        <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener">GitHub</a>
+        <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener">README</a>
+      </nav>
+    </div>
+    <div class="footer-bottom" id="footerBottom">
+      <span class="footer-ver" id="footerVer">v1.14.56</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
+      <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
+    </div>
+  </footer>
+
+  <div class="overlay" id="overlay">
+    <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogVisibleTitle"></div>
+  </div>
+
+  <!-- 回到顶部按钮：长列表滚动后出现，提升长页面导航效率（id 供脚本精确选取） -->
+  <button class="to-top" id="toTop" aria-label="回到顶部 / Back to top" title="回到顶部 / Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+  </button>
+
+  <!-- 分享复制结果轻量提示：底部居中上浮，role=status 供屏幕阅读器播报（DESIGN §4.5） -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>const SKILLS_DATA = {
+  "total": 33,
+  "categories": [
+    "品牌与设计",
+    "文档与内容",
+    "数据分析与可视化",
+    "开发框架与平台",
+    "文件与格式处理"
+  ],
+  "skills": [
+    {
+      "name": "brand-guidelines",
+      "category": "品牌与设计",
+      "zh": "Anthropic 官方品牌规范与视觉风格",
+      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "brand-review",
+      "category": "品牌与设计",
+      "zh": "品牌声音与风格审查",
+      "description": "Review content against your brand voice, style guide, and messaging pillars, flagging deviations by severity with specific before/after fixes. Use when checking a draft before it ships, when auditing copy for voice consistency and terminology, or when screening for unsubstantiated claims, missing disclaimers, and other legal flags.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "discover-brand",
+      "category": "品牌与设计",
+      "zh": "品牌发现与定位",
+      "description": "This skill orchestrates autonomous discovery of brand materials across enterprise platforms (Notion, Confluence, Google Drive, Box, SharePoint, Figma, Gong, Granola, Slack). It should be used when the user asks to \"discover brand materials\", \"find brand documents\", \"search for brand guidelines\", \"audit brand content\", \"what brand materials do we have\", \"find our style guide\", \"where are our brand docs\", \"do we have a style guide\", \"discover brand voice\", \"brand content audit\", or \"find brand assets\".",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "frontend-design",
+      "category": "品牌与设计",
+      "zh": "独特的前端视觉设计",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "logo-creator",
+      "category": "品牌与设计",
+      "zh": "AI 生成 Logo 与图标",
+      "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "svg-logo-designer",
+      "category": "品牌与设计",
+      "zh": "SVG Logo 设计",
+      "description": "Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "theme-factory",
+      "category": "品牌与设计",
+      "zh": "工件主题样式工具箱",
+      "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "code-review",
+      "category": "文档与内容",
+      "zh": "代码审查（标准与规格双轴）",
+      "description": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "coding-standards",
+      "category": "文档与内容",
+      "zh": "跨项目编码规范基线",
+      "description": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns. Use when reviewing code quality or naming with no framework-specific skill that applies.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "documentation",
+      "category": "文档与内容",
+      "zh": "技术文档编写与维护",
+      "description": "Write and maintain technical documentation. Trigger with \"write docs for\", \"document this\", \"create a README\", \"write a runbook\", \"onboarding guide\", or when the user needs help with any form of technical writing — API docs, architecture docs, or operational runbooks.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "find-skills",
+      "category": "文档与内容",
+      "zh": "技能发现与安装",
+      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "grill-me",
+      "category": "文档与内容",
+      "zh": "方案与设计的深度质询",
+      "description": "A relentless interview to sharpen a plan or design.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "grill-with-docs",
+      "category": "文档与内容",
+      "zh": "带文档产出的方案质询",
+      "description": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "skill-creator",
+      "category": "文档与内容",
+      "zh": "技能创建与优化",
+      "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "data-visualization",
+      "category": "数据分析与可视化",
+      "zh": "Python 数据可视化",
+      "description": "Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "agent-browser",
+      "category": "开发框架与平台",
+      "zh": "浏览器自动化",
+      "description": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
+      "allowedTools": [
+        "Bash(agent-browser:*)",
+        "Bash(npx agent-browser:*)"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "agent-development",
+      "category": "开发框架与平台",
+      "zh": "智能体（Agent）开发指南",
+      "description": "This skill should be used when the user asks to \"create an agent\", \"add an agent\", \"write a subagent\", \"agent frontmatter\", \"when to use description\", \"agent examples\", \"agent tools\", \"agent colors\", \"autonomous agent\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "cloudbase",
+      "category": "开发框架与平台",
+      "zh": "腾讯云开发 CloudBase 项目开发",
+      "description": "Use this skill when you develop, design, build, deploy, debug, migrate, or troubleshoot CloudBase (腾讯云开发, 云开发, TCB, 微信云开发) projects. Covers Web, 微信小程序, 小程序, uni-app, mobile (iOS, Android, Flutter, React Native). UI (页面, 界面, 表单, form, dashboard, prototype, 原型); auth (登录, 注册, OAuth, 微信登录, publishable key); databases (NoSQL 文档数据库, MySQL 关系型数据库, PostgreSQL/CloudBase PG, app.rdb(), queryPgDatabase/managePgDatabase, CRUD, 查询, security rules); 云函数/cloud functions (serverless, scf_bootstrap); CloudRun (云托管, Dockerfile); 云存储. Built-in AI (内置大模型, AI 对话, streaming, 流式输出, 图片生成, generateText, streamText, createModel, generateImage, TokenHub, Hunyuan, hunyuan-exp, DeepSeek, deepseek, GLM, Kimi, Token Credits 资源包, 小程序成长计划). 第三方大模型, 大模型接入, 大模型调用, LLM API, AI agent, 智能体, AI Agent, AG-UI, LangGraph. Ops (巡检, 诊断, health check, 日志, troubleshooting). Spec (需求文档, 技术方案, requirements, tasks.md). Do NOT use for non-CloudBase projects, pure frontend without CloudBase, or self-hosted backends without CloudBase.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "dart-build-cli-app",
+      "category": "开发框架与平台",
+      "zh": "Dart 命令行应用构建",
+      "description": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "dart-flutter-patterns",
+      "category": "开发框架与平台",
+      "zh": "Dart/Flutter 生产级模式",
+      "description": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "flutter-apply-architecture-best-practices",
+      "category": "开发框架与平台",
+      "zh": "Flutter 分层架构最佳实践",
+      "description": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "flutter-build-responsive-layout",
+      "category": "开发框架与平台",
+      "zh": "Flutter 响应式布局",
+      "description": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "flutter-dart-code-review",
+      "category": "开发框架与平台",
+      "zh": "Flutter/Dart 代码审查清单",
+      "description": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "flutter-setup-localization",
+      "category": "开发框架与平台",
+      "zh": "Flutter 本地化配置",
+      "description": "Add `flutter_localizations` and `intl` dependencies, enable \"generate true\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "supabase",
+      "category": "开发框架与平台",
+      "zh": "Supabase 全栈开发",
+      "description": "Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libraries and SSR integrations (supabase-js, @supabase/ssr) in Next.js, React, SvelteKit, Astro, Remix; auth issues (login, logout, sessions, JWT, cookies, getSession, getUser, getClaims, RLS); Supabase CLI or MCP server; schema changes, migrations, declarative schemas, security audits, Postgres extensions (pg_graphql, pg_cron, pg_vector); debugging and troubleshooting errors or unexpected behavior on Supabase projects (HTTP errors, Postgres errors, RLS surprises, permission denied, schema cache issues, timeouts, Edge Function crashes, Realtime drops, Storage failures) and reading or querying logs (Logs Explorer, ClickHouse).",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "category": "开发框架与平台",
+      "zh": "Postgres 数据库最佳实践",
+      "description": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "category": "开发框架与平台",
+      "zh": "React/Next.js 性能最佳实践",
+      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "web-artifacts-builder",
+      "category": "开发框架与平台",
+      "zh": "Web 多组件构件构建",
+      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-playground",
+      "category": "开发框架与平台",
+      "zh": "WordPress Playground 路由封装",
+      "description": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "docx",
+      "category": "文件与格式处理",
+      "zh": "Word 文档创建与处理",
+      "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "pdf",
+      "category": "文件与格式处理",
+      "zh": "PDF 文件处理",
+      "description": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "pptx",
+      "category": "文件与格式处理",
+      "zh": "PPT 演示文稿处理",
+      "description": "Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \\\"deck,\\\" \\\"slides,\\\" \\\"presentation,\\\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "xlsx",
+      "category": "文件与格式处理",
+      "zh": "电子表格文件处理",
+      "description": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\"the xlsx in my downloads\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
+      "allowedTools": [],
+      "hidden": false
+    }
+  ]
+};</script>
+  <script>// prototype/src/i18n.js v1.14.56 — 独立国际化模块
+// 设计目标：
+//   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
+//   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
+//      保证「即使翻译文件/字典出错，应用也不会崩溃」。
+//   3. 语言状态、切换、DOM 同步全部收敛到本模块，与 UI 渲染解耦。
+(function (global) {
+  "use strict";
+
+  // ---------- 1. 翻译字典（唯一来源） ----------
+  // 若本字典在运行时被外部篡改或加载失败，模块仍可通过兜底逻辑运行。
+  var translations = {
+    zh: {
+      "brand.subtitle": "高质量 Agent 技能库",
+      "lang.toggle": "中 / EN",
+      "theme.toggle": "主题 / Theme",
+      "hero.title": "发现并复用 {n} 个高质量 Agent 技能",
+      "hero.subtitle": "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。",
+      "stat.total": "技能总数",
+      "stat.cats": "分类",
+      "stat.shown": "当前展示",
+      "search.placeholder": "搜索技能名称或描述…",
+      "detail.zhTitle": "中文描述",
+      "detail.enTitle": "英文说明",
+      "detail.catTitle": "分类 / Category", // 预留：详情弹窗分类标题
+      "detail.toolsTitle": "授权工具 / Allowed tools",
+      "detail.close": "关闭 / Close",
+      "detail.open": "查看技能",
+      "detail.openEn": "Open skill",
+      "detail.zhName": "中文名", // 预留：详情弹窗内中文名标题
+      "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
+      "empty.clear": "清除筛选",
+      "share.btn": "分享",
+      "share.copied": "已复制到剪贴板",
+      "share.failed": "复制失败，请手动复制",
+      "filter.all": "全部",
+      "empty.title": "未找到匹配的技能",
+      "share.promos": [
+        "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
+        "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
+        "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，{n} 技能即插即用，开源免费！"
+      ],
+      "footer.desc": "高质量 Agent 技能目录，按分类浏览、搜索、即取即用。",
+      "footer.copyright": "开源免费 · MIT 协议"
+    },
+    en: {
+      "brand.subtitle": "Curated agent skill library",
+      "lang.toggle": "中 / EN",
+      "theme.toggle": "主题 / Theme",
+      "hero.title": "Discover & reuse {n} high-quality agent skills",
+      "hero.subtitle": "Browse by category, search, or inspect skill details — ready to drop into your coding agent.",
+      "stat.total": "Total skills",
+      "stat.cats": "Categories",
+      "stat.shown": "Shown",
+      "search.placeholder": "Search skills by name or description…",
+      "detail.zhTitle": "Description (zh)",
+      "detail.enTitle": "Description (en)",
+      "detail.catTitle": "Category / 分类", // 预留：详情弹窗分类标题
+      "detail.toolsTitle": "Allowed tools / 授权工具",
+      "detail.close": "Close / 关闭",
+      "detail.open": "Open skill",
+      "detail.openEn": "Open skill",
+      "detail.zhName": "Chinese name", // 预留：详情弹窗内中文名标题
+      "empty.desc": "Try a different keyword or category, or clear the current filter.",
+      "empty.clear": "Clear filters",
+      "share.btn": "Share",
+      "share.copied": "Copied to clipboard",
+      "share.failed": "Copy failed, please copy manually",
+      "filter.all": "All",
+      "empty.title": "No matching skills",
+      "share.promos": [
+        "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
+        "🚀 Agent Skills Hub: {n} curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
+        "💡 Want a stronger coding agent? Explore Agent Skills Hub: {n} plug-and-play skills, open source and free!"
+      ],
+      "footer.desc": "A curated directory of high-quality agent skills — browse, search, and reuse.",
+      "footer.copyright": "Open source · MIT License"
+    }
+  };
+
+  var SUPPORTED = ["zh", "en"];
+  var FALLBACK = "zh";
+
+  // ---------- 2. 状态（带容错默认值） ----------
+  var current = FALLBACK;
+  var listeners = [];
+
+  function safeGet(obj, path) {
+    try {
+      return obj && obj[path];
+    } catch (e) {
+      return undefined;
+    }
+  }
+
+  // ---------- 3. 核心翻译函数（永不抛错） ----------
+  // 降级策略：目标语言缺失 -> 回退 zh -> 仍缺失则返回 key 原文
+  function t(key, lang) {
+    try {
+      var l = lang || current;
+      if (!key) return "";
+      var dict = safeGet(translations, l);
+      var val = safeGet(dict, key);
+      if (val === undefined || val === null || val === "") {
+        // 回退到兜底语言
+        var fb = safeGet(translations, FALLBACK);
+        val = safeGet(fb, key);
+      }
+      if (val === undefined || val === null || val === "") {
+        // 最终兜底：返回 key 本身，保证页面有可见文本且不崩溃
+        return String(key);
+      }
+      return String(val);
+    } catch (e) {
+      // 任何意外错误都不向外传播
+      return key ? String(key) : "";
+    }
+  }
+
+  // ---------- 4. 语言状态管理 ----------
+  function getLang() {
+    return current;
+  }
+  function isSupported(lang) {
+    return SUPPORTED.indexOf(lang) !== -1;
+  }
+  function setLang(lang) {
+    if (!isSupported(lang)) return current; // 忽略非法语言，保持现状
+    current = lang;
+    syncDOM();
+    emit();
+    return current;
+  }
+  function toggleLang() {
+    return setLang(current === "zh" ? "en" : "zh");
+  }
+  function onLangChange(cb) {
+    if (typeof cb === "function") listeners.push(cb);
+  }
+  function emit() {
+    for (var i = 0; i < listeners.length; i++) {
+      try { listeners[i](current); } catch (e) { /* 单个监听出错不影响其他 */ }
+    }
+  }
+
+  // ---------- 5. DOM 同步（属性 + 静态文案填充） ----------
+  // 即使字典出错，这里也会被 try/catch 包住，不会阻断应用其余逻辑。
+  function syncDOM() {
+    try {
+      var root = document.documentElement;
+      if (root) {
+        root.setAttribute("data-lang", current);
+        root.setAttribute("lang", current); // 同步可访问性/SEO 的 lang 属性
+      }
+      // 填充所有带 data-i18n 的静态节点：
+      //   .zh 节点取 zh 文案，.en 节点取 en 文案；
+      //   若节点无 .zh/.en 类，则按当前语言取。
+      var nodes = document.querySelectorAll("[data-i18n]");
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var key = node.getAttribute("data-i18n");
+        var text;
+        if (node.classList.contains("en")) text = t(key, "en");
+        else if (node.classList.contains("zh")) text = t(key, "zh");
+        else text = t(key, current);
+        if (text) node.textContent = text;
+      }
+    } catch (e) {
+      // 同步失败不应影响交互逻辑
+    }
+  }
+
+  // ---------- 6. 对外暴露 ----------
+  var api = {
+    translations: translations,
+    supported: SUPPORTED,
+    fallback: FALLBACK,
+    t: t,
+    getLang: getLang,
+    setLang: setLang,
+    toggleLang: toggleLang,
+    onLangChange: onLangChange,
+    syncDOM: syncDOM
+  };
+
+  // 兼容全局与模块化两种引入方式
+  global.I18N = api;
+  if (typeof module !== "undefined" && module.exports) module.exports = api;
+})(typeof window !== "undefined" ? window : this);
+</script>
+  <script>// prototype/src/parts/01-state.js v1.14.56 — 常量、偏好状态与纯工具函数
+// 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
+const $ = (sel, root) => (root || document).querySelector(sel);
+const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+// 统计事件上报：仅当页面已注入 GA（window.gtag 存在）时上报，否则静默（不报错、不依赖第三方）
+function track(event, params) {
+  try {
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", event, params || {});
+    }
+  } catch (e) { /* 统计失败不影响主流程 */ }
+}
+
+const LS_THEME = "ash-theme", LS_LANG = "ash-lang";
+const VIEW_GRID = "grid", VIEW_LIST = "list";
+const DEBOUNCE_MS = 120;
+
+const state = {
+  theme: "light",
+  lang: "zh",
+  view: VIEW_GRID,
+  query: "",
+  cat: null,
+};
+
+function loadPref(key, fallback) {
+  try { const v = localStorage.getItem(key); return v == null ? fallback : v; } catch (e) { return fallback; }
+}
+function savePref(key, val) {
+  try { localStorage.setItem(key, val); } catch (e) { /* 隐私模式忽略 */ }
+}
+
+// 取名字首字母（无空格则取前两位），用于头像
+function initials(name) {
+  const clean = (name || "").replace(/[^A-Za-z0-9]/g, " ");
+  const parts = clean.trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return "?";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+// 防 XSS：转义 HTML 特殊字符（属性用双引号包裹，单引号无需转义）
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// 预聚合分类计数（Map: cat -> count），renderCats 直接查表
+function catCounts() {
+  const m = new Map();
+  SKILLS_DATA.skills.forEach((s) => m.set(s.category, (m.get(s.category) || 0) + 1));
+  return m;
+}
+
+// 名称 -> 技能对象索引（01-state 共享作用域），避免每次卡片点击线性扫描全部技能
+let SKILL_MAP = new Map();
+
+// 搜索匹配：名称 / 描述 / 分类（不区分大小写）
+// 预聚合小写检索串缓存在 s._hay（见 05-main init），避免每次输入重复拼接+小写化
+function matches(s, q) {
+  if (!q) return true;
+  const hay = s._hay != null ? s._hay : (s.name + " " + s.zh + " " + s.description + " " + s.category).toLowerCase();
+  return hay.includes(q.toLowerCase());
+}
+
+// prototype/src/parts/02-render.js v1.14.56 — 列表/网格渲染与统计
+function renderStats(filtered) {
+  $("#statTotal").textContent = SKILLS_DATA.total;
+  $("#statCats").textContent = SKILLS_DATA.categories.length;
+  $("#statShown").textContent = filtered.length;
+}
+// hero 标题数字动态注入：直接由 i18n 文案替换 {n}，避免依赖模板残留占位符
+function refreshHeroCount() {
+  const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
+  document.getElementById("heroTitleZh").textContent = I18N.t("hero.title", "zh").replace(/\{n\}/g, n);
+  document.getElementById("heroTitleEn").textContent = I18N.t("hero.title", "en").replace(/\{n\}/g, n);
+}
+
+function renderCats(counts) {
+  const cats = SKILLS_DATA.categories;
+  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  cats.forEach((c) => {
+    const active = state.cat === c;
+    items.push(`<button class="chip" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
+  });
+  $("#cats").innerHTML = items.join("");
+}
+
+// 由技能名派生稳定且 URL/ID 安全的 slug（小写中划线），供卡片 id 锚点与 E2E 定位
+function skillSlug(name) {
+  return String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+// 卡片：主标题显示技能英文名（权威标识、简短、永不丢失），中文描述交给 .desc
+function cardHTML(s) {
+  const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
+  return `<article class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" role="button" tabindex="0" aria-label="${esc(label)}">
+    <div class="body">
+      <div class="title-row">
+        <div class="avatar">${initials(s.name)}</div>
+        <div class="name">${esc(s.name)}</div>
+      </div>
+      <div class="desc zh">${esc(s.zh)}</div>
+      <div class="desc en">${esc(s.description)}</div>
+      <div class="meta"><span class="cat-tag">${esc(s.category)}</span></div>
+    </div>
+  </article>`;
+}
+
+function emptyHTML() {
+  return `<div id="emptyState" class="empty-state" aria-live="polite">
+    <div class="empty-title">${I18N.t("empty.title")}</div>
+    <div class="empty-desc">${I18N.t("empty.desc")}</div>
+    <button id="clearFilters" class="btn btn-ghost">${I18N.t("empty.clear")}</button>
+  </div>`;
+}
+
+function renderGrid() {
+  const q = state.query.trim();
+  const list = SKILLS_DATA.skills.filter((s) => matches(s, q) && (!state.cat || s.category === state.cat));
+  const counts = catCounts();
+  renderStats(list);
+  renderCats(counts);
+  const grid = $("#grid");
+  grid.className = "grid " + state.view;
+  grid.setAttribute("aria-live", "polite");
+  grid.innerHTML = list.length ? list.map(cardHTML).join("") : emptyHTML();
+}
+
+// 将 HTML 字符串转为首个元素（用于弹窗插入）
+function htmlToEl(html) {
+  const t = document.createElement("template");
+  t.innerHTML = html.trim();
+  return t.content.firstElementChild;
+}
+
+// prototype/src/parts/03-detail.js v1.14.56 — 详情弹窗、键盘可达性与分享
+// 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
+const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
+function openDetail(s) {
+  track("view_skill", { skill: s.name, category: s.category });
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
+  // 记录打开前的焦点元素，关闭后归还（WCAG 焦点管理）
+  dialog._lastFocused = document.activeElement;
+  const html = `
+    <div id="dialogHead" class="dialog-head">
+      <div class="d-avatar">${initials(s.name)}</div>
+      <div>
+        <h2 id="dialogVisibleTitle" class="dialog-title">${esc(s.name)}</h2>
+        <div id="dialogBlockCat" class="dialog-cat">${esc(s.category)}</div>
+      </div>
+      <button id="closeBtn" class="icon-btn" aria-label="${I18N.t("detail.close", "zh")}">✕</button>
+    </div>
+    <div id="dialogBody" class="dialog-body">
+      <section id="dialogBlockZh" class="block"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><p>${esc(s.zh)}</p></section>
+      <section id="dialogBlockEn" class="block"><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p>${esc(s.description)}</p></section>
+      <section id="dialogBlockTools" class="block"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${(Array.isArray(s.allowedTools) ? s.allowedTools : String(s.allowedTools || "").split(",").map((t) => t.trim()).filter(Boolean)).map((t) => `<code>${esc(t)}</code>`).join("")}</div></section>
+    </div>
+    <div id="dialogFoot" class="dialog-foot">
+      <a class="btn btn-primary" href="${REPO_SKILLS_TREE}${encodeURIComponent(s.name)}/" target="_blank" rel="noopener">
+        <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
+      </a>
+      <button id="shareBtn" class="btn btn-ghost">${I18N.t("share.btn")}</button>
+    </div>`;
+  dialog.innerHTML = html;
+  overlay.classList.add("open");
+  document.body.classList.add("no-scroll");
+  trapFocus(dialog);
+  $("#closeBtn").addEventListener("click", closeDetail);
+  $("#shareBtn").addEventListener("click", () => shareSkill(s));
+}
+
+function closeDetail() {
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
+  overlay.classList.remove("open");
+  document.body.classList.remove("no-scroll");
+  // 移除焦点陷阱的 keydown 监听，避免多次打开后监听器在 #dialog 上累积叠加
+  if (typeof dialog._onKey === "function") {
+    dialog.removeEventListener("keydown", dialog._onKey);
+    dialog._onKey = null;
+  }
+  dialog.innerHTML = "";
+  // 归还焦点到打开前的元素，避免 Tab 顺序跳到页面顶部
+  if (dialog._lastFocused && typeof dialog._lastFocused.focus === "function") {
+    dialog._lastFocused.focus();
+  }
+}
+
+// 焦点陷阱：Tab 在弹窗内循环，Esc 关闭（无障碍）
+function trapFocus(container) {
+  const focusables = container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if (!focusables.length) return;
+  const first = focusables[0], last = focusables[focusables.length - 1];
+  first.focus();
+  // 保存引用供 closeDetail 统一移除（无论通过 Esc 还是关闭按钮/遮罩关闭都能清理）
+  container._onKey = function onKey(e) {
+    if (e.key === "Escape") { closeDetail(); return; }
+    if (e.key !== "Tab") return;
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  };
+  container.addEventListener("keydown", container._onKey);
+}
+
+function shareSkill(s) {
+  track("share_skill", { skill: s.name });
+  const text = buildShareText(s.name);
+  if (navigator.share) {
+    // 系统分享：成功/失败都给出可见反馈；被取消或失败则回退到剪贴板复制
+    navigator.share({ title: "Agent Skills Hub", text, url: location.href })
+      .then(() => showToast(I18N.t("share.copied")))
+      .catch((err) => {
+        if (err && err.name === "AbortError") return; // 用户主动取消，不回退
+        copyToClipboard(text);
+      });
+  } else {
+    copyToClipboard(text);
+  }
+}
+
+// 统一的剪贴板复制入口：优先 Clipboard API，失败降级到 textarea execCommand
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => showToast(I18N.t("share.copied"))).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+// 分享链接使用绝对 GitHub URL（与 #dialog 的「查看技能」按钮一致的 REPO_SKILLS_TREE 常量），
+// 保证复制到外部平台（微信/Twitter 等）后可直接点击打开，与 app 层 share.ts 行为对齐（openspec §4.5.4）
+function buildShareText(name) {
+  const base = REPO_SKILLS_TREE + encodeURIComponent(name) + "/";
+  const promos = I18N.t("share.promos") || [];
+  const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
+  const promo = promos.length
+    ? promos[Math.floor(Math.random() * promos.length)].replace(/\{n\}/g, n)
+    : "";
+  return base + "\n\n" + promo;
+}
+
+// 复制降级方案（无 Clipboard API 时）
+function fallbackCopy(text) {
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    showToast(I18N.t("share.copied"));
+  } catch (e) {
+    showToast(I18N.t("share.failed"));
+  }
+}
+
+function showToast(msg) {
+  const t = $("#toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove("show"), 2000);
+}
+
+// prototype/src/parts/04-interactions.js v1.14.56 — 主题/语言切换与事件绑定
+function applyTheme() {
+  track("toggle_theme", { theme: state.theme });
+  document.documentElement.setAttribute("data-theme", state.theme);
+  const btn = $("#themeBtn");
+  if (btn) {
+    btn.setAttribute("aria-label", I18N.t("theme.toggle"));
+    // aria-pressed 表示当前是否处于深色（按钮状态语义）
+    btn.setAttribute("aria-pressed", state.theme === "dark" ? "true" : "false");
+  }
+}
+
+function applyLang() {
+  track("toggle_lang", { lang: state.lang });
+  I18N.setLang(state.lang);
+  const btn = $("#langBtn");
+  if (btn) {
+    // 按钮文本直接显示「将要切换到的语言」，更直观；aria-pressed 反映当前语言
+    btn.textContent = state.lang === "zh" ? "EN" : "中";
+    btn.setAttribute("aria-label", I18N.t("lang.toggle"));
+    btn.setAttribute("aria-pressed", state.lang === "en" ? "true" : "false");
+  }
+  // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
+  const si = $("#searchInput");
+  if (si) si.placeholder = I18N.t("search.placeholder");
+  refreshHeroCount(); // syncDOM 重置 hero 标题后重新填入动态数字
+  // 分类筛选区的「全部」等文案由 renderCats 用 I18N.t 动态生成（非 data-i18n 静态属性），
+  // 语言切换后必须重渲染网格才能刷新分类文案，否则切换语言后 chips 仍显示旧语言
+  renderGrid();
+}
+
+function bind() {
+  // 主题
+  $("#themeBtn").addEventListener("click", () => {
+    state.theme = state.theme === "light" ? "dark" : "light";
+    savePref(LS_THEME, state.theme);
+    applyTheme();
+  });
+  // 语言
+  $("#langBtn").addEventListener("click", () => {
+    state.lang = state.lang === "zh" ? "en" : "zh";
+    savePref(LS_LANG, state.lang);
+    applyLang();
+  });
+  // 搜索（防抖）
+  let t;
+  $("#searchInput").addEventListener("input", (e) => {
+    clearTimeout(t);
+    const v = e.target.value;
+    t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
+  });
+  // 视图切换
+  document.querySelectorAll(".view-btn").forEach((b) => {
+    b.addEventListener("click", () => {
+      state.view = b.dataset.view;
+      document.querySelectorAll(".view-btn").forEach((x) => x.classList.toggle("active", x === b));
+      track("toggle_view", { view: state.view });
+      renderGrid();
+    });
+  });
+  // 分类导航（事件委托）
+  $("#cats").addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    state.cat = chip.dataset.cat || null;
+    track("filter_category", { category: state.cat || "all" });
+    renderGrid();
+  });
+  // 卡片点击/键盘打开详情（事件委托）
+  $("#grid").addEventListener("click", (e) => {
+    const card = e.target.closest(".card");
+    if (!card) return;
+    const s = SKILL_MAP.get(card.dataset.name);
+    if (s) openDetail(s);
+  });
+  $("#grid").addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const card = e.target.closest(".card");
+    if (!card) return;
+    e.preventDefault();
+    const s = SKILL_MAP.get(card.dataset.name);
+    if (s) openDetail(s);
+  });
+  // 空状态清除筛选（事件委托到 grid 已覆盖，这里兜底 document 级）
+  document.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cat = null; $("#searchInput").value = ""; renderGrid(); }
+  });
+  // 弹窗遮罩点击关闭
+  $("#overlay").addEventListener("click", (e) => { if (e.target.id === "overlay") closeDetail(); });
+  // 回到顶部
+  $("#toTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
+
+// prototype/src/parts/05-main.js v1.14.56 — 应用启动编排
+function init() {
+  // 从偏好恢复（localStorage 不可用时回退默认）
+  state.theme = loadPref(LS_THEME, "light");
+  state.lang = loadPref(LS_LANG, "zh");
+  // 预聚合：每个技能缓存小写检索串 _hay，并建立 name->skill 索引，避免运行时重复计算
+  SKILLS_DATA.skills.forEach((s) => {
+    s._hay = (s.name + " " + s.zh + " " + s.description + " " + s.category).toLowerCase();
+    SKILL_MAP.set(s.name, s);
+  });
+  applyTheme();
+  applyLang(); // 内部触发 I18N.setLang -> syncDOM 填充全站文案
+  bind();
+  renderGrid();
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>

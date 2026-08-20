@@ -1,0 +1,988 @@
+# Changelog
+
+本项目所有重要变更均记录于此文件。
+
+## [1.14.56] - 2026-08-20
+
+### docs: 以磁盘 skills/ 为基准重建技能数据并同步版本号至 v1.14.56
+
+- **数据权威源重构**：`build-skills-data.mjs` 改为以磁盘 `skills/<name>/SKILL.md` 为唯一权威源，**移除对 README 内嵌清单的依赖**；分类（`category`）与中文简介（`zh`）改由每个 `SKILL.md` 的 frontmatter 提供
+- **技能元数据补全**：为磁盘 28 个技能目录的 `SKILL.md` 补 `category`（5 大领域之一）与 `zh`（中文简介）前置字段；两个 `name` 含空格的技能（`agent-development`、`svg-logo-designer`）规范化，使 frontmatter `name` 与目录名（kebab-case）一致
+- **数据产物重建**：重新生成 `data/skills-data.json`，与磁盘真实技能 1:1 对齐（28 技能 / 5 分类），消除旧产物中的幽灵条目与新技能缺失
+- **app 数据同步修复**：`app/scripts/sync-data.cjs` 的 `findRepoRoot` 改为以 `build-skills-data.mjs` 判定仓库根，修正因旧 `app/data/` 残留导致的目标路径偏移；现已正确写入 `app/app/data/skills-data.json`（app 实际读取路径）
+- **版本号同步**：根 `package.json` → v1.14.56；README/README.en 版本徽章、openspec `spec.md`/`project.md`/`AGENTS.md` 头注释同步至 1.14.56
+- **贡献规范更新**：README 贡献指南补充 `SKILL.md` 须含 `category`/`zh` 字段、目录名与 `name` 一致的要求
+
+- **根目录技能副本清理**：删除仓库根目录被 FreeFileSync 镜像产生的 33 个同名技能目录（物理 + `git rm --cached` 解除跟踪），`skills/` 现为本仓库唯一技能存放处；根目录与 `skills/` 同名技能经比对正文一致（差异仅换行符与新补元数据），删除无内容损失
+
+> 注（已闭环）：本版本发布时 `prototype/src` 下缺失 `tokens.css`/`responsive.css`/`i18n.js`/`parts/03-detail.js`/`parts/04-interactions.js`/`parts/05-main.js` 共 6 个源文件（仅产物 `prototype/index.html` 完整），导致 `npm run build` 的 `build.mjs` 阶段抛错无法重跑产物。后续已从产物 `prototype/index.html` 反向重建上述 6 个源文件（头注释统一 v1.14.56），`npm run build` 现已可完整跑通，产物与源文件双向一致。
+
+## [1.14.55] - 2026-08-20
+
+### docs: 使 README 更稳健，不随技能清单变动而频繁更新
+
+- **移除内嵌技能清单**：将 README/README.en 中原有 13 类 / 173 项的内嵌技能链接列表移除，改为「领域概览表（仅分类名，不写死数量）」
+- **技能浏览改为动态引用**：README 只保留简介、领域导航、仓库结构、使用方式、展示页入口、品牌资产等稳定内容；完整技能列表与实时数量交给 `npm run build` 自动生成的 `data/skills-data.json`、`prototype/index.html` 与 `app/` 在线展示页
+- **技能增删不再要求更新 README**：技能变更后只需运行 `npm run build`，README 主体保持稳定（贡献指南已注明）
+- **徽章调整**：技能数量徽章由固定数字改为「动态」，指向展示页
+- **版本号同步**：根 `package.json` → v1.14.55，README/README.en 版本徽章同步
+
+## [1.14.54] - 2026-08-20
+
+### docs: 精简并美化中英文 README
+
+- **技能清单改为紧凑链接列表**：将原本 13 类 / 173 项逐条长描述（约 210 行）精简为「分类标题 + 技能名链接」的紧凑列表（约 30 行），保留全部可导航链接，大幅缩短正文并提升可扫读性
+- **精简简介与章节**：压缩项目简介、说明块、使用方式、在线展示、品牌资产、技能检索、贡献指南等叙述，去除冗余，结构更清晰
+- **目录补齐**：新增「在线展示页面」「品牌资产」目录项，与正文章节一一对应
+- **修复英文描述截断**：README.en.md 中 `vercel-react-native-skills` 描述原以不完整 "Use" 结尾，已在精简时一并修正
+- **版本号同步**：根 `package.json` → v1.14.54，README/README.en 版本徽章同步
+
+## [1.14.53] - 2026-08-19
+
+### refactor: 完善 YAML 折叠标量解析并同步 openspec 文档版本头
+
+- **build-skills-data.mjs 支持折叠/字面量块标量**：修复 `description: >`/`>-`/`|`/`|-` 后内容未完整解析、展示页残留 `>-`/`>` 等垃圾串的问题；现正确折叠缩进行为单段描述，并去除行内 YAML 注释（`stripInlineComment`）
+- **openspec 版本头同步**：`openspec/project.md`/`spec.md` 头注释 → 1.14.53；`spec.md` §1「版本权威源当前」同步为 1.14.53
+- **版本号同步**：根 `package.json` → v1.14.53，README/README.en 版本徽章同步
+- 注：`data/skills-data.json` 与 `prototype/index.html` 技能数受磁盘 `skills/` 实况驱动（当前磁盘含 SKILL.md 的技能目录在整理中），本次未重新 build 以免破坏进行中的技能库变更
+
+## [1.14.52] - 2026-08-19
+
+### refactor: 原型修复未定义 CSS 变量、补全分类选中态并清理死代码
+
+- **修复未定义 CSS 变量**：`layout.css`/`components.css`/`base.css` 多处引用未定义的 `--ink`（文字色）、`--gradient`（Hero/头像背景），导致浅色下白字不可见、深色下破损；统一改用已定义的语义/桥接令牌（`--text`/`--primary`/`--primary-foreground`），Hero 按 DESIGN §2.1 改为主绿底 + 极淡光晕
+- **修正文字色误用**：多处把 `--muted`（表面色）当文字色，浅色下对比不足；改为 `--text-2`（辅助文字），符合 DESIGN §2.1/§8.3 单一主色纪律
+- **补全分类 chip 选中态**：render 生成 `chip active` 但 CSS 缺失 `.chip.active`，分类选中无视觉反馈；补上 hover/active 态与 `chip-count` 样式，并删除 layout.css 中无对应元素的孤儿 `.cat` 定义
+- **清理死代码**：移除 `02-render.js` 中 `catHue()` 与 `--hue` 内联（CSS 从不消费，且与单一主色规范冲突）
+- **修复 meta 技能数漂移**：`index.html` meta/og/twitter 描述硬编码 `173` 与实际 165 不符，改为 `{SKILLS_TOTAL}` 占位符由 `build.mjs` 注入真实数据 total，单一来源
+- **版本号同步**：根 `package.json` → v1.14.52，被改文件头注释（`src/index.html`、`styles/base|layout|components.css`、`parts/01|02`、`build.mjs`）同步；重建 `prototype/index.html` 产物
+
+## [1.14.50] - 2026-08-19
+
+### fix: 重建 prototype/index.html 为 173，补齐 v1.14.49 遗漏的原型产物
+
+- **重建原型产物**：v1.14.49 虽将 README 与 `data/skills-data.json` 清理为 173，但 `prototype/index.html`（out 产物）仍内嵌旧 200 条数据；本次重新执行 `npm run build`，以磁盘 173 个技能重建 `prototype/index.html`（107.4 KB），消除原型中 27 个幽灵技能导致的「查看技能」404
+- **源码注释同步**：`prototype/src/parts/01-state.js` 索引扫描注释「200 条」→「173 条」
+- **版本号同步**：根 `package.json` → v1.14.50，README/README.en 版本徽章、`src/index.html` 头注释同步
+
+## [1.14.49] - 2026-08-19
+
+### refactor: 技能数据以磁盘实况重建为 173，README 移除原型描述
+
+- **重建技能数据为 173**：`build-skills-data.mjs` 以磁盘 `skills/`（含 `SKILL.md` 的 173 个目录）为权威源重新生成 `data/skills-data.json`，并重建 `prototype/index.html` 静态产物；彻底消除此前 data/README 中 27 个「幽灵技能」（如 `agent-eval`、`webapp-testing`、`brainstorming`、`brand-guidelines` 等磁盘不存在条目），避免「查看技能」链接 404
+- **README 移除原型描述**：`README.md` 与 `README.en.md` 删除「在线展示页面」中的 `prototype/` 行、「原型（prototype/）」整节及品牌资产中对 `prototype/DESIGN.md` 的引用，README 仅保留 `app/` Web 应用介绍
+- **技能清单与计数同步**：中英文 README 各分类计数与总技能数（200→173）同步更新，与磁盘实况一致
+- **版本号同步**：根 `package.json` → v1.14.49，README/README.en 版本徽章同步
+
+## [1.14.48] - 2026-08-19
+
+### docs: 核对并同步 README 技能中文描述与 SKILL.md 一致
+
+- **逐技能核对**：以磁盘实况（本地 173 个含 `SKILL.md` 的技能）为准，逐一比对 `README.md` 中各技能中文描述与其 `SKILL.md` 的 `description` 字段语义，绝大多数描述已准确一致
+- **描述修订**：`manim-video`（补全为数学/技术动画生产管线、3Blue1Brown 风格）、`dart-flutter-patterns`（补全 BLoC/Riverpod/Provider 状态管理、GoRouter、Dio、整洁架构）两处中文描述完善为更贴合 SKILL.md
+- **版本号同步**：根 `package.json` → v1.14.48，README/README.en 版本徽章同步
+
+## [1.14.47] - 2026-08-19
+
+### docs: 同步规范文档版本头与数据事实（204→200、categories string[]）
+
+- **版本头同步**：`openspec/project.md`/`spec.md`/`AGENTS.md`、`prototype/DESIGN.md`/`COMPONENTS.md` 头部版本由 v1.14.44~45 统一升至 v1.14.47，与根 `package.json`/README/CHANGELOG 对齐
+- **数据事实修正（"约 204" → 200）**：`openspec/project.md` §4.5.1/§4.5.2、`openspec/spec.md` §2.3 中「当前约 204」与磁盘实况脱节，统一改为 200（与 README 声明、`data/skills-data.json` 的 `total` 一致）
+- **spec.md 版本权威源过时**：§1「版本权威源当前 1.14.38」过时，改为动态描述（指向 `package.json`，避免再次脱节）
+- **spec.md CI 路径错误**：§5 注释「CI 脚本 `prototype/skills-data.json`」改为实际产物路径 `data/skills-data.json`
+- **数据契约修正（`categories` 为 `string[]`）**：`prototype/DESIGN.md` §6 数据 Schema 与 `COMPONENTS.md` §14 原写 `categories:[{name,count}]` 对象数组，实际为去重中文分类名 `string[]`，同步修正
+- **版本号同步**：根 `package.json` → v1.14.47
+
+## [1.14.46] - 2026-08-18
+
+### fix: 修正 app favicon 引用 404
+
+- **根因**：v1.14.38 重构删除 `app/public/icon.svg`，但 `app/app/layout.tsx` 的 `metadata.icons.icon` / `apple` 仍指向已删除的 `/icon.svg`，导致 Next.js 部署后浏览器标签图标与 apple-touch-icon 均 404
+- **修复**：`metadata.icons.icon` 与 `apple` 改为 `/favicon.svg`（对应 `app/public/favicon.svg`，已存在且为 `brand/hub.svg` symbol 同源资产）
+- **版本同步**：`app/app/layout.tsx` 头注释、根 `package.json`、README/README.en 版本徽章升至 v1.14.46
+
+## [1.14.45] - 2026-08-18
+
+### fix: 原型 logo 改用同源 symbol 引用
+
+- **原型图形单一来源化**：`prototype/src/index.html` 在 `<body>` 内联隐藏 `<svg><symbol id="ash-hub">`（内容与 `brand/hub.svg` 一致，currentColor 驱动），页眉与页脚 logo 由硬编码重复内联 SVG 改为 `<use href="#ash-hub" color="#fff">` 同源引用，落实 DESIGN §8.2「标志统一用 `<use>` 引用 symbol」要求
+- **全局记忆校正**：品牌资产管理方案从「集中 brand/」更新为真实架构「`brand/hub.svg`(symbol 源) + `app/public/`(资产目录)」，各资产 `<use>` 同源、主色 `#2e9e6b` 与 `--primary` 严格一致
+- **版本同步**：`prototype/src/index.html` 头注释、根 `package.json`、`prototype/DESIGN.md`、README/README.en 版本徽章升至 v1.14.45
+
+## [1.14.44] - 2026-08-18
+
+### docs: 对齐规范文档与实现、补语义化 id、统一版本
+
+- **规范文档对齐 `openspec/`**：`spec.md`/`project.md`/`AGENTS.md` 头版本更新至 v1.14.44；修正产物路径 `prototype/out/` → `prototype/`（v1.14.42 已将 HTML 产物移出 `out/` 子目录）；修正 `skills-data.json` 数据契约 `categories` 为 `string[]`（实为去重中文分类名，非 `{category,count}[]`）
+- **规范文档对齐 `prototype/`**：`DESIGN.md`/`COMPONENTS.md` 头版本更新至 v1.14.44；样式引用由已废弃的 `src/app.css` 对齐至 v1.14.42 拆分后的 `src/styles/{tokens,base,layout,components,responsive}.css`
+- **语义化 id（app 层）**：`AppShell.tsx` 的 `header.topbar`/`brand` 加 `id="appHeader"`/`id="brandBlock"`；`SkillsExplorer.tsx` 的 grid 加 `id="skillsGrid"`、空状态加 `id="emptyState"`（顶部按钮、搜索框、分类、页脚等 id 此前已具备）
+- **构建脚本修复**：`package.json` 的 `serve` 脚本由 `prototype/out` 修正为 `prototype`，与 `build.mjs` 实际产物目录一致
+- **版本统一**：`package.json`/`README*` 徽章同步至 v1.14.44
+
+## [1.14.43] - 2026-08-18
+
+### fix: 完善原型无障碍、社交分享与 DOM 锚点
+
+- **社交分享 meta（OG/Twitter Card）**：`prototype/src/index.html` 新增 Open Graph 与 Twitter Card 元标签，`og:image`/`twitter:image` 指向 `banner-og.svg`；`build.mjs` 同步复制 `app/public/banner-og.svg` 到 `prototype/` 根
+- **卡片语义化 id**：`02-render.js` 的 `cardHTML` 新增 `id="skill-<slug>"`（slug 由技能名派生），便于锚点跳转与 E2E 精确选取（保留既有 `data-name`）
+- **reduced-motion 优化**：`base.css` 在 `prefers-reduced-motion` 下去除 `.to-top`/`.toast` 的 transform 位移，仅保留淡入，避免瞬跳（WCAG 2.3.3）
+- **文档头注释同步**：`index.html`/`02-render.js`/`base.css`/`build.mjs` 头版本更新至 v1.14.43；README 徽章同步
+- **数据一致性已确认**：磁盘 `skills/` 共 204 目录，其中 `.skills-manager`/`cache`/`logs`/`scenarios` 为非技能目录（无 SKILL.md），生成器正确跳过；有效技能 **200** 个与 README 声明一致，无需改动
+
+## [1.14.42] - 2026-08-18
+
+### refactor: 优化 prototype 目录结构并将样式按职责拆分
+
+- **产物移出 out/ 子目录**：`build.mjs` 的 `OUT_DIR` 由 `prototype/out` 改为 `prototype/`，构建产物直接输出 `prototype/index.html` + `prototype/favicon.svg`，删除 `prototype/out/` 嵌套；`edgeone.json` 的 `outputDirectory` 由 `./prototype/out` 改为 `./prototype`，使 `prototype/index.html` 即部署入口
+- **CSS 按职责拆分**（修复 app.css 268 行超 200 行规则）：原 `prototype/src/app.css` 拆分为 `src/styles/` 下 `base.css`（全局 UX/无障碍/动效/toast）、`layout.css`（顶栏/Hero/控制/分类/网格/弹窗/页脚）、`components.css`（卡片/chip/按钮/弹窗操作区）、`responsive.css`（媒体查询，最后加载保证覆盖）；`build.mjs` 改为按显式顺序 `tokens→base→layout→components→responsive` 拼接
+- **文档同步**：`DESIGN.md`/`COMPONENTS.md` 的 `prototype/out/` 引用更新为 `prototype/` 与 `prototype/index.html`，头版本同步至 v1.14.42；README 徽章同步
+- **版本同步**：根 package.json → v1.14.42
+
+## [1.14.41] - 2026-08-18
+
+### fix: 排除腾讯云 EO 与 Vercel 部署问题
+
+- **Vercel 缺失配置**：新增 `vercel.json`，显式指定 `installCommand`/`buildCommand` 进入 `app/` 构建 Next.js、`outputDirectory` 为 `app/.next`、`rootDirectory` 为仓库根（保留对 `data/` 的访问），避免 Vercel 默认误把根 `package.json` 静态原型当作项目而构建失败
+- **Next.js App Router 目录冲突**：`app/` 目录名与 Next App Router 约定目录同名导致 `next build` 报 "Couldn't find any pages or app directory"；将路由文件（`layout/page/components/lib/globals.css/icon.svg`）移入 `app/app/`，`tsconfig` 的 `@/*` 指向 `./app/*`，修复构建失败
+- **app 数据缺失**：`app/lib/skills.ts` 原从 `../../data` 读取仓库根 `data/skills-data.json`，Vercel 以 `app/` 为 Root 时无法访问；新增 `app/scripts/sync-data.cjs`（向上查找仓库根）在 `prebuild`/`predev` 同步数据到 `app/app/data/`，`skills.ts` 改为读取本地副本，`app/.gitignore` 忽略该副本保持单一来源
+- **globals.css 注释块格式错误**：头部裸 `*` 行导致 cssnano 压缩 "Unexpected '/'"; 修正为合法块注释，修复生产构建失败
+- **版本同步**：根 package.json → v1.14.41；app package.json → v1.1.13；相关头注释与 README 徽章同步
+
+## [1.1.12] - 2026-08-18
+
+### fix: app 层左上角 logo 尺寸调整至 64px
+
+- **app**（AppShell.tsx / globals.css）：`BrandMark` SVG 与 `.logo` 基础尺寸由 22/40px 统一为 64px，与 prototype 左上角 logo 对齐；页脚 logo 维持 20px 覆盖
+
+## [1.14.40] - 2026-08-18
+
+### fix: 页脚去除规范/Specs 与品牌资产/Brand 链接，README 指向 GitHub 仓库
+
+- **prototype**（src/index.html）：页脚 `footer-links` 移除「规范 / Specs」(`openspec/project.md`) 与「品牌资产 / Brand」(`app/public/logo.svg`)；「README」链接由相对路径 `README.md` 改为 GitHub 仓库绝对地址 `https://github.com/sutchan/Agent-Skills-Hub#readme`（避免静态部署后 404）
+- **app**（AppShell.tsx）：同步移除页脚同样两项链接，README 链接同样改为 GitHub 仓库绝对地址
+- **版本号同步**：package.json → v1.14.40；app/components/AppShell.tsx 头 → v1.14.40
+
+## [1.14.39] - 2026-08-18
+
+### brand: 以 favicon 为品牌标准规范统一所有资产
+
+- **Hub 图形单一来源对齐**：以 `app/public/favicon.svg`（`#2e9e6b` 纯主绿、无渐变、symbol `stroke-width="1.4"` 连线 `opacity=".55"` 节点 `stroke="none"`）为基准，回退 `banner.svg` 中偏离的新版线框，使全部 7 个品牌资产（`favicon/icon/logo/logo-monochrome/banner/banner-og/brand/hub`）的 Hub 图形本体逐字符一致
+- **保留语义化配色**：纯色（`favicon/icon`）、渐变（`logo/banner`）、单色（`logo-monochrome`）、源 symbol 无底板（`brand/hub.svg`）按各自用途保留，仅统一图形造型
+- **版本同步**：package.json 与 banner 头注释 → v1.14.39，README/README.en 版本徽章同步
+
+## [1.14.38] - 2026-08-18
+
+### brand: 全面实施 banner/标志改进并新增社交分享横幅
+
+- **主标题改衬线展示体**：`banner.svg` 项目名用 Georgia / 中文宋体（Songti SC）衬线字体，正文仍无衬线，形成展示层级对比
+- **新增社交分享横幅 `banner-og.svg`**（1200×628，1.91:1）：用于 Open Graph / Twitter·X / LinkedIn 社交卡，避免 3:1 横幅在 OG 场景文字被裁切
+- **品牌图形单一来源**：新增 [`brand/hub.svg`](brand/hub.svg) 定义 `<symbol id="ash-hub">`（`currentColor` 驱动），`logo/favicon/icon/mono/banner` 全部内联同源 symbol，造型一处维护
+- **兼容性回退**：所有标志 `<use>` 补 `xlink:href` + 声明 `xmlns:xlink`，兼容旧版渲染器（邮件/Inkscape）
+- **可读性（WCAG AA）**：文案加墨绿 `#10231a` 描边滤镜（`feMorphology` 膨胀 + 合并），标题字号由 68 升至 76，强化层级
+- **装饰改为品牌波纹点阵**：以右下为中心扩散的同心淡圆，呼应「技能汇聚」语义，替代原对称白圆
+- **渐变角度差异化**：背景 135° 对角、logo 45° 反向，增加微对比；`<svg>` 补 `focusable="false"`
+- **文案打磨**：英文行改为 "Curated, open-source agent skills — free to use"，中英对应统一
+- **版本同步**：package.json 与全部品牌资产头注释 → v1.14.38
+
+## [1.14.37] - 2026-08-18
+
+### fix/brand: 重做 README 横幅，修复字体/无障碍/同源复用/事实脱节
+
+- **字体规范统一**：标题与正文由衬线 `Georgia` 改为无衬线品牌字体栈（Inter/系统字体 + 中文 PingFang/微软雅黑），对齐设计系统与全局品牌调性
+- **无障碍增强**：新增 `<title>`/`aria-labelledby` 与 `<desc>`，补充 `lang="zh-CN"`，屏幕阅读器可正确朗读横幅含义
+- **同源复用 Hub 图形**：banner 内联 `<symbol id="ash-hub">` 定义三节点 Hub，`<use>` 引用，与 `logo.svg` 造型单一来源，避免未来 logo 调整时 banner 漂移
+- **消除 id 冲突隐患**：渐变 id 加 `ash-` 命名空间前缀（`ash-banner-bg`/`ash-banner-logo`）
+- **事实脱节修复**：移除写死的 `200+` 计数（与磁盘实有技能数口径不一），改为中性 "Open-source & free curated agent skills"，避免社交预览缓存旧值与仓库真相矛盾
+- **版本同步**：banner 头注释与 package.json → v1.14.37
+
+## [1.14.36] - 2026-08-18
+
+### feat: 新增 README banner 横幅
+
+- 新增 `app/public/banner.svg`（1200×400，品牌主绿渐变 `#2e9e6b→#5cc98c`，复用 logo 三节点 Hub 图形 + 项目名/副标题），作为品牌资产单一来源
+- `README.md`/`README.en.md` 标题下引用 banner（`![Agent Skills Hub Banner](app/public/banner.svg)`）；英文版标题同步修正为 `Agent Skills Hub`
+- 文档同步：`DESIGN.md` §8 新增 banner 资产说明与表格行；README 中英「品牌资产」章节表格补充 banner 行
+- 版本号同步至 v1.14.36
+
+## [1.14.35] - 2026-08-18
+
+### feat: 页面新增页脚区（原型 + 应用代码同步）
+
+- **原型层**：`index.html` 在技能网格后新增语义化 `<footer id="siteFooter">`，含品牌区（logo/名称/简介）、导航链接（GitHub/README/规范/品牌资产）与版本+协议行
+- **版本注入**：`build.mjs` 新增 `{{VERSION}}` 占位符，从根 `package.json` 读取项目版本注入页脚，避免硬编码漂移
+- **i18n 同步**：`i18n.js` 新增 `footer.desc` / `footer.copyright`，zh/en 双语随语言切换
+- **样式**：`app.css` 新增页脚样式（移动端竖向堆叠），与 `app/globals.css` 对齐
+- **应用层**：`AppShell.tsx` 新增 footer（`lang` 条件渲染），`page.tsx` 服务端读取根 `package.json` 版本经 `version` prop 传入
+- **规范文档**：`DESIGN.md` 新增 §4.6 页脚区设计规范
+- 版本号同步至 v1.14.35（app 层 page.tsx → v1.1.3、globals.css → v1.1.12）
+
+## [1.14.34] - 2026-08-17
+
+### refactor: 品牌资产迁入 app/public，应用图标保留于 app/
+
+- **品牌资产迁移**：将仓库根 `brand/` 目录的 `logo.svg`/`logo-monochrome.svg`/`favicon.svg` 移入 `app/public/`，由 Next.js 以 `/logo.svg`、`/favicon.svg` 等路径统一提供（单一来源）
+- **应用图标不动**：`app/icon.svg` 保留在 `app/`（Next.js 约定自动识别为 favicon/apple-touch），与 `app/public/favicon.svg` 同源
+- **`build.mjs` 复制源更新**：favicon 复制源由 `brand/favicon.svg` 改为 `app/public/favicon.svg`；构建验证通过
+- **文档同步路径**：`README.md`/`README.en.md`「品牌资产」章节与 `prototype/DESIGN.md` §8 全部引用改为 `app/public/`；清理根目录遗留临时验证脚本 `_verify_brand.cjs`/`_verify_out.cjs`
+- **版本号同步**：package.json → v1.14.34；build.mjs / AppShell.tsx 头注释 → v1.14.34
+
+### fix: 调整 logo 尺寸、主标题字号并修复头像背景丢失
+
+- **prototype**：`.brand .logo` 尺寸 32px→64px（圆角 16px、内部图标 28px）；`.hero h1` 主标题 30px→36px；修复 `.avatar` 背景丢失 bug——原背景写在 `.card .avatar`（特异性限定）导致弹窗头像（`.dialog-head .avatar`）不命中而丢失渐变，抽取基础 `.avatar` 规则承载渐变背景，卡片与弹窗共用
+- **app（Next.js）**：顶栏主标题 `.brand` 18px→24px、`.logo` 22px→40px（emoji 图标按视觉协调放大）；app 层 `.avatar` 基础规则本身含背景，无此 bug
+- **版本号同步**：prototype/src/app.css 头 → v1.14.34；app/package.json → v1.1.11、app/globals.css 头 → v1.1.11
+
+## [1.14.33] - 2026-08-17
+
+### fix: 设计系统主绿降饱和统一
+
+- 设计系统 `--primary` 主绿统一为降饱和 `#2e9e6b`（HSL `152 56% 40%`），logo 渐变端点 `#2e9e6b→#5cc98c`；favicon/应用图标纯 `#2e9e6b` 无渐变（详见 `prototype/DESIGN.md` §8）
+- 版本号同步至 v1.14.33（补录：本轮改动此前未写入 CHANGELOG）
+
+## [1.14.32] - 2026-08-17
+
+### chore: 品牌资产集中到 brand/ 目录
+
+- **建立 `brand/` 单一来源目录**：将根目录 `logo.svg`/`favicon.svg`/`logo-monochrome.svg` 移入 `brand/`，作为品牌视觉资产的统一存放位置，消除根目录资产碎片化
+- **保留 `app/icon.svg`**：因 Next.js 约定 `app/icon.svg` 自动识别为 favicon / apple-touch，保留在 `app/`，并在 DESIGN §8.6 注明其与 `brand/favicon.svg` 同源生成关系
+- **`build.mjs` 复制源更新**：从 `brand/favicon.svg` 复制至 `prototype/out/favicon.svg`（头注释升至 v1.14.32）
+- **文档同步路径**：`README.md`/`README.en.md`「品牌资产」章节与 `prototype/DESIGN.md` §8 全部引用改为 `brand/` 路径；版本徽章、DESIGN 头、`package.json` 同步至 v1.14.32
+- 验证：`node build.mjs` 成功，`prototype/out/favicon.svg` 正确从 `brand/` 复制
+
+## [1.14.31] - 2026-08-17
+
+### docs: 完善品牌形象规范与资产索引
+
+- **新增单色品牌标志**：仓库根新增 `logo-monochrome.svg`（深墨绿底 `#10231a` + 主绿图形），用于浅色页脚/印刷单色场景，与彩色 `logo.svg`、纯绿 `favicon.svg`/`app/icon.svg` 构成完整变体体系
+- **品牌资产注释规范化**：`logo.svg`/`favicon.svg`/`app/icon.svg` 补充分版本与释义注释（v1.14.31），`favicon.svg` 标注「纯绿无渐变、适配 16-32px」规格
+- **DESIGN.md 新增 §8 品牌形象规范**：覆盖标志释义、变体与安全区、最小尺寸、品牌配色板（主绿 HSL 通道同源 `--primary`）、favicon 规格、禁用示例（Don'ts）与使用约定，作为品牌视觉事实来源
+- **文档同步品牌资产**：`README.md`/`README.en.md` 新增「品牌资产」章节索引四类 SVG 并指向 DESIGN §8；版本徽章升至 v1.14.31；`openspec/project.md` 展示页规范引用 §8，版本头同步
+- **版本号同步**：根 `package.json` → v1.14.31；`prototype/DESIGN.md` 版本头 → v1.14.31；`openspec/project.md` 版本头 → v1.14.31
+
+## [1.14.30] - 2026-08-17
+
+### fix: 修复语言切换分类文案不刷新并优化检索性能
+
+- **i18n bug（真实）**：原型层分类筛选区「全部」等文案由 `renderCats` 用 `I18N.t` 动态生成（非 `data-i18n` 静态属性），但 `applyLang()` 切换语言后未重渲染网格，导致切换语言后分类 chips 仍显示旧语言；`applyLang` 末尾补充 `renderGrid()` 刷新（app 层 `SkillsExplorer` 的 `cats` 由 `useMemo([lang])` 重算，本无此问题）
+- **性能优化（matches 检索串缓存）**：`02-render.js` 的 `matches()` 原每次输入对全部 200 条重复拼接+小写化检索串；改为 `05-main` 初始化时预计算并缓存 `s._hay`，搜索时直接 `includes`
+- **性能优化（O(1) 技能查找）**：`04-interactions.js` 卡片点击/回车原用 `SKILLS_DATA.skills.find(name===)` 线性扫描；新增 `01-state` 共享 `SKILL_MAP`（`name -> skill`），改为 `SKILL_MAP.get()`
+- **版本号同步**：package.json → v1.14.30；prototype/src/parts 01/04/05 头注释 → v1.14.30
+
+### feat: 完善项目品牌形象（logo / favicon）
+
+- **新增统一品牌标记**：设计「三节点汇聚中心 Hub」SVG 标识（主绿 `#2f9e63` 对齐设计系统），符号化表达「skills 聚合到 hub」语义；仓库根新增权威矢量资产 `logo.svg`（渐变版，供文档/README）、`favicon.svg`（纯绿版，站点 favicon）
+- **app 层注入品牌**：`app/icon.svg`（Next.js 自动识别为 favicon）；`app/layout.tsx` 的 `metadata.icons` 指向 `/icon.svg`（含 apple-touch）；`app/components/AppShell.tsx` 将emoji 占位「🛠️」替换为内联同款品牌 SVG 标记
+- **prototype 层注入品牌**：`prototype/src/index.html` 头部加入自包含 data URI favicon（离线可预览）+ 外部 `favicon.svg`/`apple-touch-icon` 回退；body 顶部「S」占位符替换为内联品牌 SVG 标记；`build.mjs` 构建时复制 `favicon.svg` 到 `prototype/out/`，确保部署后可达
+- **版本号同步**：`prototype/src/index.html` 头注释 → v1.14.30；`app/components/AppShell.tsx`、`app/layout.tsx`、`build.mjs` 头注释 → v1.14.30
+
+## [1.14.29] - 2026-08-17
+
+### 设计系统对齐与代码/原型一致性
+
+- **统一设计令牌事实来源（DESIGN §2）**：`prototype/src/styles/tokens.css` 重写为 shadcn/ui 风格 HSL 语义令牌（`--background`/`--primary`/`--card`/`--muted`/`--ring`/`--radius`/`--shadow-*` 等），作为全局唯一来源；保留扁平桥接别名（`--bg`/`--surface`/`--text-2` …）供 `app.css` 历史消费名兼容
+- **app 与 prototype 视觉对齐（不引入 Tailwind/Radix 运行时）**：`app/globals.css` 重构为与 prototype 同源的 HSL 语义令牌体系，**主色由靛蓝 `#4f46e5` 统一为绿色** `152 56% 40%`（对齐原型单一主色），修正 `--font-en` 误用 mono、深色主题色相偏差；修复 `app/README.md` 中已删除目录与失效统计的说明
+- **修复文档与代码偏差（文档规范同步）**：`DESIGN.md` 修正深色主题选择器描述（`.dark` → 代码实际的 `html[data-theme="dark"]`）、阴影表补充 `--shadow-color` 与 `shadow-pop` 条目；`COMPONENTS.md` 修正对已不存在的 `src/app.js` 的引用，改为 `src/parts/*.js`
+- **版本线统一**：prototype 各源码/构建脚本头注释（tokens/app.css/index.html/i18n/parts 01-05/build.mjs）+ 根 `build.mjs`/`build-skills-data.mjs` 统一至 v1.14.29；`app/` 组件文件头（AppShell/SkillsExplorer/SkillDialog/layout）统一至 v1.14.29，消除 1.1.x 与全局版本脱节；根 `package.json` 升至 1.14.29（app/package.json 保持子项目独立版本 1.1.10）
+- **原型视觉微调（极简质感）**：卡片静止态阴影由 `--shadow-sm` 降至 `--shadow-xs`、hover 提升至 `--shadow-md`，增强悬浮层次；视图切换激活态用 `--shadow-sm`
+- **复查纠正回归**：撤销对 `app/components/SkillDialog.tsx` 的 `REPO_SKILLS_TREE` 误改（相对路径会致外部平台无法点击），恢复与 DESIGN §4.3 / openspec §4.5.4 一致的绝对 GitHub 链接，保持 app 与原型两层一致
+
+## [1.14.28] - 2026-08-17
+
+### fix: 修复分享链接为相对路径且对齐原型/规范文档
+
+- **分享链接不可达（真 bug）**：`prototype/src/parts/03-detail.js` 的 `buildShareText` 原生成相对路径 `skills/<name>/`，复制到微信/Twitter 等外部平台后无法点击打开；改为使用 `REPO_SKILLS_TREE` 绝对 GitHub URL 拼接，与弹窗「查看技能」按钮、app 层 `share.ts` 行为一致（openspec §4.5.4 两层复用）
+- **误导注释清理**：移除 03-detail.js 中「规范要求相对路径、离线回退相对路径」的过期注释（实现已用绝对链接，与 app 层一致）
+- **COMPONENTS.md Radix 措辞**：第 30/56/62 行的 Radix `Slot`/Dialog/Sheet 标注为「app 层实现」，避免与「原型纯原生」混淆
+- **openspec 目录表 frontmatter 措辞**：`skills/<name>/SKILL.md` 由「frontmatter + 正文」改为「正文为主，frontmatter 可选当前未用」，与 §4.5.2 一致
+- **版本号同步**：package.json → v1.14.28；prototype/src/parts/03-detail.js 头注释 → v1.14.28
+
+## [1.14.27] - 2026-08-17
+
+### docs: 对齐原型/规范文档与项目代码事实
+
+- **外链路径描述（P0 行为冲突）**：DESIGN §3.2、COMPONENTS §13 原称「查看技能」用本地相对路径 `skills/<name>/` 由 GitHub 解析，实际代码 `03-detail.js` 与 app `SkillDialog.tsx` 均硬编码绝对 GitHub 链接 `REPO_SKILLS_TREE`；文档改为与代码一致（绝对链接，由常量维护，两层对齐）
+- **分类归属来源（P0 事实错误）**：openspec §4.5.2 原称「取 SKILL.md frontmatter category，回退 README」；实测 200/200 SKILL.md 无 frontmatter，分类完全来自 README 解析（`build-skills-data.mjs` 仅 `readmeMap[name]`）；同步修正 §4.5.2 数据来源（frontmatter 为可选当前未用）
+- **源码分发描述自相矛盾（P0 事实错误）**：openspec §2 目录表曾称「DESIGN/COMPONENTS 已预构建、源码不随仓库分发」，与 DESIGN §1 承认 `prototype/src/` 随仓库分发矛盾；改为「源码随仓库分发，out/ 为构建产物」
+- **Radix/Tailwind 误导措辞（P1）**：DESIGN §3-§4 多处将原型实现称为「shadcn 基线 / Tailwind 构建 / Radix Tabs/Dialog/Sheet」；已改为「视觉风格参考 shadcn，原型纯原生 CSS/JS 实现，无 Radix/Tailwind 运行时」，组件表标注 Radix 风格可访问性模式
+- **版本号同步**：package.json → v1.14.27（注：DESIGN.md/COMPONENTS.md/openspec 文档无文件头版本号，无需改）
+
+## [1.14.26] - 2026-08-17
+
+### fix: 修复覆盖率脚本崩溃与详情弹窗焦点/分享反馈缺陷
+
+- **tools/coverage.py 崩溃（必现）**：原 `re.match(...)` 对无 frontmatter 的 SKILL.md 返回 None，随后 `text[m.end():]` 抛 AttributeError，导致脚本对所有 200 个技能文件 100% 崩溃、CI 门禁/翻译统计完全失效；改为无 frontmatter 时整篇视为正文参与 CJK 占比统计（版本 1.0.0→1.0.1）
+- **详情弹窗焦点陷阱监听器泄漏**：`trapFocus` 每次打开在 `#dialog` 上新增 keydown 监听，但仅 Esc 关闭路径移除，点关闭按钮/遮罩关闭时不移除，多次打开后监听器累积叠加；改为将 `onKey` 存为 `dialog._onKey`，`closeDetail` 统一移除（覆盖所有关闭路径）
+- **分享无反馈且吞错误**：`shareSkill` 在原 `navigator.share` 分支 `.catch(()=>{})` 吞错、成功/失败均不 toast、失败不回退；改为成功/失败均 toast 提示，非用户取消的失败回退到剪贴板复制，新增统一 `copyToClipboard` 入口，与 app 层 `useShare` 行为对齐（openspec §4.5.4）
+- **版本号同步**：package.json → v1.14.26；prototype/src/parts/03-detail.js 头注释 → v1.14.26；tools/coverage.py 头注释 → 1.0.1
+
+### fix: 修复深色模式下部分按钮可读性差的问题
+
+- **问题**：深色背景下 `.btn-ghost` 无边框与背景融合、`.chip`/`.cat-tag` 彩字亮度过低（32%/36%）对比度不足，小字号难以辨认
+- **prototype**：`.btn-ghost` 加 `--border` 边框 + hover 提亮；`.chip` 文字 32%→42%、hover 36%→42%；`.cat-tag` 文字 32%→42%；新增 `html[data-theme="dark"]` 覆盖块，将 chip/cat-tag/btn-ghost 文字在暗背景下进一步提亮（hue 55%/65%）
+- **app（Next.js）**：同步 `.chip`/`.btn-ghost` 提亮与边框；深色块补充 chip/btn-ghost 覆盖（app 卡片分类标签 `.card-cat` 用 primary 色深色下对比度充足，无需调整）
+- **版本号同步**：package.json → v1.14.26；prototype/src/app.css → v1.14.26；app/package.json → v1.1.10、app/globals.css → v1.1.10
+
+## [1.14.25] - 2026-08-16
+
+### fix: 统一页面元素间距至 4 的倍数尺度
+
+- **依据**：对齐 `prototype/DESIGN.md` §2.3 间距规范（4 的倍数），消除两层非规范值
+- **prototype**：`.cats` 上间距 18px→16px、`.grid` 上间距 22px→24px、`.stat .label` 加 `margin-top:2px` 避免与数字贴太紧、`.desc.zh` 间距 8px→6px 避免与卡片 gap 叠加成 16px 双倍过松
+- **app（Next.js）**：`.toolbar` 上间距 10px→12px、`.stat` 外边距 14px→16px、`.grid` gap 14px→16px、`.card` 内 gap 4px→8px（缓解标题/描述/分类贴太紧）、`.dialog-body` gap 14px→16px
+- **版本号同步**：package.json → v1.14.25；prototype/src/app.css → v1.14.25；app/package.json → v1.1.9、app/globals.css → v1.1.9
+
+## [1.14.24] - 2026-08-16
+
+### feat: 字体体系优化（参考 Claude/Anthropic 设计）
+
+- **背景**：参考 Claude（Anthropic）官方品牌字体（标题 Anthropic Serif、正文 Anthropic Sans、代码 Anthropic Mono），外部实现以 `Georgia`/`system-ui` 系统栈回退，不内嵌自定义字体
+- **prototype**：`tokens.css` 新增 `--font-display`（衬线标题）、新增 `--font-mono`，`--font-sans` 调整为贴近 Anthropic Sans 的系统栈；`app.css` 的 `.hero h1` / `.brand` / `.card .name` / `.dialog-head h2` / `.empty-state .empty-title` 改用 `--font-display` 衬线
+- **app（Next.js）**：`globals.css` 同步新增 `--font-display`/`--font-mono`、调整 `--font-sans`，`.brand` / `.card-title` / `.dialog-head h2` 衬线化
+- **文档**：`prototype/DESIGN.md` §2.2 字体表更新为 Claude 风格体系与回退栈说明
+- **版本号同步**：package.json → v1.14.24；prototype/src/styles/tokens.css、prototype/src/app.css → v1.14.24；app/package.json → v1.1.8、app/globals.css → v1.1.8
+
+### 文档同步（补齐历史遗漏）
+
+- **README 版本徽章**：中英文 `version-v1.14.18` → `v1.14.24`，与 package.json / CHANGELOG 顶部一致
+- **CHANGELOG release 锚点**：补全 v1.0.5–v1.14.24 缺失的 `[x.y.z]:` 链接定义，使所有版本小节标题可点击
+- 注：README 技能数仍为 200（与分类明细自洽），磁盘 `skills/` 目录实有 204 个，后续建议用 `tools/skills_readme.py` 重生成对齐
+
+## [1.14.23] - 2026-08-16
+
+### fix: 卡片分类标签 .cat-tag 加对应淡彩色背景
+
+- **prototype**：`02-render.js` 的 `cardHTML` 给 `.cat-tag` 注入 `--hue`（由类别名经 `catHue()` 派生，与分类条同算法）；`app.css` 的 `.cat-tag` 由纯灰边样式改为 `color-mix` 淡彩色背景+边框+文字，与 `.chip` 视觉一致
+- **版本号同步**：package.json → v1.14.23；prototype/src/app.css → v1.14.23、prototype/src/parts/02-render.js → v1.14.23
+
+## [1.14.22] - 2026-08-16
+
+### fix: 分类条溢出改换行 + 淡彩色背景区分
+
+- **prototype**：`app.css` 的 `.cats-scroll` 由横向滚动改为 `flex-wrap: wrap`，移除横向溢出渐隐遮罩（`.cats::after` / `.cats.overflow`）；`.chip` 改为按 `--hue` 着色（color-mix 淡彩色背景+边框+文字），active 时加深；`02-render.js` 给每个 chip 注入 `--hue`（类别名 hash 派生），移除 overflow 检测逻辑
+- **app（Next.js）**：`globals.css` 的 `.cats-scroll` 同步改 `flex-wrap: wrap`，`.chip` 加 `--hue` 淡彩色背景；`SkillsExplorer.tsx` 新增 `catHue()`（与 prototype 同算法）并给 chip 注入 `--hue`，「全部」固定 hue 220
+- **版本号同步**：package.json → v1.14.22、app/package.json → v1.1.7；prototype/src/parts/02-render.js → v1.14.22、app/components/SkillsExplorer.tsx → v1.1.7
+
+## [1.14.21] - 2026-08-16
+
+### fix: 消除两层分享反馈文案漂移并修正文档/注释
+
+- **分享反馈文案对齐（openspec §4.5.4）**：`app/lib/share.ts` 的 `SHARE_FEEDBACK.ok` 由 `已复制链接与宣传文案` / `Link & promo copied` 改为与 `prototype/src/i18n.js` 的 `share.copied` 逐字一致：`已复制到剪贴板` / `Copied to clipboard`，消除 prototype 与 app 两层漂移
+- **app/README.md 过时说明修正**：原「repo 取自数据 `repo` 字段」改为「由 `SkillDialog.tsx` 的 `REPO_SKILLS_TREE` 常量维护」，与当前无 `repo` 字段的数据及硬编码实现一致
+- **app/next.config.mjs 注释修正**：「原型 app」措辞改为「Web 应用」，app 为真实 Next.js 应用而非原型
+- **版本号同步**：package.json → v1.14.21；app/package.json → v1.1.7；app/lib/share.ts、app/next.config.mjs 头注释 → v1.1.7
+
+## [1.14.20] - 2026-08-16
+
+### feat: 全站接入 Google Analytics (GA4)
+
+- **app（Next.js）全站注入**：`layout.tsx` 用 `next/script`（strategy=afterInteractive）注入 GA4，覆盖所有路由页面；ID 优先取环境变量 `GA_MEASUREMENT_ID`，缺省回退 `G-WQDDVB14PF`
+- **app 事件埋点**：新增 `lib/analytics.ts` 的 `track()`（仅当 `window.gtag` 存在时上报，否则静默）；`SkillsExplorer` 在搜索/分类筛选/查看技能处上报，`SkillDialog` 在分享处上报，与 prototype 埋点语义一致
+- **prototype**：已于 v1.14.19 接入（构建期 `{{ANALYTICS}}` 注入），本次全站覆盖包含 app 层
+- **范围**：prototype 静态站 + app Next.js 应用两个部署面全部页面
+- **版本号同步**：package.json → v1.14.20、app/package.json → v1.1.6；app/layout.tsx、components/SkillsExplorer.tsx、components/SkillDialog.tsx、lib/analytics.ts → v1.1.6
+
+## [1.14.19] - 2026-08-16
+
+### feat: 接入 Google Analytics (GA4) 统计
+
+- **构建注入**：`index.html` 的 `<head>` 新增 `{{ANALYTICS}}` 占位；`build.mjs` 读取环境变量 `GA_MEASUREMENT_ID`（缺省回退 `G-WQDDVB14PF`）生成 GA4 脚本并内联，本地构建无需设变量即可生成空占位，避免 ID 硬编码进仓库
+- **事件埋点**：`parts/01-state.js` 新增 `track()` 工具（仅当 `window.gtag` 存在时上报，否则静默）；`04-interactions.js` 在主题/语言/搜索/视图/分类筛选处上报，`03-detail.js` 在查看技能与分享处上报（`view_skill` / `share_skill` 等）
+- **范围**：仅 prototype 静态站（主部署面）；app 层 Next 代码未接入 EdgeOne 部署，暂不加
+- **版本号同步**：package.json → v1.14.19；prototype/src/index.html、build.mjs、parts/01-04 → v1.14.19
+
+## [1.14.18] - 2026-08-16
+
+### fix: 去除部署页面「原型」字样残留，统一品牌定位文案
+
+- **页面 title**：`Agent Skills Hub · 原型` → `Agent Skills Hub · 高质量 Agent 技能目录`
+- **顶栏副标题（brand.subtitle）**：
+  - zh：`Agent Skills Hub 原型` → `高质量 Agent 技能库`
+  - en：`Agent Skills Hub Prototype` → `Curated agent skill library`
+- **同步范围**：`prototype/src/index.html`（title + 静态兜底）、`prototype/src/i18n.js`（zh/en 字典）；重建 `prototype/out/index.html` 部署产物
+- **说明**：`prototype/src/*` 文件头注释、`out/index.html` 内的源码署名注释及 frontend-skill 技能描述中的「原型」属内部注释/数据内容，不向用户展示，无需更改
+- **版本号同步**：package.json → v1.14.18；prototype/src/index.html、i18n.js 头注释 → v1.14.18
+
+## [1.14.17] - 2026-08-16
+
+### docs: 修复文案漂移与死键，统一品牌展示名
+
+- **分享文案漂移修复（openspec §4.5.4.3）**：`app/lib/share.ts` 的 `SHARE_PROMOS` 原与 `prototype/src/i18n.js` 的 `share.promos` 完全不同且注释声称「逐字对齐」；现以 i18n 为权威逐字统一，消除 app 与原型分享文案不一致
+- **品牌名统一为 `Agent Skills Hub`（空格）**：app 分享文案中 3 处 `Agent-Skills-Hub` 连字符改为空格展示名（与 `app/layout.tsx` metadata、`index.html` title 一致）；npm 包名 `agent-skills-hub-app` 与 GitHub 仓库 URL 中 `Agent-Skills-Hub` 因属技术标识保持连字符真实形态（最佳实践：展示名空格、技术标识连字符）
+- **清理原型 i18n 死键**：删除从未被引用的 `share.copyOk`/`share.copyFail`/`empty`（zh+en）；`detail.catTitle`/`detail.zhName` 标注为预留键
+- **hero 文案优化**：`hero.title` 由「发现并复用 {n} 高质量 Agent 技能」改为「发现并复用 {n} 个高质量 Agent 技能」（补量词更通顺）
+- **用词统一**：`SkillsExplorer` 统计文案「当前显示」→「当前展示」，与原型 `stat.shown` 一致
+- **版本号同步**：package.json → v1.14.17；prototype/src/i18n.js → v1.14.17；app/lib/share.ts → v1.1.3；app/components/SkillsExplorer.tsx → v1.1.3
+
+## [1.14.16] - 2026-08-16
+
+### 优化：语言/主题切换按钮（原型 + 应用）
+
+- **prototype**：
+  - `index.html`：语言按钮文本改为显示「目标语言」（zh→`EN`、en→`中`），更直接；主题按钮增加月亮图标组（`<g class="theme-moon">`），由 CSS 按 `data-theme` 切换太阳/月亮
+  - `app.css`：`.icon-btn` 增加 `:focus-visible` 焦点环、`:active` 缩放反馈与过渡统一；新增主题图标太阳/月亮显隐规则
+  - `04-interactions.js`：`applyLang` 设置按钮文本与 `aria-pressed`（当前语言）；`applyTheme` 设置 `themeBtn` 的 `aria-pressed`（深色为 true）
+- **app（Next.js）**：
+  - `AppShell.tsx`：新增主题切换按钮（太阳/月亮 SVG、`aria-pressed`）与 `data-theme` 同步；语言按钮文本改目标语言并加 `aria-pressed`；新增 `.topbar-actions` 容器包裹两个按钮
+  - `globals.css`：补全深色主题令牌（`html[data-theme="dark"]`），`.icon-btn` 增加 focus/active 反馈与 hover 阴影；新增 `.topbar-actions`
+- **版本号同步**：package.json → v1.14.16、app/package.json → v1.1.5；prototype/src/index.html、parts/04-interactions.js → v1.14.16
+
+## [1.14.15] - 2026-08-16
+
+### docs: 对齐代码与原型/规范文档（版本号与事实一致性）
+
+- **文件头注释刷写**：`prototype/src/` 全部 9 个源文件（index.html/tokens.css/app.css/i18n.js/parts/01-05）头注释版本 v1.14.8~v1.14.12 → v1.14.15；构建脚本 build.mjs/build-skills-data.mjs → v1.14.15
+- **COMPONENTS.md 对齐代码**：移除不存在的 `app.js` 引用（状态/渲染/详情改为 `parts/*.js`）；ThemeToggle 恢复与代码一致的 `ash-theme` key 与 `data-theme` 属性；SkillCard 渲染改为 `name/zh/description/allowedTools`；CategoryFilter 数据源改为 `categories[]{name,count}` + `01-state.js` 的 `catCounts()`；文档版本 1.14.6 → 1.14.15
+- **DESIGN.md 对齐代码**：版本 1.14.6 → 1.14.15；§6 数据契约移除过时的「字段名与 openspec 不同」描述（openspec 已对齐）；§7 技术栈 `src/app.js` → `src/parts/*.js`；§2.6 图标说明修正为 `index.html` 内联 SVG（移除不存在的 app.css :root 变量）
+- **版本号同步**：package.json → v1.14.15
+
+## [1.14.14] - 2026-08-16
+
+### 修复：代码评审发现的文档/路径一致性问题
+
+- **README 构建命令修正**：原 `cd prototype && node build-skills-data.mjs && npm run build` 已失效（脚本已移至仓库根），改为根目录 `npm run build`（生成 `data/skills-data.json` + `prototype/out/index.html`）
+- **app/lib/skills.ts 路径稳健化**：`DATA_PATH` 由 `process.cwd()/../data` 改为 `path.resolve(__dirname, "..", "..", "data", ...)`，避免 EdgeOne 在仓库根执行构建时 cwd 偏差导致读空数据
+- **版本徽章同步**：README.md / README.en.md 徽章 v1.14.8 → v1.14.14
+- **openspec/project.md §4.5 对齐实际实现**：`skills.json` Schema 改为真实 `skills-data.json` 扁平结构（`name/category/zh/description/allowedTools`）；形态表移除不存在的 `_next/`；§4.5.3 字段名 `zh_desc/en_desc/en_name` → `zh/description/name`；§5.5 构建方式改为 `build.mjs`；§6 发版步骤引用 `skills.json` → `data/skills-data.json`
+- **app/README.md 修正**：产物文件名 `skills.json` → `skills-data.json`；外链说明移除不存在的 `meta.repo`
+- **tools/coverage.py 健壮性**：`--threshold` 参数加边界与类型校验，避免末尾参数 `IndexError`
+- **版本号同步**：package.json → v1.14.14；build-skills-data.mjs / build.mjs → v1.14.14；app/lib/skills.ts → v1.1.2
+
+## [1.14.13] - 2026-08-16
+
+### 重构：技能数据源 skills-data.json 移入 /data 目录
+
+- **目录整理**：将 `skills-data.json` 从根目录移入独立 `/data` 目录（由 git mv 保留历史），清理 `prototype/` 下残留副本，使 `prototype/` 仅保留 html 原型与文档
+- **build-skills-data.mjs**：`OUT` 由 `prototype/skills-data.json` 改为 `data/skills-data.json`
+- **build.mjs**：读取数据路径由 `prototype/skills-data.json` 改为 `data/skills-data.json`（仍内联注入 `prototype/out/index.html`，部署后线上不受路径影响）
+- **app/lib/skills.ts**：`DATA_PATH` 由 `../prototype/skills-data.json` 改为 `../data/skills-data.json`，注释同步更新
+- **文档**：DESIGN.md / COMPONENTS.md 中数据路径引用同步更新为 `data/skills-data.json`
+- **版本号同步**：package.json → v1.14.13；build-skills-data.mjs → v1.14.13；build.mjs → v1.14.13
+
+## [1.14.12] - 2026-08-16
+
+### 优化：查看技能按钮指向 GitHub 仓库
+
+- **prototype**：`03-detail.js` 新增 `REPO_SKILLS_TREE` 常量（`https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/`），`.btn-primary`「查看技能」由相对路径 `skills/<name>/` 改为绝对 GitHub 仓库链接，跨部署环境稳定可用
+- **app（Next.js）**：`SkillDialog.tsx` 同步新增 `REPO_SKILLS_TREE` 常量，`.btn-primary` href 改为 GitHub 仓库绝对链接（经 `encodeURIComponent` 编码名称）
+- **说明**：分享文案里的相对路径 `skills/<name>/` 仍按 openspec §4.5.4 保留（分享语义不同，未改动）
+- **版本号同步**：prototype/src/parts/03-detail.js → v1.14.12；app/components/SkillDialog.tsx → v1.1.4；package.json → v1.14.12、app/package.json → v1.1.4
+
+## [1.14.11] - 2026-08-16
+
+### 优化：缩小卡片头像尺寸 + 中文描述上间距
+
+- **prototype**：`app.css` 将 `.card .avatar` 由 40×40 缩至 32×32（圆角 11→9px），字体 16px 不变；新增 `.card .desc.zh { margin-top: 8px }` 为中文描述上方增加间距
+- **app（Next.js）**：`globals.css` 将 `.avatar` 由 44×44 缩至 36×36（sm 36→30），字体保持默认/13px 不变
+- **版本号同步**：package.json → v1.14.11、app/package.json → v1.1.3
+
+## [1.14.10] - 2026-08-16
+
+### 优化：卡片头像与名称同行
+
+- **prototype**：`02-render.js` 的 `cardHTML` 将 `.avatar` 移入 `.body` 并与 `.name` 包进新增的 `.title-row`（flex 横向）；`app.css` 移除旧的独立 `.card .avatar` 规则，新增 `.title-row { display:flex; align-items:center; gap:10px }`，列表视图（list）保持兼容
+- **app（Next.js）**：`SkillsExplorer.tsx` 卡片把 `.avatar.sm` 与 `.card-title` 包进 `.title-row`；`globals.css` 新增 `.title-row` 并实现同行，移除 `.card-title` 多余上边距
+- **版本号同步**：prototype/src/parts/02-render.js → v1.14.10；app/components/SkillsExplorer.tsx → v1.1.2；package.json → v1.14.10、app/package.json → v1.1.2
+
+## [1.14.9] - 2026-08-16
+
+### 修复：详情弹窗 i18n key 与分享文案漂移
+
+- **修复弹窗授权工具标题显示 key 原文**：`03-detail.js` 引用不存在的 `detail.tools`，回退为字面量 `"detail.tools"`；改为正确的 `detail.toolsTitle`
+- **修复 app 层分享文案硬编码 `"200+"` 与 prototype 漂移（违反 openspec §4.5.4.3）**：`lib/share.ts` 文案改为 `{n}` 占位并在 `buildShareText` 注入 `SKILLS_DATA.total`，与 prototype 动态数量一致；`useShare`/`SkillDialog`/`SkillsExplorer`/`AppShell`/`page` 透传 `total`
+- **修复 app 层 `allowedTools` 类型契约崩溃风险**：`lib/skills.ts` 的 `Skill.allowedTools` 由 `string` 改为 `string[]`（与 `build-skills-data.mjs` 实际输出一致），`SkillDialog` 移除 `.split(",")` 调用，避免数组调用 split 抛 `TypeError`
+- **修复 app 弹窗焦点陷阱失效与 Escape 冒泡**：焦点移出弹窗（如 body）时按方向拉回边界；Escape 时 `preventDefault` 后关闭
+- **版本号同步**：prototype/src/parts/03-detail.js → v1.14.9；app 层 7 个被改文件头 → v1.1.1；package.json → v1.14.9、app/package.json → v1.1.1
+- **修复构建产物 JS 语法错误导致全站白屏（🔴 严重）**：`build.mjs` 用 `String.replace` 注入 `js` 片段时，`$$` 在替换字符串中被解释为字面 `$`，使 parts 里的 `const $$ = ...` 在 `out/index.html` 中塌缩为 `const $ = ...`，与上方 `const $` 重复声明触发 `SyntaxError`，整段脚本不执行、统计与卡片恒为 0；改为函数式替换 `() => js` 规避特殊字符解释。同等处理 `{{CSS}}/{{DATA}}/{{I18N}}`。`build.mjs` 头版本 → v1.14.9
+
+## [1.14.8] - 2026-08-16
+
+### 修复：原型运行时崩溃与交互失效
+
+- **修复全局 `$` 未定义导致白屏（🔴 严重）**：`src/parts/*.js` 全程使用 `$()` 选择器但无任何文件定义，运行至首个 `$()` 调用即抛 `ReferenceError` 整页崩溃；在 `01-state.js` 新增共享的 `$` / `$$` 辅助函数，统一供各 parts 使用
+- **修复视图切换失效**：`04-interactions.js` 用 `.view-btn` 选择器绑定 grid/list 切换按钮，但 `index.html` 按钮无该类名，点击无反应；为两个按钮补 `view-btn` 类
+- **修复分享反馈无载体**：`03-detail.js` 的 `showToast` 取 `#toast` 节点但该节点在模板中缺失，复制提示永不显示且触发 null 报错；`index.html` 补 `<div class="toast" id="toast" role="status" aria-live="polite">`
+- **补全缺失的 i18n key**：`parts` 引用的 `filter.all` / `empty.title` / `share.copied` / `share.failed` 在字典中不存在，回退为 key 原文；`i18n.js` 中英字典补齐四者
+- **启用分类条溢出遮罩**：`renderCats` 末尾新增 `scrollWidth > clientWidth` 检测并 toggle `#categoryNav.overflow`，驱动 CSS 右侧渐隐遮罩
+- **弹窗滚动锁定统一**：`openDetail`/`closeDetail` 由 `body.style.overflow` 内联改为 `body.no-scroll` 语义类
+- **弹窗焦点回归（WCAG）**：`openDetail` 记录打开前焦点元素，`closeDetail` 关闭后归还，避免 Tab 顺序跳回页面顶部
+- **hero 计数解耦**：`refreshHeroCount` 改为直接读取 i18n 文案替换 `{n}`，不再依赖模板残留占位符
+- **版本号同步**：prototype/src 全部被改文件头（01~05 parts、i18n、index.html、app.css、tokens.css）、package.json（原 1.14.6 未同步，本次一并修正为 1.14.8）统一至 v1.14.8
+
+## [1.14.7] - 2026-08-16
+
+### 文档：Health Files 统一迁移至 `.github/`
+
+- 将 `CODE_OF_CONDUCT.md` / `SECURITY.md` / `SUPPORT.md` / `CONTRIBUTING.md` 从仓库根目录迁移至 `.github/`，作为 Community Health Files 的单一来源（GitHub 优先读取 `.github/`）
+- 补全 `.github/` 完整集合：行为准则、安全政策、支持渠道、贡献指南，内容与根目录版本对齐并补充版本标识与修正文案笔误
+- 同步更新 `README.md` / `README.en.md` 中相关文档链接至 `.github/` 路径；修正 `.github/CONTRIBUTING.md` 内 `LICENSE` 相对路径
+- 升级至 v1.14.7
+
+## [1.14.6] - 2026-08-15
+
+### 重构与规范对齐：脚本拆分、分享链接回归规范、文档同步
+
+- **分享/查看链接回归规范**：`openDetail` 与 `buildShareText` 的链接由硬编码 GitHub 绝对 URL 改回相对路径 `skills/<name>/`，对齐 openspec §4.5.4 与 DESIGN §4.3（部署后由 GitHub 自动解析为 tree/main/skills/<name>/，不依赖外部 repo 配置）
+- **脚本拆分（>200 行规则）**：`src/app.js`（317 行）按职责拆分为 `src/parts/` 五模块（01-state / 02-render / 03-detail / 04-interactions / 05-main），`build.mjs` 改为按序拼接 `src/parts/*.js`，保持同作用域、函数声明 hoist
+- **无障碍**：修正详情弹窗 `aria-labelledby` 指向真实存在的 `dialogVisibleTitle`（原先引用不存在的 `dialogTitle`）
+- **文档对齐**：DESIGN.md / COMPONENTS.md 版本与「实现方式 / 源码映射」描述同步为 parts 拆分形态
+- **修复数据层 bug**：`build-skills-data.mjs` 的 `allowedTools` 原本原样存为逗号分隔字符串，导致详情弹窗 `openDetail` 调用 `.map` 崩溃（点击卡片无反应）；新增 `normalizeTools()` 规范为数组，渲染层 `03-detail.js` 同时加 `Array.isArray` 防御性兜底；已验证 200 技能全部可安全打开详情
+- **版本号**：prototype/src 全部文件头、package.json、README 徽章统一至 v1.14.6
+
+## [1.14.5] - 2026-08-15
+
+### 修复：卡片 skill 名字丢失（主标题语义错位）
+
+- **根因**：卡片 `.name` 显示 `s.zh`（整段中文描述）而非技能名，且 `.desc.zh` 重复显示同一段描述；真正的技能名仅藏在 `.badge` 里、被长描述挤到换行后，视觉上「没有名字」
+- **修复**：`.name` 主标题明确显示技能英文名 `s.name`（权威标识、简短、永不丢失）；中文描述交由 `.desc.zh`，移除与名字重复的 `.badge`；详情弹窗 `#dName` 已用 `s.name`，语义一致
+- 版本号：app.js 头、package.json、README 徽章统一至 v1.14.5
+
+## [1.14.4] - 2026-08-15
+
+### 修复：卡片 skill 名称显示不全
+
+- **根因**：`.card .name` 为 `display:flex` 且未设 `flex-wrap`，内部长中文描述文本与英文名 badge 挤在同一行无法换行，文本被压缩/挤出可视区导致名称显示不全
+- **修复**：`.name` 加 `flex-wrap: wrap` 允许长文本换行完整显示；`.badge` 加 `flex-shrink: 0` 防止英文名被压缩丢失
+- 版本号：app.css 头、package.json、README 徽章统一至 v1.14.4
+
+## [1.14.3] - 2026-08-15
+
+### 修复：英文模式查看技能按钮显中文 + 分享文案硬编码数字
+
+- **英文模式按钮误显中文**：en 字典 `detail.open` 误填中文「查看技能」，英文模式下弹窗按钮显示中文；已修正为 "Open skill"，zh 字典保留「查看技能」
+- **分享文案硬编码 200+**：`share.promos` 中英各 3 条营销文案写死 "200+"，与统计脱节；改为 `{n}` 占位符，由 `buildShareText` 注入 `SKILLS_DATA.total` 动态替换
+- 版本号：i18n.js/app.js 头、package.json、README 徽章统一至 v1.14.3
+
+## [1.14.2] - 2026-08-15
+
+### 修复：失效链接、hero 标题硬编码、版本号不一致
+
+- **失效链接**：详情弹窗「查看技能」按钮与分享文案链接原指向 `skills/<name>/`，纯静态部署无此路由必 404；统一改为 GitHub 仓库真实技能目录 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>`
+- **hero 标题硬编码**：`hero.title` 写死 "200+"，与动态统计脱节；改用 `{n}` 占位符 + `refreshHeroCount()` 注入 `SKILLS_DATA.total`，语言切换后也同步刷新
+- **版本号统一**：prototype/src 五个文件头（app.js/i18n.js/app.css/tokens.css/index.html）与 package.json/README 徽章统一至 v1.14.2
+
+## [1.14.1] - 2026-08-15
+
+### 修复：线上部署技能数据全为 0 + 品牌标题拼接瑕疵
+
+- **根因（数据全 0）**：`package.json` 的 `build` 脚本仅运行 `build.mjs`，后者依赖预提交的 `skills-data.json`；EdgeOne 部署重新构建时若数据文件缺失/未就绪，`build.mjs` 抛 ENOENT 失败或产出空页面，导致线上 `SKILLS_DATA` 为空、统计与卡片全为 0
+- **修复**：`build` 脚本改为先 `build-skills-data.mjs` 生成数据再 `build.mjs` 内联，彻底消除对预提交数据文件的依赖，CI 重构建必产出 200 技能 / 13 分类
+- **标题瑕疵**：`index.html` 品牌名与副标题 `<small>` 间缺空格，渲染为「Skills HubAgent Skills Hub 原型」，已补空格
+- 版本号：package.json、index.html 头、README 徽章统一至 v1.14.1
+
+## [1.14.0] - 2026-08-15
+
+### feat: 分享功能 — 复制分析链接时同时复制随机项目宣传文案
+
+- **分享按钮**：技能详情弹窗新增「分享」按钮，点击将技能分析链接（`skills/<name>/`，部署后带域名）与一条**随机选取**的项目宣传文案一并复制到剪贴板
+- **多语言随机文案**：中/英各 3 条宣传文案，按当前界面语言随机取 1 条避免雷同；prototype（`i18n.js`）与 app（`lib/share.ts`）复用同一文案集合，避免漂移
+- **复制容错**：优先 `navigator.clipboard.writeText`，失败降级 `document.execCommand('copy')`，皆失败给出明确提示
+- **用户反馈**：复制成功/失败用轻量 toast（`role="status"` `aria-live="polite"`，3s 自动消失）提示
+- **两层实现**：prototype 静态原型与 app（Next.js）行为一致；规范更新至 `openspec/project.md §4.5.4` 与 `prototype/DESIGN.md §3.2/§4.2`
+- 版本号：prototype/src 改动文件头统一至 v1.14.0；app 包升至 v1.1.0
+
+## [1.13.2] - 2026-08-15
+
+### 修复：卡片技能名在中文模式下不显示
+
+- **根因**：卡片英文名 badge 带 `en` class，被 `html[data-lang="zh"] .en { display: none }` 规则在默认中文模式下隐藏；而 `.name` 显示的是 `s.zh` 中文长描述，导致用户看不到技能名（英文标识）
+- **修复**：卡片英文名 badge 去除 `en` class，使其不受语言切换显隐规则影响、始终可见（英文名是技能稳定标识，用户常按英文名检索/调用）
+- 版本号：prototype/src/app.js 文件头、package.json 统一至 v1.13.2
+
+## [1.13.1] - 2026-08-15
+
+### 样式优化：降低绿色主色调饱和度提升文字可读性
+
+- **主色调降饱和**：浅色 `--primary` `#16a34a`→`#2e9e6b`、深色 `#4ade80`→`#5cc98c`，降低饱和度并微调明度
+- **白字对比度**：主按钮/选中态绿底白字对比度达 WCAG AA（≥4.5:1），文字更清晰可读
+- **同步**：DESIGN.md 主色 HSL 表（142 71%→152 56% / 146 52%）、渐变端点、原型产物 `out/index.html` 一并更新
+- 版本号：prototype/src 改动文件头统一至 v1.13.1
+
+## [1.13.0] - 2026-08-15
+
+### UI/UX 完善：偏好持久化、弹窗无障碍与长列表导航
+
+- **偏好持久化**：主题（明/暗）与语言（中/英）写入 localStorage，刷新后保持，避免每次重置
+- **弹窗无障碍增强**：打开弹窗时焦点移入、Tab 焦点陷阱不逃逸背景、`Esc`/遮罩关闭后焦点归还触发卡片；打开期间锁定背景滚动（`body.no-scroll`）
+- **全局可访问性**：`:focus-visible` 仅键盘焦点显示焦点环；`prefers-reduced-motion` 下停用过渡动画（WCAG 2.3.3）
+- **长列表导航**：新增「回到顶部」按钮（`#toTop`），滚动超阈值淡入、点击平滑回顶；分类条右侧溢出渐隐遮罩提示可横向滚动
+- 版本号：prototype/src 改动文件头统一至 v1.13.0
+
+### 主色调由紫色改为绿色 + 设计文档对齐
+
+- `prototype/src/styles/tokens.css`：浅色 `--primary` `#4f46e5`→`#16a34a`、`--primary-weak` `#eef0fe`→`#e7f6ec`、`--primary-strong` `#4338ca`→`#15803d`；深色 `--primary` `#818cf8`→`#4ade80`、`--primary-weak` `#232644`→`#16291f`、`--primary-strong` `#a5b0ff`→`#86efac`
+- `prototype/src/app.css`：品牌 logo 与卡片头像渐变末端 `#8b5cf6`→`#22c55e`（2 处）
+- `prototype/DESIGN.md`：§2.1 色彩表 `--primary`/`--accent`/`--ring` 的 HSL 值与描述同步为绿色（原文档 HSL 仍写紫，已修正为 `142 71%` 绿相，消除文档与代码脱节）
+- `prototype/out/index.html`：重跑 `node build.mjs` 重新生成自包含产物，已无紫色残留（校验 0 处）
+- 校验：仅替换色值，未改动 DOM 结构与交互逻辑；语义化 id（上轮 v1.10.0 已加）保持不动；对比度仍满足 WCAG AA
+
+## [1.12.0] - 2026-08-15
+
+### 代码审查：无障碍增强、性能优化、规范对齐与模块拆分
+
+- **无障碍（WCAG AA 基线）**：卡片补充 `role=button`+`tabIndex=0`+`aria-label` 并支持 Enter/Space 键打开；分类 chip 加 `aria-pressed`；统计区与结果网格加 `aria-live=polite`；弹窗 `role=dialog`+`aria-modal`+`sr-only` 标题；图标按钮/搜索框/分类 nav 补 `aria-label`；聚焦环 `.card:focus-visible`
+- **空状态增强**：新增图标 + 双语描述 + 「清除筛选」按钮（`#clearFilters`），对齐 DESIGN §4.4
+- **性能优化**：分类计数由每次渲染全量遍历改为预聚合 `catCounts`（O(n) 一次）；关键词匹配补全 `category` 字段（对齐规范 4.5.3①）；搜索输入加 120ms 防抖
+- **健壮性**：删除未使用 `pick` 函数与空 `listCls` 计算；搜索框占位符随语言由 `I18N.t()` 驱动；i18n 容错兜底保持不变
+- **模块拆分**：`app.css` 拆出 `src/styles/tokens.css`（设计令牌 + reset + `.sr-only`）；`tools/skills_readme.py`(265行) 拆出纯函数层 `tools/_skill_readme_lib.py`（解析/读取），主文件降为编排层。所有源文件 ≤200 行
+- **规范对齐（DESIGN.md / COMPONENTS.md）**：修正过时引用（Next.js/React/Tailwind → 纯原生 HTML/CSS/JS；`build_site.mjs`/`skills.json 的 meta.repo` → `build.mjs`/`skills-data.json` 扁平结构）；README/README.en 同步纯静态实现与构建命令、`app/` 技术栈断言去具体化
+- **版本号统一**：prototype/src 各文件头、package.json、README 徽章统一至 v1.12.0
+
+## [1.11.2] - 2026-08-15
+
+### 加固 EdgeOne CI 依赖安装修复（v1.11.1 修复未生效）
+
+- **根因复盘**：v1.11.1 在 `edgeone.json` 设 `installCommand: ""` 未生效，CLI 仍回退默认 `npm install` 并因根目录无 `package.json` 而 ENOENT 失败（空字符串被判定为"未设置"）
+- **双保险修复**：
+  1. 新增根 `package.json`（无 dependencies，含 `build` 脚本指向 `node prototype/build.mjs`），即使 CLI 回退默认 `npm install` 也会因有清单且零依赖而立即 exit 0
+  2. `edgeone.json` 的 `installCommand` 改为非空命令 `echo 'no npm dependencies to install'`，确保 CLI 执行它而非回退默认；`buildCommand` 改为 `npm run build`
+- 本地校验：`npm run build` 成功生成 `prototype/out/index.html`，两处 JSON 均合法
+
+## [1.11.1] - 2026-08-15
+
+### 修复 EdgeOne Makers CI 依赖安装失败（ENOENT package.json）
+
+- **根因**：`edgeone.json` 未配置 `installCommand`，CI 默认执行 `npm install`，但仓库根目录无 `package.json`（原型为纯静态站点，`prototype/out/` 为已入库的预构建产物），导致 ENOENT 构建失败
+- **修复** `edgeone.json`：新增 `installCommand: ""` 跳过无意义依赖安装；新增 `buildCommand: "node prototype/build.mjs"` 在部署前重新生成自包含静态产物（`build.mjs` 仅依赖 Node 内置模块，无需 npm 安装）
+- 校验：`edgeone.json` 通过 `JSON.parse` 合法性检查；`build.mjs` 确认仅引用 `node:fs`/`node:path`/`node:url` 内置模块，CI 无需第三方依赖即可构建
+
+## [1.9.1] - 2026-08-15
+
+### 原型重构：纯 HTML 自包含高保真原型
+
+- **重构 `prototype/out/index.html`**：从 Next.js 预渲染产物改为**纯 HTML 自包含单文件原型**，内联 CSS + JS + 真实技能数据，双击即可离线预览，零构建依赖
+- **新增数据管道** `prototype/build-skills-data.mjs`：从磁盘 `skills/<name>/SKILL.md` 与 `README.md` 真实提取 200 个技能、13 个分类（名称、中文/英文描述、授权工具），生成 `prototype/skills-data.json`
+- **新增原型源码** `prototype/src/`（`index.html` 模板 + `app.css` 设计系统 + `app.js` 交互逻辑），按职责拆分且均 ≤200 行
+- **新增构建脚本** `prototype/build.mjs`：将 `src` 模板与真实数据内联为自包含 `out/index.html`（约 91 KB）
+- **实现交互**：实时搜索、分类筛选（带计数）、网格/列表视图切换、技能详情弹窗（桌面 Dialog + 移动端底部 Sheet）、中英语言切换、深浅主题切换、Esc/点击遮罩关闭
+- **对齐设计系统** `prototype/DESIGN.md` / `COMPONENTS.md`：语义色板、圆角、阴影、PingFang/微软雅黑字体栈、响应式断点（桌面 Dialog / 移动 Sheet）
+- 清理 `out/` 下旧 Next.js 导出遗留文件（`_next/`、`404.html`、`icon.svg`、`index.txt`）
+- 校验：`node prototype/build-skills-data.mjs && node prototype/build.mjs` 可复现；产物不依赖 `out/_next/` 资源
+
+## [1.11.0] - 2026-08-15
+
+### 国际化独立模块化 + 容错降级
+
+- **新增独立 i18n 模块** `prototype/src/i18n.js`：集中管理 zh/en 文案字典，对外暴露 `t(key)`、`getLang()`、`setLang()`、`toggleLang()`、`onLangChange()`、`syncDOM()`，与 UI 渲染解耦
+- **容错设计**：`t(key)` 在任何情况下都不抛错——目标语言缺失回退 zh，仍缺失返回 key 原文；字典被外部篡改/加载失败时降级到 HTML 原始双写文案，应用不崩溃
+- **静态文案数据驱动**：`prototype/src/index.html` 的 13 处双语文案加 `data-i18n` 占位，启动时由 i18n 模块按 `zh`/`en` 类填充
+- **动态文案集中**：`prototype/src/app.js` 的空状态、详情弹窗标题改用 `I18N.t(key)`，语言状态与 `data-lang`/`<html lang>` 同步统一交给模块
+- **构建管道** `prototype/build.mjs`：新增 `{{I18N}}` 占位符，将 `i18n.js` 内联进 `out/index.html`（保证 `I18N` 在 `app.js` 前加载）
+- 校验：Node 单测覆盖字典覆盖、缺失 key 兜底、非法语言忽略、字典损坏不抛错；构建产物已验证内联且无残留占位符
+
+## [1.10.0] - 2026-08-15
+
+### 原型页语义化 id 增强（可访问性与锚点）
+
+- `prototype/src/index.html`：为顶栏（`siteHeader`/`topbarInner`/`brandLink`）、英雄区（`hero`/`heroTitleZh`/`heroTitleEn`/`heroSubtitleZh`/`heroSubtitleEn`/`heroStats`）、搜索控制区（`searchControls`/`searchBox`）、分类导航（`categoryNav`）、主列表（`grid` 增加 `aria-label`）与弹窗容器（`dialog` 增加 `aria-modal` + `aria-labelledby`）补充语义化 id 与可访问性属性
+- `prototype/src/app.js`：详情弹窗模板内区块（`dialogHead`/`dialogBody`/`dialogFoot`/`dialogBlockZh`/`dialogBlockEn`/`dialogBlockCat`/`dialogBlockTools`）与标题（`dialogTitle`，关联 `aria-labelledby`）、空状态（`emptyStateZh`/`emptyStateEn`）补充语义化 id
+- 校验：新增 id 均为纯结构属性，未改动既有 `state`/`bind()` 选择器逻辑，向后兼容；JS 仍通过既有 `#grid`/`#cats`/`#searchInput` 等引用，无破坏性变更
+
+## [1.9.0] - 2026-08-15
+
+### 社区健康文件（Community Health Files）完善 + CI 修复
+
+- **新增行为准则** `CODE_OF_CONDUCT.md`：基于 Contributor Covenant v2.1，明确承诺、准则、执行流程与举报渠道
+- **新增安全政策** `SECURITY.md`：声明受支持版本（latest/main）、私密漏洞报告渠道（GitHub Security Advisory + 邮箱）、处理流程与项目安全红线
+- **新增支持文档** `SUPPORT.md`：问题反馈渠道、FAQ、行为准则与维护者信息
+- **新增 Issue 模板**：`bug_report.yml`（缺陷）、`feature_request.yml`（功能建议）、`config.yml`（关闭空白 Issue，引导安全漏洞与讨论到对应渠道）
+- **新增 PR 模板** `.github/PULL_REQUEST_TEMPLATE.md`：集成 `<type>: <描述>` 提交规范、README 一致性校验与 CHANGELOG 检查清单
+- **新增依赖自动化** `.github/dependabot.yml`：对 `app/`、`prototype/` 的 npm 与根目录 GitHub Actions 执行每周自动升级
+- **修复失效 CI** `.github/workflows/site.yml`：原 `site/**` 路径指向已重命名为 `prototype/` 的废弃目录，改为 `prototype/**` + `app/**` 双构建任务（prototype 以 `node prototype/build-skills-data.mjs` 校验 `skills-data.json`、app Next.js 构建），与新目录结构一致
+- **同步 README** `README.md` / `README.en.md`：顶部新增版本徽章（v1.9.0）、MIT 许可标注；「相关文档」补列 CODE_OF_CONDUCT / SECURITY / SUPPORT
+- 校验：新增 Health Files 不引入构建依赖；CI 路径与 `prototype/build_site.mjs`、`app/` 实际入口对齐
+
+## [1.8.0] - 2026-08-08
+
+### 新增 app/ Web 应用工作区 + 文档索引更新
+
+- **新增 `app/` 目录**：作为项目可运行 Web 应用（WebApp）专属工作区，基于 Next.js 14 + React 18，
+  与 `prototype/`（预构建静态原型）分层——`app/` 用于开发/构建，`prototype/` 为离线浏览交付物
+- **目录约定固化**：`app/README.md` 明确数据源纪律（`skills/<name>/SKILL.md` 为权威）、md 用相对链接、跨域用 `{repo}/tree/main/{dir}`
+- **文档索引同步**：`README.md`/`README.en.md` 的「在线展示页面」拆为 `app/` 与 `prototype/` 两层对照表；
+  `openspec/project.md` §1 概览与 §2 目录结构表新增 `app/` 行；`openspec/AGENTS.md` 数据纪律补 `app/` 说明
+- 校验：仓库结构清晰，`prototype/` 已清理散落文件（仅 `out/` + 文档），`app/` 为未跟踪新目录
+
+## [1.7.0] - 2026-08-08
+
+### 原型 shadcn/ui 重构 + 文档/规范对齐
+
+- **UI 框架升级**：将原型从手写 CSS 重构为 **shadcn/ui（new-york 风格）+ Tailwind CSS 3 + Radix UI + lucide-react**，
+  初始化 `tailwind.config.ts`、`postcss.config.js`、`components.json`、`tsconfig.json`、`lib/utils.ts`（cn）等基础设施
+- **设计令牌映射**：`DESIGN.md` 的色彩/间距/圆角/阴影/动效改写为 shadcn HSL CSS 变量（`app/globals.css`），
+  由 Tailwind 主题消费；新增 `.dark` 深色主题与 `prefers-reduced-motion` 全局兼容
+- **组件库替换**：新增 `components/ui/*`（Button/Input/Badge/Card/Skeleton/Separator/Tabs/Dialog/Sheet），
+  `components/*`（ThemeToggle/LangToggle/ViewToggle/SkillCard/SkillDetail），全部基于 shadcn 原语
+- **响应式详情载体**：桌面端（>640px）用 Radix Dialog 居中弹窗，移动端（≤640px）用 Sheet 右侧抽屉（`matchMedia` 实时判定）
+- **去除冗余**：删除旧 `app/Showcase.jsx`（逻辑合并入 `app/page.tsx`）、`lib/skills.js`（升级为 `lib/skills.ts`），
+  原型结构精简；构建脚本 `build_site.py` 移植为 `build_site.mjs`（Node 可跑，无 Python 环境可构建），py 版保留为备用
+- **规范同步**：重写 `DESIGN.md`（1.7.0）与 `COMPONENTS.md`（1.7.0）对齐 shadcn 架构；
+  `openspec/project.md` §4.5 与 `AGENTS.md` 同步为 `build_site.mjs`/`app/page.tsx` 引用；
+  `README.md`/`README.en.md` 构建命令更新为 `node build_site.mjs`
+- **全面测试**：`npm install` + `npm run build` 通过（Next 14.2.33 静态导出，200 技能 / 13 分类，首屏 JS 146 kB）；
+  `next.config.mjs` `output: export` 与所有 Radix 组件兼容
+- 校验：构建成功、类型检查通过、三向数据一致、深浅主题/双语/网格列表/空态/键盘可达均可用
+
+## [1.6.0] - 2026-08-08
+
+### 原型目录重构 + 高保真重设计
+
+- **目录精简**：将静态展示页 `site/` 整体移动为 `prototype/`（git 保留重命名历史），
+  统一原型入口，消除 `site/` 与 `prototype/` 命名歧义
+- 同步更新部署配置 `edgeone.json`（`cd prototype && npm run build`，输出 `./prototype/out`）、
+  `README.md` / `README.en.md` 展示页章节、`openspec/project.md` 与 `openspec/AGENTS.md` 的路径引用；
+  修正 `build_site.py` 的 `OUT` 路径指向 `prototype/data/skills.json`（修复重跑时写回已删除的 `site/` 的缺陷）
+- **设计规范建立**：重撰 `prototype/DESIGN.md` 为完整设计规范——设计原则、设计系统
+  （色彩/字体/间距/圆角/阴影/图标/动效 Token）、组件库（基础/复合/业务）、交互标准
+  （模式/反馈/错误/空状态）、响应式、数据契约、技术栈
+- **组件库规范**：新增 `prototype/COMPONENTS.md`，逐一定义 15 个组件的 Props/状态/用法/代码位置与红线
+- **极简重设计**：`globals.css` 重写为克制设计语言（中性灰阶 + 单一靛蓝主色、4 倍数间距尺度、
+  分层阴影、easeOutQuint 动效、毛玻璃吸顶工具栏、极淡 Hero 光晕）；`Showcase.jsx` 重构为
+  国际顶尖水准可交互原型（中英双语即时切换、深浅主题、网格/列表切换、滚动边框态、键盘可达、
+  空状态、弹窗 pop/fade 入场、尊重 `prefers-reduced-motion`）
+- 校验：`skills.json` 200 条字段完整；lint 0 错误；三向数据一致；原型内无 `site/` 残留路径
+
+格式遵循 [Keep a Changelog](https://keepachangelog.com/)，
+版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)（SemVer）。
+
+## [1.0.0] - 2026-07-30
+
+### 新增
+
+- 初始化 Agent Skills Hub，纳入 201 个技能包
+- 按领域建立 13 个分类：前端与 UI 设计、后端/语言与框架、架构与设计、
+  测试与质量、Agent 与 AI 工程、DevOps 与基础设施、数据与机器学习、
+  内容/文档与写作、视频与媒体、行业领域、生产力与工具、上下文与提示工程、其他
+- 新增项目文档 `README.md`，提供仓库结构说明、技能分类索引、使用方式与贡献指南
+
+### 说明
+
+- 仓库以多次 `backup: 同步 Skills 库` 提交持续同步技能内容
+- 各技能许可证见其目录内 `LICENSE` 文件
+
+## [1.0.1] - 2026-07-30
+
+### 文档
+
+- 完善 `README.md`：补充作者（Sut Chan）与项目地址
+- 将全部技能说明翻译为中文
+- 修正技能总数（201）与分类计数，清理重复条目
+- 新增「相关文档」章节，链接 `CHANGELOG.md` 与 `LICENSE`
+
+## [1.0.2] - 2026-07-30
+
+### 文档与工程
+
+- 新增 `README` GitHub 徽章（技能数量 / 许可证 / 英文文档）与「技能检索」指引
+- 提取独立 `CONTRIBUTING.md`，并在「相关文档」中链接
+- 新增英文版 `README.en.md`（与中文版结构一致，含英文描述与检索指引）
+- 新增 `tools/skills_readme.py`：校验 README 与 `skills/` 一致性、生成英文 README
+- 新增 CI 工作流 `.github/workflows/verify.yml`，在 push/PR 时校验一致性
+- 在 `agent-skills-hub.code-workspace` 补充作者与项目元信息
+
+## [1.0.3] - 2026-07-31
+
+### 文档
+
+- 修正 `README.md` 与 `README.en.md` 技能总数（201 → 199）
+- 修正「测试与质量」「Agent 与 AI 工程」分类计数（20 → 19），使各分类合计与总数一致
+- 中文版与英文版均补充本地化说明段，明确技能描述为「中文目录 + 中文描述」
+- 修复 `tools/skills_readme.py`：verify 误将 `skills/` 路径前缀当作技能名导致全量误报；gen-en 生成链接路径补全 `skills/` 前缀
+
+### 文档
+
+- 删除冗余技能，技能总数由 201 调整为 199
+- `continuous-learning`：已有 `continuous-learning-v2` 替代，删除旧版
+- `webapp-testing-2`：与 `e2e-testing` / `browser-qa` 功能重叠且命名遗留 `-2`，删除
+- 同步更新 `README.md`、`README.en.md`（分类计数与总数）与 `site/data/skills.json`
+
+## [1.0.4] - 2026-07-31
+
+### 文档
+
+- 重构 `README.en.md` 为真正的英文文档：英文标题/栏目/说明，技能描述由 `gen-en` 从各 `SKILL.md` 自动提取（英文技能保留英文描述，中文技能保留中文描述）
+- 英文版补充「Repository Structure」「Usage（含 skills-manager 一键安装、Next.js 在线展示、技能检索）」「Contributing」「Related Documents」等章节
+- 修正英文版仓库链接（旧 `skills-chinese` → `Agent-Skills-Hub`）与 workspace 文件名引用
+- 增强 `tools/skills_readme.py` 的 `read_description`：正确解析 YAML 折叠块标量（`|`/`>`/`|-`/`>-`），修复中文技能描述被截断或误取标记符号的问题
+- 修复后 `gen-en` 产出描述完整，`verify` 校验通过（199 个技能一致）
+
+## [1.0.5] - 2026-07-31
+
+### 文档
+
+- 删除冗余技能 `autonomous-loops`：其 `SKILL.md` 已声明 canonical 名改为 `continuous-agent-loop`，保留一个版本避免破坏现有工作流，与 `continuous-learning`（v2 替代 v1）、`webapp-testing-2`（遗留 `-2` 命名）同属被替代/遗留命名的冗余清理
+- 同步更新 `README.md`、`README.en.md`（总数 199→198，「Agent 与 AI 工程」分类 19→18）与 `site/data/skills.json`
+- 清理临时分析文件 `descs.txt`、`sim.txt`
+
+## [1.0.6] - 2026-07-31
+
+### 功能
+
+- `site` 展示页新增中英文切换功能
+- `Showcase.jsx`：新增 `lang` 状态与 `toggleLang`；界面文案（标题、按钮、统计标签、搜索占位、分类名、空态、页脚）双语化；分类名维护中文→英文映射；卡片与弹窗按当前语言显示对应描述（缺失时回退另一语言）
+- `layout.jsx`：新增首屏 `lang` 内联脚本，避免语言切换闪烁，同步 `<html lang>`
+- `globals.css`：新增 `.lang-toggle` 按钮样式，卡片/弹窗描述样式合并为 `.card-desc` / `.modal-desc`
+- 语言偏好持久化到 `localStorage`，默认跟随浏览器语言
+
+## [1.4.0] - 2026-08-08
+
+### 数据一致性修复（续）
+
+- 修复 `site/build_site.py`：frontmatter 解析时对 `name`/`description`/`category`
+  去除 YAML 引号包裹，根治 `security-best-practices` 的 name 被包裹为
+  `"security-best-practices"` 导致无法匹配磁盘与 README 的问题
+- 重新生成 `site/data/skills.json`：技能总数 197 → 200（与磁盘含 `SKILL.md`
+  的目录数一致），`meta.count` 196 → 200，分类计数全量同步
+- 补全 README 缺失的 3 个技能条目：`autonomous-loops`、`continuous-learning`、
+  `webapp-testing`（原仓库新增未同步至 README）
+- 修正 README 与 README.en.md 技能总数徽标/正文（198 → 200）及相应分类计数
+- 消除三向数据源不一致：磁盘（200）= `skills.json`（200）= README 链接（200）
+
+## [1.5.0] - 2026-08-08
+
+### 英文 README 与生成脚本修复
+
+- 修正 `README.en.md` 脏条目：`frontend-design-2` → `frontend-design`（目录名
+  错误），删除磁盘不存在的 `审查项目` 垃圾条目，补回缺失的 `frontend-design`
+- 统一中英文 README 分类英文名：`Others` → `Other`，与 `skills.json` 的
+  `categories[].en` 对齐；同步修正「其他」分类计数（11 → 10）
+- 修复 `tools/skills_readme.py`：`gen-en` 仓库地址
+  `sutchan/skills-chinese` → `sutchan/Agent-Skills-Hub`，相关文档链接
+  `skills-chinese.code-workspace` → `agent-skills-hub.code-workspace`，
+  分类英文映射 `其他: "Others"` → `"Other"`
+- 校验结果：中文 README（200）/ 英文 README（200）/ `skills.json`（200）三向
+  完全一致，中英文条目集合零差异
+- 已知残留：`skills/` 下 21 个 SKILL.md 的 frontmatter 字段（20 个 description
+  + 1 个 name）仍带 YAML 引号包裹，两个生成脚本均已兼容去引号，产物不受影响；
+  源文件清理因 `git-commit` 内部含单引号存在 YAML 破坏风险，留待后续逐文件处理
+
+## [1.3.0] - 2026-08-08
+
+### 原型更新（site/ 展示页）
+
+- 新增 grid/list 视图切换：Toolbar 图标按钮切换，list 为单列横向卡片布局
+- 卡片与 Modal 增加英文别名 `en_name` 展示（仅当 `en_name !== name` 时以小字等宽字体渲染）
+- 明确过滤交互：搜索 + 分类 chip 两项取交集；`has_*` 为只读状态徽章，不提供标签过滤
+- 同步样式：新增 `.view-toggle`、列表视图、英文别名样式（globals.css）
+
+### 规范文档修订
+
+- `site/DESIGN.md`：纠正配色令牌（以 globals.css 真实值为准，原 `#6d28d9` 等有误）；
+  修正间距/圆角/断点；消除"标签取交集""锚点区块"歧义；对齐视图切换与 en_name 展示
+- `openspec/project.md`：新增 §4.5 数据结构与接口标准（skills.json Schema、build_site.py
+  契约、过滤/展示业务规则）；红线补充数据契约交叉引用，确保文档与最新原型严格对应
+
+## [1.2.0] - 2026-08-08
+
+### 文档与规范
+
+- 新增 `site/DESIGN.md`：Web 展示原型设计规范，定义视觉令牌（配色/字体/
+  间距/响应式）、布局组件、交互与数据架构（单一数据源 = 磁盘 SKILL.md →
+  build_site.py → skills.json → 原型）
+- 新增 `openspec/project.md`：OpenSpec 项目规范，定义 change 工作流、
+  artifact 准则与本仓库一致性红线（单一数据源、无嵌套副本、分类英文数据驱动）
+- 新增 `openspec/AGENTS.md`：AI 协作指引，含 OpenSpec CLI 快速命令与角色契约
+
+## [1.1.0] - 2026-08-07
+
+### 原型对齐与数据治理
+
+- 改进展示页原型（`site/`）：分类英文名从 `data/skills.json` 的
+  `categories[].en` 字段读取，删除 `Showcase.jsx` 中硬编码的 `CAT_EN`
+  映射，新增分类无需改动前端代码
+- 增强 `site/build_site.py`：生成 `categories` 时写入 `en` 字段，
+  数据重生成自动携带分类英文名，原型与数据源一致
+- 修正 `site/data/skills.json`：删除磁盘已不存在的 `审查项目` 条目，
+  将错误目录 `frontend-design-2` 修正为真实 `frontend-design`，
+  技能总数 198 → 196，分类计数同步更新
+- 修正 `README.md`：同上述两处坏条目，使 README、skills.json 与
+  磁盘 `skills/` 三套数据对齐（单一数据源 = 磁盘 SKILL.md）
+
+### 仓库清理
+
+- 恢复根 `tools/coverage.py` 与 `tools/skills_readme.py`（此前误置于
+  `skills/tools/` 嵌套副本），删除非法嵌套目录 `skills/tools/`、`skills/site/`
+- 解决 `manim-video` 版本冲突：将完整生产级版本（version 1.0.0，含
+  14 份 references 文档与 `scripts/setup.sh`）从错误嵌套位置
+  `skills/video-use/skills/manim-video` 归位到根 `skills/manim-video/`
+  （保留 `assets/network_graph_scene.py` 示例），删除非法嵌套目录；
+  同步 `skills.json` 的 `has_scripts`/`has_references` 与 `en_desc`
+
+[1.0.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.0
+[1.0.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.1
+[1.0.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.2
+[1.0.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.3
+[1.0.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.4
+[1.9.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.9.0
+[1.9.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.9.1
+[1.10.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.10.0
+[1.13.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.13.0
+[1.0.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.5
+[1.0.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.0.6
+[1.1.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.1.0
+[1.2.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.2.0
+[1.3.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.3.0
+[1.4.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.4.0
+[1.5.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.5.0
+[1.6.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.6.0
+[1.7.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.7.0
+[1.8.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.8.0
+[1.11.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.11.0
+[1.11.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.11.1
+[1.11.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.11.2
+[1.12.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.12.0
+[1.13.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.13.1
+[1.13.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.13.2
+[1.14.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.0
+[1.14.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.1
+[1.14.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.2
+[1.14.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.3
+[1.14.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.4
+[1.14.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.5
+[1.14.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.6
+[1.14.7]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.7
+[1.14.8]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.8
+[1.14.9]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.9
+[1.14.10]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.10
+[1.14.11]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.11
+[1.14.12]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.12
+[1.14.13]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.13
+[1.14.14]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.14
+[1.14.15]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.15
+[1.14.16]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.16
+[1.14.17]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.17
+[1.14.18]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.18
+[1.14.19]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.19
+[1.14.20]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.20
+[1.14.21]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.21
+[1.14.22]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.22
+[1.14.23]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.23
+[1.14.24]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.24
+[1.14.25]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.25
+[1.14.26]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.26
+[1.14.27]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.27
+[1.14.28]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.28
+[1.14.29]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.29
+[1.14.30]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.30
+[1.14.31]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.31
+[1.14.32]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.32
+[1.14.33]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.33
+[1.14.34]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.34
+[1.14.35]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.35
+[1.14.36]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.36
+[1.14.37]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.37
+[1.14.38]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.38
+[1.14.39]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.39
+[1.14.40]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.40
+[1.14.41]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.41
+[1.14.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.42
+[1.14.43]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.43
+[1.14.44]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.44
+[1.14.45]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.45
+[1.14.46]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.46
+[1.14.47]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.47
+[1.14.48]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.48
+[1.14.49]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.49
+[1.14.50]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.50
+[1.14.52]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.52
+[1.14.53]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.53
+[1.14.56]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.56
