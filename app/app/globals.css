@@ -1,4 +1,4 @@
-/* app/app/globals.css v1.1.15 — 应用全局样式（令牌由 build 从 prototype 同步）
+/* app/app/globals.css v1.1.16 — 应用全局样式（令牌由 build 从 prototype 同步）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 build.mjs 自动生成的共享令牌
  * （事实源 = prototype/src/styles/tokens.css，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -47,8 +47,8 @@ button { font-family: inherit; cursor: pointer; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; }
 .title-row { display: flex; align-items: center; gap: 10px; }
 .card-title { font-family: var(--font-display); font-weight: 600; margin-top: 0; }
-.card-sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }
-.card-cat { color: var(--primary); font-size: 12px; }
+.card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-cat { color: var(--primary); font-size: 12px; margin-top: 2px; }
 .empty { padding: 60px 0; text-align: center; color: var(--text-2); }
 
 .overlay { position: fixed; inset: 0; background: hsl(224 32% 20% / .5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50; backdrop-filter: blur(2px); }
@@ -104,8 +104,8 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ---------- 签名元素：Hero 节点网（对齐 prototype/components.css，呼应品牌 Hub） ---------- */
 .hero { position: relative; overflow: hidden; border-radius: 18px; margin: 8px 0 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); }
-.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; pointer-events: none; }
-.hero:hover .hero-net { opacity: .8; }
+.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; }
+.hero:hover .hero-net { opacity: .9; }
 .hero-inner { position: relative; z-index: 1; max-width: 720px; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: hsl(var(--primary)); margin-bottom: 12px; }
 .hero-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--node); box-shadow: 0 0 0 4px hsl(var(--node) / .25); }
@@ -116,15 +116,6 @@ button { font-family: inherit; cursor: pointer; }
 .hero-stat .num { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; }
 .hero-stat .lbl { font-size: 12px; color: var(--text-2); }
 
-/* 卡片分类色条：结构编码分类（对齐 prototype/components.css，按 data-cat 序号映射色板） */
+/* 卡片分类色条：--hue 由 catHue(category) 派生（对齐 prototype，与 chip 同分类同色，任意分类有色） */
 .card { position: relative; overflow: hidden; }
-.card .cat-bar { height: 4px; border-radius: 999px; background: var(--node); margin: -16px -16px 0; }
-.card[data-cat="0"] .cat-bar { background: var(--node); }
-.card[data-cat="1"] .cat-bar { background: hsl(152 55% 50%); }
-.card[data-cat="2"] .cat-bar { background: hsl(168 50% 45%); }
-.card[data-cat="3"] .cat-bar { background: hsl(140 45% 48%); }
-.card[data-cat="4"] .cat-bar { background: hsl(186 45% 48%); }
-.card[data-cat="5"] .cat-bar { background: hsl(200 45% 52%); }
-.card[data-cat="6"] .cat-bar { background: hsl(220 45% 56%); }
-.card[data-cat="7"] .cat-bar { background: hsl(258 40% 58%); }
-.card[data-cat="8"] .cat-bar { background: hsl(286 40% 56%); }
+.card .cat-bar { height: 4px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 50%); margin: -16px -16px 0; }

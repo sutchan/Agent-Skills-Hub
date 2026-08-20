@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.14.60 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
+// app/components/AppShell.tsx v1.14.71 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
 "use client";
 
 import { useEffect, useState } from "react";
@@ -29,10 +29,30 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
   const [lang, setLang] = useState<Lang>("zh");
   const [dark, setDark] = useState(false);
 
-  // 同步主题到 <html data-theme>，驱动 CSS 变量切换
+  // 从 localStorage 恢复偏好（对齐 prototype 01-state：key ash-theme / ash-lang，SSR 安全）
+  useEffect(() => {
+    try {
+      if (typeof window === "undefined") return;
+      const savedLang = window.localStorage.getItem("ash-lang");
+      if (savedLang === "zh" || savedLang === "en") setLang(savedLang as Lang);
+      const savedTheme = window.localStorage.getItem("ash-theme");
+      if (savedTheme === "light" || savedTheme === "dark") setDark(savedTheme === "dark");
+    } catch {
+      /* 隐私模式等场景忽略 */
+    }
+  }, []);
+
+  // 同步主题到 <html data-theme> + localStorage，驱动 CSS 变量切换
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    try { window.localStorage.setItem("ash-theme", dark ? "dark" : "light"); } catch { /* ignore */ }
   }, [dark]);
+
+  // 同步语言到 <html data-lang> + localStorage（对齐原型 html[data-lang]）
+  useEffect(() => {
+    document.documentElement.setAttribute("data-lang", lang);
+    try { window.localStorage.setItem("ash-lang", lang); } catch { /* ignore */ }
+  }, [lang]);
 
   return (
     <div className="app-shell" data-lang={lang} data-theme={dark ? "dark" : "light"}>
@@ -74,12 +94,12 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
       {/* 签名元素：Hero 节点网（呼应品牌 Hub 隐喻；对齐 prototype DESIGN §4） */}
       <section className="hero" id="hero" aria-labelledby="heroTitle">
         <svg className="hero-net" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <g stroke="hsl(var(--primary))" strokeWidth="1" opacity=".5">
+          <g stroke="hsl(var(--line))" strokeWidth="1" opacity=".5">
             <line x1="120" y1="60" x2="400" y2="120" /><line x1="400" y1="120" x2="680" y2="70" />
             <line x1="400" y1="120" x2="220" y2="200" /><line x1="400" y1="120" x2="600" y2="190" />
             <line x1="120" y1="60" x2="220" y2="200" /><line x1="680" y1="70" x2="600" y2="190" />
           </g>
-          <g fill="hsl(var(--primary) / 0.85)">
+          <g fill="hsl(var(--node))">
             <circle cx="120" cy="60" r="5" /><circle cx="680" cy="70" r="5" />
             <circle cx="220" cy="200" r="5" /><circle cx="600" cy="190" r="5" />
             <circle cx="400" cy="120" r="11" fill="hsl(var(--primary))" />

@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.14.60 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.14.71 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
 "use client";
 
 import { useMemo, useState } from "react";
@@ -34,16 +34,14 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
 
   const cats = useMemo(() => ["全部", ...categories], [categories]);
   const filtered = useMemo(() => {
-    const k = q.trim().toLowerCase();
+    // 多词 AND 搜索：按空白拆分，全部词都命中才返回（对齐 prototype matches()，如 "flutter 布局"）
+    const terms = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
     return skills.filter((s) => {
       if (s.hidden) return false;
       const matchCat = cat === "全部" || s.category === cat;
-      const matchQ =
-        !k ||
-        s.name.toLowerCase().includes(k) ||
-        (s.zh || "").toLowerCase().includes(k) ||
-        (s.description || "").toLowerCase().includes(k) ||
-        (s.category || "").toLowerCase().includes(k);
+      if (!terms.length) return matchCat;
+      const hay = [s.name, s.zh, s.description, s.category].join(" ").toLowerCase();
+      const matchQ = terms.every((term) => hay.includes(term));
       return matchCat && matchQ;
     });
   }, [skills, q, cat]);
@@ -74,7 +72,7 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
             <button
               key={c}
               className={"chip" + (c === cat ? " active" : "")}
-              style={{ "--hue": c === "全部" ? 220 : catHue(c) } as React.CSSProperties}
+              style={{ "--hue": c === "全部" ? 152 : catHue(c) } as React.CSSProperties}
               aria-pressed={c === cat}
               onClick={() => {
                 setCat(c);
@@ -93,17 +91,22 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
 
       {filtered.length ? (
         <div className="grid" id="skillsGrid">
-          {filtered.map((s) => (
-            <button key={s.name} className="card" data-cat={categories.indexOf(s.category)} role="button" onClick={() => { track("view_skill", { skill: s.name, category: s.category }); setOpen(s); }}>
-              <div className="cat-bar" aria-hidden="true" />
-              <div className="title-row">
-                <div className="avatar sm">{(s.name || "?").slice(0, 2).toUpperCase()}</div>
-                <div className="card-title">{s.zh || s.name}</div>
-              </div>
-              <div className="card-sub en">{s.name}</div>
-              <div className="card-cat">{s.category}</div>
-            </button>
-          ))}
+          {filtered.map((s) => {
+            const zhName = s.zh || s.name;
+            const zhDesc = s.zhDesc || s.zh;
+            const desc = lang === "zh" ? zhDesc : s.description;
+            return (
+              <button key={s.name} className="card" data-cat={categories.indexOf(s.category)} style={{ "--hue": catHue(s.category) } as React.CSSProperties} role="button" onClick={() => { track("view_skill", { skill: s.name, category: s.category }); setOpen(s); }}>
+                <div className="cat-bar" aria-hidden="true" />
+                <div className="title-row">
+                  <div className="avatar sm">{(s.name || "?").slice(0, 2).toUpperCase()}</div>
+                  <div className="card-title">{lang === "zh" ? zhName : s.name}</div>
+                </div>
+                {desc ? <div className="card-desc">{desc}</div> : null}
+                <div className="card-cat">{s.category}</div>
+              </button>
+            );
+          })}
         </div>
       ) : (
         <div className="empty" id="emptyState">{t.empty}</div>

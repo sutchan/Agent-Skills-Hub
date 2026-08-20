@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.71] - 2026-08-20
+
+### feat: app 与原型对齐（卡片描述语言互斥、cat-bar 动态色、多词搜索、偏好持久化）
+
+- **数据同步**：`app/scripts/sync-data.cjs` 同步根 `data/skills-data.json` 至 app（49 skills + 新增 `zhDesc` 中文描述字段）
+- **Skill 接口**：`lib/skills.ts` 补 `zhDesc?: string` 字段
+- **Hero 节点网**：`AppShell.tsx` 节点连线改用 `--line`、节点改用 `--node`（对齐原型，非主绿）；`globals.css` `.hero-net` 透明度提至 `.68`
+- **cat-bar 动态色**：`globals.css` 删固定 0-8 色板，`.card .cat-bar` 改用 `--hue`（catHue 派生，与 chip 同分类同色）；`SkillsExplorer.tsx` 卡片内联 `--hue`
+- **卡片描述语言互斥**：`SkillsExplorer.tsx` 标题按语言（中文名/英文名）切换，新增 `.card-desc` 中文态显示 `zhDesc`、英文态显示 `description`（对齐原型 cardHTML）
+- **多词搜索**：`SkillsExplorer.tsx` 搜索改为空格分词 AND 匹配（对齐原型 matches）
+- **偏好持久化**：`AppShell.tsx` 主题/语言改用 localStorage（key `ash-theme`/`ash-lang`，与原型 01-state 兼容），并同步 `data-lang` 到 `<html>`
+- **"全部" chip 色相**：由 220 改为主绿 152（对齐原型）
+- **版本同步**：根 `package.json` 及 4 个 app 被改文件头注释、README/README.en 徽章升至 v1.14.71
+
 ## [1.14.70] - 2026-08-20
 
 ### docs: 新增 .github Community Health Files
