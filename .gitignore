@@ -13,9 +13,6 @@ logs/
 skills-manager.db
 skills-manager.db-shm
 skills-manager.db-wal
-skills/skills-manager.db
-skills/skills-manager.db-shm
-skills/skills-manager.db-wal
 
 # skills-manager 误写入 skills/ 的整份仓库嵌套副本，非源码
 skills/skills/

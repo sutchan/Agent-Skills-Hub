@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.14.62 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.14.63 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -35,6 +35,12 @@
 .card-sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }
 .card-cat { color: hsl(var(--primary)); font-size: 12px; }
 
+/* 视图切换（网格/列表）：图标按钮，active 态主色高亮 */
+.view-toggle { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.view-btn { width: 34px; height: 34px; border-radius: 7px; display: grid; place-items: center; color: var(--text-2); transition: background .15s, color .15s; }
+.view-btn:hover { color: var(--text); }
+.view-btn.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+
 /* 弹窗操作按钮（GitHub / 复制 / 关闭） */
 .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font-size: 14px; text-decoration: none; transition: all .15s ease; }
 .btn:hover { border-color: var(--primary); color: var(--primary); }
@@ -43,3 +49,6 @@
 
 /* 弹窗底部操作区 */
 .dialog-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 22px; border-top: 1px solid var(--border); }
+
+/* 详情弹窗中文描述（zh-desc）：保留多段换行，段落间自然空行（配合 build 折叠标量段分隔） */
+.zh-desc { white-space: pre-line; line-height: 1.7; color: var(--text-2); }

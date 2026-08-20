@@ -2,6 +2,24 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.64] - 2026-08-20
+
+### fix: 清除 13 个 SKILL.md 的 Git 冲突标记，消除技能数据重复
+
+- **冲突清理**：`skills/` 下 13 个 SKILL.md 因自动备份工具混入 Git 冲突标记（`<<<<<<< HEAD`/`=======`/`>>>>>>>`），导致 `build-skills-data.mjs` 解析出错误 frontmatter（如 `ai-video-generation` 与 `ai-video-generation-2` name 重复、category 丢失）。已按既定决策「保留本地 HEAD 侧」清除全部冲突标记，保留完整中文元数据（category/zh/zh-desc）
+- **换行统一**：13 个文件由 CRLF 统一为 LF，消除 Windows 行尾对构建解析的干扰
+- **数据验证**：重新 `npm run build` 后 49 技能 / 5 分类，`ai-video-generation` 重复消除，冲突标记清零，`zhDesc` 覆盖 49/49；`total=48`（agent-browser 为 hidden，设计行为）
+- **版本同步**：根 `package.json` → v1.14.64；README/README.en 徽章、CHANGELOG 同步
+
+## [1.14.63] - 2026-08-20
+
+### fix: 修复 SKILL.md 头部插入的中文描述（zh-desc）展示不换行
+
+- **构建脚本**：`build-skills-data.mjs` 对 YAML 块标量的解析区分折叠（`>`）与字面量（`|`）——折叠标量段内换行折叠为空格、**空行分隔的段落之间保留换行 `\n`**；字面量标量保留所有换行，使多段中文描述能进入 `data/skills-data.json` 的 `zhDesc`
+- **数据落库**：为 11 个超长 `zh-desc`（≥150 字，如 agent-browser、ai-avatar-video、ai-image-generation、xlsx、image-to-video、video-edit、wp-playground 等）按语义断点（`。`/`；`）拆分为多个自然段落；仅含单句的长描述（如 supabase-postgres-best-practices、agent-development）保持单段，避免破坏语法
+- **原型展示**：`components.css` 新增 `.zh-desc { white-space: pre-line }`，让详情弹窗中的多段中文描述按段落换行显示
+- **版本同步**：根 `package.json` → v1.14.63；README/README.en 徽章、`build-skills-data.mjs`/`components.css` 头注释同步更新
+
 ## [1.14.62] - 2026-08-20
 
 ### feat: 原型优化并与 app 代码对齐（Hero 节点网 + 卡片分类色条 + 多色 chip）
@@ -1059,3 +1077,6 @@
 [1.14.59]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.59
 [1.14.60]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.60
 [1.14.61]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.61
+[1.14.62]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.62
+[1.14.63]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.63
+[1.14.64]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.64

@@ -48,9 +48,10 @@
 .dialog-close { margin-left: auto; }
 .dialog-body { padding: 22px; overflow: auto; }
 
-/* 空状态提示（搜索无结果等） */
-.empty-state { text-align: center; color: var(--text-2); padding: 40px 16px; }
-.empty-state .big { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+/* 空状态提示（搜索无结果等）：标题 + 说明 + 清除按钮（对齐 emptyHTML 输出） */
+.empty-state { text-align: center; color: var(--text-2); padding: 40px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.empty-state .empty-title { font-size: 18px; font-weight: 600; color: var(--text); }
+.empty-state .empty-desc { font-size: 14px; }
 
 /* 页脚 */
 .site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }

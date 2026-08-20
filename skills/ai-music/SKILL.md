@@ -1,12 +1,11 @@
 ---
 name: ai-music
-<<<<<<< HEAD:ai-music/SKILL.md
 category: 开发框架与平台
 zh: 通过 runcomfy CLI 智能路由生成 AI 音乐，覆盖 ElevenLabs 人声与 ACE Step 标签驱动作曲，支持修补与延长音轨
 zh-desc: >-
-  通过 runcomfy CLI 智能路由生成 AI 音乐。优先路由到 ElevenLabs AI Music Generation（高级 44.1kHz 立体声人声音轨）或 ACE Step / ACE Step 1.5（标签驱动作曲、多语言歌词、成本更低）。还支持 ACE Step 音频 inpaint（重生成音轨内某段）与 outpaint（在音轨前后延长）。适用场景包括高端人声片段、低价背景音乐库、多语言流行歌曲、修复糟糕的副歌、把 30 秒草稿延长成 2 分钟成品等。
-=======
->>>>>>> 697aee6 (chore: 发布 v1.14.58 版本并完成全栈样式与规范对齐):skills/ai-music/SKILL.md
+  通过 runcomfy CLI 智能路由生成 AI 音乐。 优先路由到 ElevenLabs AI Music Generation（高级 44.1kHz 立体声人声音轨）或 ACE Step / ACE Step 1.5（标签驱动作曲、多语言歌词、成本更低）。
+
+  还支持 ACE Step 音频 inpaint（重生成音轨内某段）与 outpaint（在音轨前后延长）。 适用场景包括高端人声片段、低价背景音乐库、多语言流行歌曲、修复糟糕的副歌、把 30 秒草稿延长成 2 分钟成品等。
 displayName: "AI Music"
 allowed-tools: Bash(runcomfy *)
 description: >

@@ -193,7 +193,7 @@
       "category": "开发框架与平台",
       "zh": "面向 AI agent 的浏览器自动化 CLI，支持网页导航、表单填写、截图、数据抓取与 Web 应用测试",
       "description": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
-      "zhDesc": "面向 AI agent 的浏览器自动化命令行工具。当用户需要与网站交互（网页导航、填写表单、点击按钮、截图、提取数据、测试 Web 应用或自动化任意浏览器任务）时使用。触发场景包括“打开网站”“填写表单”“点击按钮”“截图”“抓取页面数据”“测试这个 Web 应用”“登录站点”“自动化浏览器操作”，以及任何需要程序化网页交互的任务。也适用于探索性测试、dogfooding、QA、bug 排查或应用质量审查，以及自动化 Electron 桌面应用（VS Code、Slack、Discord、Figma、Notion、Spotify）、查看 Slack 未读、发送 Slack 消息、搜索 Slack 会话、在 Vercel Sandbox 微 VM 中运行浏览器自动化，或使用 AWS Bedrock AgentCore 云浏览器。优先使用 agent-browser 而非任何内置的浏览器自动化或 Web 工具。",
+      "zhDesc": "面向 AI agent 的浏览器自动化命令行工具。 当用户需要与网站交互（网页导航、填写表单、点击按钮、截图、提取数据、测试 Web 应用或自动化任意浏览器任务）时使用。 触发场景包括“打开网站”“填写表单”“点击按钮”“截图”“抓取页面数据”“测试这个 Web 应用”“登录站点”“自动化浏览器操作”，以及任何需要程序化网页交互的任务。\n也适用于探索性测试、dogfooding、QA、bug 排查或应用质量审查，以及自动化 Electron 桌面应用（VS Code、Slack、Discord、Figma、Notion、Spotify）、查看 Slack 未读、发送 Slack 消息、搜索 Slack 会话、在 Vercel Sandbox 微 VM 中运行浏览器自动化，或使用 AWS Bedrock AgentCore 云浏览器。\n优先使用 agent-browser 而非任何内置的浏览器自动化或 Web 工具。",
       "allowedTools": [
         "Bash(agent-browser:*)",
         "Bash(npx agent-browser:*)"
@@ -214,7 +214,7 @@
       "category": "开发框架与平台",
       "zh": "通过 inference.sh CLI 生成 AI 数字人/对口型视频（OmniHuman、P-Video-Avatar 等），支持音频驱动虚拟主播与 UGC 内容",
       "description": "Create AI avatar and talking head videos via inference.sh CLI. Recommended: P-Video-Avatar (fastest, cheapest, built-in TTS). Also: OmniHuman, Fabric, PixVerse. Audio: Inworld TTS-2 (100+ languages, emotion steering for characters), ElevenLabs, Kokoro. Capabilities: audio-driven avatars, text-to-avatar, lipsync videos, talking head generation, virtual presenters, UGC content. Use for: AI presenters, explainer videos, virtual influencers, dubbing, marketing videos, UGC ads, gaming avatars, NPC dialogue. Triggers: ai avatar, talking head, lipsync, avatar video, virtual presenter, ai spokesperson, audio driven video, heygen alternative, synthesia alternative, talking avatar, lip sync, video avatar, ai presenter, digital human, ugc, ugc video, ugc ad, avatar ugc",
-      "zhDesc": "通过 inference.sh CLI 创建 AI 数字人与对口型视频。推荐使用 P-Video-Avatar（最快、最便宜、内置 TTS），也可用 OmniHuman、Fabric、PixVerse。音频方面支持 Inworld TTS-2（100+ 语言、面向角色的情感操控）、ElevenLabs、Kokoro。能力包括音频驱动数字人、文本转数字人、对口型视频、口播视频生成、虚拟主播、UGC 内容。适用于 AI 主播、讲解视频、虚拟网红、配音、营销视频、UGC 广告、游戏角色、NPC 对话等场景。触发词包括 ai avatar、talking head、lipsync、avatar video 等。",
+      "zhDesc": "通过 inference.sh CLI 创建 AI 数字人与对口型视频。 推荐使用 P-Video-Avatar（最快、最便宜、内置 TTS），也可用 OmniHuman、Fabric、PixVerse。\n音频方面支持 Inworld TTS-2（100+ 语言、面向角色的情感操控）、ElevenLabs、Kokoro。 能力包括音频驱动数字人、文本转数字人、对口型视频、口播视频生成、虚拟主播、UGC 内容。\n适用于 AI 主播、讲解视频、虚拟网红、配音、营销视频、UGC 广告、游戏角色、NPC 对话等场景。 触发词包括 ai avatar、talking head、lipsync、avatar video 等。",
       "allowedTools": [
         "Bash(belt *)"
       ],
@@ -225,7 +225,7 @@
       "category": "开发框架与平台",
       "zh": "通过 inference.sh CLI 用 GPT-Image-2、FLUX、Gemini 等 50+ 模型生成 AI 图像，支持文生图、图生图、修图与放大",
       "description": "Generate AI images with GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI. Models: GPT-Image-2, FLUX Dev LoRA, FLUX.2 Klein LoRA, Gemini 3 Pro Image, Grok Imagine, Seedream 4.5, Reve, ImagineArt. Capabilities: text-to-image, image-to-image, inpainting, LoRA, image editing, upscaling, text rendering. Use for: AI art, product mockups, concept art, social media graphics, marketing visuals, illustrations. Triggers: flux, image generation, ai image, text to image, stable diffusion, generate image, ai art, midjourney alternative, dall-e alternative, text2img, t2i, image generator, ai picture, create image with ai, generative ai, ai illustration, grok image, gemini image, gpt image, openai image, chatgpt image",
-      "zhDesc": "通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 及 50+ 模型生成 AI 图像。支持文生图、图生图、inpainting、LoRA、图像编辑、放大、文字渲染。适用于 AI 艺术、产品样机、概念图、社交媒体图、营销视觉与插画。触发词包括 flux、image generation、ai image、text to image、midjourney alternative 等。",
+      "zhDesc": "通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 及 50+ 模型生成 AI 图像。 支持文生图、图生图、inpainting、LoRA、图像编辑、放大、文字渲染。\n适用于 AI 艺术、产品样机、概念图、社交媒体图、营销视觉与插画。 触发词包括 flux、image generation、ai image、text to image、midjourney alternative 等。",
       "allowedTools": [
         "Bash(belt *)"
       ],
@@ -236,7 +236,7 @@
       "category": "开发框架与平台",
       "zh": "通过 runcomfy CLI 智能路由生成 AI 音乐，覆盖 ElevenLabs 人声与 ACE Step 标签驱动作曲，支持修补与延长音轨",
       "description": "Generate AI music on RunComfy via the `runcomfy` CLI — a smart router across the music-model catalog. Routes to ElevenLabs AI Music Generation (premium 44.1 kHz stereo vocal tracks, 5 s–5 min, $0.0083/s) and ACE Step / ACE Step 1.5 (StepFun-AI open-weights, tag-driven composition, multilingual lyrics, $0.0002–0.0003/s, ~27× cheaper), plus ACE Step audio-inpaint (regenerate a time range inside an existing track) and ACE Step audio-outpaint (extend a track before or after). Picks the right model for the user's actual intent — premium vocal hook, cheap background music library, multilingual pop song, repair a bad chorus, lengthen a 30 s draft into a 2 min cut — and ships each model's documented prompting patterns plus the minimal `runcomfy run` invoke. Triggers on \"generate music\", \"make a song\", \"AI music\", \"background music\", \"instrumental track\", \"soundtrack\", \"jingle\", \"theme music\", \"royalty-free music\", \"compose\", \"music with lyrics\", \"extend music\", \"fix this song\", \"inpaint music\", or any explicit ask to generate or edit music.",
-      "zhDesc": "通过 runcomfy CLI 智能路由生成 AI 音乐。优先路由到 ElevenLabs AI Music Generation（高级 44.1kHz 立体声人声音轨）或 ACE Step / ACE Step 1.5（标签驱动作曲、多语言歌词、成本更低）。还支持 ACE Step 音频 inpaint（重生成音轨内某段）与 outpaint（在音轨前后延长）。适用场景包括高端人声片段、低价背景音乐库、多语言流行歌曲、修复糟糕的副歌、把 30 秒草稿延长成 2 分钟成品等。",
+      "zhDesc": "通过 runcomfy CLI 智能路由生成 AI 音乐。 优先路由到 ElevenLabs AI Music Generation（高级 44.1kHz 立体声人声音轨）或 ACE Step / ACE Step 1.5（标签驱动作曲、多语言歌词、成本更低）。\n还支持 ACE Step 音频 inpaint（重生成音轨内某段）与 outpaint（在音轨前后延长）。 适用场景包括高端人声片段、低价背景音乐库、多语言流行歌曲、修复糟糕的副歌、把 30 秒草稿延长成 2 分钟成品等。",
       "allowedTools": [
         "Bash(runcomfy *)"
       ],
@@ -247,14 +247,14 @@
       "category": "开发框架与平台",
       "zh": "通过 inference.sh CLI 用 Veo、Seedance、Wan 等 40+ 模型生成 AI 视频，支持文生视频、图生视频与视频编辑",
       "description": "Generate AI videos with Google Veo, Seedance 2.0, HappyHorse, Wan, Grok and 40+ models via inference.sh CLI. Models: Veo 3.1, Veo 3, Seedance 2.0, HappyHorse 1.0, Wan 2.5, Grok Imagine Video, OmniHuman, Fabric, HunyuanVideo. Capabilities: text-to-video, image-to-video, reference-to-video, video editing, lipsync, avatar animation, video upscaling, foley sound. Use for: social media videos, marketing content, explainer videos, product demos, AI avatars. Triggers: video generation, ai video, text to video, image to video, veo, animate image, video from image, ai animation, video generator, generate video, t2v, i2v, ai video maker, create video with ai, runway alternative, pika alternative, sora alternative, kling alternative, seedance, happyhorse",
-      "zhDesc": "通过 inference.sh CLI 使用 Veo、Seedance、HappyHorse、Wan、Grok 及 40+ 模型生成 AI 视频。支持文生视频、图生视频、参考图转视频、视频编辑、对口型、角色动画、视频放大与 Foley 音效。适用于社交媒体视频、营销内容、讲解视频、产品演示与 AI 数字人。触发词包括 video generation、ai video、text to video、veo、animate image 等。",
+      "zhDesc": "通过 inference.sh CLI 使用 Veo、Seedance、HappyHorse、Wan、Grok 及 40+ 模型生成 AI 视频。 支持文生视频、图生视频、参考图转视频、视频编辑、对口型、角色动画、视频放大与 Foley 音效。\n适用于社交媒体视频、营销内容、讲解视频、产品演示与 AI 数字人。 触发词包括 video generation、ai video、text to video、veo、animate image 等。",
       "allowedTools": [
         "Bash(belt *)"
       ],
       "hidden": false
     },
     {
-      "name": "ai-video-generation",
+      "name": "ai-video-generation-2",
       "category": "开发框架与平台",
       "zh": "通过 runcomfy CLI 在 RunComfy 目录智能路由生成 AI 视频，覆盖文生视频/图生视频与 Veo 视频扩展",
       "description": "Generate AI videos on RunComfy via the `runcomfy` CLI — a smart router across the full video-model catalog: HappyHorse 1.0 (Arena #1, native in-pass audio), Wan-AI Wan 2-7 (open weights, audio-driven lip-sync), ByteDance Seedance v2 / 1-5 / 1-0 (multi-modal cinematic), Kling 3.0 / 2-6, Google Veo 3-1, MiniMax Hailuo 2-3, ByteDance Dreamina 3-0. Covers text-to-video (t2v), image-to-video (i2v), and Veo's video-extend endpoint. The skill picks the right model for the user's intent (Arena-#1 quality, multi-shot character identity, in-pass audio, cinematic motion, fastest path, sub-15s clip, longest duration) and ships each model's documented prompting patterns plus the minimal `runcomfy run` invoke. Triggers on \"generate video\", \"make a video\", \"text to video\", \"t2v\", \"image to video\", \"i2v\", \"animate\", \"AI video\", \"make X move\", \"video from prompt\", \"video from image\", or any explicit ask to produce a video clip from prompt or still.",
@@ -325,7 +325,7 @@
       "category": "开发框架与平台",
       "zh": "Flutter/Dart 代码审查清单",
       "description": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.",
-      "zhDesc": "与框架无关的 Flutter/Dart 代码审查清单，覆盖 widget 最佳实践、状态管理模式（BLoC、Riverpod、Provider、GetX、MobX、Signals）、Dart 惯用法、性能、可访问性、安全与整洁架构。无论项目使用何种状态管理库，审查 Flutter/Dart 代码时使用。",
+      "zhDesc": "与框架无关的 Flutter/Dart 代码审查清单，覆盖 widget 最佳实践、状态管理模式（BLoC、Riverpod、Provider、GetX、MobX、Signals）、Dart 惯用法、性能、可访问性、安全与整洁架构。\n无论项目使用何种状态管理库，审查 Flutter/Dart 代码时使用。",
       "allowedTools": [],
       "hidden": false
     },
@@ -343,7 +343,7 @@
       "category": "开发框架与平台",
       "zh": "通过 runcomfy CLI 将静态图片智能路由为对口型/多模态动画（HappyHorse、Wan、Seedance）",
       "description": "Animate any still image on RunComfy — this skill is a smart router that matches the user's intent to the right i2v model in the RunComfy catalog. Picks HappyHorse 1.0 I2V (Arena #1, native audio, identity preservation) for general animations, Wan 2.7 with `audio_url` for custom-voiceover lip-sync, or Seedance 2.0 Pro for multi-modal animation from image + reference video + reference audio. Bundles each model's documented prompting patterns so the caller gets sharper output without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/image-to-video` (or endpoint variant) through the local RunComfy CLI. Triggers on \"image to video\", \"image-to-video\", \"i2v\", \"animate image\", \"make this move\", or any explicit ask to turn a still into video.",
-      "zhDesc": "在 RunComfy 上将任意静态图片动画化，本技能是匹配用户意图到正确 i2v 模型的智能路由器。常规动画选用 HappyHorse 1.0 I2V（Arena #1、原生音频、身份保持），自定义配音对口型用 Wan 2.7 配合 audio_url，多模态动画用 Seedance 2.0 Pro。通过本地 RunComfy CLI 调用 runcomfy run 相关端点。",
+      "zhDesc": "在 RunComfy 上将任意静态图片动画化，本技能是匹配用户意图到正确 i2v 模型的智能路由器。 常规动画选用 HappyHorse 1.0 I2V（Arena #1、原生音频、身份保持），自定义配音对口型用 Wan 2.7 配合 audio_url，多模态动画用 Seedance 2.0 Pro。\n通过本地 RunComfy CLI 调用 runcomfy run 相关端点。",
       "allowedTools": [],
       "hidden": false
     },
@@ -361,7 +361,7 @@
       "category": "开发框架与平台",
       "zh": "Next.js 代码审查",
       "description": "Provides comprehensive code review capability for Next.js applications, validates Server Components, Client Components, Server Actions, caching strategies, metadata, API routes, middleware, and performance patterns. Use when reviewing Next.js App Router code changes, before merging pull requests, after implementing new features, or for architecture validation. Triggers on \"review Next.js code\", \"Next.js code review\", \"check my Next.js app\".",
-      "zhDesc": "为 Next.js 应用提供全面的代码审查能力，校验 Server Components、Client Components、Server Actions、缓存策略、metadata、API 路由、middleware 与性能模式。在审查 Next.js App Router 代码改动、合并 PR 前、实现新功能后或进行架构校验时使用。",
+      "zhDesc": "为 Next.js 应用提供全面的代码审查能力，校验 Server Components、Client Components、Server Actions、缓存策略、metadata、API 路由、middleware 与性能模式。\n在审查 Next.js App Router 代码改动、合并 PR 前、实现新功能后或进行架构校验时使用。",
       "allowedTools": [
         "Read",
         "Edit",
@@ -412,7 +412,7 @@
       "category": "开发框架与平台",
       "zh": "通过 runcomfy CLI 在 RunComfy 目录编辑视频，支持重风格、换背景、动作迁移与服装替换",
       "description": "Edit existing video on RunComfy — this skill is a smart router that matches the user's intent to the right edit model in the RunComfy catalog. Picks Wan 2.7 Edit-Video (general restyle / background swap / packaging swap, identity + motion preservation), Kling 2.6 Pro Motion Control (transfer precise motion from a reference video to a target character), or Lucy Edit Restyle (lightweight identity-stable restyle / outfit swap). Bundles each model's documented prompting patterns so the skill gets sharper edits without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/<endpoint>` through the local RunComfy CLI. Triggers on \"video edit\", \"edit video\", \"restyle video\", \"swap video background\", \"motion control\", \"outfit swap video\", or any explicit ask to transform a video.",
-      "zhDesc": "在 RunComfy 上编辑现有视频，本技能是匹配用户意图到正确编辑模型的智能路由器。通用重风格/换背景/包装替换选 Wan 2.7 Edit-Video，参考视频动作迁移选 Kling 2.6 Pro Motion Control，轻量身份稳定重风格/换装选 Lucy Edit Restyle。通过本地 RunComfy CLI 调用 runcomfy run 相关端点。",
+      "zhDesc": "在 RunComfy 上编辑现有视频，本技能是匹配用户意图到正确编辑模型的智能路由器。 通用重风格/换背景/包装替换选 Wan 2.7 Edit-Video，参考视频动作迁移选 Kling 2.6 Pro Motion Control，轻量身份稳定重风格/换装选 Lucy Edit Restyle。\n通过本地 RunComfy CLI 调用 runcomfy run 相关端点。",
       "allowedTools": [],
       "hidden": false
     },
@@ -430,7 +430,7 @@
       "category": "开发框架与平台",
       "zh": "WordPress Playground 路由封装",
       "description": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
-      "zhDesc": "用作 WordPress Playground 的路由封装技能，适用于模糊的 Playground 工作、@wp-playground/cli 的本地 CLI 运行、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。若要编写或审查 Blueprint JSON，请直接使用 blueprint 技能。",
+      "zhDesc": "用作 WordPress Playground 的路由封装技能，适用于模糊的 Playground 工作、@wp-playground/cli 的本地 CLI 运行、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。\n若要编写或审查 Blueprint JSON，请直接使用 blueprint 技能。",
       "allowedTools": [],
       "hidden": false
     },
@@ -466,7 +466,7 @@
       "category": "文件与格式处理",
       "zh": "电子表格文件处理",
       "description": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\"the xlsx in my downloads\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
-      "zhDesc": "任何以电子表格文件为主要输入或输出的任务都应使用本技能，包括打开/读取/编辑/修复现有 .xlsx、.xlsm、.xltx、.csv、.tsv 文件（加列、算公式、格式化、图表、清理脏数据）、从零或其他数据源新建表格、在表格文件格式间转换，以及清理/重组混乱的表格数据。产出物必须是电子表格文件；当主要产出是 Word 文档、HTML 报告、独立 Python 脚本、数据库管线或 Google Sheets API 集成时不要触发。",
+      "zhDesc": "任何以电子表格文件为主要输入或输出的任务都应使用本技能，包括打开/读取/编辑/修复现有 .xlsx、.xlsm、.xltx、.csv、.tsv 文件（加列、算公式、格式化、图表、清理脏数据）、从零或其他数据源新建表格、在表格文件格式间转换，以及清理/重组混乱的表格数据。\n产出物必须是电子表格文件。 当主要产出是 Word 文档、HTML 报告、独立 Python 脚本、数据库管线或 Google Sheets API 集成时不要触发。",
       "allowedTools": [],
       "hidden": false
     }

@@ -29,7 +29,9 @@ function openDetail(s) {
       <button id="shareBtn" class="btn btn-ghost">${I18N.t("share.btn")}</button>
     </div>`;
   dialog.innerHTML = html;
-  overlay.classList.add("open");
+  // 统一用 `show` 类驱动遮罩与弹窗显示（与 CSS .overlay.show/.dialog.show 匹配，修复此前 open/show 不匹配导致弹窗无法打开）
+  overlay.classList.add("show");
+  dialog.classList.add("show");
   document.body.classList.add("no-scroll");
   trapFocus(dialog);
   $("#closeBtn").addEventListener("click", closeDetail);
@@ -39,7 +41,8 @@ function openDetail(s) {
 function closeDetail() {
   const overlay = $("#overlay");
   const dialog = $("#dialog");
-  overlay.classList.remove("open");
+  overlay.classList.remove("show");
+  dialog.classList.remove("show");
   document.body.classList.remove("no-scroll");
   // 移除焦点陷阱的 keydown 监听，避免多次打开后监听器在 #dialog 上累积叠加
   if (typeof dialog._onKey === "function") {

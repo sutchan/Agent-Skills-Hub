@@ -1,12 +1,9 @@
 ---
 name: nextjs-react-typescript
-<<<<<<< HEAD:nextjs-react-typescript/SKILL.md
 category: 开发框架与平台
 zh: TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家
 zh-desc: >-
   TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家，提供相关技术栈的深入指导与最佳实践。
-=======
->>>>>>> 697aee6 (chore: 发布 v1.14.58 版本并完成全栈样式与规范对齐):skills/nextjs-react-typescript/SKILL.md
 description: Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind
 ---
 
