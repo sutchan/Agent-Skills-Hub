@@ -1,289 +1,279 @@
 {
-  "total": 39,
+  "total": 33,
   "categories": [
-    "Agent 与 AI 工程",
-    "其他",
-    "测试与质量",
-    "后端、语言与框架",
-    "前端与 UI 设计",
-    "生产力与工具"
+    "品牌与设计",
+    "文档与内容",
+    "数据分析与可视化",
+    "开发框架与平台",
+    "文件与格式处理"
   ],
   "skills": [
     {
+      "name": "brand-guidelines",
+      "category": "品牌与设计",
+      "zh": "Anthropic 官方品牌规范与视觉风格",
+      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "brand-review",
+      "category": "品牌与设计",
+      "zh": "品牌声音与风格审查",
+      "description": "Review content against your brand voice, style guide, and messaging pillars, flagging deviations by severity with specific before/after fixes. Use when checking a draft before it ships, when auditing copy for voice consistency and terminology, or when screening for unsubstantiated claims, missing disclaimers, and other legal flags.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "discover-brand",
+      "category": "品牌与设计",
+      "zh": "品牌发现与定位",
+      "description": "This skill orchestrates autonomous discovery of brand materials across enterprise platforms (Notion, Confluence, Google Drive, Box, SharePoint, Figma, Gong, Granola, Slack). It should be used when the user asks to \"discover brand materials\", \"find brand documents\", \"search for brand guidelines\", \"audit brand content\", \"what brand materials do we have\", \"find our style guide\", \"where are our brand docs\", \"do we have a style guide\", \"discover brand voice\", \"brand content audit\", or \"find brand assets\".",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "frontend-design",
+      "category": "品牌与设计",
+      "zh": "独特的前端视觉设计",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "logo-creator",
+      "category": "品牌与设计",
+      "zh": "AI 生成 Logo 与图标",
+      "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "svg-logo-designer",
+      "category": "品牌与设计",
+      "zh": "SVG Logo 设计",
+      "description": "Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "theme-factory",
+      "category": "品牌与设计",
+      "zh": "工件主题样式工具箱",
+      "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "code-review",
+      "category": "文档与内容",
+      "zh": "代码审查（标准与规格双轴）",
+      "description": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "coding-standards",
+      "category": "文档与内容",
+      "zh": "跨项目编码规范基线",
+      "description": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns. Use when reviewing code quality or naming with no framework-specific skill that applies.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "documentation",
+      "category": "文档与内容",
+      "zh": "技术文档编写与维护",
+      "description": "Write and maintain technical documentation. Trigger with \"write docs for\", \"document this\", \"create a README\", \"write a runbook\", \"onboarding guide\", or when the user needs help with any form of technical writing — API docs, architecture docs, or operational runbooks.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "find-skills",
+      "category": "文档与内容",
+      "zh": "技能发现与安装",
+      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "grill-me",
+      "category": "文档与内容",
+      "zh": "方案与设计的深度质询",
+      "description": "A relentless interview to sharpen a plan or design.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "grill-with-docs",
+      "category": "文档与内容",
+      "zh": "带文档产出的方案质询",
+      "description": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "skill-creator",
+      "category": "文档与内容",
+      "zh": "技能创建与优化",
+      "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "data-visualization",
+      "category": "数据分析与可视化",
+      "zh": "Python 数据可视化",
+      "description": "Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "agent-browser",
-      "category": "Agent 与 AI 工程",
-      "zh": "面向 AI agent 的浏览器自动化 CLI。当用户需要与网站交互（导航页面等）时使用",
+      "category": "开发框架与平台",
+      "zh": "浏览器自动化",
       "description": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
       "allowedTools": [
         "Bash(agent-browser:*)",
         "Bash(npx agent-browser:*)"
-      ]
+      ],
+      "hidden": true
     },
     {
-      "name": "Agent Development",
-      "category": "其他",
-      "zh": "",
+      "name": "agent-development",
+      "category": "开发框架与平台",
+      "zh": "智能体（Agent）开发指南",
       "description": "This skill should be used when the user asks to \"create an agent\", \"add an agent\", \"write a subagent\", \"agent frontmatter\", \"when to use description\", \"agent examples\", \"agent tools\", \"agent colors\", \"autonomous agent\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
-      "allowedTools": []
-    },
-    {
-      "name": "baoyu-translate",
-      "category": "其他",
-      "zh": "",
-      "description": "This skill should be used when the user asks to \"translate\", \"翻译\", \"精翻\", \"translate article\", \"translate to Chinese\", \"translate to English\", \"改成中文\", \"改成英文\", \"convert to Chinese\", \"localize\", \"本地化\", \"refined translation\", \"精细翻译\", \"proofread translation\", \"快速翻译\", \"快翻\", \"这篇文章翻译一下\", or provides a URL/file with translation intent. Supports three modes (quick/normal/refined) with custom glossary support.",
-      "allowedTools": []
-    },
-    {
-      "name": "brainstorming",
-      "category": "其他",
-      "zh": "",
-      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
-      "allowedTools": []
-    },
-    {
-      "name": "brand-guidelines",
-      "category": "其他",
-      "zh": "",
-      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
-      "allowedTools": []
-    },
-    {
-      "name": "canvas-design",
-      "category": "其他",
-      "zh": "",
-      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "cloudbase",
-      "category": "其他",
-      "zh": "",
+      "category": "开发框架与平台",
+      "zh": "腾讯云开发 CloudBase 项目开发",
       "description": "Use this skill when you develop, design, build, deploy, debug, migrate, or troubleshoot CloudBase (腾讯云开发, 云开发, TCB, 微信云开发) projects. Covers Web, 微信小程序, 小程序, uni-app, mobile (iOS, Android, Flutter, React Native). UI (页面, 界面, 表单, form, dashboard, prototype, 原型); auth (登录, 注册, OAuth, 微信登录, publishable key); databases (NoSQL 文档数据库, MySQL 关系型数据库, PostgreSQL/CloudBase PG, app.rdb(), queryPgDatabase/managePgDatabase, CRUD, 查询, security rules); 云函数/cloud functions (serverless, scf_bootstrap); CloudRun (云托管, Dockerfile); 云存储. Built-in AI (内置大模型, AI 对话, streaming, 流式输出, 图片生成, generateText, streamText, createModel, generateImage, TokenHub, Hunyuan, hunyuan-exp, DeepSeek, deepseek, GLM, Kimi, Token Credits 资源包, 小程序成长计划). 第三方大模型, 大模型接入, 大模型调用, LLM API, AI agent, 智能体, AI Agent, AG-UI, LangGraph. Ops (巡检, 诊断, health check, 日志, troubleshooting). Spec (需求文档, 技术方案, requirements, tasks.md). Do NOT use for non-CloudBase projects, pure frontend without CloudBase, or self-hosted backends without CloudBase.",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
     },
     {
-      "name": "code-review",
-      "category": "其他",
-      "zh": "",
-      "description": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
-      "allowedTools": []
-    },
-    {
-      "name": "coding-standards",
-      "category": "测试与质量",
-      "zh": "通用编码规范、最佳实践与模式，面向 TypeScript、JavaScript、React 与 Node.js 开发",
-      "description": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns. Use when reviewing code quality or naming with no framework-specific skill that applies.",
-      "allowedTools": []
-    },
-    {
-      "name": "dart-add-unit-test",
-      "category": "其他",
-      "zh": "",
-      "description": "Write and organize unit tests for functions, methods, and classes using `package:test`. Use when creating new logic or fixing bugs to ensure code remains correct and regression-free.",
-      "allowedTools": []
-    },
-    {
-      "name": "dart-collect-coverage",
-      "category": "其他",
-      "zh": "",
-      "description": "Collect coverage using the coverage packge and create an LCOV report",
-      "allowedTools": []
+      "name": "dart-build-cli-app",
+      "category": "开发框架与平台",
+      "zh": "Dart 命令行应用构建",
+      "description": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "dart-flutter-patterns",
-      "category": "后端、语言与框架",
-      "zh": "生产可用的 Dart 与 Flutter 模式：空安全、不可变状态、异步组合、Widget 架构，以及 BLoC/Riverpod/Provider 状态管理、GoRouter 导航、Dio 网络与整洁架构",
+      "category": "开发框架与平台",
+      "zh": "Dart/Flutter 生产级模式",
       "description": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
-      "allowedTools": []
-    },
-    {
-      "name": "data-visualization",
-      "category": "其他",
-      "zh": "",
-      "description": "Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.",
-      "allowedTools": []
-    },
-    {
-      "name": "documentation",
-      "category": "其他",
-      "zh": "",
-      "description": "Write and maintain technical documentation. Trigger with \"write docs for\", \"document this\", \"create a README\", \"write a runbook\", \"onboarding guide\", or when the user needs help with any form of technical writing — API docs, architecture docs, or operational runbooks.",
-      "allowedTools": []
-    },
-    {
-      "name": "docx",
-      "category": "其他",
-      "zh": "",
-      "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
-      "allowedTools": []
-    },
-    {
-      "name": "find-skills",
-      "category": "其他",
-      "zh": "",
-      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "flutter-apply-architecture-best-practices",
-      "category": "其他",
-      "zh": "",
+      "category": "开发框架与平台",
+      "zh": "Flutter 分层架构最佳实践",
       "description": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "flutter-build-responsive-layout",
+      "category": "开发框架与平台",
+      "zh": "Flutter 响应式布局",
+      "description": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "flutter-dart-code-review",
-      "category": "测试与质量",
-      "zh": "与库无关的 Flutter/Dart 代码审查清单，涵盖 Widget 最佳实践、状态管理（BLoC 等）模式",
+      "category": "开发框架与平台",
+      "zh": "Flutter/Dart 代码审查清单",
       "description": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
     },
     {
-      "name": "frontend-design",
-      "category": "前端与 UI 设计",
-      "zh": "构建新 UI 或重塑现有界面时的差异化、有意图的视觉设计指引，帮助提升美感",
-      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
-      "allowedTools": []
-    },
-    {
-      "name": "grill-me",
-      "category": "其他",
-      "zh": "",
-      "description": "A relentless interview to sharpen a plan or design.",
-      "allowedTools": []
-    },
-    {
-      "name": "mcp-builder",
-      "category": "生产力与工具",
-      "zh": "创建高质量 MCP（模型上下文协议）服务器的指南，使 LLM 能与外部服务交互",
-      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
-      "allowedTools": []
-    },
-    {
-      "name": "obsidian-cli",
-      "category": "生产力与工具",
-      "zh": "通过 Obsidian CLI 与 Vault 交互，读取、创建、搜索并管理笔记、任务、属性等",
-      "description": "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
-      "allowedTools": []
-    },
-    {
-      "name": "pdf",
-      "category": "其他",
-      "zh": "",
-      "description": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
-      "allowedTools": []
-    },
-    {
-      "name": "pptx",
-      "category": "其他",
-      "zh": "",
-      "description": "Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \\\"deck,\\\" \\\"slides,\\\" \\\"presentation,\\\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.",
-      "allowedTools": []
-    },
-    {
-      "name": "prompt-optimizer",
-      "category": "Agent 与 AI 工程",
-      "zh": "分析原始提示词、识别意图与缺口、匹配 ECC 组件（skills/commands/agents/hooks）并输出可直接粘贴的优化提示词；仅作顾问、绝不代为执行任务。当用户想优化/改进提示词时触发，想直接执行任务时不触发",
-      "description": "Analyze raw prompts, identify intent and gaps, match ECC components (skills/commands/agents/hooks), and output a ready-to-paste optimized prompt. Advisory role only — never executes the task itself. TRIGGER when: user says \"optimize prompt\", \"improve my prompt\", \"how to write a prompt for\", \"help me prompt\", \"rewrite this prompt\", or explicitly asks to enhance prompt quality. Also triggers on Chinese equivalents: \"优化prompt\", \"改进prompt\", \"怎么写prompt\", \"帮我优化这个指令\". DO NOT TRIGGER when: user wants the task executed directly, or says \"just do it\" / \"直接做\". DO NOT TRIGGER when user says \"优化代码\", \"优化性能\", \"optimize performance\", \"optimize this code\" — those are refactoring/performance tasks, not prompt optimization.",
-      "allowedTools": []
-    },
-    {
-      "name": "prototype",
-      "category": "其他",
-      "zh": "",
-      "description": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.",
-      "allowedTools": []
-    },
-    {
-      "name": "security-best-practices",
-      "category": "测试与质量",
-      "zh": "执行语言与框架特定的安全最佳实践审查并给出改进建议。仅在相关场景触发",
-      "description": "Perform language and framework specific security best-practice reviews and suggest improvements. Trigger only when the user explicitly requests security best practices guidance, a security review/report, or secure-by-default coding help. Trigger only for supported languages (python, javascript/typescript, go). Do not trigger for general code review, debugging, or non-security tasks.",
-      "allowedTools": []
-    },
-    {
-      "name": "skill-creator",
-      "category": "生产力与工具",
-      "zh": "创建新技能、修改与改进现有技能，并度量技能性能。当用户想创建技能时触发",
-      "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
-      "allowedTools": []
+      "name": "flutter-setup-localization",
+      "category": "开发框架与平台",
+      "zh": "Flutter 本地化配置",
+      "description": "Add `flutter_localizations` and `intl` dependencies, enable \"generate true\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "supabase",
-      "category": "其他",
-      "zh": "",
+      "category": "开发框架与平台",
+      "zh": "Supabase 全栈开发",
       "description": "Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libraries and SSR integrations (supabase-js, @supabase/ssr) in Next.js, React, SvelteKit, Astro, Remix; auth issues (login, logout, sessions, JWT, cookies, getSession, getUser, getClaims, RLS); Supabase CLI or MCP server; schema changes, migrations, declarative schemas, security audits, Postgres extensions (pg_graphql, pg_cron, pg_vector); debugging and troubleshooting errors or unexpected behavior on Supabase projects (HTTP errors, Postgres errors, RLS surprises, permission denied, schema cache issues, timeouts, Edge Function crashes, Realtime drops, Storage failures) and reading or querying logs (Logs Explorer, ClickHouse).",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "supabase-postgres-best-practices",
-      "category": "其他",
-      "zh": "",
+      "category": "开发框架与平台",
+      "zh": "Postgres 数据库最佳实践",
       "description": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
-      "allowedTools": []
-    },
-    {
-      "name": "systematic-debugging",
-      "category": "其他",
-      "zh": "",
-      "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
-      "allowedTools": []
-    },
-    {
-      "name": "theme-factory",
-      "category": "前端与 UI 设计",
-      "zh": "为产物（演示、文档、报告、HTML 落地页等）套用主题样式的工具包",
-      "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "vercel-react-best-practices",
-      "category": "其他",
-      "zh": "来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。编写相关代码时应使用该技能",
+      "category": "开发框架与平台",
+      "zh": "React/Next.js 性能最佳实践",
       "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
-      "allowedTools": []
-    },
-    {
-      "name": "vercel-react-native-skills",
-      "category": "其他",
-      "zh": "React Native 与 Expo 构建高性能移动应用的最佳实践，涵盖组件、列表性能优化、动画与原生模块。用于 RN/Expo 开发、性能优化或原生 API 任务",
-      "description": "",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "web-artifacts-builder",
-      "category": "生产力与工具",
-      "zh": "使用现代前端 Web 技术创建精致、多组件 claude.ai HTML 产物的工具套件",
+      "category": "开发框架与平台",
+      "zh": "Web 多组件构件构建",
       "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
-      "allowedTools": []
-    },
-    {
-      "name": "web-design-guidelines",
-      "category": "前端与 UI 设计",
-      "zh": "审查 UI 代码是否符合 Web 界面规范。当用户要求\"审查我的 UI\"\"检查可访问性\"等时使用",
-      "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
-      "allowedTools": []
-    },
-    {
-      "name": "webapp-testing",
-      "category": "其他",
-      "zh": "",
-      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "wp-playground",
-      "category": "其他",
-      "zh": "",
+      "category": "开发框架与平台",
+      "zh": "WordPress Playground 路由封装",
       "description": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "docx",
+      "category": "文件与格式处理",
+      "zh": "Word 文档创建与处理",
+      "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "pdf",
+      "category": "文件与格式处理",
+      "zh": "PDF 文件处理",
+      "description": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "pptx",
+      "category": "文件与格式处理",
+      "zh": "PPT 演示文稿处理",
+      "description": "Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \\\"deck,\\\" \\\"slides,\\\" \\\"presentation,\\\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.",
+      "allowedTools": [],
+      "hidden": false
     },
     {
       "name": "xlsx",
-      "category": "其他",
-      "zh": "",
+      "category": "文件与格式处理",
+      "zh": "电子表格文件处理",
       "description": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\"the xlsx in my downloads\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
-      "allowedTools": []
+      "allowedTools": [],
+      "hidden": false
     }
   ]
 }

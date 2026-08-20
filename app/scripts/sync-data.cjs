@@ -1,16 +1,17 @@
-// app/scripts/sync-data.cjs v1.1.13
+// app/scripts/sync-data.cjs v1.1.14
 // 将仓库根的 data/skills-data.json 同步到 app/app/data/，供 Next.js 服务端组件读取。
 // 解决 Vercel/EdgeOne 部署时 app/ 无法访问仓库根 data/ 的问题。
 // 采用「向上查找仓库根」策略，不依赖固定目录层级，兼容本地与 CI 各种 cwd。
+// 注意：仓库根以包含 build-skills-data.mjs 判定，避免 app/ 内的旧 data/ 副本造成误判。
 
 const fs = require("fs");
 const path = require("path");
 
-// 从本脚本位置向上查找包含 data/skills-data.json 的目录作为仓库根
+// 从本脚本位置向上查找包含 build-skills-data.mjs（构建数据脚本）的目录作为仓库根
 function findRepoRoot(start) {
   let dir = start;
   for (let i = 0; i < 8; i++) {
-    if (fs.existsSync(path.join(dir, "data", "skills-data.json"))) return dir;
+    if (fs.existsSync(path.join(dir, "build-skills-data.mjs"))) return dir;
     const parent = path.dirname(dir);
     if (parent === dir) break;
     dir = parent;
