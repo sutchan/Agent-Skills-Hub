@@ -6,7 +6,7 @@
 
 > **Author**: Sut Chan ｜ **Repository**: https://github.com/sutchan/Agent-Skills-Hub
 >
-> A centrally managed collection of AI skills covering development, design, testing, DevOps, agent engineering, and industry domains.
+> A centrally managed collection of AI skills covering brand design, docs & content, data analysis, dev frameworks, and file & format handling — 33 skill packs on GitHub.
 
 Each skill is a standalone directory containing `SKILL.md` (name + description metadata + usage notes) plus optional `scripts/`, `references/`, `assets/`, `agents/`. This repo localizes skills with Chinese categories and descriptions; skill bodies (`SKILL.md`) largely keep upstream English, with translation coverage tracked by `tools/coverage.py` in CI.
 
@@ -36,21 +36,13 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 
 Skills are organized into the following domains (see the [Online Showcase](#online-showcase) for the full, live list; this table is a navigation aid and does not churn with every skill add/remove):
 
-| Domain |
-|--------|
-| Frontend & UI Design |
-| Backend, Languages & Frameworks |
-| Architecture & Design |
-| Testing & Quality |
-| Agent & AI Engineering |
-| DevOps & Infrastructure |
-| Data & Machine Learning |
-| Content, Docs & Writing |
-| Video & Media |
-| Industry Domains |
-| Productivity & Tools |
-| Context & Prompt Engineering |
-| Other |
+| Domain | Skills |
+|--------|--------|
+| Brand & Design | 7 |
+| Docs & Content | 7 |
+| Data Analysis & Visualization | 1 |
+| Dev Frameworks & Platforms | 14 |
+| File & Format Handling | 4 |
 
 > Browse all skills:
 > - Static showcase: [`prototype/index.html`](prototype/index.html)

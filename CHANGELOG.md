@@ -13,7 +13,9 @@
 - **版本号同步**：根 `package.json` → v1.14.56；README/README.en 版本徽章、openspec `spec.md`/`project.md`/`AGENTS.md` 头注释同步至 1.14.56
 - **贡献规范更新**：README 贡献指南补充 `SKILL.md` 须含 `category`/`zh` 字段、目录名与 `name` 一致的要求
 
-> 注：`prototype/src/styles/tokens.css` 与 `responsive.css` 等源文件未提交到仓库（历史缺失），导致 `npm run build` 中 `build.mjs` 阶段无法重跑 prototype 产物；数据链路（`build-skills-data.mjs` → `data/` → `app/`）已可用。稍后需补回缺失的 prototype 源文件以恢复完整构建链路。
+- **根目录技能副本清理**：删除仓库根目录被 FreeFileSync 镜像产生的 33 个同名技能目录（物理 + `git rm --cached` 解除跟踪），`skills/` 现为本仓库唯一技能存放处；根目录与 `skills/` 同名技能经比对正文一致（差异仅换行符与新补元数据），删除无内容损失
+
+> 注（已闭环）：本版本发布时 `prototype/src` 下缺失 `tokens.css`/`responsive.css`/`i18n.js`/`parts/03-detail.js`/`parts/04-interactions.js`/`parts/05-main.js` 共 6 个源文件（仅产物 `prototype/index.html` 完整），导致 `npm run build` 的 `build.mjs` 阶段抛错无法重跑产物。后续已从产物 `prototype/index.html` 反向重建上述 6 个源文件（头注释统一 v1.14.56），`npm run build` 现已可完整跑通，产物与源文件双向一致。
 
 ## [1.14.55] - 2026-08-20
 
