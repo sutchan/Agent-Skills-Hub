@@ -1,4 +1,6 @@
 ---
+category: 品牌与设计
+zh: 品牌发现与定位
 name: discover-brand
 description: >
   This skill orchestrates autonomous discovery of brand materials across enterprise

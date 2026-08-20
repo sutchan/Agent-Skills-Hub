@@ -1,4 +1,6 @@
 ---
+category: 开发框架与平台
+zh: Dart 命令行应用构建
 name: dart-build-cli-app
 description: Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.
 metadata:
