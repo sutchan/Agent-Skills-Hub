@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.14.62 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.14.66 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -40,13 +40,16 @@ function initials(name) {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
-// 防 XSS：转义 HTML 特殊字符（属性用双引号包裹，单引号无需转义）
+// 防 XSS：转义 HTML 特殊字符（属性用双引号包裹）+ 模板注入符（反引号、${）
+// 因卡片/弹窗内容经模板字符串内插，反引号与 ${ 会破坏模板或引入注入，故一并转义
 function esc(s) {
   return String(s == null ? "" : s)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/"/g, "&quot;")
+    .replace(/`/g, "&#96;")
+    .replace(/\$\{/g, "&#36;&#123;");
 }
 
 // 由类别名稳定派生色相（0-359），与 app SkillsExplorer 的 catHue 算法一致，保证两层同分类同色
@@ -67,9 +70,11 @@ function catCounts() {
 let SKILL_MAP = new Map();
 
 // 搜索匹配：名称 / 描述 / 分类（不区分大小写）
+// 支持多词 AND：按空白拆分为多个词，全部命中才返回 true（如 "flutter 布局" 需同时命中 flutter 与 布局）
 // 预聚合小写检索串缓存在 s._hay（见 05-main init），避免每次输入重复拼接+小写化
 function matches(s, q) {
   if (!q) return true;
   const hay = s._hay != null ? s._hay : (s.name + " " + s.zh + " " + s.description + " " + s.category).toLowerCase();
-  return hay.includes(q.toLowerCase());
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  return terms.every((term) => hay.includes(term));
 }

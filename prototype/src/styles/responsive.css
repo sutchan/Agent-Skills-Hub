@@ -1,4 +1,4 @@
-/* prototype/src/styles/responsive.css v1.14.56 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
+/* prototype/src/styles/responsive.css v1.14.65 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
 
 @media (max-width: 640px) {
   .topbar { padding: 10px 16px; }
@@ -12,5 +12,6 @@
 }
 
 @media (max-width: 640px) {
-  .card .desc { -webkit-line-clamp: 4; line-clamp: 4; }
+  /* 移动端卡片：标题可换行，避免长技能名截断 */
+  .card-title { white-space: normal; }
 }

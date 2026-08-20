@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.14.63 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.14.65 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -46,6 +46,8 @@
 .btn:hover { border-color: var(--primary); color: var(--primary); }
 .btn.primary { background: var(--primary); border-color: var(--primary); color: hsl(var(--primary-foreground)); }
 .btn.primary:hover { background: var(--primary-strong); color: hsl(var(--primary-foreground)); }
+.btn-ghost { background: transparent; color: var(--text-2); }
+.btn-ghost:hover { border-color: var(--text-3); color: var(--text); }
 
 /* 弹窗底部操作区 */
 .dialog-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 22px; border-top: 1px solid var(--border); }

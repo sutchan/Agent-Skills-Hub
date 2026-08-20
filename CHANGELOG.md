@@ -2,6 +2,31 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.66] - 2026-08-20
+
+### fix: 修复原型逻辑缺陷（init 误埋点、事件绑定健壮性、多词搜索、模板注入防护、chip 色）
+
+- **移除 init 误触发埋点**：`04-interactions.js` 的 `applyTheme`/`applyLang` 内不再调用 `track("toggle_theme")`/`track("toggle_lang")`（此前页面加载时 `init()` 会误上报一次"切换主题/语言"污染 GA；对齐 app `analytics.ts` 仅埋点 search/filter/view/share）
+- **事件绑定空值保护**：`bind()` 改用 `on()` 空值安全绑定，单一节点（themeBtn/langBtn 等）缺失时不再抛错中断其余全部交互
+- **多词 AND 搜索**：`01-state.js` `matches()` 按空白拆分多词，全部命中才返回（如"flutter 布局"需同时命中 flutter 与布局），提升检索可用性
+- **模板注入防护**：`esc()` 补转义反引号 `` ` `` 与 `${`，防止技能名/描述/分类含此类字符时破坏模板字符串或引入注入（数据来自本地 SKILL.md，属纵深防御）
+- **"全部" chip 色相统一**：`02-render.js` 全部 chip 的 `--hue` 由 220（蓝）改为主绿 152，与页面主色协调
+- **版本同步**：根 `package.json` 及 3 个被改文件头注释、README/README.en 徽章升至 v1.14.66
+
+## [1.14.65] - 2026-08-20
+
+### fix: 修复原型 UI 问题（弹窗显示、按钮样式、空状态、遮罩令牌、无障碍）
+
+- **弹窗显示修复**：`03-detail.js` 弹窗遮罩/对话框统一使用 `show` 类驱动（此前 `open`/`show` 类名不匹配导致弹窗无法打开；该修复 HEAD 侧已由并发进程补齐，构建产物确认 `.overlay.show`/`.dialog.show` 均生效）
+- **视图切换样式**：`components.css` 补 `.view-toggle`/`.view-btn`（网格/列表图标按钮，active 态主色高亮），修复切换按钮无样式、以原始按钮形态显示的问题
+- **列表视图**：`layout.css` 新增 `.grid.list`（单列 + 卡片横向排布 + 左侧色条），使 `view-toggle` 的 list 态有真实布局
+- **空状态**：`.empty-state` 补 `grid-column: 1/-1`（grid 内横跨整行居中）+ 明确 `.empty-title`/`.empty-desc` 层级
+- **遮罩令牌化**：`.overlay` 背景由硬编码 `rgba(15,23,42,.5)` 改为 `hsl(var(--shadow-color) / .5)` + `backdrop-filter`，对齐令牌体系
+- **按钮补全**：`components.css` 补 `.btn-ghost`（透明底幽灵按钮），供弹窗分享按钮/空态清除按钮使用
+- **无障碍**：`04-interactions.js` 在语言切换时动态更新 hero 的 `aria-labelledby`（en 模式指向 `heroTitleEn`，避免指向被 CSS 隐藏的 zh 标题）
+- **清理死代码**：移除 `layout.css` 遗留 `.empty`、responsive 中失效的 `.card .desc` 规则；搜索图标补 `.icon` 类使半透明样式生效
+- **版本同步**：根 `package.json` 及 5 个被改文件头注释、README/README.en 徽章升至 v1.14.65
+
 ## [1.14.64] - 2026-08-20
 
 ### fix: 清除 13 个 SKILL.md 的 Git 冲突标记，消除技能数据重复

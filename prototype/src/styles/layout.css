@@ -1,4 +1,4 @@
-/* prototype/src/styles/layout.css v1.14.62 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.14.65 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏 */
 .topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -34,10 +34,13 @@
 
 /* 网格与卡片容器 */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 24px; max-width: 1200px; margin: 0 auto; }
-.empty { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 60px 16px; }
+/* 列表视图：单列，卡片横向排布（对齐 view-toggle 的 list 态） */
+.grid.list { grid-template-columns: 1fr; max-width: 860px; }
+.grid.list .card { flex-direction: row; align-items: center; gap: 14px; }
+.grid.list .cat-bar { position: absolute; top: 0; bottom: 0; left: 0; width: 4px; height: auto; margin: 0; border-radius: 0; }
 
 /* 弹窗（扩展详情） */
-.overlay { position: fixed; inset: 0; z-index: 50; background: rgba(15,23,42,.5); display: none; }
+.overlay { position: fixed; inset: 0; z-index: 50; background: hsl(var(--shadow-color) / .5); backdrop-filter: blur(2px); display: none; }
 .overlay.show { display: block; }
 .dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; }
 .dialog.show { display: flex; }
@@ -48,8 +51,8 @@
 .dialog-close { margin-left: auto; }
 .dialog-body { padding: 22px; overflow: auto; }
 
-/* 空状态提示（搜索无结果等）：标题 + 说明 + 清除按钮（对齐 emptyHTML 输出） */
-.empty-state { text-align: center; color: var(--text-2); padding: 40px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+/* 空状态提示（搜索无结果等）：标题 + 说明 + 清除按钮（对齐 emptyHTML 输出，grid 内横跨整行） */
+.empty-state { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 40px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .empty-state .empty-title { font-size: 18px; font-weight: 600; color: var(--text); }
 .empty-state .empty-desc { font-size: 14px; }
 

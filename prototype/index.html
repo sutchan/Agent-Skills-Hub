@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.62 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.65 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -184,7 +184,7 @@ body.no-scroll { overflow: hidden; }
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
 
-/* prototype/src/styles/layout.css v1.14.62 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.14.65 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏 */
 .topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -220,10 +220,13 @@ html[data-lang="zh"] .en { display: none; }
 
 /* 网格与卡片容器 */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 24px; max-width: 1200px; margin: 0 auto; }
-.empty { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 60px 16px; }
+/* 列表视图：单列，卡片横向排布（对齐 view-toggle 的 list 态） */
+.grid.list { grid-template-columns: 1fr; max-width: 860px; }
+.grid.list .card { flex-direction: row; align-items: center; gap: 14px; }
+.grid.list .cat-bar { position: absolute; top: 0; bottom: 0; left: 0; width: 4px; height: auto; margin: 0; border-radius: 0; }
 
 /* 弹窗（扩展详情） */
-.overlay { position: fixed; inset: 0; z-index: 50; background: rgba(15,23,42,.5); display: none; }
+.overlay { position: fixed; inset: 0; z-index: 50; background: hsl(var(--shadow-color) / .5); backdrop-filter: blur(2px); display: none; }
 .overlay.show { display: block; }
 .dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; }
 .dialog.show { display: flex; }
@@ -234,9 +237,10 @@ html[data-lang="zh"] .en { display: none; }
 .dialog-close { margin-left: auto; }
 .dialog-body { padding: 22px; overflow: auto; }
 
-/* 空状态提示（搜索无结果等） */
-.empty-state { text-align: center; color: var(--text-2); padding: 40px 16px; }
-.empty-state .big { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+/* 空状态提示（搜索无结果等）：标题 + 说明 + 清除按钮（对齐 emptyHTML 输出，grid 内横跨整行） */
+.empty-state { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 40px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.empty-state .empty-title { font-size: 18px; font-weight: 600; color: var(--text); }
+.empty-state .empty-desc { font-size: 14px; }
 
 /* 页脚 */
 .site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }
@@ -252,7 +256,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
 
-/* prototype/src/styles/components.css v1.14.63 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.14.65 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -289,11 +293,19 @@ html[data-lang="zh"] .en { display: none; }
 .card-sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }
 .card-cat { color: hsl(var(--primary)); font-size: 12px; }
 
+/* 视图切换（网格/列表）：图标按钮，active 态主色高亮 */
+.view-toggle { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.view-btn { width: 34px; height: 34px; border-radius: 7px; display: grid; place-items: center; color: var(--text-2); transition: background .15s, color .15s; }
+.view-btn:hover { color: var(--text); }
+.view-btn.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+
 /* 弹窗操作按钮（GitHub / 复制 / 关闭） */
 .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font-size: 14px; text-decoration: none; transition: all .15s ease; }
 .btn:hover { border-color: var(--primary); color: var(--primary); }
 .btn.primary { background: var(--primary); border-color: var(--primary); color: hsl(var(--primary-foreground)); }
 .btn.primary:hover { background: var(--primary-strong); color: hsl(var(--primary-foreground)); }
+.btn-ghost { background: transparent; color: var(--text-2); }
+.btn-ghost:hover { border-color: var(--text-3); color: var(--text); }
 
 /* 弹窗底部操作区 */
 .dialog-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 22px; border-top: 1px solid var(--border); }
@@ -301,7 +313,7 @@ html[data-lang="zh"] .en { display: none; }
 /* 详情弹窗中文描述（zh-desc）：保留多段换行，段落间自然空行（配合 build 折叠标量段分隔） */
 .zh-desc { white-space: pre-line; line-height: 1.7; color: var(--text-2); }
 
-/* prototype/src/styles/responsive.css v1.14.56 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
+/* prototype/src/styles/responsive.css v1.14.65 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
 
 @media (max-width: 640px) {
   .topbar { padding: 10px 16px; }
@@ -315,7 +327,8 @@ html[data-lang="zh"] .en { display: none; }
 }
 
 @media (max-width: 640px) {
-  .card .desc { -webkit-line-clamp: 4; line-clamp: 4; }
+  /* 移动端卡片：标题可换行，避免长技能名截断 */
+  .card-title { white-space: normal; }
 }
 </style>
   <!-- Google Analytics (GA4) -->
@@ -394,7 +407,7 @@ html[data-lang="zh"] .en { display: none; }
 
   <div class="controls" id="searchControls">
     <div class="search" id="searchBox">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+      <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
       <input id="searchInput" type="search" aria-label="搜索技能 / Search skills" placeholder="搜索技能名称或描述…" />
     </div>
     <div class="view-toggle" id="viewToggle">
@@ -431,7 +444,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.14.64</span>
+      <span class="footer-ver" id="footerVer">v1.14.66</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -1114,7 +1127,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/parts/01-state.js v1.14.62 — 常量、偏好状态与纯工具函数
+  <script>// prototype/src/parts/01-state.js v1.14.66 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -1156,13 +1169,16 @@ function initials(name) {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
-// 防 XSS：转义 HTML 特殊字符（属性用双引号包裹，单引号无需转义）
+// 防 XSS：转义 HTML 特殊字符（属性用双引号包裹）+ 模板注入符（反引号、${）
+// 因卡片/弹窗内容经模板字符串内插，反引号与 ${ 会破坏模板或引入注入，故一并转义
 function esc(s) {
   return String(s == null ? "" : s)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replace(/"/g, "&quot;")
+    .replace(/`/g, "&#96;")
+    .replace(/\$\{/g, "&#36;&#123;");
 }
 
 // 由类别名稳定派生色相（0-359），与 app SkillsExplorer 的 catHue 算法一致，保证两层同分类同色
@@ -1183,14 +1199,16 @@ function catCounts() {
 let SKILL_MAP = new Map();
 
 // 搜索匹配：名称 / 描述 / 分类（不区分大小写）
+// 支持多词 AND：按空白拆分为多个词，全部命中才返回 true（如 "flutter 布局" 需同时命中 flutter 与 布局）
 // 预聚合小写检索串缓存在 s._hay（见 05-main init），避免每次输入重复拼接+小写化
 function matches(s, q) {
   if (!q) return true;
   const hay = s._hay != null ? s._hay : (s.name + " " + s.zh + " " + s.description + " " + s.category).toLowerCase();
-  return hay.includes(q.toLowerCase());
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  return terms.every((term) => hay.includes(term));
 }
 
-// prototype/src/parts/02-render.js v1.14.62 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.66 — 列表/网格渲染与统计
 function renderStats() {
   // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
   $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
@@ -1201,7 +1219,7 @@ function renderStats() {
 function renderCats(counts) {
   const cats = SKILLS_DATA.categories;
   // "全部"chip 用中性 hue，分类 chip 用 catHue 派生色相（对齐 app：--hue 驱动多色）
-  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:220" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cat === c;
     items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
@@ -1292,7 +1310,9 @@ function openDetail(s) {
       <button id="shareBtn" class="btn btn-ghost">${I18N.t("share.btn")}</button>
     </div>`;
   dialog.innerHTML = html;
-  overlay.classList.add("open");
+  // 统一用 `show` 类驱动遮罩与弹窗显示（与 CSS .overlay.show/.dialog.show 匹配，修复此前 open/show 不匹配导致弹窗无法打开）
+  overlay.classList.add("show");
+  dialog.classList.add("show");
   document.body.classList.add("no-scroll");
   trapFocus(dialog);
   $("#closeBtn").addEventListener("click", closeDetail);
@@ -1302,7 +1322,8 @@ function openDetail(s) {
 function closeDetail() {
   const overlay = $("#overlay");
   const dialog = $("#dialog");
-  overlay.classList.remove("open");
+  overlay.classList.remove("show");
+  dialog.classList.remove("show");
   document.body.classList.remove("no-scroll");
   // 移除焦点陷阱的 keydown 监听，避免多次打开后监听器在 #dialog 上累积叠加
   if (typeof dialog._onKey === "function") {
@@ -1394,9 +1415,8 @@ function showToast(msg) {
   t._timer = setTimeout(() => t.classList.remove("show"), 2000);
 }
 
-// prototype/src/parts/04-interactions.js v1.14.62 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.14.66 — 主题/语言切换与事件绑定
 function applyTheme() {
-  track("toggle_theme", { theme: state.theme });
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
   if (btn) {
@@ -1407,7 +1427,6 @@ function applyTheme() {
 }
 
 function applyLang() {
-  track("toggle_lang", { lang: state.lang });
   I18N.setLang(state.lang);
   const btn = $("#langBtn");
   if (btn) {
@@ -1419,42 +1438,51 @@ function applyLang() {
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
   const si = $("#searchInput");
   if (si) si.placeholder = I18N.t("search.placeholder");
+  // hero 区 aria-labelledby 指向当前可见语言的标题（en 模式 zh 标题被 CSS 隐藏，需切换引用）
+  const hero = $("#hero");
+  if (hero) hero.setAttribute("aria-labelledby", state.lang === "en" ? "heroTitleEn" : "heroTitle");
   // 分类筛选区的「全部」等文案由 renderCats 用 I18N.t 动态生成（非 data-i18n 静态属性），
   // 语言切换后必须重渲染网格才能刷新分类文案，否则切换语言后 chips 仍显示旧语言
   renderGrid();
 }
 
+// 空值安全绑定：元素缺失时跳过该绑定，避免单一节点缺失中断其余全部交互
+function on(sel, evt, fn, root) {
+  const el = (root || document).querySelector(sel);
+  if (el) el.addEventListener(evt, fn);
+}
+
 function bind() {
-  // 主题
-  $("#themeBtn").addEventListener("click", () => {
+  // 主题（用户主动点击才记录；不随 applyTheme 在 init 误上报）
+  on("#themeBtn", "click", () => {
     state.theme = state.theme === "light" ? "dark" : "light";
     savePref(LS_THEME, state.theme);
     applyTheme();
   });
   // 语言
-  $("#langBtn").addEventListener("click", () => {
+  on("#langBtn", "click", () => {
     state.lang = state.lang === "zh" ? "en" : "zh";
     savePref(LS_LANG, state.lang);
     applyLang();
   });
   // 搜索（防抖）
   let t;
-  $("#searchInput").addEventListener("input", (e) => {
+  on("#searchInput", "input", (e) => {
     clearTimeout(t);
     const v = e.target.value;
     t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
   // 视图切换
-  document.querySelectorAll(".view-btn").forEach((b) => {
+  $$(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
       state.view = b.dataset.view;
-      document.querySelectorAll(".view-btn").forEach((x) => x.classList.toggle("active", x === b));
+      $$(".view-btn").forEach((x) => x.classList.toggle("active", x === b));
       track("toggle_view", { view: state.view });
       renderGrid();
     });
   });
   // 分类导航（事件委托）
-  $("#cats").addEventListener("click", (e) => {
+  on("#cats", "click", (e) => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     state.cat = chip.dataset.cat || null;
@@ -1462,13 +1490,13 @@ function bind() {
     renderGrid();
   });
   // 卡片点击/键盘打开详情（事件委托）
-  $("#grid").addEventListener("click", (e) => {
+  on("#grid", "click", (e) => {
     const card = e.target.closest(".card");
     if (!card) return;
     const s = SKILL_MAP.get(card.dataset.name);
     if (s) openDetail(s);
   });
-  $("#grid").addEventListener("keydown", (e) => {
+  on("#grid", "keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
     const card = e.target.closest(".card");
     if (!card) return;
@@ -1476,14 +1504,14 @@ function bind() {
     const s = SKILL_MAP.get(card.dataset.name);
     if (s) openDetail(s);
   });
-  // 空状态清除筛选（事件委托到 grid 已覆盖，这里兜底 document 级）
+  // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cat = null; $("#searchInput").value = ""; renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cat = null; const si = $("#searchInput"); if (si) si.value = ""; renderGrid(); }
   });
   // 弹窗遮罩点击关闭
-  $("#overlay").addEventListener("click", (e) => { if (e.target.id === "overlay") closeDetail(); });
+  on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
   // 回到顶部
-  $("#toTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  on("#toTop", "click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 }
 
 // prototype/src/parts/05-main.js v1.14.56 — 应用启动编排

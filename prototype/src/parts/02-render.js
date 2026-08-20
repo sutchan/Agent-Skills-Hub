@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.62 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.66 — 列表/网格渲染与统计
 function renderStats() {
   // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
   $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
@@ -9,7 +9,7 @@ function renderStats() {
 function renderCats(counts) {
   const cats = SKILLS_DATA.categories;
   // "全部"chip 用中性 hue，分类 chip 用 catHue 派生色相（对齐 app：--hue 驱动多色）
-  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:220" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cat === c;
     items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
