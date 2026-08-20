@@ -53,3 +53,4 @@ prototype/out/_next/
 .env.local
 *.mjs
 *.txt
+*.ffs_db
