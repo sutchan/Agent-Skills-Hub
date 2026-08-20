@@ -104,7 +104,7 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
         </div>
       </section>
 
-      <SkillsExplorer skills={skills} lang={lang} total={total} />
+      <SkillsExplorer skills={skills} lang={lang} />
 
       {/* 页脚区：品牌 + 导航链接 + 版本/协议（id 供测试与无障碍定位） */}
       <footer className="site-footer" id="siteFooter">

@@ -1,8 +1,8 @@
 // app/components/SkillsExplorer.tsx v1.14.72 — 技能浏览器（网格/列表/搜索/分类/视图）
-// 组合 ui 原语与 SkillCard；双语通过 lib/i18n 的 t() 取词，与原型保持一致。
+// 自包含查询/视图/toast 状态，组合 ui 原语与 SkillCard；双语通过 lib/i18n 的 t() 取词，与原型一致。
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Skill } from "@/lib/types";
 import { catHue } from "@/lib/catHue";
 import { t } from "@/lib/i18n";
@@ -13,17 +13,23 @@ import { SkillDialog } from "./SkillDialog";
 
 interface Props {
   skills: Skill[];
-  query: string;
-  onQuery: (q: string) => void;
-  view: "grid" | "list";
-  onView: (v: "grid" | "list") => void;
   lang: "zh" | "en";
-  toast: (msg: string) => void;
 }
 
-export function SkillsExplorer({ skills, query, onQuery, view, onView, lang, toast }: Props) {
+export function SkillsExplorer({ skills, lang }: Props) {
+  const [query, setQuery] = useState("");
+  const [view, setView] = useState<"grid" | "list">("grid");
   const [activeCat, setActiveCat] = useState<string | null>(null);
   const [showDetail, setShowDetail] = useState<Skill | null>(null);
+  const [toastMsg, setToastMsg] = useState("");
+
+  const toast = (msg: string) => setToastMsg(msg);
+  // 反馈 toast 2.4s 后自动消失，对齐 prototype 04-interactions sharedFeedback
+  useEffect(() => {
+    if (!toastMsg) return;
+    const id = window.setTimeout(() => setToastMsg(""), 2400);
+    return () => window.clearTimeout(id);
+  }, [toastMsg]);
 
   const cats = useMemo(() => {
     const set = new Set(skills.map((s) => s.category));
@@ -48,10 +54,10 @@ export function SkillsExplorer({ skills, query, onQuery, view, onView, lang, toa
           type="search"
           placeholder={t(lang, "search.placeholder")}
           value={query}
-          onChange={(e) => onQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           aria-label={t(lang, "search.placeholder")}
         />
-        <ViewToggle view={view} onChange={onView} />
+        <ViewToggle view={view} onChange={setView} />
       </div>
 
       <nav className="cats" id="categoryNav" aria-label={`${t(lang, "filter.all")} / Categories`}>
@@ -96,13 +102,17 @@ export function SkillsExplorer({ skills, query, onQuery, view, onView, lang, toa
           <div className="empty-icon" aria-hidden="true">🔍</div>
           <h3>{t(lang, "empty.title")}</h3>
           <p>{t(lang, "empty.desc")}</p>
-          <button type="button" className="btn btn-ghost" onClick={() => { onQuery(""); setActiveCat(null); }}>
+          <button type="button" className="btn btn-ghost" onClick={() => { setQuery(""); setActiveCat(null); }}>
             {t(lang, "empty.clear")}
           </button>
         </div>
       ) : null}
 
       <SkillDialog skill={showDetail} lang={lang} toast={toast} onClose={() => setShowDetail(null)} />
+
+      {toastMsg ? (
+        <div className="toast" id="toast" role="status" aria-live="polite">{toastMsg}</div>
+      ) : null}
     </section>
   );
 }
