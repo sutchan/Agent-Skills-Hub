@@ -1,5 +1,7 @@
 ---
 name: video-edit
+category: 开发框架与平台
+zh: 通过 runcomfy CLI 在 RunComfy 目录编辑视频，支持重风格、换背景、动作迁移与服装替换
 displayName: "Video Edit — Pro Pack on RunComfy"
 description: >
   Edit existing video on RunComfy — this skill is a smart router that

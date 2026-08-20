@@ -1,5 +1,7 @@
 ---
 name: nextjs-react-typescript
+category: 开发框架与平台
+zh: TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家
 description: Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind
 ---
 

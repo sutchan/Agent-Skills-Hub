@@ -1,5 +1,7 @@
 ---
 name: web-design-guidelines
+category: 品牌与设计
+zh: 依据 Web 界面规范审查 UI 代码的可访问性、UX 与最佳实践合规
 description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".
 metadata:
   author: vercel
