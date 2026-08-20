@@ -1,4 +1,6 @@
 ---
+category: 文档与内容
+zh: 跨项目编码规范基线
 name: coding-standards
 description: Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns. Use when reviewing code quality or naming with no framework-specific skill that applies.
 metadata:

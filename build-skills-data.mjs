@@ -1,5 +1,6 @@
-// build-skills-data.mjs v1.14.53
-// 从磁盘真实技能数据生成自包含 JSON，供静态 HTML 原型使用。
+// build-skills-data.mjs v1.14.56
+// 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
+// 分类(category)与中文描述(zh)均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -8,8 +9,19 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // 脚本已移出 prototype/ 到仓库根目录；技能数据输出到仓库根 /data
 const ROOT = __dirname;
 const SKILLS_DIR = join(ROOT, "skills");
-const README = join(ROOT, "README.md");
 const OUT = join(ROOT, "data", "skills-data.json");
+
+// 非技能目录（仓库内其他子项目/资产），构建时跳过
+const EXCLUDE = new Set([".skills-manager", ".trae", "app", "brand", "data", "tools"]);
+
+// 分类展示固定顺序（与 README 领域表一致）
+const CATEGORY_ORDER = [
+  "品牌与设计",
+  "文档与内容",
+  "数据分析与可视化",
+  "开发框架与平台",
+  "文件与格式处理",
+];
 
 // YAML 折叠/字面量块标量标志（行内为空值或仅折叠符）
 const BLOCK_SCALAR = /^(?:[>|])-?$/;
@@ -79,44 +91,28 @@ function normalizeTools(raw) {
     .filter(Boolean);
 }
 
-function parseReadme() {
-  const map = {};
-  let category = null;
-  const text = readFileSync(README, "utf8");
-  for (const line of text.split("\n")) {
-    const h = line.match(/^###\s+(.*)$/);
-    if (h) {
-      category = h[1].replace(/\s*[（(]\d+[)）]\s*$/, "").trim();
-      continue;
-    }
-    const li = line.match(/^- \*\*\[([^\]]+)\]\(skills\/[^)]+\)\*\*\s*—\s*(.+)$/);
-    if (li && category) {
-      map[li[1].trim()] = { category, zh: li[2].trim().replace(/。$/, "") };
-    }
-  }
-  return map;
-}
-
 function main() {
-  const readmeMap = parseReadme();
   const skills = [];
   for (const name of readdirSync(SKILLS_DIR).sort()) {
+    if (EXCLUDE.has(name)) continue;
     const d = join(SKILLS_DIR, name);
     const sk = join(d, "SKILL.md");
     if (!existsSync(sk)) continue;
     const text = readFileSync(sk, "utf8");
     const fm = parseFrontmatter(text);
-    const meta = readmeMap[name] || {};
+    const category = fm.category || "其他";
     skills.push({
       name: fm.name || name,
-      category: meta.category || "其他",
-      zh: meta.zh || "",
+      category,
+      zh: fm.zh || "",
       description: fm.description || "",
       allowedTools: normalizeTools(fm["allowed-tools"]),
     });
   }
-  const order = [];
+  // 分类顺序：固定顺序在前，其余按出现顺序补在末尾
+  const order = CATEGORY_ORDER.filter((c) => skills.some((s) => s.category === c));
   for (const s of skills) if (!order.includes(s.category)) order.push(s.category);
+  skills.sort((a, b) => order.indexOf(a.category) - order.indexOf(b.category));
   writeFileSync(OUT, JSON.stringify({ total: skills.length, categories: order, skills }, null, 2), "utf8");
   console.log(`Wrote ${skills.length} skills across ${order.length} categories -> ${OUT}`);
 }

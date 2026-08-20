@@ -1,4 +1,6 @@
 ---
+category: 文档与内容
+zh: 技术文档编写与维护
 name: documentation
 description: Write and maintain technical documentation. Trigger with "write docs for", "document this", "create a README", "write a runbook", "onboarding guide", or when the user needs help with any form of technical writing — API docs, architecture docs, or operational runbooks.
 ---

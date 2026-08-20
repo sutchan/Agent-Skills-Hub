@@ -54,3 +54,5 @@ prototype/out/_next/
 *.mjs
 *.txt
 *.ffs_db
+*.cjs
+*.mjs
