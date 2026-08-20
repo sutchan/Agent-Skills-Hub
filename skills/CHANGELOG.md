@@ -2,28 +2,6 @@
 
 本项目所有重要变更均记录于此文件。
 
-## [1.14.58] - 2026-08-20
-
-### feat: 原型设计改进并同步到应用代码
-
-- **签名元素 Hero 节点网**：原型 `index.html` 与 app `AppShell.tsx` 顶部新增 Hero 区，内嵌呼应品牌 Hub 隐喻的 SVG 节点网（分散节点汇聚中心），thesis 文案强调"零散技能汇聚成可检索枢纽"，替代通用"大数字+标签"模板；hover 微增强节点透明度，尊重 reduced-motion
-- **卡片分类色条**：`cardHTML`(原型) 与 `SkillsExplorer`(app) 卡片顶部加 `.cat-bar`，按分类序号 `data-cat="0..8"` 映射到绿调→蓝紫色板，用结构编码分类；avatar 改用主绿→节点绿渐变 + hover 光环
-- **调色去模板感**：背景去纯白改极浅暖绿白（`150 24% 99%`）、墨色转深墨绿（`152 28% 13%`）、边界/次级/阴影转绿调；新增 `--node`(节点亮绿) 与 `--line` 令牌，制造层次对比
-- **字体意向**：display 改 Space Grotesk（几何工艺感，回退 Georgia）、sans/mono 改 Inter/JetBrains Mono 栈，避免默认观感
-- **应用代码对齐**：`app/app/globals.css` 补 hero + 卡片色条样式（对齐 prototype/components.css）；`SkillsExplorer` 卡片加 `data-cat` + `.cat-bar`；令牌经 `build.mjs` 自动生成的 `tokens-shared.css` 同步到 app
-- **规范文档**：`DESIGN.md` §2.1 色彩表、§2.2 字体、新增 §4.1.1 Hero 签名元素与卡片分类色条规范；版本头升至 v1.14.58
-- **版本同步**：根 `package.json`/README/README.en 徽章、build.mjs/AppShell/SkillsExplorer/globals.css 头注释升至 v1.14.58
-
-## [1.14.57] - 2026-08-20
-
-### feat: 原型与 app 品牌/令牌/字段同步，规范文档对齐
-
-- **图形单一来源（消 5 份副本）**：新建 `app/public/hub.svg` 的 `<symbol id="ash-hub">` 为唯一图形定义；`app/public/logo|favicon|mono.svg` 与 `app/app/components/AppShell.tsx` 的 `BrandMark` 均改为 `<use href="/hub.svg#ash-hub">` 引用，消除原先 app/public 内 3 份内联 symbol 副本 + AppShell 硬编码副本 + 原型内联副本的漂移风险
-- **设计令牌同步（消手抄漂移）**：`build.mjs` 新增从 `prototype/src/styles/tokens.css`（DESIGN §2 事实源）提取纯变量块并生成 `app/app/tokens-shared.css`；`app/app/globals.css` 改用 `@import "./tokens-shared.css"` 取代手抄令牌块。改原型令牌后 rebuild 即自动同步到 Next 应用
-- **详情字段契约（openspec）**：`spec.md` §2.1 补 `tags?` 可选字段；新增 §3.1「详情字段契约一致性」，明确原型 `03-detail.js` 与 app `SkillDialog.tsx` 共用 `SkillEntry` 字段清单，消除字段漂移
-- **规范文档同步**：`DESIGN.md` 修正 `brand/`、`app/icon.svg` 死引用（已废弃/删除），§8 声明图形真源 = `app/public/hub.svg`、令牌同步机制；`README` 品牌资产章节改为 `app/public/hub.svg` 单一源并去掉 `app/icon.svg`；原型 `index.html` 死注释修正
-- **版本同步**：根 `package.json`、README/README.en 徽章、`DESIGN.md` 头、build.mjs/AppShell/globals.css 头注释升至 v1.14.57
-
 ## [1.14.56] - 2026-08-20
 
 ### docs: 以磁盘 skills/ 为基准重建技能数据并同步版本号至 v1.14.56

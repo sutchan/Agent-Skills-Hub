@@ -1,7 +1,10 @@
 ---
 name: image-to-video
+<<<<<<< HEAD:image-to-video/SKILL.md
 category: 开发框架与平台
 zh: 通过 runcomfy CLI 将静态图片智能路由为对口型/多模态动画（HappyHorse、Wan、Seedance）
+=======
+>>>>>>> 697aee6 (chore: 发布 v1.14.58 版本并完成全栈样式与规范对齐):skills/image-to-video/SKILL.md
 displayName: "Image-to-Video — Pro Pack on RunComfy"
 description: >
   Animate any still image on RunComfy — this skill is a smart router

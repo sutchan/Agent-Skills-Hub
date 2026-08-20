@@ -1,7 +1,10 @@
 ---
 name: ai-music
+<<<<<<< HEAD:ai-music/SKILL.md
 category: 开发框架与平台
 zh: 通过 runcomfy CLI 智能路由生成 AI 音乐，覆盖 ElevenLabs 人声与 ACE Step 标签驱动作曲，支持修补与延长音轨
+=======
+>>>>>>> 697aee6 (chore: 发布 v1.14.58 版本并完成全栈样式与规范对齐):skills/ai-music/SKILL.md
 displayName: "AI Music"
 allowed-tools: Bash(runcomfy *)
 description: >

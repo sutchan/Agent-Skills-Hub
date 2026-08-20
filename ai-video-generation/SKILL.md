@@ -1,7 +1,10 @@
 ---
 name: ai-video-generation
+<<<<<<< HEAD:ai-video-generation/SKILL.md
 category: 开发框架与平台
 zh: 通过 inference.sh CLI 用 Veo、Seedance、Wan 等 40+ 模型生成 AI 视频，支持文生视频、图生视频与视频编辑
+=======
+>>>>>>> 697aee6 (chore: 发布 v1.14.58 版本并完成全栈样式与规范对齐):skills/ai-video-generation/SKILL.md
 description: "Generate AI videos with Google Veo, Seedance 2.0, HappyHorse, Wan, Grok and 40+ models via inference.sh CLI. Models: Veo 3.1, Veo 3, Seedance 2.0, HappyHorse 1.0, Wan 2.5, Grok Imagine Video, OmniHuman, Fabric, HunyuanVideo. Capabilities: text-to-video, image-to-video, reference-to-video, video editing, lipsync, avatar animation, video upscaling, foley sound. Use for: social media videos, marketing content, explainer videos, product demos, AI avatars. Triggers: video generation, ai video, text to video, image to video, veo, animate image, video from image, ai animation, video generator, generate video, t2v, i2v, ai video maker, create video with ai, runway alternative, pika alternative, sora alternative, kling alternative, seedance, happyhorse"
 allowed-tools: Bash(belt *)
 ---

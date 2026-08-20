@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.14.44 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.14.58 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
 "use client";
 
 import { useMemo, useState } from "react";
@@ -92,7 +92,8 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
       {filtered.length ? (
         <div className="grid" id="skillsGrid">
           {filtered.map((s) => (
-            <button key={s.name} className="card" role="button" onClick={() => { track("view_skill", { skill: s.name, category: s.category }); setOpen(s); }}>
+            <button key={s.name} className="card" data-cat={categories.indexOf(s.category)} role="button" onClick={() => { track("view_skill", { skill: s.name, category: s.category }); setOpen(s); }}>
+              <div className="cat-bar" aria-hidden="true" />
               <div className="title-row">
                 <div className="avatar sm">{(s.name || "?").slice(0, 2).toUpperCase()}</div>
                 <div className="card-title">{s.zh || s.name}</div>

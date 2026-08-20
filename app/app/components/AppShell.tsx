@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.14.44 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
+// app/components/AppShell.tsx v1.14.58 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
 "use client";
 
 import { useEffect, useState } from "react";
@@ -6,20 +6,13 @@ import type { Skill } from "../lib/skills";
 import type { Lang } from "../lib/share";
 import { SkillsExplorer } from "./SkillsExplorer";
 
-// 品牌标记：三节点汇聚中心 Hub，主绿对齐设计系统 --primary #2e9e6b（与 app/public/ 资产同源）
+// 品牌标记：引用唯一来源 app/public/hub.svg 的 <symbol id="ash-hub">（currentColor 驱动）
+// 图形造型单一来源，消除硬编码副本；主绿由 --primary #2e9e6b 通过 color 注入
 function BrandMark() {
   return (
     <svg className="logo" width="64" height="64" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
       <rect width="32" height="32" rx="8" fill="#2e9e6b" />
-      <g fill="#fff" stroke="#fff" strokeWidth="1.4" strokeLinecap="round">
-        <line x1="16" y1="16" x2="16" y2="7.5" opacity=".55" />
-        <line x1="16" y1="16" x2="24.5" y2="21" opacity=".55" />
-        <line x1="16" y1="16" x2="7.5" y2="21" opacity=".55" />
-        <circle cx="16" cy="16" r="3.4" fill="#fff" stroke="none" />
-        <circle cx="16" cy="7.5" r="2.3" stroke="none" />
-        <circle cx="24.5" cy="21" r="2.3" stroke="none" />
-        <circle cx="7.5" cy="21" r="2.3" stroke="none" />
-      </g>
+      <use href="/hub.svg#ash-hub" xlinkHref="/hub.svg#ash-hub" width="32" height="32" color="#fff" />
     </svg>
   );
 }
@@ -78,6 +71,41 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
           </button>
         </div>
       </header>
+      {/* 签名元素：Hero 节点网（呼应品牌 Hub 隐喻；对齐 prototype DESIGN §4） */}
+      <section className="hero" id="hero" aria-labelledby="heroTitle">
+        <svg className="hero-net" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g stroke="hsl(152 56% 50%)" strokeWidth="1" opacity=".5">
+            <line x1="120" y1="60" x2="400" y2="120" /><line x1="400" y1="120" x2="680" y2="70" />
+            <line x1="400" y1="120" x2="220" y2="200" /><line x1="400" y1="120" x2="600" y2="190" />
+            <line x1="120" y1="60" x2="220" y2="200" /><line x1="680" y1="70" x2="600" y2="190" />
+          </g>
+          <g fill="hsl(152 58% 56%)">
+            <circle cx="120" cy="60" r="5" /><circle cx="680" cy="70" r="5" />
+            <circle cx="220" cy="200" r="5" /><circle cx="600" cy="190" r="5" />
+            <circle cx="400" cy="120" r="11" fill="hsl(152 56% 40%)" />
+          </g>
+        </svg>
+        <div className="hero-inner">
+          <span className="hero-eyebrow">{lang === "zh" ? "Agent 技能枢纽" : "Agent Skills Hub"}</span>
+          <h1 id="heroTitle">
+            {lang === "zh" ? (
+              <>零散的 agent 技能，<span className="accent">汇聚</span>成一处可检索的枢纽</>
+            ) : (
+              <>Scattered agent skills, <span className="accent">unified</span> into one searchable hub</>
+            )}
+          </h1>
+          <p>
+            {lang === "zh"
+              ? "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。"
+              : "Browse by category, search, or inspect skill details — ready to drop into your coding agent."}
+          </p>
+          <div className="hero-stat" aria-live="polite">
+            <div className="stat"><div className="num">{total}</div><div className="lbl">{lang === "zh" ? "技能总数" : "Total skills"}</div></div>
+            <div className="stat"><div className="num">{categories.length}</div><div className="lbl">{lang === "zh" ? "分类" : "Categories"}</div></div>
+          </div>
+        </div>
+      </section>
+
       <SkillsExplorer skills={skills} categories={categories} lang={lang} total={total} />
 
       {/* 页脚区：品牌 + 导航链接 + 版本/协议（id 供测试与无障碍定位） */}

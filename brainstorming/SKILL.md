@@ -1,7 +1,10 @@
 ---
 name: brainstorming
+<<<<<<< HEAD:brainstorming/SKILL.md
 category: 文档与内容
 zh: 任何创意工作前的头脑风暴技能，探索用户意图、需求与设计后再实施
+=======
+>>>>>>> 697aee6 (chore: 发布 v1.14.58 版本并完成全栈样式与规范对齐):skills/brainstorming/SKILL.md
 description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
 ---
 

@@ -1,4 +1,4 @@
-// build.mjs v1.14.56 — 将 src 模板 + 真实数据内联为自包含 prototype/index.html（产物直出 prototype/ 根）
+// build.mjs v1.14.58 — 将 src 模板 + 真实数据内联为自包含 prototype/index.html（产物直出 prototype/ 根）
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -84,3 +84,26 @@ if (existsSync(ogSrc)) {
 }
 
 console.log(`Built self-contained prototype -> ${join(OUT_DIR, "index.html")} (${(out.length / 1024).toFixed(1)} KB)`);
+
+// 令牌单一来源同步：从原型设计令牌（DESIGN §2 事实源）提取纯变量块，
+// 生成 app/app/tokens-shared.css，供 app/globals.css 通过 @import 消费。
+// 这样修改 prototype/src/styles/tokens.css 后，rebuild 即自动同步到 Next 应用，消除手抄漂移。
+function extractTokens(srcCss) {
+  const root = srcCss.match(/:root\s*\{([\s\S]*?)\n\}/);
+  const dark = srcCss.match(/html\[data-theme="dark"\]\s*\{([\s\S]*?)\n\}/);
+  const block = (m) => (m ? m[1].split("\n").filter((l) => l.trim() && !l.trim().startsWith("*") && !l.trim().startsWith("/*") && !l.trim().startsWith(".sr-only")).join("\n") : "");
+  return `/* app/app/tokens-shared.css — 由 build.mjs 从 prototype/src/styles/tokens.css 自动生成（勿手改；事实源见 DESIGN §2） */
+:root {
+${block(root)}
+}
+html[data-theme="dark"] {
+${block(dark)}
+}
+`;
+}
+const tokensSrc = readFileSync(join(STYLES_DIR, "tokens.css"), "utf8");
+const sharedTokens = extractTokens(tokensSrc);
+const sharedTokensPath = join(__dirname, "app", "app", "tokens-shared.css");
+mkdirSync(dirname(sharedTokensPath), { recursive: true });
+writeFileSync(sharedTokensPath, sharedTokens, "utf8");
+console.log("Generated tokens-shared.css -> app/app/tokens-shared.css");
