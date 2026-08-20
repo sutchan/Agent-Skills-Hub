@@ -87,16 +87,15 @@ npm run start    # 启动生产服务
 
 ## 品牌资产
 
-项目采用统一的矢量品牌标志与网站图标，主色为品牌绿 `#2e9e6b`（HSL `152 56% 40%`），与设计系统 `--primary` 同源（深色模式提亮为 `#5cc98c` / `146 52% 60%`）。品牌图形（三节点 Hub）唯一来源为 [`brand/hub.svg`](brand/hub.svg) 的 `<symbol id="ash-hub">`；标志/图标统一存放于 [`app/public/`](app/public/) 并内联同源 symbol，保证造型单一来源。
+项目采用统一的矢量品牌标志与网站图标，主色为品牌绿 `#2e9e6b`（HSL `152 56% 40%`），与设计系统 `--primary` 同源（深色模式提亮为 `#5cc98c` / `146 52% 60%`）。品牌图形（三节点 Hub）唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（currentColor 驱动）；标志/图标统一存放于 [`app/public/`](app/public/) 并 `<use href="/hub.svg#ash-hub">` 引用同源 symbol，原型与 `app/` 共用同一图形定义，保证造型单一来源、零硬编码副本。
 
 | 资产 | 文件 | 说明 |
 |------|------|------|
 | 彩色主标志 | [`app/public/logo.svg`](app/public/logo.svg) | 圆角方底 + 三节点汇聚 Hub，用于页眉、文档封面 |
 | 单色标志 | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | 深墨绿底 + 主绿图形，用于浅色页脚/印刷 |
-| 网站图标 | [`app/public/favicon.svg`](app/public/favicon.svg) | 纯绿无渐变，浏览器标签与书签 |
+| 网站图标 | [`app/public/favicon.svg`](app/public/favicon.svg) | 纯绿无渐变，浏览器标签与书签；同时作为 Next.js `/favicon.svg` |
 | README 横幅 | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 主绿渐变 + 衬线项目名，标题下 hero 图 |
 | 社交分享横幅 | [`app/public/banner-og.svg`](app/public/banner-og.svg) | 1200×628 Open Graph / 社交卡 |
-| 应用图标 | [`app/icon.svg`](app/icon.svg) | Next.js 自动识别为 favicon / apple-touch |
 
 ## 贡献指南
 

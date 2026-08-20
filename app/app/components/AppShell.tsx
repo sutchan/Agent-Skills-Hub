@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.14.58 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
+// app/components/AppShell.tsx v1.14.60 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
 "use client";
 
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import { SkillsExplorer } from "./SkillsExplorer";
 function BrandMark() {
   return (
     <svg className="logo" width="64" height="64" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
-      <rect width="32" height="32" rx="8" fill="#2e9e6b" />
+      <rect width="32" height="32" rx="8" fill="hsl(var(--primary))" />
       <use href="/hub.svg#ash-hub" xlinkHref="/hub.svg#ash-hub" width="32" height="32" color="#fff" />
     </svg>
   );
@@ -74,15 +74,15 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
       {/* 签名元素：Hero 节点网（呼应品牌 Hub 隐喻；对齐 prototype DESIGN §4） */}
       <section className="hero" id="hero" aria-labelledby="heroTitle">
         <svg className="hero-net" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <g stroke="hsl(152 56% 50%)" strokeWidth="1" opacity=".5">
+          <g stroke="hsl(var(--primary))" strokeWidth="1" opacity=".5">
             <line x1="120" y1="60" x2="400" y2="120" /><line x1="400" y1="120" x2="680" y2="70" />
             <line x1="400" y1="120" x2="220" y2="200" /><line x1="400" y1="120" x2="600" y2="190" />
             <line x1="120" y1="60" x2="220" y2="200" /><line x1="680" y1="70" x2="600" y2="190" />
           </g>
-          <g fill="hsl(152 58% 56%)">
+          <g fill="hsl(var(--primary) / 0.85)">
             <circle cx="120" cy="60" r="5" /><circle cx="680" cy="70" r="5" />
             <circle cx="220" cy="200" r="5" /><circle cx="600" cy="190" r="5" />
-            <circle cx="400" cy="120" r="11" fill="hsl(152 56% 40%)" />
+            <circle cx="400" cy="120" r="11" fill="hsl(var(--primary))" />
           </g>
         </svg>
         <div className="hero-inner">

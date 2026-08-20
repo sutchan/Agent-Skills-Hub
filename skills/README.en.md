@@ -87,16 +87,15 @@ npm run start    # start production server
 
 ## Brand Assets
 
-The project uses a unified vector logo and favicon in brand green `#2e9e6b` (HSL `152 56% 40%`), sharing the same hue as the design system `--primary` (light mode brightens to `#5cc98c` / `146 52% 60%`). The brand glyph (three nodes converging to a hub) has a single source of truth in [`brand/hub.svg`](brand/hub.svg) as `<symbol id="ash-hub">`; all marks live in [`app/public/`](app/public/) and inline the same symbol.
+The project uses a unified vector logo and favicon in brand green `#2e9e6b` (HSL `152 56% 40%`), sharing the same hue as the design system `--primary` (light mode brightens to `#5cc98c` / `146 52% 60%`). The brand glyph (three nodes converging to a hub) has a single source of truth in [`app/public/hub.svg`](app/public/hub.svg) as `<symbol id="ash-hub">` (driven by `currentColor`); all marks live in [`app/public/`](app/public/) and reference the same symbol via `<use href="/hub.svg#ash-hub">`, so the prototype and `app/` share one glyph definition with zero hard-coded copies.
 
 | Asset | File | Description |
 |-------|------|-------------|
 | Color logo | [`app/public/logo.svg`](app/public/logo.svg) | Rounded-square tile with three nodes converging to a hub; for headers and covers |
 | Monochrome logo | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | Dark-green tile with brand-green glyph; for light footers / print |
-| Favicon | [`app/public/favicon.svg`](app/public/favicon.svg) | Solid green, no gradient; for browser tabs and bookmarks |
+| Favicon | [`app/public/favicon.svg`](app/public/favicon.svg) | Solid green, no gradient; for browser tabs and bookmarks; also served as Next.js `/favicon.svg` |
 | README banner | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 brand-green gradient + serif title/subtitle |
 | Social share banner | [`app/public/banner-og.svg`](app/public/banner-og.svg) | 1200×628 Open Graph / social card |
-| App icon | [`app/icon.svg`](app/icon.svg) | Auto-detected by Next.js as favicon / apple-touch |
 
 ## Contributing
 

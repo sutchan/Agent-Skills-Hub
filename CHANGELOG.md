@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.60] - 2026-08-20
+
+### fix: 修复代码审查问题并消除类型/规范漂移
+
+- **Skill 类型补全**：`lib/skills.ts` 的 `Skill` 接口补 `hidden?: boolean`，修复渲染层访问 `s.hidden` 的 TS 类型缺失（strict 编译风险）
+- **消除 any 类型**：`lib/analytics.ts` 的 `track()` 改用 `WindowWithGtag` 接口替代 `window as any`，符合全局禁 any 规则
+- **令牌化散写色**：`AppShell.tsx` 的 `BrandMark` 底色与 Hero 节点网 SVG 由硬编码 `#2e9e6b`/`hsl(152...)` 改为 `hsl(var(--primary))`，落实 spec §6.2 令牌单一来源
+- **统计一致性**：`SkillsExplorer.tsx` 状态行「总数」改为可见技能数（过滤 hidden），与 Hero 的 `total` 及网格过滤结果一致
+- **版本头同步**：被改 app 文件头注释统一至 v1.14.60（消除 v1.1.x 失真子版本）
+
 ## [1.14.59] - 2026-08-20
 
 ### fix: 修复原型卡片样式脱节与清理死代码
@@ -1023,3 +1033,5 @@
 [1.14.56]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.56
 [1.14.57]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.57
 [1.14.58]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.58
+[1.14.59]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.59
+[1.14.60]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.60

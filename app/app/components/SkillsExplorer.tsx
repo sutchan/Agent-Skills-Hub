@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.14.59 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.14.60 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
 "use client";
 
 import { useMemo, useState } from "react";
@@ -49,6 +49,7 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
   }, [skills, q, cat]);
 
   const t = UI[lang];
+  const visibleTotal = useMemo(() => skills.filter((s) => !s.hidden).length, [skills]);
 
   return (
     <main id="main-content" className="explorer">
@@ -87,7 +88,7 @@ export function SkillsExplorer({ skills, categories, lang, total }: Props) {
       </nav>
 
       <div className="stat" aria-live="polite">
-        {t.shown}: {filtered.length} / {t.total}: {skills.length}
+        {t.shown}: {filtered.length} / {t.total}: {visibleTotal}
       </div>
 
       {filtered.length ? (

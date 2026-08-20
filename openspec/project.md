@@ -1,6 +1,6 @@
 # Project Specification — Agent Skills Hub
 
-> 路径：`openspec/project.md` · 版本：1.14.58
+> 路径：`openspec/project.md` · 版本：1.14.59
 > 本文件是 OpenSpec 的项目级规范（project spec），定义变更工作流、产物约定与本仓库结构对齐方式。
 > 已落地能力基线见 [`spec.md`](spec.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 > 配套技能：`skills/openspec-propose`、`skills/openspec-apply-change`、`skills/openspec-explore`、`skills/openspec-archive-change`。
@@ -14,7 +14,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 | 路径 | 用途 | 是否变更常客 |
 |---|---|---|
-| `skills/<name>/SKILL.md` | 单个技能定义（正文为主，frontmatter 可选，当前技能均未使用） | ✅ 高频 |
+| `skills/<name>/SKILL.md` | 单个技能定义（正文 + frontmatter；`name`/`description`/`category`/`zh` 为必填字段，构建脚本以磁盘为准读取） | ✅ 高频 |
 | `skills/<name>/references/`、`scripts/`、`assets/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `README.md` | 技能清单（中文描述映射） | ✅ 中频 |
 | `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据 | ✅ 中频 |
@@ -49,7 +49,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 ```jsonc
 {
-  "total":      整数,                         // 技能总数（动态统计 = skills.length，以运行时 data/skills-data.json 为准）
+  "total":      整数,                         // 可见技能总数（动态统计 = 过滤 hidden 后的 skills.length，以运行时 data/skills-data.json 为准）
   "categories": [ "中文分类名", ... ],          // 去重后的中文分类名 string 数组（无 count）
   "skills": [ {
     "name":         "english-skill-name",     // 英文名（SKILL.md 目录名），卡片主标题
@@ -68,10 +68,10 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 | 项 | 说明 |
 |---|---|
 | 形态 | 原型为**预构建自包含静态 HTML**（`prototype/index.html` 单文件内联全部资源），可离线打开，无运行时依赖；`prototype/src/` 源码随仓库分发，`prototype/index.html` 为构建产物 |
-| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md` 的 frontmatter（`build-skills-data.mjs` 解析 frontmatter 的 `name`/`description`/`category`/`allowedTools` 等字段），`build-skills-data.mjs` 生成 `data/skills-data.json`，`build.mjs` 已将其全部技能预渲染进 `prototype/index.html`。README 自 v1.14.55 起改为领域概览表、不再逐项列出技能，故分类与描述**不再**依赖 README 映射 |
+| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md` 的 frontmatter（`build-skills-data.mjs` 解析必填字段 `name`/`description`/`category`/`zh` 与可选 `allowedTools`/`hidden`），`build-skills-data.mjs` 生成 `data/skills-data.json`，`build.mjs` 已将其全部技能预渲染进 `prototype/index.html`。README 自 v1.14.55 起改为领域概览表、不再逐项列出技能，故分类与描述**不再**依赖 README 映射 |
 | 分类归属 | 分类**完全取自 `SKILL.md` frontmatter 的 `category` 字段**（`build-skills-data.mjs` 由 `skills[].category` 去重推导 `categories[]`），不再从 README 解析 |
-| 中文描述 | 取自 `SKILL.md` frontmatter 的 `zh` 字段（若存在），回退英文 `description` |
-| 计数 | `total` = 技能总数（动态统计，以 `data/skills-data.json` 运行时值为准）；各分类 `count` 由脚本统计写入 |
+| 中文描述 | 取自 `SKILL.md` frontmatter 的 `zh` 字段（必填），回退英文 `description` |
+| 计数 | `total` = 可见技能数（动态统计，排除 `hidden:true` 的内部预览技能，以 `data/skills-data.json` 运行时值为准）；各分类 `count` 由脚本统计写入 |
 
 ### 4.5.3 展示页交互规则（已固化进静态产物）
 

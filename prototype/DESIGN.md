@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.14.58
+> 路径：`prototype/DESIGN.md` · 版本：1.14.59
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -246,9 +246,9 @@
 
 ## 8. 品牌形象规范（Brand Identity）
 
-品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`brand/hub.svg`](brand/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use color="...">` 控制图形色），`logo/favicon/icon/mono/banner` 均内联同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/icon.svg` 为 Next.js 应用图标，与 `app/public/favicon.svg` 同源。所有资产在 `README.md`「品牌资产」章节统一索引。
+品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.14.47 — 文档与实现对齐：产物路径统一为 `prototype/`（去除 `prototype/out/` 旧引用）；样式引用对齐 v1.14.42 的 tokens/base/layout/components/responsive 拆分；`skills-data.json` 数据契约修正为 `categories: string[]`。
+> 版本：v1.14.59 — 文档与实现对齐：图形唯一来源由废弃的 `brand/hub.svg` 改为 `app/public/hub.svg`（v1.14.57 已落地）；移除 `app/icon.svg` 死引用，统一以 `app/public/favicon.svg` 作为站点图标；`skills-data.json` 数据契约为 `categories: string[]`。
 
 ### 8.1 标志释义（Logo）
 
@@ -261,7 +261,7 @@
 | 网站图标 | `app/public/favicon.svg` | 浏览器标签、书签 | 透明（纯绿图形） |
 | README 横幅 | `app/public/banner.svg` | `README.md`/`README.en.md` 标题下顶部 hero（1200×400，主绿渐变 + 衬线项目名/副标题） | 浅/深皆可（自身含底） |
 | 社交分享横幅 | `app/public/banner-og.svg` | Open Graph / 社交卡（Twitter·X、LinkedIn 等，1.91:1 = 1200×628），避免文字被裁切 | 浅/深皆可（自身含底） |
-| 应用图标 | `app/icon.svg` | Next.js `app/` 的 favicon / apple-touch（源自 `app/public/favicon.svg`） | 透明（纯绿图形） |
+| 应用图标 / 网站图标 | `app/public/favicon.svg` | Next.js `/favicon.svg` 与浏览器标签、书签（纯绿无渐变） | 透明（纯绿图形） |
 
 ### 8.2 标志网格与安全区
 
@@ -280,13 +280,13 @@
 | 单色深底 | `#10231a` | `152 50% 9%` | 单色标志底、深背景反白 |
 | 反白 | `#ffffff` | `0 0% 100%` | 标志内图形、深色文字 |
 
-> 品牌主绿即设计系统 `--primary`（§2.1），两者必须保持同一 HSL 通道，禁止漂移。`logo.svg` 使用浅→深绿线性渐变（`#2e9e6b`→`#5cc98c`，端点分别对应上述两行）；`favicon.svg`/`app/icon.svg` 为纯 `#2e9e6b` 无渐变，保证 16px 下清晰。
+> 品牌主绿即设计系统 `--primary`（§2.1），两者必须保持同一 HSL 通道，禁止漂移。`logo.svg` 使用浅→深绿线性渐变（`#2e9e6b`→`#5cc98c`，端点分别对应上述两行）；`favicon.svg` 为纯 `#2e9e6b` 无渐变，保证 16px 下清晰。
 
 ### 8.4 favicon 规格
 
 - 格式：SVG（矢量，自适应任意 DPI）；如目标平台仅接受位图，由 `favicon.svg` 栅格化为 32×32 / 180×180（apple-touch）PNG。
 - 颜色：纯 `#2e9e6b` 底 + 反白图形，无渐变（保证 16px 下清晰）。
-- 部署：`prototype/favicon.svg` 由根 `build.mjs` 从 `app/public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons.icon = "/icon.svg"` 引用（该 `/icon.svg` 对应 `app/icon.svg`，与 `app/public/favicon.svg` 同源）。
+- 部署：`prototype/favicon.svg` 由根 `build.mjs` 从 `app/public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons.icon = "/favicon.svg"` 引用 `app/public/favicon.svg`。
 
 ### 8.5 禁用示例（Don'ts）
 
@@ -299,5 +299,5 @@
 ### 8.6 使用约定
 
 - 页眉品牌区：标志（22×22）+ 文字「Agent Skills Hub」（衬线 `--font-display`），见 `app/components/AppShell.tsx` 的 `BrandMark()` 与原型 `prototype/src/index.html` 的 `.brand`。
-- 代码内联引用：`app/icon.svg` 与 `app/public/favicon.svg` 同源图形，原型用 data-URI 内联 + 外链 `favicon.svg` 双重声明（见 `prototype/src/index.html` `<head>`）。
-- 品牌资产变更须同步：①本 §8 与 README「品牌资产」；②`app/icon.svg` 与 `app/public/favicon.svg` 同源；③版本号 bump。
+- 代码内联引用：原型用 data-URI 内联 `app/public/hub.svg` 的 symbol + 外链 `favicon.svg` 双重声明（见 `prototype/src/index.html` `<head>`）。
+- 品牌资产变更须同步：①本 §8 与 README「品牌资产」；②`app/public/hub.svg` 与 `app/public/*` 资产同源；③版本号 bump。
