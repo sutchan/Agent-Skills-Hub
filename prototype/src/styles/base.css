@@ -29,13 +29,13 @@ body.no-scroll { overflow: hidden; }
 .toast {
   position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 12px);
   z-index: 60; padding: 10px 18px; border-radius: 10px;
-  background: #1f2937; color: #fff; font-size: 14px; font-weight: 500;
+  background: hsl(var(--popover)); color: hsl(var(--popover-foreground)); font-size: 14px; font-weight: 500;
   box-shadow: 0 8px 24px rgba(0,0,0,.18);
   opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s;
   pointer-events: none; max-width: 86vw; text-align: center;
 }
 .toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
-.toast.err { background: #dc2626; }
+.toast.err { background: hsl(var(--destructive)); }
 
 /* 语言切换后英文/中文描述互斥显示 */
 html[data-lang="en"] .zh { display: none; }

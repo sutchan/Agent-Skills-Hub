@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.14.56 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.14.59 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -52,7 +52,7 @@ function esc(s) {
 // 预聚合分类计数（Map: cat -> count），renderCats 直接查表
 function catCounts() {
   const m = new Map();
-  SKILLS_DATA.skills.forEach((s) => m.set(s.category, (m.get(s.category) || 0) + 1));
+  SKILLS_DATA.skills.forEach((s) => { if (!s.hidden) m.set(s.category, (m.get(s.category) || 0) + 1); });
   return m;
 }
 

@@ -114,7 +114,8 @@ function main() {
   const order = CATEGORY_ORDER.filter((c) => skills.some((s) => s.category === c));
   for (const s of skills) if (!order.includes(s.category)) order.push(s.category);
   skills.sort((a, b) => order.indexOf(a.category) - order.indexOf(b.category));
-  writeFileSync(OUT, JSON.stringify({ total: skills.length, categories: order, skills }, null, 2), "utf8");
+  const total = skills.filter((s) => !s.hidden).length;
+  writeFileSync(OUT, JSON.stringify({ total, categories: order, skills }, null, 2), "utf8");
   console.log(`Wrote ${skills.length} skills across ${order.length} categories -> ${OUT}`);
 }
 

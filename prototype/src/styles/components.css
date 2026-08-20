@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.14.56 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.14.59 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器 + 卡片内标签）；统一映射到主色，禁止异色相（DESIGN §8.3） */
 .chip { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); font-size: 13px; color: var(--text-2); cursor: pointer; transition: border-color .15s ease, color .15s ease, background .15s ease; }
@@ -19,7 +19,6 @@
 .card .cat-tag { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--primary) 12%, var(--surface)); color: var(--primary-strong); border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border)); }
 .card .stat { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); }
 .card .stat b { color: var(--text); }
-.card .src-badge { position: absolute; top: 12px; right: 12px; font-size: 10px; padding: 2px 7px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); text-transform: uppercase; letter-spacing: .4px; }
 
 /* 弹窗操作按钮（GitHub / 复制 / 关闭） */
 .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font-size: 14px; text-decoration: none; transition: all .15s ease; }

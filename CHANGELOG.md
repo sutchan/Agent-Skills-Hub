@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.59] - 2026-08-20
+
+### fix: 修复原型卡片样式脱节与清理死代码
+
+- **卡片类名对齐**：`parts/02-render.js` 的 `cardHTML` 由 `.body/.title-row/.name/.meta` 改为与 `components.css` 选择器一致的 `.top/h3/.tags/.cat-tag`，修复 avatar 与标题布局失效（原 `.title-row`/`.name` 无样式）
+- **删除死代码样式**：移除 `layout.css` 的 `.sort`/`.lang-switch`/`.hero .pill`/`.hero .meta`（模板无对应 DOM）与 `components.css` 的 `.src-badge`（数据无 `source` 字段，永不渲染）
+- **Hero 字体签名**：`#hero h1` 改用 `--font-display` 衬线字体，落实排版个性（原走 `--font-sans` 无差异点）
+- **数据重建**：`data/skills-data.json` 由磁盘 44 真技能重建，清除残留 Git 冲突标记（`<<<<<<< HEAD`）
+- **版本同步**：根 `package.json` 与 `02-render.js`/`layout.css`/`components.css` 头注释升至 v1.14.59
+
 ## [1.14.58] - 2026-08-20
 
 ### feat: 原型设计改进并同步到应用代码
@@ -1005,6 +1015,11 @@
 [1.14.48]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.48
 [1.14.49]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.49
 [1.14.50]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.50
+[1.14.51]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.51
 [1.14.52]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.52
 [1.14.53]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.53
+[1.14.54]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.54
+[1.14.55]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.55
 [1.14.56]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.56
+[1.14.57]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.57
+[1.14.58]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.58

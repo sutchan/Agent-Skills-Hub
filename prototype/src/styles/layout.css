@@ -1,27 +1,20 @@
-/* prototype/src/styles/layout.css v1.14.56 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.14.59 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏 */
 .topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
 .brand .logo { width: 28px; height: 28px; }
-.lang-switch { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--surface-2); }
-.lang-switch button { border: 0; background: transparent; padding: 6px 12px; font-size: 13px; color: var(--text-2); cursor: pointer; }
-.lang-switch button.active { background: var(--primary); color: hsl(var(--primary-foreground)); }
 
 /* Hero 区 */
 .hero { text-align: center; padding: 48px 24px 28px; background: radial-gradient(1200px 400px at 50% -10%, hsl(var(--primary) / .22), transparent 70%), hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
-.hero h1 { font-size: clamp(28px, 5vw, 40px); margin: 0 0 8px; letter-spacing: -.5px; }
+.hero h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 40px); margin: 0 0 8px; letter-spacing: -0.5px; }
 .hero p { margin: 0 auto; max-width: 640px; opacity: .92; font-size: 16px; }
-.hero .meta { margin-top: 14px; display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-.hero .pill { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.28); padding: 4px 12px; border-radius: 999px; font-size: 13px; }
 
 /* 控制区（搜索 + 排序 + 分类） */
 .controls { position: sticky; top: 56px; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
 .search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
 .search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 15px; color: var(--text); }
 .search .icon { opacity: .6; }
-.sort { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-2); }
-.sort select { border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; background: var(--surface-2); color: var(--text); font-size: 14px; }
 /* 分类筛选条：桌面换行，移动端横向可滚动（DESIGN §5） */
 .cats { width: 100%; overflow: hidden; }
 .cats-scroll { display: flex; flex-wrap: wrap; gap: 8px; }

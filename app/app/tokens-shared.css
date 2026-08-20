@@ -1,38 +1,35 @@
 /* app/app/tokens-shared.css — 由 build.mjs 从 prototype/src/styles/tokens.css 自动生成（勿手改；事实源见 DESIGN §2） */
 :root {
-  --background: 150 24% 99%;        /* 页面背景：极浅暖绿白（去纯白，制造材质感） */
-  --foreground: 152 28% 13%;        /* 主文字：深墨绿（替代蓝灰，与品牌同源） */
+  --background: 0 0% 100%;          /* 页面背景 */
+  --foreground: 224 24% 12%;        /* 主文字 */
   --card: 0 0% 100%;                /* 卡片/弹窗表面 */
-  --card-foreground: 152 28% 13%;
+  --card-foreground: 224 24% 12%;
   --popover: 0 0% 100%;
-  --popover-foreground: 152 28% 13%;
+  --popover-foreground: 224 24% 12%;
   --primary: 152 56% 40%;           /* 单一主色（降饱和绿） */
   --primary-foreground: 0 0% 100%;
-  --secondary: 150 18% 96%;         /* 次级表面（带绿调） */
-  --secondary-foreground: 152 24% 20%;
-  --muted: 150 18% 96%;             /* 辅助表面 */
-  --muted-foreground: 150 10% 44%;  /* 辅助文字（绿调灰） */
+  --secondary: 220 16% 96%;         /* 次级表面 */
+  --secondary-foreground: 224 24% 18%;
+  --muted: 220 16% 96%;             /* 辅助表面 */
+  --muted-foreground: 220 9% 46%;   /* 辅助文字 */
   --accent: 152 56% 95%;            /* 主色浅底（聚焦环/徽章） */
   --accent-foreground: 152 56% 33%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
-  --border: 150 16% 90%;            /* 边界：绿调浅灰（替代冷灰） */
-  --input: 150 16% 90%;
+  --border: 220 14% 90%;
+  --input: 220 14% 90%;
   --ring: 152 56% 40%;
-  --node: 152 58% 56%;              /* 节点亮绿：分类色条 / hero 节点高亮（DESIGN §2.1 新增） */
-  --node-weak: 152 50% 92%;         /* 节点浅底 */
-  --line: 150 20% 88%;              /* 分隔线：绿调 */
   --radius: 0.75rem;                /* 默认圆角基准 */
-  --shadow-color: 150 30% 18%;      /* 阴影色相转绿调 */
+  --shadow-color: 224 32% 20%;
   --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .04), 0 1px 3px hsl(var(--shadow-color) / .06);
   --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .05), 0 2px 6px -1px hsl(var(--shadow-color) / .08);
   --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / .10), 0 2px 6px -2px hsl(var(--shadow-color) / .06);
   --shadow-lg: 0 12px 32px -8px hsl(var(--shadow-color) / .16), 0 4px 10px -4px hsl(var(--shadow-color) / .08);
   --shadow-pop: var(--shadow-lg);
-  --font-display: "Space Grotesk", Georgia, "Songti SC", "STSong", serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-  --font-en: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --font-display: Georgia, "Times New Roman", "Songti SC", "STSong", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-en: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   --maxw: 1200px;
   --bg: hsl(var(--background));
   --surface: hsl(var(--card));
@@ -45,28 +42,25 @@
   --shadow-card: var(--shadow-sm);
 }
 html[data-theme="dark"] {
-  --background: 152 26% 7%;
-  --foreground: 150 16% 92%;
-  --card: 152 22% 11%;
-  --card-foreground: 150 16% 92%;
-  --popover: 152 22% 11%;
-  --popover-foreground: 150 16% 92%;
+  --background: 224 28% 8%;
+  --foreground: 220 18% 92%;
+  --card: 224 24% 11%;
+  --card-foreground: 220 18% 92%;
+  --popover: 224 24% 11%;
+  --popover-foreground: 220 18% 92%;
   --primary: 146 52% 60%;
-  --primary-foreground: 152 32% 8%;
-  --secondary: 152 18% 18%;
-  --secondary-foreground: 150 16% 88%;
-  --muted: 152 18% 16%;
-  --muted-foreground: 150 12% 62%;
+  --primary-foreground: 224 32% 8%;
+  --secondary: 224 18% 18%;
+  --secondary-foreground: 220 18% 88%;
+  --muted: 224 18% 16%;
+  --muted-foreground: 220 12% 60%;
   --accent: 146 52% 22%;
   --accent-foreground: 146 52% 82%;
   --destructive: 0 62% 52%;
   --destructive-foreground: 0 0% 100%;
-  --border: 152 16% 22%;
-  --input: 152 16% 24%;
+  --border: 224 16% 22%;
+  --input: 224 16% 24%;
   --ring: 146 52% 60%;
-  --node: 146 56% 62%;
-  --node-weak: 146 40% 18%;
-  --line: 152 18% 24%;
   --shadow-color: 0 0% 0%;
   --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .4);
   --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .5), 0 2px 6px -1px hsl(var(--shadow-color) / .4);

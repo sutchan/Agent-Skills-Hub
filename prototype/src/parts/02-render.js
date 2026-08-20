@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.56 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.59 — 列表/网格渲染与统计
 function renderStats(filtered) {
   $("#statTotal").textContent = SKILLS_DATA.total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
@@ -26,19 +26,17 @@ function skillSlug(name) {
   return String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
-// 卡片：主标题显示技能英文名（权威标识、简短、永不丢失），中文描述交给 .desc
+// 卡片：类名与 components.css 对齐（.top / h3 / .desc / .tags / .cat-tag）
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   return `<article class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" role="button" tabindex="0" aria-label="${esc(label)}">
-    <div class="body">
-      <div class="title-row">
-        <div class="avatar">${initials(s.name)}</div>
-        <div class="name">${esc(s.name)}</div>
-      </div>
-      <div class="desc zh">${esc(s.zh)}</div>
-      <div class="desc en">${esc(s.description)}</div>
-      <div class="meta"><span class="cat-tag">${esc(s.category)}</span></div>
+    <div class="top">
+      <div class="avatar">${initials(s.name)}</div>
+      <h3>${esc(s.name)}</h3>
     </div>
+    <p class="desc zh">${esc(s.zh)}</p>
+    <p class="desc en">${esc(s.description)}</p>
+    <div class="tags"><span class="cat-tag">${esc(s.category)}</span></div>
   </article>`;
 }
 
@@ -52,7 +50,7 @@ function emptyHTML() {
 
 function renderGrid() {
   const q = state.query.trim();
-  const list = SKILLS_DATA.skills.filter((s) => matches(s, q) && (!state.cat || s.category === state.cat));
+  const list = SKILLS_DATA.skills.filter((s) => !s.hidden && matches(s, q) && (!state.cat || s.category === state.cat));
   const counts = catCounts();
   renderStats(list);
   renderCats(counts);

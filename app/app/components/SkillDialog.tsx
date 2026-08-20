@@ -1,4 +1,4 @@
-// app/components/SkillDialog.tsx v1.14.29 — 技能详情弹窗（含分享按钮）
+// app/components/SkillDialog.tsx v1.14.59 — 技能详情弹窗（含分享按钮）
 "use client";
 
 import { useEffect, useRef } from "react";
