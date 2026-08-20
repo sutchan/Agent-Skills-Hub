@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import type { Skill } from "../lib/skills";
 import type { Lang } from "../lib/share";
 import { SkillsExplorer } from "./SkillsExplorer";
+import { LangToggle } from "./ui/lang-toggle";
+import { ThemeToggle } from "./ui/theme-toggle";
+import { t } from "@/lib/i18n";
 
 // 品牌标记：引用唯一来源 app/public/hub.svg 的 <symbol id="ash-hub">（currentColor 驱动）
 // 图形造型单一来源，消除硬编码副本；主绿由 --primary #2e9e6b 通过 color 注入
@@ -62,33 +65,8 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
           <span className="brand-name">Agent Skills Hub</span>
         </div>
         <div className="topbar-actions">
-          <button
-            id="langBtn"
-            className="icon-btn"
-            aria-label="切换语言 / Toggle language"
-            aria-pressed={lang === "en"}
-            onClick={() => setLang((l) => (l === "zh" ? "en" : "zh"))}
-          >
-            {lang === "zh" ? "EN" : "中"}
-          </button>
-          <button
-            id="themeBtn"
-            className="icon-btn"
-            aria-label="切换主题 / Toggle theme"
-            aria-pressed={dark}
-            onClick={() => setDark((d) => !d)}
-          >
-            {dark ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-              </svg>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="4" />
-                <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
-              </svg>
-            )}
-          </button>
+          <LangToggle lang={lang} onToggle={() => setLang((l) => (l === "zh" ? "en" : "zh"))} />
+          <ThemeToggle theme={dark ? "dark" : "light"} onToggle={() => setDark((d) => !d)} lang={lang} />
         </div>
       </header>
       {/* 签名元素：Hero 节点网（呼应品牌 Hub 隐喻；对齐 prototype DESIGN §4） */}
@@ -106,27 +84,27 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
           </g>
         </svg>
         <div className="hero-inner">
-          <span className="hero-eyebrow">{lang === "zh" ? "Agent 技能枢纽" : "Agent Skills Hub"}</span>
-          <h1 id="heroTitle">
-            {lang === "zh" ? (
-              <>零散的 agent 技能，<span className="accent">汇聚</span>成一处可检索的枢纽</>
-            ) : (
-              <>Scattered agent skills, <span className="accent">unified</span> into one searchable hub</>
-            )}
-          </h1>
-          <p>
-            {lang === "zh"
-              ? "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。"
-              : "Browse by category, search, or inspect skill details — ready to drop into your coding agent."}
-          </p>
-          <div className="hero-stat" aria-live="polite">
-            <div className="stat"><div className="num">{total}</div><div className="lbl">{lang === "zh" ? "技能总数" : "Total skills"}</div></div>
-            <div className="stat"><div className="num">{categories.length}</div><div className="lbl">{lang === "zh" ? "分类" : "Categories"}</div></div>
-          </div>
+        <span className="hero-eyebrow">{lang === "zh" ? "Agent 技能枢纽" : "Agent Skills Hub"}</span>
+        <h1 id="heroTitle">
+          {lang === "zh" ? (
+            <>零散的 agent 技能，<span className="accent">汇聚</span>成一处可检索的枢纽</>
+          ) : (
+            <>Scattered agent skills, <span className="accent">unified</span> into one searchable hub</>
+          )}
+        </h1>
+        <p>
+          {lang === "zh"
+            ? "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。"
+            : "Browse by category, search, or inspect skill details — ready to drop into your coding agent."}
+        </p>
+        <div className="hero-stat" aria-live="polite">
+          <div className="stat"><div className="num">{total}</div><div className="lbl">{lang === "zh" ? "技能总数" : "Total skills"}</div></div>
+          <div className="stat"><div className="num">{categories.length}</div><div className="lbl">{lang === "zh" ? "分类" : "Categories"}</div></div>
+        </div>
         </div>
       </section>
 
-      <SkillsExplorer skills={skills} categories={categories} lang={lang} total={total} />
+      <SkillsExplorer skills={skills} lang={lang} total={total} />
 
       {/* 页脚区：品牌 + 导航链接 + 版本/协议（id 供测试与无障碍定位） */}
       <footer className="site-footer" id="siteFooter">

@@ -11,8 +11,9 @@ interface WindowWithGtag extends Window {
 
 export function track(event: string, params?: Record<string, unknown>): void {
   try {
-    if (typeof window !== "undefined" && typeof (window as WindowWithGtag).gtag === "function") {
-      (window as WindowWithGtag).gtag("event", event, params || {});
+    const gtag = (window as WindowWithGtag).gtag;
+    if (typeof gtag === "function") {
+      gtag("event", event, params || {});
     }
   } catch {
     /* 统计失败不影响主流程 */

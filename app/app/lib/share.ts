@@ -1,4 +1,4 @@
-// app/lib/share.ts v1.1.7 — 分享逻辑与项目宣传文案
+// app/lib/share.ts v1.14.72 — 分享逻辑与项目宣传文案
 // 文案集合与 prototype/src/i18n.js 的 share.promos 保持逐字一致（openspec §4.5.4.3：
 // 两层复用同一文案集合，避免漂移）。原型 i18n.js 为权威来源，本文件与其同步。
 
@@ -22,13 +22,13 @@ export const SHARE_PROMOS: Record<Lang, string[]> = {
 
 /** 反馈文案，与 prototype i18n.js 的 share.copied / share.failed 对齐 */
 export const SHARE_FEEDBACK: Record<Lang, { ok: string; fail: string; btn: string }> = {
-  zh: { ok: "已复制到剪贴板", fail: "复制失败，请手动复制", btn: "分享" },
-  en: { ok: "Copied to clipboard", fail: "Copy failed, please copy manually", btn: "Share" },
+  zh: { ok: "已复制到剪贴板", fail: "复制失败，请手动复制", btn: "分享技能" },
+  en: { ok: "Copied to clipboard", fail: "Copy failed, please copy manually", btn: "Share skill" },
 };
 
 /**
- * 构造分享文本：技能分析链接 + 随机宣传文案（二者以空行分隔）。
- * 链接 = 站点根 + skills/<name>/（部署后带域名，离线回退相对路径）。
+ * 构造分享文本：技能 GitHub 链接 + 随机宣传文案（二者以空行分隔）。
+ * 链接对齐 prototype 03-detail.js 的 REPO_SKILLS_TREE + 技能名（站点无关，跨部署稳定）。
  */
 export function buildShareText(
   name: string,
@@ -37,19 +37,19 @@ export function buildShareText(
   origin?: string,
   basePath?: string
 ): string {
-  let link = `skills/${name}/`;
-  if (typeof window !== "undefined") {
-    const root = window.location.pathname.replace(/index\.html$/, "").replace(/\/$/, "");
-    link = window.location.origin + root + `/skills/${name}/`;
-  } else if (origin) {
-    const root = (basePath ?? "").replace(/\/$/, "");
-    link = `${origin}${root}/skills/${name}/`;
-  }
+  const link = `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/${encodeURIComponent(name)}/`;
   const promos = SHARE_PROMOS[lang] ?? SHARE_PROMOS.zh;
   const promo = promos.length
     ? promos[Math.floor(Math.random() * promos.length)].replace("{n}", String(total))
     : "";
   return `${link}\n\n${promo}`;
+}
+
+/** 复制技能分享文案到剪贴板：组合链接 + 宣传文案后复制，返回是否成功。
+ *  供 SkillDetail 直接调用，文案与 prototype 03-detail.js 的 share 逻辑一致。 */
+export async function copySkillShare(skill: { name: string }, lang: Lang, total = 0): Promise<boolean> {
+  const text = buildShareText(skill.name, lang, total);
+  return copyShareText(text);
 }
 
 /** 复制文本到剪贴板：优先 Clipboard API，失败降级 execCommand（openspec §4.5.4.5） */

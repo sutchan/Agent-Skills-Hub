@@ -1,4 +1,4 @@
-// app/page.tsx v1.1.4 — 首页（服务端读取技能数据并交由客户端外壳渲染）
+// app/page.tsx v1.14.72 — 首页（服务端读取技能数据并交由客户端外壳渲染）
 import fs from "node:fs";
 import path from "node:path";
 import { loadSkills } from "./lib/skills";

@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.72] - 2026-08-20
+
+### fix: 修复 CI 找不到 prototype/build-skills-data.mjs 报错
+
+- **根因**：CI 历史配置硬编码调用 `node prototype/build-skills-data.mjs`，但权威脚本已迁移至仓库根目录（`build-skills-data.mjs`），`prototype/` 下无该文件导致 `MODULE_NOT_FOUND`
+- **修复**：新增 `prototype/build-skills-data.mjs` 作为兼容转发层，复用根目录权威脚本（单一数据源，无逻辑重复）
+- **附带提交**：app 组件重构（skill-card / skill-detail / ui 子组件库、catHue、i18n、types 抽离）、prototype 构建产物同步
+- **版本同步**：`package.json` 升至 v1.14.72，新建文件头注释同步
+
 ## [1.14.71] - 2026-08-20
 
 ### feat: app 与原型对齐（卡片描述语言互斥、cat-bar 动态色、多词搜索、偏好持久化）
@@ -1167,3 +1176,5 @@
 [1.14.68]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.68
 [1.14.69]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.69
 [1.14.70]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.70
+[1.14.71]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.71
+[1.14.72]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.72

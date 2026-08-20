@@ -48,6 +48,12 @@ prototype/out/_next/
 .secret.key
 .env
 .env.local
-*.mjs
 *.txt
 *.ffs_db
+
+# 构建脚本（核心工具链，必须入库）：放行根构建脚本与 CI 兼容转发层
+# 其余 *.mjs 临时脚本默认忽略，避免污染
+*.mjs
+!build-skills-data.mjs
+!build.mjs
+!prototype/build-skills-data.mjs

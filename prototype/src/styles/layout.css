@@ -53,6 +53,12 @@
 .dialog-close { margin-left: auto; }
 .dialog-body { padding: 22px; overflow: auto; }
 
+/* 抽屉（Sheet）：移动端详情采用底部上滑抽屉，较居中弹窗更贴合小屏手势（对齐 COMPONENTS #9） */
+.sheet { position: fixed; z-index: 51; left: 0; right: 0; bottom: 0; width: 100%; max-height: 88vh; background: var(--surface); border-radius: 18px 18px 0 0; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; transform: translateY(100%); transition: transform .25s ease; }
+.sheet.show { display: flex; transform: translateY(0); }
+/* 抽屉抓手（视觉提示，非交互） */
+.sheet-grip { width: 40px; height: 4px; border-radius: 999px; background: var(--border); margin: 10px auto 0; flex: 0 0 auto; }
+
 /* 空状态提示（搜索无结果等）：标题 + 说明 + 清除按钮（对齐 emptyHTML 输出，grid 内横跨整行） */
 .empty-state { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 40px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .empty-state .empty-title { font-size: 18px; font-weight: 600; color: var(--text); }

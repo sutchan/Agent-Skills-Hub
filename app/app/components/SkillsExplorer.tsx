@@ -1,118 +1,108 @@
-// app/components/SkillsExplorer.tsx v1.14.71 — 技能浏览（搜索/分类 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.14.72 — 技能浏览器（网格/列表/搜索/分类/视图）
+// 组合 ui 原语与 SkillCard；双语通过 lib/i18n 的 t() 取词，与原型保持一致。
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Skill } from "../lib/skills";
-import type { Lang } from "../lib/share";
+import type { Skill } from "@/lib/types";
+import { catHue } from "@/lib/catHue";
+import { t } from "@/lib/i18n";
+import { Input } from "./ui/input";
+import { ViewToggle } from "./ui/view-toggle";
+import { SkillCard } from "./skill-card";
 import { SkillDialog } from "./SkillDialog";
-import { track } from "../lib/analytics";
-
-// 由类别名稳定派生色相（0-359），与 prototype 的 catHue 算法一致，保证两层同分类同色
-function catHue(c: string): number {
-  let h = 0;
-  for (let i = 0; i < c.length; i++) h = (h * 31 + c.charCodeAt(i)) % 360;
-  return h;
-}
 
 interface Props {
   skills: Skill[];
-  categories: string[];
-  lang: Lang;
-  total: number;
+  query: string;
+  onQuery: (q: string) => void;
+  view: "grid" | "list";
+  onView: (v: "grid" | "list") => void;
+  lang: "zh" | "en";
+  toast: (msg: string) => void;
 }
 
-const UI: Record<Lang, { search: string; all: string; total: string; shown: string; empty: string }> = {
-  zh: { search: "按名称或描述搜索技能…", all: "全部", total: "技能总数", shown: "当前展示", empty: "未找到匹配的技能" },
-  en: { search: "Search skills by name or description…", all: "All", total: "Total skills", shown: "Shown", empty: "No matching skills" },
-};
+export function SkillsExplorer({ skills, query, onQuery, view, onView, lang, toast }: Props) {
+  const [activeCat, setActiveCat] = useState<string | null>(null);
+  const [showDetail, setShowDetail] = useState<Skill | null>(null);
 
-/** 技能浏览主组件：筛选 + 卡片网格 + 详情弹窗（openspec §4.5 展示页交互） */
-export function SkillsExplorer({ skills, categories, lang, total }: Props) {
-  const [q, setQ] = useState("");
-  const [cat, setCat] = useState("全部");
-  const [open, setOpen] = useState<Skill | null>(null);
+  const cats = useMemo(() => {
+    const set = new Set(skills.map((s) => s.category));
+    return Array.from(set);
+  }, [skills]);
 
-  const cats = useMemo(() => ["全部", ...categories], [categories]);
-  const filtered = useMemo(() => {
-    // 多词 AND 搜索：按空白拆分，全部词都命中才返回（对齐 prototype matches()，如 "flutter 布局"）
-    const terms = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const list = useMemo(() => {
+    const q = query.trim().toLowerCase();
     return skills.filter((s) => {
-      if (s.hidden) return false;
-      const matchCat = cat === "全部" || s.category === cat;
-      if (!terms.length) return matchCat;
-      const hay = [s.name, s.zh, s.description, s.category].join(" ").toLowerCase();
-      const matchQ = terms.every((term) => hay.includes(term));
-      return matchCat && matchQ;
+      const okCat = activeCat == null || s.category === activeCat;
+      const hay = `${s.name} ${s.zh} ${s.description} ${s.category}`.toLowerCase();
+      const okQ = !q || hay.includes(q);
+      return okCat && okQ;
     });
-  }, [skills, q, cat]);
-
-  const t = UI[lang];
-  const visibleTotal = useMemo(() => skills.filter((s) => !s.hidden).length, [skills]);
+  }, [skills, query, activeCat]);
 
   return (
-    <main id="main-content" className="explorer">
-      <div className="toolbar">
-        <input
+    <section id="skills" className="skills" aria-label={t(lang, "stat.total")}>
+      <div className="controls" id="searchControls">
+        <Input
           id="search"
-          className="search-input"
           type="search"
-          placeholder={t.search}
-          value={q}
-          onChange={(e) => {
-            setQ(e.target.value);
-            if (e.target.value) track("search", { query: e.target.value });
-          }}
-          aria-label={t.search}
+          placeholder={t(lang, "search.placeholder")}
+          value={query}
+          onChange={(e) => onQuery(e.target.value)}
+          aria-label={t(lang, "search.placeholder")}
         />
+        <ViewToggle view={view} onChange={onView} />
       </div>
 
-      <nav className="cats" aria-label="分类筛选">
-        <div className="cats-scroll" id="cats">
-          {cats.map((c) => (
-            <button
-              key={c}
-              className={"chip" + (c === cat ? " active" : "")}
-              style={{ "--hue": c === "全部" ? 152 : catHue(c) } as React.CSSProperties}
-              aria-pressed={c === cat}
-              onClick={() => {
-                setCat(c);
-                track("filter_category", { category: c });
-              }}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-      </nav>
-
-      <div className="stat" aria-live="polite">
-        {t.shown}: {filtered.length} / {t.total}: {visibleTotal}
-      </div>
-
-      {filtered.length ? (
-        <div className="grid" id="skillsGrid">
-          {filtered.map((s) => {
-            const zhName = s.zh || s.name;
-            const zhDesc = s.zhDesc || s.zh;
-            const desc = lang === "zh" ? zhDesc : s.description;
+      <nav className="cats" id="categoryNav" aria-label={`${t(lang, "filter.all")} / Categories`}>
+        <div className="cats-scroll" id="cats" role="tablist">
+          <button
+            type="button"
+            className={`chip ${activeCat == null ? "active" : ""}`}
+            style={{ "--hue": "152" } as React.CSSProperties}
+            aria-pressed={activeCat == null}
+            onClick={() => setActiveCat(null)}
+          >
+            {t(lang, "filter.all")}
+            <span className="chip-count">{skills.length}</span>
+          </button>
+          {cats.map((c) => {
+            const count = skills.filter((s) => s.category === c).length;
             return (
-              <button key={s.name} className="card" data-cat={categories.indexOf(s.category)} style={{ "--hue": catHue(s.category) } as React.CSSProperties} role="button" onClick={() => { track("view_skill", { skill: s.name, category: s.category }); setOpen(s); }}>
-                <div className="cat-bar" aria-hidden="true" />
-                <div className="title-row">
-                  <div className="avatar sm">{(s.name || "?").slice(0, 2).toUpperCase()}</div>
-                  <div className="card-title">{lang === "zh" ? zhName : s.name}</div>
-                </div>
-                {desc ? <div className="card-desc">{desc}</div> : null}
-                <div className="card-cat">{s.category}</div>
+              <button
+                key={c}
+                type="button"
+                className={`chip ${activeCat === c ? "active" : ""}`}
+                style={{ "--hue": String(catHue(c)) } as React.CSSProperties}
+                aria-pressed={activeCat === c}
+                onClick={() => setActiveCat(c)}
+              >
+                {c}
+                <span className="chip-count">{count}</span>
               </button>
             );
           })}
         </div>
-      ) : (
-        <div className="empty" id="emptyState">{t.empty}</div>
-      )}
+      </nav>
 
-      {open && <SkillDialog skill={open} lang={lang} total={total} onClose={() => setOpen(null)} />}
-    </main>
+      <div className={`grid ${view}`} id="skillGrid">
+        {list.map((s) => (
+          <SkillCard key={s.name} skill={s} view={view} onOpen={setShowDetail} />
+        ))}
+      </div>
+
+      {list.length === 0 ? (
+        <div className="empty-state" id="emptyState">
+          <div className="empty-icon" aria-hidden="true">🔍</div>
+          <h3>{t(lang, "empty.title")}</h3>
+          <p>{t(lang, "empty.desc")}</p>
+          <button type="button" className="btn btn-ghost" onClick={() => { onQuery(""); setActiveCat(null); }}>
+            {t(lang, "empty.clear")}
+          </button>
+        </div>
+      ) : null}
+
+      <SkillDialog skill={showDetail} lang={lang} toast={toast} onClose={() => setShowDetail(null)} />
+    </section>
   );
 }
