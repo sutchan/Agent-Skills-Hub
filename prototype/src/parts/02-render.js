@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.66 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.68 — 列表/网格渲染与统计
 function renderStats() {
   // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
   $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
@@ -27,17 +27,25 @@ function skillCatIndex(s) {
   return SKILLS_DATA.categories.indexOf(s.category);
 }
 
-// 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-sub/card-cat）
+// 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-desc/card-cat）
+// 标题与描述均按当前语言互斥显示（.zh/.en 由 base.css html[data-lang] 控制）：
+// 中文态显示中文名 + 中文描述（zhDesc），英文态显示英文名 + 英文描述（description）
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   const ci = skillCatIndex(s);
   return `<article class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${ci}" role="button" tabindex="0" aria-label="${esc(label)}">
-    <div class="cat-bar" aria-hidden="true"></div>
+    <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
     <div class="title-row">
       <div class="avatar sm">${initials(s.name)}</div>
-      <div class="card-title">${esc(s.zh || s.name)}</div>
+      <div class="card-title">
+        <span class="zh">${esc(s.zh || s.name)}</span>
+        <span class="en">${esc(s.name)}</span>
+      </div>
     </div>
-    <div class="card-sub en">${esc(s.name)}</div>
+    <div class="card-desc">
+      <span class="zh">${esc(s.zhDesc || s.zh || "")}</span>
+      <span class="en">${esc(s.description || "")}</span>
+    </div>
     <div class="card-cat">${esc(s.category)}</div>
   </article>`;
 }

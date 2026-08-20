@@ -2,13 +2,25 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.14.66-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.14.70-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
 
 > **作者**：Sut Chan ｜ **项目**：https://github.com/sutchan/Agent-Skills-Hub
 >
 > 一个集中管理的 AI 技能（Skill）集合，涵盖品牌设计、文档内容、数据分析、开发框架与文件格式处理等领域，GitHub 上共 49 个技能包。
 
 每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源。本仓库对技能做了“中文目录 + 中文描述”的本地化；技能正文（`SKILL.md`）主要保留上游英文，翻译覆盖率由 CI 中的 `tools/coverage.py` 统计。
+
+## 项目亮点
+
+> 为什么选择 Agent Skills Hub？
+
+| | 亮点 | 说明 |
+|---|---|---|
+| ⚙️ | **零维护清单** | 技能数据与展示页由 `npm run build` 从磁盘 `skills/*/SKILL.md` 自动生成，技能增删无需手工维护任何清单 |
+| 🗂️ | **48 技能 · 5 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、开发框架与平台、文件与格式处理 |
+| 🌏 | **中文本地化** | 中文目录 + 中文一句话简介 + 完整中文描述译文（`zh-desc`），中文 Agent 用户开箱即用 |
+| 📦 | **一键安装** | 配合 [skills-manager](https://github.com/xingkongliang/skills-manager) 批量安装 / 更新 / 卸载 |
+| 🚀 | **离线可用** | 自包含静态展示页（`prototype/index.html`）内联全部数据，双击即可浏览全部技能，无框架依赖 |
 
 ## 目录
 
@@ -51,11 +63,15 @@
 
 ## 使用方式
 
+先到 [在线展示页面](#在线展示页面)（或直接打开 [`prototype/index.html`](prototype/index.html)）浏览全部技能，挑出需要的，再按下面任一方式安装到你的 Agent。
+
+### 方式 A：手动复制（快速上手）
+
 1. 将需要的技能目录复制到你的 Agent 技能目录下（如 Claude Code / CodeBuddy 的 skills 路径）。
 2. 技能通过 `SKILL.md` 的 `description` 字段自动触发，也可在对话中显式 `@技能名` 调用。
 3. 部分技能依赖 `scripts/` 脚本或外部工具，使用前请阅读对应 `SKILL.md` 的依赖说明。
 
-### 使用 skills-manager 一键安装与管理
+### 方式 B：skills-manager 一键安装与管理
 
 推荐使用 [skills-manager](https://github.com/xingkongliang/skills-manager) 批量安装、更新与卸载技能，免去手动复制目录的麻烦：
 

@@ -1,10 +1,12 @@
-/* prototype/src/styles/responsive.css v1.14.65 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
+/* prototype/src/styles/responsive.css v1.14.68 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
 
 @media (max-width: 640px) {
   .topbar { padding: 10px 16px; }
   .hero { padding: 36px 16px 22px; }
-  .controls { padding: 12px 16px; top: 52px; }
+  .controls { padding: 12px 16px; top: 48px; }
   .search { flex: 1 1 100%; }
+  /* 移动端 grid 与 list 视觉相同（都单列），隐藏无效的视图切换控件 */
+  .view-toggle { display: none; }
   .grid { padding: 16px; gap: 12px; grid-template-columns: 1fr; }
   .dialog { width: 96vw; height: 90vh; }
   .footer-inner { flex-direction: column; align-items: flex-start; }

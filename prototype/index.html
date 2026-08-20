@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.65 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.69 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 48 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 49 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 48+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 49+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 48+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 49+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
-  <style>/* prototype/src/styles/tokens.css v1.14.62 — 设计令牌 + reset（DESIGN.md §2 事实来源）
+  <style>/* prototype/src/styles/tokens.css v1.14.68 — 设计令牌 + reset（DESIGN.md §2 事实来源）
  *
  * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
  * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）为历史兼容保留，供 base/layout/components 模块消费，
@@ -61,7 +61,7 @@
   --shadow-pop: var(--shadow-lg);
 
   /* ===== 字体（DESIGN §2.2） ===== */
-  --font-display: Georgia, "Times New Roman", "Songti SC", "STSong", serif;
+  --font-display: Georgia, "Times New Roman", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --font-en: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
@@ -184,7 +184,7 @@ body.no-scroll { overflow: hidden; }
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
 
-/* prototype/src/styles/layout.css v1.14.65 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.14.69 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏 */
 .topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -193,8 +193,8 @@ html[data-lang="zh"] .en { display: none; }
 
 /* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1） */
 .hero { position: relative; overflow: hidden; border-radius: 18px; margin: 8px 0 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); }
-.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; pointer-events: none; }
-.hero:hover .hero-net { opacity: .8; }
+.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; }
+.hero:hover .hero-net { opacity: .9; }
 .hero-inner { position: relative; z-index: 1; max-width: 720px; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: hsl(var(--primary)); margin-bottom: 12px; }
 .hero-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--node); box-shadow: 0 0 0 4px hsl(var(--node) / .25); }
@@ -204,9 +204,11 @@ html[data-lang="zh"] .en { display: none; }
 .hero-stat { display: inline-flex; gap: 22px; margin-top: 20px; flex-wrap: wrap; }
 .hero-stat .num { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; }
 .hero-stat .lbl { font-size: 12px; color: var(--text-2); }
+.hero-features { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+.hero-features li { font-size: 12.5px; line-height: 1.5; color: var(--text-2); background: hsl(var(--secondary)); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
 
 /* 控制区（搜索 + 排序 + 分类） */
-.controls { position: sticky; top: 56px; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.controls { position: sticky; top: 52px; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
 .search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
 .search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 15px; color: var(--text); }
 .search .icon { opacity: .6; }
@@ -256,7 +258,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
 
-/* prototype/src/styles/components.css v1.14.65 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.14.68 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -276,22 +278,16 @@ html[data-lang="zh"] .en { display: none; }
 .card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; text-align: left; }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
 .card:focus-visible { border-color: var(--primary); }
-.card .cat-bar { height: 4px; border-radius: 999px; background: var(--node); margin: -16px -16px 0; }
-.card[data-cat="0"] .cat-bar { background: var(--node); }
-.card[data-cat="1"] .cat-bar { background: hsl(152 55% 50%); }
-.card[data-cat="2"] .cat-bar { background: hsl(168 50% 45%); }
-.card[data-cat="3"] .cat-bar { background: hsl(140 45% 48%); }
-.card[data-cat="4"] .cat-bar { background: hsl(186 45% 48%); }
-.card[data-cat="5"] .cat-bar { background: hsl(200 45% 52%); }
-.card[data-cat="6"] .cat-bar { background: hsl(220 45% 56%); }
-.card[data-cat="7"] .cat-bar { background: hsl(258 40% 58%); }
-.card[data-cat="8"] .cat-bar { background: hsl(286 40% 56%); }
+/* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
+.card .cat-bar { height: 4px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 50%); margin: -16px -16px 0; }
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); display: grid; place-items: center; font-weight: 700; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; }
 .title-row { display: flex; align-items: center; gap: 10px; }
 .card-title { font-family: var(--font-display); font-weight: 600; }
-.card-sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }
-.card-cat { color: hsl(var(--primary)); font-size: 12px; }
+/* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 2 行截断 */
+.card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-desc > span { display: block; }
+.card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
 
 /* 视图切换（网格/列表）：图标按钮，active 态主色高亮 */
 .view-toggle { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
@@ -313,13 +309,15 @@ html[data-lang="zh"] .en { display: none; }
 /* 详情弹窗中文描述（zh-desc）：保留多段换行，段落间自然空行（配合 build 折叠标量段分隔） */
 .zh-desc { white-space: pre-line; line-height: 1.7; color: var(--text-2); }
 
-/* prototype/src/styles/responsive.css v1.14.65 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
+/* prototype/src/styles/responsive.css v1.14.68 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
 
 @media (max-width: 640px) {
   .topbar { padding: 10px 16px; }
   .hero { padding: 36px 16px 22px; }
-  .controls { padding: 12px 16px; top: 52px; }
+  .controls { padding: 12px 16px; top: 48px; }
   .search { flex: 1 1 100%; }
+  /* 移动端 grid 与 list 视觉相同（都单列），隐藏无效的视图切换控件 */
+  .view-toggle { display: none; }
   .grid { padding: 16px; gap: 12px; grid-template-columns: 1fr; }
   .dialog { width: 96vw; height: 90vh; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -402,6 +400,11 @@ html[data-lang="zh"] .en { display: none; }
         <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl zh" data-i18n="stat.total">技能总数</div><div class="lbl en" data-i18n="stat.total">Total skills</div></div>
         <div class="stat"><div class="num" id="statCats">0</div><div class="lbl zh" data-i18n="stat.cats">分类</div><div class="lbl en" data-i18n="stat.cats">Categories</div></div>
       </div>
+      <ul class="hero-features" aria-label="Highlights">
+        <li class="zh">⚙️ 零维护清单 · 构建自动生成</li><li class="en">⚙️ Zero-maintenance, auto-generated</li>
+        <li class="zh">🌏 中文本地化 · 开箱即用</li><li class="en">🌏 Chinese-localized, ready to use</li>
+        <li class="zh">🚀 离线可用 · 无框架依赖</li><li class="en">🚀 Works offline, framework-free</li>
+      </ul>
     </div>
   </section>
 
@@ -444,7 +447,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.14.66</span>
+      <span class="footer-ver" id="footerVer">v1.14.70</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -464,13 +467,14 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 48,
+  "total": 49,
   "categories": [
     "品牌与设计",
     "文档与内容",
     "数据分析与可视化",
     "开发框架与平台",
-    "文件与格式处理"
+    "文件与格式处理",
+    "其他"
   ],
   "skills": [
     {
@@ -934,6 +938,15 @@ html[data-lang="zh"] .en { display: none; }
       "zhDesc": "任何以电子表格文件为主要输入或输出的任务都应使用本技能，包括打开/读取/编辑/修复现有 .xlsx、.xlsm、.xltx、.csv、.tsv 文件（加列、算公式、格式化、图表、清理脏数据）、从零或其他数据源新建表格、在表格文件格式间转换，以及清理/重组混乱的表格数据。\n产出物必须是电子表格文件。 当主要产出是 Word 文档、HTML 报告、独立 Python 脚本、数据库管线或 Google Sheets API 集成时不要触发。",
       "allowedTools": [],
       "hidden": false
+    },
+    {
+      "name": "grilling",
+      "category": "其他",
+      "zh": "",
+      "description": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+      "zhDesc": "",
+      "allowedTools": [],
+      "hidden": false
     }
   ]
 };</script>
@@ -1208,7 +1221,7 @@ function matches(s, q) {
   return terms.every((term) => hay.includes(term));
 }
 
-// prototype/src/parts/02-render.js v1.14.66 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.14.68 — 列表/网格渲染与统计
 function renderStats() {
   // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
   $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
@@ -1237,17 +1250,25 @@ function skillCatIndex(s) {
   return SKILLS_DATA.categories.indexOf(s.category);
 }
 
-// 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-sub/card-cat）
+// 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-desc/card-cat）
+// 标题与描述均按当前语言互斥显示（.zh/.en 由 base.css html[data-lang] 控制）：
+// 中文态显示中文名 + 中文描述（zhDesc），英文态显示英文名 + 英文描述（description）
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   const ci = skillCatIndex(s);
   return `<article class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${ci}" role="button" tabindex="0" aria-label="${esc(label)}">
-    <div class="cat-bar" aria-hidden="true"></div>
+    <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
     <div class="title-row">
       <div class="avatar sm">${initials(s.name)}</div>
-      <div class="card-title">${esc(s.zh || s.name)}</div>
+      <div class="card-title">
+        <span class="zh">${esc(s.zh || s.name)}</span>
+        <span class="en">${esc(s.name)}</span>
+      </div>
     </div>
-    <div class="card-sub en">${esc(s.name)}</div>
+    <div class="card-desc">
+      <span class="zh">${esc(s.zhDesc || s.zh || "")}</span>
+      <span class="en">${esc(s.description || "")}</span>
+    </div>
     <div class="card-cat">${esc(s.category)}</div>
   </article>`;
 }

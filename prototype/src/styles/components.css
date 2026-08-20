@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.14.65 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.14.68 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -18,22 +18,16 @@
 .card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; text-align: left; }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
 .card:focus-visible { border-color: var(--primary); }
-.card .cat-bar { height: 4px; border-radius: 999px; background: var(--node); margin: -16px -16px 0; }
-.card[data-cat="0"] .cat-bar { background: var(--node); }
-.card[data-cat="1"] .cat-bar { background: hsl(152 55% 50%); }
-.card[data-cat="2"] .cat-bar { background: hsl(168 50% 45%); }
-.card[data-cat="3"] .cat-bar { background: hsl(140 45% 48%); }
-.card[data-cat="4"] .cat-bar { background: hsl(186 45% 48%); }
-.card[data-cat="5"] .cat-bar { background: hsl(200 45% 52%); }
-.card[data-cat="6"] .cat-bar { background: hsl(220 45% 56%); }
-.card[data-cat="7"] .cat-bar { background: hsl(258 40% 58%); }
-.card[data-cat="8"] .cat-bar { background: hsl(286 40% 56%); }
+/* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
+.card .cat-bar { height: 4px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 50%); margin: -16px -16px 0; }
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); display: grid; place-items: center; font-weight: 700; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; }
 .title-row { display: flex; align-items: center; gap: 10px; }
 .card-title { font-family: var(--font-display); font-weight: 600; }
-.card-sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }
-.card-cat { color: hsl(var(--primary)); font-size: 12px; }
+/* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 2 行截断 */
+.card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-desc > span { display: block; }
+.card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
 
 /* 视图切换（网格/列表）：图标按钮，active 态主色高亮 */
 .view-toggle { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }

@@ -1,0 +1,65 @@
+name: Bug Report
+description: 报告缺陷（错误行为 / 构建失败 / 展示异常等）
+title: "[bug] <简短的缺陷描述>"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢报告缺陷！请尽量提供复现信息，这能显著加快定位与修复。
+        安全漏洞请**不要**在此提交，请走 [SECURITY.md](../SECURITY.md) 私密渠道。
+  - type: input
+    id: version
+    attributes:
+      label: 版本
+      description: 根 package.json 的 version（或展示页 footer 版本号）
+      placeholder: v1.14.70
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 影响范围
+      options:
+        - 展示页（prototype/index.html）
+        - 构建脚本（build / build-skills-data）
+        - 某个技能
+        - app/ 应用
+        - 文档 / README
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 一步步描述如何触发该问题
+      placeholder: |
+        1. 打开展示页
+        2. 点击…
+        3. 出现…
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果
+      description: 你期望看到什么
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果
+      description: 实际发生了什么（可附截图、控制台错误）
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息
+      description: 操作系统、浏览器/Node 版本等
+      placeholder: |
+        - OS: Windows 11
+        - Browser: Chrome 120
+        - Node: v24.x

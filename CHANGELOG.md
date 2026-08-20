@@ -2,6 +2,48 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.70] - 2026-08-20
+
+### docs: 新增 .github Community Health Files
+
+- **补全 `.github/` 社区健康文件**（GitHub 优先读取 `.github/` 作为单一来源），消除此前 README/README.en「相关文档」对缺失文件的死链：
+  - [`CONTRIBUTING.md`](.github/CONTRIBUTING.md)：仓库速览、环境准备、新增/更新技能规范、SKILL.md frontmatter 要求、数据与构建、版本一致性、提交规范（Conventional Commits）、PR 流程
+  - [`CODE_OF_CONDUCT.md`](.github/CODE_OF_CONDUCT.md)：Contributor Covenant 2.1 行为准则（含执行准则）
+  - [`SECURITY.md`](.github/SECURITY.md)：受支持版本、私密漏洞报告渠道（GitHub Security Advisory）、处理流程与项目安全红线（无密钥/输入校验/依赖审计/HTTPS）
+  - [`SUPPORT.md`](.github/SUPPORT.md)：使用问题、Bug/功能、安全漏洞、FAQ 的分类指引
+  - [`PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md)：提交信息规范 + 一致性检查清单
+  - [`ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/)：`bug_report.yml`、`feature_request.yml`、`config.yml`（禁用空白 Issue，引导安全与讨论到对应渠道）
+- **版本同步**：根 `package.json`、README/README.en 徽章、CHANGELOG 升至 v1.14.70；新文件头标注路径与版本号
+
+## [1.14.69] - 2026-08-20
+
+### feat: 全面突出项目特点优势（开源推广 + 技能消费者）
+
+- **README/README.en 首屏新增「项目亮点 / Highlights」区块**：聚合 5 大核心卖点（零维护清单、48 技能·5 大领域、中文本地化、一键安装、离线可用），访客几秒读懂「为什么用」
+- **原型 Hero 强化价值主张**：`heroStats` 后新增 `hero-features` 标签条（⚙️ 零维护清单 · 🌏 中文本地化 · 🚀 离线可用），首屏传递核心差异点
+- **社交分享横幅加数据徽标**：`app/public/banner-og.svg` 新增「48 Skills · 5 Domains · Offline-ready」数据徽标行；`app/public/banner.svg` 副标题区新增「48 Skills · 5 Domains · Offline-ready」紧凑文案，让社交分享直接传达规模卖点
+- **安装引导重构为双路径**：先引导到展示页挑技能，再分「方式 A 手动复制 / 方式 B skills-manager 一键」，降低试用门槛
+- **版本同步**：根 `package.json` 及被改文件头注释（prototype/src/index.html、styles/layout.css、banner-og.svg、banner.svg）、README/README.en 徽章升至 v1.14.69
+
+## [1.14.68] - 2026-08-20
+
+### fix: 原型 UI 问题修复与视觉改进
+
+- **B1 sticky 悬空间隙**：`.controls` 的 `top` 由 56px（desktop）/52px（mobile）改为 52px/48px，与 `.topbar` 实际高度一致，消除滚动时二者之间的 4px 空隙
+- **A1 中文标题字体**：`--font-display` 中文 fallback 由宋体（Songti/STSong）改为系统黑体（PingFang SC / Microsoft YaHei / Noto Sans SC），中文 hero/卡片标题不再用细宋体，中英混排更清晰统一
+- **A2 hero 节点网提亮**：`.hero-net` 静态透明度由 `.5` 提到 `.68`，hover 到 `.9`，让签名节点网在首屏更可见
+- **B2 移动端视图切换**：`max-width:640px` 下隐藏 `.view-toggle`（移动端 grid/list 视觉相同，避免无效控件）
+- **D1 cat-bar 动态色**：`.cat-bar` 由固定 0-8 色板改为 `catHue(category)` 派生的 `--hue`（与分类 chip 同色），任意分类均有色，不再受固定色板数量限制
+- **版本同步**：根 `package.json` 及 5 个被改文件头注释、README/README.en 徽章升至 v1.14.68
+
+## [1.14.67] - 2026-08-20
+
+### feat: 卡片描述按当前语言互斥显示
+
+- `02-render.js` `cardHTML` 卡片新增 `.card-desc` 描述区，标题与描述均以 `.zh`/`.en` 双节点按语言互斥渲染：中文态显示中文名 + 中文描述（`zhDesc`），英文态显示英文名 + 英文描述（`description`）
+- `components.css` 新增 `.card-desc` 样式（最多 2 行截断），移除旧的 `.card-sub` 规则
+- 版本同步：根 `package.json` 及 `02-render.js`/`components.css` 头注释、README/README.en 徽章升至 v1.14.67
+
 ## [1.14.66] - 2026-08-20
 
 ### fix: 修复原型逻辑缺陷（init 误埋点、事件绑定健壮性、多词搜索、模板注入防护、chip 色）
@@ -1105,3 +1147,9 @@
 [1.14.62]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.62
 [1.14.63]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.63
 [1.14.64]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.64
+[1.14.65]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.65
+[1.14.66]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.66
+[1.14.67]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.67
+[1.14.68]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.68
+[1.14.69]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.69
+[1.14.70]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.70

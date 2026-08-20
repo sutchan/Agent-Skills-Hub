@@ -2,13 +2,25 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.14.66-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
+[![Version](https://img.shields.io/badge/version-v1.14.70-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
 
 > **Author**: Sut Chan ｜ **Repository**: https://github.com/sutchan/Agent-Skills-Hub
 >
 > A centrally managed collection of AI skills covering brand design, docs & content, data analysis, dev frameworks, and file & format handling — 49 skill packs on GitHub.
 
 Each skill is a standalone directory containing `SKILL.md` (name + description metadata + usage notes) plus optional `scripts/`, `references/`, `assets/`, `agents/`. This repo localizes skills with Chinese categories and descriptions; skill bodies (`SKILL.md`) largely keep upstream English, with translation coverage tracked by `tools/coverage.py` in CI.
+
+## Highlights
+
+> Why choose Agent Skills Hub?
+
+| | Highlight | Description |
+|---|---|---|
+| ⚙️ | **Zero-maintenance listing** | Skill data and the showcase page are auto-generated from on-disk `skills/*/SKILL.md` by `npm run build` — no manual listing to maintain when adding or removing skills |
+| 🗂️ | **48 skills · 5 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling |
+| 🌏 | **Chinese localization** | Chinese category + one-line summary + full Chinese description (`zh-desc`) — ready for Chinese-speaking agent users |
+| 📦 | **One-click install** | Bulk install / update / remove via [skills-manager](https://github.com/xingkongliang/skills-manager) |
+| 🚀 | **Works offline** | Self-contained static showcase (`prototype/index.html`) inlines all data — double-click to browse every skill with no framework dependency |
 
 ## Table of Contents
 
@@ -51,11 +63,15 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 
 ## Usage
 
+Browse the skills first in the [Online Showcase](#online-showcase) (or open [`prototype/index.html`](prototype/index.html) directly), pick what you need, then install into your agent via either approach below.
+
+### Option A: Manual copy (quick start)
+
 1. Copy the needed skill directory into your agent's skills path (e.g. Claude Code / CodeBuddy `skills/`).
 2. Skills auto-trigger via the `description` field in `SKILL.md`, or can be invoked explicitly with `@skill-name`.
 3. Some skills depend on `scripts/` or external tools — read the skill's `SKILL.md` before use.
 
-### Install & manage with skills-manager
+### Option B: Install & manage with skills-manager
 
 We recommend [skills-manager](https://github.com/xingkongliang/skills-manager) for batch install/update/uninstall of skills, avoiding manual directory copying:
 

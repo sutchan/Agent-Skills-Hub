@@ -1,4 +1,4 @@
-/* prototype/src/styles/tokens.css v1.14.62 — 设计令牌 + reset（DESIGN.md §2 事实来源）
+/* prototype/src/styles/tokens.css v1.14.68 — 设计令牌 + reset（DESIGN.md §2 事实来源）
  *
  * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
  * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）为历史兼容保留，供 base/layout/components 模块消费，
@@ -39,7 +39,7 @@
   --shadow-pop: var(--shadow-lg);
 
   /* ===== 字体（DESIGN §2.2） ===== */
-  --font-display: Georgia, "Times New Roman", "Songti SC", "STSong", serif;
+  --font-display: Georgia, "Times New Roman", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --font-en: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
