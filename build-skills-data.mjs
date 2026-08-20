@@ -107,6 +107,7 @@ function main() {
       zh: fm.zh || "",
       description: fm.description || "",
       allowedTools: normalizeTools(fm["allowed-tools"]),
+      hidden: fm.hidden === true || fm.hidden === "true",
     });
   }
   // 分类顺序：固定顺序在前，其余按出现顺序补在末尾

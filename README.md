@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.14.55-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.14.56-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
 
 > **作者**：Sut Chan ｜ **项目**：https://github.com/sutchan/Agent-Skills-Hub
 >
@@ -109,8 +109,8 @@ npm run start    # 启动生产服务
 ## 贡献指南
 
 - 新增技能：使用 [`skill-creator`](skills/skill-creator/) 技能按规范创建与评估。
-- 技能目录命名使用小写中划线（`kebab-case`），如 `python-testing/`。
-- `SKILL.md` 必须包含 `name` 与 `description` 前置元数据。
+- 技能目录命名使用小写中划线（`kebab-case`），如 `python-testing/`，目录名须与 frontmatter `name` 字段保持一致。
+- `SKILL.md` 必须包含 `name`、`description`、`category` 与 `zh` 前置元数据；`category` 取 [`prototype/`](prototype/) 既有的 5 大领域之一，`zh` 为中文简介，`build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段。
 - 技能变更后运行 `npm run build` 重新生成 `data/skills-data.json` 与展示页。
 
 ## 许可证

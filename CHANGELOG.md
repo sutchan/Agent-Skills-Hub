@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.56] - 2026-08-20
+
+### docs: 以磁盘 skills/ 为基准重建技能数据并同步版本号至 v1.14.56
+
+- **数据权威源重构**：`build-skills-data.mjs` 改为以磁盘 `skills/<name>/SKILL.md` 为唯一权威源，**移除对 README 内嵌清单的依赖**；分类（`category`）与中文简介（`zh`）改由每个 `SKILL.md` 的 frontmatter 提供
+- **技能元数据补全**：为磁盘 28 个技能目录的 `SKILL.md` 补 `category`（5 大领域之一）与 `zh`（中文简介）前置字段；两个 `name` 含空格的技能（`agent-development`、`svg-logo-designer`）规范化，使 frontmatter `name` 与目录名（kebab-case）一致
+- **数据产物重建**：重新生成 `data/skills-data.json`，与磁盘真实技能 1:1 对齐（28 技能 / 5 分类），消除旧产物中的幽灵条目与新技能缺失
+- **app 数据同步修复**：`app/scripts/sync-data.cjs` 的 `findRepoRoot` 改为以 `build-skills-data.mjs` 判定仓库根，修正因旧 `app/data/` 残留导致的目标路径偏移；现已正确写入 `app/app/data/skills-data.json`（app 实际读取路径）
+- **版本号同步**：根 `package.json` → v1.14.56；README/README.en 版本徽章、openspec `spec.md`/`project.md`/`AGENTS.md` 头注释同步至 1.14.56
+- **贡献规范更新**：README 贡献指南补充 `SKILL.md` 须含 `category`/`zh` 字段、目录名与 `name` 一致的要求
+
+> 注：`prototype/src/styles/tokens.css` 与 `responsive.css` 等源文件未提交到仓库（历史缺失），导致 `npm run build` 中 `build.mjs` 阶段无法重跑 prototype 产物；数据链路（`build-skills-data.mjs` → `data/` → `app/`）已可用。稍后需补回缺失的 prototype 源文件以恢复完整构建链路。
+
 ## [1.14.55] - 2026-08-20
 
 ### docs: 使 README 更稳健，不随技能清单变动而频繁更新
@@ -970,3 +983,4 @@
 [1.14.50]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.50
 [1.14.52]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.52
 [1.14.53]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.53
+[1.14.56]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.56

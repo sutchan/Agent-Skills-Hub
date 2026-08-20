@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.14.52 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.14.56 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器 + 卡片内标签）；统一映射到主色，禁止异色相（DESIGN §8.3） */
 .chip { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); font-size: 13px; color: var(--text-2); cursor: pointer; transition: border-color .15s ease, color .15s ease, background .15s ease; }
