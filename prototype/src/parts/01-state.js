@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.14.59 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.14.62 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -47,6 +47,13 @@ function esc(s) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+// 由类别名稳定派生色相（0-359），与 app SkillsExplorer 的 catHue 算法一致，保证两层同分类同色
+function catHue(c) {
+  let h = 0;
+  for (let i = 0; i < c.length; i++) h = (h * 31 + c.charCodeAt(i)) % 360;
+  return h;
 }
 
 // 预聚合分类计数（Map: cat -> count），renderCats 直接查表

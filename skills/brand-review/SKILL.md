@@ -1,6 +1,8 @@
 ---
 category: 品牌与设计
 zh: 品牌声音与风格审查
+zh-desc: >-
+  根据你的品牌声音、风格指南与信息支柱审查内容，按严重程度标记偏差并给出具体的修改前后建议。适用于交付前检查草稿、审计文案的一致性、术语与语气，或筛查无根据的声明、缺失免责声明及其它法律问题。
 name: brand-review
 description: Review content against your brand voice, style guide, and messaging pillars, flagging deviations by severity with specific before/after fixes. Use when checking a draft before it ships, when auditing copy for voice consistency and terminology, or when screening for unsubstantiated claims, missing disclaimers, and other legal flags.
 argument-hint: "<content to review>"

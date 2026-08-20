@@ -2,6 +2,29 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.62] - 2026-08-20
+
+### feat: 原型优化并与 app 代码对齐（Hero 节点网 + 卡片分类色条 + 多色 chip）
+
+- **令牌同步**：`prototype/src/styles/tokens.css` 补 `--node`/`--line` 节点令牌（浅 `152 58% 56%`/`152 40% 82%`、深 `146 52% 62%`/`146 30% 34%`），经 `build.mjs` 自动同步至 `app/app/tokens-shared.css`，消除 app `globals.css` 引用 `var(--node)` 无值的问题
+- **Hero 升级**：`prototype/src/index.html` hero 由纯文本 + 3 统计改为签名节点网（`.hero-net` SVG 呼应品牌 Hub）+ `.hero-eyebrow` + thesis 标题（`<span class="accent">` 强调）+ 2 统计（可见技能数/分类数），对齐 app `AppShell.tsx`（DESIGN §4.1.1）
+- **卡片结构对齐**：`02-render.js` `cardHTML` 由 `.top/h3/.desc/.tags` 改为 `.cat-bar`（分类色条，`data-cat` 序号）+ `.title-row`（`.avatar.sm` + `.card-title` 中文名）+ `.card-sub.en`（英文名）+ `.card-cat`，对齐 app `SkillsExplorer.tsx`；`components.css` 新增 cat-bar 0-8 色板
+- **多色 chip**：`renderCats` 按分类派生 `--hue`（新增 `catHue()` 算法，与 app 一致），chip 由单一主色改为按分类着色
+- **弹窗对齐**：`03-detail.js` 弹窗头部改用 `zh||name` 作标题 + `.sub.en` + `.dialog-cat` + `.dialog-close`，对齐 app `SkillDialog.tsx`
+- **i18n 调整**：`hero.eyebrow` 新增；`hero.title` 改 thesis 文案；移除 `stat.shown`（hero 仅 2 统计）
+- **版本同步**：根 `package.json` 及 9 个被改文件头注释、README/README.en 徽章升至 v1.14.62
+
+## [1.14.61] - 2026-08-20
+
+### feat: 处理技能时同步翻译 description 为中文（新增 zh-desc 字段）
+
+- **数据契约扩展**：`SkillEntry` 新增 `zhDesc`（`description` 的完整中文译文），由 `build-skills-data.mjs` 从各 `SKILL.md` frontmatter 的 `zh-desc` 字段读取；`zh-desc` 为**必填**前置元数据，处理技能时必须将英文 `description` 翻译为中文写入，区别于一句话摘要 `zh`
+- **构建脚本**：`build-skills-data.mjs` 解析 `zh-desc` → 输出 `zhDesc` 至 `data/skills-data.json`
+- **原型展示**：详情弹窗中文描述区块（`dialogBlockZh`）追加 `.zh-desc` 完整译文；卡片渲染在 `.desc.zh` 一句话摘要后追加 `.desc.zh-desc`（有则显示）
+- **数据落库**：为 49 个技能目录的 `SKILL.md` 补齐 `zh-desc` 中文译文；为 `clerk-nextjs-patterns`/`code-review`/`nextjs-app-router-patterns`/`nextjs-code-review`/`video`/`video-editing` 6 个缺字段技能补 `category`/`zh`，消除「其他」分类；重建后 49 技能 / 5 分类（品牌与设计 8 / 文档与内容 11 / 数据分析与可视化 1 / 开发框架与平台 25 / 文件与格式处理 4）
+- **规范文档同步**：`openspec/spec.md` §2.1/§2.3、`openspec/project.md` §4.5.2、`prototype/DESIGN.md` §6、`README.md` 贡献指南均补充 `zh-desc` 必填与翻译要求；README/README.en 领域表计数同步至当前真实值
+- **版本同步**：根 `package.json` → v1.14.61；README/README.en 徽章、`build-skills-data.mjs`/`03-detail.js`/`02-render.js` 头注释与各被改规范文档头版本升至 v1.14.61
+
 ## [1.14.60] - 2026-08-20
 
 ### fix: 修复代码审查问题并消除类型/规范漂移
@@ -1035,3 +1058,4 @@
 [1.14.58]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.58
 [1.14.59]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.59
 [1.14.60]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.60
+[1.14.61]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.61

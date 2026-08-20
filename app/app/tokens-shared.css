@@ -20,6 +20,8 @@
   --input: 220 14% 90%;
   --ring: 152 56% 40%;
   --radius: 0.75rem;                /* 默认圆角基准 */
+  --node: 152 58% 56%;              /* 节点亮绿（Hero 节点网 / cat-bar 主色，DESIGN §2.1） */
+  --line: 152 40% 82%;              /* 节点连线（Hero 网络线条） */
   --shadow-color: 224 32% 20%;
   --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .04), 0 1px 3px hsl(var(--shadow-color) / .06);
   --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .05), 0 2px 6px -1px hsl(var(--shadow-color) / .08);
@@ -61,6 +63,8 @@ html[data-theme="dark"] {
   --border: 224 16% 22%;
   --input: 224 16% 24%;
   --ring: 146 52% 60%;
+  --node: 146 52% 62%;              /* 深色节点亮绿 */
+  --line: 146 30% 34%;              /* 深色节点连线 */
   --shadow-color: 0 0% 0%;
   --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .4);
   --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .5), 0 2px 6px -1px hsl(var(--shadow-color) / .4);

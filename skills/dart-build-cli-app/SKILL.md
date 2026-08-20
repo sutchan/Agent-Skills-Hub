@@ -1,6 +1,8 @@
 ---
 category: 开发框架与平台
 zh: Dart 命令行应用构建
+zh-desc: >-
+  用于构建 Dart 命令行应用的技能，覆盖 CLI 应用的参数解析、输入输出、错误处理与发布等最佳实践。
 name: dart-build-cli-app
 description: Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.
 metadata:

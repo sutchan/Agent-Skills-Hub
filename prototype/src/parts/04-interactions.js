@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.14.56 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.14.62 — 主题/语言切换与事件绑定
 function applyTheme() {
   track("toggle_theme", { theme: state.theme });
   document.documentElement.setAttribute("data-theme", state.theme);
@@ -23,7 +23,6 @@ function applyLang() {
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
   const si = $("#searchInput");
   if (si) si.placeholder = I18N.t("search.placeholder");
-  refreshHeroCount(); // syncDOM 重置 hero 标题后重新填入动态数字
   // 分类筛选区的「全部」等文案由 renderCats 用 I18N.t 动态生成（非 data-i18n 静态属性），
   // 语言切换后必须重渲染网格才能刷新分类文案，否则切换语言后 chips 仍显示旧语言
   renderGrid();

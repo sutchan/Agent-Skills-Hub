@@ -2,11 +2,11 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.14.60-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.14.62-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
 
 > **作者**：Sut Chan ｜ **项目**：https://github.com/sutchan/Agent-Skills-Hub
 >
-> 一个集中管理的 AI 技能（Skill）集合，涵盖品牌设计、文档内容、数据分析、开发框架与文件格式处理等领域，GitHub 上共 44 个技能包。
+> 一个集中管理的 AI 技能（Skill）集合，涵盖品牌设计、文档内容、数据分析、开发框架与文件格式处理等领域，GitHub 上共 49 个技能包。
 
 每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源。本仓库对技能做了“中文目录 + 中文描述”的本地化；技能正文（`SKILL.md`）主要保留上游英文，翻译覆盖率由 CI 中的 `tools/coverage.py` 统计。
 
@@ -39,9 +39,9 @@
 | 领域 | 技能数 |
 |------|--------|
 | 品牌与设计 | 8 |
-| 文档与内容 | 9 |
+| 文档与内容 | 11 |
 | 数据分析与可视化 | 1 |
-| 开发框架与平台 | 22 |
+| 开发框架与平台 | 25 |
 | 文件与格式处理 | 4 |
 
 > 浏览全部技能：
@@ -102,7 +102,7 @@ npm run start    # 启动生产服务
 
 - 新增技能：使用 [`skill-creator`](skills/skill-creator/) 技能按规范创建与评估。
 - 技能目录命名使用小写中划线（`kebab-case`），如 `python-testing/`，目录名须与 frontmatter `name` 字段保持一致。
-- `SKILL.md` 必须包含 `name`、`description`、`category` 与 `zh` 前置元数据；`category` 取 [`prototype/`](prototype/) 既有的 5 大领域之一，`zh` 为中文简介，`build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段。
+- `SKILL.md` 必须包含 `name`、`description`、`category`、`zh` 与 `zh-desc` 前置元数据：`category` 取 [`prototype/`](prototype/) 既有的 5 大领域之一；`zh` 为中文一句话简介；**`zh-desc` 为 `description` 的完整中文译文（处理技能时必须翻译生成，区别于一句话摘要 `zh`）**。`build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段。
 - 技能变更后运行 `npm run build` 重新生成 `data/skills-data.json` 与展示页。
 
 ## 许可证

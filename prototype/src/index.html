@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.56 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.62 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -61,15 +61,30 @@
     </div>
   </header>
 
-  <section class="hero" id="hero">
-    <h1 class="zh" id="heroTitleZh" data-i18n="hero.title">发现并复用 {n} 个高质量 Agent 技能</h1>
-    <h1 class="en" id="heroTitleEn" data-i18n="hero.title">Discover & reuse {n} high-quality agent skills</h1>
-    <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
-    <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
-    <div class="stats" id="heroStats" aria-live="polite">
-      <div class="stat"><div class="num" id="statTotal">0</div><div class="label zh" data-i18n="stat.total">技能总数</div><div class="label en" data-i18n="stat.total">Total skills</div></div>
-      <div class="stat"><div class="num" id="statCats">0</div><div class="label zh" data-i18n="stat.cats">分类</div><div class="label en" data-i18n="stat.cats">Categories</div></div>
-      <div class="stat"><div class="num" id="statShown">0</div><div class="label zh" data-i18n="stat.shown">当前展示</div><div class="label en" data-i18n="stat.shown">Shown</div></div>
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <svg class="hero-net" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g stroke="hsl(var(--line))" stroke-width="1" opacity=".5">
+        <line x1="120" y1="60" x2="400" y2="120" /><line x1="400" y1="120" x2="680" y2="70" />
+        <line x1="400" y1="120" x2="220" y2="200" /><line x1="400" y1="120" x2="600" y2="190" />
+        <line x1="120" y1="60" x2="220" y2="200" /><line x1="680" y1="70" x2="600" y2="190" />
+      </g>
+      <g fill="hsl(var(--node))">
+        <circle cx="120" cy="60" r="5" /><circle cx="680" cy="70" r="5" />
+        <circle cx="220" cy="200" r="5" /><circle cx="600" cy="190" r="5" />
+        <circle cx="400" cy="120" r="11" fill="hsl(var(--primary))" />
+      </g>
+    </svg>
+    <div class="hero-inner">
+      <span class="hero-eyebrow zh" data-i18n="hero.eyebrow">Agent 技能枢纽</span>
+      <span class="hero-eyebrow en" data-i18n="hero.eyebrow">Agent Skills Hub</span>
+      <h1 class="zh" id="heroTitle">零散的 agent 技能，<span class="accent">汇聚</span>成一处可检索的枢纽</h1>
+      <h1 class="en" id="heroTitleEn">Scattered agent skills, <span class="accent">unified</span> into one searchable hub</h1>
+      <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
+      <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
+      <div class="hero-stat" id="heroStats" aria-live="polite">
+        <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl zh" data-i18n="stat.total">技能总数</div><div class="lbl en" data-i18n="stat.total">Total skills</div></div>
+        <div class="stat"><div class="num" id="statCats">0</div><div class="lbl zh" data-i18n="stat.cats">分类</div><div class="lbl en" data-i18n="stat.cats">Categories</div></div>
+      </div>
     </div>
   </section>
 

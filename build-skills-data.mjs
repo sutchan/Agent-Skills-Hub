@@ -1,6 +1,6 @@
-// build-skills-data.mjs v1.14.56
+// build-skills-data.mjs v1.14.61
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
-// 分类(category)与中文描述(zh)均来自各 SKILL.md 的 frontmatter，不再依赖 README。
+// 分类(category)、中文描述(zh)与 description 中文译文(zh-desc)均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -106,6 +106,8 @@ function main() {
       category,
       zh: fm.zh || "",
       description: fm.description || "",
+      // 中文翻译：SKILL.md frontmatter 的 zh-desc（description 的中文译文，必填，与 zh 一句话摘要区分）
+      zhDesc: fm["zh-desc"] || "",
       allowedTools: normalizeTools(fm["allowed-tools"]),
       hidden: fm.hidden === true || fm.hidden === "true",
     });

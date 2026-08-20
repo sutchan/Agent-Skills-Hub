@@ -1,6 +1,8 @@
 ---
 category: 开发框架与平台
 zh: 智能体（Agent）开发指南
+zh-desc: >-
+  当用户提出“创建一个 agent”“添加一个 agent”“编写一个子 agent”“agent frontmatter”“何时使用 description”“agent 示例”“agent 工具”“agent 颜色”“自主 agent”等问题，或需要关于 agent 结构、系统提示词、触发条件或针对 Claude Code 插件的 agent 开发最佳实践指导时，使用本技能。
 name: agent-development
 description: This skill should be used when the user asks to "create an agent", "add an agent", "write a subagent", "agent frontmatter", "when to use description", "agent examples", "agent tools", "agent colors", "autonomous agent", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.
 version: 0.1.0

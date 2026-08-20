@@ -2,11 +2,11 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.14.59-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
+[![Version](https://img.shields.io/badge/version-v1.14.62-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
 
 > **Author**: Sut Chan ｜ **Repository**: https://github.com/sutchan/Agent-Skills-Hub
 >
-> A centrally managed collection of AI skills covering brand design, docs & content, data analysis, dev frameworks, and file & format handling — 44 skill packs on GitHub.
+> A centrally managed collection of AI skills covering brand design, docs & content, data analysis, dev frameworks, and file & format handling — 49 skill packs on GitHub.
 
 Each skill is a standalone directory containing `SKILL.md` (name + description metadata + usage notes) plus optional `scripts/`, `references/`, `assets/`, `agents/`. This repo localizes skills with Chinese categories and descriptions; skill bodies (`SKILL.md`) largely keep upstream English, with translation coverage tracked by `tools/coverage.py` in CI.
 
@@ -39,9 +39,9 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 | Domain | Skills |
 |--------|--------|
 | Brand & Design | 8 |
-| Docs & Content | 9 |
+| Docs & Content | 11 |
 | Data Analysis & Visualization | 1 |
-| Dev Frameworks & Platforms | 22 |
+| Dev Frameworks & Platforms | 25 |
 | File & Format Handling | 4 |
 
 > Browse all skills:

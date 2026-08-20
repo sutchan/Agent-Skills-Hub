@@ -1,14 +1,23 @@
-/* prototype/src/styles/layout.css v1.14.59 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.14.62 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏 */
 .topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
 .brand .logo { width: 28px; height: 28px; }
 
-/* Hero 区 */
-.hero { text-align: center; padding: 48px 24px 28px; background: radial-gradient(1200px 400px at 50% -10%, hsl(var(--primary) / .22), transparent 70%), hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
-.hero h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 40px); margin: 0 0 8px; letter-spacing: -0.5px; }
-.hero p { margin: 0 auto; max-width: 640px; opacity: .92; font-size: 16px; }
+/* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1） */
+.hero { position: relative; overflow: hidden; border-radius: 18px; margin: 8px 0 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); }
+.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; pointer-events: none; }
+.hero:hover .hero-net { opacity: .8; }
+.hero-inner { position: relative; z-index: 1; max-width: 720px; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: hsl(var(--primary)); margin-bottom: 12px; }
+.hero-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--node); box-shadow: 0 0 0 4px hsl(var(--node) / .25); }
+.hero h1 { margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); line-height: 1.12; letter-spacing: -.01em; color: hsl(var(--foreground)); }
+.hero h1 .accent { color: hsl(var(--primary)); }
+.hero p { margin: 0; color: var(--text-2); font-size: 15px; max-width: 56ch; }
+.hero-stat { display: inline-flex; gap: 22px; margin-top: 20px; flex-wrap: wrap; }
+.hero-stat .num { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; }
+.hero-stat .lbl { font-size: 12px; color: var(--text-2); }
 
 /* 控制区（搜索 + 排序 + 分类） */
 .controls { position: sticky; top: 56px; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
@@ -32,7 +41,11 @@
 .overlay.show { display: block; }
 .dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; }
 .dialog.show { display: flex; }
-.dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 20px 22px; border-bottom: 1px solid var(--border); }
+.dialog-head { display: flex; align-items: center; gap: 12px; padding: 20px 22px; border-bottom: 1px solid var(--border); }
+.dialog-head h2 { margin: 0; font-family: var(--font-display); font-size: 18px; }
+.dialog-head .sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }
+.dialog-head .dialog-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
+.dialog-close { margin-left: auto; }
 .dialog-body { padding: 22px; overflow: auto; }
 
 /* 空状态提示（搜索无结果等） */

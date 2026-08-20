@@ -1,5 +1,9 @@
 ---
 name: code-review
+category: 文档与内容
+zh: 按标准与规格双轴审查代码改动
+zh-desc: >-
+  从两个维度审查自某一固定点（commit、分支、tag 或 merge-base）以来的改动：标准（代码是否遵循仓库的文档化编码规范）与规格（代码是否符合所发起 issue/规格的要求）。两个审查并行在子代理中运行并并排汇报。当用户想要审查分支、PR、进行中的改动或“自 X 以来的改动”时使用。
 description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
 ---
 

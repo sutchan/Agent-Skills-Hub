@@ -1,6 +1,8 @@
 ---
 category: 数据分析与可视化
 zh: Python 数据可视化
+zh-desc: >-
+  用于 Python 数据可视化分析的技能，覆盖 matplotlib、seaborn、plotly 等主流库，帮助将数据转化为清晰、有洞察力的图表。
 name: data-visualization
 description: Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.
 user-invocable: false

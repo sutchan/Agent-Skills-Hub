@@ -1,4 +1,4 @@
-/* prototype/src/styles/tokens.css v1.14.56 — 设计令牌 + reset（DESIGN.md §2 事实来源）
+/* prototype/src/styles/tokens.css v1.14.62 — 设计令牌 + reset（DESIGN.md §2 事实来源）
  *
  * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
  * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）为历史兼容保留，供 base/layout/components 模块消费，
@@ -27,6 +27,8 @@
   --input: 220 14% 90%;
   --ring: 152 56% 40%;
   --radius: 0.75rem;                /* 默认圆角基准 */
+  --node: 152 58% 56%;              /* 节点亮绿（Hero 节点网 / cat-bar 主色，DESIGN §2.1） */
+  --line: 152 40% 82%;              /* 节点连线（Hero 网络线条） */
   --shadow-color: 224 32% 20%;
 
   /* ===== 阴影分层（DESIGN §2.5，浅而柔） ===== */
@@ -77,6 +79,8 @@ html[data-theme="dark"] {
   --border: 224 16% 22%;
   --input: 224 16% 24%;
   --ring: 146 52% 60%;
+  --node: 146 52% 62%;              /* 深色节点亮绿 */
+  --line: 146 30% 34%;              /* 深色节点连线 */
   --shadow-color: 0 0% 0%;
 
   --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .4);

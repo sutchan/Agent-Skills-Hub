@@ -1,6 +1,8 @@
 ---
 category: 文件与格式处理
 zh: PPT 演示文稿处理
+zh-desc: >-
+  任何涉及 .pptx 文件的操作（输入或输出）都应使用本技能，包括创建幻灯片、读取/解析/提取 .pptx 文本、编辑修改现有演示文稿、合并拆分幻灯片、使用模板、版式、演讲者备注或注释。
 name: pptx
 description: "Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill."
 license: Proprietary. LICENSE.txt has complete terms

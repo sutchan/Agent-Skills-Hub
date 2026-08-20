@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`openspec/spec.md` · 版本：1.14.59
+> 路径：`openspec/spec.md` · 版本：1.14.61
 > 本文件固化**当前已落地能力**的基线规范，作为变更的起点与回退基准。
 > 详细数据契约、交互与分享规则见 [`project.md`](project.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 
@@ -10,7 +10,7 @@
 
 - **项目定位**：Agent 技能集合仓库，提供 `skills/`（原始技能）、`prototype/`（静态展示页）、`app/`（Next.js 应用工作区）三套资产。
 - **设计令牌权威源**：`prototype/src/styles/tokens.css`（单一来源，浅/深双主题）。主色绿：浅 `#2e9e6b`、深 `#5cc98c`。
-- **版本权威源**：仓库根 `package.json` 的 `version`（当前 1.14.59）。README 中英文徽章、CHANGELOG 顶部须与之保持一致。
+- **版本权威源**：仓库根 `package.json` 的 `version`（当前 1.14.61）。README 中英文徽章、CHANGELOG 顶部须与之保持一致。
 
 ---
 
@@ -25,6 +25,7 @@ type SkillEntry = {
   category: string;        // 中文分类名（仅存中文，如 "前端与 UI 设计"）
   zh: string;              // 中文一句话描述
   description: string;     // 英文原文描述（SKILL.md 正文/description）
+  zhDesc: string;          // description 的中文译文（SKILL.md frontmatter zh-desc，处理技能时必须翻译生成）
   allowedTools: string[];  // SKILL.md frontmatter 的 allowed-tools（无则 []）
   hidden: boolean;         // 是否在展示页/索引中隐藏（frontmatter hidden:true，如 agent-browser 等内部预览用）
 };
@@ -41,7 +42,7 @@ type SkillsData = {
 
 ### 2.3 一致性规则（固化）
 - `category` 必须与 README 分类标题（英文 README 的 `### Category (N)`）**名称一致**；中文 README 分类标题用 `### 分类（N）` 形式。
-- `zh` 取自中文 README 表格第二列；英文 `description` 取自 SKILL.md 原文。
+- `zh` 取自中文 README 表格第二列；英文 `description` 取自 SKILL.md 原文；**处理技能时必须将 `description` 翻译为中文写入 `zh-desc`**（中文译文，非一句话摘要），`zhDesc` 由构建脚本从 frontmatter `zh-desc` 读取。
 - `data/skills-data.json` 为**构建产物，勿手改**，重跑 `npm run build` 再生。
 - 当前磁盘技能目录 **动态统计**（数量以 `data/skills-data.json` 的 `total` 为准，README 不再写死具体数值）。
 

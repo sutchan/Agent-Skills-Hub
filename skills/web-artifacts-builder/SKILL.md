@@ -1,6 +1,8 @@
 ---
 category: 开发框架与平台
 zh: Web 多组件构件构建
+zh-desc: >-
+  使用现代前端 Web 技术（React、Tailwind CSS、shadcn/ui）创建复杂多组件的 claude.ai HTML 构件的工具套件。适用于需要状态管理、路由或 shadcn/ui 组件的复杂构件，而非简单的单文件 HTML/JSX 构件。
 name: web-artifacts-builder
 description: Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.
 license: Complete terms in LICENSE.txt

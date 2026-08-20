@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.14.56 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.14.62 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -9,15 +9,16 @@ function openDetail(s) {
   dialog._lastFocused = document.activeElement;
   const html = `
     <div id="dialogHead" class="dialog-head">
-      <div class="d-avatar">${initials(s.name)}</div>
+      <div class="avatar">${initials(s.name)}</div>
       <div>
-        <h2 id="dialogVisibleTitle" class="dialog-title">${esc(s.name)}</h2>
+        <h2 id="dialogVisibleTitle" class="dialog-title">${esc(s.zh || s.name)}</h2>
+        <div class="sub en">${esc(s.name)}</div>
         <div id="dialogBlockCat" class="dialog-cat">${esc(s.category)}</div>
       </div>
-      <button id="closeBtn" class="icon-btn" aria-label="${I18N.t("detail.close", "zh")}">✕</button>
+      <button id="closeBtn" class="icon-btn dialog-close" aria-label="${I18N.t("detail.close", "zh")}">✕</button>
     </div>
     <div id="dialogBody" class="dialog-body">
-      <section id="dialogBlockZh" class="block"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><p>${esc(s.zh)}</p></section>
+      <section id="dialogBlockZh" class="block"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><p>${esc(s.zh)}</p><p class="zh-desc">${esc(s.zhDesc || s.description)}</p></section>
       <section id="dialogBlockEn" class="block"><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p>${esc(s.description)}</p></section>
       <section id="dialogBlockTools" class="block"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${(Array.isArray(s.allowedTools) ? s.allowedTools : String(s.allowedTools || "").split(",").map((t) => t.trim()).filter(Boolean)).map((t) => `<code>${esc(t)}</code>`).join("")}</div></section>
     </div>

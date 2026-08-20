@@ -1,6 +1,8 @@
 ---
 category: 品牌与设计
 zh: 品牌发现与定位
+zh-desc: >-
+  用于品牌发现与定位的技能，通过调研与梳理品牌资产、市场与目标人群，帮助建立清晰、差异化的品牌定位与视觉方向。
 name: discover-brand
 description: >
   This skill orchestrates autonomous discovery of brand materials across enterprise

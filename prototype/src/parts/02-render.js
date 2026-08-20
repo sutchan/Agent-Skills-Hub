@@ -1,22 +1,18 @@
-// prototype/src/parts/02-render.js v1.14.59 — 列表/网格渲染与统计
-function renderStats(filtered) {
-  $("#statTotal").textContent = SKILLS_DATA.total;
+// prototype/src/parts/02-render.js v1.14.62 — 列表/网格渲染与统计
+function renderStats() {
+  // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
+  $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
-  $("#statShown").textContent = filtered.length;
 }
-// hero 标题数字动态注入：直接由 i18n 文案替换 {n}，避免依赖模板残留占位符
-function refreshHeroCount() {
-  const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
-  document.getElementById("heroTitleZh").textContent = I18N.t("hero.title", "zh").replace(/\{n\}/g, n);
-  document.getElementById("heroTitleEn").textContent = I18N.t("hero.title", "en").replace(/\{n\}/g, n);
-}
+// 历史函数移除：hero 标题已改为静态 thesis 文案（含 accent 强调），不再需要动态 {n} 注入
 
 function renderCats(counts) {
   const cats = SKILLS_DATA.categories;
-  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  // "全部"chip 用中性 hue，分类 chip 用 catHue 派生色相（对齐 app：--hue 驱动多色）
+  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:220" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cat === c;
-    items.push(`<button class="chip" data-cat="${esc(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
+    items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
   });
   $("#cats").innerHTML = items.join("");
 }
@@ -26,17 +22,23 @@ function skillSlug(name) {
   return String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
-// 卡片：类名与 components.css 对齐（.top / h3 / .desc / .tags / .cat-tag）
+// 分类在固定顺序中的序号（与 app SkillsExplorer data-cat 对齐，驱动 cat-bar 色板）
+function skillCatIndex(s) {
+  return SKILLS_DATA.categories.indexOf(s.category);
+}
+
+// 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-sub/card-cat）
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
-  return `<article class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" role="button" tabindex="0" aria-label="${esc(label)}">
-    <div class="top">
-      <div class="avatar">${initials(s.name)}</div>
-      <h3>${esc(s.name)}</h3>
+  const ci = skillCatIndex(s);
+  return `<article class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${ci}" role="button" tabindex="0" aria-label="${esc(label)}">
+    <div class="cat-bar" aria-hidden="true"></div>
+    <div class="title-row">
+      <div class="avatar sm">${initials(s.name)}</div>
+      <div class="card-title">${esc(s.zh || s.name)}</div>
     </div>
-    <p class="desc zh">${esc(s.zh)}</p>
-    <p class="desc en">${esc(s.description)}</p>
-    <div class="tags"><span class="cat-tag">${esc(s.category)}</span></div>
+    <div class="card-sub en">${esc(s.name)}</div>
+    <div class="card-cat">${esc(s.category)}</div>
   </article>`;
 }
 
@@ -52,7 +54,7 @@ function renderGrid() {
   const q = state.query.trim();
   const list = SKILLS_DATA.skills.filter((s) => !s.hidden && matches(s, q) && (!state.cat || s.category === state.cat));
   const counts = catCounts();
-  renderStats(list);
+  renderStats();
   renderCats(counts);
   const grid = $("#grid");
   grid.className = "grid " + state.view;

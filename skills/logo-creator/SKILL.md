@@ -1,6 +1,8 @@
 ---
 category: 品牌与设计
 zh: AI 生成 Logo 与图标
+zh-desc: >-
+  用于 AI 生成 Logo 与图标的技能，帮助快速产出品牌标识与图形素材。
 name: logo-creator
 description: Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.
 ---

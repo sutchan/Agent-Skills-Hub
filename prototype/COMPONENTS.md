@@ -1,6 +1,6 @@
 # 组件库规范（Component Library Spec）
 
-> 路径：`prototype/COMPONENTS.md` · 版本：1.14.59
+> 路径：`prototype/COMPONENTS.md` · 版本：1.14.61
 > 配套 `DESIGN.md` 设计系统。本文规定每个组件的 **Props / 状态 / 用法 / 代码位置**，供后续开发与评审对齐。
 > 原型落地为 **纯原生 HTML/CSS/JS**（非 React/Tailwind），样式由 `src/styles/tokens.css` + `src/styles/base.css`/`layout.css`/`components.css`/`responsive.css` 的 `:root` CSS 变量单一来源驱动，不手写重复 CSS。
 >

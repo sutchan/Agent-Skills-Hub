@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.14.56 — 独立国际化模块
+// prototype/src/i18n.js v1.14.62 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -14,11 +14,11 @@
       "brand.subtitle": "高质量 Agent 技能库",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
-      "hero.title": "发现并复用 {n} 个高质量 Agent 技能",
+      "hero.eyebrow": "Agent 技能枢纽",
+      "hero.title": "零散的 agent 技能，汇聚成一处可检索的枢纽",
       "hero.subtitle": "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。",
       "stat.total": "技能总数",
       "stat.cats": "分类",
-      "stat.shown": "当前展示",
       "search.placeholder": "搜索技能名称或描述…",
       "detail.zhTitle": "中文描述",
       "detail.enTitle": "英文说明",
@@ -47,11 +47,11 @@
       "brand.subtitle": "Curated agent skill library",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
-      "hero.title": "Discover & reuse {n} high-quality agent skills",
+      "hero.eyebrow": "Agent Skills Hub",
+      "hero.title": "Scattered agent skills, unified into one searchable hub",
       "hero.subtitle": "Browse by category, search, or inspect skill details — ready to drop into your coding agent.",
       "stat.total": "Total skills",
       "stat.cats": "Categories",
-      "stat.shown": "Shown",
       "search.placeholder": "Search skills by name or description…",
       "detail.zhTitle": "Description (zh)",
       "detail.enTitle": "Description (en)",
