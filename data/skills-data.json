@@ -1,5 +1,5 @@
 {
-  "total": 99,
+  "total": 101,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -625,6 +625,16 @@
       "hidden": false
     },
     {
+      "name": "insforge-cli",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Insforge CLI",
+      "description": "当用户需要后端能力，或任务涉及 Insforge（即时后端/数据库服务）CLI 的初始化、数据建模、本地开发与部署时使用。",
+      "enDescription": ">- Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppressions, import/export, AI/OpenRouter setup and usage overview, Stripe/Razorpay payments, Apify web scraping / data sources, PostHog product analytics, backend branches, organization membership (invite, leave, delete), agent memory (remember/recall project facts and decisions), reporting InsForge-side bugs or doc discrepancies (feedback), or CLI docs. For app code with InsForge or @insforge/sdk, use the insforge app-integration skill instead.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "instagram-api",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -831,16 +841,6 @@
       "hidden": false
     },
     {
-      "name": "supabase-postgres-best-practices",
-      "category": "开发框架与平台",
-      "enCategory": "Dev Frameworks & Platforms",
-      "zh": "Postgres 最佳实践",
-      "description": "由 Supabase 维护的 Postgres 最佳实践，适用于任何位置运行的 Postgres。在编写或修改 Postgres 相关内容（建表/改表与选列类型、schema 设计、迁移与声明式 schema 文件、RLS 策略及其测试、索引、触发器、数据库函数、队列与定时任务、向量搜索、恢复/导入）之前必须先加载本技能，也用于诊断慢查询、高 CPU、超时、EXPLAIN 计划、连接耗尽、锁、膨胀或错误租户数据等问题。",
-      "enDescription": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
       "name": "tdd",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -851,12 +851,32 @@
       "hidden": false
     },
     {
+      "name": "tiktok-api",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "TikTok API",
+      "description": "fetcher.sh 上的 TikTok API 替代方案——通过 x402 以 USDC 按次付费，或使用 Bearer Key 预付额度，无需登录、无需会话 Cookie。当用户想按用户名/视频 ID 获取 TikTok 资料、视频、点赞、粉丝、关注列表，或搜索视频/话题时使用。",
+      "enDescription": ">- A TikTok API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no app review. Use when the user wants to search TikTok posts by keyword and sort by most-liked or most recent within a date range, look up a post by its share URL or ID, scrape a TikTok profile by @username, pull a user's posts, followers, or followings, fetch a hashtag's posts, pull posts using a specific sound/music track, get posts from a location, or read a post's comments and comment replies. Also covers TikTok trend tracking, hashtag monitoring, influencer discovery, competitor content analysis, and TikTok data pipelines without official TikTok API access or a scraping browser.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "to-spec",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "转规格文档",
       "description": "将当前对话整理为规格说明并发布。当用户想把讨论结论固化为可执行的规格、设计文档或任务清单时使用。",
       "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "traceknot",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Traceknot QA",
+      "description": "将 Traceknot 符合 ISTQB、以证据为约束的 QA 流程应用于仓库。当用户想做系统化测试规划、用例设计、缺陷追踪或质量门禁评审时使用。",
+      "enDescription": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
       "allowedTools": [],
       "hidden": false
     },
@@ -897,6 +917,46 @@
       "zh": "AI 视频编辑",
       "description": "在 RunComfy 上编辑现有视频，本技能是匹配用户意图到正确编辑模型的智能路由器。 通用重风格/换背景/包装替换选 Wan 2.7 Edit-Video，参考视频动作迁移选 Kling 2.6 Pro Motion Control，轻量身份稳定重风格/换装选 Lucy Edit Restyle。\n通过本地 RunComfy CLI 调用 runcomfy run 相关端点。",
       "enDescription": "Edit existing video on RunComfy — this skill is a smart router that matches the user's intent to the right edit model in the RunComfy catalog. Picks Wan 2.7 Edit-Video (general restyle / background swap / packaging swap, identity + motion preservation), Kling 2.6 Pro Motion Control (transfer precise motion from a reference video to a target character), or Lucy Edit Restyle (lightweight identity-stable restyle / outfit swap). Bundles each model's documented prompting patterns so the skill gets sharper edits without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/<endpoint>` through the local RunComfy CLI. Triggers on \\\"video edit\\\", \\\"edit video\\\", \\\"restyle video\\\", \\\"swap video background\\\", \\\"motion control\\\", \\\"outfit swap video\\\", or any explicit ask to transform a video.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vue-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vue 最佳实践",
+      "description": "Vue.js 任务必须使用。强烈推荐 Composition API 与 <script setup>，覆盖组件设计、响应式、组合式函数与性能等最佳实践。",
+      "enDescription": "MUST be used for Vue.js tasks. Strongly recommends Composition API with `<script setup>` and TypeScript as the standard approach. Covers Vue 3, SSR, Volar, vue-tsc. Load for any Vue, .vue files, Vue Router, Pinia, or Vite with Vue work. ALWAYS use Composition API unless the project explicitly requires Options API.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vue-debug-guides",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vue 调试指南",
+      "description": "Vue 3 运行时错误、警告、异步与响应式问题的调试与错误处理指南。当用户遇到渲染异常、警告或难以定位的运行时故障时使用。",
+      "enDescription": "Vue 3 debugging and error handling for runtime errors, warnings, async failures, and SSR/hydration issues. Use when diagnosing or fixing Vue issues.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vue-pinia-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vue Pinia 最佳实践",
+      "description": "Pinia 状态管理：store 设计、setup 风格定义、状态/ Getter/ Action 与响应式写法等最佳实践。当用户设计或重构 Vue 应用的全局状态时使用。",
+      "enDescription": "Pinia stores, state management patterns, store setup, and reactivity with stores.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vue-router-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vue Router 最佳实践",
+      "description": "Vue Router 4 模式：导航守卫、路由参数、路由组件与懒加载等最佳实践。当用户配置路由、处理跳转或权限守卫时使用。",
+      "enDescription": "Vue Router 4 patterns, navigation guards, route params, and route-component lifecycle interactions.",
       "allowedTools": [],
       "hidden": false
     },
@@ -971,71 +1031,31 @@
       "hidden": false
     },
     {
-      "name": "insforge-cli",
+      "name": "better-auth-best-practices",
       "category": "其他",
       "enCategory": "其他",
       "zh": "",
-      "description": "Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppressions, import/export, AI/OpenRouter setup and usage overview, Stripe/Razorpay payments, Apify web scraping / data sources, PostHog product analytics, backend branches, organization membership (invite, leave, delete), agent memory (remember/recall project facts and decisions), reporting InsForge-side bugs or doc discrepancies (feedback), or CLI docs. For app code with InsForge or @insforge/sdk, use the insforge app-integration skill instead.",
+      "description": "Configure Better Auth server and client, set up database adapters, manage sessions, add plugins, and handle environment variables. Use when users mention Better Auth, betterauth, auth.ts, or need to set up TypeScript authentication with email/password, OAuth, or plugin configuration.",
       "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
     {
-      "name": "tiktok-api",
+      "name": "remotion-best-practices",
       "category": "其他",
       "enCategory": "其他",
       "zh": "",
-      "description": "A TikTok API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no app review. Use when the user wants to search TikTok posts by keyword and sort by most-liked or most recent within a date range, look up a post by its share URL or ID, scrape a TikTok profile by @username, pull a user's posts, followers, or followings, fetch a hashtag's posts, pull posts using a specific sound/music track, get posts from a location, or read a post's comments and comment replies. Also covers TikTok trend tracking, hashtag monitoring, influencer discovery, competitor content analysis, and TikTok data pipelines without official TikTok API access or a scraping browser.",
+      "description": "Router for all Remotion skills",
       "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
     {
-      "name": "traceknot",
+      "name": "supabase-postgres-best-practices",
       "category": "其他",
       "enCategory": "其他",
       "zh": "",
-      "description": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "vue-best-practices",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "MUST be used for Vue.js tasks. Strongly recommends Composition API with `<script setup>` and TypeScript as the standard approach. Covers Vue 3, SSR, Volar, vue-tsc. Load for any Vue, .vue files, Vue Router, Pinia, or Vite with Vue work. ALWAYS use Composition API unless the project explicitly requires Options API.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "vue-debug-guides",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Vue 3 debugging and error handling for runtime errors, warnings, async failures, and SSR/hydration issues. Use when diagnosing or fixing Vue issues.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "vue-pinia-best-practices",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Pinia stores, state management patterns, store setup, and reactivity with stores.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "vue-router-best-practices",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Vue Router 4 patterns, navigation guards, route params, and route-component lifecycle interactions.",
+      "description": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
       "enDescription": "",
       "allowedTools": [],
       "hidden": false
