@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 82 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 99 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 82+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 99+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 82+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 99+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
@@ -537,7 +537,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.17.3</span>
+      <span class="footer-ver" id="footerVer">v1.17.4</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -557,20 +557,22 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 82,
+  "total": 99,
   "categories": [
     "品牌与设计",
     "文档与内容",
     "数据分析与可视化",
     "开发框架与平台",
-    "文件与格式处理"
+    "文件与格式处理",
+    "其他"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
     "文档与内容": "Docs & Content",
     "数据分析与可视化": "Data Analysis & Visualization",
     "开发框架与平台": "Dev Frameworks & Platforms",
-    "文件与格式处理": "File & Format Handling"
+    "文件与格式处理": "File & Format Handling",
+    "其他": "其他"
   },
   "skills": [
     {
@@ -854,6 +856,18 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "twitter-automation",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "Twitter 自动化",
+      "description": "通过 inference.sh CLI 实现 Twitter/X 自动化发帖、互动与用户管理。应用包括 x/post-tweet、x/post-create（含媒体）、x/post-like、x/post-retweet、x/dm-send、x/user-follow。能力涵盖发推、内容排程、点赞、转推、私信、关注与获取资料。用于社交媒体自动化、内容排程、互动机器人、受众增长与 X API 集成。",
+      "enDescription": "Automate Twitter/X with posting, engagement, and user management via inference.sh CLI. Apps: x/post-tweet, x/post-create (with media), x/post-like, x/post-retweet, x/dm-send, x/user-follow. Capabilities: post tweets, schedule content, like posts, retweet, send DMs, follow users, get profiles. Use for: social media automation, content scheduling, engagement bots, audience growth, X API. Triggers: twitter api, x api, tweet automation, post to twitter, twitter bot, social media automation, x automation, tweet scheduler, twitter integration, post tweet, twitter post, x post, send tweet",
+      "allowedTools": [
+        "Bash(belt *)"
+      ],
+      "hidden": false
+    },
+    {
       "name": "video",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
@@ -967,6 +981,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "analyze-project",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "项目分析",
+      "description": "Rigor Analyze / Rigor Audit 只读技能，用于深度学习研究仓库的深入分析。当用户想阅读并理解仓库、检查模型结构与训练/推理入口、审阅配置与插入点，或在不动代码、不跑重任务的前提下标记可疑实现模式时使用。不适用于主动执行命令、大规模重构、推测性代码适配或自动修 bug。",
+      "enDescription": "Rigor Analyze / Rigor Audit read-only skill for deep learning research repositories. Use when the user wants to read and understand a repository, inspect model structure and training or inference entrypoints, review configs and insertion points, or flag suspicious implementation patterns without modifying code or running heavy jobs. Do not use for active command execution, broad refactoring, speculative code adaptation, or automatic bug fixing.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "architecture-blueprint-generator",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -1029,6 +1053,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "codebase-design",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "代码库设计",
+      "description": "设计深层模块时的共享词汇表。当用户讨论模块边界、依赖方向、接口契约或整体架构取舍时使用。",
+      "enDescription": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "dart-build-cli-app",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -1045,6 +1079,26 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "Dart/Flutter 模式",
       "description": "用于编写生产级 Dart/Flutter 代码的技能，涵盖面向 Flutter/Dart 的架构模式、代码组织与工程实践，帮助构建健壮、可维护的跨平台应用。",
       "enDescription": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "diagnosing-bugs",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "缺陷诊断",
+      "description": "针对疑难 bug 与性能回退的诊断循环。当用户遇到难以定位的失败、偶发故障或变慢问题，需要系统化排查根因时使用。",
+      "enDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "domain-modeling",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "领域建模",
+      "description": "构建并打磨项目的领域模型。当用户讨论业务概念、实体关系、边界上下文或模型演进时使用。",
+      "enDescription": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1255,6 +1309,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "paper-context-resolver",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "论文上下文解析",
+      "description": "Rigor Paper Context 辅助工具，面向 README 优先的深度学习资料研读。当用户想为论文/仓库建立上下文索引、梳理阅读脉络或关联参考材料时使用。",
+      "enDescription": "Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a specific paper detail such as dataset split, preprocessing, evaluation protocol, checkpoint mapping, or runtime assumption from primary paper sources while recording conflicts. Do not use for general paper summary, repo scanning, environment setup, command execution, title-only paper lookup, or replacing README guidance by default.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "playwriter",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -1265,12 +1329,32 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "prototype",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "原型构建",
+      "description": "构建一次性原型以回答某个设计问题。当用户想快速验证交互、界面或架构假设，且原型用完即弃时使用。",
+      "enDescription": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "react-doctor",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "React 代码诊断",
       "description": "诊断并修复 React 代码库健康问题。用于审查 React 代码、修复性能问题、审计安全或提升代码质量。",
       "enDescription": "Diagnose and fix React codebase health issues. Use when reviewing React code, fixing performance problems, auditing security, or improving code quality.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "repo-intake-and-plan",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "仓库接入与规划",
+      "description": "Rigor Intake 辅助工具，面向 README 优先的深度学习仓库表征。当用户想接入新仓库、梳理目标与范围并制定初步计划时使用。",
+      "enDescription": "Rigor Intake helper for README-first deep learning repo reproduction. Use when the task is specifically to scan a repository, read the README and common project files, extract documented commands, classify inference, evaluation, and training candidates, and return the smallest trustworthy reproduction plan to the main orchestrator. Do not use for environment setup, asset download, command execution, final reporting, paper lookup, or end-to-end orchestration.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1311,6 +1395,26 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "Postgres 最佳实践",
       "description": "由 Supabase 维护的 Postgres 最佳实践，适用于任何位置运行的 Postgres。在编写或修改 Postgres 相关内容（建表/改表与选列类型、schema 设计、迁移与声明式 schema 文件、RLS 策略及其测试、索引、触发器、数据库函数、队列与定时任务、向量搜索、恢复/导入）之前必须先加载本技能，也用于诊断慢查询、高 CPU、超时、EXPLAIN 计划、连接耗尽、锁、膨胀或错误租户数据等问题。",
       "enDescription": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "tdd",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "测试驱动开发",
+      "description": "测试驱动开发（TDD）。当用户想以测试优先方式构建功能或修复 bug、提及「红-绿-重构」，或需要集成测试时使用。",
+      "enDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "to-spec",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "转规格文档",
+      "description": "将当前对话整理为规格说明并发布。当用户想把讨论结论固化为可执行的规格、设计文档或任务清单时使用。",
+      "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1421,6 +1525,76 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "电子表格文件处理",
       "description": "任何以电子表格文件为主要输入或输出的任务都应使用本技能，包括打开/读取/编辑/修复现有 .xlsx、.xlsm、.xltx、.csv、.tsv 文件（加列、算公式、格式化、图表、清理脏数据）、从零或其他数据源新建表格、在表格文件格式间转换，以及清理/重组混乱的表格数据。\n产出物必须是电子表格文件。 当主要产出是 Word 文档、HTML 报告、独立 Python 脚本、数据库管线或 Google Sheets API 集成时不要触发。",
       "enDescription": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\\\"the xlsx in my downloads\\\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "insforge-cli",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppressions, import/export, AI/OpenRouter setup and usage overview, Stripe/Razorpay payments, Apify web scraping / data sources, PostHog product analytics, backend branches, organization membership (invite, leave, delete), agent memory (remember/recall project facts and decisions), reporting InsForge-side bugs or doc discrepancies (feedback), or CLI docs. For app code with InsForge or @insforge/sdk, use the insforge app-integration skill instead.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "tiktok-api",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "A TikTok API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no app review. Use when the user wants to search TikTok posts by keyword and sort by most-liked or most recent within a date range, look up a post by its share URL or ID, scrape a TikTok profile by @username, pull a user's posts, followers, or followings, fetch a hashtag's posts, pull posts using a specific sound/music track, get posts from a location, or read a post's comments and comment replies. Also covers TikTok trend tracking, hashtag monitoring, influencer discovery, competitor content analysis, and TikTok data pipelines without official TikTok API access or a scraping browser.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "traceknot",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vue-best-practices",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "MUST be used for Vue.js tasks. Strongly recommends Composition API with `<script setup>` and TypeScript as the standard approach. Covers Vue 3, SSR, Volar, vue-tsc. Load for any Vue, .vue files, Vue Router, Pinia, or Vite with Vue work. ALWAYS use Composition API unless the project explicitly requires Options API.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vue-debug-guides",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Vue 3 debugging and error handling for runtime errors, warnings, async failures, and SSR/hydration issues. Use when diagnosing or fixing Vue issues.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vue-pinia-best-practices",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Pinia stores, state management patterns, store setup, and reactivity with stores.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vue-router-best-practices",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Vue Router 4 patterns, navigation guards, route params, and route-component lifecycle interactions.",
+      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     }

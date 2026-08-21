@@ -4,12 +4,14 @@
 
 ## [1.17.4] - 2026-08-21
 
-### fix: 补全 17 个技能 frontmatter 消除「其他」分类并重建数据
+### fix: 补全技能 frontmatter 消除「其他」分类、清理重复描述并重建数据
 
 - **补全字段**：为 `bun`、`chrome-webstore-release-blueprint`、`favicon`、`find-skills-2`、`fix-sentry-issues`、`limrun-android-emulator`、`limrun-detox-testing`、`limrun-ios-simulator`、`limrun-xcode`、`limrun-xcode-bazel`、`logo-creator`、`logo-designer`、`muapi-3d-logo-animation`、`muapi-logo-creator`、`react-doctor`、`svg-logo-designer`、`logo-animation` 17 个技能补齐 `category` / `en_category` / `zh` / `description`(中文) / `en_description`(英文) 字段
 - **消除「其他」分类**：此前这些技能缺 `category` 归入「其他」，补全后回归 5 大领域（品牌与设计 17 / 文档与内容 13 / 数据分析与可视化 1 / 开发框架与平台 48 / 文件与格式处理 4）
-- **数据重建**：`node build-skills-data.mjs` 重建 `data/skills-data.json`，技能总数 82（可见 81，hidden 1），无「其他」分类
-- **版本同步**：`package.json` 升至 v1.17.4，README/README.en 徽章对齐
+- **清理重复 `description`**：上述部分技能 frontmatter 存在重复的英文 `description` 键（位于 `en_description` 之后），解析器取末值导致默认描述变回英文；已移除重复键，确保 `description` 为中文、`en_description` 为英文
+- **名称与翻译修正**：`find-skills-2` 名称去重为 `find-skills-2`；`svg-logo-designer` 名称统一为 `svg-logo-designer`；`instagram-api` 的 `description` 翻译为中文，与默认中文展示保持一致
+- **数据重建**：`node build-skills-data.mjs` 重建 `data/skills-data.json`，技能总数 82（可见 82，hidden 1，共 83 个目录），无「其他」分类；`npm run build` 同步 `prototype/index.html` 与 `app/app/data/skills-data.json`
+- **版本同步**：`package.json` 升至 v1.17.4，README/README.en 技能总数（82）、领域表计数与版本徽章对齐
 
 ## [1.17.3] - 2026-08-21
 
