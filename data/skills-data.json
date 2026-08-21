@@ -1,5 +1,5 @@
 {
-  "total": 130,
+  "total": 133,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -9,7 +9,8 @@
     "自动化与集成",
     "AI 与智能体",
     "音视频与多媒体",
-    "安全"
+    "安全",
+    "其他"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
@@ -20,7 +21,8 @@
     "自动化与集成": "Automation & Integration",
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
-    "安全": "Security"
+    "安全": "Security",
+    "其他": "其他"
   },
   "skills": [
     {
@@ -1355,6 +1357,36 @@
       "zh": "安全调试",
       "description": "Rigor Debug / Rigor Audit 技能，面向深度学习科研工作。当用户想安全地调试训练/推理、排查数值异常或复现问题时使用。",
       "enDescription": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "banner-creator",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "banner-design",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "google-mobile-ads-banner",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
+      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     }

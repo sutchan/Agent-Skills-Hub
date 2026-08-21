@@ -50,6 +50,10 @@
 /* 列表视图：单列，卡片横向排布（对齐 view-toggle 的 list 态） */
 .grid.list { grid-template-columns: 1fr; max-width: 860px; }
 .grid.list .card { flex-direction: row; align-items: center; gap: 14px; }
+/* 列表态：avatar 固定宽度 + card-body 占满剩余横向空间，内部纵向排布标题/描述/分类，杜绝挤压错位 */
+.grid.list .card .avatar.sm { flex: none; }
+.grid.list .card .card-body { min-width: 0; }
+.grid.list .card .card-desc { -webkit-line-clamp: 1; line-clamp: 1; }
 .grid.list .cat-bar { position: absolute; top: 0; bottom: 0; left: 0; width: 4px; height: auto; margin: 0; border-radius: 0; }
 
 /* 弹窗（扩展详情） */

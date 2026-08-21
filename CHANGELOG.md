@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.3] - 2026-08-21
+
+### style: 卡片双语标题与列表模式布局修复
+
+- **中文态双名**：卡片标题区保持中文译名（主）+ 英文原名（弱化副标题 `.card-title .en`）同时显示，符合 v1.18.1 双语契约
+- **新增 .card-body 包裹层**：将 title-row / card-desc / card-cat 包入 `.card-body`，列表模式 `.grid.list .card`（flex-row）下内容不再被横向挤压错位——`.card-body` 占满剩余宽度（flex:1; min-width:0），内部纵向排布
+- **列表态描述限行**：`.grid.list .card-desc` 限制 1 行截断（`-webkit-line-clamp:1`），避免长描述撑破行高；avatar 加 `flex:none` 固定不被压缩
+- **同步范围**：`prototype/src/parts/02-render.js`（结构）+ `prototype/src/styles/{components,layout}.css`（布局）；`npm run build` 重建 `prototype/index.html`
+- **版本同步**：`package.json` 升至 v1.19.3
+
 ## [1.19.2] - 2026-08-21
 
 ### feat: 新增 6 个技能并补全 frontmatter，消除未分类项
@@ -1349,3 +1359,4 @@
 [1.18.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.3
 [1.19.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.0
 [1.19.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.2
+[1.19.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.3

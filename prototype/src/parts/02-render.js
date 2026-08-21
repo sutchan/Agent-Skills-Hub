@@ -39,18 +39,20 @@ function cardHTML(s) {
   const descZh = s.description || s.zh || I18N.t("card.noDesc");
   return `<button type="button" class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${ci}" aria-label="${esc(label)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
-    <div class="title-row">
-      <div class="avatar sm">${initials(s.name)}</div>
-      <div class="card-title">
-        <span class="zh">${esc(s.zh || s.name)}</span>
-        <span class="en">${esc(s.name)}</span>
+    <div class="card-body">
+      <div class="title-row">
+        <div class="avatar sm">${initials(s.name)}</div>
+        <div class="card-title">
+          <span class="zh">${esc(s.zh || s.name)}</span>
+          <span class="en">${esc(s.name)}</span>
+        </div>
       </div>
+      <div class="card-desc">
+        <span class="zh">${esc(descZh)}</span>
+        <span class="en">${esc(s.enDescription || "")}</span>
+      </div>
+      <div class="card-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
     </div>
-    <div class="card-desc">
-      <span class="zh">${esc(descZh)}</span>
-      <span class="en">${esc(s.enDescription || "")}</span>
-    </div>
-    <div class="card-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
   </button>`;
 }
 
