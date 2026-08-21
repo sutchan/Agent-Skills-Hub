@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.19.14 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.19.17 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -144,9 +144,9 @@
 /* 详情弹窗中文描述（zh-desc）：保留多段换行，段落间自然空行（配合 build 折叠标量段分隔） */
 .zh-desc { white-space: pre-line; line-height: 1.7; color: var(--text-2); }
 
-/* 详情弹窗（v1.19.14 重构：基于 #overlay 遮罩内居中 .detail 面板）
-   复用遮罩 #overlay.show，面板自身绝对居中，独立于 .dialog 框架 */
-.detail { position: absolute; inset: 0; margin: auto; width: min(680px, 92vw); max-height: min(84vh, 760px); display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow-pop); overflow: hidden; }
+/* 详情弹窗（v1.19.14 重构：内容注入常驻 #dialog，.detail 充满 .dialog 避免双重边框）
+   .dialog 已提供居中 / 圆角 / 阴影，.detail 仅作流式内容容器充满父级 */
+.detail { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--surface); overflow: hidden; }
 .detail-close { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border); background: hsl(var(--muted)); color: var(--text-2); font-size: 20px; line-height: 1; cursor: pointer; transition: background .15s, color .15s; }
 .detail-close:hover { background: hsl(var(--muted) / .7); color: var(--text); }
 .detail-head { display: flex; align-items: flex-start; gap: 12px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }

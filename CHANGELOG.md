@@ -2,6 +2,29 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.17] - 2026-08-21
+
+### fix: 修复技能详情弹窗无法打开
+
+- 原型 `03-detail.js`：`openDetail(arg)` 兼容 04-interactions 传入的 skill 对象与 name 字符串（原按字符串查 `SKILL_MAP.get(object)` 返回 undefined 直接 return，导致弹窗不渲染）
+- 详情注入常驻 `#dialog` 并补 `.show` 类使其可见（原仅给遮罩 `#overlay` 加 `.show`，`#dialog` 默认 `display:none` 不可见）；`closeDetail` 同步移除 `.show` 且只清空内容、保留 `#dialog` 容器（避免破坏设置弹窗等复用者）
+- `.detail` 改为绝对填满 `#dialog`，消除双重圆角边框
+- package.json 升至 v1.19.17
+
+## [1.19.16] - 2026-08-21
+
+### feat: 详情弹窗新增大小 / 文件数 / 热度指标
+
+- **`build-skills-data.mjs` 派生展示指标**：`size`（技能目录总字节数，递归统计）、`files`（文件数）、`popularity`（被其他技能 description 提及次数，相关性热度代理）
+- **原型 `03-detail.js`**：元信息区下新增指标条（大小 KB/MB、文件数、5 格热度条 + 引用次数/独立标签）；`i18n.js` 补 `detail.size/files/filesUnit/popularity/popRefs/popStandalone` 双语；`components.css` 补 `.detail-metrics/.metric/.heat-bars` 样式
+- **app `detail-modal.tsx`**：同步指标渲染（TS 实现 formatSize/maxPopularity/热度条），`lib/skills.ts` 类型补 `size/files/popularity`，`globals.css` 补同款样式；`app/data/skills-data.json` 已同步根数据
+
+## [1.19.15] - 2026-08-21
+
+### refactor: 技能详情弹窗指标基线（构建链打通）
+
+- 详情弹窗指标展示能力的前置构建链就绪（数据派生与渲染框架就位）
+
 ## [1.19.14] - 2026-08-21
 
 ### feat: 完善技能详情弹窗——元信息区 + 相关技能 + 复制名称

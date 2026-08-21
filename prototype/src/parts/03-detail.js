@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.19.14 — 详情弹窗：元信息区(作者/协议/GitHub目录) + 相关技能 + 复制命令
+// prototype/src/parts/03-detail.js v1.19.17 — 详情弹窗：元信息区(作者/协议/GitHub目录) + 相关技能 + 复制命令
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）
@@ -148,12 +148,16 @@ function detailHTML(skill) {
   </div>`;
 }
 
-function openDetail(name) {
-  const skill = SKILL_MAP.get(name);
-  if (!skill) return;
+function openDetail(arg) {
+  // 04-interactions 可能传入 skill 对象（原委托逻辑），也可能传入 name 字符串
+  const skill = typeof arg === "string" ? SKILL_MAP.get(arg) : arg;
+  if (!skill || !skill.name) return;
   const overlay = document.getElementById("overlay");
-  overlay.innerHTML = detailHTML(skill);
+  const dialog = document.getElementById("dialog");
+  // 详情内容注入常驻 #dialog（保留元素，避免破坏设置弹窗等复用者）
+  dialog.innerHTML = detailHTML(skill);
   overlay.classList.add("show");
+  dialog.classList.add("show"); // #dialog 默认 display:none，需 .show 才可见
   document.body.classList.add("no-scroll");
 
   document.getElementById("detailClose").addEventListener("click", closeDetail);
@@ -161,16 +165,20 @@ function openDetail(name) {
   if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
 
   // 相关技能点击 → 切换详情
-  overlay.querySelectorAll(".related-card").forEach((btn) => {
+  dialog.querySelectorAll(".related-card").forEach((btn) => {
     btn.addEventListener("click", () => openDetail(btn.getAttribute("data-name")));
   });
 }
 
 function closeDetail() {
   const overlay = document.getElementById("overlay");
+  const dialog = document.getElementById("dialog");
   if (!overlay) return;
   overlay.classList.remove("show");
-  overlay.innerHTML = "";
+  if (dialog) {
+    dialog.classList.remove("show"); // 还原 #dialog 隐藏态
+    dialog.innerHTML = ""; // 仅清空内容，保留 #dialog 容器
+  }
   document.body.classList.remove("no-scroll");
 }
 

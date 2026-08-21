@@ -286,7 +286,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-stats .num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; line-height: 1.1; }
 .footer-stats .lbl { font-size: 11.5px; color: var(--text-2); }
 
-/* prototype/src/styles/components.css v1.19.14 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.19.17 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -432,9 +432,9 @@ html[data-lang="zh"] .en { display: none; }
 /* 详情弹窗中文描述（zh-desc）：保留多段换行，段落间自然空行（配合 build 折叠标量段分隔） */
 .zh-desc { white-space: pre-line; line-height: 1.7; color: var(--text-2); }
 
-/* 详情弹窗（v1.19.14 重构：基于 #overlay 遮罩内居中 .detail 面板）
-   复用遮罩 #overlay.show，面板自身绝对居中，独立于 .dialog 框架 */
-.detail { position: absolute; inset: 0; margin: auto; width: min(680px, 92vw); max-height: min(84vh, 760px); display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow-pop); overflow: hidden; }
+/* 详情弹窗（v1.19.14 重构：内容注入常驻 #dialog，.detail 充满 .dialog 避免双重边框）
+   .dialog 已提供居中 / 圆角 / 阴影，.detail 仅作流式内容容器充满父级 */
+.detail { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--surface); overflow: hidden; }
 .detail-close { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border); background: hsl(var(--muted)); color: var(--text-2); font-size: 20px; line-height: 1; cursor: pointer; transition: background .15s, color .15s; }
 .detail-close:hover { background: hsl(var(--muted) / .7); color: var(--text); }
 .detail-head { display: flex; align-items: flex-start; gap: 12px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }
@@ -452,6 +452,18 @@ html[data-lang="zh"] .en { display: none; }
 .meta-v { font-size: 13.5px; color: var(--text); font-weight: 500; word-break: break-word; overflow-wrap: anywhere; }
 .meta-v.link { color: hsl(var(--primary)); text-decoration: none; }
 .meta-v.link:hover { text-decoration: underline; }
+
+/* 详情派生指标：大小 / 文件数 / 热度 */
+.detail-metrics { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 22px; background: hsl(var(--muted)); border-bottom: 1px solid var(--border); }
+.metric { display: flex; flex-direction: column; gap: 4px; min-width: 92px; }
+.metric-k { font-size: 11px; color: var(--text-3); letter-spacing: .02em; }
+.metric-v { font-size: 14px; font-weight: 600; color: var(--text); }
+.metric-pop-wrap { min-width: 150px; }
+.metric-pop { display: flex; flex-direction: column; gap: 5px; }
+.heat-bars { display: flex; gap: 3px; }
+.heat-bars i { width: 16px; height: 6px; border-radius: 3px; background: var(--border); transition: background .15s; }
+.heat-bars i.on { background: hsl(var(--primary)); }
+.pop-label { font-size: 11.5px; color: var(--text-3); }
 
 .detail-body { padding: 18px 22px 22px; overflow: auto; display: flex; flex-direction: column; gap: 16px; }
 .d-desc { margin: 0; line-height: 1.75; color: var(--text); white-space: pre-line; }
@@ -641,7 +653,7 @@ html[data-lang="zh"] .en { display: none; }
       </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.19.14</span>
+      <span class="footer-ver" id="footerVer">v1.19.17</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -694,7 +706,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/banner-creator"
+      "githubDir": "skills/banner-creator",
+      "size": 5994940,
+      "files": 16,
+      "popularity": 0
     },
     {
       "name": "banner-design",
@@ -706,7 +721,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/banner-design"
+      "githubDir": "skills/banner-design",
+      "size": 14238,
+      "files": 2,
+      "popularity": 2
     },
     {
       "name": "brand-guidelines",
@@ -718,7 +736,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
-      "githubDir": "skills/brand-guidelines"
+      "githubDir": "skills/brand-guidelines",
+      "size": 14140,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "brand-review",
@@ -729,7 +750,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Review content against your brand voice, style guide, and messaging pillars, flagging deviations by severity with specific before/after fixes. Use when checking a draft before it ships, when auditing copy for voice consistency and terminology, or when screening for unsubstantiated claims, missing disclaimers, and other legal flags.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/brand-review"
+      "githubDir": "skills/brand-review",
+      "size": 13600,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "discover-brand",
@@ -740,7 +764,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "This skill orchestrates autonomous discovery of brand materials across enterprise platforms (Notion, Confluence, Google Drive, Box, SharePoint, Figma, Gong, Granola, Slack). It should be used when the user asks to \\\"discover brand materials\\\", \\\"find brand documents\\\", \\\"search for brand guidelines\\\", \\\"audit brand content\\\", \\\"what brand materials do we have\\\", \\\"find our style guide\\\", \\\"where are our brand docs\\\", \\\"do we have a style guide\\\", \\\"discover brand voice\\\", \\\"brand content audit\\\", or \\\"find brand assets\\\".",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/discover-brand"
+      "githubDir": "skills/discover-brand",
+      "size": 26215,
+      "files": 3,
+      "popularity": 0
     },
     {
       "name": "favicon",
@@ -751,7 +778,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Generate a complete set of favicons from a source image and update HTML. Use when setting up favicons for a web project.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/favicon"
+      "githubDir": "skills/favicon",
+      "size": 9167,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "figma-code-connect",
@@ -762,7 +792,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Creates and maintains Figma Code Connect template files that map Figma components to code snippets. Use when the user mentions Code Connect, Figma component mapping, design-to-code translation, or asks to create/update .figma.ts or .figma.js files.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/figma-code-connect"
+      "githubDir": "skills/figma-code-connect",
+      "size": 62298,
+      "files": 3,
+      "popularity": 0
     },
     {
       "name": "figma-design-to-code",
@@ -773,7 +806,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/figma-design-to-code"
+      "githubDir": "skills/figma-design-to-code",
+      "size": 5436,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "figma-generate-design",
@@ -784,7 +820,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma', 'create in Figma from code', 'push page to Figma', 'take this app/page and build it in Figma', 'create a screen', 'build a landing page in Figma', 'update the Figma screen to match code', 'convert this modal/dialog/drawer/panel to Figma'. This is the preferred workflow skill whenever the user wants to build or update a full page, modal, dialog, drawer, sidebar, panel, or any composed multi-section view in Figma from code or a description. Discovers design system components, variables, and styles from Code Connect files, existing screens, and library search, then imports them and assembles views incrementally section-by-section using design system tokens instead of hardcoded values.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/figma-generate-design"
+      "githubDir": "skills/figma-generate-design",
+      "size": 41092,
+      "files": 3,
+      "popularity": 2
     },
     {
       "name": "figma-generate-library",
@@ -795,7 +834,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/figma-generate-library"
+      "githubDir": "skills/figma-generate-library",
+      "size": 227878,
+      "files": 16,
+      "popularity": 1
     },
     {
       "name": "flux-kontext",
@@ -807,7 +849,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/flux-kontext"
+      "githubDir": "skills/flux-kontext",
+      "size": 8587,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "frontend-design",
@@ -819,7 +864,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
-      "githubDir": "skills/frontend-design"
+      "githubDir": "skills/frontend-design",
+      "size": 18931,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "google-mobile-ads-banner",
@@ -830,7 +878,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/google-mobile-ads-banner"
+      "githubDir": "skills/google-mobile-ads-banner",
+      "size": 10434,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "logo-animation",
@@ -842,7 +893,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "0.1.0",
-      "githubDir": "skills/logo-animation"
+      "githubDir": "skills/logo-animation",
+      "size": 16382,
+      "files": 3,
+      "popularity": 0
     },
     {
       "name": "logo-creator",
@@ -853,7 +907,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/logo-creator"
+      "githubDir": "skills/logo-creator",
+      "size": 3714688,
+      "files": 25,
+      "popularity": 1
     },
     {
       "name": "logo-designer",
@@ -866,7 +923,10 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "license": "MIT",
       "skillVersion": "1.0.0",
-      "githubDir": "skills/logo-designer"
+      "githubDir": "skills/logo-designer",
+      "size": 19072,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "muapi-3d-logo-animation",
@@ -878,7 +938,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "1.0.0",
-      "githubDir": "skills/muapi-3d-logo-animation"
+      "githubDir": "skills/muapi-3d-logo-animation",
+      "size": 2917,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "muapi-logo-creator",
@@ -890,7 +953,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "0.1.0",
-      "githubDir": "skills/muapi-logo-creator"
+      "githubDir": "skills/muapi-logo-creator",
+      "size": 3734,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "review-animations",
@@ -901,7 +967,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/review-animations"
+      "githubDir": "skills/review-animations",
+      "size": 18468,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "svg-logo-designer",
@@ -912,7 +981,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/svg-logo-designer"
+      "githubDir": "skills/svg-logo-designer",
+      "size": 23476,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "theme-factory",
@@ -924,7 +996,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
-      "githubDir": "skills/theme-factory"
+      "githubDir": "skills/theme-factory",
+      "size": 144870,
+      "files": 13,
+      "popularity": 0
     },
     {
       "name": "ui-ux-pro-max",
@@ -935,7 +1010,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/ui-ux-pro-max"
+      "githubDir": "skills/ui-ux-pro-max",
+      "size": 3626653,
+      "files": 60,
+      "popularity": 0
     },
     {
       "name": "web-design-guidelines",
@@ -948,7 +1026,10 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "author": "vercel",
       "skillVersion": "1.0.0",
-      "githubDir": "skills/web-design-guidelines"
+      "githubDir": "skills/web-design-guidelines",
+      "size": 1575,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "winui-design",
@@ -959,7 +1040,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when designing, reviewing, or fixing WinUI 3: layout planning, control choice, Fluent Design alignment, Light/Dark/High Contrast theming, typography, spacing, brushes, accessibility, and XAML data-binding design. Load before authoring new XAML, reviewing UI PRs, migrating desktop UI to WinUI, or choosing between WinUI controls/patterns.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/winui-design"
+      "githubDir": "skills/winui-design",
+      "size": 7941667,
+      "files": 5,
+      "popularity": 0
     },
     {
       "name": "coding-standards",
@@ -970,7 +1054,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns. Use when reviewing code quality or naming with no framework-specific skill that applies.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/coding-standards"
+      "githubDir": "skills/coding-standards",
+      "size": 13703,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "documentation",
@@ -981,7 +1068,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Write and maintain technical documentation. Trigger with \\\"write docs for\\\", \\\"document this\\\", \\\"create a README\\\", \\\"write a runbook\\\", \\\"onboarding guide\\\", or when the user needs help with any form of technical writing — API docs, architecture docs, or operational runbooks.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/documentation"
+      "githubDir": "skills/documentation",
+      "size": 1914,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "find-skills",
@@ -992,7 +1082,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Helps users discover and install agent skills when they ask questions like \\\"how do I do X\\\", \\\"find a skill for X\\\", \\\"is there a skill that can...\\\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/find-skills"
+      "githubDir": "skills/find-skills",
+      "size": 5975,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "find-skills-2",
@@ -1003,7 +1096,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/find-skills-2"
+      "githubDir": "skills/find-skills-2",
+      "size": 5019,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "grill-me",
@@ -1014,7 +1110,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "A relentless interview to sharpen a plan or design.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/grill-me"
+      "githubDir": "skills/grill-me",
+      "size": 530,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "grill-with-docs",
@@ -1025,7 +1124,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/grill-with-docs"
+      "githubDir": "skills/grill-with-docs",
+      "size": 683,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "grilling",
@@ -1036,7 +1138,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/grilling"
+      "githubDir": "skills/grilling",
+      "size": 2380,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "handoff",
@@ -1047,7 +1152,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Compact the current conversation into a handoff document for another agent to pick up.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/handoff"
+      "githubDir": "skills/handoff",
+      "size": 1239,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "marketing-plan",
@@ -1058,7 +1166,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions \"marketing plan,\" \"growth plan,\" \"GTM plan,\" \"go-to-market plan,\" \"AARRR plan,\" \"90-day marketing plan,\" \"12-month marketing roadmap,\" \"fractional CMO plan,\" or \"fCMO plan.\" Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/marketing-plan"
+      "githubDir": "skills/marketing-plan",
+      "size": 251484,
+      "files": 15,
+      "popularity": 1
     },
     {
       "name": "skill-creator",
@@ -1069,7 +1180,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/skill-creator"
+      "githubDir": "skills/skill-creator",
+      "size": 230932,
+      "files": 18,
+      "popularity": 0
     },
     {
       "name": "sports-news",
@@ -1081,7 +1195,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/sports-news"
+      "githubDir": "skills/sports-news",
+      "size": 7446,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "wechat-article-writer",
@@ -1092,7 +1209,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wechat-article-writer"
+      "githubDir": "skills/wechat-article-writer",
+      "size": 2406,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "data-visualization",
@@ -1103,7 +1223,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/data-visualization"
+      "githubDir": "skills/data-visualization",
+      "size": 11636,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "football-data",
@@ -1115,7 +1238,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/football-data"
+      "githubDir": "skills/football-data",
+      "size": 40067,
+      "files": 6,
+      "popularity": 1
     },
     {
       "name": "analyze-project",
@@ -1126,7 +1252,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Analyze / Rigor Audit read-only skill for deep learning research repositories. Use when the user wants to read and understand a repository, inspect model structure and training or inference entrypoints, review configs and insertion points, or flag suspicious implementation patterns without modifying code or running heavy jobs. Do not use for active command execution, broad refactoring, speculative code adaptation, or automatic bug fixing.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/analyze-project"
+      "githubDir": "skills/analyze-project",
+      "size": 30132,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "architecture-blueprint-generator",
@@ -1137,7 +1266,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/architecture-blueprint-generator"
+      "githubDir": "skills/architecture-blueprint-generator",
+      "size": 14042,
+      "files": 1,
+      "popularity": 3
     },
     {
       "name": "blueprint",
@@ -1148,7 +1280,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/blueprint"
+      "githubDir": "skills/blueprint",
+      "size": 16991,
+      "files": 1,
+      "popularity": 2
     },
     {
       "name": "bun",
@@ -1159,7 +1294,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/bun"
+      "githubDir": "skills/bun",
+      "size": 2236,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "chrome-webstore-release-blueprint",
@@ -1170,7 +1308,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Guide a user end-to-end through setting up Chrome Web Store API release automation in any repository. Use when asked to walk someone through OAuth/CWS credential setup, refresh token creation, local/CI secret setup, version-based publish automation, and submission status checks.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/chrome-webstore-release-blueprint"
+      "githubDir": "skills/chrome-webstore-release-blueprint",
+      "size": 9349,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "cloudbase",
@@ -1182,7 +1323,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "2.30.0",
-      "githubDir": "skills/cloudbase"
+      "githubDir": "skills/cloudbase",
+      "size": 1174206,
+      "files": 133,
+      "popularity": 3
     },
     {
       "name": "code-review",
@@ -1193,7 +1337,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/code-review"
+      "githubDir": "skills/code-review",
+      "size": 7286,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "code-review-and-quality",
@@ -1204,7 +1351,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/code-review-and-quality"
+      "githubDir": "skills/code-review-and-quality",
+      "size": 21231,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "codebase-design",
@@ -1215,7 +1365,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/codebase-design"
+      "githubDir": "skills/codebase-design",
+      "size": 12208,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "dart-build-cli-app",
@@ -1226,7 +1379,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/dart-build-cli-app"
+      "githubDir": "skills/dart-build-cli-app",
+      "size": 9379,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "dart-flutter-patterns",
@@ -1237,7 +1393,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/dart-flutter-patterns"
+      "githubDir": "skills/dart-flutter-patterns",
+      "size": 16888,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "debugging-and-error-recovery",
@@ -1248,7 +1407,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/debugging-and-error-recovery"
+      "githubDir": "skills/debugging-and-error-recovery",
+      "size": 11394,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "diagnosing-bugs",
@@ -1259,7 +1421,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/diagnosing-bugs"
+      "githubDir": "skills/diagnosing-bugs",
+      "size": 10401,
+      "files": 3,
+      "popularity": 0
     },
     {
       "name": "executing-plans",
@@ -1270,7 +1435,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/executing-plans"
+      "githubDir": "skills/executing-plans",
+      "size": 2507,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "fastify-best-practices",
@@ -1281,7 +1449,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, managing authentication, configuring CORS and security headers, integrating databases, working with WebSockets, and deploying to production. Covers the full Fastify request lifecycle (hooks, serialization, logging with Pino) and TypeScript integration via strip types. Trigger terms: Fastify, Node.js server, REST API, API routes, backend framework, fastify.config, server.ts, app.ts.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/fastify-best-practices"
+      "githubDir": "skills/fastify-best-practices",
+      "size": 199020,
+      "files": 21,
+      "popularity": 1
     },
     {
       "name": "flutter-apply-architecture-best-practices",
@@ -1292,7 +1463,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/flutter-apply-architecture-best-practices"
+      "githubDir": "skills/flutter-apply-architecture-best-practices",
+      "size": 6686,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "flutter-build-responsive-layout",
@@ -1303,7 +1477,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/flutter-build-responsive-layout"
+      "githubDir": "skills/flutter-build-responsive-layout",
+      "size": 7189,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "flutter-dart-code-review",
@@ -1314,7 +1491,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/flutter-dart-code-review"
+      "githubDir": "skills/flutter-dart-code-review",
+      "size": 24058,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "flutter-setup-localization",
@@ -1325,7 +1505,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Add `flutter_localizations` and `intl` dependencies, enable \\\"generate true\\\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/flutter-setup-localization"
+      "githubDir": "skills/flutter-setup-localization",
+      "size": 6367,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "implement-spec",
@@ -1336,7 +1519,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Implement a specification in code.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/implement-spec"
+      "githubDir": "skills/implement-spec",
+      "size": 2373,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "improve-codebase-architecture",
@@ -1347,7 +1533,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/improve-codebase-architecture"
+      "githubDir": "skills/improve-codebase-architecture",
+      "size": 13256,
+      "files": 3,
+      "popularity": 1
     },
     {
       "name": "insforge-cli",
@@ -1359,7 +1548,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Apache-2.0",
-      "githubDir": "skills/insforge-cli"
+      "githubDir": "skills/insforge-cli",
+      "size": 216665,
+      "files": 30,
+      "popularity": 1
     },
     {
       "name": "insforge-debug",
@@ -1371,7 +1563,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Apache-2.0",
-      "githubDir": "skills/insforge-debug"
+      "githubDir": "skills/insforge-debug",
+      "size": 53746,
+      "files": 11,
+      "popularity": 0
     },
     {
       "name": "limrun-android-emulator",
@@ -1382,7 +1577,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/limrun-android-emulator"
+      "githubDir": "skills/limrun-android-emulator",
+      "size": 15123,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "limrun-detox-testing",
@@ -1393,7 +1591,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over reverse tunnels.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/limrun-detox-testing"
+      "githubDir": "skills/limrun-detox-testing",
+      "size": 5725,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "limrun-ios-simulator",
@@ -1404,7 +1605,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/limrun-ios-simulator"
+      "githubDir": "skills/limrun-ios-simulator",
+      "size": 13238,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "limrun-xcode",
@@ -1415,7 +1619,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/limrun-xcode"
+      "githubDir": "skills/limrun-xcode",
+      "size": 15148,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "limrun-xcode-bazel",
@@ -1426,7 +1633,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/limrun-xcode-bazel"
+      "githubDir": "skills/limrun-xcode-bazel",
+      "size": 15923,
+      "files": 3,
+      "popularity": 0
     },
     {
       "name": "nestjs-best-practices",
@@ -1438,7 +1648,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/nestjs-best-practices"
+      "githubDir": "skills/nestjs-best-practices",
+      "size": 175351,
+      "files": 43,
+      "popularity": 0
     },
     {
       "name": "next-best-practices",
@@ -1449,7 +1662,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/next-best-practices"
+      "githubDir": "skills/next-best-practices",
+      "size": 84296,
+      "files": 20,
+      "popularity": 1
     },
     {
       "name": "nextjs-app-router-patterns",
@@ -1460,7 +1676,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/nextjs-app-router-patterns"
+      "githubDir": "skills/nextjs-app-router-patterns",
+      "size": 14509,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "nextjs-code-review",
@@ -1477,7 +1696,10 @@ html[data-lang="zh"] .en { display: none; }
         "Bash"
       ],
       "hidden": false,
-      "githubDir": "skills/nextjs-code-review"
+      "githubDir": "skills/nextjs-code-review",
+      "size": 29697,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "nextjs-react-typescript",
@@ -1488,7 +1710,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/nextjs-react-typescript"
+      "githubDir": "skills/nextjs-react-typescript",
+      "size": 2197,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "openspec-implementation",
@@ -1499,7 +1724,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/openspec-implementation"
+      "githubDir": "skills/openspec-implementation",
+      "size": 9236,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "paper-context-resolver",
@@ -1510,7 +1738,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a specific paper detail such as dataset split, preprocessing, evaluation protocol, checkpoint mapping, or runtime assumption from primary paper sources while recording conflicts. Do not use for general paper summary, repo scanning, environment setup, command execution, title-only paper lookup, or replacing README guidance by default.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/paper-context-resolver"
+      "githubDir": "skills/paper-context-resolver",
+      "size": 4170,
+      "files": 3,
+      "popularity": 0
     },
     {
       "name": "planning-with-files",
@@ -1523,7 +1754,10 @@ html[data-lang="zh"] .en { display: none; }
         "Read Write Edit Bash Glob Grep"
       ],
       "hidden": false,
-      "githubDir": "skills/planning-with-files"
+      "githubDir": "skills/planning-with-files",
+      "size": 259263,
+      "files": 29,
+      "popularity": 0
     },
     {
       "name": "prototype",
@@ -1534,7 +1768,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/prototype"
+      "githubDir": "skills/prototype",
+      "size": 16439,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "react-doctor",
@@ -1546,7 +1783,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "1.0.0",
-      "githubDir": "skills/react-doctor"
+      "githubDir": "skills/react-doctor",
+      "size": 1767,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "receiving-code-review",
@@ -1557,7 +1797,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/receiving-code-review"
+      "githubDir": "skills/receiving-code-review",
+      "size": 6686,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "repo-intake-and-plan",
@@ -1568,7 +1811,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Intake helper for README-first deep learning repo reproduction. Use when the task is specifically to scan a repository, read the README and common project files, extract documented commands, classify inference, evaluation, and training candidates, and return the smallest trustworthy reproduction plan to the main orchestrator. Do not use for environment setup, asset download, command execution, final reporting, paper lookup, or end-to-end orchestration.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/repo-intake-and-plan"
+      "githubDir": "skills/repo-intake-and-plan",
+      "size": 17812,
+      "files": 5,
+      "popularity": 0
     },
     {
       "name": "requesting-code-review",
@@ -1579,7 +1825,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/requesting-code-review"
+      "githubDir": "skills/requesting-code-review",
+      "size": 9185,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "setup-matt-pocock-skills",
@@ -1590,7 +1839,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/setup-matt-pocock-skills"
+      "githubDir": "skills/setup-matt-pocock-skills",
+      "size": 20001,
+      "files": 7,
+      "popularity": 0
     },
     {
       "name": "shadcn-ui",
@@ -1601,7 +1853,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/shadcn-ui"
+      "githubDir": "skills/shadcn-ui",
+      "size": 88785,
+      "files": 10,
+      "popularity": 0
     },
     {
       "name": "simplify",
@@ -1612,7 +1867,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/simplify"
+      "githubDir": "skills/simplify",
+      "size": 3346,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "stripe-best-practices",
@@ -1623,7 +1881,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": ">- Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, restricted keys, webhooks, OAuth). Use when building, modifying, or reviewing any Stripe integration, including accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/stripe-best-practices"
+      "githubDir": "skills/stripe-best-practices",
+      "size": 61745,
+      "files": 7,
+      "popularity": 0
     },
     {
       "name": "supabase",
@@ -1636,7 +1897,10 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "author": "supabase",
       "skillVersion": "0.1.2",
-      "githubDir": "skills/supabase"
+      "githubDir": "skills/supabase",
+      "size": 22183,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "supabase-postgres-best-practices",
@@ -1648,7 +1912,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/supabase-postgres-best-practices"
+      "githubDir": "skills/supabase-postgres-best-practices",
+      "size": 64295,
+      "files": 36,
+      "popularity": 2
     },
     {
       "name": "systematic-debugging",
@@ -1659,7 +1926,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/systematic-debugging"
+      "githubDir": "skills/systematic-debugging",
+      "size": 42289,
+      "files": 11,
+      "popularity": 0
     },
     {
       "name": "tdd",
@@ -1670,7 +1940,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/tdd"
+      "githubDir": "skills/tdd",
+      "size": 7777,
+      "files": 4,
+      "popularity": 1
     },
     {
       "name": "to-spec",
@@ -1681,7 +1954,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/to-spec"
+      "githubDir": "skills/to-spec",
+      "size": 3514,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "traceknot",
@@ -1692,7 +1968,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/traceknot"
+      "githubDir": "skills/traceknot",
+      "size": 692187,
+      "files": 51,
+      "popularity": 0
     },
     {
       "name": "uni-app",
@@ -1703,7 +1982,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Comprehensive skill reference for uni-app cross-platform development framework",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/uni-app"
+      "githubDir": "skills/uni-app",
+      "size": 99807,
+      "files": 16,
+      "popularity": 1
     },
     {
       "name": "vercel-composition-patterns",
@@ -1715,7 +1997,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/vercel-composition-patterns"
+      "githubDir": "skills/vercel-composition-patterns",
+      "size": 52738,
+      "files": 14,
+      "popularity": 0
     },
     {
       "name": "vercel-react-best-practices",
@@ -1729,7 +2014,10 @@ html[data-lang="zh"] .en { display: none; }
       "author": "vercel",
       "license": "MIT",
       "skillVersion": "1.0.0",
-      "githubDir": "skills/vercel-react-best-practices"
+      "githubDir": "skills/vercel-react-best-practices",
+      "size": 238843,
+      "files": 76,
+      "popularity": 1
     },
     {
       "name": "vue-best-practices",
@@ -1741,7 +2029,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/vue-best-practices"
+      "githubDir": "skills/vue-best-practices",
+      "size": 115602,
+      "files": 23,
+      "popularity": 0
     },
     {
       "name": "vue-debug-guides",
@@ -1752,7 +2043,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Vue 3 debugging and error handling for runtime errors, warnings, async failures, and SSR/hydration issues. Use when diagnosing or fixing Vue issues.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/vue-debug-guides"
+      "githubDir": "skills/vue-debug-guides",
+      "size": 621677,
+      "files": 140,
+      "popularity": 0
     },
     {
       "name": "vue-pinia-best-practices",
@@ -1766,7 +2060,10 @@ html[data-lang="zh"] .en { display: none; }
       "author": "github.com/vuejs-ai",
       "license": "MIT",
       "skillVersion": "1.0.0",
-      "githubDir": "skills/vue-pinia-best-practices"
+      "githubDir": "skills/vue-pinia-best-practices",
+      "size": 39305,
+      "files": 7,
+      "popularity": 0
     },
     {
       "name": "vue-router-best-practices",
@@ -1780,7 +2077,10 @@ html[data-lang="zh"] .en { display: none; }
       "author": "github.com/vuejs-ai",
       "license": "MIT",
       "skillVersion": "1.0.0",
-      "githubDir": "skills/vue-router-best-practices"
+      "githubDir": "skills/vue-router-best-practices",
+      "size": 44610,
+      "files": 9,
+      "popularity": 0
     },
     {
       "name": "web-artifacts-builder",
@@ -1792,7 +2092,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
-      "githubDir": "skills/web-artifacts-builder"
+      "githubDir": "skills/web-artifacts-builder",
+      "size": 46858,
+      "files": 5,
+      "popularity": 0
     },
     {
       "name": "winui-dev-workflow",
@@ -1803,7 +2106,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites. Use when building, running, or fixing build errors in a WinUI 3 project.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/winui-dev-workflow"
+      "githubDir": "skills/winui-dev-workflow",
+      "size": 67303,
+      "files": 4,
+      "popularity": 1
     },
     {
       "name": "woocommerce-backend-dev",
@@ -1814,7 +2120,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/woocommerce-backend-dev"
+      "githubDir": "skills/woocommerce-backend-dev",
+      "size": 41880,
+      "files": 9,
+      "popularity": 0
     },
     {
       "name": "wordpress-router",
@@ -1825,7 +2134,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wordpress-router"
+      "githubDir": "skills/wordpress-router",
+      "size": 5435,
+      "files": 2,
+      "popularity": 1
     },
     {
       "name": "wp-abilities-audit",
@@ -1836,7 +2148,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wp-abilities-audit"
+      "githubDir": "skills/wp-abilities-audit",
+      "size": 42357,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "wp-abilities-verify",
@@ -1847,7 +2162,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wp-abilities-verify"
+      "githubDir": "skills/wp-abilities-verify",
+      "size": 57851,
+      "files": 7,
+      "popularity": 1
     },
     {
       "name": "wp-block-themes",
@@ -1858,7 +2176,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wp-block-themes"
+      "githubDir": "skills/wp-block-themes",
+      "size": 13203,
+      "files": 8,
+      "popularity": 1
     },
     {
       "name": "wp-patterns",
@@ -1869,7 +2190,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wp-patterns"
+      "githubDir": "skills/wp-patterns",
+      "size": 45315,
+      "files": 8,
+      "popularity": 1
     },
     {
       "name": "wp-performance",
@@ -1880,7 +2204,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wp-performance"
+      "githubDir": "skills/wp-performance",
+      "size": 18024,
+      "files": 11,
+      "popularity": 0
     },
     {
       "name": "wp-playground",
@@ -1891,7 +2218,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wp-playground"
+      "githubDir": "skills/wp-playground",
+      "size": 21626,
+      "files": 4,
+      "popularity": 1
     },
     {
       "name": "wp-plugin-development",
@@ -1902,7 +2232,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wp-plugin-development"
+      "githubDir": "skills/wp-plugin-development",
+      "size": 11507,
+      "files": 8,
+      "popularity": 1
     },
     {
       "name": "wp-plugin-directory-guidelines",
@@ -1913,7 +2246,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/wp-plugin-directory-guidelines"
+      "githubDir": "skills/wp-plugin-directory-guidelines",
+      "size": 50633,
+      "files": 4,
+      "popularity": 1
     },
     {
       "name": "write-tech-spec",
@@ -1924,7 +2260,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/write-tech-spec"
+      "githubDir": "skills/write-tech-spec",
+      "size": 8274,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "writing-plans",
@@ -1935,7 +2274,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when you have a spec or requirements for a multi-step task, before touching code",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/writing-plans"
+      "githubDir": "skills/writing-plans",
+      "size": 8944,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "docx",
@@ -1947,7 +2289,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
-      "githubDir": "skills/docx"
+      "githubDir": "skills/docx",
+      "size": 1152593,
+      "files": 61,
+      "popularity": 2
     },
     {
       "name": "pdf",
@@ -1959,7 +2304,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
-      "githubDir": "skills/pdf"
+      "githubDir": "skills/pdf",
+      "size": 60859,
+      "files": 12,
+      "popularity": 1
     },
     {
       "name": "pptx",
@@ -1971,7 +2319,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
-      "githubDir": "skills/pptx"
+      "githubDir": "skills/pptx",
+      "size": 1163443,
+      "files": 56,
+      "popularity": 1
     },
     {
       "name": "xlsx",
@@ -1983,7 +2334,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
-      "githubDir": "skills/xlsx"
+      "githubDir": "skills/xlsx",
+      "size": 1126622,
+      "files": 53,
+      "popularity": 1
     },
     {
       "name": "agent-browser",
@@ -1997,7 +2351,10 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(npx agent-browser:*)"
       ],
       "hidden": true,
-      "githubDir": "skills/agent-browser"
+      "githubDir": "skills/agent-browser",
+      "size": 3812,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "instagram-api",
@@ -2008,7 +2365,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no session cookies. Resolve a profile by @handle, search users by keyword, pull posts/reels/stories/tagged posts/followers/followings, look up a post by shortcode, read comments, fetch hashtag or location feeds, pull posts by audio track, plus follower export, monitoring, influencer discovery, and competitor tracking without Graph API verification or a headless browser.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/instagram-api"
+      "githubDir": "skills/instagram-api",
+      "size": 25745,
+      "files": 5,
+      "popularity": 0
     },
     {
       "name": "orca-cli",
@@ -2019,7 +2379,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/orca-cli"
+      "githubDir": "skills/orca-cli",
+      "size": 4306,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "playwriter",
@@ -2030,7 +2393,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Playwriter: control the user's currently open Chrome tab through the Playwriter CLI (no new browser launch). Use when you need to inspect live UI state, run scripted browser actions, capture console output, or reproduce frontend issues directly in the user's tab; supports creating sessions, reading page structure and logs, executing click/type/hover/evaluate actions, and summarizing findings with exact IDs, timestamps, and observed state transitions.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/playwriter"
+      "githubDir": "skills/playwriter",
+      "size": 3463,
+      "files": 2,
+      "popularity": 0
     },
     {
       "name": "recipe-plan-weekly-schedule",
@@ -2041,7 +2407,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Review your Google Calendar week, identify gaps, and add events to fill them.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/recipe-plan-weekly-schedule"
+      "githubDir": "skills/recipe-plan-weekly-schedule",
+      "size": 1145,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "reddit-automation",
@@ -2053,7 +2422,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/reddit-automation"
+      "githubDir": "skills/reddit-automation",
+      "size": 9070,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "tiktok-api",
@@ -2064,7 +2436,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": ">- A TikTok API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no app review. Use when the user wants to search TikTok posts by keyword and sort by most-liked or most recent within a date range, look up a post by its share URL or ID, scrape a TikTok profile by @username, pull a user's posts, followers, or followings, fetch a hashtag's posts, pull posts using a specific sound/music track, get posts from a location, or read a post's comments and comment replies. Also covers TikTok trend tracking, hashtag monitoring, influencer discovery, competitor content analysis, and TikTok data pipelines without official TikTok API access or a scraping browser.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/tiktok-api"
+      "githubDir": "skills/tiktok-api",
+      "size": 24895,
+      "files": 5,
+      "popularity": 0
     },
     {
       "name": "twitter-api",
@@ -2075,7 +2450,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "A Twitter API alternative and X API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no OAuth and no developer application. Use when the user wants to search tweets by keyword, hashtag, or advanced operators (from:, to:, since:, until:, min_faves:, filter:), scrape a Twitter/X profile by handle, pull a user's tweets, replies, followers, or followings, fetch a single tweet with its replies or retweeters, read a Twitter List's members or tweets, check trending topics by country, or search for X accounts by name. Also covers Twitter data pipelines, competitor monitoring, hashtag tracking, sentiment analysis input, or follower export without the official X API's pricing tiers or app-review process.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/twitter-api"
+      "githubDir": "skills/twitter-api",
+      "size": 27251,
+      "files": 5,
+      "popularity": 1
     },
     {
       "name": "twitter-automation",
@@ -2088,7 +2466,10 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(belt *)"
       ],
       "hidden": false,
-      "githubDir": "skills/twitter-automation"
+      "githubDir": "skills/twitter-automation",
+      "size": 4853,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "windows-ui-automation",
@@ -2099,7 +2480,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Expert in Windows UI Automation (UIA) and Win32 APIs for desktop automation. Specializes in accessible, secure automation of Windows applications including element discovery, input simulation, and process interaction. HIGH-RISK skill requiring strict security controls for system access.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/windows-ui-automation"
+      "githubDir": "skills/windows-ui-automation",
+      "size": 43531,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "workflow",
@@ -2110,7 +2494,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Workflow orchestration for complex coding tasks. Use for ANY non-trivial task (3+ steps or architectural decisions) to enforce planning, subagent strategy, self-improvement, verification, elegance, and autonomous bug fixing. Triggers: multi-step implementation, bug fixes, refactoring, architectural changes, or any task requiring structured execution.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/workflow"
+      "githubDir": "skills/workflow",
+      "size": 3232,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "agent-development",
@@ -2122,7 +2509,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "0.1.0",
-      "githubDir": "skills/agent-development"
+      "githubDir": "skills/agent-development",
+      "size": 73111,
+      "files": 7,
+      "popularity": 1
     },
     {
       "name": "ai-image-generation",
@@ -2135,7 +2525,10 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(belt *)"
       ],
       "hidden": false,
-      "githubDir": "skills/ai-image-generation"
+      "githubDir": "skills/ai-image-generation",
+      "size": 5952,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "ai-research-reproduction",
@@ -2146,7 +2539,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Reproduce compatible skill slug for README-first deep learning repository reproduction. Use when the user wants an end-to-end, minimal-trustworthy flow that reads the repository first, selects the smallest documented inference or evaluation target, coordinates intake, setup, trusted execution, optional trusted training, optional repository analysis, and optional paper-gap resolution, enforces conservative patch rules, records evidence assumptions deviations and human decision points, and writes the standardized `repro_outputs/` bundle. Do not use for paper summary, generic environment setup, isolated repo scanning, standalone command execution, silent protocol changes, score chasing, or broad research assistance outside repository-grounded reproduction.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/ai-research-reproduction"
+      "githubDir": "skills/ai-research-reproduction",
+      "size": 84676,
+      "files": 14,
+      "popularity": 1
     },
     {
       "name": "bailian-web-search",
@@ -2157,7 +2553,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Alibaba Cloud Bailian web search entry: routes web/online search and latest-news queries. Detects connection identity first (Token Plan vs others), then dispatches to model-native web search or Bailian MCP, with fallback logic.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/bailian-web-search"
+      "githubDir": "skills/bailian-web-search",
+      "size": 8050,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "brainstorming",
@@ -2168,7 +2567,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/brainstorming"
+      "githubDir": "skills/brainstorming",
+      "size": 82440,
+      "files": 8,
+      "popularity": 0
     },
     {
       "name": "domain-modeling",
@@ -2179,7 +2581,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/domain-modeling"
+      "githubDir": "skills/domain-modeling",
+      "size": 8849,
+      "files": 4,
+      "popularity": 0
     },
     {
       "name": "eve",
@@ -2190,7 +2595,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/eve"
+      "githubDir": "skills/eve",
+      "size": 1375,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "google-agents-cli-adk-code",
@@ -2201,7 +2609,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "> This skill should be used when the user wants to \"write agent code\", \"build an agent with ADK\", \"add a tool\", \"create a callback\", \"define an agent\", \"use state management\", or needs ADK (Agent Development Kit) Python API patterns and code examples. Part of the Google ADK skills suite. It provides a quick reference for agent types, tool definitions, orchestration patterns, callbacks, state management, and reference recipes to study. Do NOT use for scaffolding (use google-agents-cli-scaffold) or deployment (use google-agents-cli-deploy).",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/google-agents-cli-adk-code"
+      "githubDir": "skills/google-agents-cli-adk-code",
+      "size": 68804,
+      "files": 4,
+      "popularity": 1
     },
     {
       "name": "google-agents-cli-workflow",
@@ -2212,7 +2623,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "> This skill should be used when the user wants to \"develop an agent\", \"build an agent using ADK\", \"run the agent locally\", \"debug agent code\", \"test an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\", or needs the ADK (Agent Development Kit) development lifecycle and coding guidelines. Entrypoint for building ADK agents. Always active — provides the full workflow (scaffold, build, evaluate, deploy, publish, observe), code preservation rules, model selection guidance, and troubleshooting steps for ADK or any agent development.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/google-agents-cli-workflow"
+      "githubDir": "skills/google-agents-cli-workflow",
+      "size": 32541,
+      "files": 6,
+      "popularity": 2
     },
     {
       "name": "ai-avatar-video",
@@ -2225,7 +2639,10 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(belt *)"
       ],
       "hidden": false,
-      "githubDir": "skills/ai-avatar-video"
+      "githubDir": "skills/ai-avatar-video",
+      "size": 10612,
+      "files": 1,
+      "popularity": 2
     },
     {
       "name": "ai-music",
@@ -2239,7 +2656,10 @@ html[data-lang="zh"] .en { display: none; }
       ],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/ai-music"
+      "githubDir": "skills/ai-music",
+      "size": 15513,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "ai-video-generation",
@@ -2252,7 +2672,10 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(belt *)"
       ],
       "hidden": false,
-      "githubDir": "skills/ai-video-generation"
+      "githubDir": "skills/ai-video-generation",
+      "size": 8175,
+      "files": 1,
+      "popularity": 2
     },
     {
       "name": "ai-video-generation-2",
@@ -2266,7 +2689,10 @@ html[data-lang="zh"] .en { display: none; }
       ],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/ai-video-generation-2"
+      "githubDir": "skills/ai-video-generation-2",
+      "size": 25649,
+      "files": 1,
+      "popularity": 2
     },
     {
       "name": "image-to-video",
@@ -2278,7 +2704,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/image-to-video"
+      "githubDir": "skills/image-to-video",
+      "size": 12437,
+      "files": 1,
+      "popularity": 2
     },
     {
       "name": "lark-meeting",
@@ -2290,7 +2719,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "1.0.0",
-      "githubDir": "skills/lark-meeting"
+      "githubDir": "skills/lark-meeting",
+      "size": 151710,
+      "files": 26,
+      "popularity": 2
     },
     {
       "name": "remotion-best-practices",
@@ -2302,7 +2734,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "4.0.515",
-      "githubDir": "skills/remotion-best-practices"
+      "githubDir": "skills/remotion-best-practices",
+      "size": 1159858,
+      "files": 137,
+      "popularity": 0
     },
     {
       "name": "video",
@@ -2314,7 +2749,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "2.1.0",
-      "githubDir": "skills/video"
+      "githubDir": "skills/video",
+      "size": 37906,
+      "files": 4,
+      "popularity": 2
     },
     {
       "name": "video-edit",
@@ -2326,7 +2764,10 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
-      "githubDir": "skills/video-edit"
+      "githubDir": "skills/video-edit",
+      "size": 11891,
+      "files": 1,
+      "popularity": 2
     },
     {
       "name": "video-editing",
@@ -2337,7 +2778,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/video-editing"
+      "githubDir": "skills/video-editing",
+      "size": 10449,
+      "files": 1,
+      "popularity": 3
     },
     {
       "name": "better-auth-best-practices",
@@ -2348,7 +2792,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Configure Better Auth server and client, set up database adapters, manage sessions, add plugins, and handle environment variables. Use when users mention Better Auth, betterauth, auth.ts, or need to set up TypeScript authentication with email/password, OAuth, or plugin configuration.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/better-auth-best-practices"
+      "githubDir": "skills/better-auth-best-practices",
+      "size": 7947,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "clerk-nextjs-patterns",
@@ -2364,7 +2811,10 @@ html[data-lang="zh"] .en { display: none; }
       "author": "clerk",
       "license": "MIT",
       "skillVersion": "2.2.0",
-      "githubDir": "skills/clerk-nextjs-patterns"
+      "githubDir": "skills/clerk-nextjs-patterns",
+      "size": 26540,
+      "files": 12,
+      "popularity": 0
     },
     {
       "name": "fix-sentry-issues",
@@ -2375,7 +2825,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use Sentry MCP to discover, triage, and fix production issues with root-cause analysis. Use when asked to fix Sentry issues, triage production errors, investigate error spikes, or clean up Sentry noise. Requires Sentry MCP server.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/fix-sentry-issues"
+      "githubDir": "skills/fix-sentry-issues",
+      "size": 5038,
+      "files": 1,
+      "popularity": 0
     },
     {
       "name": "safe-debug",
@@ -2386,7 +2839,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.",
       "allowedTools": [],
       "hidden": false,
-      "githubDir": "skills/safe-debug"
+      "githubDir": "skills/safe-debug",
+      "size": 10047,
+      "files": 4,
+      "popularity": 0
     }
   ]
 };</script>
@@ -2431,6 +2887,12 @@ html[data-lang="zh"] .en { display: none; }
       "detail.copyName": "复制名称",
       "detail.copied": "已复制",
       "detail.unknown": "未知 / Unknown",
+      "detail.size": "大小 / Size",
+      "detail.files": "文件数 / Files",
+      "detail.filesUnit": "个",
+      "detail.popularity": "热度 / Popularity",
+      "detail.popRefs": "次被引用",
+      "detail.popStandalone": "独立（无引用）",
       "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
       "empty.clear": "清除筛选",
       "share.btn": "分享",
@@ -2504,6 +2966,12 @@ html[data-lang="zh"] .en { display: none; }
       "detail.copyName": "Copy name",
       "detail.copied": "Copied",
       "detail.unknown": "Unknown",
+      "detail.size": "Size",
+      "detail.files": "Files",
+      "detail.filesUnit": "",
+      "detail.popularity": "Popularity",
+      "detail.popRefs": "refs",
+      "detail.popStandalone": "Standalone",
       "empty.desc": "Try a different keyword or category, or clear the current filter.",
       "empty.clear": "Clear filters",
       "share.btn": "Share",
@@ -2883,7 +3351,7 @@ function renderGrid() {
     : I18N.t("result.empty");
 }
 
-// prototype/src/parts/03-detail.js v1.19.14 — 详情弹窗：元信息区(作者/协议/GitHub目录) + 相关技能 + 复制命令
+// prototype/src/parts/03-detail.js v1.19.17 — 详情弹窗：元信息区(作者/协议/GitHub目录) + 相关技能 + 复制命令
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）
@@ -2894,6 +3362,32 @@ function relatedSkills(skill) {
   return SKILLS_DATA.skills
     .filter((s) => s.name !== skill.name && s.category === skill.category && !s.hidden)
     .slice(0, 4);
+}
+
+// 字节数 → 友好文本（KB / MB）
+function formatSize(bytes) {
+  if (!bytes && bytes !== 0) return "";
+  if (bytes < 1024) return `${bytes} B`;
+  const kb = bytes / 1024;
+  if (kb < 1024) return `${kb.toFixed(kb < 10 ? 1 : 0)} KB`;
+  return `${(kb / 1024).toFixed(2)} MB`;
+}
+
+// 热度：5 格指示，按全局最大提及数归一（0 提及显示「独立 / standalone」）
+let _maxPop = 0;
+function maxPopularity() {
+  if (_maxPop) return _maxPop;
+  _maxPop = SKILLS_DATA.skills.reduce((m, s) => Math.max(m, s.popularity || 0), 0);
+  return _maxPop;
+}
+function popularityHTML(pop) {
+  const max = maxPopularity();
+  const filled = max > 0 ? Math.round((pop / max) * 5) : 0;
+  const bars = Array.from({ length: 5 }, (_, i) =>
+    `<i class="heat${i < filled ? " on" : ""}"></i>`
+  ).join("");
+  const label = pop > 0 ? `${pop} ${I18N.t("detail.popRefs")}` : I18N.t("detail.popStandalone");
+  return `<div class="metric-pop"><span class="heat-bars">${bars}</span><span class="pop-label">${esc(label)}</span></div>`;
 }
 
 // 复制技能名到剪贴板（提示已复制）
@@ -2959,6 +3453,19 @@ function detailHTML(skill) {
     metaRow(I18N.t("detail.githubDir"), githubUrl, true),
   ].join("");
 
+  // 派生指标：大小 / 文件数 / 热度
+  const sizeText = formatSize(skill.size);
+  const filesText = skill.files != null ? `${skill.files} ${I18N.t("detail.filesUnit")}` : "";
+  const metricHTML = `
+    <div class="detail-metrics">
+      ${sizeText ? `<div class="metric"><span class="metric-k">${esc(I18N.t("detail.size"))}</span><span class="metric-v">${esc(sizeText)}</span></div>` : ""}
+      ${filesText ? `<div class="metric"><span class="metric-k">${esc(I18N.t("detail.files"))}</span><span class="metric-v">${esc(filesText)}</span></div>` : ""}
+      <div class="metric metric-pop-wrap">
+        <span class="metric-k">${esc(I18N.t("detail.popularity"))}</span>
+        ${popularityHTML(skill.popularity || 0)}
+      </div>
+    </div>`;
+
   const toolsHTML = tools.length
     ? `<div class="d-tools"><h4>${I18N.t("detail.tools")}</h4><div class="tool-chips">${tools
         .map((t) => `<span class="tool-chip">${esc(t)}</span>`)
@@ -2985,6 +3492,7 @@ function detailHTML(skill) {
       </div>
     </div>
     <div class="detail-meta">${metaRows}</div>
+    ${metricHTML}
     <div class="detail-body">
       <p class="d-desc">${esc(desc || "")}</p>
       ${toolsHTML}
@@ -2993,12 +3501,16 @@ function detailHTML(skill) {
   </div>`;
 }
 
-function openDetail(name) {
-  const skill = SKILL_MAP.get(name);
-  if (!skill) return;
+function openDetail(arg) {
+  // 04-interactions 可能传入 skill 对象（原委托逻辑），也可能传入 name 字符串
+  const skill = typeof arg === "string" ? SKILL_MAP.get(arg) : arg;
+  if (!skill || !skill.name) return;
   const overlay = document.getElementById("overlay");
-  overlay.innerHTML = detailHTML(skill);
+  const dialog = document.getElementById("dialog");
+  // 详情内容注入常驻 #dialog（保留元素，避免破坏设置弹窗等复用者）
+  dialog.innerHTML = detailHTML(skill);
   overlay.classList.add("show");
+  dialog.classList.add("show"); // #dialog 默认 display:none，需 .show 才可见
   document.body.classList.add("no-scroll");
 
   document.getElementById("detailClose").addEventListener("click", closeDetail);
@@ -3006,16 +3518,20 @@ function openDetail(name) {
   if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
 
   // 相关技能点击 → 切换详情
-  overlay.querySelectorAll(".related-card").forEach((btn) => {
+  dialog.querySelectorAll(".related-card").forEach((btn) => {
     btn.addEventListener("click", () => openDetail(btn.getAttribute("data-name")));
   });
 }
 
 function closeDetail() {
   const overlay = document.getElementById("overlay");
+  const dialog = document.getElementById("dialog");
   if (!overlay) return;
   overlay.classList.remove("show");
-  overlay.innerHTML = "";
+  if (dialog) {
+    dialog.classList.remove("show"); // 还原 #dialog 隐藏态
+    dialog.innerHTML = ""; // 仅清空内容，保留 #dialog 容器
+  }
   document.body.classList.remove("no-scroll");
 }
 
