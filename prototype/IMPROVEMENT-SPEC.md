@@ -1,24 +1,25 @@
 # prototype/ 改进规格文档（Improvement Spec）
 
-> 版本基线：`package.json` v1.14.72（权威单一来源）
-> 模板注释：v1.14.69 ｜ 产物页脚：v1.14.71 ｜ DESIGN.md：v1.14.61 —— **三处与权威源不一致，见 §6**
+> 版本基线：`package.json` v1.17.3（权威单一来源）
+> **执行状态：v1.15.0–v1.17.2 全部 P0–P3 项已落地**（含二/三轮补充修复），本 spec 转为「已实现清单」存档
 > 适用范围：仅 `prototype/src/` 源码；产物 `prototype/index.html` 由 `npm run build` 重建，**禁止手改**
 > 调研依据：`grill-me` 对 prototype 的代码审查（2026-08-21）
+> 落地记录见 `.codebuddy/memory/2026-08-21.md`
 
 ---
 
 ## 0. 事实基线（已核实，非推测）
 
-| 项 | 现状 | 真相 |
+| 项 | 现状（v1.17.2 实测） | 真相 |
 |----|------|------|
 | 数据源 | `prototype/index.html` 内联 `const SKILLS_DATA` | 由 `build.mjs` 注入根 `data/skills-data.json`，**非运行时 fetch** |
-| 技能总数 | 产物 `total` 残留旧值 | 权威 = `data/skills-data.json` 的 `total`（5 真实分类，排除 `其他`/`hidden`） |
+| 技能总数 | 产物 `total` 与 `data` 一致 | 权威 = `data/skills-data.json` 的 `total`（当前 60，含真实分类 + `hidden` 过滤） |
 | 主色 | `--primary: 152 56% 40%` = `#2e9e6b`；深 `#5cc98c` | 与全局品牌记忆一致 ✅ |
-| `catCounts()` | 已预聚合为 `Map` | 子代理误报"每次重算"，**无需改** |
-| `htmlToEl()` | `02-render.js` 定义，**全代码零调用** | 死代码，可删 |
-| `.sheet`/`.sheet-grip` | `layout.css` 定义，**无调用** | 移动抽屉愿景未落地，死代码，可删 |
-| `grilling` 技能 | `zh:""` / `category:"其他"` | 中文态标题/描述空白为**真实数据问题**，非渲染 bug |
-| 版本号 | 4 处不一致 | 以 `package.json` 为唯一真相，构建注入产物 |
+| `catCounts()` | 已预聚合为 `Map` | 子代理误报"每次重算"，**无需改** ✅ |
+| `htmlToEl()` | **已删除**（v1.15.0） | 死代码已清 |
+| `.sheet`/`.sheet-grip` | `layout.css` 保留，**无调用** | **标注"预留未启用"**（v1.15.0 起，非删除，避免破坏移动端抽屉扩展） |
+| `grilling` 技能 | 已补中文名/描述（v1.15.0） | 数据空白已修复 ✅ |
+| 版本号 | `package.json` v1.17.2 为唯一真相，产物页脚经 `{{VERSION}}` 注入 | 构建注入链路已通 ✅ |
 
 ---
 

@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.17.3] - 2026-08-21
+
+### feat: 补全 8 个新技能 frontmatter 并重建技能数据
+
+- **补全字段**：为 `eve`、`improve-codebase-architecture`、`handoff`、`orca-cli`、`setup-matt-pocock-skills`、`vercel-composition-patterns`、`lark-meeting`、`twitter-api` 8 个新技能补齐 `category` / `en_category` / `zh` / `description`(中文) / `en_description`(英文) 字段
+- **消除「其他」分类**：此前这些技能缺 `category` 归入「其他」，补全后回归 5 大领域（品牌与设计 12 / 文档与内容 12 / 数据分析与可视化 1 / 开发框架与平台 34 / 文件与格式处理 4）
+- **数据重建**：`node build-skills-data.mjs` 重建 `data/skills-data.json`，技能总数 55 → 63（可见 62，hidden 1）
+- **文档同步**：README/README.en 技能总数（55→63）、领域表计数、版本徽章升至 v1.17.3
+- **版本同步**：`package.json` 升至 v1.17.3
+
 ## [1.16.2] - 2026-08-21
 
 ### feat: category 增加英文 en_category，英文态分类名本地化

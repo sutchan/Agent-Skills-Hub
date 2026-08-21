@@ -1,10 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.14.61
+> 路径：`prototype/DESIGN.md` · 版本：1.17.3
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts，v1.14.42 样式拆分为 tokens/base/layout/components/responsive）**：`prototype/index.html` 为纯 HTML 自包含单文件——由根目录 `build.mjs` 将 `src/index.html` 模板内联 `src/styles/tokens.css` 及按序拼接的 `src/styles/base.css` + `src/styles/layout.css` + `src/styles/components.css` + `src/styles/responsive.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `data/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物（构建脚本 `build.mjs`/`build-skills-data.mjs` 置于仓库根，不混入原型目录）。
+> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts，v1.14.42 样式拆分为 tokens/base/layout/components/responsive，v1.17.x 交互/布局/可访问性系列改进）**：`prototype/index.html` 为纯 HTML 自包含单文件——由根目录 `npm run build`（=`node build-skills-data.mjs && node build.mjs`）将 `src/index.html` 模板内联 `src/styles/tokens.css` 及按序拼接的 `src/styles/base.css` + `src/styles/layout.css` + `src/styles/components.css` + `src/styles/responsive.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `data/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物（构建脚本 `build.mjs`/`build-skills-data.mjs` 置于仓库根，不混入原型目录）。
 
 ---
 
@@ -135,7 +135,7 @@
 | Separator | `separator.tsx` | horizontal / vertical |
 | Tabs | `parts/05-main.js` 视图切换 | 原生实现（Radix Tabs 风格的可访问性模式，无 Radix 依赖） |
 | Dialog | `parts/03-detail.js` `openDetail()` | 原生实现（Radix Dialog 风格焦点陷阱 + `aria-modal`，无 Radix 依赖） |
-| Sheet | 响应式同 Dialog | 移动端同 Dialog 弹窗（原生，无独立 Radix Sheet） |
+| Sheet | `layout.css` 预留 `.sheet` | 移动端详情**复用居中 Dialog**（未启用独立抽屉；`.sheet`/`.sheet-grip` 为预留样式，标注保留未启用，无对应 DOM/JS） |
 
 ### 3.2 复合/业务组件（对应 `src/app.js` 渲染函数）
 
@@ -145,16 +145,17 @@
 | LangToggle | `i18n.js` 的 `I18N.toggleLang()` | 中英切换（受控），`I18N.syncDOM()` 同步 `data-lang` 与 `<html lang>` |
 | ViewToggle | `01-state.js` 的 `state.view` + `02-render.js` 的 `renderGrid()` | 网格/列表切换（受控） |
 | ShareButton | `03-detail.js` 的 `shareSkill(name)` | 技能详情弹窗内的「分享」按钮；点击复制「技能链接 + 随机宣传文案」并 toast 反馈 |
-| SkillCard | `02-render.js` 的 `cardHTML()` | 网格/列表共用；`role=button`+`tabIndex=0`+`Enter/Space`；双语描述与分类标签 |
+| SkillCard | `02-render.js` 的 `cardHTML()` | 网格/列表共用；**渲染为原生 `<button type="button" class="card">`**（a11y 语义，Enter/Space 原生触发，点击经 `#grid` 委托打开详情）；双语描述与分类标签 |
 | SkillDetail | `03-detail.js` 的 `openDetail()` | 弹窗内容体；含中英文描述、分类、授权工具、本地仓库链接 |
+| SettingsButton | `03-detail.js` 的 `openSettings()` | 顶部栏右上角齿轮按钮 `#settingsBtn`；复用 Dialog 框架承载语言/主题切换（就地刷新文案，不重建弹窗） |
 | 主页面 | `05-main.js` 的 `init()` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式弹窗调度 |
 
 ### 3.3 业务数据契约
 
 | 组件 | 数据来源（`skills-data.json` 扁平结构） |
 |------|----------|
-| SkillCard / SkillDetail | `skill{name, category, zh, description, allowedTools}`（含 `name` 为权威标识） |
-| CategoryFilter（Chip） | `categories[](string)` + 内置「全部」；计数由 `app.js` 预聚合 `catCounts` |
+| SkillCard / SkillDetail | `skill{name, category, enCategory, zh, description(中文), enDescription(英文), allowedTools}`（`name` 为权威标识；`description` 为中文描述，`enDescription` 为英文描述） |
+| CategoryFilter（Chip） | `categories[](string)` + `categoryEn{}`（分类中文→英文映射）+ 内置「全部」；计数由 `02-render.js` 预聚合 `catCounts` |
 | 语言/主题 | 根节点 `data-lang` / `data-theme` 属性 |
 
 ---
@@ -164,7 +165,7 @@
 ### 4.1 模式（Patterns）
 
 - **单一主任务流**：浏览 → 搜索/筛选 → 查看详情（弹窗/抽屉）→ 跳转仓库。无多级路由，详情用模态而非新页面（保持原型轻量）。
-- **响应式详情载体**：桌面（`>640px`）用 Dialog 居中弹窗；移动端（`≤640px`）用 Sheet 右侧抽屉（`matchMedia` 实时判定）。
+- **响应式详情载体**：当前实现桌面与移动端**均用居中 Dialog**（`.sheet` 抽屉为预留样式未启用，v1.17.2 暂未接入）。
 - **即时筛选**：搜索与分类筛选为受控状态、实时过滤，无需提交按钮。
 - **双语即时切换**：语言切换即时重渲 UI 文案与分类英文名，不刷新。
 
@@ -175,7 +176,7 @@
 | 输入聚焦 | 主色边框 + 2px 主色聚焦环（`focus-visible:ring-2 ring-ring`） |
 | 按钮悬停/点击 | 颜色/阴影变化，`active:scale-[0.98]` |
 | 卡片悬停 | `hover:border-primary/40 hover:shadow-md` + 轻微上浮 |
-| 筛选结果变化 | 数量文本实时更新（可加 `aria-live="polite"`） |
+| 筛选结果变化 | 数量文本 `#resultCount` 实时更新（`aria-live="polite"` 播报条数；`#grid` 为 `aria-live="off"`，避免读屏朗读整网格） |
 | 弹窗打开 | 背景 `fade` + 卡片 `pop`（桌面）/ 抽屉 `slide-in-right`（移动） |
 | 复制分享链接 | 成功 toast「已复制链接」（`role="status"` `aria-live="polite"`）；失败 toast「复制失败，请手动复制」；3s 自动消失 |
 
@@ -193,10 +194,11 @@
 
 ### 4.5 键盘与可达性
 
-- 卡片 `role="button"` + `tabIndex=0`，支持 `Enter`/`Space` 打开。
+- 卡片为**原生 `<button>`**，Enter/Space 原生打开；点击经 `#grid` 事件委托（v1.16.0 修复 double-open，移除冗余 keydown 委托）。
 - 弹窗为**原生实现**，按 Radix Dialog 风格提供 `Esc` 关闭、焦点陷阱、`aria-modal`（详见 §7，无 Radix 运行时）。
 - 分类 chip 用 `aria-pressed` 反映选中态。
 - 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
+- 顶部栏图标按钮统一 `.icon-btn`（34px、flex 居中、`aria-pressed`/`aria-label`），`#settingsBtn` 带 `aria-label`（v1.17.2 补齐样式，修复按钮参差对齐）。
 
 ### 4.6 页脚区（Footer）
 
@@ -214,21 +216,28 @@
 
 | 断点 | 布局 |
 |------|------|
-| `sm` ≥ 640px | 工具栏横排；详情用 Dialog |
-| `lg` ≥ 1024px | 网格 3 列（`lg:grid-cols-3`） |
-| `sm` ≥ 640px | 网格 2 列（`sm:grid-cols-2`） |
-| `< 640px` | 网格单列；详情用 Sheet 抽屉；分类 chip 横排可滚动 |
+| `≥1024px` | 平板/桌面中间断点（v1.15.0 新增）：压缩 hero 字号与顶栏间距 |
+| `≥640px` | 工具栏横排；详情用居中 Dialog |
+| `< 640px` | 网格单列；分类 chip 横排可滚动；工具栏纵向堆叠（`view-toggle` 隐藏） |
 
-- 移动端优先保证触控目标 ≥ 42px（按钮 `h-10`、图标按钮 `h-10 w-10`）。
-- 分类 chip 横向排列，超出可滚动。
+- **网格列数**：实际用 CSS Grid `grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))` **自适应**（非固定 2/3 列），由容器宽度决定列数，无需逐断点声明。
+- 移动端优先保证触控目标 ≥ 42px（按钮、图标按钮 `.icon-btn` 34px）。
+- 分类 chip 横向排列，超出可滚动（`.cats-scroll` 限宽居中）。
+- 顶栏/搜索控制/分类/页脚采用「背景全宽 + 内容限宽居中」结构（`--maxw: 1200px`），与网格同宽对齐（v1.17.1 修复大屏过宽断层）。
 
 ---
 
 ## 6. 数据架构（Data Contract）
 
 - **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `data/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/index.html` 静态产物（仓库已入库 `prototype/`，如需更新数据重跑两脚本即可）。
-- 数据 Schema（实际为扁平结构）：`{ total:number, categories: string[], skills: Skill[] }`，其中 `Skill{ name, category, zh, description, zhDesc, allowedTools }`，`categories` 为去重后的中文分类名 `string[]`（由 `skills[].category` 推导，无 count），`zhDesc` 为 `description` 的中文译文（处理技能时翻译生成），与 `openspec/project.md` §4.5 的 `skills-data.json` Schema 严格一致。
-- 分类英文名为文档映射（`tools/_skill_readme_lib.py` 的 `CATEGORY_EN`），非数据内嵌。
+- 数据 Schema（实际为扁平结构）：`{ total:number, categories: string[], categoryEn: Record<string,string>, skills: Skill[] }`，其中 `Skill{ name, category, enCategory, zh, description, enDescription, allowedTools, hidden }`：
+  - `name`：技能唯一标识（英文 slug）。
+  - `category`：中文分类名；`enCategory`：该分类的英文名。
+  - `zh`：中文名（可为空，空时渲染回退 `name`）。
+  - `description`：**中文描述**；`enDescription`：英文描述。
+  - `allowedTools`：授权工具列表；`hidden`：是否隐藏（`renderGrid` 过滤）。
+  - `categoryEn`（根级）：分类中文→英文映射对象。
+- 分类计数由 `02-render.js` 的 `catCounts()` 预聚合为 `Map`，搜索由 `matches(s, terms)`（预切分词表缓存）实现。
 - 注意：`app/` 是项目**可运行 Web 应用**源码工作区（见 `app/README.md`），与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`。
 - 红色底线：数据契约须与 `build-skills-data.mjs`/`build.mjs`、`openspec/project.md` 严格一致。
 
@@ -248,7 +257,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.14.61 — 文档与实现对齐：图形唯一来源由废弃的 `brand/hub.svg` 改为 `app/public/hub.svg`（v1.14.57 已落地）；移除 `app/icon.svg` 死引用，统一以 `app/public/favicon.svg` 作为站点图标；`skills-data.json` 数据契约含 `zhDesc`（`description` 中文译文，处理技能时翻译生成）。
+> 版本：v1.17.3 — 文档与实现对齐：卡片改为原生 `<button>`（P1-1）；数据契约更新为 `description`(中文)/`enDescription`(英文)/`enCategory`/`categoryEn`（并行会话 v1.16.x 落地，移除 `zhDesc`）；新增设置弹窗 `#settingsBtn`/`openSettings()`（v1.17.2）；响应式改为 `auto-fill minmax(260px,1fr)` 自适应 + `--maxw` 限宽居中（v1.17.1）；`.sheet` 抽屉为预留未启用（v1.16.0 起标注）。
 
 ### 8.1 标志释义（Logo）
 
