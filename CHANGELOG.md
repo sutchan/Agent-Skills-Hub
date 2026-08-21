@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.21] - 2026-08-21
+
+### fix: 详情弹窗整体滚动（消除仅底部区域单独滚动条）
+
+- `app/globals.css`：`.dialog` 由 `overflow: hidden` 改为 `overflow-y: auto`，成为整体滚动容器
+- 详情弹窗各区块（`.detail-head`/`.detail-meta`/`.detail-metrics`/`.d-install`/`.detail-body`）加 `flex: none` 防止被 flex 压缩；头部 `position: sticky; top: 0` 常驻顶部
+- `.detail .dialog-body` 取消单独 `overflow: auto`，滚动职责上移到外层 `.dialog`
+- package.json 升至 v1.19.21
+
 ## [1.19.20] - 2026-08-21
 
 ### feat: 详情页安装命令 + STAR/首次收录 + 列表分页(每页100)

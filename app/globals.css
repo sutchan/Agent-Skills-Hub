@@ -1,4 +1,4 @@
-/* app/globals.css v1.19.20 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+/* app/globals.css v1.19.21 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 build.mjs 自动生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -105,14 +105,16 @@ html[data-lang="zh"] .en { display: none; }
 /* 弹窗（扩展详情） */
 .overlay { position: fixed; inset: 0; z-index: 50; background: hsl(var(--shadow-color) / .5); backdrop-filter: blur(2px); display: none; }
 .overlay.show { display: block; }
-.dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; }
+.dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow-y: auto; overflow-x: hidden; }
 .dialog.show { display: flex; }
-.dialog-head { display: flex; align-items: center; gap: 12px; padding: 20px 22px; border-bottom: 1px solid var(--border); }
+.dialog-head { display: flex; align-items: center; gap: 12px; padding: 20px 22px; border-bottom: 1px solid var(--border); flex: none; }
 .dialog-head h2 { margin: 0; font-family: var(--font-display); font-size: 18px; }
 .dialog-head .sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }
 .dialog-head .dialog-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
 .dialog-close { margin-left: auto; }
 .dialog-body { padding: 22px; overflow: auto; }
+/* 详情弹窗：滚动由外层 .dialog 整体承担，body 不再单独出现滚动条（v1.19.21） */
+.detail .dialog-body { overflow: visible; flex: none; }
 
 /* 抽屉（Sheet）：移动端详情采用底部上滑抽屉，较居中弹窗更贴合小屏手势（对齐 COMPONENTS #9） */
 .sheet { position: fixed; z-index: 51; left: 0; right: 0; bottom: 0; width: 100%; max-height: 88vh; background: var(--surface); border-radius: 18px 18px 0 0; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; transform: translateY(100%); transition: transform .25s ease; }
@@ -283,7 +285,9 @@ html[data-lang="zh"] .en { display: none; }
 
 /* 详情弹窗（v1.19.14 重构：复用 .dialog 框架，含元信息区 / 相关技能 / 复制名称）
    与原型 .detail 体系对齐，但外层为 .dialog 居中面板 */
-.detail .dialog-head.detail-head { display: flex; align-items: flex-start; gap: 12px; }
+.detail .dialog-head.detail-head { display: flex; align-items: flex-start; gap: 12px; position: sticky; top: 0; z-index: 2; background: var(--surface); flex: none; }
+/* 详情弹窗各区块不被 flex 压缩：内容超出时由外层 .dialog 统一滚动（v1.19.21） */
+.detail .detail-meta, .detail .detail-metrics, .detail .d-install { flex: none; }
 .detail .d-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .detail .copy-tip { font-size: 12px; color: hsl(var(--primary)); opacity: 0; transform: translateY(-2px); transition: opacity .2s, transform .2s; }
 .detail .copy-tip.show { opacity: 1; transform: translateY(0); }
