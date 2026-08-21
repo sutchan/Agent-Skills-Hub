@@ -1,9 +1,12 @@
 ---
 name: react-doctor
-description: Diagnose and fix React codebase health issues. Use when reviewing React code, fixing performance problems, auditing security, or improving code quality.
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+zh: React 代码诊断
+description: 诊断并修复 React 代码库健康问题。用于审查 React 代码、修复性能问题、审计安全或提升代码质量。
+en_description: Diagnose and fix React codebase health issues. Use when reviewing React code, fixing performance problems, auditing security, or improving code quality.
 version: 1.0.0
 ---
-
 # React Doctor
 
 Scans your React codebase for security, performance, correctness, and architecture issues. Outputs a 0-100 score with actionable diagnostics.

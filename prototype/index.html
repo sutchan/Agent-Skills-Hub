@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 81 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 82 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 81+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 82+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 81+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 82+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
@@ -557,22 +557,20 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 81,
+  "total": 82,
   "categories": [
     "品牌与设计",
     "文档与内容",
     "数据分析与可视化",
     "开发框架与平台",
-    "文件与格式处理",
-    "其他"
+    "文件与格式处理"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
     "文档与内容": "Docs & Content",
     "数据分析与可视化": "Data Analysis & Visualization",
     "开发框架与平台": "Dev Frameworks & Platforms",
-    "文件与格式处理": "File & Format Handling",
-    "其他": "其他"
+    "文件与格式处理": "File & Format Handling"
   },
   "skills": [
     {
@@ -602,6 +600,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "品牌发现与定位",
       "description": "用于品牌发现与定位的技能，通过调研与梳理品牌资产、市场与目标人群，帮助建立清晰、差异化的品牌定位与视觉方向。",
       "enDescription": "This skill orchestrates autonomous discovery of brand materials across enterprise platforms (Notion, Confluence, Google Drive, Box, SharePoint, Figma, Gong, Granola, Slack). It should be used when the user asks to \\\"discover brand materials\\\", \\\"find brand documents\\\", \\\"search for brand guidelines\\\", \\\"audit brand content\\\", \\\"what brand materials do we have\\\", \\\"find our style guide\\\", \\\"where are our brand docs\\\", \\\"do we have a style guide\\\", \\\"discover brand voice\\\", \\\"brand content audit\\\", or \\\"find brand assets\\\".",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "favicon",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Favicon 生成",
+      "description": "从源图生成完整的一套 favicon 并更新 HTML。用于为 Web 项目配置 favicon。",
+      "enDescription": "Generate a complete set of favicons from a source image and update HTML. Use when setting up favicons for a web project.",
       "allowedTools": [],
       "hidden": false
     },
@@ -652,6 +660,66 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "独特的前端视觉设计",
       "description": "在构建新 UI 或重塑现有 UI 时提供独特、有意的视觉设计指导，涵盖美学方向、排版，帮助做出不显模板化的设计选择。",
       "enDescription": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "logo-animation",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Logo 动画",
+      "description": "为品牌 logo 创建动画效果，提升视觉表现与动态识别度。",
+      "enDescription": "Create animated effects for brand logos to enhance visual presentation and dynamic recognition.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "logo-creator",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "AI Logo 生成",
+      "description": "使用 AI 图像生成创建 logo。讨论风格/比例、生成变体、结合用户反馈迭代、裁剪、去背景并导出为 SVG。用于创建 logo、图标、favicon、品牌标记、吉祥物或设计 logo。",
+      "enDescription": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "logo-designer",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "SVG Logo 设计",
+      "description": "使用 SVG 设计并迭代 logo。当用户要求「创建 logo」「设计 logo」「为我的项目做 logo」或讨论 logo 设计、品牌图标与字体标时使用。",
+      "enDescription": "Design and iterate on logos using SVG. Use this skill when the user asks to create a logo, design a logo, make a logo, iterate on a logo, or discusses logo design, branding icons, or wordmarks.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "muapi-3d-logo-animation",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "3D Logo 动画",
+      "description": "将 2D logo 转换为高级 3D 版本，并以专业电影级特效进行动画制作。",
+      "enDescription": "Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "muapi-logo-creator",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "几何 Logo 生成",
+      "description": "使用几何基元与负空间设计专业级品牌 logo——经 muapi.ai 生成极简、可缩放的矢量风格标记。",
+      "enDescription": "Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "svg-logo-designer",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "SVG Logo 设计",
+      "description": "根据描述与设计规格创建专业 SVG logo。生成多种不同布局、风格与概念的变体，产出可缩放矢量图形，可直接使用或导出 PNG。用于创建 logo、品牌标识、图标或视觉标记。",
+      "enDescription": "Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.",
       "allowedTools": [],
       "hidden": false
     },
@@ -722,6 +790,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "技能发现与安装",
       "description": "帮助用户发现并安装可用的 agent 技能。当用户问“我该怎么做 X”“找一个做 X 的技能”“有没有能做…的技能”或表达想要扩展能力时，使用本技能来寻找可能以可安装技能形式存在的功能。",
       "enDescription": "Helps users discover and install agent skills when they ask questions like \\\"how do I do X\\\", \\\"find a skill for X\\\", \\\"is there a skill that can...\\\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "find-skills-2",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "技能发现与安装",
+      "description": "当用户询问「怎么做 X」「找 X 的技能」「有没有能…的技能」或想扩展能力时，帮助用户发现并安装 agent 技能。",
+      "enDescription": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
       "allowedTools": [],
       "hidden": false
     },
@@ -909,6 +987,26 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "bun",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Bun 运行时",
+      "description": "使用 Bun 替代 Node.js、npm、pnpm 或 vite。提供命令映射、Bun 特有 API 与开发模式。",
+      "enDescription": "Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "chrome-webstore-release-blueprint",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Chrome 应用商店发布蓝图",
+      "description": "端到端引导用户在任意仓库中搭建 Chrome Web Store API 发布自动化。用于 OAuth/CWS 凭证配置、刷新令牌创建、本地/CI 密钥设置、基于版本的发布自动化与提交状态检查。",
+      "enDescription": "Guide a user end-to-end through setting up Chrome Web Store API release automation in any repository. Use when asked to walk someone through OAuth/CWS credential setup, refresh token creation, local/CI secret setup, version-based publish automation, and submission status checks.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "clerk-nextjs-patterns",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -957,6 +1055,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "eve 后端 Agent 框架",
       "description": "使用 eve 框架构建可持久化的后端 AI 智能体（agent）。用于创建、编辑或调试 eve 项目——包括 agent 指令、技能、工具、连接、渠道、沙箱、子 agent、定时任务或评测。",
       "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "fix-sentry-issues",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Sentry 问题修复",
+      "description": "使用 Sentry MCP 发现、分类并根因修复生产问题。用于修复 Sentry 问题、分类生产错误、排查错误尖峰或清理 Sentry 噪声。需要 Sentry MCP 服务。",
+      "enDescription": "Use Sentry MCP to discover, triage, and fix production issues with root-cause analysis. Use when asked to fix Sentry issues, triage production errors, investigate error spikes, or clean up Sentry noise. Requires Sentry MCP server.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1025,7 +1133,7 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "Instagram API 替代",
-      "description": "An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no session cookies. Use when the user wants to resolve an Instagram profile by @handle, search users by keyword, pull a profile's posts, reels, stories, tagged posts, followers, or followings, look up a single post by its shortcode, read a post's comments, fetch posts under a hashtag or reel-only hashtag feed, pull posts from a location, or pull posts using a specific audio/music track. Also covers Instagram follower export, hashtag and location monitoring, influencer discovery, competitor content tracking, and Instagram data pipelines without an official Graph API business verification or a headless browser.",
+      "description": "fetcher.sh 上的 Instagram API 替代方案——通过 x402 以 USDC 按次付费， 或使用 Bearer Key 预付额度，无需登录、无需会话 Cookie。当用户希望通过 @handle 解析 Instagram 主页、按关键词搜索用户、拉取某主页的帖子、Reels、 快拍、被标记帖子、粉丝或关注列表，按短码查询单条帖子、读取帖子评论、 获取话题标签或仅 Reels 的话题流、按地点拉取帖子，或按特定音频/音乐 轨道拉取帖子时使用。同时涵盖 Instagram 粉丝导出、话题标签与地点监控、 达人发现、竞品内容追踪，以及无需官方 Graph API 企业认证或无头浏览器的 Instagram 数据管道。",
       "enDescription": "An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no session cookies. Resolve a profile by @handle, search users by keyword, pull posts/reels/stories/tagged posts/followers/followings, look up a post by shortcode, read comments, fetch hashtag or location feeds, pull posts by audio track, plus follower export, monitoring, influencer discovery, and competitor tracking without Graph API verification or a headless browser.",
       "allowedTools": [],
       "hidden": false
@@ -1037,6 +1145,56 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "飞书视频会议",
       "description": "飞书视频会议：查询会议记录与会议产物(纪要/逐字稿/妙记)、妙记搜索/上传/下载/编辑、机器人参与会议；查询进行中的会议、实时会议内容(发言/聊天/共享文档)问答(会上/会里)、发送会中聊天/表情；基于 meeting_id、meeting_no、event_id、note_id、minute_token、vc-node-id 或妙记 URL 查询相关信息。预约会议、忙闲和会议室管理走 lark-calendar。",
       "enDescription": "Lark video meetings: query meeting records and meeting artifacts (minutes/transcripts/notes), search/upload/download/edit notes, bot participation in meetings; query ongoing meetings, ask questions over real-time meeting content (speech/chat/shared docs), send in-meeting chat/emojis; query by meeting_id, meeting_no, event_id, note_id, minute_token, vc-node-id or note URL. Meeting scheduling, availability and room management go through lark-calendar.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "limrun-android-emulator",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun 安卓模拟器",
+      "description": "驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动/终止应用并输出崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制带宽，并通过 CLI 隧道使用 adb 读取 logcat、文件与 shell。",
+      "enDescription": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "limrun-detox-testing",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun Detox 测试",
+      "description": "在 Limrun iOS 模拟器上配置、运行或调试 Detox。用于为应用挂接 Limrun Detox 运行时、连接 Detox mediator 或经反向隧道校验应用/测试器连接。",
+      "enDescription": "Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over reverse tunnels.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "limrun-ios-simulator",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun iOS 模拟器",
+      "description": "驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、截图、录屏、以视频文件模拟摄像头、执行定时动作链。",
+      "enDescription": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "limrun-xcode",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun Xcode 构建",
+      "description": "在远程 Xcode 用 `lim xcode build` 构建 iOS/Apple 应用，替代本地 xcodebuild，适用任意环境（Linux/Windows/macOS/VM/容器）。用于非 Bazel 项目（.xcodeproj/.xcworkspace、XcodeGen project.yml、React Native/Expo 原生构建）。",
+      "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "limrun-xcode-bazel",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun Xcode Bazel 构建",
+      "description": "在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用，替代本地 Mac，并安装到远程 iOS 模拟器。用于 Bazel workspace（MODULE.bazel/WORKSPACE）构建 rules_apple/rules_swift 目标。",
+      "enDescription": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1103,6 +1261,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "Playwriter 浏览器控制",
       "description": "Playwriter：通过 Playwriter CLI 控制用户当前已打开的 Chrome 标签页（不新开浏览器）。当你需要检查实时 UI 状态、运行脚本化浏览器操作、捕获控制台输出，或直接在用户标签页中复现前端问题时使用；支持创建会话、读取页面结构与日志、执行点击/输入/悬停/求值等操作，并以精确 ID、时间戳与状态变化总结结果。",
       "enDescription": "Playwriter: control the user's currently open Chrome tab through the Playwriter CLI (no new browser launch). Use when you need to inspect live UI state, run scripted browser actions, capture console output, or reproduce frontend issues directly in the user's tab; supports creating sessions, reading page structure and logs, executing click/type/hover/evaluate actions, and summarizing findings with exact IDs, timestamps, and observed state transitions.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "react-doctor",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "React 代码诊断",
+      "description": "诊断并修复 React 代码库健康问题。用于审查 React 代码、修复性能问题、审计安全或提升代码质量。",
+      "enDescription": "Diagnose and fix React codebase health issues. Use when reviewing React code, fixing performance problems, auditing security, or improving code quality.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1253,166 +1421,6 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "电子表格文件处理",
       "description": "任何以电子表格文件为主要输入或输出的任务都应使用本技能，包括打开/读取/编辑/修复现有 .xlsx、.xlsm、.xltx、.csv、.tsv 文件（加列、算公式、格式化、图表、清理脏数据）、从零或其他数据源新建表格、在表格文件格式间转换，以及清理/重组混乱的表格数据。\n产出物必须是电子表格文件。 当主要产出是 Word 文档、HTML 报告、独立 Python 脚本、数据库管线或 Google Sheets API 集成时不要触发。",
       "enDescription": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\\\"the xlsx in my downloads\\\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "bun",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "chrome-webstore-release-blueprint",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Guide a user end-to-end through setting up Chrome Web Store API release automation in any repository. Use when asked to walk someone through OAuth/CWS credential setup, refresh token creation, local/CI secret setup, version-based publish automation, and submission status checks.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "favicon",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Generate a complete set of favicons from a source image and update HTML. Use when setting up favicons for a web project.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "find-skills",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "fix-sentry-issues",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use Sentry MCP to discover, triage, and fix production issues with root-cause analysis. Use when asked to fix Sentry issues, triage production errors, investigate error spikes, or clean up Sentry noise. Requires Sentry MCP server. Triggers on \"fix sentry\", \"triage errors\", \"production bugs\", \"sentry issues\".",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "limrun-android-emulator",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', or 'record a video'. To build the APK or AAB first, use limrun-gradle.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "limrun-detox-testing",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over reverse tunnels.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "limrun-ios-simulator",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains. Use after a build (from any builder) when the user wants to see, test, or interact with their app on a simulator, or says 'show me a screenshot', 'tap', 'run the UI test', 'record a video', 'mock the camera', or 'launch on simulator'. To build the app first, use limrun-xcode-bazel (Bazel workspaces) or limrun-xcode (xcodebuild projects).",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "limrun-xcode",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects (an `.xcodeproj` / `.xcworkspace`, an XcodeGen `project.yml` with a gitignored project, React Native / Expo native build) when the user wants to build, compile, reload, produce a preview build, or ship a signed device IPA. To run, tap, screenshot, or otherwise interact with the result on a simulator, use limrun-ios-simulator. For Bazel workspaces, use limrun-xcode-bazel.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "limrun-xcode-bazel",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace (MODULE.bazel / WORKSPACE) building rules_apple / rules_swift targets and the user wants to `bazel build` it or run it on a simulator, or when a `--config=limrun` build or install misbehaves. To then tap, type, screenshot, or otherwise interact with the running app, use limrun-ios-simulator. For non-Bazel (plain xcodebuild) projects use limrun-xcode instead.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "logo-creator",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "logo-designer",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Design and iterate on logos using SVG. Use this skill when the user asks to\n\"create a logo\", \"design a logo\", \"make me a logo\", \"iterate on this logo\",\n\"logo for my project\", or discusses logo design, branding icons, or wordmarks.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "muapi-3d-logo-animation",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "muapi-logo-creator",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "react-doctor",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Diagnose and fix React codebase health issues. Use when reviewing React code, fixing performance problems, auditing security, or improving code quality.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "SVG Logo Designer",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.",
-      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     }

@@ -1,8 +1,11 @@
 ---
 name: bun
-description: Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+zh: Bun 运行时
+description: 使用 Bun 替代 Node.js、npm、pnpm 或 vite。提供命令映射、Bun 特有 API 与开发模式。
+en_description: Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.
 ---
-
 # Bun Runtime
 
 Use Bun as the default JavaScript/TypeScript runtime and package manager.

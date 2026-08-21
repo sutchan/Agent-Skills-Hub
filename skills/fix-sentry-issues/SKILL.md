@@ -1,8 +1,11 @@
 ---
 name: fix-sentry-issues
-description: Use Sentry MCP to discover, triage, and fix production issues with root-cause analysis. Use when asked to fix Sentry issues, triage production errors, investigate error spikes, or clean up Sentry noise. Requires Sentry MCP server. Triggers on "fix sentry", "triage errors", "production bugs", "sentry issues".
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+zh: Sentry 问题修复
+description: 使用 Sentry MCP 发现、分类并根因修复生产问题。用于修复 Sentry 问题、分类生产错误、排查错误尖峰或清理 Sentry 噪声。需要 Sentry MCP 服务。
+en_description: Use Sentry MCP to discover, triage, and fix production issues with root-cause analysis. Use when asked to fix Sentry issues, triage production errors, investigate error spikes, or clean up Sentry noise. Requires Sentry MCP server.
 ---
-
 # Fix Sentry Issues
 
 ## Philosophy

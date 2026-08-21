@@ -1,10 +1,13 @@
 ---
 name: limrun-android-emulator
-description: "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', or 'record a video'. To build the APK or AAB first, use limrun-gradle."
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+zh: Limrun 安卓模拟器
+description: 驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动/终止应用并输出崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制带宽，并通过 CLI 隧道使用 adb 读取 logcat、文件与 shell。
+en_description: Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell.
 user-invocable: true
 effort: high
 ---
-
 # Limrun Android Emulator
 
 Interact with an app running on a Limrun cloud Android emulator, from any

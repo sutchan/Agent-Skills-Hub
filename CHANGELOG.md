@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.17.4] - 2026-08-21
+
+### fix: 补全 17 个技能 frontmatter 消除「其他」分类并重建数据
+
+- **补全字段**：为 `bun`、`chrome-webstore-release-blueprint`、`favicon`、`find-skills-2`、`fix-sentry-issues`、`limrun-android-emulator`、`limrun-detox-testing`、`limrun-ios-simulator`、`limrun-xcode`、`limrun-xcode-bazel`、`logo-creator`、`logo-designer`、`muapi-3d-logo-animation`、`muapi-logo-creator`、`react-doctor`、`svg-logo-designer`、`logo-animation` 17 个技能补齐 `category` / `en_category` / `zh` / `description`(中文) / `en_description`(英文) 字段
+- **消除「其他」分类**：此前这些技能缺 `category` 归入「其他」，补全后回归 5 大领域（品牌与设计 17 / 文档与内容 13 / 数据分析与可视化 1 / 开发框架与平台 48 / 文件与格式处理 4）
+- **数据重建**：`node build-skills-data.mjs` 重建 `data/skills-data.json`，技能总数 82（可见 81，hidden 1），无「其他」分类
+- **版本同步**：`package.json` 升至 v1.17.4，README/README.en 徽章对齐
+
 ## [1.17.3] - 2026-08-21
 
 ### feat: 补全 8 个新技能 frontmatter 并重建技能数据

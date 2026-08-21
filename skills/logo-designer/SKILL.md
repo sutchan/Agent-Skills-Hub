@@ -1,13 +1,16 @@
 ---
 name: logo-designer
-description: |
+category: 品牌与设计
+en_category: Brand & Design
+zh: SVG Logo 设计
+description: 使用 SVG 设计并迭代 logo。当用户要求「创建 logo」「设计 logo」「为我的项目做 logo」或讨论 logo 设计、品牌图标与字体标时使用。
+en_description: Design and iterate on logos using SVG. Use this skill when the user asks to create a logo, design a logo, make a logo, iterate on a logo, or discusses logo design, branding icons, or wordmarks.
   Design and iterate on logos using SVG. Use this skill when the user asks to
   "create a logo", "design a logo", "make me a logo", "iterate on this logo",
   "logo for my project", or discusses logo design, branding icons, or wordmarks.
 version: 1.0.0
 license: MIT
 ---
-
 # Logo Designer
 
 Design and iterate on logos using SVG. Generates side-by-side previews and exports to PNG at standard sizes.

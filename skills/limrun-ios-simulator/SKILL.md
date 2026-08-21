@@ -1,10 +1,13 @@
 ---
 name: limrun-ios-simulator
-description: "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains. Use after a build (from any builder) when the user wants to see, test, or interact with their app on a simulator, or says 'show me a screenshot', 'tap', 'run the UI test', 'record a video', 'mock the camera', or 'launch on simulator'. To build the app first, use limrun-xcode-bazel (Bazel workspaces) or limrun-xcode (xcodebuild projects)."
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+zh: Limrun iOS 模拟器
+description: 驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、截图、录屏、以视频文件模拟摄像头、执行定时动作链。
+en_description: Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains.
 user-invocable: true
 effort: high
 ---
-
 # Limrun iOS Simulator
 
 Interact with an app running on a Limrun cloud iOS simulator, from any

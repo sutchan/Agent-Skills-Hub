@@ -4,17 +4,14 @@ category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 zh: Instagram API 替代
 description: >-
-  An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402,
-  or prepaid credits with a Bearer key, no login and no session cookies. Use
-  when the user wants to resolve an Instagram profile by @handle, search
-  users by keyword, pull a profile's posts, reels, stories, tagged posts,
-  followers, or followings, look up a single post by its shortcode, read a
-  post's comments, fetch posts under a hashtag or reel-only hashtag feed,
-  pull posts from a location, or pull posts using a specific audio/music
-  track. Also covers Instagram follower export, hashtag and location
-  monitoring, influencer discovery, competitor content tracking, and
-  Instagram data pipelines without an official Graph API business
-  verification or a headless browser.
+  fetcher.sh 上的 Instagram API 替代方案——通过 x402 以 USDC 按次付费，
+  或使用 Bearer Key 预付额度，无需登录、无需会话 Cookie。当用户希望通过
+  @handle 解析 Instagram 主页、按关键词搜索用户、拉取某主页的帖子、Reels、
+  快拍、被标记帖子、粉丝或关注列表，按短码查询单条帖子、读取帖子评论、
+  获取话题标签或仅 Reels 的话题流、按地点拉取帖子，或按特定音频/音乐
+  轨道拉取帖子时使用。同时涵盖 Instagram 粉丝导出、话题标签与地点监控、
+  达人发现、竞品内容追踪，以及无需官方 Graph API 企业认证或无头浏览器的
+  Instagram 数据管道。
 en_description: >-
   An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or
   prepaid credits with a Bearer key, no login and no session cookies. Resolve a
