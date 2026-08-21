@@ -286,7 +286,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-stats .num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; line-height: 1.1; }
 .footer-stats .lbl { font-size: 11.5px; color: var(--text-2); }
 
-/* prototype/src/styles/components.css v1.19.6 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.19.13 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -316,7 +316,7 @@ html[data-lang="zh"] .en { display: none; }
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); display: grid; place-items: center; font-weight: 700; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; flex: none; }
 .title-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; }
+.card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; font-size: 15px; line-height: 1.3; }
 /* 标题双语言显示（v1.18.1 起，v1.19.6 引入 nameMode）：
    默认双显：中文态中文名为主、英文原名作弱化副标题（覆盖 base 的 data-lang=zh .en 隐藏）；英文态仅英文原名
    名称显示策略 nameMode（<html data-name-mode>）：
@@ -324,7 +324,7 @@ html[data-lang="zh"] .en { display: none; }
      zh：两态都仅中文名
      en：两态都仅英文原名 */
 .card-title .zh { display: block; }
-.card-title .en { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
+.card-title .en { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
 /* 双显 + 中文态：强制显示英文原名副标题（特异性高于 base 的 html[data-lang=zh] .en 隐藏） */
 :root[data-name-mode="both"][data-lang="zh"] .card-title .en { display: block; }
 :root[data-lang="en"] .card-title .en { font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
@@ -366,6 +366,11 @@ html[data-lang="zh"] .en { display: none; }
 .view-btn { width: 34px; height: 34px; border-radius: 7px; display: grid; place-items: center; color: var(--text-2); transition: background .15s, color .15s; }
 .view-btn:hover { color: var(--text); }
 .view-btn.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+/* 排序下拉（v1.19.8）：与 view-toggle 同高，靠右侧；select 原生控件，统一边框/圆角/字号 */
+.sort-wrap { display: inline-flex; align-items: center; }
+.sort-wrap select { height: 34px; padding: 0 28px 0 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); color: var(--text); font-size: 13px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+.sort-wrap select:hover { border-color: hsl(var(--primary)); }
+.sort-wrap select:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 1px; }
 
 /* 以下 .badge/.src-badge/.skeleton/.separator/.tool-tag/.skill-link 为「对齐 app 组件库」的预留类：
    当前原型单页目录未使用，保留以维持 DESIGN/COMPONENTS 对齐契约，不删除（避免破坏导出契约） */
@@ -560,6 +565,15 @@ html[data-lang="zh"] .en { display: none; }
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg>
         </button>
       </div>
+      <label class="sort-wrap" id="sortWrap">
+        <span class="sr-only" id="sortLabel">排序 / Sort</span>
+        <select id="sortSelect" aria-labelledby="sortLabel">
+          <option value="name" data-i18n="sort.name">名称 A-Z</option>
+          <option value="name-desc" data-i18n="sort.nameDesc">名称 Z-A</option>
+          <option value="cat" data-i18n="sort.cat">按分类</option>
+          <option value="zh" data-i18n="sort.zh">按中文名</option>
+        </select>
+      </label>
       <span class="result-count" id="resultCount" aria-live="polite"></span>
     </div>
   </div>
@@ -595,7 +609,7 @@ html[data-lang="zh"] .en { display: none; }
       </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.19.7</span>
+      <span class="footer-ver" id="footerVer">v1.19.13</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -625,8 +639,7 @@ html[data-lang="zh"] .en { display: none; }
     "自动化与集成",
     "AI 与智能体",
     "音视频与多媒体",
-    "安全",
-    "其他"
+    "安全"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
@@ -637,8 +650,7 @@ html[data-lang="zh"] .en { display: none; }
     "自动化与集成": "Automation & Integration",
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
-    "安全": "Security",
-    "其他": "其他"
+    "安全": "Security"
   },
   "skills": [
     {
@@ -646,8 +658,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "AI 横幅广告创建",
-      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
-      "enDescription": "",
+      "description": "用 AI 图像生成创建横幅。讨论格式/风格、生成变体、根据反馈迭代、裁剪到目标比例。当用户想创建横幅、页眉、主视觉、封面图、GitHub 横幅、Twitter 页眉或 readme 横幅时使用。",
+      "enDescription": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
       "allowedTools": [],
       "hidden": false
     },
@@ -656,8 +668,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "多格式横幅设计",
-      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
-      "enDescription": "",
+      "description": "为社交媒体、广告、网站主视觉、创意素材与印刷设计横幅。提供多种美术方向选项与 AI 生成视觉。动作：设计、创建、生成横幅。平台：Facebook、Twitter/X、LinkedIn、YouTube、Instagram、Google Display、网站主视觉、印刷。风格：极简、渐变、粗体排版、照片风、插画、几何、复古、玻璃拟态、3D、霓虹、双色调、编辑、拼贴。复用 ui-ux-pro-max、frontend-design、ai-artist、ai-multimodal 等技能。",
+      "enDescription": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
       "allowedTools": [],
       "hidden": false
     },
@@ -766,8 +778,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "Google 移动广告横幅",
-      "description": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
-      "enDescription": "",
+      "description": "提供在 Android、iOS 或 Unity 移动应用中实现、集成或配置 Google 移动广告（GMA）横幅广告的说明。当任务涉及在移动应用中设置横幅广告时使用；插屏或激励广告等其他广告格式不适用。",
+      "enDescription": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1046,8 +1058,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WordPress 沙箱蓝图",
-      "description": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
-      "enDescription": "",
+      "description": "当交付物是 WordPress Playground Blueprint JSON 或 Blueprint 包（含创建、编辑、审查、校验 schema 键、选择 steps/resources、调试 Blueprint 文件）时使用。若仅需运行或分享 Playground 环境，用 wp-playground。",
+      "enDescription": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1216,8 +1228,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "规格实现",
-      "description": "Implement a specification in code.",
-      "enDescription": "",
+      "description": "用代码实现一个规格说明。",
+      "enDescription": "Implement a specification in code.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1362,8 +1374,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "OpenSpec 实现",
-      "description": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
-      "enDescription": "",
+      "description": "按顺序推进已批准的规格提案，结合测试与校验完成实现。当实现变更、应用提案、执行规格任务或基于已批准计划构建时使用。触发词包括 \\\"openspec implement\\\"、\\\"implement\\\"、\\\"apply change\\\"、\\\"execute spec\\\"、\\\"work through tasks\\\"、\\\"build feature\\\"、\\\"start implementation\\\"。",
+      "enDescription": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
       "allowedTools": [],
       "hidden": false
     },
@@ -1634,8 +1646,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WooCommerce 后端开发",
-      "description": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
-      "enDescription": "",
+      "description": "按项目约定新增或修改 WooCommerce 后端 PHP 代码。当创建新类、方法、钩子或修改既有后端代码时使用。**必须在编写任何 PHP 单元测试之前调用。**",
+      "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
       "allowedTools": [],
       "hidden": false
     },
@@ -1644,8 +1656,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WordPress 路由",
-      "description": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
-      "enDescription": "",
+      "description": "当用户咨询 WordPress 代码库（插件、主题、块主题、Gutenberg 块、WP 核心检出）并需快速归类仓库、路由到正确工作流/技能（块、theme.json、REST API、WP-CLI、性能、安全、测试、发布打包）时使用。",
+      "enDescription": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
       "allowedTools": [],
       "hidden": false
     },
@@ -1654,8 +1666,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WP 能力审计",
-      "description": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
-      "enDescription": "",
+      "description": "审计 WordPress 插件的 REST 接口面，产出标准化审计文档，提议 Abilities API 注册项。生成含 YAML schema 与散文段落的 markdown 文档，供人与 agent 在规划注册推广时共同消费。适用于任意 WP 插件。",
+      "enDescription": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1664,8 +1676,18 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WP 能力核验",
-      "description": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
-      "enDescription": "",
+      "description": "核验 WordPress 插件的 Abilities API 注册：枚举能力、检查回调行为是否与各注解声明一致（对抗式「只读却写入」检测）、校验权限与 schema，并校验 wp-abilities-audit 产出的审计文档。",
+      "enDescription": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-block-themes",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 块主题",
+      "description": "开发 WordPress 块主题时使用：theme.json（全局设置/样式）、模板与模板部件、区块样式、样式变体，以及站点编辑器的样式层级、覆盖与缓存排障。",
+      "enDescription": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
       "allowedTools": [],
       "hidden": false
     },
@@ -1674,8 +1696,18 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WordPress 区块模式",
-      "description": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
-      "enDescription": "",
+      "description": "模式：创建或更新 WordPress 区块模式（起始页、模板、模板部件、Query Loop 布局），审查模式注册、区块标记、分类、可访问性或 i18n/转义，或提升模式设计质量。自定义区块路由到 wp-block-development；前端交互路由到 wp-interactivity-api。",
+      "enDescription": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-performance",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 性能优化",
+      "description": "排查或提升 WordPress 性能（后端专用）：性能剖析与测量（WP-CLI profile/doctor、Server-Timing、通过 REST 响应头的 Query Monitor）、数据库/查询优化、自动加载选项、对象缓存、cron、HTTP API 调用与安全验证。",
+      "enDescription": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1684,8 +1716,18 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WordPress 沙箱",
-      "description": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
-      "enDescription": "",
+      "description": "作为 WordPress Playground 的路由包装，处理歧义 Playground 任务、本地 CLI 运行 @wp-playground/cli、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。若需编写或审查 Blueprint JSON，直接用 blueprint 技能。",
+      "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-plugin-development",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 插件开发",
+      "description": "开发 WordPress 插件时使用：架构与钩子、启用/停用/卸载、管理界面与 Settings API、数据存储、cron 任务、安全（nonce/权限/净化/转义）与发布打包。",
+      "enDescription": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1694,8 +1736,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WP 插件目录规范",
-      "description": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
-      "enDescription": "",
+      "description": "审查 WordPress 插件的 GPL 合规性、检查许可证头或兼容性、评估 upsell/免费增值/试用软件模式、校验插件命名或商标规则、检查插件 slug、理解插件为何被 WordPress.org 拒绝，或回答关于 18 条 WordPress.org 插件目录指南的任何问题——即使用户未明确提及「指南」。",
+      "enDescription": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1704,8 +1746,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "技术规格撰写",
-      "description": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
-      "enDescription": "",
+      "description": "在研究当前代码库与实现约束后，为重要的 Warp 功能撰写 TECH.md 规格。当用户要求技术规格、实现计划或与产品规格关联的建筑文档时使用。",
+      "enDescription": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1817,8 +1859,8 @@ html[data-lang="zh"] .en { display: none; }
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
       "zh": "Reddit 自动化营销",
-      "description": "Find Reddit threads where people are genuinely asking for what you offer, then draft short, genuinely helpful replies — disclosing your affiliation honestly and naming your product only when it truly answers the question. Two moves: discovery — scan the right subreddits for real needs (recommendation asks, expressed pain, competitor mentions) and rank the few threads where you can actually help; drafting — write from real experience, respect each community's self-promo rules, and keep a human in the loop to review and post. This markets on Reddit the honest way: contribute value, disclose who you are, never astroturf. Distilled from the playbook behind doany.ai's Reddit agent. Triggers on \"find reddit opportunities\", \"reddit marketing\", \"reddit automation\", \"reply on reddit for my product\", \"reddit community engagement\", \"reddit lead gen\", or any ask to turn Reddit threads into genuine, disclosed marketing replies.",
-      "enDescription": "",
+      "description": "在 Reddit 上找到真正在询问你所提供产品的人，然后起草简短、切实有用的回复——如实披露你的关联，仅在确实能回答问题时才提及产品名。两步：发现——扫描合适板块的真实需求（推荐请求、表达痛点、竞品提及）并排序列出你真能帮上的少数帖子；起草——基于真实经验撰写，遵守各社区自推规则，保留人工审阅与发布。以诚实方式做 Reddit 营销：贡献价值、披露身份、绝不水军。提炼自 doany.ai Reddit agent 背后的打法。触发词：\\\"find reddit opportunities\\\"、\\\"reddit marketing\\\"、\\\"reddit automation\\\"、\\\"reply on reddit for my product\\\"、\\\"reddit community engagement\\\"、\\\"reddit lead gen\\\" 或任何把 Reddit 帖子转化为真实、披露的营销回复的请求。",
+      "enDescription": "Find Reddit threads where people are genuinely asking for what you offer, then draft short, genuinely helpful replies — disclosing your affiliation honestly and naming your product only when it truly answers the question. Two moves: discovery — scan the right subreddits for real needs (recommendation asks, expressed pain, competitor mentions) and rank the few threads where you can actually help; drafting — write from real experience, respect each community's self-promo rules, and keep a human in the loop to review and post. This markets on Reddit the honest way: contribute value, disclose who you are, never astroturf. Distilled from the playbook behind doany.ai's Reddit agent. Triggers on \"find reddit opportunities\", \"reddit marketing\", \"reddit automation\", \"reply on reddit for my product\", \"reddit community engagement\", \"reddit lead gen\", or any ask to turn Reddit threads into genuine, disclosed marketing replies.",
       "allowedTools": [],
       "hidden": false
     },
@@ -2115,40 +2157,10 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.",
       "allowedTools": [],
       "hidden": false
-    },
-    {
-      "name": "wp-block-themes",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-performance",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-plugin-development",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.19.7 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.19.13 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -2186,6 +2198,10 @@ html[data-lang="zh"] .en { display: none; }
       "share.copied": "已复制到剪贴板",
       "share.failed": "复制失败，请手动复制",
       "filter.all": "全部",
+      "sort.name": "名称 A-Z",
+      "sort.nameDesc": "名称 Z-A",
+      "sort.cat": "按分类",
+      "sort.zh": "按中文名",
       "empty.title": "未找到匹配的技能",
       "card.noDesc": "暂无中文描述。",
       "result.count": "共 {n} 个技能",
@@ -2246,6 +2262,10 @@ html[data-lang="zh"] .en { display: none; }
       "share.copied": "Copied to clipboard",
       "share.failed": "Copy failed, please copy manually",
       "filter.all": "All",
+      "sort.name": "Name A-Z",
+      "sort.nameDesc": "Name Z-A",
+      "sort.cat": "By category",
+      "sort.zh": "By Chinese name",
       "empty.title": "No matching skills",
       "card.noDesc": "No description available.",
       "result.count": "{n} skills",
@@ -2392,7 +2412,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/parts/01-state.js v1.19.6 — 常量、偏好状态与纯工具函数
+  <script>// prototype/src/parts/01-state.js v1.19.13 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -2426,7 +2446,10 @@ const state = {
   // 名称显示策略：默认双显（中文名主 + 英文原名副），可切仅中文 / 仅英文
   nameMode: NAME_MODE_BOTH,
   query: "",
-  cat: null,
+  // 分类筛选（多选 OR，空数组 = 全部）；v1.19.8 起由单选 cat 升级为多选 cats
+  cats: [],
+  // 排序：name↑（默认，按 name）/ name↓ / cat（按分类）/ zh（按中文名）
+  sort: "name",
 };
 
 // 偏好读取辅助：校验合法枚举值，非法则回退默认（避免脏 localStorage 破坏状态）
@@ -2489,7 +2512,7 @@ function matches(s, terms) {
   return terms.every((term) => hay.includes(term));
 }
 
-// prototype/src/parts/02-render.js v1.19.7 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.19.13 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
@@ -2502,17 +2525,32 @@ function renderStats() {
 }
 // 历史函数移除：hero 标题已改为静态 thesis 文案（含 accent 强调），不再需要动态 {n} 注入
 
+// 分类 chips（v1.19.8 起多选 OR）：state.cats 为空 = 全部；点击由 04-interactions 负责 toggle
 function renderCats(counts) {
   const cats = SKILLS_DATA.categories;
   const en = SKILLS_DATA.categoryEn || {};
+  const allActive = state.cats.length === 0;
   // "全部"chip 用中性 hue，分类 chip 用 catHue 派生色相（对齐 app：--hue 驱动多色）
-  const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
+  const items = [`<button class="chip${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
-    const active = state.cat === c;
+    const active = state.cats.indexOf(c) !== -1;
     // chip 分类名中英互斥：中文态显示 category，英文态显示 categoryEn[c]
     items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}"><span class="zh">${esc(c)}</span><span class="en">${esc(en[c] || c)}</span> <span class="chip-count">${counts.get(c) || 0}</span></button>`);
   });
   $("#cats").innerHTML = items.join("");
+}
+
+// 排序比较器：name（英文原名 A-Z）/ name-desc（Z-A）/ cat（按分类字典序）/ zh（按中文名）
+function sortSkills(list) {
+  const arr = list.slice();
+  const cmp = {
+    name: (a, b) => String(a.name).localeCompare(String(b.name)),
+    "name-desc": (a, b) => String(b.name).localeCompare(String(a.name)),
+    cat: (a, b) => String(a.category).localeCompare(String(b.category), "zh") || String(a.name).localeCompare(String(b.name)),
+    zh: (a, b) => String(a.zh || a.name).localeCompare(String(b.zh || b.name), "zh"),
+  }[state.sort] || ((a, b) => String(a.name).localeCompare(String(b.name)));
+  arr.sort(cmp);
+  return arr;
 }
 
 // 由技能名派生稳定且 URL/ID 安全的 slug（小写中划线），供卡片 id 锚点与 E2E 定位
@@ -2573,13 +2611,23 @@ function queryTerms(q) {
 function renderGrid() {
   const q = state.query.trim();
   const terms = queryTerms(q);
-  const list = SKILLS_DATA.skills.filter((s) => !s.hidden && matches(s, terms) && (!state.cat || s.category === state.cat));
+  // 过滤：可见 + 关键词匹配 + 分类多选 OR（cats 为空 = 全部）
+  let list = SKILLS_DATA.skills.filter((s) => {
+    if (s.hidden) return false;
+    if (!matches(s, terms)) return false;
+    if (state.cats.length && state.cats.indexOf(s.category) === -1) return false;
+    return true;
+  });
+  list = sortSkills(list);
   const counts = catCounts();
   renderStats();
   renderCats(counts);
   const grid = $("#grid");
   grid.className = "grid " + state.view;
   grid.innerHTML = list.length ? list.map(cardHTML).join("") : emptyHTML();
+  // 同步排序下拉当前值（切换语言或重置时保持一致）
+  const ss = $("#sortSelect");
+  if (ss) ss.value = state.sort;
   // 结果计数 live 区：搜索/筛选后只播报数量，避免读屏朗读整网格（随当前语言）
   const rc = $("#resultCount");
   if (rc) rc.textContent = list.length
@@ -2882,7 +2930,7 @@ function showToast(msg) {
   t._timer = setTimeout(() => t.classList.remove("show"), 2000);
 }
 
-// prototype/src/parts/04-interactions.js v1.19.6 — 主题/语言/视图/密度/UI元素/名称显示切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.19.13 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -2988,12 +3036,17 @@ function bind() {
       renderGrid();
     });
   });
-  // 分类导航（事件委托）
+  // 分类导航（事件委托，v1.19.8 起多选 OR）
   on("#cats", "click", (e) => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
-    state.cat = chip.dataset.cat || null;
-    track("filter_category", { category: state.cat || "all" });
+    const val = chip.dataset.cat || "";
+    if (!val) { state.cats = []; } // "全部"清空多选
+    else {
+      const i = state.cats.indexOf(val);
+      if (i === -1) state.cats.push(val); else state.cats.splice(i, 1);
+    }
+    track("filter_category", { categories: state.cats.slice() });
     renderGrid();
   });
   // 卡片点击打开详情（事件委托）
@@ -3004,9 +3057,16 @@ function bind() {
     const s = SKILL_MAP.get(card.dataset.name);
     if (s) openDetail(s);
   });
+  // 排序下拉（v1.19.8）
+  on("#sortSelect", "change", (e) => {
+    const el = e.target;
+    state.sort = el.value || "name";
+    track("sort", { sort: state.sort });
+    renderGrid();
+  });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cat = null; const si = $("#searchInput"); if (si) si.value = ""; renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });

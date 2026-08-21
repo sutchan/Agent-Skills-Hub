@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.19.6 — 主题/语言/视图/密度/UI元素/名称显示切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.19.13 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -104,12 +104,17 @@ function bind() {
       renderGrid();
     });
   });
-  // 分类导航（事件委托）
+  // 分类导航（事件委托，v1.19.8 起多选 OR）
   on("#cats", "click", (e) => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
-    state.cat = chip.dataset.cat || null;
-    track("filter_category", { category: state.cat || "all" });
+    const val = chip.dataset.cat || "";
+    if (!val) { state.cats = []; } // "全部"清空多选
+    else {
+      const i = state.cats.indexOf(val);
+      if (i === -1) state.cats.push(val); else state.cats.splice(i, 1);
+    }
+    track("filter_category", { categories: state.cats.slice() });
     renderGrid();
   });
   // 卡片点击打开详情（事件委托）
@@ -120,9 +125,16 @@ function bind() {
     const s = SKILL_MAP.get(card.dataset.name);
     if (s) openDetail(s);
   });
+  // 排序下拉（v1.19.8）
+  on("#sortSelect", "change", (e) => {
+    const el = e.target;
+    state.sort = el.value || "name";
+    track("sort", { sort: state.sort });
+    renderGrid();
+  });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cat = null; const si = $("#searchInput"); if (si) si.value = ""; renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });

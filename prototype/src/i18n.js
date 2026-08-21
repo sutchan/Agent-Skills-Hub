@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.19.7 — 独立国际化模块
+// prototype/src/i18n.js v1.19.13 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -36,6 +36,10 @@
       "share.copied": "已复制到剪贴板",
       "share.failed": "复制失败，请手动复制",
       "filter.all": "全部",
+      "sort.name": "名称 A-Z",
+      "sort.nameDesc": "名称 Z-A",
+      "sort.cat": "按分类",
+      "sort.zh": "按中文名",
       "empty.title": "未找到匹配的技能",
       "card.noDesc": "暂无中文描述。",
       "result.count": "共 {n} 个技能",
@@ -96,6 +100,10 @@
       "share.copied": "Copied to clipboard",
       "share.failed": "Copy failed, please copy manually",
       "filter.all": "All",
+      "sort.name": "Name A-Z",
+      "sort.nameDesc": "Name Z-A",
+      "sort.cat": "By category",
+      "sort.zh": "By Chinese name",
       "empty.title": "No matching skills",
       "card.noDesc": "No description available.",
       "result.count": "{n} skills",

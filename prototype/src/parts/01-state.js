@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.19.6 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.19.13 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -32,7 +32,10 @@ const state = {
   // 名称显示策略：默认双显（中文名主 + 英文原名副），可切仅中文 / 仅英文
   nameMode: NAME_MODE_BOTH,
   query: "",
-  cat: null,
+  // 分类筛选（多选 OR，空数组 = 全部）；v1.19.8 起由单选 cat 升级为多选 cats
+  cats: [],
+  // 排序：name↑（默认，按 name）/ name↓ / cat（按分类）/ zh（按中文名）
+  sort: "name",
 };
 
 // 偏好读取辅助：校验合法枚举值，非法则回退默认（避免脏 localStorage 破坏状态）

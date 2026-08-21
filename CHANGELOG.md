@@ -2,6 +2,62 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.13] - 2026-08-21
+
+### feat: 筛选增强——分类多选 + 结果排序
+
+- 分类筛选由单选升级为**多选 OR**（state.cat → state.cats 数组，空=全部；点击 chip 切换选中，非破坏式）
+- 新增**排序**下拉（控制区 `#sortSelect`）：名称 A-Z / 名称 Z-A / 按分类 / 按中文名，默认名称 A-Z
+- 原型 `02-render.js` 新增 `sortSkills()`，renderGrid 过滤后排序并同步 select 值；`renderCats` 改按 `state.cats.includes` 判断 active
+- 原型 `04-interactions.js` 分类点击改 toggle 多选，`clearFilters` 重置 cats+sort；新增 `#sortSelect` change 绑定
+- 原型 `index.html` 控制区加排序下拉（含 data-i18n 文案）；`i18n.js` 加 `sort.name/nameDesc/cat/zh` 中英文案；`components.css` 加 `.sort-wrap select` 样式
+- app `SkillsExplorer.tsx` 改 `cats` 多选（toggleCat）+ `sort` state + 排序比较器 + 控制区排序 select；`globals.css` 补 `.sort-wrap` 样式与原型对齐
+- package.json 升至 v1.19.13
+
+## [1.19.12] - 2026-08-21
+
+### style: 全字段规范重排 SKILL.md 头部注释
+
+- **完整排序方案**（4 段）：①契约字段 `name → description → en_description → zh → category → en_category`；②身份/来源 `displayName → slug → emoji → author → homepage → license → version → compatibility → origin → last_modified`；③能力/调用 `keywords → argument-hint → effort → user-invocable → allowed-tools → disable-model-invocation → hooks → model → risk_level → acceptLicenseTerms → hidden`；④平台嵌套块 `metadata`（最后）
+- **执行范围**：148 个技能中 23 个存在乱序被重排，其余已符合或仅含 6 契约字段；块标量（`>`/`|-`）与引号格式零破坏
+- **CONTRIBUTING 同步**：字段顺序规范升级为完整推荐顺序参考表，未知字段约定置于 `metadata` 之前
+- **校验**：`scripts/validate-skills.mjs` 重排后仍通过 148/148
+
+## [1.19.11] - 2026-08-21
+
+### refactor: 规范 SKILL.md frontmatter 结构与校验门禁
+
+- **P0 冲突键清理**：删除 `cloudbase` 的 `description_zh` / `description_en` 冗余键（与契约 `description`/`en_description` 语义重叠，存在 YAML 覆盖隐患），中文/英文统一由契约字段承载
+- **P1.4 字段顺序统一**：148 个技能 frontmatter 的 6 个契约字段统一为 `name → description → en_description → zh → category → en_category`，其余平台/工具元数据（version/metadata/hooks/risk_level 等）原样后置；块标量（`>`/`|-`）与引号格式零破坏
+- **P1.3 CONTRIBUTING 规范补全**：明确「展示契约字段」与「平台/工具元数据可选白名单」两类，列明禁止字段（`description_zh`/`description_en`），新增字段顺序规范与 `scripts/validate-skills.mjs` 校验说明、PR 清单项
+- **P2 校验脚本**：新增 `scripts/validate-skills.mjs`，CI 门禁检查必填齐全、`category ∈ 9 类`、`en_description` 存在、无冲突键、契约字段顺序、无重复顶层键；运行通过 148/148
+
+## [1.19.10] - 2026-08-21
+
+### docs: 补全 15 个技能的 en_description 双语字段
+
+- **范围**：banner-creator、banner-design、blueprint、google-mobile-ads-banner、implement-spec、openspec-implementation、reddit-automation、woocommerce-backend-dev、wordpress-router、wp-abilities-audit、wp-abilities-verify、wp-patterns、wp-playground、wp-plugin-directory-guidelines、write-tech-spec
+- **做法**：原 `description` 英文原文完整迁移至 `en_description`（保留 `>-` / `>` 块标量格式），`description` 改写为中文翻译，实现中英双语对称
+- **结果**：`en_description` 覆盖率 133/148 → 148/148（100%），中英切换展示一致
+- **全链路同步**：`package.json`→v1.19.10；`build.mjs` 头注释→v1.19.10；`prototype/index.html` 经 `npm run build` 重建（180.5KB）
+
+## [1.19.9] - 2026-08-21
+
+### style: 调大技能卡片名称字号
+
+- **prototype/src/styles/components.css**：`.card-title` 新增 `font-size: 15px; line-height: 1.3`（原继承约 14px），英文原名副标题 `.card-title .en` 11px→12px
+- **app/globals.css**：同步上述两处字号调整
+- **prototype/index.html** 经 `npm run build` 重建（180.5KB），验证 `font-size: 15px` 已注入
+
+## [1.19.8] - 2026-08-21
+
+### feat: 新增 3 个 WordPress 技能并补全 frontmatter，消除未分类项
+
+- **新增技能（3 个）**：wp-block-themes（WordPress 块主题）、wp-performance（WordPress 性能优化）、wp-plugin-development（WordPress 插件开发），均归入开发框架与平台
+- **frontmatter 补全**：3 个技能补齐 `category`/`en_category`/`zh`/`en_description` 字段，全部脱离「其他」分类（OTHER_COUNT=0）
+- **9 类计数更新**：开发框架与平台 59→62、AI 与智能体 8→9（共 146 可见技能）
+- **全链路同步**：`package.json`→v1.19.8；README/README.en 领域表与开场总数（146）同步；`prototype/index.html` 经 `npm run build` 重建（180.4KB）
+
 ## [1.19.7] - 2026-08-21
 
 ### feat: 统计数据由 hero 迁入页脚并扩充

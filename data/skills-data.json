@@ -9,8 +9,7 @@
     "自动化与集成",
     "AI 与智能体",
     "音视频与多媒体",
-    "安全",
-    "其他"
+    "安全"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
@@ -21,8 +20,7 @@
     "自动化与集成": "Automation & Integration",
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
-    "安全": "Security",
-    "其他": "其他"
+    "安全": "Security"
   },
   "skills": [
     {
@@ -30,8 +28,8 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "AI 横幅广告创建",
-      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
-      "enDescription": "",
+      "description": "用 AI 图像生成创建横幅。讨论格式/风格、生成变体、根据反馈迭代、裁剪到目标比例。当用户想创建横幅、页眉、主视觉、封面图、GitHub 横幅、Twitter 页眉或 readme 横幅时使用。",
+      "enDescription": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
       "allowedTools": [],
       "hidden": false
     },
@@ -40,8 +38,8 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "多格式横幅设计",
-      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
-      "enDescription": "",
+      "description": "为社交媒体、广告、网站主视觉、创意素材与印刷设计横幅。提供多种美术方向选项与 AI 生成视觉。动作：设计、创建、生成横幅。平台：Facebook、Twitter/X、LinkedIn、YouTube、Instagram、Google Display、网站主视觉、印刷。风格：极简、渐变、粗体排版、照片风、插画、几何、复古、玻璃拟态、3D、霓虹、双色调、编辑、拼贴。复用 ui-ux-pro-max、frontend-design、ai-artist、ai-multimodal 等技能。",
+      "enDescription": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
       "allowedTools": [],
       "hidden": false
     },
@@ -150,8 +148,8 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "Google 移动广告横幅",
-      "description": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
-      "enDescription": "",
+      "description": "提供在 Android、iOS 或 Unity 移动应用中实现、集成或配置 Google 移动广告（GMA）横幅广告的说明。当任务涉及在移动应用中设置横幅广告时使用；插屏或激励广告等其他广告格式不适用。",
+      "enDescription": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
       "allowedTools": [],
       "hidden": false
     },
@@ -430,8 +428,8 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WordPress 沙箱蓝图",
-      "description": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
-      "enDescription": "",
+      "description": "当交付物是 WordPress Playground Blueprint JSON 或 Blueprint 包（含创建、编辑、审查、校验 schema 键、选择 steps/resources、调试 Blueprint 文件）时使用。若仅需运行或分享 Playground 环境，用 wp-playground。",
+      "enDescription": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
       "allowedTools": [],
       "hidden": false
     },
@@ -600,8 +598,8 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "规格实现",
-      "description": "Implement a specification in code.",
-      "enDescription": "",
+      "description": "用代码实现一个规格说明。",
+      "enDescription": "Implement a specification in code.",
       "allowedTools": [],
       "hidden": false
     },
@@ -746,8 +744,8 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "OpenSpec 实现",
-      "description": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
-      "enDescription": "",
+      "description": "按顺序推进已批准的规格提案，结合测试与校验完成实现。当实现变更、应用提案、执行规格任务或基于已批准计划构建时使用。触发词包括 \\\"openspec implement\\\"、\\\"implement\\\"、\\\"apply change\\\"、\\\"execute spec\\\"、\\\"work through tasks\\\"、\\\"build feature\\\"、\\\"start implementation\\\"。",
+      "enDescription": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
       "allowedTools": [],
       "hidden": false
     },
@@ -1018,8 +1016,8 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WooCommerce 后端开发",
-      "description": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
-      "enDescription": "",
+      "description": "按项目约定新增或修改 WooCommerce 后端 PHP 代码。当创建新类、方法、钩子或修改既有后端代码时使用。**必须在编写任何 PHP 单元测试之前调用。**",
+      "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
       "allowedTools": [],
       "hidden": false
     },
@@ -1028,8 +1026,8 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WordPress 路由",
-      "description": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
-      "enDescription": "",
+      "description": "当用户咨询 WordPress 代码库（插件、主题、块主题、Gutenberg 块、WP 核心检出）并需快速归类仓库、路由到正确工作流/技能（块、theme.json、REST API、WP-CLI、性能、安全、测试、发布打包）时使用。",
+      "enDescription": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
       "allowedTools": [],
       "hidden": false
     },
@@ -1038,8 +1036,8 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WP 能力审计",
-      "description": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
-      "enDescription": "",
+      "description": "审计 WordPress 插件的 REST 接口面，产出标准化审计文档，提议 Abilities API 注册项。生成含 YAML schema 与散文段落的 markdown 文档，供人与 agent 在规划注册推广时共同消费。适用于任意 WP 插件。",
+      "enDescription": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1048,8 +1046,18 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WP 能力核验",
-      "description": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
-      "enDescription": "",
+      "description": "核验 WordPress 插件的 Abilities API 注册：枚举能力、检查回调行为是否与各注解声明一致（对抗式「只读却写入」检测）、校验权限与 schema，并校验 wp-abilities-audit 产出的审计文档。",
+      "enDescription": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-block-themes",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 块主题",
+      "description": "开发 WordPress 块主题时使用：theme.json（全局设置/样式）、模板与模板部件、区块样式、样式变体，以及站点编辑器的样式层级、覆盖与缓存排障。",
+      "enDescription": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
       "allowedTools": [],
       "hidden": false
     },
@@ -1058,8 +1066,18 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WordPress 区块模式",
-      "description": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
-      "enDescription": "",
+      "description": "模式：创建或更新 WordPress 区块模式（起始页、模板、模板部件、Query Loop 布局），审查模式注册、区块标记、分类、可访问性或 i18n/转义，或提升模式设计质量。自定义区块路由到 wp-block-development；前端交互路由到 wp-interactivity-api。",
+      "enDescription": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-performance",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 性能优化",
+      "description": "排查或提升 WordPress 性能（后端专用）：性能剖析与测量（WP-CLI profile/doctor、Server-Timing、通过 REST 响应头的 Query Monitor）、数据库/查询优化、自动加载选项、对象缓存、cron、HTTP API 调用与安全验证。",
+      "enDescription": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1068,8 +1086,18 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WordPress 沙箱",
-      "description": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
-      "enDescription": "",
+      "description": "作为 WordPress Playground 的路由包装，处理歧义 Playground 任务、本地 CLI 运行 @wp-playground/cli、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。若需编写或审查 Blueprint JSON，直接用 blueprint 技能。",
+      "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-plugin-development",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 插件开发",
+      "description": "开发 WordPress 插件时使用：架构与钩子、启用/停用/卸载、管理界面与 Settings API、数据存储、cron 任务、安全（nonce/权限/净化/转义）与发布打包。",
+      "enDescription": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1078,8 +1106,8 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "WP 插件目录规范",
-      "description": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
-      "enDescription": "",
+      "description": "审查 WordPress 插件的 GPL 合规性、检查许可证头或兼容性、评估 upsell/免费增值/试用软件模式、校验插件命名或商标规则、检查插件 slug、理解插件为何被 WordPress.org 拒绝，或回答关于 18 条 WordPress.org 插件目录指南的任何问题——即使用户未明确提及「指南」。",
+      "enDescription": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1088,8 +1116,8 @@
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "技术规格撰写",
-      "description": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
-      "enDescription": "",
+      "description": "在研究当前代码库与实现约束后，为重要的 Warp 功能撰写 TECH.md 规格。当用户要求技术规格、实现计划或与产品规格关联的建筑文档时使用。",
+      "enDescription": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1201,8 +1229,8 @@
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
       "zh": "Reddit 自动化营销",
-      "description": "Find Reddit threads where people are genuinely asking for what you offer, then draft short, genuinely helpful replies — disclosing your affiliation honestly and naming your product only when it truly answers the question. Two moves: discovery — scan the right subreddits for real needs (recommendation asks, expressed pain, competitor mentions) and rank the few threads where you can actually help; drafting — write from real experience, respect each community's self-promo rules, and keep a human in the loop to review and post. This markets on Reddit the honest way: contribute value, disclose who you are, never astroturf. Distilled from the playbook behind doany.ai's Reddit agent. Triggers on \"find reddit opportunities\", \"reddit marketing\", \"reddit automation\", \"reply on reddit for my product\", \"reddit community engagement\", \"reddit lead gen\", or any ask to turn Reddit threads into genuine, disclosed marketing replies.",
-      "enDescription": "",
+      "description": "在 Reddit 上找到真正在询问你所提供产品的人，然后起草简短、切实有用的回复——如实披露你的关联，仅在确实能回答问题时才提及产品名。两步：发现——扫描合适板块的真实需求（推荐请求、表达痛点、竞品提及）并排序列出你真能帮上的少数帖子；起草——基于真实经验撰写，遵守各社区自推规则，保留人工审阅与发布。以诚实方式做 Reddit 营销：贡献价值、披露身份、绝不水军。提炼自 doany.ai Reddit agent 背后的打法。触发词：\\\"find reddit opportunities\\\"、\\\"reddit marketing\\\"、\\\"reddit automation\\\"、\\\"reply on reddit for my product\\\"、\\\"reddit community engagement\\\"、\\\"reddit lead gen\\\" 或任何把 Reddit 帖子转化为真实、披露的营销回复的请求。",
+      "enDescription": "Find Reddit threads where people are genuinely asking for what you offer, then draft short, genuinely helpful replies — disclosing your affiliation honestly and naming your product only when it truly answers the question. Two moves: discovery — scan the right subreddits for real needs (recommendation asks, expressed pain, competitor mentions) and rank the few threads where you can actually help; drafting — write from real experience, respect each community's self-promo rules, and keep a human in the loop to review and post. This markets on Reddit the honest way: contribute value, disclose who you are, never astroturf. Distilled from the playbook behind doany.ai's Reddit agent. Triggers on \"find reddit opportunities\", \"reddit marketing\", \"reddit automation\", \"reply on reddit for my product\", \"reddit community engagement\", \"reddit lead gen\", or any ask to turn Reddit threads into genuine, disclosed marketing replies.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1497,36 +1525,6 @@
       "zh": "安全调试",
       "description": "Rigor Debug / Rigor Audit 技能，面向深度学习科研工作。当用户想安全地调试训练/推理、排查数值异常或复现问题时使用。",
       "enDescription": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-block-themes",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-performance",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-plugin-development",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
-      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     }

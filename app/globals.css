@@ -1,4 +1,4 @@
-/* app/globals.css v1.19.7 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+/* app/globals.css v1.19.13 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 build.mjs 自动生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -203,11 +203,11 @@ html[data-lang="zh"] .en { display: none; }
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); display: grid; place-items: center; font-weight: 700; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; }
 .title-row { display: flex; align-items: center; gap: 10px; }
-.card-title { font-family: var(--font-display); font-weight: 600; }
+.card-title { font-family: var(--font-display); font-weight: 600; font-size: 15px; line-height: 1.3; }
 /* 标题双语言显示（v1.18.1）：中文态中文译名为主、英文原名作为弱化副标题一并展示；
    英文态英文原名恢复为主标题（全局 [data-lang=en] .zh 隐藏中文译名） */
 .card-title .zh { display: block; }
-.card-title .en { display: block; font-size: 11px; font-weight: 400; color: hsl(var(--text-2)); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
+.card-title .en { display: block; font-size: 12px; font-weight: 400; color: hsl(var(--text-2)); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
 :root[data-lang="en"] .card-title .en { font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
 /* 名称显示策略 nameMode（v1.19.6）：双显时中文态强制显示英文原名副标题（覆盖全局 data-lang=zh 隐藏）；仅中文/仅英文据此隐藏对应名 */
 :root[data-name-mode="both"][data-lang="zh"] .card-title .en { display: block; }
@@ -228,6 +228,11 @@ html[data-lang="zh"] .en { display: none; }
 .view-btn { width: 34px; height: 34px; border-radius: 7px; display: grid; place-items: center; color: var(--text-2); transition: background .15s, color .15s; }
 .view-btn:hover { color: var(--text); }
 .view-btn.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+/* 排序下拉（v1.19.8，对齐 prototype .sort-wrap）：与 view-toggle 同高 */
+.sort-wrap { display: inline-flex; align-items: center; }
+.sort-wrap select { height: 34px; padding: 0 28px 0 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); color: hsl(var(--foreground)); font-size: 13px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+.sort-wrap select:hover { border-color: hsl(var(--primary)); }
+.sort-wrap select:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 1px; }
 
 /* 徽章（Badge）：小型状态/计数标签，默认主色浅底；变体 primary/secondary/muted（对齐 COMPONENTS #4） */
 .badge { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11px; font-weight: 600; line-height: 1; background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); border: 1px solid transparent; }
