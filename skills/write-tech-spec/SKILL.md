@@ -1,9 +1,11 @@
 ---
 name: write-tech-spec
+description: "在研究当前代码库与实现约束后，为重要的 Warp 功能撰写 TECH.md 规格。当用户要求技术规格、实现计划或与产品规格关联的建筑文档时使用。"
+en_description: Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.
+
+zh: 技术规格撰写
 category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
-zh: 技术规格撰写
-description: Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.
 ---
 
 # write-tech-spec

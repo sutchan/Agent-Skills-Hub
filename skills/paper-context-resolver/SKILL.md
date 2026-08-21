@@ -1,10 +1,10 @@
 ---
 name: paper-context-resolver
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: 论文上下文解析
 description: Rigor Paper Context 辅助工具，面向 README 优先的深度学习资料研读。当用户想为论文/仓库建立上下文索引、梳理阅读脉络或关联参考材料时使用。
 en_description: Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a specific paper detail such as dataset split, preprocessing, evaluation protocol, checkpoint mapping, or runtime assumption from primary paper sources while recording conflicts. Do not use for general paper summary, repo scanning, environment setup, command execution, title-only paper lookup, or replacing README guidance by default.
+zh: 论文上下文解析
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # paper-context-resolver

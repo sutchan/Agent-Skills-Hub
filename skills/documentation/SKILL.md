@@ -1,10 +1,10 @@
 ---
 name: documentation
-category: 文档与内容
-en_category: Docs & Content
-zh: 技术文档编写与维护
 description: 编写与维护技术文档。当用户要求“为…写文档”“记录这个”“创建 README”“编写 runbook”“编写入职指南”或需要任何形式的技术写作（API 文档、架构文档或运维手册）时触发。
 en_description: "Write and maintain technical documentation. Trigger with \"write docs for\", \"document this\", \"create a README\", \"write a runbook\", \"onboarding guide\", or when the user needs help with any form of technical writing — API docs, architecture docs, or operational runbooks."
+zh: 技术文档编写与维护
+category: 文档与内容
+en_category: Docs & Content
 ---
 # Technical Documentation
 

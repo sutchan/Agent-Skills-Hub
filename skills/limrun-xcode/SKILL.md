@@ -1,12 +1,12 @@
 ---
 name: limrun-xcode
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: Limrun Xcode 构建
 description: 在远程 Xcode 用 `lim xcode build` 构建 iOS/Apple 应用，替代本地 xcodebuild，适用任意环境（Linux/Windows/macOS/VM/容器）。用于非 Bazel 项目（.xcodeproj/.xcworkspace、XcodeGen project.yml、React Native/Expo 原生构建）。
 en_description: Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects.
-user-invocable: true
+zh: Limrun Xcode 构建
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 effort: high
+user-invocable: true
 ---
 # Remote Xcode build
 

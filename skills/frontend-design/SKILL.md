@@ -1,10 +1,10 @@
 ---
 name: frontend-design
-category: 品牌与设计
-en_category: Brand & Design
-zh: 独特的前端视觉设计
 description: 在构建新 UI 或重塑现有 UI 时提供独特、有意的视觉设计指导，涵盖美学方向、排版，帮助做出不显模板化的设计选择。
 en_description: "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults."
+zh: 独特的前端视觉设计
+category: 品牌与设计
+en_category: Brand & Design
 license: Complete terms in LICENSE.txt
 ---
 # Frontend Design

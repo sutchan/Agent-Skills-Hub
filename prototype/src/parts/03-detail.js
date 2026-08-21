@@ -1,294 +1,143 @@
-// prototype/src/parts/03-detail.js v1.19.6 — 详情弹窗、键盘可达性与分享
-// 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
-const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
-function openDetail(s) {
-  track("view_skill", { skill: s.name, category: s.category });
-  const overlay = $("#overlay");
-  const dialog = $("#dialog");
-  // 记录打开前的焦点元素，关闭后归还（WCAG 焦点管理）
-  dialog._lastFocused = document.activeElement;
-  const html = `
-    <div id="dialogHead" class="dialog-head">
-      <div class="avatar">${initials(s.name)}</div>
-      <div>
-        <h2 id="dialogVisibleTitle" class="dialog-title">${esc(s.zh || s.name)}</h2>
-        <div class="sub en">${esc(s.name)}</div>
-        <div id="dialogBlockCat" class="dialog-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
-      </div>
-      <button id="closeBtn" class="icon-btn dialog-close" aria-label="${I18N.t("detail.close")}">✕</button>
-    </div>
-    <div id="dialogBody" class="dialog-body">
-      <section id="dialogBlockZh" class="block zh"><h3 class="zh">${I18N.t("detail.zhTitle")}</h3><p>${esc(s.zh)}</p><p class="zh-desc">${esc(s.description)}</p></section>
-      <section id="dialogBlockEn" class="block en"><h3 class="en">${I18N.t("detail.enTitle")}</h3><p>${esc(s.enDescription || "")}</p></section>
-      <section id="dialogBlockTools" class="block"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${(Array.isArray(s.allowedTools) ? s.allowedTools : String(s.allowedTools || "").split(",").map((t) => t.trim()).filter(Boolean)).map((t) => `<code>${esc(t)}</code>`).join("")}</div></section>
-    </div>
-    <div id="dialogFoot" class="dialog-foot">
-      <a class="btn btn-primary" href="${REPO_SKILLS_TREE}${encodeURIComponent(s.name)}/" target="_blank" rel="noopener">
-        <span class="zh">${I18N.t("detail.open")}</span><span class="en">${I18N.t("detail.openEn")}</span>
-      </a>
-      <button id="shareBtn" class="btn btn-ghost">${I18N.t("share.btn")}</button>
-    </div>`;
-  dialog.innerHTML = html;
-  // 统一用 `show` 类驱动遮罩与弹窗显示（与 CSS .overlay.show/.dialog.show 匹配，修复此前 open/show 不匹配导致弹窗无法打开）
-  overlay.classList.add("show");
-  dialog.classList.add("show");
-  document.body.classList.add("no-scroll");
-  trapFocus(dialog);
-  $("#closeBtn").addEventListener("click", closeDetail);
-  $("#shareBtn").addEventListener("click", () => shareSkill(s));
+// prototype/src/parts/03-detail.js v1.19.14 — 详情弹窗：元信息区(作者/协议/GitHub目录) + 相关技能 + 复制命令
+// 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
+
+// GitHub 仓库基础路径（详情弹窗跳转源码目录用）
+const GITHUB_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main";
+
+// 取同类技能（排除自身，最多 4 个）作为「相关技能」
+function relatedSkills(skill) {
+  return SKILLS_DATA.skills
+    .filter((s) => s.name !== skill.name && s.category === skill.category && !s.hidden)
+    .slice(0, 4);
 }
 
-// 设置弹窗：复用现有 #dialog 框架（trapFocus/closeDetail），承载语言/主题切换
-function openSettings() {
-  track("open_settings");
-  const overlay = $("#overlay");
-  const dialog = $("#dialog");
-  dialog._lastFocused = document.activeElement;
-  const html = `
-    <div id="dialogHead" class="dialog-head">
-      <div class="avatar">⚙</div>
-      <div><h2 id="dialogVisibleTitle" class="dialog-title">${I18N.t("settings.title")}</h2></div>
-      <button id="closeBtn" class="icon-btn dialog-close" aria-label="${I18N.t("detail.close")}">✕</button>
-    </div>
-    <div id="dialogBody" class="dialog-body">
-      <section class="block">
-        <h3>${I18N.t("settings.langGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.language")}</span>
-          <button id="settingsLangBtn" class="btn btn-outline" aria-pressed="${state.lang === "en"}">${state.lang === "zh" ? "中文" : "English"}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.themeGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.theme")}</span>
-          <button id="settingsThemeBtn" class="btn btn-outline" aria-pressed="${state.theme === "dark"}">${state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.viewGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.view")}</span>
-          <button id="settingsViewBtn" class="btn btn-outline" aria-pressed="${state.view === VIEW_LIST}">${state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid")}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.densityGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.density")}</span>
-          <button id="settingsDensityBtn" class="btn btn-outline" aria-pressed="${state.density === DENSITY_COMPACT}">${state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable")}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.uiGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.showDesc")}</span>
-          <button id="settingsDescBtn" class="btn btn-outline" aria-pressed="${state.showDesc}" data-on="${state.showDesc ? "on" : "off"}">${state.showDesc ? "开 / On" : "关 / Off"}</button>
-        </div>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.showCat")}</span>
-          <button id="settingsCatBtn" class="btn btn-outline" aria-pressed="${state.showCat}" data-on="${state.showCat ? "on" : "off"}">${state.showCat ? "开 / On" : "关 / Off"}</button>
-        </div>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.showBar")}</span>
-          <button id="settingsBarBtn" class="btn btn-outline" aria-pressed="${state.showBar}" data-on="${state.showBar ? "on" : "off"}">${state.showBar ? "开 / On" : "关 / Off"}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.nameGroup")}</h3>
-        <div class="seg" role="group" aria-label="${I18N.t("settings.nameGroup")}">
-          <button id="nameBothBtn" class="seg-btn${state.nameMode === NAME_MODE_BOTH ? " active" : ""}" aria-pressed="${state.nameMode === NAME_MODE_BOTH}" data-mode="${NAME_MODE_BOTH}">${I18N.t("settings.nameBoth")}</button>
-          <button id="nameZhBtn" class="seg-btn${state.nameMode === NAME_MODE_ZH ? " active" : ""}" aria-pressed="${state.nameMode === NAME_MODE_ZH}" data-mode="${NAME_MODE_ZH}">${I18N.t("settings.nameZh")}</button>
-          <button id="nameEnBtn" class="seg-btn${state.nameMode === NAME_MODE_EN ? " active" : ""}" aria-pressed="${state.nameMode === NAME_MODE_EN}" data-mode="${NAME_MODE_EN}">${I18N.t("settings.nameEn")}</button>
-        </div>
-      </section>
-    </div>
-    <div id="dialogFoot" class="dialog-foot">
-      <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
-    </div>`;
-  dialog.innerHTML = html;
-  overlay.classList.add("show");
-  dialog.classList.add("show");
-  document.body.classList.add("no-scroll");
-  trapFocus(dialog);
-  $("#closeBtn").addEventListener("click", closeDetail);
-  $("#settingsDoneBtn").addEventListener("click", closeDetail);
-  // 语言/主题切换：复用现有 applyLang/applyTheme（同作用域）；就地更新文案，不重建弹窗避免焦点/监听抖动
-  $("#settingsLangBtn").addEventListener("click", () => {
-    state.lang = state.lang === "zh" ? "en" : "zh";
-    savePref(LS_LANG, state.lang);
-    applyLang();
-    refreshSettingsBody();
-  });
-  $("#settingsThemeBtn").addEventListener("click", () => {
-    state.theme = state.theme === "light" ? "dark" : "light";
-    savePref(LS_THEME, state.theme);
-    applyTheme();
-    const b = $("#settingsThemeBtn");
-    if (b) { b.textContent = state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"; b.setAttribute("aria-pressed", state.theme === "dark"); }
-  });
-  // 视图模式切换：同步到 <html data-view> 并持久化，顶栏 view-btn active 态由 applyView 统一刷新
-  $("#settingsViewBtn").addEventListener("click", () => {
-    state.view = state.view === VIEW_GRID ? VIEW_LIST : VIEW_GRID;
-    savePref(LS_VIEW, state.view);
-    applyView();
-    const b = $("#settingsViewBtn");
-    if (b) { b.textContent = state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid"); b.setAttribute("aria-pressed", state.view === VIEW_LIST); }
-    renderGrid();
-  });
-  // 显示密度切换：同步到 <html data-density> 并持久化，仅影响 CSS 间距，无需重渲染网格
-  $("#settingsDensityBtn").addEventListener("click", () => {
-    state.density = state.density === DENSITY_COMFORT ? DENSITY_COMPACT : DENSITY_COMFORT;
-    savePref(LS_DENSITY, state.density);
-    applyDensity();
-    const b = $("#settingsDensityBtn");
-    if (b) { b.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); b.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
-  });
-  // UI 元素显隐：描述 / 分类标签 / 分类色条，切换后同步 <html data-show-*> 并持久化，影响卡片局部隐藏
-  const bindUISwitch = (btnId, lsKey, onToggle) => {
-    const b = $(btnId);
-    if (!b) return;
-    b.addEventListener("click", () => {
-      onToggle();
-      savePref(lsKey, state[lsKey] ? "true" : "false");
-      applyUI();
-      b.textContent = state[lsKey] ? "开 / On" : "关 / Off";
-      b.setAttribute("aria-pressed", state[lsKey]);
-      b.dataset.on = state[lsKey] ? "on" : "off";
-    });
+// 复制技能名到剪贴板（提示已复制）
+function copySkillName(name) {
+  const done = () => {
+    const tip = document.getElementById("copyTip");
+    if (tip) {
+      tip.textContent = I18N.t("detail.copied");
+      tip.classList.add("show");
+      setTimeout(() => tip.classList.remove("show"), 1400);
+    }
   };
-  bindUISwitch("#settingsDescBtn", LS_SHOW_DESC, () => { state.showDesc = !state.showDesc; });
-  bindUISwitch("#settingsCatBtn", LS_SHOW_CAT, () => { state.showCat = !state.showCat; });
-  bindUISwitch("#settingsBarBtn", LS_SHOW_BAR, () => { state.showBar = !state.showBar; });
-  // 名称显示策略：双显 / 仅中文 / 仅英文，分段控件单选，切换后同步 <html data-name-mode> 并持久化
-  $$(".seg-btn").forEach((b) => {
-    b.addEventListener("click", () => {
-      state.nameMode = b.dataset.mode;
-      savePref(LS_NAME_MODE, state.nameMode);
-      applyNameMode();
-      $$(".seg-btn").forEach((x) => {
-        const on = x.dataset.mode === state.nameMode;
-        x.classList.toggle("active", on);
-        x.setAttribute("aria-pressed", on);
-      });
-    });
-  });
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(name).then(done).catch(() => fallbackCopy(name, done));
+  } else {
+    fallbackCopy(name, done);
+  }
+}
+function fallbackCopy(text, done) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); done(); } catch { /* 忽略 */ }
+  document.body.removeChild(ta);
 }
 
-// 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）
-function refreshSettingsBody() {
-  const title = $("#dialogVisibleTitle");
-  if (title) title.textContent = I18N.t("settings.title");
-  const langBtn = $("#settingsLangBtn");
-  if (langBtn) { langBtn.textContent = state.lang === "zh" ? "中文" : "English"; langBtn.setAttribute("aria-pressed", state.lang === "en"); }
-  // 区块标题与标签为动态 i18n，直接查询并更新
-  const blocks = document.querySelectorAll("#dialogBody .block");
-  const headText = [I18N.t("settings.langGroup"), I18N.t("settings.themeGroup"), I18N.t("settings.viewGroup"), I18N.t("settings.densityGroup")];
-  blocks.forEach((blk, i) => {
-    const h = blk.querySelector("h3");
-    if (h && headText[i]) h.textContent = headText[i];
+function metaRow(label, value, isLink) {
+  if (!value) return "";
+  if (isLink) {
+    return `<div class="meta-row"><span class="meta-k">${esc(label)}</span><a class="meta-v link" href="${esc(value)}" target="_blank" rel="noopener">${esc(value.replace(/^https?:\/\//, ""))}</a></div>`;
+  }
+  return `<div class="meta-row"><span class="meta-k">${esc(label)}</span><span class="meta-v">${esc(value)}</span></div>`;
+}
+
+function detailHTML(skill) {
+  const st = state;
+  const related = relatedSkills(skill);
+  const githubUrl = `${GITHUB_TREE}/${skill.githubDir}`;
+  const tools = (skill.allowedTools || []).filter(Boolean);
+
+  const desc = st.lang === "zh" ? skill.description : (skill.enDescription || skill.description);
+  const titleZh = skill.zh || skill.name;
+  const titleEn = skill.name;
+
+  // 名称显示策略（与卡片一致）
+  let titleHTML = "";
+  if (st.nameMode === "en") {
+    titleHTML = `<h2 class="d-title"><span class="en">${esc(titleEn)}</span></h2>`;
+  } else if (st.nameMode === "zh") {
+    titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span></h2>`;
+  } else {
+    titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
+  }
+
+  // 元信息区：作者 / 协议 / 版本 / GitHub 目录
+  const metaRows = [
+    metaRow(I18N.t("detail.author"), skill.author || I18N.t("detail.unknown")),
+    metaRow(I18N.t("detail.license"), skill.license || I18N.t("detail.unknown")),
+    metaRow(I18N.t("detail.version"), skill.skillVersion || "—"),
+    metaRow(I18N.t("detail.githubDir"), githubUrl, true),
+  ].join("");
+
+  const toolsHTML = tools.length
+    ? `<div class="d-tools"><h4>${I18N.t("detail.tools")}</h4><div class="tool-chips">${tools
+        .map((t) => `<span class="tool-chip">${esc(t)}</span>`)
+        .join("")}</div></div>`
+    : "";
+
+  const relatedHTML = related.length
+    ? `<div class="d-related"><h4>${I18N.t("detail.related")}</h4><div class="related-list">${related
+        .map(
+          (r) =>
+            `<button class="related-card" data-name="${esc(r.name)}"><span class="rc-cat">${esc(r.category)}</span><span class="rc-name">${esc(r.zh || r.name)}</span></button>`
+        )
+        .join("")}</div></div>`
+    : "";
+
+  return `
+  <div id="detailPanel" class="detail" role="dialog" aria-modal="true" aria-label="${esc(titleZh)}">
+    <button id="detailClose" class="detail-close" aria-label="${I18N.t("detail.close")}">×</button>
+    <div class="detail-head">
+      ${titleHTML}
+      <div class="d-actions">
+        <button id="copyNameBtn" class="btn ghost" data-name="${esc(skill.name)}">${I18N.t("detail.copyName")}</button>
+        <span id="copyTip" class="copy-tip"></span>
+      </div>
+    </div>
+    <div class="detail-meta">${metaRows}</div>
+    <div class="detail-body">
+      <p class="d-desc">${esc(desc || "")}</p>
+      ${toolsHTML}
+      ${relatedHTML}
+    </div>
+  </div>`;
+}
+
+function openDetail(name) {
+  const skill = SKILL_MAP.get(name);
+  if (!skill) return;
+  const overlay = document.getElementById("overlay");
+  overlay.innerHTML = detailHTML(skill);
+  overlay.classList.add("show");
+  document.body.classList.add("no-scroll");
+
+  document.getElementById("detailClose").addEventListener("click", closeDetail);
+  const copyBtn = document.getElementById("copyNameBtn");
+  if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
+
+  // 相关技能点击 → 切换详情
+  overlay.querySelectorAll(".related-card").forEach((btn) => {
+    btn.addEventListener("click", () => openDetail(btn.getAttribute("data-name")));
   });
-  const labels = document.querySelectorAll("#dialogBody .settings-label");
-  const labelText = [I18N.t("settings.language"), I18N.t("settings.theme"), I18N.t("settings.view"), I18N.t("settings.density")];
-  labels.forEach((l, i) => { if (labelText[i]) l.textContent = labelText[i]; });
-  const viewBtn = $("#settingsViewBtn");
-  if (viewBtn) { viewBtn.textContent = state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid"); viewBtn.setAttribute("aria-pressed", state.view === VIEW_LIST); }
-  const densityBtn = $("#settingsDensityBtn");
-  if (densityBtn) { densityBtn.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); densityBtn.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
 }
 
 function closeDetail() {
-  const overlay = $("#overlay");
-  const dialog = $("#dialog");
+  const overlay = document.getElementById("overlay");
+  if (!overlay) return;
   overlay.classList.remove("show");
-  dialog.classList.remove("show");
+  overlay.innerHTML = "";
   document.body.classList.remove("no-scroll");
-  // 移除焦点陷阱的 keydown 监听，避免多次打开后监听器在 #dialog 上累积叠加
-  if (typeof dialog._onKey === "function") {
-    dialog.removeEventListener("keydown", dialog._onKey);
-    dialog._onKey = null;
+}
+
+// 全局 Esc 关闭（grid 点击委托与 overlay 点击关闭已在 04-interactions 处理）
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    const overlay = document.getElementById("overlay");
+    if (overlay && overlay.classList.contains("show")) closeDetail();
   }
-  dialog.innerHTML = "";
-  // 归还焦点到打开前的元素，避免 Tab 顺序跳到页面顶部
-  if (dialog._lastFocused && typeof dialog._lastFocused.focus === "function") {
-    dialog._lastFocused.focus();
-  }
-}
-
-// 焦点陷阱：Tab 在弹窗内循环，Esc 关闭（无障碍）
-function trapFocus(container) {
-  const focusables = container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-  if (!focusables.length) return;
-  const first = focusables[0], last = focusables[focusables.length - 1];
-  first.focus();
-  // 保存引用供 closeDetail 统一移除（无论通过 Esc 还是关闭按钮/遮罩关闭都能清理）
-  container._onKey = function onKey(e) {
-    if (e.key === "Escape") { closeDetail(); return; }
-    if (e.key !== "Tab") return;
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  };
-  container.addEventListener("keydown", container._onKey);
-}
-
-function shareSkill(s) {
-  track("share_skill", { skill: s.name });
-  const text = buildShareText(s.name);
-  if (navigator.share) {
-    // 系统分享：成功/失败都给出可见反馈；被取消或失败则回退到剪贴板复制
-    navigator.share({ title: "Agent Skills Hub", text, url: location.href })
-      .then(() => showToast(I18N.t("share.copied")))
-      .catch((err) => {
-        if (err && err.name === "AbortError") return; // 用户主动取消，不回退
-        copyToClipboard(text);
-      });
-  } else {
-    copyToClipboard(text);
-  }
-}
-
-// 统一的剪贴板复制入口：优先 Clipboard API，失败降级到 textarea execCommand
-function copyToClipboard(text) {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(() => showToast(I18N.t("share.copied"))).catch(() => fallbackCopy(text));
-  } else {
-    fallbackCopy(text);
-  }
-}
-
-// 分享链接使用绝对 GitHub URL（与 #dialog 的「查看技能」按钮一致的 REPO_SKILLS_TREE 常量），
-// 保证复制到外部平台（微信/Twitter 等）后可直接点击打开，与 app 层 share.ts 行为对齐（openspec §4.5.4）
-function buildShareText(name) {
-  const base = REPO_SKILLS_TREE + encodeURIComponent(name) + "/";
-  const promos = I18N.t("share.promos") || [];
-  const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
-  const promo = promos.length
-    ? promos[Math.floor(Math.random() * promos.length)].replace(/\{n\}/g, n)
-    : "";
-  return base + "\n\n" + promo;
-}
-
-// 复制降级方案（无 Clipboard API 时）
-function fallbackCopy(text) {
-  try {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.position = "fixed";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    showToast(I18N.t("share.copied"));
-  } catch (e) {
-    showToast(I18N.t("share.failed"));
-  }
-}
-
-function showToast(msg) {
-  const t = $("#toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove("show"), 2000);
-}
+});

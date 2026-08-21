@@ -1,10 +1,7 @@
 ---
 name: reddit-automation
-category: 自动化与集成
-en_category: Automation & Integration
-zh: Reddit 自动化营销
-displayName: "👽 Reddit Automation — find high-intent threads, reply with honest help"
-description: >
+description: "在 Reddit 上找到真正在询问你所提供产品的人，然后起草简短、切实有用的回复——如实披露你的关联，仅在确实能回答问题时才提及产品名。两步：发现——扫描合适板块的真实需求（推荐请求、表达痛点、竞品提及）并排序列出你真能帮上的少数帖子；起草——基于真实经验撰写，遵守各社区自推规则，保留人工审阅与发布。以诚实方式做 Reddit 营销：贡献价值、披露身份、绝不水军。提炼自 doany.ai Reddit agent 背后的打法。触发词：\"find reddit opportunities\"、\"reddit marketing\"、\"reddit automation\"、\"reply on reddit for my product\"、\"reddit community engagement\"、\"reddit lead gen\" 或任何把 Reddit 帖子转化为真实、披露的营销回复的请求。"
+en_description: >
   Find Reddit threads where people are genuinely asking for what you offer, then
   draft short, genuinely helpful replies — disclosing your affiliation honestly
   and naming your product only when it truly answers the question. Two moves:
@@ -17,6 +14,10 @@ description: >
   on "find reddit opportunities", "reddit marketing", "reddit automation", "reply
   on reddit for my product", "reddit community engagement", "reddit lead gen", or
   any ask to turn Reddit threads into genuine, disclosed marketing replies.
+zh: Reddit 自动化营销
+category: 自动化与集成
+en_category: Automation & Integration
+displayName: "👽 Reddit Automation — find high-intent threads, reply with honest help"
 emoji: "👽"
 homepage: https://doany.ai
 license: MIT

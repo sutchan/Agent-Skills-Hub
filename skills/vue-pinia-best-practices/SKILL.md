@@ -1,13 +1,13 @@
 ---
 name: vue-pinia-best-practices
-version: 1.0.0
-license: MIT
-author: github.com/vuejs-ai
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: Vue Pinia 最佳实践
 description: Pinia 状态管理：store 设计、setup 风格定义、状态/ Getter/ Action 与响应式写法等最佳实践。当用户设计或重构 Vue 应用的全局状态时使用。
 en_description: Pinia stores, state management patterns, store setup, and reactivity with stores."
+zh: Vue Pinia 最佳实践
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+author: github.com/vuejs-ai
+license: MIT
+version: 1.0.0
 ---
 
 Pinia best practices, common gotchas, and state management patterns.

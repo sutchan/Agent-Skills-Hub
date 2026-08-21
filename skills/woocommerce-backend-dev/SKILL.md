@@ -1,9 +1,11 @@
 ---
 name: woocommerce-backend-dev
+description: "按项目约定新增或修改 WooCommerce 后端 PHP 代码。当创建新类、方法、钩子或修改既有后端代码时使用。**必须在编写任何 PHP 单元测试之前调用。**"
+en_description: Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**
+
+zh: WooCommerce 后端开发
 category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
-zh: WooCommerce 后端开发
-description: Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**
 ---
 
 # WooCommerce Backend Development

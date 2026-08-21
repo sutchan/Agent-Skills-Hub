@@ -1,10 +1,10 @@
 ---
 name: debugging-and-error-recovery
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: 调试与错误恢复
 description: 引导系统化的根因调试。当测试失败、构建中断、运行时报错或行为异常，需要定位根因并恢复时使用。
 en_description: Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.
+zh: 调试与错误恢复
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # Debugging and Error Recovery

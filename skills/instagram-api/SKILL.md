@@ -1,8 +1,5 @@
 ---
 name: instagram-api
-category: 自动化与集成
-en_category: Automation & Integration
-zh: Instagram API 替代
 description: >-
   fetcher.sh 上的 Instagram API 替代方案——通过 x402 以 USDC 按次付费，
   或使用 Bearer Key 预付额度，无需登录、无需会话 Cookie。当用户希望通过
@@ -20,6 +17,9 @@ en_description: >-
   hashtag or location feeds, pull posts by audio track, plus follower export,
   monitoring, influencer discovery, and competitor tracking without Graph API
   verification or a headless browser.
+zh: Instagram API 替代
+category: 自动化与集成
+en_category: Automation & Integration
 keywords:
   - instagram
   - instagram-api

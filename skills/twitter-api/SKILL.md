@@ -1,8 +1,5 @@
 ---
 name: twitter-api
-category: 自动化与集成
-en_category: Automation & Integration
-zh: Twitter/X API 替代
 description: 基于 fetcher.sh 的 Twitter API 与 X API 替代方案——按次计费（USDC/x402）或用 Bearer key 预付费积分，无需 OAuth 与开发者应用。用于按关键词、话题或高级操作符（from:、to:、since:、until:、min_faves:、filter:）搜索推文，按账号抓取 Twitter/X 个人资料、拉取用户推文/回复/粉丝/关注，获取单条推文及其回复/转推者，读取 Twitter List 成员或推文，按国家查看热门话题，或按名称搜索 X 账号。也覆盖 Twitter 数据管线、竞品监控、话题跟踪、情感分析输入或粉丝导出，无需官方 X API 的定价档位或应用审核流程。
 en_description: >-
   A Twitter API alternative and X API alternative on fetcher.sh — pay-per-call
@@ -16,6 +13,9 @@ en_description: >-
   pipelines, competitor monitoring, hashtag tracking, sentiment analysis
   input, or follower export without the official X API's pricing tiers or
   app-review process.
+zh: Twitter/X API 替代
+category: 自动化与集成
+en_category: Automation & Integration
 keywords:
   - twitter
   - x

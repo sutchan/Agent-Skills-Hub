@@ -1,10 +1,10 @@
 ---
 name: discover-brand
-category: 品牌与设计
-en_category: Brand & Design
-zh: 品牌发现与定位
 description: 用于品牌发现与定位的技能，通过调研与梳理品牌资产、市场与目标人群，帮助建立清晰、差异化的品牌定位与视觉方向。
 en_description: "This skill orchestrates autonomous discovery of brand materials across enterprise platforms (Notion, Confluence, Google Drive, Box, SharePoint, Figma, Gong, Granola, Slack). It should be used when the user asks to \"discover brand materials\", \"find brand documents\", \"search for brand guidelines\", \"audit brand content\", \"what brand materials do we have\", \"find our style guide\", \"where are our brand docs\", \"do we have a style guide\", \"discover brand voice\", \"brand content audit\", or \"find brand assets\"."
+zh: 品牌发现与定位
+category: 品牌与设计
+en_category: Brand & Design
 ---
 # Brand Discovery
 

@@ -1,10 +1,10 @@
 ---
 name: find-skills-2
-category: 文档与内容
-en_category: Docs & Content
-zh: 技能发现与安装
 description: 当用户询问「怎么做 X」「找 X 的技能」「有没有能…的技能」或想扩展能力时，帮助用户发现并安装 agent 技能。
 en_description: Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.
+zh: 技能发现与安装
+category: 文档与内容
+en_category: Docs & Content
 ---
 # Find Skills
 

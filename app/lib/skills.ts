@@ -21,6 +21,11 @@ export interface Skill {
   tags?: string[];
   // 与 data/skills-data.json 一致：hidden 技能在展示页/索引中隐藏（build-skills-data.mjs 写入）
   hidden?: boolean;
+  // 详情元信息（build-skills-data.mjs 提取 / 派生）
+  author?: string; // 作者 / 来源（frontmatter metadata.author）
+  license?: string; // 协议（frontmatter metadata.license）
+  skillVersion?: string; // 技能版本（frontmatter metadata.version）
+  githubDir: string; // GitHub 源码目录，恒定派生为 skills/<name>
 }
 
 export interface SkillsData {

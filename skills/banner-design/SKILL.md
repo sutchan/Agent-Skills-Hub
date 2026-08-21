@@ -1,11 +1,12 @@
 ---
 name: banner-design
+description: "为社交媒体、广告、网站主视觉、创意素材与印刷设计横幅。提供多种美术方向选项与 AI 生成视觉。动作：设计、创建、生成横幅。平台：Facebook、Twitter/X、LinkedIn、YouTube、Instagram、Google Display、网站主视觉、印刷。风格：极简、渐变、粗体排版、照片风、插画、几何、复古、玻璃拟态、3D、霓虹、双色调、编辑、拼贴。复用 ui-ux-pro-max、frontend-design、ai-artist、ai-multimodal 等技能。"
+en_description: "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills."
+zh: 多格式横幅设计
 category: 品牌与设计
 en_category: Brand & Design
-zh: 多格式横幅设计
-description: "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills."
-argument-hint: "[platform] [style] [dimensions]"
 license: MIT
+argument-hint: "[platform] [style] [dimensions]"
 metadata:
   author: claudekit
   version: "1.0.0"

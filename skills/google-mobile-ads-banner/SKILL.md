@@ -1,13 +1,14 @@
 ---
 name: google-mobile-ads-banner
-category: 品牌与设计
-en_category: Brand & Design
-zh: Google 移动广告横幅
-description: >-
+description: "提供在 Android、iOS 或 Unity 移动应用中实现、集成或配置 Google 移动广告（GMA）横幅广告的说明。当任务涉及在移动应用中设置横幅广告时使用；插屏或激励广告等其他广告格式不适用。"
+en_description: >-
   Provides instructions to implement, integrate, or configure Google Mobile
   Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use
   when the task involves setting up banner ads in a mobile application. Don't
   use for other ad formats like interstitial or rewarded ads.
+zh: Google 移动广告横幅
+category: 品牌与设计
+en_category: Brand & Design
 metadata:
   version: 1.1.0
 ---

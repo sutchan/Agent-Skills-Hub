@@ -1,11 +1,11 @@
 ---
 name: flutter-apply-architecture-best-practices
-metadata:
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: Flutter 架构最佳实践
 description: 用推荐的分层方式（UI、Logic、Data）为 Flutter 应用做架构设计。在搭建新项目或为可扩展性重构时使用。
 en_description: Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.
+zh: Flutter 架构最佳实践
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+metadata:
 ---
 # Architecting Flutter Applications
 

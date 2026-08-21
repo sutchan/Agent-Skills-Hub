@@ -1,11 +1,11 @@
 ---
 name: review-animations
-disable-model-invocation: true
-category: 品牌与设计
-en_category: Brand & Design
-zh: 动效评审
 description: 依据源自 Emil Kowalski 作品的高水准动效标准评审动画与动效代码。当用户希望动效更顺滑、有质感、符合高级动效规范时使用。
 en_description: Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.
+zh: 动效评审
+category: 品牌与设计
+en_category: Brand & Design
+disable-model-invocation: true
 ---
 
 # Reviewing Animations

@@ -1,9 +1,10 @@
 ---
 name: implement-spec
+description: "用代码实现一个规格说明。"
+en_description: "Implement a specification in code."
+zh: 规格实现
 category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
-zh: 规格实现
-description: "Implement a specification in code."
 disable-model-invocation: true
 ---
 

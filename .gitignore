@@ -7,6 +7,9 @@ logs/
 # 临时文件
 *.tmp
 
+# FreeFileSync 残留临时目录（非源码，禁止入库）
+skills/RecycleBin~*.ffs_tmp/
+
 # 本地工具状态（skills-manager 运行时数据，非源码，禁止入库）
 .skills-manager.lock
 .skills-manager/
@@ -57,3 +60,4 @@ prototype/out/_next/
 !build-skills-data.mjs
 !build.mjs
 !prototype/build-skills-data.mjs
+!scripts/validate-skills.mjs

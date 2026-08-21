@@ -1,10 +1,10 @@
 ---
 name: tdd
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: 测试驱动开发
 description: 测试驱动开发（TDD）。当用户想以测试优先方式构建功能或修复 bug、提及「红-绿-重构」，或需要集成测试时使用。
 en_description: Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.
+zh: 测试驱动开发
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # Test-Driven Development

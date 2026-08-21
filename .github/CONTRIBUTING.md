@@ -57,12 +57,32 @@ npm run build        # 验证构建链路，生成 data 与 prototype
 ---
 name: <kebab-case 技能名，与目录名一致>
 description: <中文完整描述，默认展示语言>
+en_description: <英文原文描述，处理技能时保留>
+zh: <中文一句话简介>
 category: <9 大领域之一，中文稳定键>
 en_category: <对应英文分类名，英文态展示>
-zh: <中文一句话简介>
-en_description: <英文原文描述，处理技能时保留>
+# 以下为可选字段（平台/工具元数据），原样保留即可：
+# version / compatibility / license / author / homepage
+# metadata:        # 平台专用嵌套块（如 metadata.openclaw.category）
+# user-invocable / allowed-tools / hooks / risk_level / model
+# displayName / emoji / slug / keywords / argument-hint / effort / origin / last_modified / acceptLicenseTerms / disable-model-invocation
 ---
 ```
+
+**字段顺序规范**（推荐完整顺序，CI 校验前 6 个契约字段顺序与必填完整性）：
+
+1. **契约字段（必填，前置）**：`name` → `description` → `en_description` → `zh` → `category` → `en_category`
+2. **身份 / 来源**：`displayName` → `slug` → `emoji` → `author` → `homepage` → `license` → `version` → `compatibility` → `origin` → `last_modified`
+3. **能力 / 调用**：`keywords` → `argument-hint` → `effort` → `user-invocable` → `allowed-tools` → `disable-model-invocation` → `hooks` → `model` → `risk_level` → `acceptLicenseTerms` → `hidden`
+4. **平台嵌套块（最后）**：`metadata`
+
+未知字段追加在 `metadata` 之前即可。CI 通过 `scripts/validate-skills.mjs` 校验契约字段顺序与必填完整性。
+
+**字段分类**：
+- **展示契约字段**（参与卡片渲染，必填）：`name` / `description`（中文） / `en_description`（英文原文） / `zh` / `category` / `en_category`
+- **平台/工具元数据**（可选，仅运行时或 Agent 平台使用，不参与展示）：`version`、`compatibility`、`license`、`author`、`homepage`、`metadata`（嵌套块，如 `metadata.openclaw.category`）、`user-invocable`、`allowed-tools`、`hooks`、`risk_level`、`model`、`displayName`、`emoji`、`slug`、`keywords`、`argument-hint`、`effort`、`origin`、`last_modified`、`acceptLicenseTerms`、`disable-model-invocation`
+
+**禁止字段**：不得出现 `description_zh` / `description_en` 等冲突键，中文译文统一写入 `description`、英文原文写入 `en_description`。
 
 - `category` 取 9 大领域之一（中文，稳定键）：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`开发框架与平台`、`文件与格式处理`、`AI 与智能体`、`音视频与多媒体`、`自动化与集成`、`安全`；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`、`AI 与智能体` → `AI & Agents`）。
 - `description` 与 `zh` 的区别：`zh` 是一句话摘要，`description` 是完整中文描述；`en_description` 为英文原文描述（默认展示中文，英文态展示英文）。
@@ -75,6 +95,7 @@ npm run build   # = node build-skills-data.mjs && node build.mjs
 ```
 
 - `data/skills-data.json` 为**构建产物，勿手改**，需通过 `npm run build` 重新生成。
+- **frontmatter 校验**：提交前运行 `node scripts/validate-skills.mjs`，确保必填字段齐全、`category` 合法、无冲突键、契约字段顺序正确。CI 亦会执行此校验。
 - 原型样式令牌仅改 `prototype/src/styles/tokens.css`，禁止在 `components.css`/`responsive.css`/`index.html` 散写颜色字面量。
 
 ## 文档与版本一致性
@@ -110,7 +131,8 @@ docs: 新增 .github Community Health Files 并同步版本至 v1.14.70
 1. 从 `main` 拉出 `feature/*` 或 `fix/*` 分支进行改动。
 2. 完成后运行 `npm run build`，确认构建通过。
 3. 提交前检查清单：
-   - [ ] `SKILL.md` frontmatter 字段完整（name/description/category/zh/en_description）
+   - [ ] `SKILL.md` frontmatter 字段完整（name/description/en_description/zh/category/en_category）
+   - [ ] `node scripts/validate-skills.mjs` 校验通过（必填、分类、顺序、无冲突键）
    - [ ] 数据已通过 `npm run build` 重新生成
    - [ ] README 中英文、CHANGELOG、package.json 版本号一致
    - [ ] 无 `console.log` / `debugger` 残留（脚本除外）

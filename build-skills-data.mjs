@@ -1,4 +1,4 @@
-// build-skills-data.mjs v1.19.2
+// build-skills-data.mjs v1.19.8
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
 // 分类(category)、简短中文名称(zh)与 description 中文译文(zh-desc)均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 // 注意语义约定：zh 为「简短中文名称」（卡片标题），zh-desc 为「中文描述」（卡片描述区）；勿将描述句填入 zh。
@@ -121,6 +121,13 @@ function main() {
     const text = readFileSync(sk, "utf8");
     const fm = parseFrontmatter(text);
     const category = fm.category || "其他";
+    // 元信息：作者 / 协议 / 版本（来自 metadata.author / metadata.license / metadata.version，回退顶层）
+    const meta = fm.metadata && typeof fm.metadata === "object" ? fm.metadata : {};
+    const author = meta.author || fm.author || "";
+    const license = meta.license || fm.license || "";
+    const skillVersion = meta.version || fm.version || "";
+    // GitHub 目录恒定派生（仓库 skills/<name>），详情弹窗可跳转源码
+    const githubDir = `skills/${name}`;
     skills.push({
       name: fm.name || name,
       category,
@@ -132,6 +139,11 @@ function main() {
       enDescription: fm.en_description || "",
       allowedTools: normalizeTools(fm["allowed-tools"]),
       hidden: fm.hidden === true || fm.hidden === "true",
+      // 详情元信息（可选，缺失则不展示）
+      author: author || undefined,
+      license: license || undefined,
+      skillVersion: skillVersion || undefined,
+      githubDir,
     });
   }
   // 分类顺序：固定顺序在前，其余按出现顺序补在末尾

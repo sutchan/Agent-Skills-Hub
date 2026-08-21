@@ -1,11 +1,11 @@
 ---
 name: twitter-automation
-allowed-tools: Bash(belt *)
-category: 自动化与集成
-en_category: Automation & Integration
-zh: Twitter 自动化
 description: 通过 inference.sh CLI 实现 Twitter/X 自动化发帖、互动与用户管理。应用包括 x/post-tweet、x/post-create（含媒体）、x/post-like、x/post-retweet、x/dm-send、x/user-follow。能力涵盖发推、内容排程、点赞、转推、私信、关注与获取资料。用于社交媒体自动化、内容排程、互动机器人、受众增长与 X API 集成。
 en_description: Automate Twitter/X with posting, engagement, and user management via inference.sh CLI. Apps: x/post-tweet, x/post-create (with media), x/post-like, x/post-retweet, x/dm-send, x/user-follow. Capabilities: post tweets, schedule content, like posts, retweet, send DMs, follow users, get profiles. Use for: social media automation, content scheduling, engagement bots, audience growth, X API. Triggers: twitter api, x api, tweet automation, post to twitter, twitter bot, social media automation, x automation, tweet scheduler, twitter integration, post tweet, twitter post, x post, send tweet"
+zh: Twitter 自动化
+category: 自动化与集成
+en_category: Automation & Integration
+allowed-tools: Bash(belt *)
 ---
 
 > **Install the belt CLI skill:** `npx skills add belt-sh/cli`

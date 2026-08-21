@@ -1,10 +1,10 @@
 ---
 name: requesting-code-review
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: 请求代码评审
 description: 在完成任务、实现主要功能或合并到主分支之前请求代码评审时使用。引导你整理改动、撰写评审说明并选择合适的评审范围。
 en_description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements
+zh: 请求代码评审
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # Requesting Code Review

@@ -1,10 +1,10 @@
 ---
 name: ai-research-reproduction
-category: AI 与智能体
-en_category: AI & Agents
-zh: AI 研究复现
 description: Rigor Reproduce 兼容技能，面向 README 优先的深度学习仓库复现。当用户想按 README 复现实验结果、核对环境/依赖/随机种子、定位复现差异时使用。
 en_description: Rigor Reproduce compatible skill slug for README-first deep learning repository reproduction. Use when the user wants an end-to-end, minimal-trustworthy flow that reads the repository first, selects the smallest documented inference or evaluation target, coordinates intake, setup, trusted execution, optional trusted training, optional repository analysis, and optional paper-gap resolution, enforces conservative patch rules, records evidence assumptions deviations and human decision points, and writes the standardized `repro_outputs/` bundle. Do not use for paper summary, generic environment setup, isolated repo scanning, standalone command execution, silent protocol changes, score chasing, or broad research assistance outside repository-grounded reproduction.
+zh: AI 研究复现
+category: AI 与智能体
+en_category: AI & Agents
 ---
 
 # ai-research-reproduction

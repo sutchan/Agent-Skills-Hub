@@ -1,10 +1,10 @@
 ---
 name: data-visualization
-category: 数据分析与可视化
-en_category: Data Analysis & Visualization
-zh: Python 数据可视化
 description: 用于 Python 数据可视化分析的技能，覆盖 matplotlib、seaborn、plotly 等主流库，帮助将数据转化为清晰、有洞察力的图表。
 en_description: Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.
+zh: Python 数据可视化
+category: 数据分析与可视化
+en_category: Data Analysis & Visualization
 user-invocable: false
 ---
 # Data Visualization Skill

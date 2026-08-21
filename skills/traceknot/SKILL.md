@@ -1,10 +1,10 @@
 ---
 name: traceknot
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: Traceknot QA
 description: 将 Traceknot 符合 ISTQB、以证据为约束的 QA 流程应用于仓库。当用户想做系统化测试规划、用例设计、缺陷追踪或质量门禁评审时使用。
 en_description: Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.
+zh: Traceknot QA
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # Traceknot

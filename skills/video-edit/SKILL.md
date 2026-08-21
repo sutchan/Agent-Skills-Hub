@@ -1,12 +1,12 @@
 ---
 name: video-edit
-category: 音视频与多媒体
-en_category: Media & Multimedia
-zh: AI 视频编辑
 description: |-
   在 RunComfy 上编辑现有视频，本技能是匹配用户意图到正确编辑模型的智能路由器。 通用重风格/换背景/包装替换选 Wan 2.7 Edit-Video，参考视频动作迁移选 Kling 2.6 Pro Motion Control，轻量身份稳定重风格/换装选 Lucy Edit Restyle。
   通过本地 RunComfy CLI 调用 runcomfy run 相关端点。
 en_description: "Edit existing video on RunComfy — this skill is a smart router that matches the user's intent to the right edit model in the RunComfy catalog. Picks Wan 2.7 Edit-Video (general restyle / background swap / packaging swap, identity + motion preservation), Kling 2.6 Pro Motion Control (transfer precise motion from a reference video to a target character), or Lucy Edit Restyle (lightweight identity-stable restyle / outfit swap). Bundles each model's documented prompting patterns so the skill gets sharper edits without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/<endpoint>` through the local RunComfy CLI. Triggers on \"video edit\", \"edit video\", \"restyle video\", \"swap video background\", \"motion control\", \"outfit swap video\", or any explicit ask to transform a video."
+zh: AI 视频编辑
+category: 音视频与多媒体
+en_category: Media & Multimedia
 displayName: Video Edit — Pro Pack on RunComfy
 homepage: "https://www.runcomfy.com"
 license: MIT

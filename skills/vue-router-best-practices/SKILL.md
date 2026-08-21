@@ -1,13 +1,13 @@
 ---
 name: vue-router-best-practices
-version: 1.0.0
-license: MIT
-author: github.com/vuejs-ai
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: Vue Router 最佳实践
 description: Vue Router 4 模式：导航守卫、路由参数、路由组件与懒加载等最佳实践。当用户配置路由、处理跳转或权限守卫时使用。
 en_description: Vue Router 4 patterns, navigation guards, route params, and route-component lifecycle interactions."
+zh: Vue Router 最佳实践
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+author: github.com/vuejs-ai
+license: MIT
+version: 1.0.0
 ---
 
 Vue Router best practices, common gotchas, and navigation patterns.

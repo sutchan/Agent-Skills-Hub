@@ -1,10 +1,10 @@
 ---
 name: chrome-webstore-release-blueprint
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: Chrome 应用商店发布蓝图
 description: 端到端引导用户在任意仓库中搭建 Chrome Web Store API 发布自动化。用于 OAuth/CWS 凭证配置、刷新令牌创建、本地/CI 密钥设置、基于版本的发布自动化与提交状态检查。
 en_description: Guide a user end-to-end through setting up Chrome Web Store API release automation in any repository. Use when asked to walk someone through OAuth/CWS credential setup, refresh token creation, local/CI secret setup, version-based publish automation, and submission status checks.
+zh: Chrome 应用商店发布蓝图
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 # Chrome Web Store Release Blueprint
 

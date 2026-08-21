@@ -1,10 +1,10 @@
 ---
 name: improve-codebase-architecture
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: 代码库架构深化报告
 description: 扫描代码库寻找可深化的架构机会，生成可视化 HTML 报告，并就你选中的候选进行犀利追问式打磨。
 en_description: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
+zh: 代码库架构深化报告
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 disable-model-invocation: true
 ---
 

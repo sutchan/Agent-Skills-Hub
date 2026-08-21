@@ -1,12 +1,12 @@
 ---
 name: limrun-ios-simulator
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: Limrun iOS 模拟器
 description: 驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、截图、录屏、以视频文件模拟摄像头、执行定时动作链。
 en_description: Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains.
-user-invocable: true
+zh: Limrun iOS 模拟器
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 effort: high
+user-invocable: true
 ---
 # Limrun iOS Simulator
 

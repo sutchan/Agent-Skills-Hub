@@ -1,10 +1,10 @@
 ---
 name: safe-debug
-category: 安全
-en_category: Security
-zh: 安全调试
 description: Rigor Debug / Rigor Audit 技能，面向深度学习科研工作。当用户想安全地调试训练/推理、排查数值异常或复现问题时使用。
 en_description: Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.
+zh: 安全调试
+category: 安全
+en_category: Security
 ---
 
 # safe-debug

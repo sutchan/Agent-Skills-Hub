@@ -1,10 +1,10 @@
 ---
 name: handoff
-category: 文档与内容
-en_category: Docs & Content
-zh: 会话交接文档
 description: 将当前对话压缩成一份交接文档，供另一个 agent 接手继续工作。
 en_description: Compact the current conversation into a handoff document for another agent to pick up.
+zh: 会话交接文档
+category: 文档与内容
+en_category: Docs & Content
 argument-hint: "What will the next session be used for?"
 disable-model-invocation: true
 ---

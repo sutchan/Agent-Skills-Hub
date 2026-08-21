@@ -1,12 +1,12 @@
 ---
 name: coding-standards
-category: 文档与内容
-en_category: Docs & Content
-zh: 跨项目编码规范基线
 description: 跨项目共享的编码约定基线，涵盖命名、可读性、不可变性与代码质量审查。在审查代码质量或命名、且没有适用的框架特定技能时使用。
 en_description: Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns. Use when reviewing code quality or naming with no framework-specific skill that applies.
-metadata:
+zh: 跨项目编码规范基线
+category: 文档与内容
+en_category: Docs & Content
 origin: ECC
+metadata:
 ---
 # Coding Standards & Best Practices
 
