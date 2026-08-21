@@ -2,6 +2,28 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.0] - 2026-08-21
+
+### fix: 修复卡片技能描述误入技能名称的 bug
+
+- **根因**：源 `skills/<name>/SKILL.md` 的 `zh` frontmatter 语义应为「简短中文名称」（卡片标题），但 30 个技能误将完整描述句填入 `zh`，导致卡片标题区显示成描述文字
+- **修复**：将 30 个过长的 `zh` 浓缩为简短中文标题（如 `brainstorming` →「头脑风暴」），原描述内容保留在 `zh-desc`（卡片描述区），描述信息无丢失
+- **数据重建**：`node build-skills-data.mjs` 重建 `data/skills-data.json`
+- **约定明确**：修正 `build-skills-data.mjs` 头注释，明确 `zh`=简短中文名称、`zh-desc`=中文描述，防止再次误填
+- **版本同步**：`package.json` 为权威源 v1.16.0，README/README.en 版本徽章、CHANGELOG 顶部对齐
+
+## [1.14.73] - 2026-08-21
+
+### chore: 整理技能库 SKILL.md frontmatter 并重建数据
+
+- **补全 8 个技能 frontmatter**：新增 `category` / `zh` / `zh-desc` 字段，消除「其他」分类
+  - 新增 4 个 figma 技能（figma-code-connect / figma-design-to-code / figma-generate-design / figma-generate-library）归入「品牌与设计」
+  - 补全 agent-browser、architecture-blueprint-generator、next-best-practices（开发框架与平台）与 grilling（文档与内容）
+- **数据重建**：`node build-skills-data.mjs` 重算，技能总数 49 → 55，分类计数更新（品牌与设计 12 / 开发框架 27）
+- **原型同步**：`node build.mjs` 重建 `prototype/index.html`
+- **文档同步**：README/README.en 技能包总数（49→55）、领域表计数、版本徽章升至 v1.14.73
+- **回收站目录**：`skills/RecycleBin~*.ffs_tmp/` 为 FreeFileSync 残留，保留待用户确认后删除
+
 ## [1.14.72] - 2026-08-20
 
 ### fix: 修复 CI 找不到 prototype/build-skills-data.mjs 报错

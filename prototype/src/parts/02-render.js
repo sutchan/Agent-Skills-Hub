@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.14.68 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.15.0 — 列表/网格渲染与统计
 function renderStats() {
   // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
   $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
@@ -28,12 +28,15 @@ function skillCatIndex(s) {
 }
 
 // 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-desc/card-cat）
+// 使用原生 <button> 保证可聚焦、Enter/Space 原生触发（P1-1 a11y）；
 // 标题与描述均按当前语言互斥显示（.zh/.en 由 base.css html[data-lang] 控制）：
 // 中文态显示中文名 + 中文描述（zhDesc），英文态显示英文名 + 英文描述（description）
+// 描述三级回退（P0-2）：zhDesc → zh（标题兜底）→ description（英文），避免中文态空白
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   const ci = skillCatIndex(s);
-  return `<article class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${ci}" role="button" tabindex="0" aria-label="${esc(label)}">
+  const descZh = s.zhDesc || s.zh || s.description || I18N.t("card.noDesc");
+  return `<button type="button" class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${ci}" aria-label="${esc(label)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
     <div class="title-row">
       <div class="avatar sm">${initials(s.name)}</div>
@@ -43,11 +46,11 @@ function cardHTML(s) {
       </div>
     </div>
     <div class="card-desc">
-      <span class="zh">${esc(s.zhDesc || s.zh || "")}</span>
+      <span class="zh">${esc(descZh)}</span>
       <span class="en">${esc(s.description || "")}</span>
     </div>
     <div class="card-cat">${esc(s.category)}</div>
-  </article>`;
+  </button>`;
 }
 
 function emptyHTML() {
@@ -68,11 +71,4 @@ function renderGrid() {
   grid.className = "grid " + state.view;
   grid.setAttribute("aria-live", "polite");
   grid.innerHTML = list.length ? list.map(cardHTML).join("") : emptyHTML();
-}
-
-// 将 HTML 字符串转为首个元素（用于弹窗插入）
-function htmlToEl(html) {
-  const t = document.createElement("template");
-  t.innerHTML = html.trim();
-  return t.content.firstElementChild;
 }

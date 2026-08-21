@@ -1,7 +1,7 @@
 ---
 name: video-edit
 category: 开发框架与平台
-zh: 通过 runcomfy CLI 在 RunComfy 目录编辑视频，支持重风格、换背景、动作迁移与服装替换
+zh: AI 视频编辑
 zh-desc: >-
   在 RunComfy 上编辑现有视频，本技能是匹配用户意图到正确编辑模型的智能路由器。 通用重风格/换背景/包装替换选 Wan 2.7 Edit-Video，参考视频动作迁移选 Kling 2.6 Pro Motion Control，轻量身份稳定重风格/换装选 Lucy Edit Restyle。
 

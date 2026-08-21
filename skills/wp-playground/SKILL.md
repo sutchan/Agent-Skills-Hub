@@ -1,6 +1,6 @@
 ---
 category: 开发框架与平台
-zh: WordPress Playground 路由封装
+zh: WP Playground 路由
 zh-desc: >-
   用作 WordPress Playground 的路由封装技能，适用于模糊的 Playground 工作、@wp-playground/cli 的本地 CLI 运行、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。
 

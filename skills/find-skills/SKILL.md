@@ -1,7 +1,7 @@
 ---
 name: find-skills
 category: 文档与内容
-zh: 帮助用户发现并安装可用的 agent 技能
+zh: 技能发现与安装
 zh-desc: >-
   帮助用户发现并安装可用的 agent 技能。当用户问“我该怎么做 X”“找一个做 X 的技能”“有没有能做…的技能”或表达想要扩展能力时，使用本技能来寻找可能以可安装技能形式存在的功能。
 description: Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.

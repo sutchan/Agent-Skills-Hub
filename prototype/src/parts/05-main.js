@@ -1,4 +1,4 @@
-// prototype/src/parts/05-main.js v1.14.56 — 应用启动编排
+// prototype/src/parts/05-main.js v1.15.0 — 应用启动编排
 function init() {
   // 从偏好恢复（localStorage 不可用时回退默认）
   state.theme = loadPref(LS_THEME, "light");
@@ -12,6 +12,13 @@ function init() {
   applyLang(); // 内部触发 I18N.setLang -> syncDOM 填充全站文案
   bind();
   renderGrid();
+  // 量取顶栏高度注入 --topbar-h，供 .controls sticky 偏移使用（P2-1），并监听 resize 更新
+  const setTopbarH = () => {
+    const h = document.getElementById("siteHeader");
+    if (h) document.documentElement.style.setProperty("--topbar-h", h.offsetHeight + "px");
+  };
+  setTopbarH();
+  window.addEventListener("resize", setTopbarH);
 }
 
 document.addEventListener("DOMContentLoaded", init);

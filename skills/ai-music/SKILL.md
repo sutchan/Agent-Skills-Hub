@@ -1,7 +1,7 @@
 ---
 name: ai-music
 category: 开发框架与平台
-zh: 通过 runcomfy CLI 智能路由生成 AI 音乐，覆盖 ElevenLabs 人声与 ACE Step 标签驱动作曲，支持修补与延长音轨
+zh: AI 音乐生成
 zh-desc: >-
   通过 runcomfy CLI 智能路由生成 AI 音乐。 优先路由到 ElevenLabs AI Music Generation（高级 44.1kHz 立体声人声音轨）或 ACE Step / ACE Step 1.5（标签驱动作曲、多语言歌词、成本更低）。
 

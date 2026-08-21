@@ -1,6 +1,6 @@
 ---
 category: 品牌与设计
-zh: AI 生成 Logo 与图标
+zh: AI Logo 生成
 zh-desc: >-
   用于 AI 生成 Logo 与图标的技能，帮助快速产出品牌标识与图形素材。
 name: logo-creator

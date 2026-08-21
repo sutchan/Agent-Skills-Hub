@@ -1,7 +1,7 @@
 ---
 name: web-design-guidelines
 category: 品牌与设计
-zh: 依据 Web 界面规范审查 UI 代码的可访问性、UX 与最佳实践合规
+zh: Web 设计规范审查
 zh-desc: >-
   审查 UI 代码是否符合 Web 界面规范。当被要求“审查我的 UI”“检查可访问性”“审计设计”“审查 UX”或“检查我的站点是否遵循最佳实践”时使用。
 description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".

@@ -1,6 +1,6 @@
 ---
 category: 开发框架与平台
-zh: Postgres 数据库最佳实践
+zh: Postgres 最佳实践
 zh-desc: >-
   由 Supabase 维护的 Postgres 最佳实践，适用于任何位置运行的 Postgres。在编写或修改 Postgres 相关内容（建表/改表与选列类型、schema 设计、迁移与声明式 schema 文件、RLS 策略及其测试、索引、触发器、数据库函数、队列与定时任务、向量搜索、恢复/导入）之前必须先加载本技能，也用于诊断慢查询、高 CPU、超时、EXPLAIN 计划、连接耗尽、锁、膨胀或错误租户数据等问题。
 name: supabase-postgres-best-practices

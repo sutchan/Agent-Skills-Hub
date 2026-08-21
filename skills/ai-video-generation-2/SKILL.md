@@ -1,7 +1,7 @@
 ---
 name: ai-video-generation-2
 category: 开发框架与平台
-zh: 通过 runcomfy CLI 在 RunComfy 目录智能路由生成 AI 视频，覆盖文生视频/图生视频与 Veo 视频扩展
+zh: AI 视频生成（RunComfy）
 zh-desc: >-
   通过本地 RunComfy CLI 在 RunComfy 目录中智能路由生成 AI 视频，覆盖文生视频、图生视频、参考视频转视频以及 Veo 视频扩展。作为智能路由器，根据用户真实意图匹配最合适的视频生成模型，并附上对应模型的提示词写法。
 displayName: "AI Video Generation (RunComfy)"

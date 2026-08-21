@@ -1,7 +1,7 @@
 ---
 name: vercel-react-best-practices
 category: 开发框架与平台
-zh: 来自 Vercel Engineering 的 React 与 Next.js 性能优化最佳实践指南
+zh: Vercel React 优化
 zh-desc: >-
   来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。在编写、审查或重构 React/Next.js 代码以确保最佳性能模式时使用，覆盖涉及 React 组件、Next.js 页面、数据获取、打包优化或性能改进的任务。
 description: React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.

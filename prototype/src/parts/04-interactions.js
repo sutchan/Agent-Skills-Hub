@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.14.66 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.16.0 — 主题/语言切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -13,9 +13,10 @@ function applyLang() {
   I18N.setLang(state.lang);
   const btn = $("#langBtn");
   if (btn) {
-    // 按钮文本直接显示「将要切换到的语言」，更直观；aria-pressed 反映当前语言
-    btn.textContent = state.lang === "zh" ? "EN" : "中";
-    btn.setAttribute("aria-label", I18N.t("lang.toggle"));
+    // 方案 A：按钮文本显示「当前语言」（中/EN），与可见文本一致；
+    // aria-pressed 表示当前是否 en（语义稳定），aria-label 明确当前语言与切换意图
+    btn.textContent = state.lang === "zh" ? "中" : "EN";
+    btn.setAttribute("aria-label", (state.lang === "zh" ? "当前语言：中文，点击切换为英文" : "Current: English, click to switch to Chinese"));
     btn.setAttribute("aria-pressed", state.lang === "en" ? "true" : "false");
   }
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
@@ -24,6 +25,10 @@ function applyLang() {
   // hero 区 aria-labelledby 指向当前可见语言的标题（en 模式 zh 标题被 CSS 隐藏，需切换引用）
   const hero = $("#hero");
   if (hero) hero.setAttribute("aria-labelledby", state.lang === "en" ? "heroTitleEn" : "heroTitle");
+  // 双 h1 视觉互斥：隐藏的那个加 aria-hidden，避免读屏重复朗读两个标题（P3）
+  const hZh = $("#heroTitle"), hEn = $("#heroTitleEn");
+  if (hZh) hZh.setAttribute("aria-hidden", state.lang === "en" ? "true" : "false");
+  if (hEn) hEn.setAttribute("aria-hidden", state.lang === "en" ? "false" : "true");
   // 分类筛选区的「全部」等文案由 renderCats 用 I18N.t 动态生成（非 data-i18n 静态属性），
   // 语言切换后必须重渲染网格才能刷新分类文案，否则切换语言后 chips 仍显示旧语言
   renderGrid();
@@ -49,8 +54,17 @@ function bind() {
     applyLang();
   });
   // 搜索（防抖）
+  // 中文/日文等输入法 composition 期间不触发筛选，避免拼音输入过程狂刷网格
   let t;
+  let composing = false;
+  on("#searchInput", "compositionstart", () => { composing = true; clearTimeout(t); });
+  on("#searchInput", "compositionend", (e) => {
+    composing = false;
+    const v = e.target.value;
+    t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
+  });
   on("#searchInput", "input", (e) => {
+    if (composing) return; // 输入法组合中，跳过
     clearTimeout(t);
     const v = e.target.value;
     t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
@@ -72,18 +86,11 @@ function bind() {
     track("filter_category", { category: state.cat || "all" });
     renderGrid();
   });
-  // 卡片点击/键盘打开详情（事件委托）
+  // 卡片点击打开详情（事件委托）
+  // 卡片为原生 <button>，Enter/Space 原生触发 click，此处仅需处理 click，避免 double-open
   on("#grid", "click", (e) => {
     const card = e.target.closest(".card");
     if (!card) return;
-    const s = SKILL_MAP.get(card.dataset.name);
-    if (s) openDetail(s);
-  });
-  on("#grid", "keydown", (e) => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    const card = e.target.closest(".card");
-    if (!card) return;
-    e.preventDefault();
     const s = SKILL_MAP.get(card.dataset.name);
     if (s) openDetail(s);
   });

@@ -1,4 +1,4 @@
-/* prototype/src/styles/layout.css v1.14.69 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.15.0 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏 */
 .topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -22,7 +22,8 @@
 .hero-features li { font-size: 12.5px; line-height: 1.5; color: var(--text-2); background: hsl(var(--secondary)); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
 
 /* 控制区（搜索 + 排序 + 分类） */
-.controls { position: sticky; top: 52px; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
+/* top 偏移由 JS 量取顶栏高度注入 --topbar-h，避免顶栏换行时硬编码 52px 错位（P2-1） */
+.controls { position: sticky; top: var(--topbar-h, 52px); z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
 .search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
 .search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 15px; color: var(--text); }
 .search .icon { opacity: .6; }
@@ -59,6 +60,7 @@
 /* 抽屉抓手（视觉提示，非交互） */
 .sheet-grip { width: 40px; height: 4px; border-radius: 999px; background: var(--border); margin: 10px auto 0; flex: 0 0 auto; }
 
+/* 抽屉（Sheet）：移动端详情采用底部上滑抽屉——当前原型未启用（无对应 DOM/JS 调用），保留为预留样式 */
 /* 空状态提示（搜索无结果等）：标题 + 说明 + 清除按钮（对齐 emptyHTML 输出，grid 内横跨整行） */
 .empty-state { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 40px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .empty-state .empty-title { font-size: 18px; font-weight: 600; color: var(--text); }

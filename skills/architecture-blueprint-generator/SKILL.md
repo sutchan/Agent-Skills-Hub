@@ -1,10 +1,11 @@
 ---
 name: architecture-blueprint-generator
-category: 文档与内容
-zh: 自动分析代码库生成项目架构蓝图，检测技术栈与架构模式、生成可视化图表并维护架构一致性
-zh-desc: >-
-  综合性项目架构蓝图生成器，可分析代码库生成详细的架构文档，自动检测技术栈与架构模式、生成可视化图表、记录实现模式，并产出可扩展的蓝图以维持架构一致性和指导后续开发。
 description: 'Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.'
+category: 开发框架与平台
+zh: 项目架构蓝图生成器
+zh-desc: |-
+  综合分析代码库以生成详尽架构文档的蓝图生成器。自动识别技术栈与架构模式，
+  生成可视化图表，记录实现模式，并提供可扩展的架构蓝图以维护架构一致性、指导新开发。
 ---
 
 # Comprehensive Project Architecture Blueprint Generator

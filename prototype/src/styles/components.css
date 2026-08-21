@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.14.68 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.15.0 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -15,8 +15,9 @@
 .chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
 .chip.active .chip-count { opacity: 1; }
 
-/* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + title-row + card-title/sub/cat） */
-.card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; text-align: left; }
+/* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + title-row + card-title/sub/cat）
+   渲染为原生 <button>（a11y 语义），需重置 button 默认样式 */
+.card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
 .card:focus-visible { border-color: var(--primary); }
 /* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
