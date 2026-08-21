@@ -112,11 +112,11 @@ Dialog 由 `#dialog`（`role="dialog"` `aria-modal="true"` `aria-labelledby="dia
 - 布局：全宽栏（顶栏/控制/分类/页脚）内容限宽居中 `--maxw:1200px`；网格 `auto-fill minmax(260px,1fr)` 自适应列（v1.17.1）。
 - 过滤：`state.cat` ∩ `state.q`（匹配 `name`/`zh`/`description`/`enDescription`/`category`，见 `01-state.js` 的 `matches(s, terms)`，词表预切分缓存）。
 
-### 16. SettingsButton 设置按钮（v1.17.2 新增，文档 v1.17.3 同步）
+### 16. SettingsButton 设置按钮（v1.17.2 新增，文档 v1.18.0 同步）
 位置：`src/index.html` 的 `#settingsBtn`（顶部栏右上角）+ `src/parts/03-detail.js` 的 `openSettings()`。
 行为：点击打开设置弹窗，**复用 `#dialog` 框架**（焦点陷阱/Esc/遮罩关闭）。
-内容：语言切换 + 主题切换，就地刷新动态文案（`refreshSettingsBody()`，不重建弹窗避免焦点陷阱监听累积）。
-样式：`.icon-btn`（34px、flex 居中、`aria-label`）；弹窗内 `.settings-row`/`.settings-label`。
+内容：四组切换 —— ①语言（`ash-lang` 持久化，触发 `applyLang`）；②主题（`ash-theme` 持久化，触发 `applyTheme`）；③视图模式 网格/列表（`ash-view` 持久化，`init()` 恢复并同步顶栏 `.view-btn` active）；④显示密度 舒适/紧凑（`ash-density` 持久化，触发 `applyDensity`，CSS `:root[data-density="compact"]` 控制间距）。全部切换就地刷新动态文案（`refreshSettingsBody()`，不重建弹窗避免焦点陷阱监听累积）。
+样式：`.icon-btn`（34px、flex 居中、`aria-label`）；弹窗内 `.settings-row`/`.settings-label`；各切换项为 `<button aria-pressed>`。
 
 ---
 

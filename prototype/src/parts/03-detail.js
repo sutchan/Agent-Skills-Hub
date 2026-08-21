@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.17.2 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.18.0 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -65,6 +65,20 @@ function openSettings() {
           <button id="settingsThemeBtn" class="btn btn-outline" aria-pressed="${state.theme === "dark"}">${state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"}</button>
         </div>
       </section>
+      <section class="block">
+        <h3>${I18N.t("settings.viewGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.view")}</span>
+          <button id="settingsViewBtn" class="btn btn-outline" aria-pressed="${state.view === VIEW_LIST}">${state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid")}</button>
+        </div>
+      </section>
+      <section class="block">
+        <h3>${I18N.t("settings.densityGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.density")}</span>
+          <button id="settingsDensityBtn" class="btn btn-outline" aria-pressed="${state.density === DENSITY_COMPACT}">${state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable")}</button>
+        </div>
+      </section>
     </div>
     <div id="dialogFoot" class="dialog-foot">
       <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
@@ -90,6 +104,23 @@ function openSettings() {
     const b = $("#settingsThemeBtn");
     if (b) { b.textContent = state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"; b.setAttribute("aria-pressed", state.theme === "dark"); }
   });
+  // 视图模式切换：同步到 <html data-view> 并持久化，顶栏 view-btn active 态由 applyView 统一刷新
+  $("#settingsViewBtn").addEventListener("click", () => {
+    state.view = state.view === VIEW_GRID ? VIEW_LIST : VIEW_GRID;
+    savePref(LS_VIEW, state.view);
+    applyView();
+    const b = $("#settingsViewBtn");
+    if (b) { b.textContent = state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid"); b.setAttribute("aria-pressed", state.view === VIEW_LIST); }
+    renderGrid();
+  });
+  // 显示密度切换：同步到 <html data-density> 并持久化，仅影响 CSS 间距，无需重渲染网格
+  $("#settingsDensityBtn").addEventListener("click", () => {
+    state.density = state.density === DENSITY_COMFORT ? DENSITY_COMPACT : DENSITY_COMFORT;
+    savePref(LS_DENSITY, state.density);
+    applyDensity();
+    const b = $("#settingsDensityBtn");
+    if (b) { b.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); b.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
+  });
 }
 
 // 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）
@@ -99,12 +130,19 @@ function refreshSettingsBody() {
   const langBtn = $("#settingsLangBtn");
   if (langBtn) { langBtn.textContent = state.lang === "zh" ? "中文" : "English"; langBtn.setAttribute("aria-pressed", state.lang === "en"); }
   // 区块标题与标签为动态 i18n，直接查询并更新
-  const heads = document.querySelectorAll("#dialogBody .block h3");
-  if (heads[0]) heads[0].textContent = I18N.t("settings.langGroup");
-  if (heads[1]) heads[1].textContent = I18N.t("settings.themeGroup");
+  const blocks = document.querySelectorAll("#dialogBody .block");
+  const headText = [I18N.t("settings.langGroup"), I18N.t("settings.themeGroup"), I18N.t("settings.viewGroup"), I18N.t("settings.densityGroup")];
+  blocks.forEach((blk, i) => {
+    const h = blk.querySelector("h3");
+    if (h && headText[i]) h.textContent = headText[i];
+  });
   const labels = document.querySelectorAll("#dialogBody .settings-label");
-  if (labels[0]) labels[0].textContent = I18N.t("settings.language");
-  if (labels[1]) labels[1].textContent = I18N.t("settings.theme");
+  const labelText = [I18N.t("settings.language"), I18N.t("settings.theme"), I18N.t("settings.view"), I18N.t("settings.density")];
+  labels.forEach((l, i) => { if (labelText[i]) l.textContent = labelText[i]; });
+  const viewBtn = $("#settingsViewBtn");
+  if (viewBtn) { viewBtn.textContent = state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid"); viewBtn.setAttribute("aria-pressed", state.view === VIEW_LIST); }
+  const densityBtn = $("#settingsDensityBtn");
+  if (densityBtn) { densityBtn.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); densityBtn.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
 }
 
 function closeDetail() {

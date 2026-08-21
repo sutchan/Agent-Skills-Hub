@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.17.7 — 主题/语言/视图/密度切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.18.0 — 主题/语言/视图/密度切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -85,7 +85,8 @@ function bind() {
   $$(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
       state.view = b.dataset.view;
-      $$(".view-btn").forEach((x) => x.classList.toggle("active", x === b));
+      savePref(LS_VIEW, state.view);
+      applyView();
       track("toggle_view", { view: state.view });
       renderGrid();
     });

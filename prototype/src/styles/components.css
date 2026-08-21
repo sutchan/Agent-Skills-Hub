@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.17.2 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.18.0 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -33,6 +33,12 @@
 .card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .card-desc > span { display: block; }
 .card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
+
+/* 紧凑密度（设置项切换）：缩小卡片内边距与色条外边距，缩短行高，提升单位屏信息量 */
+:root[data-density="compact"] .card { padding: 11px; gap: 6px; }
+:root[data-density="compact"] .card .cat-bar { margin: -11px -11px 0; }
+:root[data-density="compact"] .card .card-desc { font-size: 11px; line-height: 1.4; }
+:root[data-density="compact"] .grid { gap: 10px; }
 
 /* 通用图标按钮（语言/主题/设置/弹窗关闭）：统一尺寸与垂直对齐，修复顶部栏按钮参差 */
 .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-radius: 9px; color: var(--text-2); transition: background .15s, color .15s; line-height: 1; font-size: 14px; }

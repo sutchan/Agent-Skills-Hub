@@ -147,7 +147,7 @@
 | ShareButton | `03-detail.js` 的 `shareSkill(name)` | 技能详情弹窗内的「分享」按钮；点击复制「技能链接 + 随机宣传文案」并 toast 反馈 |
 | SkillCard | `02-render.js` 的 `cardHTML()` | 网格/列表共用；**渲染为原生 `<button type="button" class="card">`**（a11y 语义，Enter/Space 原生触发，点击经 `#grid` 委托打开详情）；双语描述与分类标签 |
 | SkillDetail | `03-detail.js` 的 `openDetail()` | 弹窗内容体；含中英文描述、分类、授权工具、本地仓库链接 |
-| SettingsButton | `03-detail.js` 的 `openSettings()` | 顶部栏右上角齿轮按钮 `#settingsBtn`；复用 Dialog 框架承载语言/主题切换（就地刷新文案，不重建弹窗） |
+| SettingsButton | `03-detail.js` 的 `openSettings()` | 顶部栏右上角齿轮按钮 `#settingsBtn`；复用 Dialog 框架承载语言/主题/视图模式/显示密度四组切换（就地刷新文案，不重建弹窗） |
 | 主页面 | `05-main.js` 的 `init()` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式弹窗调度 |
 
 ### 3.3 业务数据契约
@@ -257,7 +257,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.17.3 — 文档与实现对齐：卡片改为原生 `<button>`（P1-1）；数据契约更新为 `description`(中文)/`enDescription`(英文)/`enCategory`/`categoryEn`（并行会话 v1.16.x 落地，移除 `zhDesc`）；新增设置弹窗 `#settingsBtn`/`openSettings()`（v1.17.2）；响应式改为 `auto-fill minmax(260px,1fr)` 自适应 + `--maxw` 限宽居中（v1.17.1）；`.sheet` 抽屉为预留未启用（v1.16.0 起标注）。
+> 版本：v1.18.0 — 文档与实现对齐：设置弹窗扩充至四组（语言 / 主题 / 视图模式 / 显示密度）；视图模式与密度均持久化到 `localStorage`（`ash-view` / `ash-density`），`init()` 启动恢复并同步 `<html data-view>` / `<html data-density>`；紧凑密度由 `components.css` 的 `:root[data-density="compact"]` 规则控制卡片间距；其余同 v1.17.3 基线（卡片原生 `<button>`、数据契约 `description`/`enDescription`/`enCategory`/`categoryEn`、响应式 `--maxw` 限宽）。
 
 ### 8.1 标志释义（Logo）
 

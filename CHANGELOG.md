@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.18.0] - 2026-08-21
+
+### feat: 完善设置弹窗（新增视图模式与显示密度选项）
+
+- **设置项扩充**：设置弹窗在原有「语言 / 主题」基础上新增「布局（网格 / 列表）」与「密度（舒适 / 紧凑）」两组切换
+- **视图模式持久化**：`state.view` 写入 `localStorage`（键 `ash-view`），`init()` 启动时恢复并同步顶栏 `.view-btn` 的 active 态
+- **显示密度**：新增 `state.density`（comfortable / compact），通过 `<html data-density>` 驱动 CSS 间距（卡片内边距、色条外边距、网格 gap），写入 `localStorage`（键 `ash-density`）
+- **无障碍**：两组选项均为 `<button aria-pressed>`，切换后由 `refreshSettingsBody()` 就地刷新双语文案（不重建弹窗，避免焦点陷阱监听累积）
+- **i18n**：`i18n.js` 新增 `settings.viewGroup/view/viewGrid/viewList/densityGroup/density/densityComfortable/densityCompact` 中英文案
+- **版本同步**：`package.json` 升至 v1.18.0，6 个改动源文件头注释同步；`npm run build` 注入 footer v1.18.0
+
 ## [1.17.4] - 2026-08-21
 
 ### fix: 补全技能 frontmatter 消除「其他」分类、清理重复描述并重建数据
@@ -1242,3 +1253,5 @@
 [1.14.70]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.70
 [1.14.71]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.71
 [1.14.72]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.72
+[1.17.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.17.4
+[1.18.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.0

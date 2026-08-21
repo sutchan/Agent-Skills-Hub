@@ -274,7 +274,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
 
-/* prototype/src/styles/components.css v1.17.2 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.18.0 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -309,6 +309,12 @@ html[data-lang="zh"] .en { display: none; }
 .card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .card-desc > span { display: block; }
 .card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
+
+/* 紧凑密度（设置项切换）：缩小卡片内边距与色条外边距，缩短行高，提升单位屏信息量 */
+:root[data-density="compact"] .card { padding: 11px; gap: 6px; }
+:root[data-density="compact"] .card .cat-bar { margin: -11px -11px 0; }
+:root[data-density="compact"] .card .card-desc { font-size: 11px; line-height: 1.4; }
+:root[data-density="compact"] .grid { gap: 10px; }
 
 /* 通用图标按钮（语言/主题/设置/弹窗关闭）：统一尺寸与垂直对齐，修复顶部栏按钮参差 */
 .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-radius: 9px; color: var(--text-2); transition: background .15s, color .15s; line-height: 1; font-size: 14px; }
@@ -537,7 +543,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.17.4</span>
+      <span class="footer-ver" id="footerVer">v1.18.0</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -1688,7 +1694,7 @@ html[data-lang="zh"] .en { display: none; }
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.17.2 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.18.0 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -1733,6 +1739,14 @@ html[data-lang="zh"] .en { display: none; }
       "settings.language": "界面语言",
       "settings.themeGroup": "主题 / Theme",
       "settings.theme": "外观主题",
+      "settings.viewGroup": "布局 / Layout",
+      "settings.view": "视图模式",
+      "settings.viewGrid": "网格 / Grid",
+      "settings.viewList": "列表 / List",
+      "settings.densityGroup": "密度 / Density",
+      "settings.density": "卡片间距",
+      "settings.densityComfortable": "舒适 / Comfortable",
+      "settings.densityCompact": "紧凑 / Compact",
       "settings.done": "完成",
       "share.promos": [
         "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
@@ -1775,6 +1789,14 @@ html[data-lang="zh"] .en { display: none; }
       "settings.language": "Interface language",
       "settings.themeGroup": "Theme",
       "settings.theme": "Appearance theme",
+      "settings.viewGroup": "Layout",
+      "settings.view": "View mode",
+      "settings.viewGrid": "Grid",
+      "settings.viewList": "List",
+      "settings.densityGroup": "Density",
+      "settings.density": "Card spacing",
+      "settings.densityComfortable": "Comfortable",
+      "settings.densityCompact": "Compact",
       "settings.done": "Done",
       "share.promos": [
         "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
@@ -1896,7 +1918,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/parts/01-state.js v1.17.0 — 常量、偏好状态与纯工具函数
+  <script>// prototype/src/parts/01-state.js v1.18.0 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -1910,17 +1932,25 @@ function track(event, params) {
   } catch (e) { /* 统计失败不影响主流程 */ }
 }
 
-const LS_THEME = "ash-theme", LS_LANG = "ash-lang";
+const LS_THEME = "ash-theme", LS_LANG = "ash-lang", LS_VIEW = "ash-view", LS_DENSITY = "ash-density";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
+const DENSITY_COMFORT = "comfortable", DENSITY_COMPACT = "compact";
 const DEBOUNCE_MS = 120;
 
 const state = {
   theme: "light",
   lang: "zh",
   view: VIEW_GRID,
+  density: DENSITY_COMFORT,
   query: "",
   cat: null,
 };
+
+// 偏好读取辅助：校验合法枚举值，非法则回退默认（避免脏 localStorage 破坏状态）
+function loadEnum(key, allowed, fallback) {
+  const v = loadPref(key, null);
+  return allowed.indexOf(v) !== -1 ? v : fallback;
+}
 
 function loadPref(key, fallback) {
   try { const v = localStorage.getItem(key); return v == null ? fallback : v; } catch (e) { return fallback; }
@@ -2067,7 +2097,7 @@ function renderGrid() {
     : I18N.t("result.empty");
 }
 
-// prototype/src/parts/03-detail.js v1.17.2 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.18.0 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -2134,6 +2164,20 @@ function openSettings() {
           <button id="settingsThemeBtn" class="btn btn-outline" aria-pressed="${state.theme === "dark"}">${state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"}</button>
         </div>
       </section>
+      <section class="block">
+        <h3>${I18N.t("settings.viewGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.view")}</span>
+          <button id="settingsViewBtn" class="btn btn-outline" aria-pressed="${state.view === VIEW_LIST}">${state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid")}</button>
+        </div>
+      </section>
+      <section class="block">
+        <h3>${I18N.t("settings.densityGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.density")}</span>
+          <button id="settingsDensityBtn" class="btn btn-outline" aria-pressed="${state.density === DENSITY_COMPACT}">${state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable")}</button>
+        </div>
+      </section>
     </div>
     <div id="dialogFoot" class="dialog-foot">
       <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
@@ -2159,6 +2203,23 @@ function openSettings() {
     const b = $("#settingsThemeBtn");
     if (b) { b.textContent = state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"; b.setAttribute("aria-pressed", state.theme === "dark"); }
   });
+  // 视图模式切换：同步到 <html data-view> 并持久化，顶栏 view-btn active 态由 applyView 统一刷新
+  $("#settingsViewBtn").addEventListener("click", () => {
+    state.view = state.view === VIEW_GRID ? VIEW_LIST : VIEW_GRID;
+    savePref(LS_VIEW, state.view);
+    applyView();
+    const b = $("#settingsViewBtn");
+    if (b) { b.textContent = state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid"); b.setAttribute("aria-pressed", state.view === VIEW_LIST); }
+    renderGrid();
+  });
+  // 显示密度切换：同步到 <html data-density> 并持久化，仅影响 CSS 间距，无需重渲染网格
+  $("#settingsDensityBtn").addEventListener("click", () => {
+    state.density = state.density === DENSITY_COMFORT ? DENSITY_COMPACT : DENSITY_COMFORT;
+    savePref(LS_DENSITY, state.density);
+    applyDensity();
+    const b = $("#settingsDensityBtn");
+    if (b) { b.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); b.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
+  });
 }
 
 // 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）
@@ -2168,12 +2229,19 @@ function refreshSettingsBody() {
   const langBtn = $("#settingsLangBtn");
   if (langBtn) { langBtn.textContent = state.lang === "zh" ? "中文" : "English"; langBtn.setAttribute("aria-pressed", state.lang === "en"); }
   // 区块标题与标签为动态 i18n，直接查询并更新
-  const heads = document.querySelectorAll("#dialogBody .block h3");
-  if (heads[0]) heads[0].textContent = I18N.t("settings.langGroup");
-  if (heads[1]) heads[1].textContent = I18N.t("settings.themeGroup");
+  const blocks = document.querySelectorAll("#dialogBody .block");
+  const headText = [I18N.t("settings.langGroup"), I18N.t("settings.themeGroup"), I18N.t("settings.viewGroup"), I18N.t("settings.densityGroup")];
+  blocks.forEach((blk, i) => {
+    const h = blk.querySelector("h3");
+    if (h && headText[i]) h.textContent = headText[i];
+  });
   const labels = document.querySelectorAll("#dialogBody .settings-label");
-  if (labels[0]) labels[0].textContent = I18N.t("settings.language");
-  if (labels[1]) labels[1].textContent = I18N.t("settings.theme");
+  const labelText = [I18N.t("settings.language"), I18N.t("settings.theme"), I18N.t("settings.view"), I18N.t("settings.density")];
+  labels.forEach((l, i) => { if (labelText[i]) l.textContent = labelText[i]; });
+  const viewBtn = $("#settingsViewBtn");
+  if (viewBtn) { viewBtn.textContent = state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid"); viewBtn.setAttribute("aria-pressed", state.view === VIEW_LIST); }
+  const densityBtn = $("#settingsDensityBtn");
+  if (densityBtn) { densityBtn.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); densityBtn.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
 }
 
 function closeDetail() {
@@ -2272,7 +2340,7 @@ function showToast(msg) {
   t._timer = setTimeout(() => t.classList.remove("show"), 2000);
 }
 
-// prototype/src/parts/04-interactions.js v1.17.2 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.18.0 — 主题/语言/视图/密度切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -2281,6 +2349,18 @@ function applyTheme() {
     // aria-pressed 表示当前是否处于深色（按钮状态语义）
     btn.setAttribute("aria-pressed", state.theme === "dark" ? "true" : "false");
   }
+}
+
+// 视图模式（网格/列表）：同步到 <html data-view>，驱动 .grid 列布局与卡片排布
+function applyView() {
+  document.documentElement.setAttribute("data-view", state.view);
+  // 顶栏视图切换按钮的 active 态同步（与设置弹窗内的切换保持一致）
+  $$(".view-btn").forEach((b) => b.classList.toggle("active", b.dataset.view === state.view));
+}
+
+// 显示密度（舒适/紧凑）：同步到 <html data-density>，由 CSS 控制卡片间距与内边距
+function applyDensity() {
+  document.documentElement.setAttribute("data-density", state.density);
 }
 
 function applyLang() {
@@ -2347,7 +2427,8 @@ function bind() {
   $$(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
       state.view = b.dataset.view;
-      $$(".view-btn").forEach((x) => x.classList.toggle("active", x === b));
+      savePref(LS_VIEW, state.view);
+      applyView();
       track("toggle_view", { view: state.view });
       renderGrid();
     });
@@ -2400,17 +2481,21 @@ function bind() {
   }
 }
 
-// prototype/src/parts/05-main.js v1.16.2 — 应用启动编排
+// prototype/src/parts/05-main.js v1.18.0 — 应用启动编排
 function init() {
   // 从偏好恢复（localStorage 不可用时回退默认）
   state.theme = loadPref(LS_THEME, "light");
   state.lang = loadPref(LS_LANG, "zh");
+  state.view = loadEnum(LS_VIEW, [VIEW_GRID, VIEW_LIST], VIEW_GRID);
+  state.density = loadEnum(LS_DENSITY, [DENSITY_COMFORT, DENSITY_COMPACT], DENSITY_COMFORT);
   // 预聚合：每个技能缓存小写检索串 _hay，并建立 name->skill 索引，避免运行时重复计算
   SKILLS_DATA.skills.forEach((s) => {
     s._hay = (s.name + " " + s.zh + " " + s.description + " " + (s.enDescription || "") + " " + s.category + " " + (s.enCategory || "")).toLowerCase();
     SKILL_MAP.set(s.name, s);
   });
   applyTheme();
+  applyView();
+  applyDensity();
   applyLang(); // 内部触发 I18N.setLang -> syncDOM 填充全站文案
   bind();
   renderGrid();
