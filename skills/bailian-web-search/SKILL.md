@@ -1,5 +1,10 @@
 ---
 name: bailian-web-search
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+zh: 百炼联网搜索路由
+en_description: >-
+  Alibaba Cloud Bailian web search entry: routes web/online search and latest-news queries. Detects connection identity first (Token Plan vs others), then dispatches to model-native web search or Bailian MCP, with fallback logic.
 metadata:
   version: "1.17.0"
   requires:

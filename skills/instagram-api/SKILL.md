@@ -1,5 +1,8 @@
 ---
 name: instagram-api
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+zh: Instagram API 替代
 description: >-
   An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402,
   or prepaid credits with a Bearer key, no login and no session cookies. Use
@@ -11,6 +14,14 @@ description: >-
   track. Also covers Instagram follower export, hashtag and location
   monitoring, influencer discovery, competitor content tracking, and
   Instagram data pipelines without an official Graph API business
+  verification or a headless browser.
+en_description: >-
+  An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or
+  prepaid credits with a Bearer key, no login and no session cookies. Resolve a
+  profile by @handle, search users by keyword, pull posts/reels/stories/tagged
+  posts/followers/followings, look up a post by shortcode, read comments, fetch
+  hashtag or location feeds, pull posts by audio track, plus follower export,
+  monitoring, influencer discovery, and competitor tracking without Graph API
   verification or a headless browser.
 keywords:
   - instagram
