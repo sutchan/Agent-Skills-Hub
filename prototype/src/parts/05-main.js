@@ -1,4 +1,4 @@
-// prototype/src/parts/05-main.js v1.19.5 — 应用启动编排
+// prototype/src/parts/05-main.js v1.19.6 — 应用启动编排
 function init() {
   // 从偏好恢复（localStorage 不可用时回退默认）
   state.theme = loadPref(LS_THEME, "light");
@@ -9,6 +9,8 @@ function init() {
   state.showDesc = loadPref(LS_SHOW_DESC, "true") !== "false";
   state.showCat = loadPref(LS_SHOW_CAT, "true") !== "false";
   state.showBar = loadPref(LS_SHOW_BAR, "true") !== "false";
+  // 名称显示策略：枚举 both/zh/en，缺失或非法回退默认双显
+  state.nameMode = loadEnum(LS_NAME_MODE, [NAME_MODE_BOTH, NAME_MODE_ZH, NAME_MODE_EN], NAME_MODE_BOTH);
   // 预聚合：每个技能缓存小写检索串 _hay，并建立 name->skill 索引，避免运行时重复计算
   SKILLS_DATA.skills.forEach((s) => {
     s._hay = (s.name + " " + s.zh + " " + s.description + " " + (s.enDescription || "") + " " + s.category + " " + (s.enCategory || "")).toLowerCase();
@@ -18,6 +20,7 @@ function init() {
   applyView();
   applyDensity();
   applyUI();
+  applyNameMode();
   applyLang(); // 内部触发 I18N.setLang -> syncDOM 填充全站文案
   bind();
   renderGrid();

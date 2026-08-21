@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.19.5 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.19.6 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -94,6 +94,14 @@ function openSettings() {
           <button id="settingsBarBtn" class="btn btn-outline" aria-pressed="${state.showBar}" data-on="${state.showBar ? "on" : "off"}">${state.showBar ? "开 / On" : "关 / Off"}</button>
         </div>
       </section>
+      <section class="block">
+        <h3>${I18N.t("settings.nameGroup")}</h3>
+        <div class="seg" role="group" aria-label="${I18N.t("settings.nameGroup")}">
+          <button id="nameBothBtn" class="seg-btn${state.nameMode === NAME_MODE_BOTH ? " active" : ""}" aria-pressed="${state.nameMode === NAME_MODE_BOTH}" data-mode="${NAME_MODE_BOTH}">${I18N.t("settings.nameBoth")}</button>
+          <button id="nameZhBtn" class="seg-btn${state.nameMode === NAME_MODE_ZH ? " active" : ""}" aria-pressed="${state.nameMode === NAME_MODE_ZH}" data-mode="${NAME_MODE_ZH}">${I18N.t("settings.nameZh")}</button>
+          <button id="nameEnBtn" class="seg-btn${state.nameMode === NAME_MODE_EN ? " active" : ""}" aria-pressed="${state.nameMode === NAME_MODE_EN}" data-mode="${NAME_MODE_EN}">${I18N.t("settings.nameEn")}</button>
+        </div>
+      </section>
     </div>
     <div id="dialogFoot" class="dialog-foot">
       <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
@@ -152,6 +160,19 @@ function openSettings() {
   bindUISwitch("#settingsDescBtn", LS_SHOW_DESC, () => { state.showDesc = !state.showDesc; });
   bindUISwitch("#settingsCatBtn", LS_SHOW_CAT, () => { state.showCat = !state.showCat; });
   bindUISwitch("#settingsBarBtn", LS_SHOW_BAR, () => { state.showBar = !state.showBar; });
+  // 名称显示策略：双显 / 仅中文 / 仅英文，分段控件单选，切换后同步 <html data-name-mode> 并持久化
+  $$(".seg-btn").forEach((b) => {
+    b.addEventListener("click", () => {
+      state.nameMode = b.dataset.mode;
+      savePref(LS_NAME_MODE, state.nameMode);
+      applyNameMode();
+      $$(".seg-btn").forEach((x) => {
+        const on = x.dataset.mode === state.nameMode;
+        x.classList.toggle("active", on);
+        x.setAttribute("aria-pressed", on);
+      });
+    });
+  });
 }
 
 // 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）

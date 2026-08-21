@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.19.5 — 技能浏览器（分类筛选 + 搜索 + 视图切换 + UI元素显隐 + 卡片网格）
+// app/components/SkillsExplorer.tsx v1.19.6 — 技能浏览器（分类筛选 + 搜索 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -19,6 +19,8 @@ export function SkillsExplorer({
   const [showDesc, setShowDesc] = useState(true);
   const [showCat, setShowCat] = useState(true);
   const [showBar, setShowBar] = useState(true);
+  // 名称显示策略：默认双显（中文名 + 英文原名），可切仅中文 / 仅英文
+  const [nameMode, setNameMode] = useState<"both" | "zh" | "en">("both");
   const [settingsOpen, setShowSettings] = useState(false);
 
   // 恢复偏好（localStorage 不可用时回退默认）
@@ -30,21 +32,28 @@ export function SkillsExplorer({
     setShowDesc(on(read("ash-show-desc")));
     setShowCat(on(read("ash-show-cat")));
     setShowBar(on(read("ash-show-bar")));
+    const nm = read("ash-name-mode");
+    if (nm === "zh" || nm === "en") setNameMode(nm);
   }, []);
 
-  // 偏好变化时同步到 <html data-show-*> + 持久化
+  // 偏好变化时同步到 <html data-show-*> / data-name-mode + 持久化
   useEffect(() => {
     const root = document.documentElement;
     root.setAttribute("data-show-desc", showDesc ? "on" : "off");
     root.setAttribute("data-show-cat", showCat ? "on" : "off");
     root.setAttribute("data-show-bar", showBar ? "on" : "off");
-    const write = (k: string, v: boolean) => {
+    root.setAttribute("data-name-mode", nameMode);
+    const writeStr = (k: string, v: string) => {
+      try { localStorage.setItem(k, v); } catch { /* 隐私模式忽略 */ }
+    };
+    const writeBool = (k: string, v: boolean) => {
       try { localStorage.setItem(k, v ? "true" : "false"); } catch { /* 隐私模式忽略 */ }
     };
-    write("ash-show-desc", showDesc);
-    write("ash-show-cat", showCat);
-    write("ash-show-bar", showBar);
-  }, [showDesc, showCat, showBar]);
+    writeBool("ash-show-desc", showDesc);
+    writeBool("ash-show-cat", showCat);
+    writeBool("ash-show-bar", showBar);
+    writeStr("ash-name-mode", nameMode);
+  }, [showDesc, showCat, showBar, nameMode]);
 
   const cats = useMemo(() => ["all", ...data.categories], [data.categories]);
 
@@ -128,6 +137,35 @@ export function SkillsExplorer({
               <input type="checkbox" checked={showBar} onChange={(e) => setShowBar(e.target.checked)} />
             </label>
           </div>
+          <div className="settings-section">
+            <h3>{lang === "zh" ? "名称显示" : "Name display"}</h3>
+            <div className="seg" role="group" aria-label={lang === "zh" ? "名称显示" : "Name display"}>
+              <button
+                type="button"
+                className={`seg-btn${nameMode === "both" ? " active" : ""}`}
+                aria-pressed={nameMode === "both"}
+                onClick={() => setNameMode("both")}
+              >
+                {lang === "zh" ? "双显" : "Both"}
+              </button>
+              <button
+                type="button"
+                className={`seg-btn${nameMode === "zh" ? " active" : ""}`}
+                aria-pressed={nameMode === "zh"}
+                onClick={() => setNameMode("zh")}
+              >
+                {lang === "zh" ? "仅中文" : "Chinese"}
+              </button>
+              <button
+                type="button"
+                className={`seg-btn${nameMode === "en" ? " active" : ""}`}
+                aria-pressed={nameMode === "en"}
+                onClick={() => setNameMode("en")}
+              >
+                {lang === "zh" ? "仅英文" : "English"}
+              </button>
+            </div>
+          </div>
           <button className="btn btn-primary" onClick={() => setShowSettings(false)}>
             {lang === "zh" ? "完成" : "Done"}
           </button>
@@ -147,6 +185,7 @@ export function SkillsExplorer({
             showDesc={showDesc}
             showCat={showCat}
             showBar={showBar}
+            nameMode={nameMode}
           />
         ))}
       </div>

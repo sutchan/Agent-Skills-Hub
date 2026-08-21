@@ -1,4 +1,4 @@
-// app/components/skill-card.tsx v1.19.5 — 技能卡片（原生 button，含双语标题与 .card-body 列表布局修复）
+// app/components/skill-card.tsx v1.19.6 — 技能卡片（原生 button，含双语标题与 .card-body 列表布局修复）
 "use client";
 import { catHue } from "../lib/catHue";
 import type { Skill } from "../lib/skills";
@@ -15,13 +15,18 @@ export function SkillCard({
   showDesc = true,
   showCat = true,
   showBar = true,
+  nameMode = "both",
 }: {
   skill: Skill;
   onOpen: (s: Skill) => void;
   showDesc?: boolean;
   showCat?: boolean;
   showBar?: boolean;
+  nameMode?: "both" | "zh" | "en";
 }) {
+  // 标题双语显示：双显时中文名主 + 英文原名副（仅中文态，英文态由全局 data-lang 控制仅显英文名）
+  const showZh = nameMode === "both" || nameMode === "zh";
+  const showEnSub = nameMode === "both";
   return (
     <button
       type="button"
@@ -39,8 +44,9 @@ export function SkillCard({
         <div className="title-row">
           <div className="avatar sm">{initials(skill.name)}</div>
           <div className="card-title">
-            <span className="zh">{skill.zh || skill.name}</span>
-            <span className="en">{skill.name}</span>
+            {showZh && <span className="zh">{skill.zh || skill.name}</span>}
+            {showEnSub && <span className="en">{skill.name}</span>}
+            {nameMode === "en" && <span className="en">{skill.name}</span>}
           </div>
         </div>
         {showDesc && (

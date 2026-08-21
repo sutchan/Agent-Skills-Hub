@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.6] - 2026-08-21
+
+### feat: 设置项新增「名称显示」分组并紧凑化设置弹窗
+
+- 名称显示策略 `nameMode`（默认 `both` 双显）：中文态中文名主 + 英文原名弱化副标题；可选「仅中文」「仅英文」
+- 原型 `01-state.js` 新增 `NAME_MODE_BOTH/ZH/EN` 常量 + `state.nameMode`（默认 both）、`LS_NAME_MODE` 键；`05-main.js` 用 `loadEnum` 恢复并调用 `applyNameMode()`；`04-interactions.js` 新增 `applyNameMode()` 同步 `<html data-name-mode>`；`03-detail.js` 设置弹窗新增「名称显示」分段组（3 个 `.seg-btn` 单选）并绑定切换；`i18n.js` 补 `settings.nameGroup/nameBoth/nameZh/nameEn` 中英文案
+- 原型 `components.css` 补 `data-name-mode` 标题显隐规则（双显中文态 override 全局 `data-lang=zh .en` 隐藏，强制显示英文原名副标题）；`.card-title .en` 仍为 11px 弱化
+- 设置弹窗紧凑化：`.block` margin 18→10px、`.settings-row` padding 10→6px 且字号 14→13px、`.dialog-foot` padding 16→12px；新增 `.seg` 分段控件（横向等宽，替代独立 outline 按钮，更省空间）
+- app `SkillsExplorer.tsx` 新增 `nameMode` 状态（localStorage 恢复 `ash-name-mode` + 同步 `<html data-name-mode>` 持久化）+ 内联面板「名称显示」分段组；`skill-card.tsx` 接收 `nameMode` 条件渲染 `.card-title`(showZh/showEnSub/en)；`globals.css` 补 `data-name-mode` 规则与 `.seg` 样式，设置面板更紧凑
+- 两层 UX 一致：双显中文态中英并列、仅中文只显中文名、仅英文只显英文原名；设置项整体更紧凑
+- package.json 升至 v1.19.6
+
 ## [1.19.5] - 2026-08-21
 
 ### feat: 设置项新增「界面元素」分组（描述/分类标签/分类色条显隐）
@@ -1390,3 +1402,4 @@
 [1.19.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.3
 [1.19.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.4
 [1.19.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.5
+[1.19.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.6

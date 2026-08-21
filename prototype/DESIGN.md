@@ -258,7 +258,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.19.5 — 设置项新增「界面元素」分组（描述/分类标签/分类色条显隐，默认开启，两层持久化到 localStorage 并同步 `<html data-show-*>`）：原型 `03-detail.js` 设置弹窗新增「界面元素」分组 + `components.css` 隐藏规则；app `SkillsExplorer.tsx` 内联设置面板（`#settingsBtn`）+ `skill-card.tsx` 条件渲染 + `globals.css` 隐藏规则。其余同 v1.19.4（app 客户端卡片层重建、`app/components/` 最小可用 `AppShell`/`SkillsExplorer`/`skill-card`、卡片双名 `.card-title .zh(中主)+.en(英副)`、`.card-body` 列表布局修复、`app/data/skills-data.json` 数据路径）+ v1.19.3（原型卡片双名/列表修复）+ v1.18.3（页眉品牌区优化、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
+> 版本：v1.19.6 — 设置项新增「名称显示」分组（双显/仅中文/仅英文，默认双显，持久化 `ash-name-mode` 并同步 `<html data-name-mode>`）+ 设置弹窗整体紧凑化（分段控件 `.seg` 替代独立 outline 按钮、压缩 `.block`/`.settings-row`/`.dialog-foot` 间距）。原型 `03-detail.js` 设置弹窗新增「名称显示」分段组 + 绑定 `applyNameMode()`；`components.css` 补 `data-name-mode` 标题显隐规则与 `.seg` 样式（`.card-title .en` 双显副标题在中文态 override 全局隐藏）；app `SkillsExplorer.tsx` 内联面板加「名称显示」分段 + `skill-card.tsx` 按 `nameMode` 条件渲染标题 + `globals.css` 同步规则。其余同 v1.19.5（界面元素分组）+ v1.19.4（app 卡片层重建、`app/components/` 最小可用 `AppShell`/`SkillsExplorer`/`skill-card`、`.card-body` 列表布局修复、`app/data/skills-data.json` 数据路径）+ v1.19.3（原型卡片双名/列表修复）+ v1.18.3（页眉品牌区优化、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
 
 ### 8.1 标志释义（Logo）
 

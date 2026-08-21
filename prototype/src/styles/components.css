@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.19.5 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.19.6 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -29,11 +29,23 @@
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; flex: none; }
 .title-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; }
-/* 标题双语言显示（v1.18.1）：中文态下中文译名为主、英文原名作为弱化的副标题一并展示；
-   英文态下英文原名恢复为主标题、中文译名由全局 [data-lang=en] .zh 规则隐藏 */
+/* 标题双语言显示（v1.18.1 起，v1.19.6 引入 nameMode）：
+   默认双显：中文态中文名为主、英文原名作弱化副标题（覆盖 base 的 data-lang=zh .en 隐藏）；英文态仅英文原名
+   名称显示策略 nameMode（<html data-name-mode>）：
+     both（默认）：中文态双显，英文态仅英文（原行为）
+     zh：两态都仅中文名
+     en：两态都仅英文原名 */
 .card-title .zh { display: block; }
 .card-title .en { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
+/* 双显 + 中文态：强制显示英文原名副标题（特异性高于 base 的 html[data-lang=zh] .en 隐藏） */
+:root[data-name-mode="both"][data-lang="zh"] .card-title .en { display: block; }
 :root[data-lang="en"] .card-title .en { font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
+/* 仅中文：隐藏英文名 */
+:root[data-name-mode="zh"] .card-title .en { display: none; }
+:root[data-name-mode="zh"] .card-title .zh { display: block; font-weight: 600; }
+/* 仅英文：隐藏中文名，英文原名升为主标题 */
+:root[data-name-mode="en"] .card-title .zh { display: none; }
+:root[data-name-mode="en"] .card-title .en { display: block; font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
 /* 详情弹窗标题下方英文原名：中文态弱化为副标题，英文态隐藏（避免英文名重复） */
 :root[data-lang="zh"] #dialog .sub.en { display: block; font-size: 12px; color: var(--text-2); font-weight: 400; margin-top: 2px; }
 :root[data-lang="en"] #dialog .sub.en { display: none; }
@@ -98,8 +110,8 @@
 /* 详情弹窗标题（原型 openDetail 使用 .dialog-title） */
 .dialog-title { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.25; }
 /* 详情区块（原型 openDetail 的 .block 段落） */
-.block { margin: 0 0 18px; }
-.block h3 { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text-3); text-transform: none; letter-spacing: .01em; }
+.block { margin: 0 0 10px; }
+.block h3 { margin: 0 0 5px; font-size: 12px; font-weight: 600; color: var(--text-3); text-transform: none; letter-spacing: .02em; }
 .block p { margin: 0; line-height: 1.7; color: var(--text); }
 /* 授权工具标签（原型 openDetail 的 .tools > code） */
 .tools { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -110,12 +122,19 @@
 /* 工具标签（原语 .tool-tag，可选复用） */
 .tool-tag { font-family: var(--font-mono); font-size: 12.5px; padding: 3px 9px; border-radius: 7px; background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border: 1px solid var(--border); }
 
-/* 设置弹窗行：标签 + 切换按钮，横向排布 */
-.settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; }
-.settings-label { font-size: 14px; color: var(--text); }
+/* 设置弹窗行：标签 + 切换按钮，横向排布（紧凑化：减小行内边距与字号） */
+.settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0; min-height: 32px; }
+.settings-label { font-size: 13px; color: var(--text); }
+
+/* 分段控件（名称显示策略等紧凑单选）：横向等宽按钮组，替代独立 outline 按钮，更省空间 */
+.seg { display: inline-flex; width: 100%; border: 1px solid var(--border); border-radius: 9px; overflow: hidden; background: hsl(var(--muted)); }
+.seg-btn { flex: 1; padding: 6px 4px; border: none; background: transparent; color: var(--text-2); font-size: 12.5px; font-weight: 500; cursor: pointer; transition: background .15s, color .15s; line-height: 1.2; }
+.seg-btn + .seg-btn { border-left: 1px solid var(--border); }
+.seg-btn:hover { color: var(--text); }
+.seg-btn.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-weight: 600; }
 
 /* 弹窗底部操作区 */
-.dialog-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 22px; border-top: 1px solid var(--border); }
+.dialog-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 12px 22px; border-top: 1px solid var(--border); }
 
 /* 详情弹窗中文描述（zh-desc）：保留多段换行，段落间自然空行（配合 build 折叠标量段分隔） */
 .zh-desc { white-space: pre-line; line-height: 1.7; color: var(--text-2); }

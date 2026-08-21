@@ -1,4 +1,4 @@
-/* app/globals.css v1.19.5 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+/* app/globals.css v1.19.6 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 build.mjs 自动生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -163,6 +163,12 @@ html[data-lang="zh"] .en { display: none; }
 .settings-section h3 { margin: 0 0 6px; font-size: 14px; font-weight: 700; color: var(--foreground); }
 .settings-panel .settings-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 6px 0; font-size: 14px; color: hsl(var(--foreground)); cursor: pointer; }
 .settings-panel .settings-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: hsl(var(--primary)); cursor: pointer; }
+/* 分段控件（名称显示策略，对齐 prototype .seg）：横向等宽，比独立 outline 按钮更紧凑 */
+.settings-panel .seg { display: inline-flex; width: 100%; border: 1px solid var(--border); border-radius: 9px; overflow: hidden; background: hsl(var(--muted)); }
+.settings-panel .seg-btn { flex: 1; padding: 6px 4px; border: none; background: transparent; color: hsl(var(--text-2)); font-size: 12.5px; font-weight: 500; cursor: pointer; transition: background .15s, color .15s; line-height: 1.2; }
+.settings-panel .seg-btn + .seg-btn { border-left: 1px solid var(--border); }
+.settings-panel .seg-btn:hover { color: hsl(var(--foreground)); }
+.settings-panel .seg-btn.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-weight: 600; }
 
 /* prototype/src/styles/components.css v1.14.68 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
@@ -198,6 +204,12 @@ html[data-lang="zh"] .en { display: none; }
 .card-title .zh { display: block; }
 .card-title .en { display: block; font-size: 11px; font-weight: 400; color: hsl(var(--text-2)); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
 :root[data-lang="en"] .card-title .en { font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
+/* 名称显示策略 nameMode（v1.19.6）：双显时中文态强制显示英文原名副标题（覆盖全局 data-lang=zh 隐藏）；仅中文/仅英文据此隐藏对应名 */
+:root[data-name-mode="both"][data-lang="zh"] .card-title .en { display: block; }
+:root[data-name-mode="zh"] .card-title .en { display: none; }
+:root[data-name-mode="zh"] .card-title .zh { display: block; font-weight: 600; }
+:root[data-name-mode="en"] .card-title .zh { display: none; }
+:root[data-name-mode="en"] .card-title .en { display: block; font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
 /* 详情弹窗标题下方英文原名：中文态弱化为副标题，英文态隐藏（避免英文名重复） */
 :root[data-lang="zh"] .dialog .sub.en { display: block; font-size: 12px; color: hsl(var(--text-2)); font-weight: 400; margin-top: 2px; }
 :root[data-lang="en"] .dialog .sub.en { display: none; }

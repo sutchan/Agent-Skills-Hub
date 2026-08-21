@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.19.5 — 主题/语言/视图/密度/UI元素切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.19.6 — 主题/语言/视图/密度/UI元素/名称显示切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -27,6 +27,11 @@ function applyUI() {
   root.setAttribute("data-show-desc", state.showDesc ? "on" : "off");
   root.setAttribute("data-show-cat", state.showCat ? "on" : "off");
   root.setAttribute("data-show-bar", state.showBar ? "on" : "off");
+}
+
+// 名称显示策略（双显/仅中文/仅英文）：同步到 <html data-name-mode>，由 CSS 控制 .card-title 标题显隐
+function applyNameMode() {
+  document.documentElement.setAttribute("data-name-mode", state.nameMode);
 }
 
 function applyLang() {
