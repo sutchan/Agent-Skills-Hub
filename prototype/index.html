@@ -274,7 +274,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
 
-/* prototype/src/styles/components.css v1.18.0 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.18.1 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -303,8 +303,14 @@ html[data-lang="zh"] .en { display: none; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; }
 .title-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; }
-/* 英文名（kebab-case 长 slug）在卡片内换行防溢出（B4），中文名仍随语言显隐 */
-.card-title .en { display: inline; overflow-wrap: break-word; word-break: break-word; }
+/* 标题双语言显示（v1.18.1）：中文态下中文译名为主、英文原名作为弱化的副标题一并展示；
+   英文态下英文原名恢复为主标题、中文译名由全局 [data-lang=en] .zh 规则隐藏 */
+.card-title .zh { display: block; }
+.card-title .en { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
+:root[data-lang="en"] .card-title .en { font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
+/* 详情弹窗标题下方英文原名：中文态弱化为副标题，英文态隐藏（避免英文名重复） */
+:root[data-lang="zh"] #dialog .sub.en { display: block; font-size: 12px; color: var(--text-2); font-weight: 400; margin-top: 2px; }
+:root[data-lang="en"] #dialog .sub.en { display: none; }
 /* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 2 行截断 */
 .card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .card-desc > span { display: block; }
@@ -543,7 +549,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.18.0</span>
+      <span class="footer-ver" id="footerVer">v1.18.1</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -790,16 +796,6 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
-      "name": "code-review",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "代码审查",
-      "description": "从两个维度审查自某一固定点（commit、分支、tag 或 merge-base）以来的改动：标准（代码是否遵循仓库的文档化编码规范）与规格（代码是否符合所发起 issue/规格的要求）。两个审查并行在子代理中运行并并排汇报。当用户想要审查分支、PR、进行中的改动或“自 X 以来的改动”时使用。",
-      "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\\\"review since X\\\\\".",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
       "name": "coding-standards",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
@@ -843,8 +839,8 @@ html[data-lang="zh"] .en { display: none; }
       "name": "grill-me",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
-      "zh": "犀利访谈打磨",
-      "description": "以严苛的追问式访谈来打磨计划或设计，通过连续、尖锐的提问帮助发现盲点、完善决策并提升方案质量。",
+      "zh": "深度质询",
+      "description": "一场毫不留情的访谈，用于打磨计划或设计。当用户想深入推敲方案、暴露漏洞或强化论证时使用。",
       "enDescription": "A relentless interview to sharpen a plan or design.",
       "allowedTools": [],
       "hidden": false
@@ -853,8 +849,8 @@ html[data-lang="zh"] .en { display: none; }
       "name": "grill-with-docs",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
-      "zh": "访谈与文档产出",
-      "description": "以严苛的追问式访谈打磨计划或设计，并同步产出 ADR（架构决策记录）与术语表文档，让访谈结论沉淀为可复用的文档资产。",
+      "zh": "质询并产出文档",
+      "description": "一场毫不留情的访谈，用于打磨计划或设计，同时在过程中生成文档（ADR 与术语表）。当用户想边讨论边沉淀决策记录与术语时使用。",
       "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
       "allowedTools": [],
       "hidden": false
@@ -863,8 +859,8 @@ html[data-lang="zh"] .en { display: none; }
       "name": "grilling",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
-      "zh": "深度逼问思维工具",
-      "description": "针对计划、决策或想法对用户进行不间断的追问与压力测试。当用户希望检验自己的思路，\n或使用任何「逼问」触发语时启用；以设计树形式梳理决策分支，分轮次逼近共识。",
+      "zh": "压力质询",
+      "description": "就某个计划、决策或想法 relentlessly 质询用户。当用户想压力测试自己的思路，或使用了任何「grill」触发短语时使用。",
       "enDescription": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
       "allowedTools": [],
       "hidden": false
@@ -1133,6 +1129,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "CloudBase 全栈开发",
       "description": "腾讯云开发 CloudBase 全栈开发技能，覆盖 Web/小程序/uni-app 前端、云函数、云数据库、云存储与内置大模型能力，提供从接入到部署的全流程指导。",
       "enDescription": "Use this skill when you develop, design, build, deploy, debug, migrate, or troubleshoot CloudBase (腾讯云开发, 云开发, TCB, 微信云开发) projects. Covers Web, 微信小程序, 小程序, uni-app, mobile (iOS, Android, Flutter, React Native). UI (页面, 界面, 表单, form, dashboard, prototype, 原型); auth (登录, 注册, OAuth, 微信登录, publishable key); databases (NoSQL 文档数据库, MySQL 关系型数据库, PostgreSQL/CloudBase PG, app.rdb(), queryPgDatabase/managePgDatabase, CRUD, 查询, security rules); 云函数/cloud functions (serverless, scf_bootstrap); CloudRun (云托管, Dockerfile); 云存储. Built-in AI (内置大模型, AI 对话, streaming, 流式输出, 图片生成, generateText, streamText, createModel, generateImage, TokenHub, Hunyuan, hunyuan-exp, DeepSeek, deepseek, GLM, Kimi, Token Credits 资源包, 小程序成长计划). 第三方大模型, 大模型接入, 大模型调用, LLM API, AI agent, 智能体, AI Agent, AG-UI, LangGraph. Ops (巡检, 诊断, health check, 日志, troubleshooting). Spec (需求文档, 技术方案, requirements, tasks.md). Do NOT use for non-CloudBase projects, pure frontend without CloudBase, or self-hosted backends without CloudBase.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "代码评审",
+      "description": "从某个固定点（提交、分支、标签或合并基线）出发，沿两条轴线评审改动：标准（代码是否遵循本仓库文档化的编码规范？）与规格（代码是否匹配原始 issue/规格的要求？）。两个评审在并行子代理中运行并并排报告。当用户想评审分支、PR、进行中的改动，或要求「评审自 X 以来的改动」时使用。",
+      "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
       "allowedTools": [],
       "hidden": false
     },

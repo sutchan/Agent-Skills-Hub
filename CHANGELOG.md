@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.18.1] - 2026-08-21
+
+### feat: 中文态标题同时显示英文原名与中文译名（原型 + app 同步）
+
+- **卡片标题双语言**：中文态下 `.card-title` 显示中文译名（主，font-weight:600）+ 英文原名（副，11px 弱化 `--text-2`、margin-top:2px）；英文态恢复仅英文原名为主标题（由全局 `[data-lang=en] .zh` 隐藏中文译名）
+- **详情弹窗副标题**：中文态 `.sub.en` 弱化为副标题展示英文原名；英文态隐藏（避免英文名重复）
+- **选择器提权**：用 `:root[data-lang="zh"] .card-title .en` / `:root[data-lang="zh"] #dialog .sub.en` 权重 (0,3,0) 覆盖全局 `html[data-lang=zh] .en{display:none}` (0,2,0)，确保中文态英文副名可见
+- **同步范围**：`prototype/src/styles/components.css` + `app/app/globals.css`；描述区 `.card-desc .zh/.en` 仍互斥（仅标题双显，符合需求）
+- **版本同步**：`package.json` 升至 v1.18.1，改动 CSS 头注释同步；`npm run build` 注入 footer v1.18.1
+
 ## [1.18.0] - 2026-08-21
 
 ### fix: 第四轮补全 14 个新技能 frontmatter 消除「其他」分类
@@ -1274,3 +1284,4 @@
 [1.14.72]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.72
 [1.17.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.17.4
 [1.18.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.0
+[1.18.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.1

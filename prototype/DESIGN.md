@@ -258,7 +258,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.18.0 — 文档与实现对齐：设置弹窗扩充至四组（语言 / 主题 / 视图模式 / 显示密度）；视图模式与密度均持久化到 `localStorage`（`ash-view` / `ash-density`），`init()` 启动恢复并同步 `<html data-view>` / `<html data-density>`；紧凑密度由 `components.css` 的 `:root[data-density="compact"]` 规则控制卡片间距；其余同 v1.17.3 基线（卡片原生 `<button>`、数据契约 `description`/`enDescription`/`enCategory`/`categoryEn`、响应式 `--maxw` 限宽）。
+> 版本：v1.18.1 — 文档与实现对齐：中文态卡片标题与详情副标题同时显示中文译名（主）+ 英文原名（弱化副标题，`--text-2`/11px/margin-top:2px），英文态仅显示英文原名（全局 `[data-lang=en] .zh` 隐藏中文译名）；选择器 `:root[data-lang=zh] .card-title .en` / `#dialog .sub.en` 提权至 (0,3,0) 覆盖全局 `.en{display:none}`；描述区 `.card-desc .zh/.en` 仍互斥。其余同 v1.18.0（设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
 
 ### 8.1 标志释义（Logo）
 
