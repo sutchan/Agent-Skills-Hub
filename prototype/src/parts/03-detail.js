@@ -11,6 +11,32 @@ function relatedSkills(skill) {
     .slice(0, 4);
 }
 
+// 字节数 → 友好文本（KB / MB）
+function formatSize(bytes) {
+  if (!bytes && bytes !== 0) return "";
+  if (bytes < 1024) return `${bytes} B`;
+  const kb = bytes / 1024;
+  if (kb < 1024) return `${kb.toFixed(kb < 10 ? 1 : 0)} KB`;
+  return `${(kb / 1024).toFixed(2)} MB`;
+}
+
+// 热度：5 格指示，按全局最大提及数归一（0 提及显示「独立 / standalone」）
+let _maxPop = 0;
+function maxPopularity() {
+  if (_maxPop) return _maxPop;
+  _maxPop = SKILLS_DATA.skills.reduce((m, s) => Math.max(m, s.popularity || 0), 0);
+  return _maxPop;
+}
+function popularityHTML(pop) {
+  const max = maxPopularity();
+  const filled = max > 0 ? Math.round((pop / max) * 5) : 0;
+  const bars = Array.from({ length: 5 }, (_, i) =>
+    `<i class="heat${i < filled ? " on" : ""}"></i>`
+  ).join("");
+  const label = pop > 0 ? `${pop} ${I18N.t("detail.popRefs")}` : I18N.t("detail.popStandalone");
+  return `<div class="metric-pop"><span class="heat-bars">${bars}</span><span class="pop-label">${esc(label)}</span></div>`;
+}
+
 // 复制技能名到剪贴板（提示已复制）
 function copySkillName(name) {
   const done = () => {
@@ -74,6 +100,19 @@ function detailHTML(skill) {
     metaRow(I18N.t("detail.githubDir"), githubUrl, true),
   ].join("");
 
+  // 派生指标：大小 / 文件数 / 热度
+  const sizeText = formatSize(skill.size);
+  const filesText = skill.files != null ? `${skill.files} ${I18N.t("detail.filesUnit")}` : "";
+  const metricHTML = `
+    <div class="detail-metrics">
+      ${sizeText ? `<div class="metric"><span class="metric-k">${esc(I18N.t("detail.size"))}</span><span class="metric-v">${esc(sizeText)}</span></div>` : ""}
+      ${filesText ? `<div class="metric"><span class="metric-k">${esc(I18N.t("detail.files"))}</span><span class="metric-v">${esc(filesText)}</span></div>` : ""}
+      <div class="metric metric-pop-wrap">
+        <span class="metric-k">${esc(I18N.t("detail.popularity"))}</span>
+        ${popularityHTML(skill.popularity || 0)}
+      </div>
+    </div>`;
+
   const toolsHTML = tools.length
     ? `<div class="d-tools"><h4>${I18N.t("detail.tools")}</h4><div class="tool-chips">${tools
         .map((t) => `<span class="tool-chip">${esc(t)}</span>`)
@@ -100,6 +139,7 @@ function detailHTML(skill) {
       </div>
     </div>
     <div class="detail-meta">${metaRows}</div>
+    ${metricHTML}
     <div class="detail-body">
       <p class="d-desc">${esc(desc || "")}</p>
       ${toolsHTML}

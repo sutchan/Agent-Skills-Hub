@@ -26,6 +26,10 @@ export interface Skill {
   license?: string; // 协议（frontmatter metadata.license）
   skillVersion?: string; // 技能版本（frontmatter metadata.version）
   githubDir: string; // GitHub 源码目录，恒定派生为 skills/<name>
+  // 派生展示指标（build-skills-data.mjs 计算）
+  size?: number; // 技能目录总字节数
+  files?: number; // 文件数（递归）
+  popularity?: number; // 被其他技能 description 提及次数（相关性热度代理）
 }
 
 export interface SkillsData {

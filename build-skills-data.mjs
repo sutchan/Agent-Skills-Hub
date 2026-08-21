@@ -1,8 +1,8 @@
-// build-skills-data.mjs v1.19.8
+// build-skills-data.mjs v1.19.16
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
 // 分类(category)、简短中文名称(zh)与 description 中文译文(zh-desc)均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 // 注意语义约定：zh 为「简短中文名称」（卡片标题），zh-desc 为「中文描述」（卡片描述区）；勿将描述句填入 zh。
-import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync, existsSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -128,6 +128,19 @@ function main() {
     const skillVersion = meta.version || fm.version || "";
     // GitHub 目录恒定派生（仓库 skills/<name>），详情弹窗可跳转源码
     const githubDir = `skills/${name}`;
+    // 派生指标：目录大小（字节）/ 文件数（递归统计普通文件）
+    let size = 0;
+    let files = 0;
+    const walk = (dir) => {
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const p = join(dir, entry.name);
+        if (entry.isDirectory()) walk(p);
+        else if (entry.isFile()) {
+          try { size += statSync(p).size; files++; } catch { /* 忽略不可读 */ }
+        }
+      }
+    };
+    try { walk(d); } catch { /* 忽略 */ }
     skills.push({
       name: fm.name || name,
       category,
@@ -144,7 +157,21 @@ function main() {
       license: license || undefined,
       skillVersion: skillVersion || undefined,
       githubDir,
+      // 派生展示指标
+      size,
+      files,
     });
+  }
+  // 热度（popularity）：被其他技能在 description 中提及本技能名的次数（相关性代理）
+  const allNames = skills.map((s) => s.name);
+  for (const s of skills) {
+    const hay = (s.description + " " + s.enDescription).toLowerCase();
+    let pop = 0;
+    for (const n of allNames) {
+      if (n === s.name) continue;
+      if (hay.includes(n)) pop++;
+    }
+    s.popularity = pop;
   }
   // 分类顺序：固定顺序在前，其余按出现顺序补在末尾
   const order = CATEGORY_ORDER.filter((c) => skills.some((s) => s.category === c));

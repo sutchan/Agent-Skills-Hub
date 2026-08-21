@@ -286,7 +286,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-stats .num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; line-height: 1.1; }
 .footer-stats .lbl { font-size: 11.5px; color: var(--text-2); }
 
-/* prototype/src/styles/components.css v1.19.13 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.19.14 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -431,6 +431,38 @@ html[data-lang="zh"] .en { display: none; }
 
 /* 详情弹窗中文描述（zh-desc）：保留多段换行，段落间自然空行（配合 build 折叠标量段分隔） */
 .zh-desc { white-space: pre-line; line-height: 1.7; color: var(--text-2); }
+
+/* 详情弹窗（v1.19.14 重构：基于 #overlay 遮罩内居中 .detail 面板）
+   复用遮罩 #overlay.show，面板自身绝对居中，独立于 .dialog 框架 */
+.detail { position: absolute; inset: 0; margin: auto; width: min(680px, 92vw); max-height: min(84vh, 760px); display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow-pop); overflow: hidden; }
+.detail-close { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border); background: hsl(var(--muted)); color: var(--text-2); font-size: 20px; line-height: 1; cursor: pointer; transition: background .15s, color .15s; }
+.detail-close:hover { background: hsl(var(--muted) / .7); color: var(--text); }
+.detail-head { display: flex; align-items: flex-start; gap: 12px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }
+.d-title { margin: 0; font-family: var(--font-display); font-weight: 700; line-height: 1.3; flex: 1; min-width: 0; font-size: 19px; }
+.d-title .zh { display: block; }
+.d-title .en { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); margin-top: 3px; word-break: break-word; }
+.d-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.copy-tip { font-size: 12px; color: hsl(var(--primary)); opacity: 0; transform: translateY(-2px); transition: opacity .2s, transform .2s; }
+.copy-tip.show { opacity: 1; transform: translateY(0); }
+
+/* 元信息区：2 列表格式（作者 / 协议 / 版本 / GitHub 目录） */
+.detail-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+.meta-row { display: flex; flex-direction: column; gap: 3px; padding: 11px 22px; background: var(--surface); }
+.meta-k { font-size: 11.5px; color: var(--text-3); letter-spacing: .02em; }
+.meta-v { font-size: 13.5px; color: var(--text); font-weight: 500; word-break: break-word; overflow-wrap: anywhere; }
+.meta-v.link { color: hsl(var(--primary)); text-decoration: none; }
+.meta-v.link:hover { text-decoration: underline; }
+
+.detail-body { padding: 18px 22px 22px; overflow: auto; display: flex; flex-direction: column; gap: 16px; }
+.d-desc { margin: 0; line-height: 1.75; color: var(--text); white-space: pre-line; }
+.d-tools h4, .d-related h4 { margin: 0 0 9px; font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: .02em; }
+.tool-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.tool-chip { font-family: var(--font-mono); font-size: 12px; padding: 3px 9px; border-radius: 7px; background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border: 1px solid var(--border); }
+.related-list { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.related-card { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: hsl(var(--muted)); cursor: pointer; text-align: left; font: inherit; color: inherit; transition: border-color .15s, transform .15s; }
+.related-card:hover { border-color: hsl(var(--primary)); transform: translateY(-1px); }
+.rc-cat { font-size: 11px; color: hsl(var(--primary)); }
+.rc-name { font-size: 13.5px; font-weight: 600; }
 
 /* prototype/src/styles/responsive.css v1.17.1 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
 
@@ -609,7 +641,7 @@ html[data-lang="zh"] .en { display: none; }
       </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.19.13</span>
+      <span class="footer-ver" id="footerVer">v1.19.14</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -661,7 +693,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用 AI 图像生成创建横幅。讨论格式/风格、生成变体、根据反馈迭代、裁剪到目标比例。当用户想创建横幅、页眉、主视觉、封面图、GitHub 横幅、Twitter 页眉或 readme 横幅时使用。",
       "enDescription": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/banner-creator"
     },
     {
       "name": "banner-design",
@@ -671,7 +704,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "为社交媒体、广告、网站主视觉、创意素材与印刷设计横幅。提供多种美术方向选项与 AI 生成视觉。动作：设计、创建、生成横幅。平台：Facebook、Twitter/X、LinkedIn、YouTube、Instagram、Google Display、网站主视觉、印刷。风格：极简、渐变、粗体排版、照片风、插画、几何、复古、玻璃拟态、3D、霓虹、双色调、编辑、拼贴。复用 ui-ux-pro-max、frontend-design、ai-artist、ai-multimodal 等技能。",
       "enDescription": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/banner-design"
     },
     {
       "name": "brand-guidelines",
@@ -681,7 +716,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "将 Anthropic 官方品牌色板与字体应用于任何可从 Anthropic 观感中获益的工件。当品牌色或风格指南、视觉格式化或公司设计标准适用时使用。",
       "enDescription": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Complete terms in LICENSE.txt",
+      "githubDir": "skills/brand-guidelines"
     },
     {
       "name": "brand-review",
@@ -691,7 +728,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "根据你的品牌声音、风格指南与信息支柱审查内容，按严重程度标记偏差并给出具体的修改前后建议。适用于交付前检查草稿、审计文案的一致性、术语与语气，或筛查无根据的声明、缺失免责声明及其它法律问题。",
       "enDescription": "Review content against your brand voice, style guide, and messaging pillars, flagging deviations by severity with specific before/after fixes. Use when checking a draft before it ships, when auditing copy for voice consistency and terminology, or when screening for unsubstantiated claims, missing disclaimers, and other legal flags.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/brand-review"
     },
     {
       "name": "discover-brand",
@@ -701,7 +739,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用于品牌发现与定位的技能，通过调研与梳理品牌资产、市场与目标人群，帮助建立清晰、差异化的品牌定位与视觉方向。",
       "enDescription": "This skill orchestrates autonomous discovery of brand materials across enterprise platforms (Notion, Confluence, Google Drive, Box, SharePoint, Figma, Gong, Granola, Slack). It should be used when the user asks to \\\"discover brand materials\\\", \\\"find brand documents\\\", \\\"search for brand guidelines\\\", \\\"audit brand content\\\", \\\"what brand materials do we have\\\", \\\"find our style guide\\\", \\\"where are our brand docs\\\", \\\"do we have a style guide\\\", \\\"discover brand voice\\\", \\\"brand content audit\\\", or \\\"find brand assets\\\".",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/discover-brand"
     },
     {
       "name": "favicon",
@@ -711,7 +750,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "从源图生成完整的一套 favicon 并更新 HTML。用于为 Web 项目配置 favicon。",
       "enDescription": "Generate a complete set of favicons from a source image and update HTML. Use when setting up favicons for a web project.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/favicon"
     },
     {
       "name": "figma-code-connect",
@@ -721,7 +761,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "创建并维护 Figma Code Connect 模板文件（`.figma.ts`），将 Figma 组件映射到代码片段。\n当用户提及 Code Connect、Figma 组件映射、设计转代码，或要求创建/更新 `.figma.ts` 文件时触发。",
       "enDescription": "Creates and maintains Figma Code Connect template files that map Figma components to code snippets. Use when the user mentions Code Connect, Figma component mapping, design-to-code translation, or asks to create/update .figma.ts or .figma.js files.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/figma-code-connect"
     },
     {
       "name": "figma-design-to-code",
@@ -731,7 +772,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在调用 get_design_context 等 Figma MCP 工具之前必须触发的强制前置技能。\n当用户想要将 Figma 设计实现、构建或移植为代码时（如「实现这个 Figma 设计」「把 Figma 转成代码」），提供正确落地设计稿的关键步骤与规范。",
       "enDescription": "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/figma-design-to-code"
     },
     {
       "name": "figma-generate-design",
@@ -741,7 +783,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "与 figma-use 配合，将应用页面、视图或多区域布局翻译为 Figma 设计。\n当用户想把页面/弹窗/抽屉/侧栏等组合视图从代码或描述构建、更新到 Figma 时触发。\n从 Code Connect 文件与组件库中发掘设计系统组件、变量与样式，用设计令牌而非硬编码值逐段组装视图。",
       "enDescription": "Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma', 'create in Figma from code', 'push page to Figma', 'take this app/page and build it in Figma', 'create a screen', 'build a landing page in Figma', 'update the Figma screen to match code', 'convert this modal/dialog/drawer/panel to Figma'. This is the preferred workflow skill whenever the user wants to build or update a full page, modal, dialog, drawer, sidebar, panel, or any composed multi-section view in Figma from code or a description. Discovers design system components, variables, and styles from Code Connect files, existing screens, and library search, then imports them and assembles views incrementally section-by-section using design system tokens instead of hardcoded values.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/figma-generate-design"
     },
     {
       "name": "figma-generate-library",
@@ -751,7 +794,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "从代码库在 Figma 中构建或更新专业级设计系统，包括创建变量/令牌、构建组件库、\n为单个组件建立正确的变体集与变量绑定、配置明暗主题、记录设计基础，并弥合代码与 Figma 的差距。\n说明「构建什么、按什么顺序构建」，与教授 API 调用方式的 figma-use 技能互补。",
       "enDescription": "Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/figma-generate-library"
     },
     {
       "name": "flux-kontext",
@@ -761,7 +805,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "通过 fal.ai 上的 Flux Kontext 做图像编辑与生成——局部重绘、风格迁移、角色/物体一致性、背景替换与多种变体。当用户想用提示词编辑或生成图像、保持主体一致、做电商/社媒视觉或概念稿时使用。",
       "enDescription": "> Edit images with Flux 1 Kontext Pro (Black Forest Labs' precise local image-edit model) on RunComfy — bundled with the model's documented prompting patterns so the skill gets sharper output than naive prompting against the same model. Documents Flux Kontext's strengths (single-reference precise local edits, strong prompt control, consistent high-fidelity outputs), the schema (single image + prompt), and when to route to Nano Banana Edit / GPT Image 2 edit / Flux 2 Klein instead. Calls `runcomfy run blackforestlabs/flux-1-kontext/pro/edit` through the local RunComfy CLI. Triggers on \"flux kontext\", \"flux-kontext\", \"flux 1 kontext\", \"kontext\", \"BFL kontext\", or any explicit ask to edit with this model.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/flux-kontext"
     },
     {
       "name": "frontend-design",
@@ -771,7 +817,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在构建新 UI 或重塑现有 UI 时提供独特、有意的视觉设计指导，涵盖美学方向、排版，帮助做出不显模板化的设计选择。",
       "enDescription": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Complete terms in LICENSE.txt",
+      "githubDir": "skills/frontend-design"
     },
     {
       "name": "google-mobile-ads-banner",
@@ -781,7 +829,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "提供在 Android、iOS 或 Unity 移动应用中实现、集成或配置 Google 移动广告（GMA）横幅广告的说明。当任务涉及在移动应用中设置横幅广告时使用；插屏或激励广告等其他广告格式不适用。",
       "enDescription": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/google-mobile-ads-banner"
     },
     {
       "name": "logo-animation",
@@ -791,7 +840,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "为品牌 logo 创建动画效果，提升视觉表现与动态识别度。",
       "enDescription": "Create animated effects for brand logos to enhance visual presentation and dynamic recognition.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "skillVersion": "0.1.0",
+      "githubDir": "skills/logo-animation"
     },
     {
       "name": "logo-creator",
@@ -801,7 +852,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "使用 AI 图像生成创建 logo。讨论风格/比例、生成变体、结合用户反馈迭代、裁剪、去背景并导出为 SVG。用于创建 logo、图标、favicon、品牌标记、吉祥物或设计 logo。",
       "enDescription": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/logo-creator"
     },
     {
       "name": "logo-designer",
@@ -811,7 +863,10 @@ html[data-lang="zh"] .en { display: none; }
       "description": "使用 SVG 设计并迭代 logo。当用户要求「创建 logo」「设计 logo」「为我的项目做 logo」或讨论 logo 设计、品牌图标与字体标时使用。",
       "enDescription": "Design and iterate on logos using SVG. Use this skill when the user asks to create a logo, design a logo, make a logo, iterate on a logo, or discusses logo design, branding icons, or wordmarks.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "skillVersion": "1.0.0",
+      "githubDir": "skills/logo-designer"
     },
     {
       "name": "muapi-3d-logo-animation",
@@ -821,7 +876,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "将 2D logo 转换为高级 3D 版本，并以专业电影级特效进行动画制作。",
       "enDescription": "Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "skillVersion": "1.0.0",
+      "githubDir": "skills/muapi-3d-logo-animation"
     },
     {
       "name": "muapi-logo-creator",
@@ -831,7 +888,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "使用几何基元与负空间设计专业级品牌 logo——经 muapi.ai 生成极简、可缩放的矢量风格标记。",
       "enDescription": "Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "skillVersion": "0.1.0",
+      "githubDir": "skills/muapi-logo-creator"
     },
     {
       "name": "review-animations",
@@ -841,7 +900,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "依据源自 Emil Kowalski 作品的高水准动效标准评审动画与动效代码。当用户希望动效更顺滑、有质感、符合高级动效规范时使用。",
       "enDescription": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/review-animations"
     },
     {
       "name": "svg-logo-designer",
@@ -851,7 +911,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "根据描述与设计规格创建专业 SVG logo。生成多种不同布局、风格与概念的变体，产出可缩放矢量图形，可直接使用或导出 PNG。用于创建 logo、品牌标识、图标或视觉标记。",
       "enDescription": "Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/svg-logo-designer"
     },
     {
       "name": "theme-factory",
@@ -861,7 +922,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用于为主题美化工件的工具箱，适用于幻灯片、文档、报告、HTML 落地页等工件。内置 10 套预置主题（含颜色/字体），可应用到任意已创建工件，也可即时生成新主题。",
       "enDescription": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Complete terms in LICENSE.txt",
+      "githubDir": "skills/theme-factory"
     },
     {
       "name": "ui-ux-pro-max",
@@ -871,7 +934,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "面向 Web、移动与桌面端的 UI/UX 设计智能。当用户做界面设计、交互方案、视觉系统或体验优化，需要设计判断力与最佳实践时使用。",
       "enDescription": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/ui-ux-pro-max"
     },
     {
       "name": "web-design-guidelines",
@@ -881,7 +945,10 @@ html[data-lang="zh"] .en { display: none; }
       "description": "审查 UI 代码是否符合 Web 界面规范。当被要求“审查我的 UI”“检查可访问性”“审计设计”“审查 UX”或“检查我的站点是否遵循最佳实践”时使用。",
       "enDescription": "Review UI code for Web Interface Guidelines compliance. Use when asked to \\\"review my UI\\\", \\\"check accessibility\\\", \\\"audit design\\\", \\\"review UX\\\", or \\\"check my site against best practices\\\".",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "author": "vercel",
+      "skillVersion": "1.0.0",
+      "githubDir": "skills/web-design-guidelines"
     },
     {
       "name": "winui-design",
@@ -891,7 +958,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在设计、评审或修复 WinUI 3 时使用：布局规划、控件选择、Fluent Design 对齐、浅色/深色/高对比度主题、排版、间距、画刷、可访问性，以及 XAML 数据绑定设计。在编写新 XAML、评审 UI PR、将桌面 UI 迁移到 WinUI，或在 WinUI 控件/模式间取舍前加载。",
       "enDescription": "Use when designing, reviewing, or fixing WinUI 3: layout planning, control choice, Fluent Design alignment, Light/Dark/High Contrast theming, typography, spacing, brushes, accessibility, and XAML data-binding design. Load before authoring new XAML, reviewing UI PRs, migrating desktop UI to WinUI, or choosing between WinUI controls/patterns.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/winui-design"
     },
     {
       "name": "coding-standards",
@@ -901,7 +969,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "跨项目共享的编码约定基线，涵盖命名、可读性、不可变性与代码质量审查。在审查代码质量或命名、且没有适用的框架特定技能时使用。",
       "enDescription": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns. Use when reviewing code quality or naming with no framework-specific skill that applies.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/coding-standards"
     },
     {
       "name": "documentation",
@@ -911,7 +980,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "编写与维护技术文档。当用户要求“为…写文档”“记录这个”“创建 README”“编写 runbook”“编写入职指南”或需要任何形式的技术写作（API 文档、架构文档或运维手册）时触发。",
       "enDescription": "Write and maintain technical documentation. Trigger with \\\"write docs for\\\", \\\"document this\\\", \\\"create a README\\\", \\\"write a runbook\\\", \\\"onboarding guide\\\", or when the user needs help with any form of technical writing — API docs, architecture docs, or operational runbooks.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/documentation"
     },
     {
       "name": "find-skills",
@@ -921,7 +991,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "帮助用户发现并安装可用的 agent 技能。当用户问“我该怎么做 X”“找一个做 X 的技能”“有没有能做…的技能”或表达想要扩展能力时，使用本技能来寻找可能以可安装技能形式存在的功能。",
       "enDescription": "Helps users discover and install agent skills when they ask questions like \\\"how do I do X\\\", \\\"find a skill for X\\\", \\\"is there a skill that can...\\\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/find-skills"
     },
     {
       "name": "find-skills-2",
@@ -931,7 +1002,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "当用户询问「怎么做 X」「找 X 的技能」「有没有能…的技能」或想扩展能力时，帮助用户发现并安装 agent 技能。",
       "enDescription": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/find-skills-2"
     },
     {
       "name": "grill-me",
@@ -941,7 +1013,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "一场毫不留情的访谈，用于打磨计划或设计。当用户想深入推敲方案、暴露漏洞或强化论证时使用。",
       "enDescription": "A relentless interview to sharpen a plan or design.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/grill-me"
     },
     {
       "name": "grill-with-docs",
@@ -951,7 +1024,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "一场毫不留情的访谈，用于打磨计划或设计，同时在过程中生成文档（ADR 与术语表）。当用户想边讨论边沉淀决策记录与术语时使用。",
       "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/grill-with-docs"
     },
     {
       "name": "grilling",
@@ -961,7 +1035,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "就某个计划、决策或想法 relentlessly 质询用户。当用户想压力测试自己的思路，或使用了任何「grill」触发短语时使用。",
       "enDescription": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/grilling"
     },
     {
       "name": "handoff",
@@ -971,7 +1046,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "将当前对话压缩成一份交接文档，供另一个 agent 接手继续工作。",
       "enDescription": "Compact the current conversation into a handoff document for another agent to pick up.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/handoff"
     },
     {
       "name": "marketing-plan",
@@ -981,7 +1057,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "当用户需要为客户、所顾问公司或自有产品制定全面营销计划时使用；用户提及「营销计划」「增长计划」「GTM 计划」「上市计划」「AARRR 计划」「90 天营销计划」「12 个月营销路线图」「 fractional CMO 计划」或「fCMO 计划」时也使用。生成按 AARRR（获客、激活、留存、推荐、营收）组织的详尽 13 节计划，依据客户当前预算、团队与阶段定制，映射到未来融资里程碑，交叉引用 139 条营销创意库与内嵌 17 节现状审计量表，并给出完整营销运营栈说明各环节由哪些技能与 MCP/API 集成执行。输出可直接粘贴 Notion 的 markdown 文档。",
       "enDescription": "When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions \"marketing plan,\" \"growth plan,\" \"GTM plan,\" \"go-to-market plan,\" \"AARRR plan,\" \"90-day marketing plan,\" \"12-month marketing roadmap,\" \"fractional CMO plan,\" or \"fCMO plan.\" Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/marketing-plan"
     },
     {
       "name": "skill-creator",
@@ -991,7 +1068,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用于创建有效技能的指南，当用户想要创建新技能（或更新现有技能）以扩展 CodeBuddy 的能力（借助专业知识、工作流或工具集成）时使用。",
       "enDescription": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/skill-creator"
     },
     {
       "name": "sports-news",
@@ -1001,7 +1079,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "通过 RSS/Atom 订阅源与 Google News 获取体育新闻。抓取头条、按关键词搜索、按日期筛选。涵盖足球新闻、转会传闻、比赛战报，以及通过 Google News 覆盖任意体育项目。",
       "enDescription": "| Sports news via RSS/Atom feeds and Google News. Fetch headlines, search by query, filter by date. Covers football news, transfer rumors, match reports, and any sport via Google News.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/sports-news"
     },
     {
       "name": "wechat-article-writer",
@@ -1011,7 +1091,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
       "enDescription": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wechat-article-writer"
     },
     {
       "name": "data-visualization",
@@ -1021,7 +1102,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用于 Python 数据可视化分析的技能，覆盖 matplotlib、seaborn、plotly 等主流库，帮助将数据转化为清晰、有洞察力的图表。",
       "enDescription": "Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/data-visualization"
     },
     {
       "name": "football-data",
@@ -1031,7 +1113,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "覆盖全球主要足球联赛的数据——积分榜、赛程、比赛统计、预期进球（xG）、转会、球员档案、历史交锋、球队实力（Elo）与比赛预测。零配置、无需 API Key。涵盖英超、西甲、德甲、意甲、法甲、美职联、欧冠、世界杯、英冠、荷甲、葡超、巴甲、俄超、苏超/比甲/土超顶级联赛、欧洲杯等（调用 get_competitions 获取实时列表）。",
       "enDescription": "| Football (soccer) data across the world's major leagues — standings, schedules, match stats, xG, transfers, player profiles, head-to-head history, team strength (Elo), and match forecasts. Zero config, no API keys. Covers Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, Champions League, World Cup, Championship, Eredivisie, Primeira Liga, Serie A Brazil, Russian Premier League, Scottish/Belgian/Turkish top flights, European Championship, and more (call get_competitions for the live list).",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/football-data"
     },
     {
       "name": "analyze-project",
@@ -1041,7 +1125,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Rigor Analyze / Rigor Audit 只读技能，用于深度学习研究仓库的深入分析。当用户想阅读并理解仓库、检查模型结构与训练/推理入口、审阅配置与插入点，或在不动代码、不跑重任务的前提下标记可疑实现模式时使用。不适用于主动执行命令、大规模重构、推测性代码适配或自动修 bug。",
       "enDescription": "Rigor Analyze / Rigor Audit read-only skill for deep learning research repositories. Use when the user wants to read and understand a repository, inspect model structure and training or inference entrypoints, review configs and insertion points, or flag suspicious implementation patterns without modifying code or running heavy jobs. Do not use for active command execution, broad refactoring, speculative code adaptation, or automatic bug fixing.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/analyze-project"
     },
     {
       "name": "architecture-blueprint-generator",
@@ -1051,7 +1136,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "综合分析代码库以生成详尽架构文档的蓝图生成器。自动识别技术栈与架构模式，\n生成可视化图表，记录实现模式，并提供可扩展的架构蓝图以维护架构一致性、指导新开发。",
       "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/architecture-blueprint-generator"
     },
     {
       "name": "blueprint",
@@ -1061,7 +1147,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "当交付物是 WordPress Playground Blueprint JSON 或 Blueprint 包（含创建、编辑、审查、校验 schema 键、选择 steps/resources、调试 Blueprint 文件）时使用。若仅需运行或分享 Playground 环境，用 wp-playground。",
       "enDescription": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/blueprint"
     },
     {
       "name": "bun",
@@ -1071,7 +1158,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "使用 Bun 替代 Node.js、npm、pnpm 或 vite。提供命令映射、Bun 特有 API 与开发模式。",
       "enDescription": "Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/bun"
     },
     {
       "name": "chrome-webstore-release-blueprint",
@@ -1081,7 +1169,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "端到端引导用户在任意仓库中搭建 Chrome Web Store API 发布自动化。用于 OAuth/CWS 凭证配置、刷新令牌创建、本地/CI 密钥设置、基于版本的发布自动化与提交状态检查。",
       "enDescription": "Guide a user end-to-end through setting up Chrome Web Store API release automation in any repository. Use when asked to walk someone through OAuth/CWS credential setup, refresh token creation, local/CI secret setup, version-based publish automation, and submission status checks.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/chrome-webstore-release-blueprint"
     },
     {
       "name": "cloudbase",
@@ -1091,7 +1180,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "腾讯云开发 CloudBase 全栈开发技能，覆盖 Web/小程序/uni-app 前端、云函数、云数据库、云存储与内置大模型能力，提供从接入到部署的全流程指导。",
       "enDescription": "Use this skill when you develop, design, build, deploy, debug, migrate, or troubleshoot CloudBase (腾讯云开发, 云开发, TCB, 微信云开发) projects. Covers Web, 微信小程序, 小程序, uni-app, mobile (iOS, Android, Flutter, React Native). UI (页面, 界面, 表单, form, dashboard, prototype, 原型); auth (登录, 注册, OAuth, 微信登录, publishable key); databases (NoSQL 文档数据库, MySQL 关系型数据库, PostgreSQL/CloudBase PG, app.rdb(), queryPgDatabase/managePgDatabase, CRUD, 查询, security rules); 云函数/cloud functions (serverless, scf_bootstrap); CloudRun (云托管, Dockerfile); 云存储. Built-in AI (内置大模型, AI 对话, streaming, 流式输出, 图片生成, generateText, streamText, createModel, generateImage, TokenHub, Hunyuan, hunyuan-exp, DeepSeek, deepseek, GLM, Kimi, Token Credits 资源包, 小程序成长计划). 第三方大模型, 大模型接入, 大模型调用, LLM API, AI agent, 智能体, AI Agent, AG-UI, LangGraph. Ops (巡检, 诊断, health check, 日志, troubleshooting). Spec (需求文档, 技术方案, requirements, tasks.md). Do NOT use for non-CloudBase projects, pure frontend without CloudBase, or self-hosted backends without CloudBase.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "skillVersion": "2.30.0",
+      "githubDir": "skills/cloudbase"
     },
     {
       "name": "code-review",
@@ -1101,7 +1192,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "从某个固定点（提交、分支、标签或合并基线）出发，沿两条轴线评审改动：标准（代码是否遵循本仓库文档化的编码规范？）与规格（代码是否匹配原始 issue/规格的要求？）。两个评审在并行子代理中运行并并排报告。当用户想评审分支、PR、进行中的改动，或要求「评审自 X 以来的改动」时使用。",
       "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/code-review"
     },
     {
       "name": "code-review-and-quality",
@@ -1111,7 +1203,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "执行多维度的代码评审。在合并任何改动前使用；当用户需要评审分支、PR、进行中的改动或「自 X 以来的改动」时使用。",
       "enDescription": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/code-review-and-quality"
     },
     {
       "name": "codebase-design",
@@ -1121,7 +1214,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "设计深层模块时的共享词汇表。当用户讨论模块边界、依赖方向、接口契约或整体架构取舍时使用。",
       "enDescription": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/codebase-design"
     },
     {
       "name": "dart-build-cli-app",
@@ -1131,7 +1225,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用于构建 Dart 命令行应用的技能，覆盖 CLI 应用的参数解析、输入输出、错误处理与发布等最佳实践。",
       "enDescription": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/dart-build-cli-app"
     },
     {
       "name": "dart-flutter-patterns",
@@ -1141,7 +1236,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用于编写生产级 Dart/Flutter 代码的技能，涵盖面向 Flutter/Dart 的架构模式、代码组织与工程实践，帮助构建健壮、可维护的跨平台应用。",
       "enDescription": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/dart-flutter-patterns"
     },
     {
       "name": "debugging-and-error-recovery",
@@ -1151,7 +1247,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "引导系统化的根因调试。当测试失败、构建中断、运行时报错或行为异常，需要定位根因并恢复时使用。",
       "enDescription": "Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/debugging-and-error-recovery"
     },
     {
       "name": "diagnosing-bugs",
@@ -1161,7 +1258,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "针对疑难 bug 与性能回退的诊断循环。当用户遇到难以定位的失败、偶发故障或变慢问题，需要系统化排查根因时使用。",
       "enDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/diagnosing-bugs"
     },
     {
       "name": "executing-plans",
@@ -1171,7 +1269,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "当你有一份书面实现计划，需要在独立会话中执行并带评审检查点时使用",
       "enDescription": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/executing-plans"
     },
     {
       "name": "fastify-best-practices",
@@ -1181,7 +1280,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "指导用 TypeScript 或 JavaScript 开发 Fastify Node.js 后端服务与 REST API。在构建、配置或调试 Fastify 应用时使用——包括定义路由、实现插件、配置 JSON Schema 校验、处理错误、优化性能、管理认证、配置 CORS 与安全头、集成数据库、使用 WebSocket 以及生产部署。覆盖完整 Fastify 请求生命周期（hooks、序列化、Pino 日志）与通过 strip types 的 TypeScript 集成。",
       "enDescription": "Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, managing authentication, configuring CORS and security headers, integrating databases, working with WebSockets, and deploying to production. Covers the full Fastify request lifecycle (hooks, serialization, logging with Pino) and TypeScript integration via strip types. Trigger terms: Fastify, Node.js server, REST API, API routes, backend framework, fastify.config, server.ts, app.ts.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/fastify-best-practices"
     },
     {
       "name": "flutter-apply-architecture-best-practices",
@@ -1191,7 +1291,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用推荐的分层方式（UI、Logic、Data）为 Flutter 应用做架构设计。在搭建新项目或为可扩展性重构时使用。",
       "enDescription": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/flutter-apply-architecture-best-practices"
     },
     {
       "name": "flutter-build-responsive-layout",
@@ -1201,7 +1302,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用于构建 Flutter 响应式布局的技能，覆盖自适应屏幕尺寸、断点处理与多设备适配的最佳实践。",
       "enDescription": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/flutter-build-responsive-layout"
     },
     {
       "name": "flutter-dart-code-review",
@@ -1211,7 +1313,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "与框架无关的 Flutter/Dart 代码审查清单，覆盖 widget 最佳实践、状态管理模式（BLoC、Riverpod、Provider、GetX、MobX、Signals）、Dart 惯用法、性能、可访问性、安全与整洁架构。\n无论项目使用何种状态管理库，审查 Flutter/Dart 代码时使用。",
       "enDescription": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/flutter-dart-code-review"
     },
     {
       "name": "flutter-setup-localization",
@@ -1221,7 +1324,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用于 Flutter 项目本地化配置的技能，覆盖多语言资源、国际化设置与语言切换的最佳实践。",
       "enDescription": "Add `flutter_localizations` and `intl` dependencies, enable \\\"generate true\\\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/flutter-setup-localization"
     },
     {
       "name": "implement-spec",
@@ -1231,7 +1335,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用代码实现一个规格说明。",
       "enDescription": "Implement a specification in code.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/implement-spec"
     },
     {
       "name": "improve-codebase-architecture",
@@ -1241,7 +1346,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "扫描代码库寻找可深化的架构机会，生成可视化 HTML 报告，并就你选中的候选进行犀利追问式打磨。",
       "enDescription": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/improve-codebase-architecture"
     },
     {
       "name": "insforge-cli",
@@ -1251,7 +1357,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "当用户需要后端能力，或任务涉及 Insforge（即时后端/数据库服务）CLI 的初始化、数据建模、本地开发与部署时使用。",
       "enDescription": ">- Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppressions, import/export, AI/OpenRouter setup and usage overview, Stripe/Razorpay payments, Apify web scraping / data sources, PostHog product analytics, backend branches, organization membership (invite, leave, delete), agent memory (remember/recall project facts and decisions), reporting InsForge-side bugs or doc discrepancies (feedback), or CLI docs. For app code with InsForge or @insforge/sdk, use the insforge app-integration skill instead.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Apache-2.0",
+      "githubDir": "skills/insforge-cli"
     },
     {
       "name": "insforge-debug",
@@ -1261,7 +1369,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Rigor Debug / Rigor Audit 技能，面向 Insforge（即时后端/数据库服务）的调试。当用户想排查 Insforge 数据模型、CLI、本地开发或部署问题时使用。",
       "enDescription": ">- Use when diagnosing problems in an InsForge project — reactive failures (SDK error object, HTTP 4xx/5xx, gateway timeout 502/503/504, edge function failure or timeout, login/OAuth/auth errors, RLS denial, realtime channel issues, slow query on one endpoint, edge function or Vercel deploy failure), proactive audits (security/RLS review, performance/index review, system health check, pre-launch readiness), or when the user has an error but doesn't know where to start.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Apache-2.0",
+      "githubDir": "skills/insforge-debug"
     },
     {
       "name": "limrun-android-emulator",
@@ -1271,7 +1381,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动/终止应用并输出崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制带宽，并通过 CLI 隧道使用 adb 读取 logcat、文件与 shell。",
       "enDescription": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/limrun-android-emulator"
     },
     {
       "name": "limrun-detox-testing",
@@ -1281,7 +1392,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在 Limrun iOS 模拟器上配置、运行或调试 Detox。用于为应用挂接 Limrun Detox 运行时、连接 Detox mediator 或经反向隧道校验应用/测试器连接。",
       "enDescription": "Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over reverse tunnels.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/limrun-detox-testing"
     },
     {
       "name": "limrun-ios-simulator",
@@ -1291,7 +1403,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、截图、录屏、以视频文件模拟摄像头、执行定时动作链。",
       "enDescription": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/limrun-ios-simulator"
     },
     {
       "name": "limrun-xcode",
@@ -1301,7 +1414,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在远程 Xcode 用 `lim xcode build` 构建 iOS/Apple 应用，替代本地 xcodebuild，适用任意环境（Linux/Windows/macOS/VM/容器）。用于非 Bazel 项目（.xcodeproj/.xcworkspace、XcodeGen project.yml、React Native/Expo 原生构建）。",
       "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/limrun-xcode"
     },
     {
       "name": "limrun-xcode-bazel",
@@ -1311,7 +1425,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用，替代本地 Mac，并安装到远程 iOS 模拟器。用于 Bazel workspace（MODULE.bazel/WORKSPACE）构建 rules_apple/rules_swift 目标。",
       "enDescription": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/limrun-xcode-bazel"
     },
     {
       "name": "nestjs-best-practices",
@@ -1321,7 +1436,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "NestJS 生产级应用的最佳实践与架构模式。在编写、审查或重构 NestJS 代码，以确保模块、依赖注入、安全与性能的正确模式时使用。",
       "enDescription": "NestJS best practices and architecture patterns for building production-ready applications. This skill should be used when writing, reviewing, or refactoring NestJS code to ensure proper patterns for modules, dependency injection, security, and performance.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/nestjs-best-practices"
     },
     {
       "name": "next-best-practices",
@@ -1331,7 +1448,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Next.js 开发最佳实践指南，涵盖文件约定、服务端组件（RSC）边界、数据模式、异步 API、\nmetadata、错误处理、路由处理器、图片/字体优化与打包策略。",
       "enDescription": "Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/next-best-practices"
     },
     {
       "name": "nextjs-app-router-patterns",
@@ -1341,7 +1459,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "掌握 Next.js 14+ App Router，覆盖 Server Components、流式渲染、并行路由与高级数据获取。在构建 Next.js 应用、实现 SSR/SSG 或优化 React Server Components 时使用。",
       "enDescription": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/nextjs-app-router-patterns"
     },
     {
       "name": "nextjs-code-review",
@@ -1357,7 +1476,8 @@ html[data-lang="zh"] .en { display: none; }
         "Glob",
         "Bash"
       ],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/nextjs-code-review"
     },
     {
       "name": "nextjs-react-typescript",
@@ -1367,7 +1487,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家，提供相关技术栈的深入指导与最佳实践。",
       "enDescription": "Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/nextjs-react-typescript"
     },
     {
       "name": "openspec-implementation",
@@ -1377,7 +1498,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "按顺序推进已批准的规格提案，结合测试与校验完成实现。当实现变更、应用提案、执行规格任务或基于已批准计划构建时使用。触发词包括 \\\"openspec implement\\\"、\\\"implement\\\"、\\\"apply change\\\"、\\\"execute spec\\\"、\\\"work through tasks\\\"、\\\"build feature\\\"、\\\"start implementation\\\"。",
       "enDescription": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/openspec-implementation"
     },
     {
       "name": "paper-context-resolver",
@@ -1387,7 +1509,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Rigor Paper Context 辅助工具，面向 README 优先的深度学习资料研读。当用户想为论文/仓库建立上下文索引、梳理阅读脉络或关联参考材料时使用。",
       "enDescription": "Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a specific paper detail such as dataset split, preprocessing, evaluation protocol, checkpoint mapping, or runtime assumption from primary paper sources while recording conflicts. Do not use for general paper summary, repo scanning, environment setup, command execution, title-only paper lookup, or replacing README guidance by default.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/paper-context-resolver"
     },
     {
       "name": "planning-with-files",
@@ -1399,7 +1522,8 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [
         "Read Write Edit Bash Glob Grep"
       ],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/planning-with-files"
     },
     {
       "name": "prototype",
@@ -1409,7 +1533,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "构建一次性原型以回答某个设计问题。当用户想快速验证交互、界面或架构假设，且原型用完即弃时使用。",
       "enDescription": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/prototype"
     },
     {
       "name": "react-doctor",
@@ -1419,7 +1544,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "诊断并修复 React 代码库健康问题。用于审查 React 代码、修复性能问题、审计安全或提升代码质量。",
       "enDescription": "Diagnose and fix React codebase health issues. Use when reviewing React code, fixing performance problems, auditing security, or improving code quality.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "skillVersion": "1.0.0",
+      "githubDir": "skills/react-doctor"
     },
     {
       "name": "receiving-code-review",
@@ -1429,7 +1556,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在收到代码评审反馈、落实建议之前使用，尤其是面对多条或相互冲突的评审意见时。引导你分类、澄清并落地评审意见。",
       "enDescription": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/receiving-code-review"
     },
     {
       "name": "repo-intake-and-plan",
@@ -1439,7 +1567,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Rigor Intake 辅助工具，面向 README 优先的深度学习仓库表征。当用户想接入新仓库、梳理目标与范围并制定初步计划时使用。",
       "enDescription": "Rigor Intake helper for README-first deep learning repo reproduction. Use when the task is specifically to scan a repository, read the README and common project files, extract documented commands, classify inference, evaluation, and training candidates, and return the smallest trustworthy reproduction plan to the main orchestrator. Do not use for environment setup, asset download, command execution, final reporting, paper lookup, or end-to-end orchestration.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/repo-intake-and-plan"
     },
     {
       "name": "requesting-code-review",
@@ -1449,7 +1578,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在完成任务、实现主要功能或合并到主分支之前请求代码评审时使用。引导你整理改动、撰写评审说明并选择合适的评审范围。",
       "enDescription": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/requesting-code-review"
     },
     {
       "name": "setup-matt-pocock-skills",
@@ -1459,7 +1589,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "为工程技能配置本仓库：设置问题跟踪器、分类标签词汇与域文档布局。在首次使用其他工程技能前运行一次。",
       "enDescription": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/setup-matt-pocock-skills"
     },
     {
       "name": "shadcn-ui",
@@ -1469,7 +1600,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "集成与基于 shadcn/ui 组件构建应用的专家级指引——组件安装、主题、可访问性、组合与定制。当用户使用 shadcn/ui 搭建界面时使用。",
       "enDescription": "Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/shadcn-ui"
     },
     {
       "name": "simplify",
@@ -1479,7 +1611,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "简化与精炼近期修改的代码，提升清晰度与一致性。在编写代码后用于改善可读性，且不改变功能行为。",
       "enDescription": "Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/simplify"
     },
     {
       "name": "stripe-best-practices",
@@ -1489,7 +1622,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "指导 Stripe 集成决策，涵盖 API 选型（Checkout Sessions 与 Payment Intents 等）、Webhook 处理、订阅与计费、退款与争议、税务与合规、以及安全密钥管理。在接入支付、对账或排查支付异常时使用。",
       "enDescription": ">- Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, restricted keys, webhooks, OAuth). Use when building, modifying, or reviewing any Stripe integration, including accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/stripe-best-practices"
     },
     {
       "name": "supabase",
@@ -1499,7 +1633,10 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Supabase 全栈开发技能，覆盖数据库、认证、实时、存储、Edge Functions 等能力的开发指导与最佳实践。",
       "enDescription": "Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libraries and SSR integrations (supabase-js, @supabase/ssr) in Next.js, React, SvelteKit, Astro, Remix; auth issues (login, logout, sessions, JWT, cookies, getSession, getUser, getClaims, RLS); Supabase CLI or MCP server; schema changes, migrations, declarative schemas, security audits, Postgres extensions (pg_graphql, pg_cron, pg_vector); debugging and troubleshooting errors or unexpected behavior on Supabase projects (HTTP errors, Postgres errors, RLS surprises, permission denied, schema cache issues, timeouts, Edge Function crashes, Realtime drops, Storage failures) and reading or querying logs (Logs Explorer, ClickHouse).",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "author": "supabase",
+      "skillVersion": "0.1.2",
+      "githubDir": "skills/supabase"
     },
     {
       "name": "supabase-postgres-best-practices",
@@ -1509,7 +1646,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "由 Supabase 维护的 Postgres 最佳实践，适用于任意环境运行的 Postgres。在编写或修改任何 Postgres 数据库对象之前加载本技能：建表/改表与选列类型（含 schema 设计）、迁移与声明式 schema 文件、RLS 策略及其测试、索引、触发器、数据库函数、队列与定时任务（pg_cron、pgmq）、向量/语义搜索（pgvector）、恢复转储（pg_restore）或导入数据。诊断慢查询、高 CPU、超时、EXPLAIN 计划、连接耗尽、锁、膨胀，或租户/用户可见到错误数据时也加载。不仅是性能指南——schema、迁移、安全与 SQL 编写任务（哪怕只改一列或一条查询）都需遵循这些规则。",
       "enDescription": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/supabase-postgres-best-practices"
     },
     {
       "name": "systematic-debugging",
@@ -1519,7 +1658,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "遇到任何 bug、测试失败或意外行为时使用，先分析再动手。引导你复现、收集证据、提出假设并验证，避免盲目修改。",
       "enDescription": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/systematic-debugging"
     },
     {
       "name": "tdd",
@@ -1529,7 +1669,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "测试驱动开发（TDD）。当用户想以测试优先方式构建功能或修复 bug、提及「红-绿-重构」，或需要集成测试时使用。",
       "enDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/tdd"
     },
     {
       "name": "to-spec",
@@ -1539,7 +1680,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "将当前对话整理为规格说明并发布。当用户想把讨论结论固化为可执行的规格、设计文档或任务清单时使用。",
       "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/to-spec"
     },
     {
       "name": "traceknot",
@@ -1549,7 +1691,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "将 Traceknot 符合 ISTQB、以证据为约束的 QA 流程应用于仓库。当用户想做系统化测试规划、用例设计、缺陷追踪或质量门禁评审时使用。",
       "enDescription": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/traceknot"
     },
     {
       "name": "uni-app",
@@ -1559,7 +1702,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "uni-app 跨平台开发框架的综合技能参考。在用 Vue 语法编写一次代码、发布到小程序/H5/App 多端，或配置条件编译、原生能力桥接时使用。",
       "enDescription": "Comprehensive skill reference for uni-app cross-platform development framework",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/uni-app"
     },
     {
       "name": "vercel-composition-patterns",
@@ -1569,7 +1713,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "可扩展的 React 组合模式。用于重构布尔属性泛滥的组件、构建灵活的组件库或设计可复用 API。涉及复合组件、render props、context providers 或组件架构的任务时触发。包含 React 19 API 变更。",
       "enDescription": "React composition patterns that scale. Use when refactoring components with boolean prop proliferation, building flexible component libraries, or designing reusable APIs. Triggers on tasks involving compound components, render props, context providers, or component architecture. Includes React 19 API changes.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/vercel-composition-patterns"
     },
     {
       "name": "vercel-react-best-practices",
@@ -1579,7 +1725,11 @@ html[data-lang="zh"] .en { display: none; }
       "description": "来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。在编写、审查或重构 React/Next.js 代码以确保最佳性能模式时使用，覆盖涉及 React 组件、Next.js 页面、数据获取、打包优化或性能改进的任务。",
       "enDescription": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "author": "vercel",
+      "license": "MIT",
+      "skillVersion": "1.0.0",
+      "githubDir": "skills/vercel-react-best-practices"
     },
     {
       "name": "vue-best-practices",
@@ -1589,7 +1739,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Vue.js 任务必须使用。强烈推荐 Composition API 与 <script setup>，覆盖组件设计、响应式、组合式函数与性能等最佳实践。",
       "enDescription": "MUST be used for Vue.js tasks. Strongly recommends Composition API with `<script setup>` and TypeScript as the standard approach. Covers Vue 3, SSR, Volar, vue-tsc. Load for any Vue, .vue files, Vue Router, Pinia, or Vite with Vue work. ALWAYS use Composition API unless the project explicitly requires Options API.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/vue-best-practices"
     },
     {
       "name": "vue-debug-guides",
@@ -1599,7 +1751,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Vue 3 运行时错误、警告、异步与响应式问题的调试与错误处理指南。当用户遇到渲染异常、警告或难以定位的运行时故障时使用。",
       "enDescription": "Vue 3 debugging and error handling for runtime errors, warnings, async failures, and SSR/hydration issues. Use when diagnosing or fixing Vue issues.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/vue-debug-guides"
     },
     {
       "name": "vue-pinia-best-practices",
@@ -1609,7 +1762,11 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Pinia 状态管理：store 设计、setup 风格定义、状态/ Getter/ Action 与响应式写法等最佳实践。当用户设计或重构 Vue 应用的全局状态时使用。",
       "enDescription": "Pinia stores, state management patterns, store setup, and reactivity with stores.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "author": "github.com/vuejs-ai",
+      "license": "MIT",
+      "skillVersion": "1.0.0",
+      "githubDir": "skills/vue-pinia-best-practices"
     },
     {
       "name": "vue-router-best-practices",
@@ -1619,7 +1776,11 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Vue Router 4 模式：导航守卫、路由参数、路由组件与懒加载等最佳实践。当用户配置路由、处理跳转或权限守卫时使用。",
       "enDescription": "Vue Router 4 patterns, navigation guards, route params, and route-component lifecycle interactions.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "author": "github.com/vuejs-ai",
+      "license": "MIT",
+      "skillVersion": "1.0.0",
+      "githubDir": "skills/vue-router-best-practices"
     },
     {
       "name": "web-artifacts-builder",
@@ -1629,7 +1790,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "使用现代前端 Web 技术（React、Tailwind CSS、shadcn/ui）创建复杂多组件的 claude.ai HTML 构件的工具套件。适用于需要状态管理、路由或 shadcn/ui 组件的复杂构件，而非简单的单文件 HTML/JSX 构件。",
       "enDescription": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Complete terms in LICENSE.txt",
+      "githubDir": "skills/web-artifacts-builder"
     },
     {
       "name": "winui-dev-workflow",
@@ -1639,7 +1802,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "WinUI 3 应用的构建与运行工作流——项目创建、BuildAndRun.ps1 脚本、winapp run、错误诊断与前置依赖。在构建、运行 WinUI 3 项目，或修复其构建错误时使用。",
       "enDescription": "Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites. Use when building, running, or fixing build errors in a WinUI 3 project.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/winui-dev-workflow"
     },
     {
       "name": "woocommerce-backend-dev",
@@ -1649,7 +1813,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "按项目约定新增或修改 WooCommerce 后端 PHP 代码。当创建新类、方法、钩子或修改既有后端代码时使用。**必须在编写任何 PHP 单元测试之前调用。**",
       "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/woocommerce-backend-dev"
     },
     {
       "name": "wordpress-router",
@@ -1659,7 +1824,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "当用户咨询 WordPress 代码库（插件、主题、块主题、Gutenberg 块、WP 核心检出）并需快速归类仓库、路由到正确工作流/技能（块、theme.json、REST API、WP-CLI、性能、安全、测试、发布打包）时使用。",
       "enDescription": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wordpress-router"
     },
     {
       "name": "wp-abilities-audit",
@@ -1669,7 +1835,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "审计 WordPress 插件的 REST 接口面，产出标准化审计文档，提议 Abilities API 注册项。生成含 YAML schema 与散文段落的 markdown 文档，供人与 agent 在规划注册推广时共同消费。适用于任意 WP 插件。",
       "enDescription": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wp-abilities-audit"
     },
     {
       "name": "wp-abilities-verify",
@@ -1679,7 +1846,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "核验 WordPress 插件的 Abilities API 注册：枚举能力、检查回调行为是否与各注解声明一致（对抗式「只读却写入」检测）、校验权限与 schema，并校验 wp-abilities-audit 产出的审计文档。",
       "enDescription": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wp-abilities-verify"
     },
     {
       "name": "wp-block-themes",
@@ -1689,7 +1857,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "开发 WordPress 块主题时使用：theme.json（全局设置/样式）、模板与模板部件、区块样式、样式变体，以及站点编辑器的样式层级、覆盖与缓存排障。",
       "enDescription": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wp-block-themes"
     },
     {
       "name": "wp-patterns",
@@ -1699,7 +1868,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "模式：创建或更新 WordPress 区块模式（起始页、模板、模板部件、Query Loop 布局），审查模式注册、区块标记、分类、可访问性或 i18n/转义，或提升模式设计质量。自定义区块路由到 wp-block-development；前端交互路由到 wp-interactivity-api。",
       "enDescription": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wp-patterns"
     },
     {
       "name": "wp-performance",
@@ -1709,7 +1879,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "排查或提升 WordPress 性能（后端专用）：性能剖析与测量（WP-CLI profile/doctor、Server-Timing、通过 REST 响应头的 Query Monitor）、数据库/查询优化、自动加载选项、对象缓存、cron、HTTP API 调用与安全验证。",
       "enDescription": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wp-performance"
     },
     {
       "name": "wp-playground",
@@ -1719,7 +1890,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "作为 WordPress Playground 的路由包装，处理歧义 Playground 任务、本地 CLI 运行 @wp-playground/cli、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。若需编写或审查 Blueprint JSON，直接用 blueprint 技能。",
       "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wp-playground"
     },
     {
       "name": "wp-plugin-development",
@@ -1729,7 +1901,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "开发 WordPress 插件时使用：架构与钩子、启用/停用/卸载、管理界面与 Settings API、数据存储、cron 任务、安全（nonce/权限/净化/转义）与发布打包。",
       "enDescription": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wp-plugin-development"
     },
     {
       "name": "wp-plugin-directory-guidelines",
@@ -1739,7 +1912,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "审查 WordPress 插件的 GPL 合规性、检查许可证头或兼容性、评估 upsell/免费增值/试用软件模式、校验插件命名或商标规则、检查插件 slug、理解插件为何被 WordPress.org 拒绝，或回答关于 18 条 WordPress.org 插件目录指南的任何问题——即使用户未明确提及「指南」。",
       "enDescription": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/wp-plugin-directory-guidelines"
     },
     {
       "name": "write-tech-spec",
@@ -1749,7 +1923,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在研究当前代码库与实现约束后，为重要的 Warp 功能撰写 TECH.md 规格。当用户要求技术规格、实现计划或与产品规格关联的建筑文档时使用。",
       "enDescription": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/write-tech-spec"
     },
     {
       "name": "writing-plans",
@@ -1759,7 +1934,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "当你有多步任务的规格或需求、在动手写代码之前使用",
       "enDescription": "Use when you have a spec or requirements for a multi-step task, before touching code",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/writing-plans"
     },
     {
       "name": "docx",
@@ -1769,7 +1945,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "任何涉及 Word 文档（.docx）的任务都应使用本技能，包括创建、编辑、读取、解析或提取 .docx 内容，或处理需要 Word 文档输入/输出的场景。",
       "enDescription": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "githubDir": "skills/docx"
     },
     {
       "name": "pdf",
@@ -1779,7 +1957,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "任何涉及 PDF 文件的操作都应使用本技能，包括读取或提取 PDF 文本/表格、合并、拆分、旋转、加水印、创建新 PDF、填写表单、加解密、提取图片以及对扫描 PDF 做 OCR。",
       "enDescription": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "githubDir": "skills/pdf"
     },
     {
       "name": "pptx",
@@ -1789,7 +1969,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "任何涉及 .pptx 文件的操作（输入或输出）都应使用本技能，包括创建幻灯片、读取/解析/提取 .pptx 文本、编辑修改现有演示文稿、合并拆分幻灯片、使用模板、版式、演讲者备注或注释。",
       "enDescription": "Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \\\\\"deck,\\\\\" \\\\\"slides,\\\\\" \\\\\"presentation,\\\\\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "githubDir": "skills/pptx"
     },
     {
       "name": "xlsx",
@@ -1799,7 +1981,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "任何以电子表格文件为主要输入或输出的任务都应使用本技能，包括打开/读取/编辑/修复现有 .xlsx、.xlsm、.xltx、.csv、.tsv 文件（加列、算公式、格式化、图表、清理脏数据）、从零或其他数据源新建表格、在表格文件格式间转换，以及清理/重组混乱的表格数据。\n产出物必须是电子表格文件。 当主要产出是 Word 文档、HTML 报告、独立 Python 脚本、数据库管线或 Google Sheets API 集成时不要触发。",
       "enDescription": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\\\"the xlsx in my downloads\\\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "githubDir": "skills/xlsx"
     },
     {
       "name": "agent-browser",
@@ -1812,7 +1996,8 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(agent-browser:*)",
         "Bash(npx agent-browser:*)"
       ],
-      "hidden": true
+      "hidden": true,
+      "githubDir": "skills/agent-browser"
     },
     {
       "name": "instagram-api",
@@ -1822,7 +2007,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "fetcher.sh 上的 Instagram API 替代方案——通过 x402 以 USDC 按次付费， 或使用 Bearer Key 预付额度，无需登录、无需会话 Cookie。当用户希望通过 @handle 解析 Instagram 主页、按关键词搜索用户、拉取某主页的帖子、Reels、 快拍、被标记帖子、粉丝或关注列表，按短码查询单条帖子、读取帖子评论、 获取话题标签或仅 Reels 的话题流、按地点拉取帖子，或按特定音频/音乐 轨道拉取帖子时使用。同时涵盖 Instagram 粉丝导出、话题标签与地点监控、 达人发现、竞品内容追踪，以及无需官方 Graph API 企业认证或无头浏览器的 Instagram 数据管道。",
       "enDescription": "An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no session cookies. Resolve a profile by @handle, search users by keyword, pull posts/reels/stories/tagged posts/followers/followings, look up a post by shortcode, read comments, fetch hashtag or location feeds, pull posts by audio track, plus follower export, monitoring, influencer discovery, and competitor tracking without Graph API verification or a headless browser.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/instagram-api"
     },
     {
       "name": "orca-cli",
@@ -1832,7 +2018,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "使用公开的 `orca` CLI 操作 Orca 管理的工作树、目录上下文、终端、仓库、自动化、产物、技能共享、工作树评论及 Orca 应用内嵌浏览器。",
       "enDescription": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/orca-cli"
     },
     {
       "name": "playwriter",
@@ -1842,7 +2029,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Playwriter：通过 Playwriter CLI 控制用户当前已打开的 Chrome 标签页（不新开浏览器）。当你需要检查实时 UI 状态、运行脚本化浏览器操作、捕获控制台输出，或直接在用户标签页中复现前端问题时使用；支持创建会话、读取页面结构与日志、执行点击/输入/悬停/求值等操作，并以精确 ID、时间戳与状态变化总结结果。",
       "enDescription": "Playwriter: control the user's currently open Chrome tab through the Playwriter CLI (no new browser launch). Use when you need to inspect live UI state, run scripted browser actions, capture console output, or reproduce frontend issues directly in the user's tab; supports creating sessions, reading page structure and logs, executing click/type/hover/evaluate actions, and summarizing findings with exact IDs, timestamps, and observed state transitions.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/playwriter"
     },
     {
       "name": "recipe-plan-weekly-schedule",
@@ -1852,7 +2040,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "审视你的 Google Calendar 本周安排，识别空隙并补充事件填满。",
       "enDescription": "Review your Google Calendar week, identify gaps, and add events to fill them.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/recipe-plan-weekly-schedule"
     },
     {
       "name": "reddit-automation",
@@ -1862,7 +2051,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在 Reddit 上找到真正在询问你所提供产品的人，然后起草简短、切实有用的回复——如实披露你的关联，仅在确实能回答问题时才提及产品名。两步：发现——扫描合适板块的真实需求（推荐请求、表达痛点、竞品提及）并排序列出你真能帮上的少数帖子；起草——基于真实经验撰写，遵守各社区自推规则，保留人工审阅与发布。以诚实方式做 Reddit 营销：贡献价值、披露身份、绝不水军。提炼自 doany.ai Reddit agent 背后的打法。触发词：\\\"find reddit opportunities\\\"、\\\"reddit marketing\\\"、\\\"reddit automation\\\"、\\\"reply on reddit for my product\\\"、\\\"reddit community engagement\\\"、\\\"reddit lead gen\\\" 或任何把 Reddit 帖子转化为真实、披露的营销回复的请求。",
       "enDescription": "Find Reddit threads where people are genuinely asking for what you offer, then draft short, genuinely helpful replies — disclosing your affiliation honestly and naming your product only when it truly answers the question. Two moves: discovery — scan the right subreddits for real needs (recommendation asks, expressed pain, competitor mentions) and rank the few threads where you can actually help; drafting — write from real experience, respect each community's self-promo rules, and keep a human in the loop to review and post. This markets on Reddit the honest way: contribute value, disclose who you are, never astroturf. Distilled from the playbook behind doany.ai's Reddit agent. Triggers on \"find reddit opportunities\", \"reddit marketing\", \"reddit automation\", \"reply on reddit for my product\", \"reddit community engagement\", \"reddit lead gen\", or any ask to turn Reddit threads into genuine, disclosed marketing replies.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/reddit-automation"
     },
     {
       "name": "tiktok-api",
@@ -1872,7 +2063,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "fetcher.sh 上的 TikTok API 替代方案——通过 x402 以 USDC 按次付费，或使用 Bearer Key 预付额度，无需登录、无需会话 Cookie。当用户想按用户名/视频 ID 获取 TikTok 资料、视频、点赞、粉丝、关注列表，或搜索视频/话题时使用。",
       "enDescription": ">- A TikTok API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no app review. Use when the user wants to search TikTok posts by keyword and sort by most-liked or most recent within a date range, look up a post by its share URL or ID, scrape a TikTok profile by @username, pull a user's posts, followers, or followings, fetch a hashtag's posts, pull posts using a specific sound/music track, get posts from a location, or read a post's comments and comment replies. Also covers TikTok trend tracking, hashtag monitoring, influencer discovery, competitor content analysis, and TikTok data pipelines without official TikTok API access or a scraping browser.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/tiktok-api"
     },
     {
       "name": "twitter-api",
@@ -1882,7 +2074,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "基于 fetcher.sh 的 Twitter API 与 X API 替代方案——按次计费（USDC/x402）或用 Bearer key 预付费积分，无需 OAuth 与开发者应用。用于按关键词、话题或高级操作符（from:、to:、since:、until:、min_faves:、filter:）搜索推文，按账号抓取 Twitter/X 个人资料、拉取用户推文/回复/粉丝/关注，获取单条推文及其回复/转推者，读取 Twitter List 成员或推文，按国家查看热门话题，或按名称搜索 X 账号。也覆盖 Twitter 数据管线、竞品监控、话题跟踪、情感分析输入或粉丝导出，无需官方 X API 的定价档位或应用审核流程。",
       "enDescription": "A Twitter API alternative and X API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no OAuth and no developer application. Use when the user wants to search tweets by keyword, hashtag, or advanced operators (from:, to:, since:, until:, min_faves:, filter:), scrape a Twitter/X profile by handle, pull a user's tweets, replies, followers, or followings, fetch a single tweet with its replies or retweeters, read a Twitter List's members or tweets, check trending topics by country, or search for X accounts by name. Also covers Twitter data pipelines, competitor monitoring, hashtag tracking, sentiment analysis input, or follower export without the official X API's pricing tiers or app-review process.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/twitter-api"
     },
     {
       "name": "twitter-automation",
@@ -1894,7 +2087,8 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [
         "Bash(belt *)"
       ],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/twitter-automation"
     },
     {
       "name": "windows-ui-automation",
@@ -1904,7 +2098,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "精通 Windows UI Automation（UIA）与 Win32 API 的桌面自动化。专注于以可访问、安全的方式自动化 Windows 应用，包括元素发现、输入模拟与进程交互。该技能为高风险（HIGH-RISK），对系统访问需严格的安保控制。",
       "enDescription": "Expert in Windows UI Automation (UIA) and Win32 APIs for desktop automation. Specializes in accessible, secure automation of Windows applications including element discovery, input simulation, and process interaction. HIGH-RISK skill requiring strict security controls for system access.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/windows-ui-automation"
     },
     {
       "name": "workflow",
@@ -1914,7 +2109,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "面向复杂编码任务的工作流编排。用于任何非平凡任务（3 步以上或架构决策），强制执行规划、子代理策略、自我改进、验证、优雅实现与自主修复 bug。触发场景：多步实现、bug 修复、重构、架构变更或任何需要结构化执行的任务。",
       "enDescription": "Workflow orchestration for complex coding tasks. Use for ANY non-trivial task (3+ steps or architectural decisions) to enforce planning, subagent strategy, self-improvement, verification, elegance, and autonomous bug fixing. Triggers: multi-step implementation, bug fixes, refactoring, architectural changes, or any task requiring structured execution.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/workflow"
     },
     {
       "name": "agent-development",
@@ -1924,7 +2120,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "当用户提出“创建一个 agent”“添加一个 agent”“编写一个子 agent”“agent frontmatter”“何时使用 description”“agent 示例”“agent 工具”“agent 颜色”“自主 agent”等问题，或需要关于 agent 结构、系统提示词、触发条件或针对 Claude Code 插件的 agent 开发最佳实践指导时，使用本技能。",
       "enDescription": "This skill should be used when the user asks to \\\"create an agent\\\", \\\"add an agent\\\", \\\"write a subagent\\\", \\\"agent frontmatter\\\", \\\"when to use description\\\", \\\"agent examples\\\", \\\"agent tools\\\", \\\"agent colors\\\", \\\"autonomous agent\\\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "skillVersion": "0.1.0",
+      "githubDir": "skills/agent-development"
     },
     {
       "name": "ai-image-generation",
@@ -1936,7 +2134,8 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [
         "Bash(belt *)"
       ],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/ai-image-generation"
     },
     {
       "name": "ai-research-reproduction",
@@ -1946,7 +2145,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Rigor Reproduce 兼容技能，面向 README 优先的深度学习仓库复现。当用户想按 README 复现实验结果、核对环境/依赖/随机种子、定位复现差异时使用。",
       "enDescription": "Rigor Reproduce compatible skill slug for README-first deep learning repository reproduction. Use when the user wants an end-to-end, minimal-trustworthy flow that reads the repository first, selects the smallest documented inference or evaluation target, coordinates intake, setup, trusted execution, optional trusted training, optional repository analysis, and optional paper-gap resolution, enforces conservative patch rules, records evidence assumptions deviations and human decision points, and writes the standardized `repro_outputs/` bundle. Do not use for paper summary, generic environment setup, isolated repo scanning, standalone command execution, silent protocol changes, score chasing, or broad research assistance outside repository-grounded reproduction.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/ai-research-reproduction"
     },
     {
       "name": "bailian-web-search",
@@ -1956,7 +2156,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。 先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为 `token-plan.<region>.maas.aliyuncs.com`）→ 模型自带搜索 （`bl text chat --api responses --tool '{\"type\":\"web_search\"}'`）；其他 / 默认 → Bailian MCP（`bl search web`）；仅在 MCP 鉴权失败、未开通或传输失败时兜底一次到模型自带搜索。 Token Plan 联网搜索失败、两条路径鉴权混淆的排查也走本技能。 反触发：宿主可完成的 普通问答 / 编程 / 写作 → 不触发；知识库 RAG → bailian-cli （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune； agents.yaml → bailian-managed-agent。 共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。",
       "enDescription": "Alibaba Cloud Bailian web search entry: routes web/online search and latest-news queries. Detects connection identity first (Token Plan vs others), then dispatches to model-native web search or Bailian MCP, with fallback logic.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/bailian-web-search"
     },
     {
       "name": "brainstorming",
@@ -1966,7 +2167,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在任何创意工作（创建功能、构建组件、添加功能或修改行为）之前必须使用本技能，用于在实现前探索用户意图、需求与设计。",
       "enDescription": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/brainstorming"
     },
     {
       "name": "domain-modeling",
@@ -1976,7 +2178,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "构建并打磨项目的领域模型。当用户讨论业务概念、实体关系、边界上下文或模型演进时使用。",
       "enDescription": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/domain-modeling"
     },
     {
       "name": "eve",
@@ -1986,7 +2189,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "使用 eve 框架构建可持久化的后端 AI 智能体（agent）。用于创建、编辑或调试 eve 项目——包括 agent 指令、技能、工具、连接、渠道、沙箱、子 agent、定时任务或评测。",
       "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/eve"
     },
     {
       "name": "google-agents-cli-adk-code",
@@ -1996,7 +2200,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "google-agents-cli 的 ADK 代码技能，指导用 Agent Development Kit 构建智能体代码——agent 定义、工具、会话与部署。当用户开发 Google ADK 智能体、编写 agent/tools 代码或接入 Google Agents CLI 时使用。",
       "enDescription": "> This skill should be used when the user wants to \"write agent code\", \"build an agent with ADK\", \"add a tool\", \"create a callback\", \"define an agent\", \"use state management\", or needs ADK (Agent Development Kit) Python API patterns and code examples. Part of the Google ADK skills suite. It provides a quick reference for agent types, tool definitions, orchestration patterns, callbacks, state management, and reference recipes to study. Do NOT use for scaffolding (use google-agents-cli-scaffold) or deployment (use google-agents-cli-deploy).",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/google-agents-cli-adk-code"
     },
     {
       "name": "google-agents-cli-workflow",
@@ -2006,7 +2211,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "google-agents-cli 的工作流技能，覆盖智能体项目的脚手架、运行、评估与 CI 集成。当用户搭建 Google Agents CLI 项目、跑工作流或接入流水线时使用。",
       "enDescription": "> This skill should be used when the user wants to \"develop an agent\", \"build an agent using ADK\", \"run the agent locally\", \"debug agent code\", \"test an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\", or needs the ADK (Agent Development Kit) development lifecycle and coding guidelines. Entrypoint for building ADK agents. Always active — provides the full workflow (scaffold, build, evaluate, deploy, publish, observe), code preservation rules, model selection guidance, and troubleshooting steps for ADK or any agent development.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/google-agents-cli-workflow"
     },
     {
       "name": "ai-avatar-video",
@@ -2018,7 +2224,8 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [
         "Bash(belt *)"
       ],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/ai-avatar-video"
     },
     {
       "name": "ai-music",
@@ -2030,7 +2237,9 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [
         "Bash(runcomfy *)"
       ],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/ai-music"
     },
     {
       "name": "ai-video-generation",
@@ -2042,7 +2251,8 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [
         "Bash(belt *)"
       ],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/ai-video-generation"
     },
     {
       "name": "ai-video-generation-2",
@@ -2054,7 +2264,9 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [
         "Bash(runcomfy *)"
       ],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/ai-video-generation-2"
     },
     {
       "name": "image-to-video",
@@ -2064,7 +2276,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在 RunComfy 上将任意静态图片动画化，本技能是匹配用户意图到正确 i2v 模型的智能路由器。 常规动画选用 HappyHorse 1.0 I2V（Arena #1、原生音频、身份保持），自定义配音对口型用 Wan 2.7 配合 audio_url，多模态动画用 Seedance 2.0 Pro。\n通过本地 RunComfy CLI 调用 runcomfy run 相关端点。",
       "enDescription": "Animate any still image on RunComfy — this skill is a smart router that matches the user's intent to the right i2v model in the RunComfy catalog. Picks HappyHorse 1.0 I2V (Arena #1, native audio, identity preservation) for general animations, Wan 2.7 with `audio_url` for custom-voiceover lip-sync, or Seedance 2.0 Pro for multi-modal animation from image + reference video + reference audio. Bundles each model's documented prompting patterns so the caller gets sharper output without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/image-to-video` (or endpoint variant) through the local RunComfy CLI. Triggers on \\\"image to video\\\", \\\"image-to-video\\\", \\\"i2v\\\", \\\"animate image\\\", \\\"make this move\\\", or any explicit ask to turn a still into video.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/image-to-video"
     },
     {
       "name": "lark-meeting",
@@ -2074,7 +2288,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "飞书视频会议：查询会议记录与会议产物(纪要/逐字稿/妙记)、妙记搜索/上传/下载/编辑、机器人参与会议；查询进行中的会议、实时会议内容(发言/聊天/共享文档)问答(会上/会里)、发送会中聊天/表情；基于 meeting_id、meeting_no、event_id、note_id、minute_token、vc-node-id 或妙记 URL 查询相关信息。预约会议、忙闲和会议室管理走 lark-calendar。",
       "enDescription": "Lark video meetings: query meeting records and meeting artifacts (minutes/transcripts/notes), search/upload/download/edit notes, bot participation in meetings; query ongoing meetings, ask questions over real-time meeting content (speech/chat/shared docs), send in-meeting chat/emojis; query by meeting_id, meeting_no, event_id, note_id, minute_token, vc-node-id or note URL. Meeting scheduling, availability and room management go through lark-calendar.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "skillVersion": "1.0.0",
+      "githubDir": "skills/lark-meeting"
     },
     {
       "name": "remotion-best-practices",
@@ -2084,7 +2300,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Remotion 全部技能的路由中枢",
       "enDescription": "Router for all Remotion skills",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "skillVersion": "4.0.515",
+      "githubDir": "skills/remotion-best-practices"
     },
     {
       "name": "video",
@@ -2094,7 +2312,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "用于视频创建、生成与制作工作流的技能，覆盖视频生成、编辑、模板、讲解视频、产品演示、视频管线等场景，以及“复制这个剪辑”“匹配这个视频风格”“把这个视频反向工程”等指令。",
       "enDescription": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "skillVersion": "2.1.0",
+      "githubDir": "skills/video"
     },
     {
       "name": "video-edit",
@@ -2104,7 +2324,9 @@ html[data-lang="zh"] .en { display: none; }
       "description": "在 RunComfy 上编辑现有视频，本技能是匹配用户意图到正确编辑模型的智能路由器。 通用重风格/换背景/包装替换选 Wan 2.7 Edit-Video，参考视频动作迁移选 Kling 2.6 Pro Motion Control，轻量身份稳定重风格/换装选 Lucy Edit Restyle。\n通过本地 RunComfy CLI 调用 runcomfy run 相关端点。",
       "enDescription": "Edit existing video on RunComfy — this skill is a smart router that matches the user's intent to the right edit model in the RunComfy catalog. Picks Wan 2.7 Edit-Video (general restyle / background swap / packaging swap, identity + motion preservation), Kling 2.6 Pro Motion Control (transfer precise motion from a reference video to a target character), or Lucy Edit Restyle (lightweight identity-stable restyle / outfit swap). Bundles each model's documented prompting patterns so the skill gets sharper edits without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/<endpoint>` through the local RunComfy CLI. Triggers on \\\"video edit\\\", \\\"edit video\\\", \\\"restyle video\\\", \\\"swap video background\\\", \\\"motion control\\\", \\\"outfit swap video\\\", or any explicit ask to transform a video.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "license": "MIT",
+      "githubDir": "skills/video-edit"
     },
     {
       "name": "video-editing",
@@ -2114,7 +2336,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "AI 辅助视频编辑工作流，用于剪辑、组织与增强真实素材，覆盖从原始拍摄到 FFmpeg、Remotion、ElevenLabs、fal.ai 再到 Descript 或 CapCut 最终润色的完整管线。当用户想要编辑视频、剪辑素材、创建 vlog 或构建视频内容时使用。",
       "enDescription": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/video-editing"
     },
     {
       "name": "better-auth-best-practices",
@@ -2124,7 +2347,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "配置 Better Auth 服务端与客户端的认证方案，搭建数据库适配器、管理会话、添加插件并处理环境变量。当用户提及 Better Auth、betterauth、auth.ts，或需要用邮箱密码、OAuth 或插件配置搭建 TypeScript 认证时使用。",
       "enDescription": "Configure Better Auth server and client, set up database adapters, manage sessions, add plugins, and handle environment variables. Use when users mention Better Auth, betterauth, auth.ts, or need to set up TypeScript authentication with email/password, OAuth, or plugin configuration.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/better-auth-best-practices"
     },
     {
       "name": "clerk-nextjs-patterns",
@@ -2136,7 +2360,11 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [
         "WebFetch"
       ],
-      "hidden": false
+      "hidden": false,
+      "author": "clerk",
+      "license": "MIT",
+      "skillVersion": "2.2.0",
+      "githubDir": "skills/clerk-nextjs-patterns"
     },
     {
       "name": "fix-sentry-issues",
@@ -2146,7 +2374,8 @@ html[data-lang="zh"] .en { display: none; }
       "description": "使用 Sentry MCP 发现、分类并根因修复生产问题。用于修复 Sentry 问题、分类生产错误、排查错误尖峰或清理 Sentry 噪声。需要 Sentry MCP 服务。",
       "enDescription": "Use Sentry MCP to discover, triage, and fix production issues with root-cause analysis. Use when asked to fix Sentry issues, triage production errors, investigate error spikes, or clean up Sentry noise. Requires Sentry MCP server.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/fix-sentry-issues"
     },
     {
       "name": "safe-debug",
@@ -2156,11 +2385,12 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Rigor Debug / Rigor Audit 技能，面向深度学习科研工作。当用户想安全地调试训练/推理、排查数值异常或复现问题时使用。",
       "enDescription": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.",
       "allowedTools": [],
-      "hidden": false
+      "hidden": false,
+      "githubDir": "skills/safe-debug"
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.19.13 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.19.14 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -2192,6 +2422,15 @@ html[data-lang="zh"] .en { display: none; }
       "detail.open": "查看技能",
       "detail.openEn": "Open skill",
       "detail.zhName": "中文名", // 预留：详情弹窗内中文名标题
+      "detail.author": "作者 / Author",
+      "detail.license": "协议 / License",
+      "detail.version": "版本 / Version",
+      "detail.githubDir": "GitHub 目录 / Source",
+      "detail.tools": "授权工具 / Allowed tools",
+      "detail.related": "相关技能 / Related",
+      "detail.copyName": "复制名称",
+      "detail.copied": "已复制",
+      "detail.unknown": "未知 / Unknown",
       "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
       "empty.clear": "清除筛选",
       "share.btn": "分享",
@@ -2256,6 +2495,15 @@ html[data-lang="zh"] .en { display: none; }
       "detail.open": "Open skill",
       "detail.openEn": "Open skill",
       "detail.zhName": "Chinese name", // 预留：详情弹窗内中文名标题
+      "detail.author": "Author",
+      "detail.license": "License",
+      "detail.version": "Version",
+      "detail.githubDir": "GitHub source",
+      "detail.tools": "Allowed tools",
+      "detail.related": "Related skills",
+      "detail.copyName": "Copy name",
+      "detail.copied": "Copied",
+      "detail.unknown": "Unknown",
       "empty.desc": "Try a different keyword or category, or clear the current filter.",
       "empty.clear": "Clear filters",
       "share.btn": "Share",
@@ -2635,300 +2883,149 @@ function renderGrid() {
     : I18N.t("result.empty");
 }
 
-// prototype/src/parts/03-detail.js v1.19.6 — 详情弹窗、键盘可达性与分享
-// 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
-const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
-function openDetail(s) {
-  track("view_skill", { skill: s.name, category: s.category });
-  const overlay = $("#overlay");
-  const dialog = $("#dialog");
-  // 记录打开前的焦点元素，关闭后归还（WCAG 焦点管理）
-  dialog._lastFocused = document.activeElement;
-  const html = `
-    <div id="dialogHead" class="dialog-head">
-      <div class="avatar">${initials(s.name)}</div>
-      <div>
-        <h2 id="dialogVisibleTitle" class="dialog-title">${esc(s.zh || s.name)}</h2>
-        <div class="sub en">${esc(s.name)}</div>
-        <div id="dialogBlockCat" class="dialog-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
-      </div>
-      <button id="closeBtn" class="icon-btn dialog-close" aria-label="${I18N.t("detail.close")}">✕</button>
-    </div>
-    <div id="dialogBody" class="dialog-body">
-      <section id="dialogBlockZh" class="block zh"><h3 class="zh">${I18N.t("detail.zhTitle")}</h3><p>${esc(s.zh)}</p><p class="zh-desc">${esc(s.description)}</p></section>
-      <section id="dialogBlockEn" class="block en"><h3 class="en">${I18N.t("detail.enTitle")}</h3><p>${esc(s.enDescription || "")}</p></section>
-      <section id="dialogBlockTools" class="block"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${(Array.isArray(s.allowedTools) ? s.allowedTools : String(s.allowedTools || "").split(",").map((t) => t.trim()).filter(Boolean)).map((t) => `<code>${esc(t)}</code>`).join("")}</div></section>
-    </div>
-    <div id="dialogFoot" class="dialog-foot">
-      <a class="btn btn-primary" href="${REPO_SKILLS_TREE}${encodeURIComponent(s.name)}/" target="_blank" rel="noopener">
-        <span class="zh">${I18N.t("detail.open")}</span><span class="en">${I18N.t("detail.openEn")}</span>
-      </a>
-      <button id="shareBtn" class="btn btn-ghost">${I18N.t("share.btn")}</button>
-    </div>`;
-  dialog.innerHTML = html;
-  // 统一用 `show` 类驱动遮罩与弹窗显示（与 CSS .overlay.show/.dialog.show 匹配，修复此前 open/show 不匹配导致弹窗无法打开）
-  overlay.classList.add("show");
-  dialog.classList.add("show");
-  document.body.classList.add("no-scroll");
-  trapFocus(dialog);
-  $("#closeBtn").addEventListener("click", closeDetail);
-  $("#shareBtn").addEventListener("click", () => shareSkill(s));
+// prototype/src/parts/03-detail.js v1.19.14 — 详情弹窗：元信息区(作者/协议/GitHub目录) + 相关技能 + 复制命令
+// 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
+
+// GitHub 仓库基础路径（详情弹窗跳转源码目录用）
+const GITHUB_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main";
+
+// 取同类技能（排除自身，最多 4 个）作为「相关技能」
+function relatedSkills(skill) {
+  return SKILLS_DATA.skills
+    .filter((s) => s.name !== skill.name && s.category === skill.category && !s.hidden)
+    .slice(0, 4);
 }
 
-// 设置弹窗：复用现有 #dialog 框架（trapFocus/closeDetail），承载语言/主题切换
-function openSettings() {
-  track("open_settings");
-  const overlay = $("#overlay");
-  const dialog = $("#dialog");
-  dialog._lastFocused = document.activeElement;
-  const html = `
-    <div id="dialogHead" class="dialog-head">
-      <div class="avatar">⚙</div>
-      <div><h2 id="dialogVisibleTitle" class="dialog-title">${I18N.t("settings.title")}</h2></div>
-      <button id="closeBtn" class="icon-btn dialog-close" aria-label="${I18N.t("detail.close")}">✕</button>
-    </div>
-    <div id="dialogBody" class="dialog-body">
-      <section class="block">
-        <h3>${I18N.t("settings.langGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.language")}</span>
-          <button id="settingsLangBtn" class="btn btn-outline" aria-pressed="${state.lang === "en"}">${state.lang === "zh" ? "中文" : "English"}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.themeGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.theme")}</span>
-          <button id="settingsThemeBtn" class="btn btn-outline" aria-pressed="${state.theme === "dark"}">${state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.viewGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.view")}</span>
-          <button id="settingsViewBtn" class="btn btn-outline" aria-pressed="${state.view === VIEW_LIST}">${state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid")}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.densityGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.density")}</span>
-          <button id="settingsDensityBtn" class="btn btn-outline" aria-pressed="${state.density === DENSITY_COMPACT}">${state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable")}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.uiGroup")}</h3>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.showDesc")}</span>
-          <button id="settingsDescBtn" class="btn btn-outline" aria-pressed="${state.showDesc}" data-on="${state.showDesc ? "on" : "off"}">${state.showDesc ? "开 / On" : "关 / Off"}</button>
-        </div>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.showCat")}</span>
-          <button id="settingsCatBtn" class="btn btn-outline" aria-pressed="${state.showCat}" data-on="${state.showCat ? "on" : "off"}">${state.showCat ? "开 / On" : "关 / Off"}</button>
-        </div>
-        <div class="settings-row">
-          <span class="settings-label">${I18N.t("settings.showBar")}</span>
-          <button id="settingsBarBtn" class="btn btn-outline" aria-pressed="${state.showBar}" data-on="${state.showBar ? "on" : "off"}">${state.showBar ? "开 / On" : "关 / Off"}</button>
-        </div>
-      </section>
-      <section class="block">
-        <h3>${I18N.t("settings.nameGroup")}</h3>
-        <div class="seg" role="group" aria-label="${I18N.t("settings.nameGroup")}">
-          <button id="nameBothBtn" class="seg-btn${state.nameMode === NAME_MODE_BOTH ? " active" : ""}" aria-pressed="${state.nameMode === NAME_MODE_BOTH}" data-mode="${NAME_MODE_BOTH}">${I18N.t("settings.nameBoth")}</button>
-          <button id="nameZhBtn" class="seg-btn${state.nameMode === NAME_MODE_ZH ? " active" : ""}" aria-pressed="${state.nameMode === NAME_MODE_ZH}" data-mode="${NAME_MODE_ZH}">${I18N.t("settings.nameZh")}</button>
-          <button id="nameEnBtn" class="seg-btn${state.nameMode === NAME_MODE_EN ? " active" : ""}" aria-pressed="${state.nameMode === NAME_MODE_EN}" data-mode="${NAME_MODE_EN}">${I18N.t("settings.nameEn")}</button>
-        </div>
-      </section>
-    </div>
-    <div id="dialogFoot" class="dialog-foot">
-      <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
-    </div>`;
-  dialog.innerHTML = html;
-  overlay.classList.add("show");
-  dialog.classList.add("show");
-  document.body.classList.add("no-scroll");
-  trapFocus(dialog);
-  $("#closeBtn").addEventListener("click", closeDetail);
-  $("#settingsDoneBtn").addEventListener("click", closeDetail);
-  // 语言/主题切换：复用现有 applyLang/applyTheme（同作用域）；就地更新文案，不重建弹窗避免焦点/监听抖动
-  $("#settingsLangBtn").addEventListener("click", () => {
-    state.lang = state.lang === "zh" ? "en" : "zh";
-    savePref(LS_LANG, state.lang);
-    applyLang();
-    refreshSettingsBody();
-  });
-  $("#settingsThemeBtn").addEventListener("click", () => {
-    state.theme = state.theme === "light" ? "dark" : "light";
-    savePref(LS_THEME, state.theme);
-    applyTheme();
-    const b = $("#settingsThemeBtn");
-    if (b) { b.textContent = state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"; b.setAttribute("aria-pressed", state.theme === "dark"); }
-  });
-  // 视图模式切换：同步到 <html data-view> 并持久化，顶栏 view-btn active 态由 applyView 统一刷新
-  $("#settingsViewBtn").addEventListener("click", () => {
-    state.view = state.view === VIEW_GRID ? VIEW_LIST : VIEW_GRID;
-    savePref(LS_VIEW, state.view);
-    applyView();
-    const b = $("#settingsViewBtn");
-    if (b) { b.textContent = state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid"); b.setAttribute("aria-pressed", state.view === VIEW_LIST); }
-    renderGrid();
-  });
-  // 显示密度切换：同步到 <html data-density> 并持久化，仅影响 CSS 间距，无需重渲染网格
-  $("#settingsDensityBtn").addEventListener("click", () => {
-    state.density = state.density === DENSITY_COMFORT ? DENSITY_COMPACT : DENSITY_COMFORT;
-    savePref(LS_DENSITY, state.density);
-    applyDensity();
-    const b = $("#settingsDensityBtn");
-    if (b) { b.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); b.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
-  });
-  // UI 元素显隐：描述 / 分类标签 / 分类色条，切换后同步 <html data-show-*> 并持久化，影响卡片局部隐藏
-  const bindUISwitch = (btnId, lsKey, onToggle) => {
-    const b = $(btnId);
-    if (!b) return;
-    b.addEventListener("click", () => {
-      onToggle();
-      savePref(lsKey, state[lsKey] ? "true" : "false");
-      applyUI();
-      b.textContent = state[lsKey] ? "开 / On" : "关 / Off";
-      b.setAttribute("aria-pressed", state[lsKey]);
-      b.dataset.on = state[lsKey] ? "on" : "off";
-    });
+// 复制技能名到剪贴板（提示已复制）
+function copySkillName(name) {
+  const done = () => {
+    const tip = document.getElementById("copyTip");
+    if (tip) {
+      tip.textContent = I18N.t("detail.copied");
+      tip.classList.add("show");
+      setTimeout(() => tip.classList.remove("show"), 1400);
+    }
   };
-  bindUISwitch("#settingsDescBtn", LS_SHOW_DESC, () => { state.showDesc = !state.showDesc; });
-  bindUISwitch("#settingsCatBtn", LS_SHOW_CAT, () => { state.showCat = !state.showCat; });
-  bindUISwitch("#settingsBarBtn", LS_SHOW_BAR, () => { state.showBar = !state.showBar; });
-  // 名称显示策略：双显 / 仅中文 / 仅英文，分段控件单选，切换后同步 <html data-name-mode> 并持久化
-  $$(".seg-btn").forEach((b) => {
-    b.addEventListener("click", () => {
-      state.nameMode = b.dataset.mode;
-      savePref(LS_NAME_MODE, state.nameMode);
-      applyNameMode();
-      $$(".seg-btn").forEach((x) => {
-        const on = x.dataset.mode === state.nameMode;
-        x.classList.toggle("active", on);
-        x.setAttribute("aria-pressed", on);
-      });
-    });
-  });
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(name).then(done).catch(() => fallbackCopy(name, done));
+  } else {
+    fallbackCopy(name, done);
+  }
+}
+function fallbackCopy(text, done) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); done(); } catch { /* 忽略 */ }
+  document.body.removeChild(ta);
 }
 
-// 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）
-function refreshSettingsBody() {
-  const title = $("#dialogVisibleTitle");
-  if (title) title.textContent = I18N.t("settings.title");
-  const langBtn = $("#settingsLangBtn");
-  if (langBtn) { langBtn.textContent = state.lang === "zh" ? "中文" : "English"; langBtn.setAttribute("aria-pressed", state.lang === "en"); }
-  // 区块标题与标签为动态 i18n，直接查询并更新
-  const blocks = document.querySelectorAll("#dialogBody .block");
-  const headText = [I18N.t("settings.langGroup"), I18N.t("settings.themeGroup"), I18N.t("settings.viewGroup"), I18N.t("settings.densityGroup")];
-  blocks.forEach((blk, i) => {
-    const h = blk.querySelector("h3");
-    if (h && headText[i]) h.textContent = headText[i];
+function metaRow(label, value, isLink) {
+  if (!value) return "";
+  if (isLink) {
+    return `<div class="meta-row"><span class="meta-k">${esc(label)}</span><a class="meta-v link" href="${esc(value)}" target="_blank" rel="noopener">${esc(value.replace(/^https?:\/\//, ""))}</a></div>`;
+  }
+  return `<div class="meta-row"><span class="meta-k">${esc(label)}</span><span class="meta-v">${esc(value)}</span></div>`;
+}
+
+function detailHTML(skill) {
+  const st = state;
+  const related = relatedSkills(skill);
+  const githubUrl = `${GITHUB_TREE}/${skill.githubDir}`;
+  const tools = (skill.allowedTools || []).filter(Boolean);
+
+  const desc = st.lang === "zh" ? skill.description : (skill.enDescription || skill.description);
+  const titleZh = skill.zh || skill.name;
+  const titleEn = skill.name;
+
+  // 名称显示策略（与卡片一致）
+  let titleHTML = "";
+  if (st.nameMode === "en") {
+    titleHTML = `<h2 class="d-title"><span class="en">${esc(titleEn)}</span></h2>`;
+  } else if (st.nameMode === "zh") {
+    titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span></h2>`;
+  } else {
+    titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
+  }
+
+  // 元信息区：作者 / 协议 / 版本 / GitHub 目录
+  const metaRows = [
+    metaRow(I18N.t("detail.author"), skill.author || I18N.t("detail.unknown")),
+    metaRow(I18N.t("detail.license"), skill.license || I18N.t("detail.unknown")),
+    metaRow(I18N.t("detail.version"), skill.skillVersion || "—"),
+    metaRow(I18N.t("detail.githubDir"), githubUrl, true),
+  ].join("");
+
+  const toolsHTML = tools.length
+    ? `<div class="d-tools"><h4>${I18N.t("detail.tools")}</h4><div class="tool-chips">${tools
+        .map((t) => `<span class="tool-chip">${esc(t)}</span>`)
+        .join("")}</div></div>`
+    : "";
+
+  const relatedHTML = related.length
+    ? `<div class="d-related"><h4>${I18N.t("detail.related")}</h4><div class="related-list">${related
+        .map(
+          (r) =>
+            `<button class="related-card" data-name="${esc(r.name)}"><span class="rc-cat">${esc(r.category)}</span><span class="rc-name">${esc(r.zh || r.name)}</span></button>`
+        )
+        .join("")}</div></div>`
+    : "";
+
+  return `
+  <div id="detailPanel" class="detail" role="dialog" aria-modal="true" aria-label="${esc(titleZh)}">
+    <button id="detailClose" class="detail-close" aria-label="${I18N.t("detail.close")}">×</button>
+    <div class="detail-head">
+      ${titleHTML}
+      <div class="d-actions">
+        <button id="copyNameBtn" class="btn ghost" data-name="${esc(skill.name)}">${I18N.t("detail.copyName")}</button>
+        <span id="copyTip" class="copy-tip"></span>
+      </div>
+    </div>
+    <div class="detail-meta">${metaRows}</div>
+    <div class="detail-body">
+      <p class="d-desc">${esc(desc || "")}</p>
+      ${toolsHTML}
+      ${relatedHTML}
+    </div>
+  </div>`;
+}
+
+function openDetail(name) {
+  const skill = SKILL_MAP.get(name);
+  if (!skill) return;
+  const overlay = document.getElementById("overlay");
+  overlay.innerHTML = detailHTML(skill);
+  overlay.classList.add("show");
+  document.body.classList.add("no-scroll");
+
+  document.getElementById("detailClose").addEventListener("click", closeDetail);
+  const copyBtn = document.getElementById("copyNameBtn");
+  if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
+
+  // 相关技能点击 → 切换详情
+  overlay.querySelectorAll(".related-card").forEach((btn) => {
+    btn.addEventListener("click", () => openDetail(btn.getAttribute("data-name")));
   });
-  const labels = document.querySelectorAll("#dialogBody .settings-label");
-  const labelText = [I18N.t("settings.language"), I18N.t("settings.theme"), I18N.t("settings.view"), I18N.t("settings.density")];
-  labels.forEach((l, i) => { if (labelText[i]) l.textContent = labelText[i]; });
-  const viewBtn = $("#settingsViewBtn");
-  if (viewBtn) { viewBtn.textContent = state.view === VIEW_LIST ? I18N.t("settings.viewList") : I18N.t("settings.viewGrid"); viewBtn.setAttribute("aria-pressed", state.view === VIEW_LIST); }
-  const densityBtn = $("#settingsDensityBtn");
-  if (densityBtn) { densityBtn.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); densityBtn.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
 }
 
 function closeDetail() {
-  const overlay = $("#overlay");
-  const dialog = $("#dialog");
+  const overlay = document.getElementById("overlay");
+  if (!overlay) return;
   overlay.classList.remove("show");
-  dialog.classList.remove("show");
+  overlay.innerHTML = "";
   document.body.classList.remove("no-scroll");
-  // 移除焦点陷阱的 keydown 监听，避免多次打开后监听器在 #dialog 上累积叠加
-  if (typeof dialog._onKey === "function") {
-    dialog.removeEventListener("keydown", dialog._onKey);
-    dialog._onKey = null;
+}
+
+// 全局 Esc 关闭（grid 点击委托与 overlay 点击关闭已在 04-interactions 处理）
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    const overlay = document.getElementById("overlay");
+    if (overlay && overlay.classList.contains("show")) closeDetail();
   }
-  dialog.innerHTML = "";
-  // 归还焦点到打开前的元素，避免 Tab 顺序跳到页面顶部
-  if (dialog._lastFocused && typeof dialog._lastFocused.focus === "function") {
-    dialog._lastFocused.focus();
-  }
-}
-
-// 焦点陷阱：Tab 在弹窗内循环，Esc 关闭（无障碍）
-function trapFocus(container) {
-  const focusables = container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-  if (!focusables.length) return;
-  const first = focusables[0], last = focusables[focusables.length - 1];
-  first.focus();
-  // 保存引用供 closeDetail 统一移除（无论通过 Esc 还是关闭按钮/遮罩关闭都能清理）
-  container._onKey = function onKey(e) {
-    if (e.key === "Escape") { closeDetail(); return; }
-    if (e.key !== "Tab") return;
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  };
-  container.addEventListener("keydown", container._onKey);
-}
-
-function shareSkill(s) {
-  track("share_skill", { skill: s.name });
-  const text = buildShareText(s.name);
-  if (navigator.share) {
-    // 系统分享：成功/失败都给出可见反馈；被取消或失败则回退到剪贴板复制
-    navigator.share({ title: "Agent Skills Hub", text, url: location.href })
-      .then(() => showToast(I18N.t("share.copied")))
-      .catch((err) => {
-        if (err && err.name === "AbortError") return; // 用户主动取消，不回退
-        copyToClipboard(text);
-      });
-  } else {
-    copyToClipboard(text);
-  }
-}
-
-// 统一的剪贴板复制入口：优先 Clipboard API，失败降级到 textarea execCommand
-function copyToClipboard(text) {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(() => showToast(I18N.t("share.copied"))).catch(() => fallbackCopy(text));
-  } else {
-    fallbackCopy(text);
-  }
-}
-
-// 分享链接使用绝对 GitHub URL（与 #dialog 的「查看技能」按钮一致的 REPO_SKILLS_TREE 常量），
-// 保证复制到外部平台（微信/Twitter 等）后可直接点击打开，与 app 层 share.ts 行为对齐（openspec §4.5.4）
-function buildShareText(name) {
-  const base = REPO_SKILLS_TREE + encodeURIComponent(name) + "/";
-  const promos = I18N.t("share.promos") || [];
-  const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
-  const promo = promos.length
-    ? promos[Math.floor(Math.random() * promos.length)].replace(/\{n\}/g, n)
-    : "";
-  return base + "\n\n" + promo;
-}
-
-// 复制降级方案（无 Clipboard API 时）
-function fallbackCopy(text) {
-  try {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.position = "fixed";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    showToast(I18N.t("share.copied"));
-  } catch (e) {
-    showToast(I18N.t("share.failed"));
-  }
-}
-
-function showToast(msg) {
-  const t = $("#toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove("show"), 2000);
-}
+});
 
 // prototype/src/parts/04-interactions.js v1.19.13 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序切换与事件绑定
 function applyTheme() {

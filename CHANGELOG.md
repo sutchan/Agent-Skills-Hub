@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.14] - 2026-08-21
+
+### feat: 完善技能详情弹窗——元信息区 + 相关技能 + 复制名称
+
+- `build-skills-data.mjs` 提取 `metadata.author`(作者)、`metadata.license`(协议)、`metadata.version`(版本)，并恒定派生 `githubDir`(`skills/<name>`，详情可跳转 GitHub 源码目录)
+- 原型 `03-detail.js` 详情弹窗重构：新增 2 列元信息区（作者 / 协议 / 版本 / GitHub 目录链接）、授权工具 chips、同类相关技能卡片、复制技能名按钮（含已复制提示）；`i18n.js` 补 `detail.author/license/version/githubDir/tools/related/copyName/copied/unknown` 双语；`components.css` 补 `.detail/.detail-meta/.meta-row/.d-tools/.related-card` 等样式
+- app `SkillsExplorer.tsx` 接入详情弹窗（新增 `detail-modal.tsx`，复用 `.dialog` 框架渲染元信息区/相关技能/复制名称）；`lib/skills.ts` 补 `author/license/skillVersion/githubDir` 字段；`globals.css` 补对应样式
+- package.json 升至 v1.19.14
+
 ## [1.19.13] - 2026-08-21
 
 ### feat: 筛选增强——分类多选 + 结果排序

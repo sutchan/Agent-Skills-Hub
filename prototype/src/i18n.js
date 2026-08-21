@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.19.13 — 独立国际化模块
+// prototype/src/i18n.js v1.19.14 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -39,6 +39,12 @@
       "detail.copyName": "复制名称",
       "detail.copied": "已复制",
       "detail.unknown": "未知 / Unknown",
+      "detail.size": "大小 / Size",
+      "detail.files": "文件数 / Files",
+      "detail.filesUnit": "个",
+      "detail.popularity": "热度 / Popularity",
+      "detail.popRefs": "次被引用",
+      "detail.popStandalone": "独立（无引用）",
       "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
       "empty.clear": "清除筛选",
       "share.btn": "分享",
@@ -112,6 +118,12 @@
       "detail.copyName": "Copy name",
       "detail.copied": "Copied",
       "detail.unknown": "Unknown",
+      "detail.size": "Size",
+      "detail.files": "Files",
+      "detail.filesUnit": "",
+      "detail.popularity": "Popularity",
+      "detail.popRefs": "refs",
+      "detail.popStandalone": "Standalone",
       "empty.desc": "Try a different keyword or category, or clear the current filter.",
       "empty.clear": "Clear filters",
       "share.btn": "Share",

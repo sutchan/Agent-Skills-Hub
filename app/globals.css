@@ -281,6 +281,42 @@ html[data-lang="zh"] .en { display: none; }
 /* 详情弹窗中文描述（zh-desc）：保留多段换行，段落间自然空行（配合 build 折叠标量段分隔） */
 .zh-desc { white-space: pre-line; line-height: 1.7; color: var(--text-2); }
 
+/* 详情弹窗（v1.19.14 重构：复用 .dialog 框架，含元信息区 / 相关技能 / 复制名称）
+   与原型 .detail 体系对齐，但外层为 .dialog 居中面板 */
+.detail .dialog-head.detail-head { display: flex; align-items: flex-start; gap: 12px; }
+.detail .d-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.detail .copy-tip { font-size: 12px; color: hsl(var(--primary)); opacity: 0; transform: translateY(-2px); transition: opacity .2s, transform .2s; }
+.detail .copy-tip.show { opacity: 1; transform: translateY(0); }
+/* 元信息区：2 列表格式 */
+.detail-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
+.meta-row { display: flex; flex-direction: column; gap: 3px; padding: 11px 22px; background: var(--surface); }
+.meta-k { font-size: 11.5px; color: var(--text-3); letter-spacing: .02em; }
+.meta-v { font-size: 13.5px; color: var(--text); font-weight: 500; word-break: break-word; overflow-wrap: anywhere; }
+.meta-v.link { color: hsl(var(--primary)); text-decoration: none; }
+.meta-v.link:hover { text-decoration: underline; }
+
+/* 详情派生指标：大小 / 文件数 / 热度 */
+.detail-metrics { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 22px; background: hsl(var(--muted)); border-bottom: 1px solid var(--border); }
+.metric { display: flex; flex-direction: column; gap: 4px; min-width: 92px; }
+.metric-k { font-size: 11px; color: var(--text-3); letter-spacing: .02em; }
+.metric-v { font-size: 14px; font-weight: 600; color: var(--text); }
+.metric-pop-wrap { min-width: 150px; }
+.metric-pop { display: flex; flex-direction: column; gap: 5px; }
+.heat-bars { display: flex; gap: 3px; }
+.heat-bars i { width: 16px; height: 6px; border-radius: 3px; background: var(--border); transition: background .15s; }
+.heat-bars i.on { background: hsl(var(--primary)); }
+.pop-label { font-size: 11.5px; color: var(--text-3); }
+.detail-body { display: flex; flex-direction: column; gap: 16px; }
+.d-desc { margin: 0; line-height: 1.75; color: var(--text); white-space: pre-line; }
+.d-tools h4, .d-related h4 { margin: 0 0 9px; font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: .02em; }
+.tool-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.tool-chip { font-family: var(--font-mono); font-size: 12px; padding: 3px 9px; border-radius: 7px; background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border: 1px solid var(--border); }
+.related-list { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.related-card { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: hsl(var(--muted)); cursor: pointer; text-align: left; font: inherit; color: inherit; transition: border-color .15s, transform .15s; }
+.related-card:hover { border-color: hsl(var(--primary)); transform: translateY(-1px); }
+.rc-cat { font-size: 11px; color: hsl(var(--primary)); }
+.rc-name { font-size: 13.5px; font-weight: 600; }
+
 /* prototype/src/styles/responsive.css v1.14.68 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
 
 @media (max-width: 640px) {

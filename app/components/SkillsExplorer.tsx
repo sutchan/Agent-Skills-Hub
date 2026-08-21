@@ -1,9 +1,10 @@
-// app/components/SkillsExplorer.tsx v1.19.13 — 技能浏览器（分类多选 + 搜索 + 排序 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格）
+// app/components/SkillsExplorer.tsx v1.19.14 — 技能浏览器（分类多选 + 搜索 + 排序 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格 + 详情弹窗）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
-import type { SkillsData } from "../lib/skills";
+import type { SkillsData, Skill } from "../lib/skills";
 import { SkillCard } from "./skill-card";
+import { DetailModal } from "./detail-modal";
 
 export function SkillsExplorer({
   data,
@@ -23,6 +24,7 @@ export function SkillsExplorer({
   // 名称显示策略：默认双显（中文名 + 英文原名），可切仅中文 / 仅英文
   const [nameMode, setNameMode] = useState<"both" | "zh" | "en">("both");
   const [settingsOpen, setShowSettings] = useState(false);
+  const [detail, setDetail] = useState<Skill | null>(null);
 
   // 恢复偏好（localStorage 不可用时回退默认）
   useEffect(() => {
@@ -216,7 +218,7 @@ export function SkillsExplorer({
           <SkillCard
             key={s.name}
             skill={s}
-            onOpen={() => {}}
+            onOpen={(sk) => setDetail(sk)}
             showDesc={showDesc}
             showCat={showCat}
             showBar={showBar}
@@ -224,6 +226,15 @@ export function SkillsExplorer({
           />
         ))}
       </div>
+
+      {detail && (
+        <DetailModal
+          skill={detail}
+          lang={lang}
+          allSkills={data.skills}
+          onClose={() => setDetail(null)}
+        />
+      )}
     </section>
   );
 }
