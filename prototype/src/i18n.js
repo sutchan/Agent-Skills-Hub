@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.15.0 — 独立国际化模块
+// prototype/src/i18n.js v1.17.2 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -36,6 +36,14 @@
       "filter.all": "全部",
       "empty.title": "未找到匹配的技能",
       "card.noDesc": "暂无中文描述。",
+      "result.count": "共 {n} 个技能",
+      "result.empty": "无匹配结果",
+      "settings.title": "设置",
+      "settings.langGroup": "语言 / Language",
+      "settings.language": "界面语言",
+      "settings.themeGroup": "主题 / Theme",
+      "settings.theme": "外观主题",
+      "settings.done": "完成",
       "share.promos": [
         "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
         "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
@@ -70,6 +78,14 @@
       "filter.all": "All",
       "empty.title": "No matching skills",
       "card.noDesc": "No description available.",
+      "result.count": "{n} skills",
+      "result.empty": "No matches",
+      "settings.title": "Settings",
+      "settings.langGroup": "Language",
+      "settings.language": "Interface language",
+      "settings.themeGroup": "Theme",
+      "settings.theme": "Appearance theme",
+      "settings.done": "Done",
       "share.promos": [
         "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
         "🚀 Agent Skills Hub: {n} curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",

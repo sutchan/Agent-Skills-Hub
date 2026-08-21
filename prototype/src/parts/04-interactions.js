@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.16.0 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.17.2 — 主题/语言切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -100,6 +100,28 @@ function bind() {
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
-  // 回到顶部
-  on("#toTop", "click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  // 设置按钮：打开设置弹窗（复用 dialog 框架）
+  on("#settingsBtn", "click", () => openSettings());
+  // 回到顶部：滚动超阈值后显示按钮（.show），并监听 scroll/resize 更新
+  // 使用 passive 监听避免阻塞滚动（Vercel: client-passive-event-listeners）
+  const toTop = document.getElementById("toTop");
+  const TO_TOP_THRESHOLD = 400;
+  const updateToTop = () => {
+    if (!toTop) return;
+    const show = window.scrollY > TO_TOP_THRESHOLD;
+    toTop.classList.toggle("show", show);
+    toTop.setAttribute("aria-hidden", show ? "false" : "true");
+  };
+  if (toTop) {
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    // 用 rAF 节流，避免高频 scroll 事件反复触发布局读取
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => { updateToTop(); ticking = false; });
+      }
+    }, { passive: true });
+    updateToTop();
+  }
 }

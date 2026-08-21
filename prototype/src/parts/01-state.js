@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.16.2 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.17.0 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -70,11 +70,10 @@ function catCounts() {
 let SKILL_MAP = new Map();
 
 // 搜索匹配：名称 / 描述 / 分类（不区分大小写）
-// 支持多词 AND：按空白拆分为多个词，全部命中才返回 true（如 "flutter 布局" 需同时命中 flutter 与 布局）
+// 支持多词 AND：terms 为预切分的小写词表（由 02-render.queryTerms 缓存传入，避免每张卡重复 split）
 // 预聚合小写检索串缓存在 s._hay（见 05-main init），避免每次输入重复拼接+小写化
-function matches(s, q) {
-  if (!q) return true;
+function matches(s, terms) {
+  if (!terms || !terms.length) return true;
   const hay = s._hay != null ? s._hay : (s.name + " " + s.zh + " " + s.description + " " + (s.enDescription || "") + " " + s.category + " " + (s.enCategory || "")).toLowerCase();
-  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
   return terms.every((term) => hay.includes(term));
 }

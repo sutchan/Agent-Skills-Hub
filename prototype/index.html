@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.15.0 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.17.2 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -185,15 +185,19 @@ body.no-scroll { overflow: hidden; }
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
 
-/* prototype/src/styles/layout.css v1.15.0 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.17.2 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
-/* 顶部栏 */
-.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+/* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
+.topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
+.topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 12px 24px; }
+/* 右侧按钮组（语言/主题/设置）与品牌左对齐；spacer 弹性占据中间空隙，把按钮组推到右侧 */
+.topbar-actions { display: flex; align-items: center; gap: 6px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; min-width: 0; }
 .brand .logo { width: 28px; height: 28px; }
+.brand small { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); }
 
-/* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1） */
-.hero { position: relative; overflow: hidden; border-radius: 18px; margin: 8px 0 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); }
+/* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1）；独立卡片，限宽居中与网格对齐 */
+.hero { position: relative; overflow: hidden; width: 100%; max-width: var(--maxw); margin: 8px auto 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); border-radius: 18px; }
 .hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; }
 .hero:hover .hero-net { opacity: .9; }
 .hero-inner { position: relative; z-index: 1; max-width: 720px; }
@@ -208,15 +212,18 @@ html[data-lang="zh"] .en { display: none; }
 .hero-features { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
 .hero-features li { font-size: 12.5px; line-height: 1.5; color: var(--text-2); background: hsl(var(--secondary)); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
 
-/* 控制区（搜索 + 排序 + 分类） */
+/* 控制区（搜索 + 排序 + 分类）：背景全宽，内容限宽居中（与网格 --maxw 对齐） */
 /* top 偏移由 JS 量取顶栏高度注入 --topbar-h，避免顶栏换行时硬编码 52px 错位（P2-1） */
-.controls { position: sticky; top: var(--topbar-h, 52px); z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.controls { position: sticky; top: var(--topbar-h, 52px); z-index: 20; background: var(--surface); border-bottom: 1px solid var(--border); }
+.controls-inner { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 14px 24px; }
 .search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
 .search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 15px; color: var(--text); }
 .search .icon { opacity: .6; }
-/* 分类筛选条：桌面换行，移动端横向可滚动（DESIGN §5） */
+/* 结果计数（搜索/筛选后的条数播报与展示，aria-live 提供读屏反馈） */
+.result-count { margin-left: auto; font-size: 12.5px; color: var(--text-2); white-space: nowrap; }
+/* 分类筛选条：桌面换行，移动端横向可滚动（DESIGN §5）；内容限宽居中与网格对齐 */
 .cats { width: 100%; overflow: hidden; }
-.cats-scroll { display: flex; flex-wrap: wrap; gap: 8px; }
+.cats-scroll { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 4px 24px; }
 @media (max-width: 640px) {
   .cats-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
   .cats-scroll::-webkit-scrollbar { display: none; }
@@ -253,21 +260,21 @@ html[data-lang="zh"] .en { display: none; }
 .empty-state .empty-title { font-size: 18px; font-weight: 600; color: var(--text); }
 .empty-state .empty-desc { font-size: 14px; }
 
-/* 页脚 */
+/* 页脚：背景全宽，内容限宽居中（--maxw，与其余栏一致） */
 .site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }
-.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
 .footer-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
 .footer-brand .logo { width: 26px; height: 26px; }
 .footer-desc { color: var(--text-2); font-size: 13px; margin-top: 4px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
 .footer-link { color: var(--text-2); text-decoration: none; font-size: 13px; }
 .footer-link:hover { color: var(--primary); }
-.footer-bottom { max-width: 1200px; margin: 16px auto 0; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--text-2); font-size: 12px; }
+.footer-bottom { max-width: var(--maxw); margin: 16px auto 0; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--text-2); font-size: 12px; }
 .footer-ver { font-weight: 600; color: var(--text); }
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
 
-/* prototype/src/styles/components.css v1.15.0 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.17.2 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -288,17 +295,26 @@ html[data-lang="zh"] .en { display: none; }
    渲染为原生 <button>（a11y 语义），需重置 button 默认样式 */
 .card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
-.card:focus-visible { border-color: var(--primary); }
+/* 焦点态与 hover 区分：键盘焦点用主色描边+偏移，避免与 hover 的边框变色混淆（C4） */
+.card:focus-visible { border-color: var(--primary); box-shadow: var(--shadow-pop), 0 0 0 2px hsl(var(--ring) / .45); }
 /* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
 .card .cat-bar { height: 4px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 50%); margin: -16px -16px 0; }
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); display: grid; place-items: center; font-weight: 700; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; }
-.title-row { display: flex; align-items: center; gap: 10px; }
-.card-title { font-family: var(--font-display); font-weight: 600; }
+.title-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; }
+/* 英文名（kebab-case 长 slug）在卡片内换行防溢出（B4），中文名仍随语言显隐 */
+.card-title .en { display: inline; overflow-wrap: break-word; word-break: break-word; }
 /* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 2 行截断 */
 .card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .card-desc > span { display: block; }
 .card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
+
+/* 通用图标按钮（语言/主题/设置/弹窗关闭）：统一尺寸与垂直对齐，修复顶部栏按钮参差 */
+.icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-radius: 9px; color: var(--text-2); transition: background .15s, color .15s; line-height: 1; font-size: 14px; }
+.icon-btn:hover { background: hsl(var(--secondary)); color: var(--text); }
+.icon-btn:active { transform: translateY(0); }
+.icon-btn[aria-pressed="true"] { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
 
 /* 视图切换（网格/列表）：图标按钮，active 态主色高亮 */
 .view-toggle { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
@@ -306,6 +322,8 @@ html[data-lang="zh"] .en { display: none; }
 .view-btn:hover { color: var(--text); }
 .view-btn.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
 
+/* 以下 .badge/.src-badge/.skeleton/.separator/.tool-tag/.skill-link 为「对齐 app 组件库」的预留类：
+   当前原型单页目录未使用，保留以维持 DESIGN/COMPONENTS 对齐契约，不删除（避免破坏导出契约） */
 /* 徽章（Badge）：小型状态/计数标签，默认主色浅底；变体 primary/secondary/muted（对齐 COMPONENTS #4） */
 .badge { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11px; font-weight: 600; line-height: 1; background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); border: 1px solid transparent; }
 .badge.secondary { background: hsl(var(--secondary)); color: hsl(var(--secondary-foreground)); border-color: var(--border); }
@@ -347,26 +365,30 @@ html[data-lang="zh"] .en { display: none; }
 /* 工具标签（原语 .tool-tag，可选复用） */
 .tool-tag { font-family: var(--font-mono); font-size: 12.5px; padding: 3px 9px; border-radius: 7px; background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border: 1px solid var(--border); }
 
+/* 设置弹窗行：标签 + 切换按钮，横向排布 */
+.settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; }
+.settings-label { font-size: 14px; color: var(--text); }
+
 /* 弹窗底部操作区 */
 .dialog-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 16px 22px; border-top: 1px solid var(--border); }
 
 /* 详情弹窗中文描述（zh-desc）：保留多段换行，段落间自然空行（配合 build 折叠标量段分隔） */
 .zh-desc { white-space: pre-line; line-height: 1.7; color: var(--text-2); }
 
-/* prototype/src/styles/responsive.css v1.15.0 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
+/* prototype/src/styles/responsive.css v1.17.1 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
 
 /* 平板断点（P2-2）：压缩 hero 字号与顶栏间距，避免 641–1024 区间拥挤 */
 @media (max-width: 1024px) {
-  .hero { padding: 36px 24px; margin: 8px 0 22px; }
+  .hero { padding: 36px 24px; margin: 8px auto 22px; }
   .hero h1 { font-size: clamp(26px, 3.6vw, 38px); }
-  .topbar { padding: 10px 18px; }
+  .topbar-inner { padding: 10px 18px; }
   .grid { padding: 20px; gap: 14px; }
 }
 
 @media (max-width: 640px) {
-  .topbar { padding: 10px 16px; }
+  .topbar-inner { padding: 10px 16px; }
   .hero { padding: 36px 16px 22px; }
-  .controls { padding: 12px 16px; top: var(--topbar-h, 48px); }
+  .controls-inner { padding: 12px 16px; }
   .search { flex: 1 1 100%; }
   /* 移动端 grid 与 list 视觉相同（都单列），隐藏无效的视图切换控件 */
   .view-toggle { display: none; }
@@ -413,23 +435,30 @@ html[data-lang="zh"] .en { display: none; }
   <header class="topbar" id="siteHeader">
     <div class="topbar-inner" id="topbarInner">
       <a class="brand" id="brandLink" href="#">
-        <svg class="logo" style="width:22px;height:22px" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
+        <svg class="logo" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
           <rect width="32" height="32" rx="8" fill="url(#ash-grad)" />
           <use href="#ash-hub" xlink:href="#ash-hub" width="32" height="32" color="#fff" />
         </svg>
         <span>Skills Hub <small data-i18n="brand.subtitle">高质量 Agent 技能库</small></span>
       </a>
-      <div class="topbar-spacer"></div>
-      <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言 / Switch language" aria-pressed="false">中</button>
-      <button class="icon-btn" id="themeBtn" title="主题 / Theme" aria-label="切换主题 / Switch theme" aria-pressed="false">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="themeIcon">
-          <g class="theme-sun">
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
-          </g>
-          <path class="theme-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" style="display:none"></path>
-        </svg>
-      </button>
+      <div class="topbar-actions" id="topbarActions">
+        <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言 / Switch language" aria-pressed="false">中</button>
+        <button class="icon-btn" id="themeBtn" title="主题 / Theme" aria-label="切换主题 / Switch theme" aria-pressed="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="themeIcon">
+            <g class="theme-sun">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+            </g>
+            <path class="theme-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" style="display:none"></path>
+          </svg>
+        </button>
+        <button class="icon-btn" id="settingsBtn" title="设置 / Settings" aria-label="打开设置 / Open settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -466,24 +495,27 @@ html[data-lang="zh"] .en { display: none; }
   </section>
 
   <div class="controls" id="searchControls">
-    <form class="search" id="searchBox" role="search" onsubmit="return false">
-      <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
-      <label class="sr-only" for="searchInput">搜索技能 / Search skills</label>
-      <input id="searchInput" type="search" placeholder="搜索技能名称或描述…" />
-    </form>
-    <div class="view-toggle" id="viewToggle">
-      <button class="view-btn active" data-view="grid" title="网格">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
-      </button>
-      <button class="view-btn" data-view="list" title="列表">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg>
-      </button>
+    <div class="controls-inner" id="searchControlsInner">
+      <form class="search" id="searchBox" role="search" onsubmit="return false">
+        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <label class="sr-only" for="searchInput">搜索技能 / Search skills</label>
+        <input id="searchInput" type="search" placeholder="搜索技能名称或描述…" />
+      </form>
+      <div class="view-toggle" id="viewToggle">
+        <button class="view-btn active" data-view="grid" title="网格">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+        </button>
+        <button class="view-btn" data-view="list" title="列表">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg>
+        </button>
+      </div>
+      <span class="result-count" id="resultCount" aria-live="polite"></span>
     </div>
   </div>
 
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="cats-scroll" id="cats"></div></nav>
 
-  <main class="grid" id="grid" aria-label="技能列表" aria-live="polite"></main>
+  <main class="grid" id="grid" aria-label="技能列表" aria-live="off"></main>
 
   <!-- 页脚区：品牌 + 导航链接 + 版本/协议（id 供脚本与测试精确选取；文案随语言切换） -->
   <footer class="site-footer" id="siteFooter">
@@ -505,7 +537,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.16.2</span>
+      <span class="footer-ver" id="footerVer">v1.17.2</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -1114,7 +1146,7 @@ html[data-lang="zh"] .en { display: none; }
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.15.0 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.17.2 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -1152,6 +1184,14 @@ html[data-lang="zh"] .en { display: none; }
       "filter.all": "全部",
       "empty.title": "未找到匹配的技能",
       "card.noDesc": "暂无中文描述。",
+      "result.count": "共 {n} 个技能",
+      "result.empty": "无匹配结果",
+      "settings.title": "设置",
+      "settings.langGroup": "语言 / Language",
+      "settings.language": "界面语言",
+      "settings.themeGroup": "主题 / Theme",
+      "settings.theme": "外观主题",
+      "settings.done": "完成",
       "share.promos": [
         "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
         "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
@@ -1186,6 +1226,14 @@ html[data-lang="zh"] .en { display: none; }
       "filter.all": "All",
       "empty.title": "No matching skills",
       "card.noDesc": "No description available.",
+      "result.count": "{n} skills",
+      "result.empty": "No matches",
+      "settings.title": "Settings",
+      "settings.langGroup": "Language",
+      "settings.language": "Interface language",
+      "settings.themeGroup": "Theme",
+      "settings.theme": "Appearance theme",
+      "settings.done": "Done",
       "share.promos": [
         "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
         "🚀 Agent Skills Hub: {n} curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
@@ -1306,7 +1354,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/parts/01-state.js v1.16.2 — 常量、偏好状态与纯工具函数
+  <script>// prototype/src/parts/01-state.js v1.17.0 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -1378,16 +1426,15 @@ function catCounts() {
 let SKILL_MAP = new Map();
 
 // 搜索匹配：名称 / 描述 / 分类（不区分大小写）
-// 支持多词 AND：按空白拆分为多个词，全部命中才返回 true（如 "flutter 布局" 需同时命中 flutter 与 布局）
+// 支持多词 AND：terms 为预切分的小写词表（由 02-render.queryTerms 缓存传入，避免每张卡重复 split）
 // 预聚合小写检索串缓存在 s._hay（见 05-main init），避免每次输入重复拼接+小写化
-function matches(s, q) {
-  if (!q) return true;
+function matches(s, terms) {
+  if (!terms || !terms.length) return true;
   const hay = s._hay != null ? s._hay : (s.name + " " + s.zh + " " + s.description + " " + (s.enDescription || "") + " " + s.category + " " + (s.enCategory || "")).toLowerCase();
-  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
   return terms.every((term) => hay.includes(term));
 }
 
-// prototype/src/parts/02-render.js v1.16.2 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.17.0 — 列表/网格渲染与统计
 function renderStats() {
   // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
   $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
@@ -1451,19 +1498,34 @@ function emptyHTML() {
   </div>`;
 }
 
+// query 词表缓存：仅当 query 变化时重新切分，避免每张卡重复 split（Vercel: js-cache-function-results）
+let _queryTermsCache = null;
+function queryTerms(q) {
+  if (!q) return null;
+  if (_queryTermsCache && _queryTermsCache.q === q) return _queryTermsCache.terms;
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  _queryTermsCache = { q, terms };
+  return terms;
+}
+
 function renderGrid() {
   const q = state.query.trim();
-  const list = SKILLS_DATA.skills.filter((s) => !s.hidden && matches(s, q) && (!state.cat || s.category === state.cat));
+  const terms = queryTerms(q);
+  const list = SKILLS_DATA.skills.filter((s) => !s.hidden && matches(s, terms) && (!state.cat || s.category === state.cat));
   const counts = catCounts();
   renderStats();
   renderCats(counts);
   const grid = $("#grid");
   grid.className = "grid " + state.view;
-  grid.setAttribute("aria-live", "polite");
   grid.innerHTML = list.length ? list.map(cardHTML).join("") : emptyHTML();
+  // 结果计数 live 区：搜索/筛选后只播报数量，避免读屏朗读整网格（随当前语言）
+  const rc = $("#resultCount");
+  if (rc) rc.textContent = list.length
+    ? I18N.t("result.count").replace("{n}", list.length)
+    : I18N.t("result.empty");
 }
 
-// prototype/src/parts/03-detail.js v1.16.2 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.17.2 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -1501,6 +1563,75 @@ function openDetail(s) {
   trapFocus(dialog);
   $("#closeBtn").addEventListener("click", closeDetail);
   $("#shareBtn").addEventListener("click", () => shareSkill(s));
+}
+
+// 设置弹窗：复用现有 #dialog 框架（trapFocus/closeDetail），承载语言/主题切换
+function openSettings() {
+  track("open_settings");
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
+  dialog._lastFocused = document.activeElement;
+  const html = `
+    <div id="dialogHead" class="dialog-head">
+      <div class="avatar">⚙</div>
+      <div><h2 id="dialogVisibleTitle" class="dialog-title">${I18N.t("settings.title")}</h2></div>
+      <button id="closeBtn" class="icon-btn dialog-close" aria-label="${I18N.t("detail.close")}">✕</button>
+    </div>
+    <div id="dialogBody" class="dialog-body">
+      <section class="block">
+        <h3>${I18N.t("settings.langGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.language")}</span>
+          <button id="settingsLangBtn" class="btn btn-outline" aria-pressed="${state.lang === "en"}">${state.lang === "zh" ? "中文" : "English"}</button>
+        </div>
+      </section>
+      <section class="block">
+        <h3>${I18N.t("settings.themeGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.theme")}</span>
+          <button id="settingsThemeBtn" class="btn btn-outline" aria-pressed="${state.theme === "dark"}">${state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"}</button>
+        </div>
+      </section>
+    </div>
+    <div id="dialogFoot" class="dialog-foot">
+      <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
+    </div>`;
+  dialog.innerHTML = html;
+  overlay.classList.add("show");
+  dialog.classList.add("show");
+  document.body.classList.add("no-scroll");
+  trapFocus(dialog);
+  $("#closeBtn").addEventListener("click", closeDetail);
+  $("#settingsDoneBtn").addEventListener("click", closeDetail);
+  // 语言/主题切换：复用现有 applyLang/applyTheme（同作用域）；就地更新文案，不重建弹窗避免焦点/监听抖动
+  $("#settingsLangBtn").addEventListener("click", () => {
+    state.lang = state.lang === "zh" ? "en" : "zh";
+    savePref(LS_LANG, state.lang);
+    applyLang();
+    refreshSettingsBody();
+  });
+  $("#settingsThemeBtn").addEventListener("click", () => {
+    state.theme = state.theme === "light" ? "dark" : "light";
+    savePref(LS_THEME, state.theme);
+    applyTheme();
+    const b = $("#settingsThemeBtn");
+    if (b) { b.textContent = state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"; b.setAttribute("aria-pressed", state.theme === "dark"); }
+  });
+}
+
+// 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）
+function refreshSettingsBody() {
+  const title = $("#dialogVisibleTitle");
+  if (title) title.textContent = I18N.t("settings.title");
+  const langBtn = $("#settingsLangBtn");
+  if (langBtn) { langBtn.textContent = state.lang === "zh" ? "中文" : "English"; langBtn.setAttribute("aria-pressed", state.lang === "en"); }
+  // 区块标题与标签为动态 i18n，直接查询并更新
+  const heads = document.querySelectorAll("#dialogBody .block h3");
+  if (heads[0]) heads[0].textContent = I18N.t("settings.langGroup");
+  if (heads[1]) heads[1].textContent = I18N.t("settings.themeGroup");
+  const labels = document.querySelectorAll("#dialogBody .settings-label");
+  if (labels[0]) labels[0].textContent = I18N.t("settings.language");
+  if (labels[1]) labels[1].textContent = I18N.t("settings.theme");
 }
 
 function closeDetail() {
@@ -1599,7 +1730,7 @@ function showToast(msg) {
   t._timer = setTimeout(() => t.classList.remove("show"), 2000);
 }
 
-// prototype/src/parts/04-interactions.js v1.16.0 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.17.2 — 主题/语言切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -1701,8 +1832,30 @@ function bind() {
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
-  // 回到顶部
-  on("#toTop", "click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  // 设置按钮：打开设置弹窗（复用 dialog 框架）
+  on("#settingsBtn", "click", () => openSettings());
+  // 回到顶部：滚动超阈值后显示按钮（.show），并监听 scroll/resize 更新
+  // 使用 passive 监听避免阻塞滚动（Vercel: client-passive-event-listeners）
+  const toTop = document.getElementById("toTop");
+  const TO_TOP_THRESHOLD = 400;
+  const updateToTop = () => {
+    if (!toTop) return;
+    const show = window.scrollY > TO_TOP_THRESHOLD;
+    toTop.classList.toggle("show", show);
+    toTop.setAttribute("aria-hidden", show ? "false" : "true");
+  };
+  if (toTop) {
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    // 用 rAF 节流，避免高频 scroll 事件反复触发布局读取
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => { updateToTop(); ticking = false; });
+      }
+    }, { passive: true });
+    updateToTop();
+  }
 }
 
 // prototype/src/parts/05-main.js v1.16.2 — 应用启动编排

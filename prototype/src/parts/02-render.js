@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.16.2 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.17.0 — 列表/网格渲染与统计
 function renderStats() {
   // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
   $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
@@ -62,14 +62,29 @@ function emptyHTML() {
   </div>`;
 }
 
+// query 词表缓存：仅当 query 变化时重新切分，避免每张卡重复 split（Vercel: js-cache-function-results）
+let _queryTermsCache = null;
+function queryTerms(q) {
+  if (!q) return null;
+  if (_queryTermsCache && _queryTermsCache.q === q) return _queryTermsCache.terms;
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  _queryTermsCache = { q, terms };
+  return terms;
+}
+
 function renderGrid() {
   const q = state.query.trim();
-  const list = SKILLS_DATA.skills.filter((s) => !s.hidden && matches(s, q) && (!state.cat || s.category === state.cat));
+  const terms = queryTerms(q);
+  const list = SKILLS_DATA.skills.filter((s) => !s.hidden && matches(s, terms) && (!state.cat || s.category === state.cat));
   const counts = catCounts();
   renderStats();
   renderCats(counts);
   const grid = $("#grid");
   grid.className = "grid " + state.view;
-  grid.setAttribute("aria-live", "polite");
   grid.innerHTML = list.length ? list.map(cardHTML).join("") : emptyHTML();
+  // 结果计数 live 区：搜索/筛选后只播报数量，避免读屏朗读整网格（随当前语言）
+  const rc = $("#resultCount");
+  if (rc) rc.textContent = list.length
+    ? I18N.t("result.count").replace("{n}", list.length)
+    : I18N.t("result.empty");
 }

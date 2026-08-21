@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.16.2 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.17.2 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -36,6 +36,75 @@ function openDetail(s) {
   trapFocus(dialog);
   $("#closeBtn").addEventListener("click", closeDetail);
   $("#shareBtn").addEventListener("click", () => shareSkill(s));
+}
+
+// 设置弹窗：复用现有 #dialog 框架（trapFocus/closeDetail），承载语言/主题切换
+function openSettings() {
+  track("open_settings");
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
+  dialog._lastFocused = document.activeElement;
+  const html = `
+    <div id="dialogHead" class="dialog-head">
+      <div class="avatar">⚙</div>
+      <div><h2 id="dialogVisibleTitle" class="dialog-title">${I18N.t("settings.title")}</h2></div>
+      <button id="closeBtn" class="icon-btn dialog-close" aria-label="${I18N.t("detail.close")}">✕</button>
+    </div>
+    <div id="dialogBody" class="dialog-body">
+      <section class="block">
+        <h3>${I18N.t("settings.langGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.language")}</span>
+          <button id="settingsLangBtn" class="btn btn-outline" aria-pressed="${state.lang === "en"}">${state.lang === "zh" ? "中文" : "English"}</button>
+        </div>
+      </section>
+      <section class="block">
+        <h3>${I18N.t("settings.themeGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.theme")}</span>
+          <button id="settingsThemeBtn" class="btn btn-outline" aria-pressed="${state.theme === "dark"}">${state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"}</button>
+        </div>
+      </section>
+    </div>
+    <div id="dialogFoot" class="dialog-foot">
+      <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
+    </div>`;
+  dialog.innerHTML = html;
+  overlay.classList.add("show");
+  dialog.classList.add("show");
+  document.body.classList.add("no-scroll");
+  trapFocus(dialog);
+  $("#closeBtn").addEventListener("click", closeDetail);
+  $("#settingsDoneBtn").addEventListener("click", closeDetail);
+  // 语言/主题切换：复用现有 applyLang/applyTheme（同作用域）；就地更新文案，不重建弹窗避免焦点/监听抖动
+  $("#settingsLangBtn").addEventListener("click", () => {
+    state.lang = state.lang === "zh" ? "en" : "zh";
+    savePref(LS_LANG, state.lang);
+    applyLang();
+    refreshSettingsBody();
+  });
+  $("#settingsThemeBtn").addEventListener("click", () => {
+    state.theme = state.theme === "light" ? "dark" : "light";
+    savePref(LS_THEME, state.theme);
+    applyTheme();
+    const b = $("#settingsThemeBtn");
+    if (b) { b.textContent = state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"; b.setAttribute("aria-pressed", state.theme === "dark"); }
+  });
+}
+
+// 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）
+function refreshSettingsBody() {
+  const title = $("#dialogVisibleTitle");
+  if (title) title.textContent = I18N.t("settings.title");
+  const langBtn = $("#settingsLangBtn");
+  if (langBtn) { langBtn.textContent = state.lang === "zh" ? "中文" : "English"; langBtn.setAttribute("aria-pressed", state.lang === "en"); }
+  // 区块标题与标签为动态 i18n，直接查询并更新
+  const heads = document.querySelectorAll("#dialogBody .block h3");
+  if (heads[0]) heads[0].textContent = I18N.t("settings.langGroup");
+  if (heads[1]) heads[1].textContent = I18N.t("settings.themeGroup");
+  const labels = document.querySelectorAll("#dialogBody .settings-label");
+  if (labels[0]) labels[0].textContent = I18N.t("settings.language");
+  if (labels[1]) labels[1].textContent = I18N.t("settings.theme");
 }
 
 function closeDetail() {
