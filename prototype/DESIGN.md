@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.17.3
+> 路径：`prototype/DESIGN.md` · 版本：1.19.1
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -258,7 +258,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.18.1 — 文档与实现对齐：中文态卡片标题与详情副标题同时显示中文译名（主）+ 英文原名（弱化副标题，`--text-2`/11px/margin-top:2px），英文态仅显示英文原名（全局 `[data-lang=en] .zh` 隐藏中文译名）；选择器 `:root[data-lang=zh] .card-title .en` / `#dialog .sub.en` 提权至 (0,3,0) 覆盖全局 `.en{display:none}`；描述区 `.card-desc .zh/.en` 仍互斥。其余同 v1.18.0（设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
+> 版本：v1.18.3 — 页眉品牌区优化：品牌名统一衬线 `--font-display`（对齐 §2.2/§8.6），主名与副标题分两行形成清晰层级（`.brand-text`/`.brand-name`/`.brand-sub`，副标题 `--text-2`/11px/弱化）；logo 加极淡主绿光晕 `box-shadow` + hover 微缩放 `scale(1.06)` 提升质感（尊重 reduced-motion）；结构与样式在 `prototype/src/index.html`+`layout.css` 与 `app/app/AppShell.tsx`+`globals.css` 同步。其余同 v1.18.1（中文态卡片标题双语、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
 
 ### 8.1 标志释义（Logo）
 
@@ -308,6 +308,6 @@
 
 ### 8.6 使用约定
 
-- 页眉品牌区：标志（22×22）+ 文字「Agent Skills Hub」（衬线 `--font-display`），见 `app/components/AppShell.tsx` 的 `BrandMark()` 与原型 `prototype/src/index.html` 的 `.brand`。
+- 页眉品牌区：标志（30×30，圆角底 + 极淡主绿光晕 `box-shadow`，hover `scale(1.06)`）+ 文字两行——主名「Agent Skills Hub」（衬线 `--font-display`，17px/700）+ 副标题（11px/`--text-2`/弱化），见 `app/components/AppShell.tsx` 的 `BrandMark()`+`.brand-text` 与原型 `prototype/src/index.html` 的 `.brand`+`.brand-text`。
 - 代码内联引用：原型用 data-URI 内联 `app/public/hub.svg` 的 symbol + 外链 `favicon.svg` 双重声明（见 `prototype/src/index.html` `<head>`）。
 - 品牌资产变更须同步：①本 §8 与 README「品牌资产」；②`app/public/hub.svg` 与 `app/public/*` 资产同源；③版本号 bump。

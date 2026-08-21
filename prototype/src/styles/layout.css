@@ -1,13 +1,16 @@
-/* prototype/src/styles/layout.css v1.17.2 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.18.3 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
 .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 12px 24px; }
 /* 右侧按钮组（语言/主题/设置）与品牌左对齐；spacer 弹性占据中间空隙，把按钮组推到右侧 */
 .topbar-actions { display: flex; align-items: center; gap: 6px; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; min-width: 0; }
-.brand .logo { width: 28px; height: 28px; }
-.brand small { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 700; min-width: 0; text-decoration: none; color: inherit; }
+.brand .logo { width: 30px; height: 30px; flex: none; border-radius: 8px; transition: transform .25s ease, box-shadow .25s ease; box-shadow: 0 2px 8px hsl(var(--primary) / .28); }
+.brand:hover .logo { transform: scale(1.06); box-shadow: 0 4px 14px hsl(var(--primary) / .42); }
+.brand-text { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.brand-name { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: -.01em; color: var(--text-1); }
+.brand-sub { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1）；独立卡片，限宽居中与网格对齐 */
 .hero { position: relative; overflow: hidden; width: 100%; max-width: var(--maxw); margin: 8px auto 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); border-radius: 18px; }

@@ -2,6 +2,35 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.0] - 2026-08-21
+
+### feat: 新增 4 个平行分类维度，扩展技能领域体系
+
+- **新增分类**（从既有 5 类扩展为 9 类）：`AI 与智能体`(AI & Agents)、`音视频与多媒体`(Media & Multimedia)、`自动化与集成`(Automation & Integration)、`安全`(Security)
+- **重归类 32 个技能**：跨类技能按语义归入新维度（如 agent-development/eve/google-agents-cli-* 归入 AI 与智能体；ai-video-generation/ai-music/remotion/video 等归入音视频与多媒体；twitter-api/instagram-api/workflow/windows-ui-automation 等归入自动化与集成；better-auth/fix-sentry-issues/safe-debug/clerk 归入安全）
+- **9 类计数**：品牌与设计 21 / 文档与内容 11 / 数据分析与可视化 2 / 开发框架与平台 56 / 文件与格式处理 4 / AI 与智能体 8 / 音视频与多媒体 10 / 自动化与集成 10 / 安全 4（共 125 可见）
+- **全链路同步**：`build-skills-data.mjs` 分类动态追加（未知分类自动末位）；`prototype/index.html` 与 `app`（读根 `data/skills-data.json`）经 `npm run build` 自动带 9 分类；展示层 `categoryEn` 映射动态生成
+- **文档同步**：README/README.en 领域表（9 类）、开场文案（9 domains）、CONTRIBUTING 分类清单、头注释与版本徽章同步至 v1.19.0
+
+## [1.18.3] - 2026-08-21
+
+### style: 优化页眉 logo 品牌区视觉层级
+
+- **品牌名衬线化**：主名「Agent Skills Hub」改用衬线 `--font-display`（17px/700/字距 -.01em），符合 DESIGN §2.2/§8.6，与无衬线正文形成层级对比
+- **两行层级结构**：新增 `.brand-text` 容器，主名 + 副标题（11px/`--text-2`/弱化）分两行清晰呈现，副标题长文本 ellipsis 防溢出
+- **logo 质感提升**：30×30 圆角底 + 极淡主绿光晕 `box-shadow`(.28)，hover `scale(1.06)` 微缩放 + 光晕加深(.42)，过渡 0.25s；尊重 `prefers-reduced-motion`
+- **同步范围**：`prototype/src/index.html`+`layout.css` 与 `app/app/AppShell.tsx`+`globals.css`；`prototype/DESIGN.md` §8 版本标注与 §8.6 使用约定同步
+- **版本同步**：`package.json` 升至 v1.18.3，被改文件头注释同步；`npm run build` 注入 footer v1.18.3
+
+## [1.18.2] - 2026-08-21
+
+### perf: 修复依赖一致性并按 React/Next 性能最佳实践优化渲染
+
+- **依赖修复**：`app/package.json` 中 `react-dom` 由 `^18.3.0` 统一至 `^19.2.8`，`@types/react-dom` 同步至 `^19.2.18`，消除与 React 19 reconciler 不兼容的运行时崩溃风险
+- **配置清理**：`app/next.config.mjs` 移除 React 19 下已弃用且失效的 `reactStrictMode` 字段，补充 `images.formats`（avif/webp）优化占位
+- **渲染优化**：`SkillsExplorer` 将分类计数预计算为 `useMemo`（`catCount`），避免渲染期对每个分类重复 `skills.filter()` 全量遍历（语言切换/每次 render 不再重算）
+- **版本同步**：`package.json` 升至 v1.18.2，被改文件头注释同步；`app/package.json` 升至 v1.1.14
+
 ## [1.18.1] - 2026-08-21
 
 ### feat: 中文态标题同时显示英文原名与中文译名（原型 + app 同步）
@@ -1295,3 +1324,5 @@
 [1.17.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.17.4
 [1.18.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.0
 [1.18.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.1
+[1.18.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.2
+[1.18.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.3
