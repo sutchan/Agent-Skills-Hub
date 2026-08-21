@@ -1,4 +1,4 @@
-// app/components/ui/lang-toggle.tsx v1.14.72 — 语言切换（对齐 COMPONENTS #12）
+// app/components/ui/lang-toggle.tsx v1.18.0 — 语言切换（对齐 COMPONENTS #12）
 import { t } from "@/lib/i18n";
 
 interface Props {

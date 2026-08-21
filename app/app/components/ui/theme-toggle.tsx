@@ -1,4 +1,4 @@
-// app/components/ui/theme-toggle.tsx v1.14.72 — 主题切换（对齐 COMPONENTS #11）
+// app/components/ui/theme-toggle.tsx v1.18.0 — 主题切换（对齐 COMPONENTS #11）
 import { t } from "@/lib/i18n";
 
 interface Props {

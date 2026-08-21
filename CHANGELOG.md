@@ -13,6 +13,19 @@
 - **i18n**：`i18n.js` 新增 `settings.viewGroup/view/viewGrid/viewList/densityGroup/density/densityComfortable/densityCompact` 中英文案
 - **版本同步**：`package.json` 升至 v1.18.0，6 个改动源文件头注释同步；`npm run build` 注入 footer v1.18.0
 
+### refactor: app 层对齐原型（同版本 v1.18.0）
+
+补齐 app（Next.js 实现）相对 prototype 的对齐缺口（code-review 双轴审查发现）：
+- **设置弹窗**：新增 `app/app/components/ui/settings-dialog.tsx` + 顶栏 `#settingsBtn` 齿轮按钮，聚合语言/主题/视图/密度四组（复用 Dialog 焦点陷阱）
+- **显示密度**：`AppShell` 新增 `density` 状态（`ash-density` 持久化 + `<html data-density>`），`globals.css` 补 `:root[data-density="compact"]` 间距规则
+- **视图持久化**：view 状态提升至 `AppShell` 统一持有（`ash-view` 恢复/写回），设置弹窗与顶栏 ViewToggle 同步切换
+- **搜索防抖 + composition 拦截**：`SkillsExplorer` 输入 120ms 防抖，中文/日文输入未落定时不触发过滤（对齐原型）
+- **结果计数 + 回到顶部**：新增 `#resultCount`（`aria-live` 实时播报）与 `#toTop`（滚动阈值显示）
+- **原生 button 卡片**：`skill-card.tsx` 由 `role="button"+tabIndex` 改为原生 `<button>`
+- **焦点陷阱**：`ui/dialog.tsx` 补 Tab 循环陷阱（对齐原型 `trapFocus`）
+- **a11y 修复**：`i18n.ts` 补 `a11y.lang`/`a11y.theme` 等键（修复 LangToggle/ThemeToggle aria-label 显示 key 原文）；`skill-detail.tsx` zh 缺失回退 name
+- **规范同步**：app 下 11 个源文件头注释统一至 v1.18.0；`tsc --noEmit` 通过
+
 ## [1.17.4] - 2026-08-21
 
 ### fix: 补全技能 frontmatter 消除「其他」分类、清理重复描述并重建数据

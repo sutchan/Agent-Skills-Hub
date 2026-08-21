@@ -199,6 +199,7 @@
 - 分类 chip 用 `aria-pressed` 反映选中态。
 - 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
 - 顶部栏图标按钮统一 `.icon-btn`（34px、flex 居中、`aria-pressed`/`aria-label`），`#settingsBtn` 带 `aria-label`（v1.17.2 补齐样式，修复按钮参差对齐）。
+- **app 层对齐（v1.18.0）**：`app/components/skill-card.tsx` 卡片根已改为原生 `<button>`（原 `role="button"+tabIndex` 手动键盘处理已移除，依赖原生 Enter/Space）；`app/components/ui/dialog.tsx` 补 Tab 焦点陷阱循环（与原型 `trapFocus` 对齐）；`AppShell.tsx` 新增 `#settingsBtn` 齿轮按钮 + `ui/settings-dialog.tsx` 设置弹窗（聚合语言/主题/视图/密度四组，复用 Dialog 焦点陷阱）；`SkillsExplorer.tsx` 新增视图持久化（`ash-view`，由 AppShell 统一持有）、搜索防抖 + composition 拦截（对齐原型 `DEBOUNCE_MS`）、结果计数 `#resultCount`（aria-live）、回到顶部 `#toTop`；`app/globals.css` 补 `:root[data-density="compact"]` 紧凑密度规则与 `.result-count`/`.settings-row` 样式。
 
 ### 4.6 页脚区（Footer）
 

@@ -1,4 +1,4 @@
-// app/components/skill-detail.tsx v1.16.2 — 技能详情内容（对齐 prototype 03-detail.js openDetail）
+// app/components/skill-detail.tsx v1.18.0 — 技能详情内容（对齐 prototype 03-detail.js openDetail）
 // 桌面 Dialog / 移动 Sheet 共用此内容体；结构与原型一致：head(avatar+title+close) + body(.block 区块) + foot(查看/分享)。
 import { useState } from "react";
 import type { Skill } from "@/lib/types";
@@ -45,7 +45,7 @@ export function SkillDetail({ skill, lang, toast, onClose }: Props) {
       <div className="dialog-body" id="dialogBody">
         <section className="block">
           <h3 className="zh">{t(lang, "detail.zhTitle")}</h3>
-          <p>{skill.zh}</p>
+          <p>{skill.zh || skill.name}</p>
           <p className="zh-desc">{skill.description}</p>
         </section>
         <section className="block">

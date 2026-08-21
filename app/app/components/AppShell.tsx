@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.14.71 — 应用外壳（语言/主题切换 + 品牌 + 技能浏览）
+// app/components/AppShell.tsx v1.18.0 — 应用外壳（语言/主题/密度切换 + 设置弹窗 + 品牌 + 技能浏览）
 "use client";
 
 import { useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import type { Lang } from "../lib/share";
 import { SkillsExplorer } from "./SkillsExplorer";
 import { LangToggle } from "./ui/lang-toggle";
 import { ThemeToggle } from "./ui/theme-toggle";
+import { SettingsDialog } from "./ui/settings-dialog";
 import { t } from "@/lib/i18n";
 
 // 品牌标记：引用唯一来源 app/public/hub.svg 的 <symbol id="ash-hub">（currentColor 驱动）
@@ -27,12 +28,15 @@ interface Props {
   version?: string;
 }
 
-/** 应用外壳：管理当前界面语言（中/英）与主题（浅/深），承载技能浏览与分享。 */
+/** 应用外壳：管理当前界面语言（中/英）、主题（浅/深）与显示密度，承载技能浏览与分享。 */
 export function AppShell({ skills, categories, total, version = "" }: Props) {
   const [lang, setLang] = useState<Lang>("zh");
   const [dark, setDark] = useState(false);
+  const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
+  const [view, setView] = useState<"grid" | "list">("grid");
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
-  // 从 localStorage 恢复偏好（对齐 prototype 01-state：key ash-theme / ash-lang，SSR 安全）
+  // 从 localStorage 恢复偏好（对齐 prototype 01-state：key ash-theme / ash-lang / ash-density / ash-view，SSR 安全）
   useEffect(() => {
     try {
       if (typeof window === "undefined") return;
@@ -40,6 +44,10 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
       if (savedLang === "zh" || savedLang === "en") setLang(savedLang as Lang);
       const savedTheme = window.localStorage.getItem("ash-theme");
       if (savedTheme === "light" || savedTheme === "dark") setDark(savedTheme === "dark");
+      const savedDensity = window.localStorage.getItem("ash-density");
+      if (savedDensity === "comfortable" || savedDensity === "compact") setDensity(savedDensity);
+      const savedView = window.localStorage.getItem("ash-view");
+      if (savedView === "grid" || savedView === "list") setView(savedView);
     } catch {
       /* 隐私模式等场景忽略 */
     }
@@ -51,14 +59,21 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
     try { window.localStorage.setItem("ash-theme", dark ? "dark" : "light"); } catch { /* ignore */ }
   }, [dark]);
 
-  // 同步语言到 <html data-lang> + localStorage（对齐原型 html[data-lang]）
+  // 同步语言到 <html data-lang>（原型同步 <html lang> 与 data-lang）+ localStorage
   useEffect(() => {
     document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.setAttribute("lang", lang);
     try { window.localStorage.setItem("ash-lang", lang); } catch { /* ignore */ }
   }, [lang]);
 
+  // 同步显示密度到 <html data-density> + localStorage（对齐 prototype applyDensity）
+  useEffect(() => {
+    document.documentElement.setAttribute("data-density", density);
+    try { window.localStorage.setItem("ash-density", density); } catch { /* ignore */ }
+  }, [density]);
+
   return (
-    <div className="app-shell" data-lang={lang} data-theme={dark ? "dark" : "light"}>
+    <div className="app-shell" data-lang={lang} data-theme={dark ? "dark" : "light"} data-density={density}>
       <header className="topbar" id="appHeader">
         <div className="brand" id="brandBlock">
           <BrandMark />
@@ -67,6 +82,16 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
         <div className="topbar-actions">
           <LangToggle lang={lang} onToggle={() => setLang((l) => (l === "zh" ? "en" : "zh"))} />
           <ThemeToggle theme={dark ? "dark" : "light"} onToggle={() => setDark((d) => !d)} lang={lang} />
+          <button
+            id="settingsBtn"
+            type="button"
+            className="btn btn-ghost icon-btn"
+            aria-label={t(lang, "a11y.settings")}
+            title={t(lang, "a11y.settings")}
+            onClick={() => setSettingsOpen(true)}
+          >
+            ⚙
+          </button>
         </div>
       </header>
       {/* 签名元素：Hero 节点网（呼应品牌 Hub 隐喻；对齐 prototype DESIGN §4） */}
@@ -104,7 +129,7 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
         </div>
       </section>
 
-      <SkillsExplorer skills={skills} lang={lang} />
+      <SkillsExplorer skills={skills} lang={lang} density={density} view={view} onView={setView} />
 
       {/* 页脚区：品牌 + 导航链接 + 版本/协议（id 供测试与无障碍定位） */}
       <footer className="site-footer" id="siteFooter">
@@ -135,6 +160,19 @@ export function AppShell({ skills, categories, total, version = "" }: Props) {
           )}
         </div>
       </footer>
+
+      <SettingsDialog
+        open={settingsOpen}
+        lang={lang}
+        dark={dark}
+        density={density}
+        view={view}
+        onLang={() => setLang((l) => (l === "zh" ? "en" : "zh"))}
+        onTheme={() => setDark((d) => !d)}
+        onView={() => setView((v) => (v === "grid" ? "list" : "grid"))}
+        onDensity={() => setDensity((d) => (d === "comfortable" ? "compact" : "comfortable"))}
+        onClose={() => setSettingsOpen(false)}
+      />
     </div>
   );
 }

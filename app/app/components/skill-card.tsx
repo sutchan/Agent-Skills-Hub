@@ -1,5 +1,6 @@
-// app/components/skill-card.tsx v1.16.2 — 技能卡片（对齐 prototype 02-render.js cardHTML）
+// app/components/skill-card.tsx v1.18.0 — 技能卡片（对齐 prototype 02-render.js cardHTML 原生 <button>）
 // 标题与描述按当前语言互斥显示：中文态 .zh，英文态 .en（由 globals.css html[data-lang] 控制）。
+// 采用原生 <button> 作为卡片根（对齐原型：原生 button 卡片，语义/键盘可达性优于 role=button+tabIndex）。
 import type { Skill } from "@/lib/types";
 import { catHue } from "@/lib/catHue";
 
@@ -18,22 +19,15 @@ export function SkillCard({ skill, view, onOpen }: Props) {
   const label = skill.zh ? `${skill.name}（${skill.zh}）` : skill.name;
   const hue = catHue(skill.category);
   return (
-    <article
+    <button
+      type="button"
       className={`card ${view === "list" ? "list" : ""}`}
       id={`skill-${skill.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}`}
       data-name={skill.name}
       data-cat={skill.category}
       style={{ "--hue": String(hue) } as React.CSSProperties}
-      role="button"
-      tabIndex={0}
       aria-label={label}
       onClick={() => onOpen(skill)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onOpen(skill);
-        }
-      }}
     >
       <span className="cat-bar" style={{ "--hue": String(hue) } as React.CSSProperties} aria-hidden="true" />
       <div className="title-row">
@@ -48,6 +42,6 @@ export function SkillCard({ skill, view, onOpen }: Props) {
         <span className="en">{skill.enDescription || ""}</span>
       </div>
       <div className="card-cat"><span className="zh">{skill.category}</span><span className="en">{skill.enCategory || skill.category}</span></div>
-    </article>
+    </button>
   );
 }

@@ -1,4 +1,4 @@
-// app/components/ui/view-toggle.tsx v1.14.72 — 视图切换 网格/列表（对齐 prototype .view-toggle）
+// app/components/ui/view-toggle.tsx v1.18.0 — 视图切换 网格/列表（对齐 prototype .view-toggle）
 interface Props {
   view: "grid" | "list";
   onChange: (v: "grid" | "list") => void;
