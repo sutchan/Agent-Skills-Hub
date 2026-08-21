@@ -58,6 +58,9 @@ html[data-lang="zh"] .en { display: none; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
 .brand-name { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: -.01em; color: var(--text-1); }
 .brand-sub { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* 顶栏操作按钮（语言切换等）：圆形描边，hover 主色（与 .view-btn 同源） */
+.icon-btn { min-width: 38px; height: 38px; padding: 0 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); color: var(--text); font-weight: 600; font-size: 13px; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.icon-btn:hover { color: hsl(var(--primary)); border-color: hsl(var(--primary) / .5); }
 
 /* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1） */
 .hero { position: relative; overflow: hidden; border-radius: 18px; margin: 8px 0 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); }
@@ -93,6 +96,10 @@ html[data-lang="zh"] .en { display: none; }
 /* 列表视图：单列，卡片横向排布（对齐 view-toggle 的 list 态） */
 .grid.list { grid-template-columns: 1fr; max-width: 860px; }
 .grid.list .card { flex-direction: row; align-items: center; gap: 14px; }
+/* 列表态：avatar 固定宽度 + card-body 占满剩余横向空间，内部纵向排布标题/描述/分类，杜绝挤压错位（v1.19.3/.card-body 对齐原型） */
+.grid.list .card .avatar.sm { flex: none; }
+.grid.list .card .card-body { min-width: 0; }
+.grid.list .card .card-desc { -webkit-line-clamp: 1; line-clamp: 1; }
 .grid.list .cat-bar { position: absolute; top: 0; bottom: 0; left: 0; width: 4px; height: auto; margin: 0; border-radius: 0; }
 
 /* 弹窗（扩展详情） */
@@ -121,6 +128,7 @@ html[data-lang="zh"] .en { display: none; }
 /* 页脚 */
 .site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }
 .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.footer-version { font-variant-numeric: tabular-nums; color: var(--text-2); font-size: 12px; }
 .footer-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
 .footer-brand .logo { width: 26px; height: 26px; }
 .footer-desc { color: var(--text-2); font-size: 13px; margin-top: 4px; }
@@ -161,10 +169,12 @@ html[data-lang="zh"] .en { display: none; }
 .chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
 .chip.active .chip-count { opacity: 1; }
 
-/* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + title-row + card-title/sub/cat） */
-.card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; text-align: left; }
+/* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + card-body[title-row + card-title/sub + card-desc + card-cat]） */
+.card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); }
-.card:focus-visible { border-color: var(--primary); }
+.card:focus-visible { border-color: var(--primary); box-shadow: var(--shadow-pop), 0 0 0 2px hsl(var(--ring) / .45); }
+/* 内容包裹层：列表态作为横向排布的主内容列，网格态仅作普通容器（v1.19.3 对齐原型 .card-body） */
+.card-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
 /* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
 .card .cat-bar { height: 4px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 50%); margin: -16px -16px 0; }
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); display: grid; place-items: center; font-weight: 700; }

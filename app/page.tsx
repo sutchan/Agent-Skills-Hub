@@ -18,11 +18,6 @@ const VERSION: string = (() => {
 export default function Page() {
   const data = loadSkills();
   return (
-    <AppShell
-      skills={data.skills}
-      categories={data.categories}
-      total={data.total}
-      version={VERSION}
-    />
+    <AppShell data={data} version={VERSION} />
   );
 }

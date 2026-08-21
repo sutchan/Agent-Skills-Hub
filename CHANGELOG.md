@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.4] - 2026-08-21
+
+### fix: 重建 app 客户端卡片层并应用双语标题+列表布局修复
+
+- 并行会话删除 `app/app/components/*` 后未重建，导致 `app/page.tsx` import 失效、app 无法运行；本次在 `app/components/` 下重建 `AppShell`/`SkillsExplorer`/`skill-card`（最小可用，跳过设置弹窗/详情弹窗）
+- **卡片双名**：`skill-card.tsx` 输出 `.card-title .zh`(中文译名主)+`.en`(英文原名弱化副标题)，中文态同显，对齐原型 v1.19.3 双语契约
+- **列表布局修复**：卡片加 `.card-body` 包裹层；`globals.css` 补 `.card-body{flex:1;min-width:0}` 与列表态 `.grid.list .card-desc` 限 1 行、`avatar.sm{flex:none}`，消除横向挤压错位
+- 数据路径修复：`app/data/skills-data.json`（由 `app/lib/skills.ts` 读取）；`page.tsx` 改为传整体 `data`；`AppShell` 接收 `data`+`version`，页脚展示版本号
+- 补充 `.icon-btn`(语言切换)/`.footer-version` 样式；TS 类型检查通过（`app/components/*` 零错误）
+- package.json 升至 v1.19.4
+
 ## [1.19.3] - 2026-08-21
 
 ### style: 卡片双语标题与列表模式布局修复
@@ -1360,3 +1371,4 @@
 [1.19.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.0
 [1.19.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.2
 [1.19.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.3
+[1.19.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.4

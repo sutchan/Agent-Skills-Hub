@@ -258,7 +258,7 @@
 
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.19.3 — 卡片双语标题与列表布局修复：卡片标题区中文态保持中文译名（主）+ 英文原名（弱化副标题 `.card-title .en`，11px/`--text-2`）同显；新增 `.card-body` 包裹层（title-row/desc/cat）解决列表模式 `.grid.list .card`（flex-row）横向挤压错位——`.card-body` 占满剩余宽度（`flex:1; min-width:0`）并纵向排布，列表态描述限 1 行截断、avatar `flex:none` 防压缩；结构与样式在 `prototype/src/parts/02-render.js`+`styles/{components,layout}.css` 同步。其余同 v1.18.3（页眉品牌区优化、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
+> 版本：v1.19.4 — app 客户端卡片层重建（并行会话误删 `app/app/components/*` 后未重建，本次在 `app/components/` 重建 `AppShell`/`SkillsExplorer`/`skill-card` 最小可用，跳过设置弹窗/详情弹窗）+ 应用卡片双名与列表布局修复：卡片输出 `.card-title .zh`(中文主)+`.en`(英文原名弱化副标题) 同显；新增 `.card-body` 包裹层，列表态 `.grid.list .card`(flex-row) 下 `.card-body{flex:1;min-width:0}` 占满、描述限 1 行、avatar `flex:none`，消除挤压错位；数据路径修复为 `app/data/skills-data.json`。原型侧卡片双名/列表修复见 v1.19.3（`prototype/src/parts/02-render.js`+`styles/{components,layout}.css`）。其余同 v1.18.3（页眉品牌区优化、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
 
 ### 8.1 标志释义（Logo）
 
