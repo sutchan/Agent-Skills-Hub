@@ -1,5 +1,8 @@
 ---
 name: google-mobile-ads-banner
+category: 品牌与设计
+en_category: Brand & Design
+zh: Google 移动广告横幅
 description: >-
   Provides instructions to implement, integrate, or configure Google Mobile
   Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use
@@ -7,7 +10,6 @@ description: >-
   use for other ad formats like interstitial or rewarded ads.
 metadata:
   version: 1.1.0
-  category: GoogleAds
 ---
 # Google Mobile Ads SDK - Banner Ads
 

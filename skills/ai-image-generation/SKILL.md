@@ -1,7 +1,7 @@
 ---
 name: ai-image-generation
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: AI 与智能体
+en_category: AI & Agents
 zh: AI 图像生成
 description: |-
   通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 及 50+ 模型生成 AI 图像。 支持文生图、图生图、inpainting、LoRA、图像编辑、放大、文字渲染。

@@ -12,6 +12,13 @@
 - 两层 UX 一致：关描述→卡片仅标题+分类；关分类标签→仅标题+描述；关色条→卡片去顶部/左侧色条
 - package.json 升至 v1.19.5
 
+### fix: 校正技能分类，消除「其他」分类回归 9 大领域
+
+- 补正 15 个缺/错 `category` 的技能 frontmatter（banner-creator/design、google-mobile-ads-banner、implement-spec、reddit-automation、ai-image-generation、blueprint、openspec-implementation、wordpress-router、wp-abilities-audit/verify、wp-patterns、wp-playground、wp-plugin-directory-guidelines、write-tech-spec、woocommerce-backend-dev），统一归入 9 个稳定分类键
+- 删除 `ai-image-generation-2` 重复废弃副本（违反单一数据源红线）
+- `data/skills-data.json` 由 10 类（含「其他」）回到 9 类，可见技能 144 个
+- README 中/英计数由 125/130 修正为 144，概览句补全 9 类领域
+
 ## [1.19.4] - 2026-08-21
 
 ### fix: 重建 app 客户端卡片层并应用双语标题+列表布局修复

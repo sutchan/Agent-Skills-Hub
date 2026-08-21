@@ -1,5 +1,5 @@
 {
-  "total": 143,
+  "total": 144,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -9,8 +9,7 @@
     "自动化与集成",
     "AI 与智能体",
     "音视频与多媒体",
-    "安全",
-    "其他"
+    "安全"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
@@ -21,8 +20,7 @@
     "自动化与集成": "Automation & Integration",
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
-    "安全": "Security",
-    "其他": "其他"
+    "安全": "Security"
   },
   "skills": [
     {
@@ -426,6 +424,16 @@
       "hidden": false
     },
     {
+      "name": "blueprint",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 沙箱蓝图",
+      "description": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "bun",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -732,6 +740,16 @@
       "hidden": false
     },
     {
+      "name": "openspec-implementation",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "OpenSpec 实现",
+      "description": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "paper-context-resolver",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -990,6 +1008,86 @@
       "zh": "WinUI 开发工作流",
       "description": "WinUI 3 应用的构建与运行工作流——项目创建、BuildAndRun.ps1 脚本、winapp run、错误诊断与前置依赖。在构建、运行 WinUI 3 项目，或修复其构建错误时使用。",
       "enDescription": "Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites. Use when building, running, or fixing build errors in a WinUI 3 project.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "woocommerce-backend-dev",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WooCommerce 后端开发",
+      "description": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wordpress-router",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 路由",
+      "description": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-abilities-audit",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WP 能力审计",
+      "description": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-abilities-verify",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WP 能力核验",
+      "description": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-patterns",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 区块模式",
+      "description": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-playground",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 沙箱",
+      "description": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-plugin-directory-guidelines",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WP 插件目录规范",
+      "description": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "write-tech-spec",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "技术规格撰写",
+      "description": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
+      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
@@ -1397,96 +1495,6 @@
       "zh": "安全调试",
       "description": "Rigor Debug / Rigor Audit 技能，面向深度学习科研工作。当用户想安全地调试训练/推理、排查数值异常或复现问题时使用。",
       "enDescription": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "blueprint",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "openspec-implementation",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wordpress-router",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-abilities-audit",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-abilities-verify",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-patterns",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-playground",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "wp-plugin-directory-guidelines",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "write-tech-spec",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
-      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     }

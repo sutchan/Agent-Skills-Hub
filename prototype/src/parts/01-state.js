@@ -14,6 +14,8 @@ function track(event, params) {
 
 const LS_THEME = "ash-theme", LS_LANG = "ash-lang", LS_VIEW = "ash-view", LS_DENSITY = "ash-density";
 const LS_SHOW_DESC = "ash-show-desc", LS_SHOW_CAT = "ash-show-cat", LS_SHOW_BAR = "ash-show-bar";
+const LS_NAME_MODE = "ash-name-mode";
+const NAME_MODE_BOTH = "both", NAME_MODE_ZH = "zh", NAME_MODE_EN = "en";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
 const DENSITY_COMFORT = "comfortable", DENSITY_COMPACT = "compact";
 const DEBOUNCE_MS = 120;
@@ -27,6 +29,8 @@ const state = {
   showDesc: true,
   showCat: true,
   showBar: true,
+  // 名称显示策略：默认双显（中文名主 + 英文原名副），可切仅中文 / 仅英文
+  nameMode: NAME_MODE_BOTH,
   query: "",
   cat: null,
 };

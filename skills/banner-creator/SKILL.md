@@ -1,5 +1,8 @@
 ---
 name: banner-creator
+category: 品牌与设计
+en_category: Brand & Design
+zh: AI 横幅广告创建
 description: Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.
 ---
 
