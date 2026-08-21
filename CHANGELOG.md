@@ -2,6 +2,27 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.2] - 2026-08-21
+
+### feat: 新增 6 个技能并补全 frontmatter，消除未分类项
+
+- **新增技能（6 个）**：executing-plans、writing-plans、planning-with-files（归入开发框架与平台）、marketing-plan（文档与内容）、recipe-plan-weekly-schedule（自动化与集成）、remotion-best-practices（音视频与多媒体）
+- **frontmatter 补全**：6 个技能补齐 `category`/`en_category`/`zh`/`en_description` 字段，全部脱离「其他」分类（OTHER_COUNT=0）
+- **解析器修复**：`build-skills-data.mjs` 的 `parseFrontmatter` 仅识别顶层键、跳过嵌套块（如 `metadata.openclaw.category`），避免 `recipe-plan-weekly-schedule` 的 `metadata` 内 `category: "recipe"` 误读为分类
+- **9 类计数更新**：开发框架与平台 56→59、文档与内容 11→12、音视频与多媒体 9→10、自动化与集成 9→10（共 130 可见技能）
+- **全链路同步**：`package.json`→v1.19.2；README/README.en 领域表与开场总数（130）同步；`prototype/index.html` 经 `npm run build` 重建
+
+## [1.19.2] - 2026-08-21
+
+### docs: 同步项目规范与文档至 v1.19.2 对齐现状
+
+- **openspec 三文档版本**：`project.md`/`spec.md`/`AGENTS.md` 由 v1.14.61 升至 v1.19.2（此前长期未随发版更新）
+- **技术栈修正**：openspec 与 app/README 中 React 18 更正为 React 19，对齐 `app/package.json`（`react`/`react-dom` `^19.2.8`）
+- **构建脚本引用修正**：openspec `project.md` 中失效的 `build_site.py` 引用改为实际根脚本 `build.mjs` / `build-skills-data.mjs`
+- **app 目录结构更新**：`app/app/` 嵌套路由已扁平化至 `app/` 根（`page.tsx`/`layout.tsx`/`globals.css`），重寫 `app/README.md` 与 openspec §2 目录表
+- **分类体系对齐**：openspec 与 README.en 中残留的「5 类 / 5 domains」表述统一为 9 大领域（125 技能）
+- **版本同步**：`package.json` 升至 v1.19.2，README 中/英徽章、`.github/CONTRIBUTING.md`、`prototype/DESIGN.md` 头注释同步；`npm run build` 注入 footer v1.19.2
+
 ## [1.19.0] - 2026-08-21
 
 ### feat: 新增 4 个平行分类维度，扩展技能领域体系
@@ -1326,3 +1347,5 @@
 [1.18.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.1
 [1.18.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.2
 [1.18.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.18.3
+[1.19.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.0
+[1.19.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.2

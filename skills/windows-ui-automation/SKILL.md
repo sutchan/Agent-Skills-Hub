@@ -2,8 +2,8 @@
 name: windows-ui-automation
 risk_level: HIGH
 model: sonnet
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 自动化与集成
+en_category: Automation & Integration
 zh: Windows UI 自动化
 description: 精通 Windows UI Automation（UIA）与 Win32 API 的桌面自动化。专注于以可访问、安全的方式自动化 Windows 应用，包括元素发现、输入模拟与进程交互。该技能为高风险（HIGH-RISK），对系统访问需严格的安保控制。
 en_description: Expert in Windows UI Automation (UIA) and Win32 APIs for desktop automation. Specializes in accessible, secure automation of Windows applications including element discovery, input simulation, and process interaction. HIGH-RISK skill requiring strict security controls for system access."

@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 125 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 130 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 125+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 130+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 125+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 130+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
@@ -555,7 +555,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.19.0</span>
+      <span class="footer-ver" id="footerVer">v1.19.2</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -575,7 +575,7 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 125,
+  "total": 130,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -890,6 +890,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "marketing-plan",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "营销计划",
+      "description": "当用户需要为客户、所顾问公司或自有产品制定全面营销计划时使用；用户提及「营销计划」「增长计划」「GTM 计划」「上市计划」「AARRR 计划」「90 天营销计划」「12 个月营销路线图」「 fractional CMO 计划」或「fCMO 计划」时也使用。生成按 AARRR（获客、激活、留存、推荐、营收）组织的详尽 13 节计划，依据客户当前预算、团队与阶段定制，映射到未来融资里程碑，交叉引用 139 条营销创意库与内嵌 17 节现状审计量表，并给出完整营销运营栈说明各环节由哪些技能与 MCP/API 集成执行。输出可直接粘贴 Notion 的 markdown 文档。",
+      "enDescription": "When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions \"marketing plan,\" \"growth plan,\" \"GTM plan,\" \"go-to-market plan,\" \"AARRR plan,\" \"90-day marketing plan,\" \"12-month marketing roadmap,\" \"fractional CMO plan,\" or \"fCMO plan.\" Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "skill-creator",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
@@ -1068,6 +1078,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "缺陷诊断",
       "description": "针对疑难 bug 与性能回退的诊断循环。当用户遇到难以定位的失败、偶发故障或变慢问题，需要系统化排查根因时使用。",
       "enDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "executing-plans",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "执行计划",
+      "description": "当你有一份书面实现计划，需要在独立会话中执行并带评审检查点时使用",
+      "enDescription": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
       "allowedTools": [],
       "hidden": false
     },
@@ -1265,6 +1285,18 @@ html[data-lang="zh"] .en { display: none; }
       "description": "Rigor Paper Context 辅助工具，面向 README 优先的深度学习资料研读。当用户想为论文/仓库建立上下文索引、梳理阅读脉络或关联参考材料时使用。",
       "enDescription": "Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a specific paper detail such as dataset split, preprocessing, evaluation protocol, checkpoint mapping, or runtime assumption from primary paper sources while recording conflicts. Do not use for general paper summary, repo scanning, environment setup, command execution, title-only paper lookup, or replacing README guidance by default.",
       "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "planning-with-files",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "基于文件的规划",
+      "description": "Manus 式基于文件的持久化规划：在磁盘保留 task_plan.md、findings.md、progress.md，使工作可抵御上下文丢失与 /clear。当用户要求规划、拆分或组织多步项目、研究任务或任意需 5+ 工具调用的工作时使用，支持 /clear 后自动恢复会话。",
+      "enDescription": "Manus-style persistent file-based planning for AI coding agents: keeps task_plan.md, findings.md, and progress.md on disk so work survives context loss and /clear. Use when asked to plan out, break down, or organize a multi-step project, research task, or any work requiring 5+ tool calls. Supports automatic session recovery after /clear.",
+      "allowedTools": [
+        "Read Write Edit Bash Glob Grep"
+      ],
       "hidden": false
     },
     {
@@ -1508,6 +1540,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "writing-plans",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "编写计划",
+      "description": "当你有多步任务的规格或需求、在动手写代码之前使用",
+      "enDescription": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "docx",
       "category": "文件与格式处理",
       "enCategory": "File & Format Handling",
@@ -1587,6 +1629,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "Playwriter 浏览器控制",
       "description": "Playwriter：通过 Playwriter CLI 控制用户当前已打开的 Chrome 标签页（不新开浏览器）。当你需要检查实时 UI 状态、运行脚本化浏览器操作、捕获控制台输出，或直接在用户标签页中复现前端问题时使用；支持创建会话、读取页面结构与日志、执行点击/输入/悬停/求值等操作，并以精确 ID、时间戳与状态变化总结结果。",
       "enDescription": "Playwriter: control the user's currently open Chrome tab through the Playwriter CLI (no new browser launch). Use when you need to inspect live UI state, run scripted browser actions, capture console output, or reproduce frontend issues directly in the user's tab; supports creating sessions, reading page structure and logs, executing click/type/hover/evaluate actions, and summarizing findings with exact IDs, timestamps, and observed state transitions.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "recipe-plan-weekly-schedule",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "周日程规划",
+      "description": "审视你的 Google Calendar 本周安排，识别空隙并补充事件填满。",
+      "enDescription": "Review your Google Calendar week, identify gaps, and add events to fill them.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1805,7 +1857,7 @@ html[data-lang="zh"] .en { display: none; }
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
       "zh": "Remotion 最佳实践",
-      "description": "Remotion 系列技能的路由入口。当用户用代码（React）生成视频、搭建 Remotion 项目或组合多个 Remotion 技能时使用。",
+      "description": "Remotion 全部技能的路由中枢",
       "enDescription": "Router for all Remotion skills",
       "allowedTools": [],
       "hidden": false

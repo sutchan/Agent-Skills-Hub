@@ -1,4 +1,4 @@
-// build-skills-data.mjs v1.16.2
+// build-skills-data.mjs v1.19.2
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
 // 分类(category)、简短中文名称(zh)与 description 中文译文(zh-desc)均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 // 注意语义约定：zh 为「简短中文名称」（卡片标题），zh-desc 为「中文描述」（卡片描述区）；勿将描述句填入 zh。
@@ -22,6 +22,10 @@ const CATEGORY_ORDER = [
   "数据分析与可视化",
   "开发框架与平台",
   "文件与格式处理",
+  "自动化与集成",
+  "AI 与智能体",
+  "音视频与多媒体",
+  "安全",
 ];
 
 // YAML 折叠/字面量块标量标志（行内为空值或仅折叠符）
@@ -54,7 +58,8 @@ function parseFrontmatter(text) {
   while (i < lines.length) {
     const line = lines[i];
     const idx = line.indexOf(":");
-    if (idx === -1) {
+    // 仅处理顶层键（行首无缩进）；嵌套块（有缩进）整体跳过
+    if (idx === -1 || line.startsWith(" ")) {
       i++;
       continue;
     }
@@ -89,7 +94,7 @@ function parseFrontmatter(text) {
       }
       continue;
     }
-    // 普通纯量 / 引号
+    // 普通纯量 / 引号（顶层键，无后续缩进子块）
     val = stripInlineComment(val).replace(/^["']|["']$/g, "");
     fm[key] = val;
     i++;

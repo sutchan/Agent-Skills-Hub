@@ -1,7 +1,7 @@
 ---
 name: image-to-video
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 音视频与多媒体
+en_category: Media & Multimedia
 zh: 图片转视频
 description: |-
   在 RunComfy 上将任意静态图片动画化，本技能是匹配用户意图到正确 i2v 模型的智能路由器。 常规动画选用 HappyHorse 1.0 I2V（Arena #1、原生音频、身份保持），自定义配音对口型用 Wan 2.7 配合 audio_url，多模态动画用 Seedance 2.0 Pro。

@@ -1,7 +1,7 @@
 ---
 name: clerk-nextjs-patterns
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 安全
+en_category: Security
 zh: Clerk 认证模式
 description: 高级 Next.js 模式——middleware、Server Actions、缓存等，帮助在 Clerk + Next.js 应用中落地稳健的认证与集成模式。
 en_description: Advanced Next.js patterns - middleware, Server Actions, caching with

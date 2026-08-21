@@ -1,7 +1,7 @@
 ---
 name: video
-category: 文档与内容
-en_category: Docs & Content
+category: 音视频与多媒体
+en_category: Media & Multimedia
 zh: AI 视频工作流
 description: 用于视频创建、生成与制作工作流的技能，覆盖视频生成、编辑、模板、讲解视频、产品演示、视频管线等场景，以及“复制这个剪辑”“匹配这个视频风格”“把这个视频反向工程”等指令。
 en_description: "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative."

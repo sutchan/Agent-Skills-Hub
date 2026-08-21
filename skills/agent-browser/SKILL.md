@@ -1,7 +1,7 @@
 ---
 name: agent-browser
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 自动化与集成
+en_category: Automation & Integration
 zh: 浏览器自动化 CLI
 description: |-
   面向 AI 代理的浏览器自动化命令行工具。当用户需要操作网站（导航、填表、点击、截图、

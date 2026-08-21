@@ -1,7 +1,7 @@
 ---
 name: ai-avatar-video
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 音视频与多媒体
+en_category: Media & Multimedia
 zh: AI 数字人视频
 description: |-
   通过 inference.sh CLI 创建 AI 数字人与对口型视频。 推荐使用 P-Video-Avatar（最快、最便宜、内置 TTS），也可用 OmniHuman、Fabric、PixVerse。

@@ -1,8 +1,8 @@
 ---
 name: google-agents-cli-workflow
 metadata:
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: AI 与智能体
+en_category: AI & Agents
 zh: Google Agents CLI 工作流
 description: google-agents-cli 的工作流技能，覆盖智能体项目的脚手架、运行、评估与 CI 集成。当用户搭建 Google Agents CLI 项目、跑工作流或接入流水线时使用。
 en_description: > This skill should be used when the user wants to "develop an agent", "build an agent using ADK", "run the agent locally", "debug agent code", "test an agent", "deploy an agent", "publish an agent", "monitor an agent", or needs the ADK (Agent Development Kit) development lifecycle and coding guidelines. Entrypoint for building ADK agents. Always active — provides the full workflow (scaffold, build, evaluate, deploy, publish, observe), code preservation rules, model selection guidance, and troubleshooting steps for ADK or any agent development.

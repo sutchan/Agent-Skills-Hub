@@ -2,7 +2,7 @@
 
 感谢你愿意为 **Agent Skills Hub** 贡献！本指南帮助你在不破坏数据管线与规范的前提下，新增或更新技能、修复文档、提交变更。
 
-> 路径：`.github/CONTRIBUTING.md` · 版本：1.14.70
+> 路径：`.github/CONTRIBUTING.md` · 版本：1.19.2
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 
 ## 目录
@@ -57,14 +57,14 @@ npm run build        # 验证构建链路，生成 data 与 prototype
 ---
 name: <kebab-case 技能名，与目录名一致>
 description: <中文完整描述，默认展示语言>
-category: <5 大领域之一，中文稳定键>
+category: <9 大领域之一，中文稳定键>
 en_category: <对应英文分类名，英文态展示>
 zh: <中文一句话简介>
 en_description: <英文原文描述，处理技能时保留>
 ---
 ```
 
-- `category` 取 [`prototype/`](../prototype/) 既有的 **5 大领域**之一：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`开发框架与平台`、`文件与格式处理`（中文，稳定键）；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`）。
+- `category` 取 9 大领域之一（中文，稳定键）：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`开发框架与平台`、`文件与格式处理`、`AI 与智能体`、`音视频与多媒体`、`自动化与集成`、`安全`；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`、`AI 与智能体` → `AI & Agents`）。
 - `description` 与 `zh` 的区别：`zh` 是一句话摘要，`description` 是完整中文描述；`en_description` 为英文原文描述（默认展示中文，英文态展示英文）。
 - `build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，`category` 与 README 分类名严格一致。
 

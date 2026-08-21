@@ -1,6 +1,6 @@
 # Project Specification — Agent Skills Hub
 
-> 路径：`openspec/project.md` · 版本：1.14.61
+> 路径：`openspec/project.md` · 版本：1.19.2
 > 本文件是 OpenSpec 的项目级规范（project spec），定义变更工作流、产物约定与本仓库结构对齐方式。
 > 已落地能力基线见 [`spec.md`](spec.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 > 配套技能：`skills/openspec-propose`、`skills/openspec-apply-change`、`skills/openspec-explore`、`skills/openspec-archive-change`。
@@ -17,7 +17,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 | `skills/<name>/SKILL.md` | 单个技能定义（正文 + frontmatter；`name`/`description`/`category`/`zh` 为必填字段，构建脚本以磁盘为准读取） | ✅ 高频 |
 | `skills/<name>/references/`、`scripts/`、`assets/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `README.md` | 技能清单（中文描述映射） | ✅ 中频 |
-| `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据 | ✅ 中频 |
+| `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 19；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据；入口 `app/page.tsx`/`app/layout.tsx`/`app/globals.css`，共享逻辑在 `app/lib/`，资产在 `app/public/` | ✅ 中频 |
 | `prototype/` | 预构建静态 HTML 高保真原型（打开 `prototype/index.html` 预览） | ✅ 中频 |
 | `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（源码 `prototype/src/` 随仓库分发，`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物） | ✅ 中频 |
 | `tools/` | 仓库级脚本（`coverage.py`、`skills_readme.py`） | ◻️ 低频 |
@@ -37,7 +37,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 ## 4. Artifact 内容准则
 
 - **proposal.md**：只写「为什么」，含可观测的验收标准；不写实现细节。
-- **design.md**：只写「怎么做」，含文件级改动清单、数据结构、回退方案；引用本项目现有模块（如 `build_site.py`、展示页）而非重复其全文。
+- **design.md**：只写「怎么做」，含文件级改动清单、数据结构、回退方案；引用本项目现有模块（如 `build.mjs`、`build-skills-data.mjs`、展示页）而非重复其全文。
 - **tasks.md**：步骤须可独立验证，每步标注涉及文件。
 - **约束**：`openspec instructions` 返回的 `context` / `rules` / `project_context` 是给 AI 的约束，**不得**写入产物文件。
 

@@ -1,7 +1,7 @@
 ---
 name: instagram-api
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 自动化与集成
+en_category: Automation & Integration
 zh: Instagram API 替代
 description: >-
   fetcher.sh 上的 Instagram API 替代方案——通过 x402 以 USDC 按次付费，

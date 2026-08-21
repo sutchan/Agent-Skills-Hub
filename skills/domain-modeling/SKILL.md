@@ -1,7 +1,7 @@
 ---
 name: domain-modeling
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: AI 与智能体
+en_category: AI & Agents
 zh: 领域建模
 description: 构建并打磨项目的领域模型。当用户讨论业务概念、实体关系、边界上下文或模型演进时使用。
 en_description: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.

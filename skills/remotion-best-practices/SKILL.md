@@ -1,11 +1,11 @@
 ---
 name: remotion-best-practices
-version: 4.0.514
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
-zh: Remotion 最佳实践
-description: Remotion 系列技能的路由入口。当用户用代码（React）生成视频、搭建 Remotion 项目或组合多个 Remotion 技能时使用。
+description: Remotion 全部技能的路由中枢
 en_description: Router for all Remotion skills
+zh: Remotion 最佳实践
+category: 音视频与多媒体
+en_category: Media & Multimedia
+version: 4.0.515
 ---
 
 ## Preserve user changes

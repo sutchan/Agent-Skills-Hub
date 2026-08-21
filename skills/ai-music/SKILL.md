@@ -1,7 +1,7 @@
 ---
 name: ai-music
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 音视频与多媒体
+en_category: Media & Multimedia
 zh: AI 音乐生成
 description: |-
   通过 runcomfy CLI 智能路由生成 AI 音乐。 优先路由到 ElevenLabs AI Music Generation（高级 44.1kHz 立体声人声音轨）或 ACE Step / ACE Step 1.5（标签驱动作曲、多语言歌词、成本更低）。

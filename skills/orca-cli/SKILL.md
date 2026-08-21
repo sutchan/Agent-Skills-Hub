@@ -1,7 +1,7 @@
 ---
 name: orca-cli
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 自动化与集成
+en_category: Automation & Integration
 zh: Orca CLI 操作
 description: 使用公开的 `orca` CLI 操作 Orca 管理的工作树、目录上下文、终端、仓库、自动化、产物、技能共享、工作树评论及 Orca 应用内嵌浏览器。
 en_description: >-

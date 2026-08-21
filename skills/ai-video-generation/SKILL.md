@@ -1,7 +1,7 @@
 ---
 name: ai-video-generation
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 音视频与多媒体
+en_category: Media & Multimedia
 zh: AI 视频生成
 description: |-
   通过 inference.sh CLI 使用 Veo、Seedance、HappyHorse、Wan、Grok 及 40+ 模型生成 AI 视频。 支持文生视频、图生视频、参考图转视频、视频编辑、对口型、角色动画、视频放大与 Foley 音效。

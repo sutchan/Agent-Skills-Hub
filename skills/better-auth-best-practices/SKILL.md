@@ -1,7 +1,7 @@
 ---
 name: better-auth-best-practices
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 安全
+en_category: Security
 zh: Better Auth 最佳实践
 description: 配置 Better Auth 服务端与客户端的认证方案，搭建数据库适配器、管理会话、添加插件并处理环境变量。当用户提及 Better Auth、betterauth、auth.ts，或需要用邮箱密码、OAuth 或插件配置搭建 TypeScript 认证时使用。
 en_description: Configure Better Auth server and client, set up database adapters, manage sessions, add plugins, and handle environment variables. Use when users mention Better Auth, betterauth, auth.ts, or need to set up TypeScript authentication with email/password, OAuth, or plugin configuration.
