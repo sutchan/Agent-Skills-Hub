@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.19.13 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.19.20 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
@@ -108,15 +108,51 @@ function renderGrid() {
   const counts = catCounts();
   renderStats();
   renderCats(counts);
+  // 分页：每页 PAGE_SIZE 条，page 为 0 基
+  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+  if (state.page > totalPages - 1) state.page = totalPages - 1; // 筛选后页码越界回钳
+  if (state.page < 0) state.page = 0;
+  const start = state.page * PAGE_SIZE;
+  const pageList = list.slice(start, start + PAGE_SIZE);
   const grid = $("#grid");
   grid.className = "grid " + state.view;
-  grid.innerHTML = list.length ? list.map(cardHTML).join("") : emptyHTML();
+  grid.innerHTML = pageList.length ? pageList.map(cardHTML).join("") : emptyHTML();
   // 同步排序下拉当前值（切换语言或重置时保持一致）
   const ss = $("#sortSelect");
   if (ss) ss.value = state.sort;
+  // 分页器（数字翻页 + 上下页）
+  renderPager(list.length, totalPages);
   // 结果计数 live 区：搜索/筛选后只播报数量，避免读屏朗读整网格（随当前语言）
   const rc = $("#resultCount");
   if (rc) rc.textContent = list.length
     ? I18N.t("result.count").replace("{n}", list.length)
     : I18N.t("result.empty");
+}
+
+// 分页器：渲染「上一页 / 数字页码 / 下一页」+ 当前区间提示
+// total：筛选后总数；totalPages：总页数（≥1）。页码点击由 04-interactions 委托处理（data-page）
+function renderPager(total, totalPages) {
+  const pager = $("#pager");
+  if (!pager) return;
+  if (totalPages <= 1) { pager.innerHTML = ""; pager.classList.remove("show"); return; }
+  pager.classList.add("show");
+  const cur = state.page;
+  const items = [];
+  // 上一页
+  items.push(`<button class="pg-btn" data-page="${cur - 1}" ${cur <= 0 ? "disabled" : ""} aria-label="${I18N.t("pager.prev")}">‹</button>`);
+  // 数字页码（窗口：当前页 ±2，首尾必显）
+  const win = [];
+  for (let p = 0; p < totalPages; p++) {
+    if (p === 0 || p === totalPages - 1 || Math.abs(p - cur) <= 2) win.push(p);
+  }
+  let prev = -1;
+  for (const p of win) {
+    if (prev !== -1 && p - prev > 1) items.push(`<span class="pg-ellipsis">…</span>`);
+    items.push(`<button class="pg-btn num${p === cur ? " active" : ""}" data-page="${p}" aria-current="${p === cur ? "page" : "false"}" aria-label="${I18N.t("pager.page").replace("{n}", p + 1)}">${p + 1}</button>`);
+    prev = p;
+  }
+  // 下一页
+  items.push(`<button class="pg-btn" data-page="${cur + 1}" ${cur >= totalPages - 1 ? "disabled" : ""} aria-label="${I18N.t("pager.next")}">›</button>`);
+  items.push(`<span class="pg-info">${I18N.t("pager.info").replace("{cur}", cur + 1).replace("{pages}", totalPages)}</span>`);
+  pager.innerHTML = items.join("");
 }

@@ -1,4 +1,4 @@
-// app/components/detail-modal.tsx v1.19.14 — 技能详情弹窗（元信息区：作者 / 协议 / 版本 / GitHub 目录 + 相关技能 + 复制名称）
+// app/components/detail-modal.tsx v1.19.20 — 技能详情弹窗（元信息：作者/STAR/首次收录/协议/版本/GitHub目录 + 安装命令 + 相关技能）
 "use client";
 import { useEffect } from "react";
 import type { Lang } from "../lib/share";
@@ -51,8 +51,24 @@ export function DetailModal({
   const tools = (skill.allowedTools || []).filter(Boolean);
   const desc = lang === "zh" ? skill.description : skill.enDescription || skill.description;
 
+  // 复制技能名（头部按钮）
   const copyName = () => {
     const text = skill.name;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        const tip = document.getElementById("copyTip");
+        if (tip) {
+          tip.textContent = lang === "zh" ? "已复制" : "Copied";
+          tip.classList.add("show");
+          setTimeout(() => tip.classList.remove("show"), 1400);
+        }
+      });
+    }
+  };
+
+  // 复制安装命令（安装命令区按钮）
+  const copyCmd = () => {
+    const text = skill.installCommand;
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         const tip = document.getElementById("copyTip");
@@ -99,6 +115,14 @@ export function DetailModal({
             <span className="meta-v">{skill.author || (lang === "zh" ? "未知" : "Unknown")}</span>
           </div>
           <div className="meta-row">
+            <span className="meta-k">{lang === "zh" ? "星标 / Stars" : "Stars"}</span>
+            <span className="meta-v">{skill.stars != null ? skill.stars : (lang === "zh" ? "暂无" : "N/A")}</span>
+          </div>
+          <div className="meta-row">
+            <span className="meta-k">{lang === "zh" ? "首次收录 / First seen" : "First seen"}</span>
+            <span className="meta-v">{skill.firstSeen || (lang === "zh" ? "暂无" : "N/A")}</span>
+          </div>
+          <div className="meta-row">
             <span className="meta-k">{lang === "zh" ? "协议 / License" : "License"}</span>
             <span className="meta-v">{skill.license || (lang === "zh" ? "未知" : "Unknown")}</span>
           </div>
@@ -111,6 +135,15 @@ export function DetailModal({
             <a className="meta-v link" href={githubUrl} target="_blank" rel="noopener">
               {skill.githubDir}
             </a>
+          </div>
+        </div>
+        <div className="d-install">
+          <h4>{lang === "zh" ? "安装命令 / Install" : "Install"}</h4>
+          <div className="cmd-row">
+            <code className="cmd-text">{skill.installCommand}</code>
+            <button type="button" className="btn ghost" onClick={copyCmd}>
+              {lang === "zh" ? "复制命令" : "Copy command"}
+            </button>
           </div>
         </div>
         <div className="detail-metrics">

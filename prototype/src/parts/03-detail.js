@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.19.17 — 详情弹窗：元信息区(作者/协议/GitHub目录) + 相关技能 + 复制命令
+// prototype/src/parts/03-detail.js v1.19.20 — 详情弹窗：元信息区(作者/STAR/首次收录/协议/GitHub目录) + 安装命令 + 相关技能 + 复制
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）
@@ -64,6 +64,24 @@ function fallbackCopy(text, done) {
   document.body.removeChild(ta);
 }
 
+// 复制安装命令：读取按钮 data-cmd，提示到该弹窗内 #copyCmdTip（区别于复制名称的 #copyTip）
+function copyCmdButton(btn) {
+  const cmd = btn.getAttribute("data-cmd") || "";
+  const done = () => {
+    const tip = document.getElementById("copyCmdTip");
+    if (tip) {
+      tip.textContent = I18N.t("detail.copied");
+      tip.classList.add("show");
+      setTimeout(() => tip.classList.remove("show"), 1400);
+    }
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(cmd).then(done).catch(() => fallbackCopy(cmd, done));
+  } else {
+    fallbackCopy(cmd, done);
+  }
+}
+
 function metaRow(label, value, isLink) {
   if (!value) return "";
   if (isLink) {
@@ -92,13 +110,28 @@ function detailHTML(skill) {
     titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
   }
 
-  // 元信息区：作者 / 协议 / 版本 / GitHub 目录
+  // 元信息区：作者 / STAR / 首次收录 / 协议 / 版本 / GitHub 目录
+  const starsText = skill.stars != null ? String(skill.stars) : I18N.t("detail.unknown");
   const metaRows = [
     metaRow(I18N.t("detail.author"), skill.author || I18N.t("detail.unknown")),
+    metaRow(I18N.t("detail.stars"), starsText),
+    metaRow(I18N.t("detail.firstSeen"), skill.firstSeen || I18N.t("detail.unknown")),
     metaRow(I18N.t("detail.license"), skill.license || I18N.t("detail.unknown")),
     metaRow(I18N.t("detail.version"), skill.skillVersion || "—"),
     metaRow(I18N.t("detail.githubDir"), githubUrl, true),
   ].join("");
+
+  // 安装命令区（复制即用）
+  const cmd = skill.installCommand || `npx skills add sutchan/Agent-Skills-Hub/skills/${skill.name}`;
+  const installHTML = `
+    <div class="d-install">
+      <h4>${I18N.t("detail.install")}</h4>
+      <div class="cmd-row">
+        <code class="cmd-text" id="installCmd">${esc(cmd)}</code>
+        <button id="copyCmdBtn" class="btn ghost" data-cmd="${esc(cmd)}" aria-label="${I18N.t("detail.copyCmd")}">${I18N.t("detail.copyCmd")}</button>
+      </div>
+      <span id="copyCmdTip" class="copy-tip"></span>
+    </div>`;
 
   // 派生指标：大小 / 文件数 / 热度
   const sizeText = formatSize(skill.size);
@@ -139,6 +172,7 @@ function detailHTML(skill) {
       </div>
     </div>
     <div class="detail-meta">${metaRows}</div>
+    ${installHTML}
     ${metricHTML}
     <div class="detail-body">
       <p class="d-desc">${esc(desc || "")}</p>
@@ -163,6 +197,9 @@ function openDetail(arg) {
   document.getElementById("detailClose").addEventListener("click", closeDetail);
   const copyBtn = document.getElementById("copyNameBtn");
   if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
+  // 复制安装命令
+  const copyCmdBtn = document.getElementById("copyCmdBtn");
+  if (copyCmdBtn) copyCmdButton(copyCmdBtn);
 
   // 相关技能点击 → 切换详情
   dialog.querySelectorAll(".related-card").forEach((btn) => {

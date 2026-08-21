@@ -1,10 +1,13 @@
-// app/components/SkillsExplorer.tsx v1.19.14 — 技能浏览器（分类多选 + 搜索 + 排序 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格 + 详情弹窗）
+// app/components/SkillsExplorer.tsx v1.19.20 — 技能浏览器（分类多选 + 搜索 + 排序 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
 import type { SkillsData, Skill } from "../lib/skills";
 import { SkillCard } from "./skill-card";
 import { DetailModal } from "./detail-modal";
+
+// 每页 100 条（用户需求，与 skills.sh 默认 per_page 一致）
+const PAGE_SIZE = 100;
 
 export function SkillsExplorer({
   data,
@@ -25,6 +28,8 @@ export function SkillsExplorer({
   const [nameMode, setNameMode] = useState<"both" | "zh" | "en">("both");
   const [settingsOpen, setShowSettings] = useState(false);
   const [detail, setDetail] = useState<Skill | null>(null);
+  // 分页：每页 PAGE_SIZE，page 0 基；筛选/搜索/排序变化重置为首页
+  const [page, setPage] = useState(0);
 
   // 恢复偏好（localStorage 不可用时回退默认）
   useEffect(() => {
@@ -76,6 +81,15 @@ export function SkillsExplorer({
     };
     return [...list].sort(cmp[sort]);
   }, [data.skills, cats, q, sort]);
+
+  // 分页：总页数 + 当前页切片（筛选/搜索/排序变化时 page 重置为首页）
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages - 1);
+  const pageItems = useMemo(
+    () => filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE),
+    [filtered, safePage]
+  );
+  useEffect(() => { setPage(0); }, [q, cats, sort]);
 
   // 分类 chip 点击：多选 toggle（"全部"清空）
   const toggleCat = (c: string) => {
@@ -214,7 +228,7 @@ export function SkillsExplorer({
       </div>
 
       <div className={`grid ${view}`} id="grid">
-        {filtered.map((s) => (
+        {pageItems.map((s) => (
           <SkillCard
             key={s.name}
             skill={s}
@@ -226,6 +240,53 @@ export function SkillsExplorer({
           />
         ))}
       </div>
+
+      {totalPages > 1 && (
+        <nav className="pager show" id="pager" aria-label={lang === "zh" ? "分页" : "Pagination"}>
+          <button
+            type="button"
+            className="pg-btn"
+            disabled={safePage <= 0}
+            aria-label={lang === "zh" ? "上一页" : "Previous"}
+            onClick={() => setPage((p) => Math.max(0, p - 1))}
+          >
+            ‹
+          </button>
+          {Array.from({ length: totalPages }, (_, p) => {
+            const win = p === 0 || p === totalPages - 1 || Math.abs(p - safePage) <= 2;
+            if (!win && p > 0 && p < totalPages - 1 && Math.abs(p - safePage) > 2) {
+              // 仅显示省略号一次（相邻已显示则不重复）
+              if (p > 1 && p < totalPages - 2 && Math.abs(p - safePage) === 3) {
+                return <span key={p} className="pg-ellipsis">…</span>;
+              }
+              return null;
+            }
+            return (
+              <button
+                key={p}
+                type="button"
+                className={`pg-btn num${p === safePage ? " active" : ""}`}
+                aria-current={p === safePage ? "page" : "false"}
+                onClick={() => setPage(p)}
+              >
+                {p + 1}
+              </button>
+            );
+          })}
+          <button
+            type="button"
+            className="pg-btn"
+            disabled={safePage >= totalPages - 1}
+            aria-label={lang === "zh" ? "下一页" : "Next"}
+            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+          >
+            ›
+          </button>
+          <span className="pg-info">
+            {lang === "zh" ? `第 ${safePage + 1} / ${totalPages} 页` : `Page ${safePage + 1} / ${totalPages}`}
+          </span>
+        </nav>
+      )}
 
       {detail && (
         <DetailModal

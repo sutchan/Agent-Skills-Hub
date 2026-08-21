@@ -1,4 +1,4 @@
-// app/lib/skills.ts v1.19.4 — 技能数据读取与类型
+// app/lib/skills.ts v1.19.20 — 技能数据读取与类型
 // 数据源：app/data/skills-data.json（由 app/scripts/sync-data.cjs 从仓库根
 // data/skills-data.json 同步，构建期由 build-skills-data.mjs 生成）。
 // 在 Next.js 服务端组件中以 fs 读取，避免客户端拉取大体积 JSON。
@@ -25,6 +25,10 @@ export interface Skill {
   author?: string; // 作者 / 来源（frontmatter metadata.author）
   license?: string; // 协议（frontmatter metadata.license）
   skillVersion?: string; // 技能版本（frontmatter metadata.version）
+  // 社区指标（用户决策：本地 frontmatter 维护；skills.sh 无 STAR/firstSeen 且 API 需认证）
+  stars?: number; // GitHub 星标数（frontmatter metadata.stars）
+  firstSeen?: string; // 首次发布/收录日期 YYYY-MM-DD（frontmatter metadata.firstSeen）
+  installCommand: string; // 安装命令，恒定派生为 npx skills add sutchan/Agent-Skills-Hub/skills/<name>
   githubDir: string; // GitHub 源码目录，恒定派生为 skills/<name>
   // 派生展示指标（build-skills-data.mjs 计算）
   size?: number; // 技能目录总字节数

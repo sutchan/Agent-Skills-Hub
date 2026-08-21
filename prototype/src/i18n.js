@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.19.14 — 独立国际化模块
+// prototype/src/i18n.js v1.19.20 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -34,6 +34,10 @@
       "detail.license": "协议 / License",
       "detail.version": "版本 / Version",
       "detail.githubDir": "GitHub 目录 / Source",
+      "detail.stars": "星标 / Stars",
+      "detail.firstSeen": "首次收录 / First seen",
+      "detail.install": "安装命令 / Install",
+      "detail.copyCmd": "复制命令",
       "detail.tools": "授权工具 / Allowed tools",
       "detail.related": "相关技能 / Related",
       "detail.copyName": "复制名称",
@@ -59,6 +63,10 @@
       "card.noDesc": "暂无中文描述。",
       "result.count": "共 {n} 个技能",
       "result.empty": "无匹配结果",
+      "pager.prev": "上一页",
+      "pager.next": "下一页",
+      "pager.page": "第 {n} 页",
+      "pager.info": "第 {cur} / {pages} 页",
       "settings.title": "设置",
       "settings.langGroup": "语言 / Language",
       "settings.language": "界面语言",
@@ -113,6 +121,10 @@
       "detail.license": "License",
       "detail.version": "Version",
       "detail.githubDir": "GitHub source",
+      "detail.stars": "Stars",
+      "detail.firstSeen": "First seen",
+      "detail.install": "Install",
+      "detail.copyCmd": "Copy command",
       "detail.tools": "Allowed tools",
       "detail.related": "Related skills",
       "detail.copyName": "Copy name",
@@ -138,6 +150,10 @@
       "card.noDesc": "No description available.",
       "result.count": "{n} skills",
       "result.empty": "No matches",
+      "pager.prev": "Previous",
+      "pager.next": "Next",
+      "pager.page": "Page {n}",
+      "pager.info": "Page {cur} / {pages}",
       "settings.title": "Settings",
       "settings.langGroup": "Language",
       "settings.language": "Interface language",

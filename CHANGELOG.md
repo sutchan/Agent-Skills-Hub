@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.20] - 2026-08-21
+
+### feat: 详情页安装命令 + STAR/首次收录 + 列表分页(每页100)
+
+- 数据层 `build-skills-data.mjs` 提取 `metadata.stars`/`metadata.firstSeen`（用户决策本地 frontmatter 维护；skills.sh 无 STAR/firstSeen 且 API 需认证），新增恒定派生 `installCommand`（`npx skills add sutchan/Agent-Skills-Hub/skills/<name>`）
+- 详情弹窗（原型 `03-detail.js` + app `detail-modal.tsx`）元信息区加「星标 / Stars」「首次收录 / First seen」，新增安装命令区（代码块 + 复制命令按钮），保留复制名称
+- 列表分页：每页 100 条，数字翻页 + 上下页（页码窗口 ±2，首尾必显，省略号）；筛选/搜索/排序变化重置为首页
+  - 原型 `01-state` 加 `page`/`PAGE_SIZE`，`02-render` 加 `renderPager`，`04-interactions` 绑分页委托 + 重置
+  - app `SkillsExplorer` 加 `page` state + 分页 UI + 切片
+- `lib/skills.ts` 补 `stars?`/`firstSeen?`/`installCommand`；i18n 补 `detail.stars/firstSeen/install/copyCmd` 与 `pager.*`；CSS 补 `.d-install`/`.cmd-row`/`.pager`/`.pg-btn`
+- package.json 升至 v1.19.20
+
+## [1.19.19] - 2026-08-21
+
+### docs: 同步文档版本头注释与技能计数
+
+- **技能计数修正**：README 中/英「146 → 147」（对话间隙新增技能，构建实算 `data/skills-data.json` 可见 147 / 9 类）
+- **文档头注释同步 v1.19.19**：补齐长期脱节的 `.github/CONTRIBUTING.md`（v1.19.2→v1.19.19）、`prototype/DESIGN.md`（v1.19.7→v1.19.19）、`prototype/COMPONENTS.md`（v1.17.3→v1.19.19）、`app/README.md`（新增头注释）；openspec 三文档、package.json、README 中英文徽章一并对齐
+- **prototype/DESIGN.md 版本历史补充**：新增 v1.19.14 详情弹窗重构与 `source` 可选字段说明，中间版本指引查根 CHANGELOG
+
 ## [1.19.18] - 2026-08-21
 
 ### docs: 更新项目规范补充外部技能生态（skills.sh）参考
@@ -1521,3 +1541,4 @@
 [1.19.16]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.16
 [1.19.17]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.17
 [1.19.18]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.18
+[1.19.19]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.19

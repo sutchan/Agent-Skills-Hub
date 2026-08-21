@@ -1,4 +1,4 @@
-// build-skills-data.mjs v1.19.16
+// build-skills-data.mjs v1.19.20 — 解析 skills/<name>/SKILL.md 顶层 frontmatter → data/skills-data.json
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
 // 分类(category)、简短中文名称(zh)与 description 中文译文(zh-desc)均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 // 注意语义约定：zh 为「简短中文名称」（卡片标题），zh-desc 为「中文描述」（卡片描述区）；勿将描述句填入 zh。
@@ -126,6 +126,12 @@ function main() {
     const author = meta.author || fm.author || "";
     const license = meta.license || fm.license || "";
     const skillVersion = meta.version || fm.version || "";
+    // 社区指标（用户决策：本地 frontmatter 维护，skills.sh 无 STAR/firstSeen 字段且 API 需认证）
+    // stars：GitHub 星标数（仓库级，发布者自行维护）；firstSeen：首次发布/收录日期（YYYY-MM-DD）
+    const stars = meta.stars != null ? Number(meta.stars) || 0 : undefined;
+    const firstSeen = meta.firstSeen || fm.firstSeen || "";
+    // 安装命令：统一指向本 GitHub 仓库目录（npx skills add <owner>/<repo>/skills/<name>）
+    const installCommand = `npx skills add sutchan/Agent-Skills-Hub/skills/${name}`;
     // GitHub 目录恒定派生（仓库 skills/<name>），详情弹窗可跳转源码
     const githubDir = `skills/${name}`;
     // 派生指标：目录大小（字节）/ 文件数（递归统计普通文件）
@@ -156,6 +162,10 @@ function main() {
       author: author || undefined,
       license: license || undefined,
       skillVersion: skillVersion || undefined,
+      // 社区指标（可选）：星标 / 首次收录 / 安装命令
+      stars: stars != null ? stars : undefined,
+      firstSeen: firstSeen || undefined,
+      installCommand,
       githubDir,
       // 派生展示指标
       size,

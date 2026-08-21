@@ -286,7 +286,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-stats .num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; line-height: 1.1; }
 .footer-stats .lbl { font-size: 11.5px; color: var(--text-2); }
 
-/* prototype/src/styles/components.css v1.19.17 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.19.20 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -476,6 +476,24 @@ html[data-lang="zh"] .en { display: none; }
 .rc-cat { font-size: 11px; color: hsl(var(--primary)); }
 .rc-name { font-size: 13.5px; font-weight: 600; }
 
+/* 安装命令区（v1.19.18）：复制即用 */
+.d-install { border-top: 1px solid var(--border); padding: 16px 22px; }
+.d-install h4 { margin: 0 0 9px; font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: .02em; }
+.cmd-row { display: flex; align-items: stretch; gap: 8px; }
+.cmd-text { flex: 1; min-width: 0; font-family: var(--font-mono); font-size: 12.5px; padding: 9px 11px; border-radius: 8px; background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
+.d-install .btn.ghost { flex: none; }
+.d-install .copy-tip { display: block; margin-top: 6px; }
+
+/* 分页器（v1.19.18）：每页 100 条，数字翻页 + 上下页 */
+.pager { display: none; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin: 28px auto 8px; padding: 0 16px; }
+.pager.show { display: flex; }
+.pg-btn { min-width: 34px; height: 34px; padding: 0 9px; border-radius: 9px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; transition: border-color .15s, background .15s, color .15s; }
+.pg-btn:hover:not(:disabled) { border-color: hsl(var(--primary)); }
+.pg-btn.num.active { background: hsl(var(--primary)); border-color: hsl(var(--primary)); color: #fff; font-weight: 600; }
+.pg-btn:disabled { opacity: .4; cursor: not-allowed; }
+.pg-ellipsis { color: var(--text-3); padding: 0 2px; user-select: none; }
+.pg-info { font-size: 12.5px; color: var(--text-3); margin-left: 8px; white-space: nowrap; }
+
 /* prototype/src/styles/responsive.css v1.17.1 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
 
 /* 平板断点（P2-2）：压缩 hero 字号与顶栏间距，避免 641–1024 区间拥挤 */
@@ -625,6 +643,8 @@ html[data-lang="zh"] .en { display: none; }
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="cats-scroll" id="cats"></div></nav>
 
   <main class="grid" id="grid" aria-label="技能列表" aria-live="off"></main>
+  <!-- 分页器：每页 100 条，数字翻页 + 上下页（renderPager 注入；v1.19.18） -->
+  <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
 
   <!-- 页脚区：品牌 + 导航链接 + 版本/协议（id 供脚本与测试精确选取；文案随语言切换） -->
   <footer class="site-footer" id="siteFooter">
@@ -653,7 +673,7 @@ html[data-lang="zh"] .en { display: none; }
       </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.19.18</span>
+      <span class="footer-ver" id="footerVer">v1.19.20</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -706,6 +726,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/banner-creator",
       "githubDir": "skills/banner-creator",
       "size": 5994940,
       "files": 16,
@@ -721,6 +742,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/banner-design",
       "githubDir": "skills/banner-design",
       "size": 14238,
       "files": 2,
@@ -736,6 +758,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/brand-guidelines",
       "githubDir": "skills/brand-guidelines",
       "size": 14140,
       "files": 2,
@@ -750,6 +773,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Review content against your brand voice, style guide, and messaging pillars, flagging deviations by severity with specific before/after fixes. Use when checking a draft before it ships, when auditing copy for voice consistency and terminology, or when screening for unsubstantiated claims, missing disclaimers, and other legal flags.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/brand-review",
       "githubDir": "skills/brand-review",
       "size": 13600,
       "files": 1,
@@ -764,6 +788,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "This skill orchestrates autonomous discovery of brand materials across enterprise platforms (Notion, Confluence, Google Drive, Box, SharePoint, Figma, Gong, Granola, Slack). It should be used when the user asks to \\\"discover brand materials\\\", \\\"find brand documents\\\", \\\"search for brand guidelines\\\", \\\"audit brand content\\\", \\\"what brand materials do we have\\\", \\\"find our style guide\\\", \\\"where are our brand docs\\\", \\\"do we have a style guide\\\", \\\"discover brand voice\\\", \\\"brand content audit\\\", or \\\"find brand assets\\\".",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/discover-brand",
       "githubDir": "skills/discover-brand",
       "size": 26215,
       "files": 3,
@@ -778,6 +803,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Generate a complete set of favicons from a source image and update HTML. Use when setting up favicons for a web project.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/favicon",
       "githubDir": "skills/favicon",
       "size": 9167,
       "files": 1,
@@ -792,6 +818,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Creates and maintains Figma Code Connect template files that map Figma components to code snippets. Use when the user mentions Code Connect, Figma component mapping, design-to-code translation, or asks to create/update .figma.ts or .figma.js files.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/figma-code-connect",
       "githubDir": "skills/figma-code-connect",
       "size": 62298,
       "files": 3,
@@ -806,6 +833,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/figma-design-to-code",
       "githubDir": "skills/figma-design-to-code",
       "size": 5436,
       "files": 1,
@@ -820,6 +848,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma', 'create in Figma from code', 'push page to Figma', 'take this app/page and build it in Figma', 'create a screen', 'build a landing page in Figma', 'update the Figma screen to match code', 'convert this modal/dialog/drawer/panel to Figma'. This is the preferred workflow skill whenever the user wants to build or update a full page, modal, dialog, drawer, sidebar, panel, or any composed multi-section view in Figma from code or a description. Discovers design system components, variables, and styles from Code Connect files, existing screens, and library search, then imports them and assembles views incrementally section-by-section using design system tokens instead of hardcoded values.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/figma-generate-design",
       "githubDir": "skills/figma-generate-design",
       "size": 41092,
       "files": 3,
@@ -834,6 +863,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/figma-generate-library",
       "githubDir": "skills/figma-generate-library",
       "size": 227878,
       "files": 16,
@@ -849,6 +879,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flux-kontext",
       "githubDir": "skills/flux-kontext",
       "size": 8587,
       "files": 1,
@@ -864,6 +895,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/frontend-design",
       "githubDir": "skills/frontend-design",
       "size": 18931,
       "files": 2,
@@ -878,6 +910,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-mobile-ads-banner",
       "githubDir": "skills/google-mobile-ads-banner",
       "size": 10434,
       "files": 4,
@@ -893,6 +926,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "0.1.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/logo-animation",
       "githubDir": "skills/logo-animation",
       "size": 16382,
       "files": 3,
@@ -907,6 +941,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/logo-creator",
       "githubDir": "skills/logo-creator",
       "size": 3714688,
       "files": 25,
@@ -923,6 +958,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "license": "MIT",
       "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/logo-designer",
       "githubDir": "skills/logo-designer",
       "size": 19072,
       "files": 2,
@@ -938,6 +974,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/muapi-3d-logo-animation",
       "githubDir": "skills/muapi-3d-logo-animation",
       "size": 2917,
       "files": 1,
@@ -953,6 +990,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "0.1.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/muapi-logo-creator",
       "githubDir": "skills/muapi-logo-creator",
       "size": 3734,
       "files": 1,
@@ -967,6 +1005,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/review-animations",
       "githubDir": "skills/review-animations",
       "size": 18468,
       "files": 2,
@@ -981,6 +1020,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/svg-logo-designer",
       "githubDir": "skills/svg-logo-designer",
       "size": 23476,
       "files": 2,
@@ -996,6 +1036,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/theme-factory",
       "githubDir": "skills/theme-factory",
       "size": 144870,
       "files": 13,
@@ -1010,6 +1051,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ui-ux-pro-max",
       "githubDir": "skills/ui-ux-pro-max",
       "size": 3626653,
       "files": 60,
@@ -1026,6 +1068,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "author": "vercel",
       "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-design-guidelines",
       "githubDir": "skills/web-design-guidelines",
       "size": 1575,
       "files": 1,
@@ -1040,6 +1083,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when designing, reviewing, or fixing WinUI 3: layout planning, control choice, Fluent Design alignment, Light/Dark/High Contrast theming, typography, spacing, brushes, accessibility, and XAML data-binding design. Load before authoring new XAML, reviewing UI PRs, migrating desktop UI to WinUI, or choosing between WinUI controls/patterns.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-design",
       "githubDir": "skills/winui-design",
       "size": 7941667,
       "files": 5,
@@ -1054,6 +1098,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns. Use when reviewing code quality or naming with no framework-specific skill that applies.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/coding-standards",
       "githubDir": "skills/coding-standards",
       "size": 13703,
       "files": 1,
@@ -1068,6 +1113,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Write and maintain technical documentation. Trigger with \\\"write docs for\\\", \\\"document this\\\", \\\"create a README\\\", \\\"write a runbook\\\", \\\"onboarding guide\\\", or when the user needs help with any form of technical writing — API docs, architecture docs, or operational runbooks.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/documentation",
       "githubDir": "skills/documentation",
       "size": 1914,
       "files": 1,
@@ -1082,6 +1128,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Helps users discover and install agent skills when they ask questions like \\\"how do I do X\\\", \\\"find a skill for X\\\", \\\"is there a skill that can...\\\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/find-skills",
       "githubDir": "skills/find-skills",
       "size": 5975,
       "files": 1,
@@ -1096,6 +1143,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/find-skills-2",
       "githubDir": "skills/find-skills-2",
       "size": 5019,
       "files": 1,
@@ -1110,6 +1158,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "A relentless interview to sharpen a plan or design.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-me",
       "githubDir": "skills/grill-me",
       "size": 530,
       "files": 2,
@@ -1124,6 +1173,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-with-docs",
       "githubDir": "skills/grill-with-docs",
       "size": 683,
       "files": 2,
@@ -1138,6 +1188,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grilling",
       "githubDir": "skills/grilling",
       "size": 2380,
       "files": 2,
@@ -1152,6 +1203,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Compact the current conversation into a handoff document for another agent to pick up.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/handoff",
       "githubDir": "skills/handoff",
       "size": 1239,
       "files": 2,
@@ -1166,6 +1218,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions \"marketing plan,\" \"growth plan,\" \"GTM plan,\" \"go-to-market plan,\" \"AARRR plan,\" \"90-day marketing plan,\" \"12-month marketing roadmap,\" \"fractional CMO plan,\" or \"fCMO plan.\" Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/marketing-plan",
       "githubDir": "skills/marketing-plan",
       "size": 251484,
       "files": 15,
@@ -1180,6 +1233,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/skill-creator",
       "githubDir": "skills/skill-creator",
       "size": 230932,
       "files": 18,
@@ -1195,6 +1249,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/sports-news",
       "githubDir": "skills/sports-news",
       "size": 7446,
       "files": 4,
@@ -1209,6 +1264,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wechat-article-writer",
       "githubDir": "skills/wechat-article-writer",
       "size": 2406,
       "files": 1,
@@ -1223,6 +1279,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/data-visualization",
       "githubDir": "skills/data-visualization",
       "size": 11636,
       "files": 1,
@@ -1238,6 +1295,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/football-data",
       "githubDir": "skills/football-data",
       "size": 40067,
       "files": 6,
@@ -1252,6 +1310,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Analyze / Rigor Audit read-only skill for deep learning research repositories. Use when the user wants to read and understand a repository, inspect model structure and training or inference entrypoints, review configs and insertion points, or flag suspicious implementation patterns without modifying code or running heavy jobs. Do not use for active command execution, broad refactoring, speculative code adaptation, or automatic bug fixing.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/analyze-project",
       "githubDir": "skills/analyze-project",
       "size": 30132,
       "files": 4,
@@ -1266,6 +1325,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/architecture-blueprint-generator",
       "githubDir": "skills/architecture-blueprint-generator",
       "size": 14042,
       "files": 1,
@@ -1280,6 +1340,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/blueprint",
       "githubDir": "skills/blueprint",
       "size": 16991,
       "files": 1,
@@ -1294,6 +1355,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bun",
       "githubDir": "skills/bun",
       "size": 2236,
       "files": 1,
@@ -1308,6 +1370,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Guide a user end-to-end through setting up Chrome Web Store API release automation in any repository. Use when asked to walk someone through OAuth/CWS credential setup, refresh token creation, local/CI secret setup, version-based publish automation, and submission status checks.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/chrome-webstore-release-blueprint",
       "githubDir": "skills/chrome-webstore-release-blueprint",
       "size": 9349,
       "files": 1,
@@ -1323,6 +1386,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "2.30.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/cloudbase",
       "githubDir": "skills/cloudbase",
       "size": 1174206,
       "files": 133,
@@ -1337,6 +1401,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review",
       "githubDir": "skills/code-review",
       "size": 7286,
       "files": 2,
@@ -1351,6 +1416,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review-and-quality",
       "githubDir": "skills/code-review-and-quality",
       "size": 21231,
       "files": 1,
@@ -1365,6 +1431,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/codebase-design",
       "githubDir": "skills/codebase-design",
       "size": 12208,
       "files": 4,
@@ -1379,6 +1446,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-build-cli-app",
       "githubDir": "skills/dart-build-cli-app",
       "size": 9379,
       "files": 1,
@@ -1393,6 +1461,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-flutter-patterns",
       "githubDir": "skills/dart-flutter-patterns",
       "size": 16888,
       "files": 1,
@@ -1407,6 +1476,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/debugging-and-error-recovery",
       "githubDir": "skills/debugging-and-error-recovery",
       "size": 11394,
       "files": 1,
@@ -1421,6 +1491,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/diagnosing-bugs",
       "githubDir": "skills/diagnosing-bugs",
       "size": 10401,
       "files": 3,
@@ -1435,6 +1506,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/executing-plans",
       "githubDir": "skills/executing-plans",
       "size": 2507,
       "files": 1,
@@ -1449,6 +1521,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, managing authentication, configuring CORS and security headers, integrating databases, working with WebSockets, and deploying to production. Covers the full Fastify request lifecycle (hooks, serialization, logging with Pino) and TypeScript integration via strip types. Trigger terms: Fastify, Node.js server, REST API, API routes, backend framework, fastify.config, server.ts, app.ts.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/fastify-best-practices",
       "githubDir": "skills/fastify-best-practices",
       "size": 199020,
       "files": 21,
@@ -1463,6 +1536,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-apply-architecture-best-practices",
       "githubDir": "skills/flutter-apply-architecture-best-practices",
       "size": 6686,
       "files": 1,
@@ -1477,6 +1551,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-build-responsive-layout",
       "githubDir": "skills/flutter-build-responsive-layout",
       "size": 7189,
       "files": 1,
@@ -1491,6 +1566,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-dart-code-review",
       "githubDir": "skills/flutter-dart-code-review",
       "size": 24058,
       "files": 1,
@@ -1505,6 +1581,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Add `flutter_localizations` and `intl` dependencies, enable \\\"generate true\\\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-setup-localization",
       "githubDir": "skills/flutter-setup-localization",
       "size": 6367,
       "files": 1,
@@ -1519,6 +1596,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Implement a specification in code.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/implement-spec",
       "githubDir": "skills/implement-spec",
       "size": 2373,
       "files": 2,
@@ -1533,6 +1611,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/improve-codebase-architecture",
       "githubDir": "skills/improve-codebase-architecture",
       "size": 13256,
       "files": 3,
@@ -1548,6 +1627,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Apache-2.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-cli",
       "githubDir": "skills/insforge-cli",
       "size": 216665,
       "files": 30,
@@ -1563,6 +1643,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Apache-2.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-debug",
       "githubDir": "skills/insforge-debug",
       "size": 53746,
       "files": 11,
@@ -1577,6 +1658,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-android-emulator",
       "githubDir": "skills/limrun-android-emulator",
       "size": 15123,
       "files": 1,
@@ -1591,6 +1673,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over reverse tunnels.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-detox-testing",
       "githubDir": "skills/limrun-detox-testing",
       "size": 5725,
       "files": 1,
@@ -1605,6 +1688,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-ios-simulator",
       "githubDir": "skills/limrun-ios-simulator",
       "size": 13238,
       "files": 1,
@@ -1619,6 +1703,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode",
       "githubDir": "skills/limrun-xcode",
       "size": 15148,
       "files": 1,
@@ -1633,6 +1718,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode-bazel",
       "githubDir": "skills/limrun-xcode-bazel",
       "size": 15923,
       "files": 3,
@@ -1648,6 +1734,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nestjs-best-practices",
       "githubDir": "skills/nestjs-best-practices",
       "size": 175351,
       "files": 43,
@@ -1662,6 +1749,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/next-best-practices",
       "githubDir": "skills/next-best-practices",
       "size": 84296,
       "files": 20,
@@ -1676,6 +1764,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-app-router-patterns",
       "githubDir": "skills/nextjs-app-router-patterns",
       "size": 14509,
       "files": 2,
@@ -1696,6 +1785,7 @@ html[data-lang="zh"] .en { display: none; }
         "Bash"
       ],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-code-review",
       "githubDir": "skills/nextjs-code-review",
       "size": 29697,
       "files": 4,
@@ -1710,6 +1800,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-react-typescript",
       "githubDir": "skills/nextjs-react-typescript",
       "size": 2197,
       "files": 1,
@@ -1724,6 +1815,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/openspec-implementation",
       "githubDir": "skills/openspec-implementation",
       "size": 9236,
       "files": 1,
@@ -1738,6 +1830,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a specific paper detail such as dataset split, preprocessing, evaluation protocol, checkpoint mapping, or runtime assumption from primary paper sources while recording conflicts. Do not use for general paper summary, repo scanning, environment setup, command execution, title-only paper lookup, or replacing README guidance by default.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/paper-context-resolver",
       "githubDir": "skills/paper-context-resolver",
       "size": 4170,
       "files": 3,
@@ -1754,6 +1847,7 @@ html[data-lang="zh"] .en { display: none; }
         "Read Write Edit Bash Glob Grep"
       ],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
       "githubDir": "skills/planning-with-files",
       "size": 259263,
       "files": 29,
@@ -1768,6 +1862,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype",
       "githubDir": "skills/prototype",
       "size": 16439,
       "files": 4,
@@ -1783,6 +1878,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/react-doctor",
       "githubDir": "skills/react-doctor",
       "size": 1767,
       "files": 1,
@@ -1797,6 +1893,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/receiving-code-review",
       "githubDir": "skills/receiving-code-review",
       "size": 6686,
       "files": 1,
@@ -1811,6 +1908,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Intake helper for README-first deep learning repo reproduction. Use when the task is specifically to scan a repository, read the README and common project files, extract documented commands, classify inference, evaluation, and training candidates, and return the smallest trustworthy reproduction plan to the main orchestrator. Do not use for environment setup, asset download, command execution, final reporting, paper lookup, or end-to-end orchestration.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/repo-intake-and-plan",
       "githubDir": "skills/repo-intake-and-plan",
       "size": 17812,
       "files": 5,
@@ -1825,6 +1923,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/requesting-code-review",
       "githubDir": "skills/requesting-code-review",
       "size": 9185,
       "files": 2,
@@ -1839,6 +1938,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/setup-matt-pocock-skills",
       "githubDir": "skills/setup-matt-pocock-skills",
       "size": 20001,
       "files": 7,
@@ -1853,6 +1953,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/shadcn-ui",
       "githubDir": "skills/shadcn-ui",
       "size": 88785,
       "files": 10,
@@ -1867,6 +1968,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/simplify",
       "githubDir": "skills/simplify",
       "size": 3346,
       "files": 1,
@@ -1881,6 +1983,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": ">- Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, restricted keys, webhooks, OAuth). Use when building, modifying, or reviewing any Stripe integration, including accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/stripe-best-practices",
       "githubDir": "skills/stripe-best-practices",
       "size": 61745,
       "files": 7,
@@ -1897,6 +2000,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "author": "supabase",
       "skillVersion": "0.1.2",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase",
       "githubDir": "skills/supabase",
       "size": 22183,
       "files": 4,
@@ -1912,6 +2016,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase-postgres-best-practices",
       "githubDir": "skills/supabase-postgres-best-practices",
       "size": 64295,
       "files": 36,
@@ -1926,6 +2031,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/systematic-debugging",
       "githubDir": "skills/systematic-debugging",
       "size": 42289,
       "files": 11,
@@ -1940,6 +2046,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tdd",
       "githubDir": "skills/tdd",
       "size": 7777,
       "files": 4,
@@ -1954,6 +2061,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/to-spec",
       "githubDir": "skills/to-spec",
       "size": 3514,
       "files": 2,
@@ -1968,6 +2076,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/traceknot",
       "githubDir": "skills/traceknot",
       "size": 692187,
       "files": 51,
@@ -1982,6 +2091,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Comprehensive skill reference for uni-app cross-platform development framework",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/uni-app",
       "githubDir": "skills/uni-app",
       "size": 99807,
       "files": 16,
@@ -1997,6 +2107,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-composition-patterns",
       "githubDir": "skills/vercel-composition-patterns",
       "size": 52738,
       "files": 14,
@@ -2014,6 +2125,7 @@ html[data-lang="zh"] .en { display: none; }
       "author": "vercel",
       "license": "MIT",
       "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-react-best-practices",
       "githubDir": "skills/vercel-react-best-practices",
       "size": 238843,
       "files": 76,
@@ -2029,6 +2141,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-best-practices",
       "githubDir": "skills/vue-best-practices",
       "size": 115602,
       "files": 23,
@@ -2043,6 +2156,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Vue 3 debugging and error handling for runtime errors, warnings, async failures, and SSR/hydration issues. Use when diagnosing or fixing Vue issues.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-debug-guides",
       "githubDir": "skills/vue-debug-guides",
       "size": 621677,
       "files": 140,
@@ -2060,6 +2174,7 @@ html[data-lang="zh"] .en { display: none; }
       "author": "github.com/vuejs-ai",
       "license": "MIT",
       "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-pinia-best-practices",
       "githubDir": "skills/vue-pinia-best-practices",
       "size": 39305,
       "files": 7,
@@ -2077,6 +2192,7 @@ html[data-lang="zh"] .en { display: none; }
       "author": "github.com/vuejs-ai",
       "license": "MIT",
       "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-router-best-practices",
       "githubDir": "skills/vue-router-best-practices",
       "size": 44610,
       "files": 9,
@@ -2092,6 +2208,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-artifacts-builder",
       "githubDir": "skills/web-artifacts-builder",
       "size": 46858,
       "files": 5,
@@ -2106,6 +2223,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites. Use when building, running, or fixing build errors in a WinUI 3 project.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-dev-workflow",
       "githubDir": "skills/winui-dev-workflow",
       "size": 67303,
       "files": 4,
@@ -2120,6 +2238,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/woocommerce-backend-dev",
       "githubDir": "skills/woocommerce-backend-dev",
       "size": 41880,
       "files": 9,
@@ -2134,6 +2253,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wordpress-router",
       "githubDir": "skills/wordpress-router",
       "size": 5435,
       "files": 2,
@@ -2148,6 +2268,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-audit",
       "githubDir": "skills/wp-abilities-audit",
       "size": 42357,
       "files": 4,
@@ -2162,6 +2283,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-verify",
       "githubDir": "skills/wp-abilities-verify",
       "size": 57851,
       "files": 7,
@@ -2176,6 +2298,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-block-themes",
       "githubDir": "skills/wp-block-themes",
       "size": 13203,
       "files": 8,
@@ -2190,6 +2313,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-patterns",
       "githubDir": "skills/wp-patterns",
       "size": 45315,
       "files": 8,
@@ -2204,6 +2328,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-performance",
       "githubDir": "skills/wp-performance",
       "size": 18024,
       "files": 11,
@@ -2218,6 +2343,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-playground",
       "githubDir": "skills/wp-playground",
       "size": 21626,
       "files": 4,
@@ -2232,6 +2358,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-development",
       "githubDir": "skills/wp-plugin-development",
       "size": 11507,
       "files": 8,
@@ -2246,6 +2373,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-directory-guidelines",
       "githubDir": "skills/wp-plugin-directory-guidelines",
       "size": 50633,
       "files": 4,
@@ -2260,6 +2388,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/write-tech-spec",
       "githubDir": "skills/write-tech-spec",
       "size": 8274,
       "files": 1,
@@ -2274,6 +2403,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use when you have a spec or requirements for a multi-step task, before touching code",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
       "githubDir": "skills/writing-plans",
       "size": 8944,
       "files": 2,
@@ -2289,6 +2419,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/docx",
       "githubDir": "skills/docx",
       "size": 1152593,
       "files": 61,
@@ -2304,6 +2435,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/pdf",
       "githubDir": "skills/pdf",
       "size": 60859,
       "files": 12,
@@ -2319,6 +2451,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/pptx",
       "githubDir": "skills/pptx",
       "size": 1163443,
       "files": 56,
@@ -2334,6 +2467,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/xlsx",
       "githubDir": "skills/xlsx",
       "size": 1126622,
       "files": 53,
@@ -2351,6 +2485,7 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(npx agent-browser:*)"
       ],
       "hidden": true,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/agent-browser",
       "githubDir": "skills/agent-browser",
       "size": 3812,
       "files": 1,
@@ -2365,6 +2500,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no session cookies. Resolve a profile by @handle, search users by keyword, pull posts/reels/stories/tagged posts/followers/followings, look up a post by shortcode, read comments, fetch hashtag or location feeds, pull posts by audio track, plus follower export, monitoring, influencer discovery, and competitor tracking without Graph API verification or a headless browser.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/instagram-api",
       "githubDir": "skills/instagram-api",
       "size": 25745,
       "files": 5,
@@ -2379,6 +2515,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/orca-cli",
       "githubDir": "skills/orca-cli",
       "size": 4306,
       "files": 1,
@@ -2393,6 +2530,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Playwriter: control the user's currently open Chrome tab through the Playwriter CLI (no new browser launch). Use when you need to inspect live UI state, run scripted browser actions, capture console output, or reproduce frontend issues directly in the user's tab; supports creating sessions, reading page structure and logs, executing click/type/hover/evaluate actions, and summarizing findings with exact IDs, timestamps, and observed state transitions.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwriter",
       "githubDir": "skills/playwriter",
       "size": 3463,
       "files": 2,
@@ -2407,6 +2545,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Review your Google Calendar week, identify gaps, and add events to fill them.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/recipe-plan-weekly-schedule",
       "githubDir": "skills/recipe-plan-weekly-schedule",
       "size": 1145,
       "files": 1,
@@ -2422,6 +2561,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/reddit-automation",
       "githubDir": "skills/reddit-automation",
       "size": 9070,
       "files": 1,
@@ -2436,6 +2576,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": ">- A TikTok API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no app review. Use when the user wants to search TikTok posts by keyword and sort by most-liked or most recent within a date range, look up a post by its share URL or ID, scrape a TikTok profile by @username, pull a user's posts, followers, or followings, fetch a hashtag's posts, pull posts using a specific sound/music track, get posts from a location, or read a post's comments and comment replies. Also covers TikTok trend tracking, hashtag monitoring, influencer discovery, competitor content analysis, and TikTok data pipelines without official TikTok API access or a scraping browser.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tiktok-api",
       "githubDir": "skills/tiktok-api",
       "size": 24895,
       "files": 5,
@@ -2450,6 +2591,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "A Twitter API alternative and X API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no OAuth and no developer application. Use when the user wants to search tweets by keyword, hashtag, or advanced operators (from:, to:, since:, until:, min_faves:, filter:), scrape a Twitter/X profile by handle, pull a user's tweets, replies, followers, or followings, fetch a single tweet with its replies or retweeters, read a Twitter List's members or tweets, check trending topics by country, or search for X accounts by name. Also covers Twitter data pipelines, competitor monitoring, hashtag tracking, sentiment analysis input, or follower export without the official X API's pricing tiers or app-review process.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/twitter-api",
       "githubDir": "skills/twitter-api",
       "size": 27251,
       "files": 5,
@@ -2466,6 +2608,7 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(belt *)"
       ],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/twitter-automation",
       "githubDir": "skills/twitter-automation",
       "size": 4853,
       "files": 1,
@@ -2480,6 +2623,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Expert in Windows UI Automation (UIA) and Win32 APIs for desktop automation. Specializes in accessible, secure automation of Windows applications including element discovery, input simulation, and process interaction. HIGH-RISK skill requiring strict security controls for system access.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/windows-ui-automation",
       "githubDir": "skills/windows-ui-automation",
       "size": 43531,
       "files": 4,
@@ -2494,6 +2638,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Workflow orchestration for complex coding tasks. Use for ANY non-trivial task (3+ steps or architectural decisions) to enforce planning, subagent strategy, self-improvement, verification, elegance, and autonomous bug fixing. Triggers: multi-step implementation, bug fixes, refactoring, architectural changes, or any task requiring structured execution.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/workflow",
       "githubDir": "skills/workflow",
       "size": 3232,
       "files": 1,
@@ -2509,6 +2654,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "0.1.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/agent-development",
       "githubDir": "skills/agent-development",
       "size": 73111,
       "files": 7,
@@ -2525,6 +2671,7 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(belt *)"
       ],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-image-generation",
       "githubDir": "skills/ai-image-generation",
       "size": 5952,
       "files": 1,
@@ -2539,6 +2686,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Reproduce compatible skill slug for README-first deep learning repository reproduction. Use when the user wants an end-to-end, minimal-trustworthy flow that reads the repository first, selects the smallest documented inference or evaluation target, coordinates intake, setup, trusted execution, optional trusted training, optional repository analysis, and optional paper-gap resolution, enforces conservative patch rules, records evidence assumptions deviations and human decision points, and writes the standardized `repro_outputs/` bundle. Do not use for paper summary, generic environment setup, isolated repo scanning, standalone command execution, silent protocol changes, score chasing, or broad research assistance outside repository-grounded reproduction.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-research-reproduction",
       "githubDir": "skills/ai-research-reproduction",
       "size": 84676,
       "files": 14,
@@ -2553,6 +2701,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Alibaba Cloud Bailian web search entry: routes web/online search and latest-news queries. Detects connection identity first (Token Plan vs others), then dispatches to model-native web search or Bailian MCP, with fallback logic.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bailian-web-search",
       "githubDir": "skills/bailian-web-search",
       "size": 8050,
       "files": 1,
@@ -2567,6 +2716,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/brainstorming",
       "githubDir": "skills/brainstorming",
       "size": 82440,
       "files": 8,
@@ -2581,6 +2731,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/domain-modeling",
       "githubDir": "skills/domain-modeling",
       "size": 8849,
       "files": 4,
@@ -2595,6 +2746,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/eve",
       "githubDir": "skills/eve",
       "size": 1375,
       "files": 1,
@@ -2609,6 +2761,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "> This skill should be used when the user wants to \"write agent code\", \"build an agent with ADK\", \"add a tool\", \"create a callback\", \"define an agent\", \"use state management\", or needs ADK (Agent Development Kit) Python API patterns and code examples. Part of the Google ADK skills suite. It provides a quick reference for agent types, tool definitions, orchestration patterns, callbacks, state management, and reference recipes to study. Do NOT use for scaffolding (use google-agents-cli-scaffold) or deployment (use google-agents-cli-deploy).",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-agents-cli-adk-code",
       "githubDir": "skills/google-agents-cli-adk-code",
       "size": 68804,
       "files": 4,
@@ -2623,6 +2776,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "> This skill should be used when the user wants to \"develop an agent\", \"build an agent using ADK\", \"run the agent locally\", \"debug agent code\", \"test an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\", or needs the ADK (Agent Development Kit) development lifecycle and coding guidelines. Entrypoint for building ADK agents. Always active — provides the full workflow (scaffold, build, evaluate, deploy, publish, observe), code preservation rules, model selection guidance, and troubleshooting steps for ADK or any agent development.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-agents-cli-workflow",
       "githubDir": "skills/google-agents-cli-workflow",
       "size": 32541,
       "files": 6,
@@ -2639,6 +2793,7 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(belt *)"
       ],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-avatar-video",
       "githubDir": "skills/ai-avatar-video",
       "size": 10612,
       "files": 1,
@@ -2656,6 +2811,7 @@ html[data-lang="zh"] .en { display: none; }
       ],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-music",
       "githubDir": "skills/ai-music",
       "size": 15513,
       "files": 1,
@@ -2672,6 +2828,7 @@ html[data-lang="zh"] .en { display: none; }
         "Bash(belt *)"
       ],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-video-generation",
       "githubDir": "skills/ai-video-generation",
       "size": 8175,
       "files": 1,
@@ -2689,6 +2846,7 @@ html[data-lang="zh"] .en { display: none; }
       ],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-video-generation-2",
       "githubDir": "skills/ai-video-generation-2",
       "size": 25649,
       "files": 1,
@@ -2704,6 +2862,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/image-to-video",
       "githubDir": "skills/image-to-video",
       "size": 12437,
       "files": 1,
@@ -2719,6 +2878,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/lark-meeting",
       "githubDir": "skills/lark-meeting",
       "size": 151710,
       "files": 26,
@@ -2734,6 +2894,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "4.0.515",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/remotion-best-practices",
       "githubDir": "skills/remotion-best-practices",
       "size": 1159858,
       "files": 137,
@@ -2749,6 +2910,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "skillVersion": "2.1.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/video",
       "githubDir": "skills/video",
       "size": 37906,
       "files": 4,
@@ -2764,6 +2926,7 @@ html[data-lang="zh"] .en { display: none; }
       "allowedTools": [],
       "hidden": false,
       "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/video-edit",
       "githubDir": "skills/video-edit",
       "size": 11891,
       "files": 1,
@@ -2778,6 +2941,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/video-editing",
       "githubDir": "skills/video-editing",
       "size": 10449,
       "files": 1,
@@ -2792,6 +2956,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Configure Better Auth server and client, set up database adapters, manage sessions, add plugins, and handle environment variables. Use when users mention Better Auth, betterauth, auth.ts, or need to set up TypeScript authentication with email/password, OAuth, or plugin configuration.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/better-auth-best-practices",
       "githubDir": "skills/better-auth-best-practices",
       "size": 7947,
       "files": 1,
@@ -2811,6 +2976,7 @@ html[data-lang="zh"] .en { display: none; }
       "author": "clerk",
       "license": "MIT",
       "skillVersion": "2.2.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/clerk-nextjs-patterns",
       "githubDir": "skills/clerk-nextjs-patterns",
       "size": 26540,
       "files": 12,
@@ -2825,6 +2991,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Use Sentry MCP to discover, triage, and fix production issues with root-cause analysis. Use when asked to fix Sentry issues, triage production errors, investigate error spikes, or clean up Sentry noise. Requires Sentry MCP server.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/fix-sentry-issues",
       "githubDir": "skills/fix-sentry-issues",
       "size": 5038,
       "files": 1,
@@ -2839,6 +3006,7 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.",
       "allowedTools": [],
       "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/safe-debug",
       "githubDir": "skills/safe-debug",
       "size": 10047,
       "files": 4,
@@ -2846,7 +3014,7 @@ html[data-lang="zh"] .en { display: none; }
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.19.14 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.19.20 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -2882,6 +3050,10 @@ html[data-lang="zh"] .en { display: none; }
       "detail.license": "协议 / License",
       "detail.version": "版本 / Version",
       "detail.githubDir": "GitHub 目录 / Source",
+      "detail.stars": "星标 / Stars",
+      "detail.firstSeen": "首次收录 / First seen",
+      "detail.install": "安装命令 / Install",
+      "detail.copyCmd": "复制命令",
       "detail.tools": "授权工具 / Allowed tools",
       "detail.related": "相关技能 / Related",
       "detail.copyName": "复制名称",
@@ -2907,6 +3079,10 @@ html[data-lang="zh"] .en { display: none; }
       "card.noDesc": "暂无中文描述。",
       "result.count": "共 {n} 个技能",
       "result.empty": "无匹配结果",
+      "pager.prev": "上一页",
+      "pager.next": "下一页",
+      "pager.page": "第 {n} 页",
+      "pager.info": "第 {cur} / {pages} 页",
       "settings.title": "设置",
       "settings.langGroup": "语言 / Language",
       "settings.language": "界面语言",
@@ -2961,6 +3137,10 @@ html[data-lang="zh"] .en { display: none; }
       "detail.license": "License",
       "detail.version": "Version",
       "detail.githubDir": "GitHub source",
+      "detail.stars": "Stars",
+      "detail.firstSeen": "First seen",
+      "detail.install": "Install",
+      "detail.copyCmd": "Copy command",
       "detail.tools": "Allowed tools",
       "detail.related": "Related skills",
       "detail.copyName": "Copy name",
@@ -2986,6 +3166,10 @@ html[data-lang="zh"] .en { display: none; }
       "card.noDesc": "No description available.",
       "result.count": "{n} skills",
       "result.empty": "No matches",
+      "pager.prev": "Previous",
+      "pager.next": "Next",
+      "pager.page": "Page {n}",
+      "pager.info": "Page {cur} / {pages}",
       "settings.title": "Settings",
       "settings.langGroup": "Language",
       "settings.language": "Interface language",
@@ -3128,7 +3312,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/parts/01-state.js v1.19.13 — 常量、偏好状态与纯工具函数
+  <script>// prototype/src/parts/01-state.js v1.19.20 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -3149,6 +3333,8 @@ const NAME_MODE_BOTH = "both", NAME_MODE_ZH = "zh", NAME_MODE_EN = "en";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
 const DENSITY_COMFORT = "comfortable", DENSITY_COMPACT = "compact";
 const DEBOUNCE_MS = 120;
+// 分页：每页 100 条（用户需求），与 skills.sh 默认 per_page 一致
+const PAGE_SIZE = 100;
 
 const state = {
   theme: "light",
@@ -3166,6 +3352,8 @@ const state = {
   cats: [],
   // 排序：name↑（默认，按 name）/ name↓ / cat（按分类）/ zh（按中文名）
   sort: "name",
+  // 当前页码（0 基），切换筛选/搜索/排序时重置为 0
+  page: 0,
 };
 
 // 偏好读取辅助：校验合法枚举值，非法则回退默认（避免脏 localStorage 破坏状态）
@@ -3228,7 +3416,7 @@ function matches(s, terms) {
   return terms.every((term) => hay.includes(term));
 }
 
-// prototype/src/parts/02-render.js v1.19.13 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.19.20 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
@@ -3338,12 +3526,20 @@ function renderGrid() {
   const counts = catCounts();
   renderStats();
   renderCats(counts);
+  // 分页：每页 PAGE_SIZE 条，page 为 0 基
+  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+  if (state.page > totalPages - 1) state.page = totalPages - 1; // 筛选后页码越界回钳
+  if (state.page < 0) state.page = 0;
+  const start = state.page * PAGE_SIZE;
+  const pageList = list.slice(start, start + PAGE_SIZE);
   const grid = $("#grid");
   grid.className = "grid " + state.view;
-  grid.innerHTML = list.length ? list.map(cardHTML).join("") : emptyHTML();
+  grid.innerHTML = pageList.length ? pageList.map(cardHTML).join("") : emptyHTML();
   // 同步排序下拉当前值（切换语言或重置时保持一致）
   const ss = $("#sortSelect");
   if (ss) ss.value = state.sort;
+  // 分页器（数字翻页 + 上下页）
+  renderPager(list.length, totalPages);
   // 结果计数 live 区：搜索/筛选后只播报数量，避免读屏朗读整网格（随当前语言）
   const rc = $("#resultCount");
   if (rc) rc.textContent = list.length
@@ -3351,7 +3547,35 @@ function renderGrid() {
     : I18N.t("result.empty");
 }
 
-// prototype/src/parts/03-detail.js v1.19.17 — 详情弹窗：元信息区(作者/协议/GitHub目录) + 相关技能 + 复制命令
+// 分页器：渲染「上一页 / 数字页码 / 下一页」+ 当前区间提示
+// total：筛选后总数；totalPages：总页数（≥1）。页码点击由 04-interactions 委托处理（data-page）
+function renderPager(total, totalPages) {
+  const pager = $("#pager");
+  if (!pager) return;
+  if (totalPages <= 1) { pager.innerHTML = ""; pager.classList.remove("show"); return; }
+  pager.classList.add("show");
+  const cur = state.page;
+  const items = [];
+  // 上一页
+  items.push(`<button class="pg-btn" data-page="${cur - 1}" ${cur <= 0 ? "disabled" : ""} aria-label="${I18N.t("pager.prev")}">‹</button>`);
+  // 数字页码（窗口：当前页 ±2，首尾必显）
+  const win = [];
+  for (let p = 0; p < totalPages; p++) {
+    if (p === 0 || p === totalPages - 1 || Math.abs(p - cur) <= 2) win.push(p);
+  }
+  let prev = -1;
+  for (const p of win) {
+    if (prev !== -1 && p - prev > 1) items.push(`<span class="pg-ellipsis">…</span>`);
+    items.push(`<button class="pg-btn num${p === cur ? " active" : ""}" data-page="${p}" aria-current="${p === cur ? "page" : "false"}" aria-label="${I18N.t("pager.page").replace("{n}", p + 1)}">${p + 1}</button>`);
+    prev = p;
+  }
+  // 下一页
+  items.push(`<button class="pg-btn" data-page="${cur + 1}" ${cur >= totalPages - 1 ? "disabled" : ""} aria-label="${I18N.t("pager.next")}">›</button>`);
+  items.push(`<span class="pg-info">${I18N.t("pager.info").replace("{cur}", cur + 1).replace("{pages}", totalPages)}</span>`);
+  pager.innerHTML = items.join("");
+}
+
+// prototype/src/parts/03-detail.js v1.19.20 — 详情弹窗：元信息区(作者/STAR/首次收录/协议/GitHub目录) + 安装命令 + 相关技能 + 复制
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）
@@ -3417,6 +3641,24 @@ function fallbackCopy(text, done) {
   document.body.removeChild(ta);
 }
 
+// 复制安装命令：读取按钮 data-cmd，提示到该弹窗内 #copyCmdTip（区别于复制名称的 #copyTip）
+function copyCmdButton(btn) {
+  const cmd = btn.getAttribute("data-cmd") || "";
+  const done = () => {
+    const tip = document.getElementById("copyCmdTip");
+    if (tip) {
+      tip.textContent = I18N.t("detail.copied");
+      tip.classList.add("show");
+      setTimeout(() => tip.classList.remove("show"), 1400);
+    }
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(cmd).then(done).catch(() => fallbackCopy(cmd, done));
+  } else {
+    fallbackCopy(cmd, done);
+  }
+}
+
 function metaRow(label, value, isLink) {
   if (!value) return "";
   if (isLink) {
@@ -3445,13 +3687,28 @@ function detailHTML(skill) {
     titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
   }
 
-  // 元信息区：作者 / 协议 / 版本 / GitHub 目录
+  // 元信息区：作者 / STAR / 首次收录 / 协议 / 版本 / GitHub 目录
+  const starsText = skill.stars != null ? String(skill.stars) : I18N.t("detail.unknown");
   const metaRows = [
     metaRow(I18N.t("detail.author"), skill.author || I18N.t("detail.unknown")),
+    metaRow(I18N.t("detail.stars"), starsText),
+    metaRow(I18N.t("detail.firstSeen"), skill.firstSeen || I18N.t("detail.unknown")),
     metaRow(I18N.t("detail.license"), skill.license || I18N.t("detail.unknown")),
     metaRow(I18N.t("detail.version"), skill.skillVersion || "—"),
     metaRow(I18N.t("detail.githubDir"), githubUrl, true),
   ].join("");
+
+  // 安装命令区（复制即用）
+  const cmd = skill.installCommand || `npx skills add sutchan/Agent-Skills-Hub/skills/${skill.name}`;
+  const installHTML = `
+    <div class="d-install">
+      <h4>${I18N.t("detail.install")}</h4>
+      <div class="cmd-row">
+        <code class="cmd-text" id="installCmd">${esc(cmd)}</code>
+        <button id="copyCmdBtn" class="btn ghost" data-cmd="${esc(cmd)}" aria-label="${I18N.t("detail.copyCmd")}">${I18N.t("detail.copyCmd")}</button>
+      </div>
+      <span id="copyCmdTip" class="copy-tip"></span>
+    </div>`;
 
   // 派生指标：大小 / 文件数 / 热度
   const sizeText = formatSize(skill.size);
@@ -3492,6 +3749,7 @@ function detailHTML(skill) {
       </div>
     </div>
     <div class="detail-meta">${metaRows}</div>
+    ${installHTML}
     ${metricHTML}
     <div class="detail-body">
       <p class="d-desc">${esc(desc || "")}</p>
@@ -3516,6 +3774,9 @@ function openDetail(arg) {
   document.getElementById("detailClose").addEventListener("click", closeDetail);
   const copyBtn = document.getElementById("copyNameBtn");
   if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
+  // 复制安装命令
+  const copyCmdBtn = document.getElementById("copyCmdBtn");
+  if (copyCmdBtn) copyCmdButton(copyCmdBtn);
 
   // 相关技能点击 → 切换详情
   dialog.querySelectorAll(".related-card").forEach((btn) => {
@@ -3543,7 +3804,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// prototype/src/parts/04-interactions.js v1.19.13 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.19.20 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -3631,13 +3892,13 @@ function bind() {
   on("#searchInput", "compositionend", (e) => {
     composing = false;
     const v = e.target.value;
-    t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
+    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
   on("#searchInput", "input", (e) => {
     if (composing) return; // 输入法组合中，跳过
     clearTimeout(t);
     const v = e.target.value;
-    t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
+    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
   // 视图切换
   $$(".view-btn").forEach((b) => {
@@ -3660,6 +3921,7 @@ function bind() {
       if (i === -1) state.cats.push(val); else state.cats.splice(i, 1);
     }
     track("filter_category", { categories: state.cats.slice() });
+    state.page = 0; // 筛选变化回到第一页
     renderGrid();
   });
   // 卡片点击打开详情（事件委托）
@@ -3674,15 +3936,26 @@ function bind() {
   on("#sortSelect", "change", (e) => {
     const el = e.target;
     state.sort = el.value || "name";
+    state.page = 0; // 排序变化回到第一页
     track("sort", { sort: state.sort });
     renderGrid();
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
+  // 分页器（事件委托：数字页码 / 上下页，data-page 为目标页 0 基）
+  on("#pager", "click", (e) => {
+    const btn = e.target.closest(".pg-btn");
+    if (!btn || btn.disabled) return;
+    const p = Number(btn.dataset.page);
+    if (Number.isNaN(p)) return;
+    state.page = p;
+    renderGrid();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
   // 设置按钮：打开设置弹窗（复用 dialog 框架）
   on("#settingsBtn", "click", () => openSettings());
   // 回到顶部：滚动超阈值后显示按钮（.show），并监听 scroll/resize 更新

@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.19.7
+> 路径：`prototype/DESIGN.md` · 版本：1.19.19
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -259,6 +259,8 @@
 品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
 > 版本：v1.19.13 — 筛选增强：分类筛选由单选升级为**多选 OR**（state.cat → state.cats 数组，空=全部，点击 chip 非破坏式 toggle）；新增**排序**下拉（控制区 `#sortSelect`：名称 A-Z / 名称 Z-A / 按分类 / 按中文名，默认 A-Z）。原型 `02-render.js` 新增 `sortSkills()`、renderCats 按 `state.cats.includes` 判 active；`04-interactions.js` 分类点击改 toggle、`clearFilters` 重置 cats+sort、绑定 `#sortSelect` change；`index.html` 控制区加排序 select + `i18n.js` 加 `sort.*` 中英文案 + `components.css` 加 `.sort-wrap select` 样式。app `SkillsExplorer.tsx` 改 `cats` 多选(toggleCat)+`sort` state+排序比较器+控制区 select；`globals.css` 补 `.sort-wrap` 样式。其余同 v1.19.12（全字段规范重排 SKILL.md 头部注释）+ v1.19.7（统计迁入页脚 4 项：技能总数/分类/英文描述覆盖/支持语言）+ v1.19.6（名称显示分组 + 设置紧凑化）+ v1.19.5（界面元素分组）+ v1.19.4（app 卡片层重建、`app/components/` 最小可用 `AppShell`/`SkillsExplorer`/`skill-card`、`.card-body` 列表布局修复）+ v1.19.3（原型卡片双名/列表修复）+ v1.18.3（页眉品牌区优化、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
+
+> 版本：v1.19.14 — 详情弹窗重构：新增 `app/components/detail-modal.tsx`，`build-skills-data.mjs` 提取 `author`/`license`/`version`/`githubDir`；原型 `03-detail.js` 注入元信息区（作者/协议/GitHub 目录）+ 相关技能 + 复制命令；数据契约 `SkillEntry` 增 `source?` 可选字段（v1.19.18 规范补充，指向 skills.sh 生态上游溯源）。后续 v1.19.15~v1.19.18 的逐项变更见根 `CHANGELOG.md`。
 
 ### 8.1 标志释义（Logo）
 

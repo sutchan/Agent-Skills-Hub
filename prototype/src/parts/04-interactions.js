@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.19.13 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.19.20 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -86,13 +86,13 @@ function bind() {
   on("#searchInput", "compositionend", (e) => {
     composing = false;
     const v = e.target.value;
-    t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
+    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
   on("#searchInput", "input", (e) => {
     if (composing) return; // 输入法组合中，跳过
     clearTimeout(t);
     const v = e.target.value;
-    t = setTimeout(() => { state.query = v; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
+    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
   // 视图切换
   $$(".view-btn").forEach((b) => {
@@ -115,6 +115,7 @@ function bind() {
       if (i === -1) state.cats.push(val); else state.cats.splice(i, 1);
     }
     track("filter_category", { categories: state.cats.slice() });
+    state.page = 0; // 筛选变化回到第一页
     renderGrid();
   });
   // 卡片点击打开详情（事件委托）
@@ -129,15 +130,26 @@ function bind() {
   on("#sortSelect", "change", (e) => {
     const el = e.target;
     state.sort = el.value || "name";
+    state.page = 0; // 排序变化回到第一页
     track("sort", { sort: state.sort });
     renderGrid();
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
+  // 分页器（事件委托：数字页码 / 上下页，data-page 为目标页 0 基）
+  on("#pager", "click", (e) => {
+    const btn = e.target.closest(".pg-btn");
+    if (!btn || btn.disabled) return;
+    const p = Number(btn.dataset.page);
+    if (Number.isNaN(p)) return;
+    state.page = p;
+    renderGrid();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
   // 设置按钮：打开设置弹窗（复用 dialog 框架）
   on("#settingsBtn", "click", () => openSettings());
   // 回到顶部：滚动超阈值后显示按钮（.show），并监听 scroll/resize 更新

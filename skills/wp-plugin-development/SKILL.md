@@ -5,7 +5,6 @@ en_description: "Use when developing WordPress plugins: architecture and hooks, 
 zh: WordPress 插件开发
 category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
-compatibility: "Targets WordPress 6.9+ (PHP 7.2.24+). Filesystem-based agent with bash + node. Some workflows require WP-CLI."
 ---
 
 # WP Plugin Development

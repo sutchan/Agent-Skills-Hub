@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.19.13 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.19.20 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -19,6 +19,8 @@ const NAME_MODE_BOTH = "both", NAME_MODE_ZH = "zh", NAME_MODE_EN = "en";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
 const DENSITY_COMFORT = "comfortable", DENSITY_COMPACT = "compact";
 const DEBOUNCE_MS = 120;
+// 分页：每页 100 条（用户需求），与 skills.sh 默认 per_page 一致
+const PAGE_SIZE = 100;
 
 const state = {
   theme: "light",
@@ -36,6 +38,8 @@ const state = {
   cats: [],
   // 排序：name↑（默认，按 name）/ name↓ / cat（按分类）/ zh（按中文名）
   sort: "name",
+  // 当前页码（0 基），切换筛选/搜索/排序时重置为 0
+  page: 0,
 };
 
 // 偏好读取辅助：校验合法枚举值，非法则回退默认（避免脏 localStorage 破坏状态）
