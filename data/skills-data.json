@@ -1,5 +1,5 @@
 {
-  "total": 108,
+  "total": 122,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -96,6 +96,16 @@
       "hidden": false
     },
     {
+      "name": "flux-kontext",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Flux Kontext 图像生成",
+      "description": "通过 fal.ai 上的 Flux Kontext 做图像编辑与生成——局部重绘、风格迁移、角色/物体一致性、背景替换与多种变体。当用户想用提示词编辑或生成图像、保持主体一致、做电商/社媒视觉或概念稿时使用。",
+      "enDescription": "> Edit images with Flux 1 Kontext Pro (Black Forest Labs' precise local image-edit model) on RunComfy — bundled with the model's documented prompting patterns so the skill gets sharper output than naive prompting against the same model. Documents Flux Kontext's strengths (single-reference precise local edits, strong prompt control, consistent high-fidelity outputs), the schema (single image + prompt), and when to route to Nano Banana Edit / GPT Image 2 edit / Flux 2 Klein instead. Calls `runcomfy run blackforestlabs/flux-1-kontext/pro/edit` through the local RunComfy CLI. Triggers on \"flux kontext\", \"flux-kontext\", \"flux 1 kontext\", \"kontext\", \"BFL kontext\", or any explicit ask to edit with this model.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "frontend-design",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -156,6 +166,16 @@
       "hidden": false
     },
     {
+      "name": "review-animations",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "动效评审",
+      "description": "依据源自 Emil Kowalski 作品的高水准动效标准评审动画与动效代码。当用户希望动效更顺滑、有质感、符合高级动效规范时使用。",
+      "enDescription": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "svg-logo-designer",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -172,6 +192,16 @@
       "zh": "工件主题样式工具箱",
       "description": "用于为主题美化工件的工具箱，适用于幻灯片、文档、报告、HTML 落地页等工件。内置 10 套预置主题（含颜色/字体），可应用到任意已创建工件，也可即时生成新主题。",
       "enDescription": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "UI/UX 设计智能",
+      "description": "面向 Web、移动与桌面端的 UI/UX 设计智能。当用户做界面设计、交互方案、视觉系统或体验优化，需要设计判断力与最佳实践时使用。",
+      "enDescription": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
       "allowedTools": [],
       "hidden": false
     },
@@ -427,6 +457,16 @@
       "hidden": false
     },
     {
+      "name": "ai-research-reproduction",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "AI 研究复现",
+      "description": "Rigor Reproduce 兼容技能，面向 README 优先的深度学习仓库复现。当用户想按 README 复现实验结果、核对环境/依赖/随机种子、定位复现差异时使用。",
+      "enDescription": "Rigor Reproduce compatible skill slug for README-first deep learning repository reproduction. Use when the user wants an end-to-end, minimal-trustworthy flow that reads the repository first, selects the smallest documented inference or evaluation target, coordinates intake, setup, trusted execution, optional trusted training, optional repository analysis, and optional paper-gap resolution, enforces conservative patch rules, records evidence assumptions deviations and human decision points, and writes the standardized `repro_outputs/` bundle. Do not use for paper summary, generic environment setup, isolated repo scanning, standalone command execution, silent protocol changes, score chasing, or broad research assistance outside repository-grounded reproduction.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "ai-video-generation",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -533,6 +573,16 @@
       "hidden": false
     },
     {
+      "name": "code-review-and-quality",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "代码评审与质量",
+      "description": "执行多维度的代码评审。在合并任何改动前使用；当用户需要评审分支、PR、进行中的改动或「自 X 以来的改动」时使用。",
+      "enDescription": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "codebase-design",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -559,6 +609,16 @@
       "zh": "Dart/Flutter 模式",
       "description": "用于编写生产级 Dart/Flutter 代码的技能，涵盖面向 Flutter/Dart 的架构模式、代码组织与工程实践，帮助构建健壮、可维护的跨平台应用。",
       "enDescription": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "debugging-and-error-recovery",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "调试与错误恢复",
+      "description": "引导系统化的根因调试。当测试失败、构建中断、运行时报错或行为异常，需要定位根因并恢复时使用。",
+      "enDescription": "Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.",
       "allowedTools": [],
       "hidden": false
     },
@@ -653,6 +713,26 @@
       "hidden": false
     },
     {
+      "name": "google-agents-cli-adk-code",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Google ADK 代码技能",
+      "description": "google-agents-cli 的 ADK 代码技能，指导用 Agent Development Kit 构建智能体代码——agent 定义、工具、会话与部署。当用户开发 Google ADK 智能体、编写 agent/tools 代码或接入 Google Agents CLI 时使用。",
+      "enDescription": "> This skill should be used when the user wants to \"write agent code\", \"build an agent with ADK\", \"add a tool\", \"create a callback\", \"define an agent\", \"use state management\", or needs ADK (Agent Development Kit) Python API patterns and code examples. Part of the Google ADK skills suite. It provides a quick reference for agent types, tool definitions, orchestration patterns, callbacks, state management, and reference recipes to study. Do NOT use for scaffolding (use google-agents-cli-scaffold) or deployment (use google-agents-cli-deploy).",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "google-agents-cli-workflow",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Google Agents CLI 工作流",
+      "description": "google-agents-cli 的工作流技能，覆盖智能体项目的脚手架、运行、评估与 CI 集成。当用户搭建 Google Agents CLI 项目、跑工作流或接入流水线时使用。",
+      "enDescription": "> This skill should be used when the user wants to \"develop an agent\", \"build an agent using ADK\", \"run the agent locally\", \"debug agent code\", \"test an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\", or needs the ADK (Agent Development Kit) development lifecycle and coding guidelines. Entrypoint for building ADK agents. Always active — provides the full workflow (scaffold, build, evaluate, deploy, publish, observe), code preservation rules, model selection guidance, and troubleshooting steps for ADK or any agent development.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "image-to-video",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -679,6 +759,16 @@
       "zh": "Insforge CLI",
       "description": "当用户需要后端能力，或任务涉及 Insforge（即时后端/数据库服务）CLI 的初始化、数据建模、本地开发与部署时使用。",
       "enDescription": ">- Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppressions, import/export, AI/OpenRouter setup and usage overview, Stripe/Razorpay payments, Apify web scraping / data sources, PostHog product analytics, backend branches, organization membership (invite, leave, delete), agent memory (remember/recall project facts and decisions), reporting InsForge-side bugs or doc discrepancies (feedback), or CLI docs. For app code with InsForge or @insforge/sdk, use the insforge app-integration skill instead.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "insforge-debug",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Insforge 调试",
+      "description": "Rigor Debug / Rigor Audit 技能，面向 Insforge（即时后端/数据库服务）的调试。当用户想排查 Insforge 数据模型、CLI、本地开发或部署问题时使用。",
+      "enDescription": ">- Use when diagnosing problems in an InsForge project — reactive failures (SDK error object, HTTP 4xx/5xx, gateway timeout 502/503/504, edge function failure or timeout, login/OAuth/auth errors, RLS denial, realtime channel issues, slow query on one endpoint, edge function or Vercel deploy failure), proactive audits (security/RLS review, performance/index review, system health check, pre-launch readiness), or when the user has an error but doesn't know where to start.",
       "allowedTools": [],
       "hidden": false
     },
@@ -859,6 +949,16 @@
       "hidden": false
     },
     {
+      "name": "receiving-code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "接收代码评审",
+      "description": "在收到代码评审反馈、落实建议之前使用，尤其是面对多条或相互冲突的评审意见时。引导你分类、澄清并落地评审意见。",
+      "enDescription": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "remotion-best-practices",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -879,12 +979,42 @@
       "hidden": false
     },
     {
+      "name": "requesting-code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "请求代码评审",
+      "description": "在完成任务、实现主要功能或合并到主分支之前请求代码评审时使用。引导你整理改动、撰写评审说明并选择合适的评审范围。",
+      "enDescription": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "safe-debug",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "安全调试",
+      "description": "Rigor Debug / Rigor Audit 技能，面向深度学习科研工作。当用户想安全地调试训练/推理、排查数值异常或复现问题时使用。",
+      "enDescription": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "setup-matt-pocock-skills",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "工程技能仓库初始化",
       "description": "为工程技能配置本仓库：设置问题跟踪器、分类标签词汇与域文档布局。在首次使用其他工程技能前运行一次。",
       "enDescription": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "shadcn-ui",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "shadcn/ui",
+      "description": "集成与基于 shadcn/ui 组件构建应用的专家级指引——组件安装、主题、可访问性、组合与定制。当用户使用 shadcn/ui 搭建界面时使用。",
+      "enDescription": "Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.",
       "allowedTools": [],
       "hidden": false
     },
@@ -925,6 +1055,16 @@
       "zh": "Supabase Postgres 最佳实践",
       "description": "由 Supabase 维护的 Postgres 最佳实践，适用于任意环境运行的 Postgres。在编写或修改任何 Postgres 数据库对象之前加载本技能：建表/改表与选列类型（含 schema 设计）、迁移与声明式 schema 文件、RLS 策略及其测试、索引、触发器、数据库函数、队列与定时任务（pg_cron、pgmq）、向量/语义搜索（pgvector）、恢复转储（pg_restore）或导入数据。诊断慢查询、高 CPU、超时、EXPLAIN 计划、连接耗尽、锁、膨胀，或租户/用户可见到错误数据时也加载。不仅是性能指南——schema、迁移、安全与 SQL 编写任务（哪怕只改一列或一条查询）都需遵循这些规则。",
       "enDescription": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "systematic-debugging",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "系统化调试",
+      "description": "遇到任何 bug、测试失败或意外行为时使用，先分析再动手。引导你复现、收集证据、提出假设并验证，避免盲目修改。",
+      "enDescription": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
       "allowedTools": [],
       "hidden": false
     },

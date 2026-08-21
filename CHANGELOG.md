@@ -4,6 +4,12 @@
 
 ## [1.18.0] - 2026-08-21
 
+### fix: 第四轮补全 14 个新技能 frontmatter 消除「其他」分类
+
+- **补全字段**：为 `ai-research-reproduction`、`code-review-and-quality`、`debugging-and-error-recovery`、`flux-kontext`、`google-agents-cli-adk-code`、`google-agents-cli-workflow`、`insforge-debug`、`receiving-code-review`、`requesting-code-review`、`review-animations`、`safe-debug`、`shadcn-ui`、`systematic-debugging`、`ui-ux-pro-max` 补齐 `category` / `en_category` / `zh` / `description`(中文) / `en_description`(英文) 字段；其中 `flux-kontext`/`review-animations`/`ui-ux-pro-max` 归入品牌与设计，其余归入开发框架与平台
+- **消除「其他」分类**：「其他」分类归零，5 大领域稳定；技能总数 122（可见 122，hidden 1，共 123 目录）
+- **数据重建**：`npm run build` 重建 `data/skills-data.json`，同步 `prototype/index.html` 与 `app/app/data/skills-data.json`；README/README.en 技能总数（122）对齐
+
 ### feat: 完善设置弹窗（新增视图模式与显示密度选项）
 
 - **设置项扩充**：设置弹窗在原有「语言 / 主题」基础上新增「布局（网格 / 列表）」与「密度（舒适 / 紧凑）」两组切换
