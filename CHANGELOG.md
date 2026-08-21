@@ -2,6 +2,14 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.18] - 2026-08-21
+
+### docs: 更新项目规范补充外部技能生态（skills.sh）参考
+
+- **openspec/spec.md 新增 §8 外部技能生态参考**：记录开放 Agent Skills 目录 [skills.sh](https://www.skills.sh)（Vercel 出品）的定位、安装方式 `npx skills add <owner/repo>`、API（`/api/v1/skills`、`/skills/search`、`/skills/curated`、详情端点）、Topics 分类与主流技能，明确其作为本仓库选品/对标/补充来源
+- **SkillEntry 新增可选 `source` 字段**（§2.1）：本地技能可在 frontmatter 标注 `source: <owner/repo>` 指向 skills.sh 上游，便于外部溯源，`build-skills-data.mjs` 读取写入
+- **版本同步**：openspec 三文档头注释由 v1.19.2 升至 v1.19.18（修正长期脱节）；package.json / README 中英文徽章同步 v1.19.18
+
 ## [1.19.17] - 2026-08-21
 
 ### fix: 修复技能详情弹窗无法打开
@@ -1502,3 +1510,14 @@
 [1.19.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.5
 [1.19.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.6
 [1.19.7]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.7
+[1.19.8]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.8
+[1.19.9]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.9
+[1.19.10]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.10
+[1.19.11]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.11
+[1.19.12]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.12
+[1.19.13]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.13
+[1.19.14]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.14
+[1.19.15]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.15
+[1.19.16]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.16
+[1.19.17]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.17
+[1.19.18]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.18
