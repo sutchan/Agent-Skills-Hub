@@ -97,10 +97,6 @@
       <h1 class="en" id="heroTitleEn" aria-hidden="true">Scattered agent skills, <span class="accent">unified</span> into one searchable hub</h1>
       <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
       <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
-      <div class="hero-stat" id="heroStats" aria-live="polite">
-        <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl zh" data-i18n="stat.total">技能总数</div><div class="lbl en" data-i18n="stat.total">Total skills</div></div>
-        <div class="stat"><div class="num" id="statCats">0</div><div class="lbl zh" data-i18n="stat.cats">分类</div><div class="lbl en" data-i18n="stat.cats">Categories</div></div>
-      </div>
       <ul class="hero-features" aria-label="Highlights">
         <li class="zh">⚙️ 零维护清单 · 构建自动生成</li><li class="en">⚙️ Zero-maintenance, auto-generated</li>
         <li class="zh">🌏 中文本地化 · 开箱即用</li><li class="en">🌏 Chinese-localized, ready to use</li>
@@ -150,6 +146,13 @@
         <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener">GitHub</a>
         <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener">README</a>
       </nav>
+      <!-- 页脚统计区（自 v1.19.7 起由 hero 迁入并扩充）：技能总数 / 分类 / 英文覆盖 / 支持语言 -->
+      <div class="footer-stats" id="footerStats" aria-live="polite">
+        <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl zh" data-i18n="stat.total">技能总数</div><div class="lbl en" data-i18n="stat.total">Total skills</div></div>
+        <div class="stat"><div class="num" id="statCats">0</div><div class="lbl zh" data-i18n="stat.cats">分类</div><div class="lbl en" data-i18n="stat.cats">Categories</div></div>
+        <div class="stat"><div class="num" id="statEnCov">0</div><div class="lbl zh" data-i18n="stat.enCov">英文描述</div><div class="lbl en" data-i18n="stat.enCov">EN described</div></div>
+        <div class="stat"><div class="num" id="statLangs">2</div><div class="lbl zh" data-i18n="stat.langs">支持语言</div><div class="lbl en" data-i18n="stat.langs">Languages</div></div>
+      </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
       <span class="footer-ver" id="footerVer">v{{VERSION}}</span>

@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.7] - 2026-08-21
+
+### feat: 统计数据由 hero 迁入页脚并扩充
+
+- hero 区移除 `#heroStats` 统计块（保留 hero-features 亮点行）
+- footer `#footerInner` 新增 `#footerStats` 统计区，4 项指标：技能总数（可见）、分类数、英文描述覆盖数、支持语言数（zh/en=2）
+- 原型 `02-render.js` 的 `renderStats()` 重算 4 项（英文覆盖按 `enDescription` 非空）；`i18n.js` 新增 `stat.enCov`/`stat.langs` 中英文案；`layout.css` 新增 `.footer-stats`（flex 平铺 + 虚线分隔）
+- app `AppShell.tsx` 用 `useMemo` 计算同样 4 项并渲染 `#footerStats`；`globals.css` 补 `.footer-stats` 样式，与原型对齐
+- package.json 升至 v1.19.7
+
 ## [1.19.6] - 2026-08-21
 
 ### feat: 设置项新增「名称显示」分组并紧凑化设置弹窗
@@ -1403,3 +1413,4 @@
 [1.19.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.4
 [1.19.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.5
 [1.19.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.6
+[1.19.7]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.7

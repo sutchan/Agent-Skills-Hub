@@ -1,6 +1,6 @@
-// app/components/AppShell.tsx v1.19.4 — 应用外壳（顶栏品牌区 + 语言切换 + 技能浏览器）
+// app/components/AppShell.tsx v1.19.7 — 应用外壳（顶栏品牌区 + 语言切换 + 技能浏览器 + 页脚统计）
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
 import type { SkillsData } from "../lib/skills";
 import { SkillsExplorer } from "./SkillsExplorer";
@@ -27,6 +27,17 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     document.documentElement.lang = lang;
     if (typeof localStorage !== "undefined") localStorage.setItem("ash-lang", lang);
   }, [lang]);
+
+  // 页脚统计（v1.19.7 由 hero 迁入并扩充）：可见技能总数、分类数、英文描述覆盖数、支持语言数
+  const stats = useMemo(() => {
+    const visible = (data.skills || []).filter((s) => !s.hidden);
+    return {
+      total: visible.length,
+      cats: (data.categories || []).length,
+      enCov: visible.filter((s) => s.enDescription && String(s.enDescription).trim()).length,
+      langs: 2,
+    };
+  }, [data]);
 
   return (
     <>
@@ -57,6 +68,24 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
           <span>Agent Skills Hub</span>
           <span>{lang === "zh" ? "开源免费 · MIT 协议" : "Open source · MIT License"}</span>
           {version ? <span className="footer-version">v{version}</span> : null}
+          <div className="footer-stats" id="footerStats" aria-live="polite">
+            <div className="stat">
+              <div className="num">{stats.total}</div>
+              <div className="lbl">{lang === "zh" ? "技能总数" : "Total skills"}</div>
+            </div>
+            <div className="stat">
+              <div className="num">{stats.cats}</div>
+              <div className="lbl">{lang === "zh" ? "分类" : "Categories"}</div>
+            </div>
+            <div className="stat">
+              <div className="num">{stats.enCov}</div>
+              <div className="lbl">{lang === "zh" ? "英文描述" : "EN described"}</div>
+            </div>
+            <div className="stat">
+              <div className="num">{stats.langs}</div>
+              <div className="lbl">{lang === "zh" ? "支持语言" : "Languages"}</div>
+            </div>
+          </div>
         </div>
       </footer>
     </>

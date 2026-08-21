@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 144 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 147 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 144+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 147+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 144+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 147+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
@@ -185,7 +185,7 @@ body.no-scroll { overflow: hidden; }
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
 
-/* prototype/src/styles/layout.css v1.18.3 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.19.7 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -280,6 +280,11 @@ html[data-lang="zh"] .en { display: none; }
 .footer-ver { font-weight: 600; color: var(--text); }
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
+/* 页脚统计区（v1.19.7 由 hero 迁入并扩充）：横向平铺 4 项，计算中英双语显隐与 hero 统计一致 */
+.footer-stats { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 6px; padding-top: 16px; border-top: 1px dashed var(--border); }
+.footer-stats .stat { display: flex; flex-direction: column; gap: 2px; }
+.footer-stats .num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.footer-stats .lbl { font-size: 11.5px; color: var(--text-2); }
 
 /* prototype/src/styles/components.css v1.19.6 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
@@ -532,10 +537,6 @@ html[data-lang="zh"] .en { display: none; }
       <h1 class="en" id="heroTitleEn" aria-hidden="true">Scattered agent skills, <span class="accent">unified</span> into one searchable hub</h1>
       <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
       <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
-      <div class="hero-stat" id="heroStats" aria-live="polite">
-        <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl zh" data-i18n="stat.total">技能总数</div><div class="lbl en" data-i18n="stat.total">Total skills</div></div>
-        <div class="stat"><div class="num" id="statCats">0</div><div class="lbl zh" data-i18n="stat.cats">分类</div><div class="lbl en" data-i18n="stat.cats">Categories</div></div>
-      </div>
       <ul class="hero-features" aria-label="Highlights">
         <li class="zh">⚙️ 零维护清单 · 构建自动生成</li><li class="en">⚙️ Zero-maintenance, auto-generated</li>
         <li class="zh">🌏 中文本地化 · 开箱即用</li><li class="en">🌏 Chinese-localized, ready to use</li>
@@ -585,9 +586,16 @@ html[data-lang="zh"] .en { display: none; }
         <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener">GitHub</a>
         <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener">README</a>
       </nav>
+      <!-- 页脚统计区（自 v1.19.7 起由 hero 迁入并扩充）：技能总数 / 分类 / 英文覆盖 / 支持语言 -->
+      <div class="footer-stats" id="footerStats" aria-live="polite">
+        <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl zh" data-i18n="stat.total">技能总数</div><div class="lbl en" data-i18n="stat.total">Total skills</div></div>
+        <div class="stat"><div class="num" id="statCats">0</div><div class="lbl zh" data-i18n="stat.cats">分类</div><div class="lbl en" data-i18n="stat.cats">Categories</div></div>
+        <div class="stat"><div class="num" id="statEnCov">0</div><div class="lbl zh" data-i18n="stat.enCov">英文描述</div><div class="lbl en" data-i18n="stat.enCov">EN described</div></div>
+        <div class="stat"><div class="num" id="statLangs">2</div><div class="lbl zh" data-i18n="stat.langs">支持语言</div><div class="lbl en" data-i18n="stat.langs">Languages</div></div>
+      </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.19.6</span>
+      <span class="footer-ver" id="footerVer">v1.19.7</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -607,7 +615,7 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 144,
+  "total": 147,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -617,7 +625,8 @@ html[data-lang="zh"] .en { display: none; }
     "自动化与集成",
     "AI 与智能体",
     "音视频与多媒体",
-    "安全"
+    "安全",
+    "其他"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
@@ -628,7 +637,8 @@ html[data-lang="zh"] .en { display: none; }
     "自动化与集成": "Automation & Integration",
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
-    "安全": "Security"
+    "安全": "Security",
+    "其他": "其他"
   },
   "skills": [
     {
@@ -2105,10 +2115,40 @@ html[data-lang="zh"] .en { display: none; }
       "enDescription": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.",
       "allowedTools": [],
       "hidden": false
+    },
+    {
+      "name": "wp-block-themes",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-performance",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-plugin-development",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.19.6 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.19.7 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -2129,6 +2169,8 @@ html[data-lang="zh"] .en { display: none; }
       "hero.subtitle": "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。",
       "stat.total": "技能总数",
       "stat.cats": "分类",
+      "stat.enCov": "英文描述",
+      "stat.langs": "支持语言",
       "search.placeholder": "搜索技能名称或描述…",
       "detail.zhTitle": "中文描述",
       "detail.enTitle": "英文说明",
@@ -2187,6 +2229,8 @@ html[data-lang="zh"] .en { display: none; }
       "hero.subtitle": "Browse by category, search, or inspect skill details — ready to drop into your coding agent.",
       "stat.total": "Total skills",
       "stat.cats": "Categories",
+      "stat.enCov": "EN described",
+      "stat.langs": "Languages",
       "search.placeholder": "Search skills by name or description…",
       "detail.zhTitle": "Description (zh)",
       "detail.enTitle": "Description (en)",
@@ -2445,11 +2489,16 @@ function matches(s, terms) {
   return terms.every((term) => hay.includes(term));
 }
 
-// prototype/src/parts/02-render.js v1.17.0 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.19.7 — 列表/网格渲染与统计
 function renderStats() {
-  // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
-  $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
+  // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
+  const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
+  const total = visible.length;
+  const enCov = visible.filter((s) => s.enDescription && String(s.enDescription).trim()).length;
+  $("#statTotal").textContent = total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
+  $("#statEnCov").textContent = enCov;
+  $("#statLangs").textContent = 2; // zh / en 双语支持
 }
 // 历史函数移除：hero 标题已改为静态 thesis 文案（含 accent 强调），不再需要动态 {n} 注入
 
