@@ -1,4 +1,4 @@
-/* app/app/globals.css v1.18.3 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+/* app/globals.css v1.19.5 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 build.mjs 自动生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -151,6 +151,18 @@ html[data-lang="zh"] .en { display: none; }
 :root[data-density="compact"] .card { padding: 11px; gap: 6px; }
 :root[data-density="compact"] .card .cat-bar { margin: -11px -11px 0; }
 :root[data-density="compact"] .grid { gap: 10px; }
+
+/* UI 元素显隐（设置项切换）：关闭时按范围隐藏描述 / 分类标签 / 分类色条（对齐 prototype :root[data-show-*]） */
+:root[data-show-desc="off"] .card-desc { display: none; }
+:root[data-show-cat="off"] .card-cat { display: none; }
+:root[data-show-bar="off"] .grid:not(.list) .cat-bar { display: none; }
+:root[data-show-bar="off"] .grid.list .cat-bar { display: none; }
+
+/* 设置面板（app 内联设置，复用 .settings-panel/.settings-section，对齐 prototype 设置弹窗视觉） */
+.settings-panel { margin: 10px 0 4px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow-card); display: flex; flex-direction: column; gap: 12px; }
+.settings-section h3 { margin: 0 0 6px; font-size: 14px; font-weight: 700; color: var(--foreground); }
+.settings-panel .settings-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 6px 0; font-size: 14px; color: hsl(var(--foreground)); cursor: pointer; }
+.settings-panel .settings-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: hsl(var(--primary)); cursor: pointer; }
 
 /* prototype/src/styles/components.css v1.14.68 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 

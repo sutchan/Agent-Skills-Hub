@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.18.0 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.19.5 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -13,6 +13,7 @@ function track(event, params) {
 }
 
 const LS_THEME = "ash-theme", LS_LANG = "ash-lang", LS_VIEW = "ash-view", LS_DENSITY = "ash-density";
+const LS_SHOW_DESC = "ash-show-desc", LS_SHOW_CAT = "ash-show-cat", LS_SHOW_BAR = "ash-show-bar";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
 const DENSITY_COMFORT = "comfortable", DENSITY_COMPACT = "compact";
 const DEBOUNCE_MS = 120;
@@ -22,6 +23,10 @@ const state = {
   lang: "zh",
   view: VIEW_GRID,
   density: DENSITY_COMFORT,
+  // UI 元素显隐设置：默认全部开启（恢复用户熟悉的高信息密度卡片）
+  showDesc: true,
+  showCat: true,
+  showBar: true,
   query: "",
   cat: null,
 };

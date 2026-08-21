@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.18.0 — 主题/语言/视图/密度切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.19.5 — 主题/语言/视图/密度/UI元素切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -19,6 +19,14 @@ function applyView() {
 // 显示密度（舒适/紧凑）：同步到 <html data-density>，由 CSS 控制卡片间距与内边距
 function applyDensity() {
   document.documentElement.setAttribute("data-density", state.density);
+}
+
+// UI 元素显隐（描述/分类标签/分类色条）：同步到 <html data-show-*>，驱动卡片局部隐藏
+function applyUI() {
+  const root = document.documentElement;
+  root.setAttribute("data-show-desc", state.showDesc ? "on" : "off");
+  root.setAttribute("data-show-cat", state.showCat ? "on" : "off");
+  root.setAttribute("data-show-bar", state.showBar ? "on" : "off");
 }
 
 function applyLang() {

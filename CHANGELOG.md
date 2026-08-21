@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.5] - 2026-08-21
+
+### feat: 设置项新增「界面元素」分组（描述/分类标签/分类色条显隐）
+
+- 原型 `prototype/src/parts/01-state.js` 新增 `showDesc/showCat/showBar` 状态与 `ash-show-desc/ash-show-cat/ash-show-bar` 持久化键（默认开启）；`05-main.js` 恢复偏好并调用 `applyUI()`，`04-interactions.js` 新增 `applyUI()` 同步 `<html data-show-*>`；`03-detail.js` 设置弹窗新增「界面元素」分组（3 个开关），`i18n.js` 补中英文案
+- 原型 CSS：`components.css` 补 `:root[data-show-{desc,cat,bar}="off"]` 隐藏规则（网格/列表态色条均覆盖）
+- app `SkillsExplorer.tsx` 新增 3 个显隐状态（localStorage 恢复+持久化+同步 `<html data-show-*>`）与内联设置面板（`#settingsBtn` 触发），`skill-card.tsx` 接收 `showDesc/showCat/showBar` 条件渲染对应块；`globals.css` 补隐藏规则与设置面板样式
+- 两层 UX 一致：关描述→卡片仅标题+分类；关分类标签→仅标题+描述；关色条→卡片去顶部/左侧色条
+- package.json 升至 v1.19.5
+
 ## [1.19.4] - 2026-08-21
 
 ### fix: 重建 app 客户端卡片层并应用双语标题+列表布局修复
@@ -1372,3 +1382,4 @@
 [1.19.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.2
 [1.19.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.3
 [1.19.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.4
+[1.19.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.5

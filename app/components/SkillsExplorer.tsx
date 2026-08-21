@@ -1,6 +1,6 @@
-// app/components/SkillsExplorer.tsx v1.19.4 — 技能浏览器（分类筛选 + 搜索 + 视图切换 + 卡片网格）
+// app/components/SkillsExplorer.tsx v1.19.5 — 技能浏览器（分类筛选 + 搜索 + 视图切换 + UI元素显隐 + 卡片网格）
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
 import type { SkillsData } from "../lib/skills";
 import { SkillCard } from "./skill-card";
@@ -15,6 +15,36 @@ export function SkillsExplorer({
   const [cat, setCat] = useState<string>("all");
   const [q, setQ] = useState("");
   const [view, setView] = useState<"grid" | "list">("grid");
+  // UI 元素显隐设置：默认全部开启，独立持久化到 localStorage，并同步到 <html data-show-*> 供 CSS 隐藏
+  const [showDesc, setShowDesc] = useState(true);
+  const [showCat, setShowCat] = useState(true);
+  const [showBar, setShowBar] = useState(true);
+  const [settingsOpen, setShowSettings] = useState(false);
+
+  // 恢复偏好（localStorage 不可用时回退默认）
+  useEffect(() => {
+    const read = (k: string) => {
+      try { return localStorage.getItem(k); } catch { return null; }
+    };
+    const on = (v: string | null) => v !== "false";
+    setShowDesc(on(read("ash-show-desc")));
+    setShowCat(on(read("ash-show-cat")));
+    setShowBar(on(read("ash-show-bar")));
+  }, []);
+
+  // 偏好变化时同步到 <html data-show-*> + 持久化
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute("data-show-desc", showDesc ? "on" : "off");
+    root.setAttribute("data-show-cat", showCat ? "on" : "off");
+    root.setAttribute("data-show-bar", showBar ? "on" : "off");
+    const write = (k: string, v: boolean) => {
+      try { localStorage.setItem(k, v ? "true" : "false"); } catch { /* 隐私模式忽略 */ }
+    };
+    write("ash-show-desc", showDesc);
+    write("ash-show-cat", showCat);
+    write("ash-show-bar", showBar);
+  }, [showDesc, showCat, showBar]);
 
   const cats = useMemo(() => ["all", ...data.categories], [data.categories]);
 
@@ -72,7 +102,37 @@ export function SkillsExplorer({
             ☰
           </button>
         </div>
+        <button
+          id="settingsBtn"
+          className="icon-btn"
+          aria-label={lang === "zh" ? "设置" : "Settings"}
+          onClick={() => setShowSettings(true)}
+        >
+          ⚙
+        </button>
       </div>
+      {settingsOpen && (
+        <div id="settingsPanel" className="settings-panel" role="dialog" aria-label={lang === "zh" ? "设置" : "Settings"}>
+          <div className="settings-section">
+            <h3>{lang === "zh" ? "界面元素" : "UI elements"}</h3>
+            <label className="settings-row">
+              <span>{lang === "zh" ? "显示技能描述" : "Show skill description"}</span>
+              <input type="checkbox" checked={showDesc} onChange={(e) => setShowDesc(e.target.checked)} />
+            </label>
+            <label className="settings-row">
+              <span>{lang === "zh" ? "显示分类标签" : "Show category label"}</span>
+              <input type="checkbox" checked={showCat} onChange={(e) => setShowCat(e.target.checked)} />
+            </label>
+            <label className="settings-row">
+              <span>{lang === "zh" ? "显示分类色条" : "Show category color bar"}</span>
+              <input type="checkbox" checked={showBar} onChange={(e) => setShowBar(e.target.checked)} />
+            </label>
+          </div>
+          <button className="btn btn-primary" onClick={() => setShowSettings(false)}>
+            {lang === "zh" ? "完成" : "Done"}
+          </button>
+        </div>
+      )}
 
       <div id="resultCount" className="result-count" aria-live="polite">
         {lang === "zh" ? `共 ${filtered.length} 个结果` : `${filtered.length} results`}
@@ -80,7 +140,14 @@ export function SkillsExplorer({
 
       <div className={`grid ${view}`} id="grid">
         {filtered.map((s) => (
-          <SkillCard key={s.name} skill={s} onOpen={() => {}} />
+          <SkillCard
+            key={s.name}
+            skill={s}
+            onOpen={() => {}}
+            showDesc={showDesc}
+            showCat={showCat}
+            showBar={showBar}
+          />
         ))}
       </div>
     </section>

@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 133 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 143 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 133+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 143+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 133+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 143+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
@@ -281,7 +281,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
 
-/* prototype/src/styles/components.css v1.18.1 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.19.5 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -330,6 +330,13 @@ html[data-lang="zh"] .en { display: none; }
 :root[data-density="compact"] .card .cat-bar { margin: -11px -11px 0; }
 :root[data-density="compact"] .card .card-desc { font-size: 11px; line-height: 1.4; }
 :root[data-density="compact"] .grid { gap: 10px; }
+
+/* UI 元素显隐（设置项切换）：关闭时按范围隐藏描述 / 分类标签 / 分类色条
+   列表态色条为绝对定位装饰条，关闭后一并隐藏 */
+:root[data-show-desc="off"] .card-desc { display: none; }
+:root[data-show-cat="off"] .card-cat { display: none; }
+:root[data-show-bar="off"] .grid:not(.list) .cat-bar { display: none; }
+:root[data-show-bar="off"] .grid.list .cat-bar { display: none; }
 
 /* 通用图标按钮（语言/主题/设置/弹窗关闭）：统一尺寸与垂直对齐，修复顶部栏按钮参差 */
 .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-radius: 9px; color: var(--text-2); transition: background .15s, color .15s; line-height: 1; font-size: 14px; }
@@ -561,7 +568,7 @@ html[data-lang="zh"] .en { display: none; }
       </nav>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.19.3</span>
+      <span class="footer-ver" id="footerVer">v1.19.5</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -581,7 +588,7 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 133,
+  "total": 143,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -607,6 +614,26 @@ html[data-lang="zh"] .en { display: none; }
     "其他": "其他"
   },
   "skills": [
+    {
+      "name": "banner-creator",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "AI 横幅广告创建",
+      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "banner-design",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "多格式横幅设计",
+      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
     {
       "name": "brand-guidelines",
       "category": "品牌与设计",
@@ -704,6 +731,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "独特的前端视觉设计",
       "description": "在构建新 UI 或重塑现有 UI 时提供独特、有意的视觉设计指导，涵盖美学方向、排版，帮助做出不显模板化的设计选择。",
       "enDescription": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "google-mobile-ads-banner",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Google 移动广告横幅",
+      "description": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
+      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
@@ -958,18 +995,6 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
-      "name": "ai-image-generation",
-      "category": "开发框架与平台",
-      "enCategory": "Dev Frameworks & Platforms",
-      "zh": "AI 图像生成",
-      "description": "通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 及 50+ 模型生成 AI 图像。 支持文生图、图生图、inpainting、LoRA、图像编辑、放大、文字渲染。\n适用于 AI 艺术、产品样机、概念图、社交媒体图、营销视觉与插画。 触发词包括 flux、image generation、ai image、text to image、midjourney alternative 等。",
-      "enDescription": "Generate AI images with GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI. Models: GPT-Image-2, FLUX Dev LoRA, FLUX.2 Klein LoRA, Gemini 3 Pro Image, Grok Imagine, Seedream 4.5, Reve, ImagineArt. Capabilities: text-to-image, image-to-image, inpainting, LoRA, image editing, upscaling, text rendering. Use for: AI art, product mockups, concept art, social media graphics, marketing visuals, illustrations. Triggers: flux, image generation, ai image, text to image, stable diffusion, generate image, ai art, midjourney alternative, dall-e alternative, text2img, t2i, image generator, ai picture, create image with ai, generative ai, ai illustration, grok image, gemini image, gpt image, openai image, chatgpt image",
-      "allowedTools": [
-        "Bash(belt *)"
-      ],
-      "hidden": false
-    },
-    {
       "name": "analyze-project",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -1146,6 +1171,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "Flutter 本地化",
       "description": "用于 Flutter 项目本地化配置的技能，覆盖多语言资源、国际化设置与语言切换的最佳实践。",
       "enDescription": "Add `flutter_localizations` and `intl` dependencies, enable \\\"generate true\\\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "implement-spec",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "规格实现",
+      "description": "Implement a specification in code.",
+      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
@@ -1651,6 +1686,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "reddit-automation",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "Reddit 自动化营销",
+      "description": "Find Reddit threads where people are genuinely asking for what you offer, then draft short, genuinely helpful replies — disclosing your affiliation honestly and naming your product only when it truly answers the question. Two moves: discovery — scan the right subreddits for real needs (recommendation asks, expressed pain, competitor mentions) and rank the few threads where you can actually help; drafting — write from real experience, respect each community's self-promo rules, and keep a human in the loop to review and post. This markets on Reddit the honest way: contribute value, disclose who you are, never astroturf. Distilled from the playbook behind doany.ai's Reddit agent. Triggers on \"find reddit opportunities\", \"reddit marketing\", \"reddit automation\", \"reply on reddit for my product\", \"reddit community engagement\", \"reddit lead gen\", or any ask to turn Reddit threads into genuine, disclosed marketing replies.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "tiktok-api",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
@@ -1703,16 +1748,6 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
-      "name": "wp-playground",
-      "category": "自动化与集成",
-      "enCategory": "Automation & Integration",
-      "zh": "WP Playground 路由",
-      "description": "用作 WordPress Playground 的路由封装技能，适用于模糊的 Playground 工作、@wp-playground/cli 的本地 CLI 运行、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。\n若要编写或审查 Blueprint JSON，请直接使用 blueprint 技能。",
-      "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
       "name": "agent-development",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
@@ -1720,6 +1755,18 @@ html[data-lang="zh"] .en { display: none; }
       "description": "当用户提出“创建一个 agent”“添加一个 agent”“编写一个子 agent”“agent frontmatter”“何时使用 description”“agent 示例”“agent 工具”“agent 颜色”“自主 agent”等问题，或需要关于 agent 结构、系统提示词、触发条件或针对 Claude Code 插件的 agent 开发最佳实践指导时，使用本技能。",
       "enDescription": "This skill should be used when the user asks to \\\"create an agent\\\", \\\"add an agent\\\", \\\"write a subagent\\\", \\\"agent frontmatter\\\", \\\"when to use description\\\", \\\"agent examples\\\", \\\"agent tools\\\", \\\"agent colors\\\", \\\"autonomous agent\\\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
       "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "ai-image-generation",
+      "category": "AI 与智能体",
+      "enCategory": "AI & Agents",
+      "zh": "AI 图像生成",
+      "description": "通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 及 50+ 模型生成 AI 图像。 支持文生图、图生图、inpainting、LoRA、图像编辑、放大、文字渲染。\n适用于 AI 艺术、产品样机、概念图、社交媒体图、营销视觉与插画。 触发词包括 flux、image generation、ai image、text to image、midjourney alternative 等。",
+      "enDescription": "Generate AI images with GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI. Models: GPT-Image-2, FLUX Dev LoRA, FLUX.2 Klein LoRA, Gemini 3 Pro Image, Grok Imagine, Seedream 4.5, Reve, ImagineArt. Capabilities: text-to-image, image-to-image, inpainting, LoRA, image editing, upscaling, text rendering. Use for: AI art, product mockups, concept art, social media graphics, marketing visuals, illustrations. Triggers: flux, image generation, ai image, text to image, stable diffusion, generate image, ai art, midjourney alternative, dall-e alternative, text2img, t2i, image generator, ai picture, create image with ai, generative ai, ai illustration, grok image, gemini image, gpt image, openai image, chatgpt image",
+      "allowedTools": [
+        "Bash(belt *)"
+      ],
       "hidden": false
     },
     {
@@ -1943,38 +1990,98 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
-      "name": "banner-creator",
+      "name": "blueprint",
       "category": "其他",
       "enCategory": "其他",
       "zh": "",
-      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
+      "description": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
       "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
     {
-      "name": "banner-design",
+      "name": "openspec-implementation",
       "category": "其他",
       "enCategory": "其他",
       "zh": "",
-      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "description": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
       "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
     {
-      "name": "google-mobile-ads-banner",
+      "name": "wordpress-router",
       "category": "其他",
       "enCategory": "其他",
       "zh": "",
-      "description": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
+      "description": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-abilities-audit",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-abilities-verify",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-patterns",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-playground",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-plugin-directory-guidelines",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "write-tech-spec",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
       "enDescription": "",
       "allowedTools": [],
       "hidden": false
     }
   ]
 };</script>
-  <script>// prototype/src/i18n.js v1.18.0 — 独立国际化模块
+  <script>// prototype/src/i18n.js v1.19.5 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -2027,6 +2134,10 @@ html[data-lang="zh"] .en { display: none; }
       "settings.density": "卡片间距",
       "settings.densityComfortable": "舒适 / Comfortable",
       "settings.densityCompact": "紧凑 / Compact",
+      "settings.uiGroup": "界面元素 / UI elements",
+      "settings.showDesc": "显示技能描述",
+      "settings.showCat": "显示分类标签",
+      "settings.showBar": "显示分类色条",
       "settings.done": "完成",
       "share.promos": [
         "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
@@ -2077,6 +2188,10 @@ html[data-lang="zh"] .en { display: none; }
       "settings.density": "Card spacing",
       "settings.densityComfortable": "Comfortable",
       "settings.densityCompact": "Compact",
+      "settings.uiGroup": "UI elements",
+      "settings.showDesc": "Show skill description",
+      "settings.showCat": "Show category label",
+      "settings.showBar": "Show category color bar",
       "settings.done": "Done",
       "share.promos": [
         "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
@@ -2198,7 +2313,7 @@ html[data-lang="zh"] .en { display: none; }
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof window !== "undefined" ? window : this);
 </script>
-  <script>// prototype/src/parts/01-state.js v1.18.0 — 常量、偏好状态与纯工具函数
+  <script>// prototype/src/parts/01-state.js v1.19.5 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -2213,6 +2328,7 @@ function track(event, params) {
 }
 
 const LS_THEME = "ash-theme", LS_LANG = "ash-lang", LS_VIEW = "ash-view", LS_DENSITY = "ash-density";
+const LS_SHOW_DESC = "ash-show-desc", LS_SHOW_CAT = "ash-show-cat", LS_SHOW_BAR = "ash-show-bar";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
 const DENSITY_COMFORT = "comfortable", DENSITY_COMPACT = "compact";
 const DEBOUNCE_MS = 120;
@@ -2222,6 +2338,10 @@ const state = {
   lang: "zh",
   view: VIEW_GRID,
   density: DENSITY_COMFORT,
+  // UI 元素显隐设置：默认全部开启（恢复用户熟悉的高信息密度卡片）
+  showDesc: true,
+  showCat: true,
+  showBar: true,
   query: "",
   cat: null,
 };
@@ -2379,7 +2499,7 @@ function renderGrid() {
     : I18N.t("result.empty");
 }
 
-// prototype/src/parts/03-detail.js v1.18.0 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.19.5 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -2460,6 +2580,21 @@ function openSettings() {
           <button id="settingsDensityBtn" class="btn btn-outline" aria-pressed="${state.density === DENSITY_COMPACT}">${state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable")}</button>
         </div>
       </section>
+      <section class="block">
+        <h3>${I18N.t("settings.uiGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.showDesc")}</span>
+          <button id="settingsDescBtn" class="btn btn-outline" aria-pressed="${state.showDesc}" data-on="${state.showDesc ? "on" : "off"}">${state.showDesc ? "开 / On" : "关 / Off"}</button>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.showCat")}</span>
+          <button id="settingsCatBtn" class="btn btn-outline" aria-pressed="${state.showCat}" data-on="${state.showCat ? "on" : "off"}">${state.showCat ? "开 / On" : "关 / Off"}</button>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.showBar")}</span>
+          <button id="settingsBarBtn" class="btn btn-outline" aria-pressed="${state.showBar}" data-on="${state.showBar ? "on" : "off"}">${state.showBar ? "开 / On" : "关 / Off"}</button>
+        </div>
+      </section>
     </div>
     <div id="dialogFoot" class="dialog-foot">
       <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
@@ -2502,6 +2637,22 @@ function openSettings() {
     const b = $("#settingsDensityBtn");
     if (b) { b.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); b.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
   });
+  // UI 元素显隐：描述 / 分类标签 / 分类色条，切换后同步 <html data-show-*> 并持久化，影响卡片局部隐藏
+  const bindUISwitch = (btnId, lsKey, onToggle) => {
+    const b = $(btnId);
+    if (!b) return;
+    b.addEventListener("click", () => {
+      onToggle();
+      savePref(lsKey, state[lsKey] ? "true" : "false");
+      applyUI();
+      b.textContent = state[lsKey] ? "开 / On" : "关 / Off";
+      b.setAttribute("aria-pressed", state[lsKey]);
+      b.dataset.on = state[lsKey] ? "on" : "off";
+    });
+  };
+  bindUISwitch("#settingsDescBtn", LS_SHOW_DESC, () => { state.showDesc = !state.showDesc; });
+  bindUISwitch("#settingsCatBtn", LS_SHOW_CAT, () => { state.showCat = !state.showCat; });
+  bindUISwitch("#settingsBarBtn", LS_SHOW_BAR, () => { state.showBar = !state.showBar; });
 }
 
 // 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）
@@ -2622,7 +2773,7 @@ function showToast(msg) {
   t._timer = setTimeout(() => t.classList.remove("show"), 2000);
 }
 
-// prototype/src/parts/04-interactions.js v1.18.0 — 主题/语言/视图/密度切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.19.5 — 主题/语言/视图/密度/UI元素切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -2643,6 +2794,14 @@ function applyView() {
 // 显示密度（舒适/紧凑）：同步到 <html data-density>，由 CSS 控制卡片间距与内边距
 function applyDensity() {
   document.documentElement.setAttribute("data-density", state.density);
+}
+
+// UI 元素显隐（描述/分类标签/分类色条）：同步到 <html data-show-*>，驱动卡片局部隐藏
+function applyUI() {
+  const root = document.documentElement;
+  root.setAttribute("data-show-desc", state.showDesc ? "on" : "off");
+  root.setAttribute("data-show-cat", state.showCat ? "on" : "off");
+  root.setAttribute("data-show-bar", state.showBar ? "on" : "off");
 }
 
 function applyLang() {
@@ -2763,13 +2922,17 @@ function bind() {
   }
 }
 
-// prototype/src/parts/05-main.js v1.18.0 — 应用启动编排
+// prototype/src/parts/05-main.js v1.19.5 — 应用启动编排
 function init() {
   // 从偏好恢复（localStorage 不可用时回退默认）
   state.theme = loadPref(LS_THEME, "light");
   state.lang = loadPref(LS_LANG, "zh");
   state.view = loadEnum(LS_VIEW, [VIEW_GRID, VIEW_LIST], VIEW_GRID);
   state.density = loadEnum(LS_DENSITY, [DENSITY_COMFORT, DENSITY_COMPACT], DENSITY_COMFORT);
+  // UI 元素显隐：存储为字符串 "true"/"false"，缺失即默认开启
+  state.showDesc = loadPref(LS_SHOW_DESC, "true") !== "false";
+  state.showCat = loadPref(LS_SHOW_CAT, "true") !== "false";
+  state.showBar = loadPref(LS_SHOW_BAR, "true") !== "false";
   // 预聚合：每个技能缓存小写检索串 _hay，并建立 name->skill 索引，避免运行时重复计算
   SKILLS_DATA.skills.forEach((s) => {
     s._hay = (s.name + " " + s.zh + " " + s.description + " " + (s.enDescription || "") + " " + s.category + " " + (s.enCategory || "")).toLowerCase();
@@ -2778,6 +2941,7 @@ function init() {
   applyTheme();
   applyView();
   applyDensity();
+  applyUI();
   applyLang(); // 内部触发 I18N.setLang -> syncDOM 填充全站文案
   bind();
   renderGrid();

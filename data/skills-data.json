@@ -1,5 +1,5 @@
 {
-  "total": 133,
+  "total": 143,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -25,6 +25,26 @@
     "其他": "其他"
   },
   "skills": [
+    {
+      "name": "banner-creator",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "AI 横幅广告创建",
+      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "banner-design",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "多格式横幅设计",
+      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
     {
       "name": "brand-guidelines",
       "category": "品牌与设计",
@@ -122,6 +142,16 @@
       "zh": "独特的前端视觉设计",
       "description": "在构建新 UI 或重塑现有 UI 时提供独特、有意的视觉设计指导，涵盖美学方向、排版，帮助做出不显模板化的设计选择。",
       "enDescription": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "google-mobile-ads-banner",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Google 移动广告横幅",
+      "description": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
+      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
@@ -376,18 +406,6 @@
       "hidden": false
     },
     {
-      "name": "ai-image-generation",
-      "category": "开发框架与平台",
-      "enCategory": "Dev Frameworks & Platforms",
-      "zh": "AI 图像生成",
-      "description": "通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 及 50+ 模型生成 AI 图像。 支持文生图、图生图、inpainting、LoRA、图像编辑、放大、文字渲染。\n适用于 AI 艺术、产品样机、概念图、社交媒体图、营销视觉与插画。 触发词包括 flux、image generation、ai image、text to image、midjourney alternative 等。",
-      "enDescription": "Generate AI images with GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI. Models: GPT-Image-2, FLUX Dev LoRA, FLUX.2 Klein LoRA, Gemini 3 Pro Image, Grok Imagine, Seedream 4.5, Reve, ImagineArt. Capabilities: text-to-image, image-to-image, inpainting, LoRA, image editing, upscaling, text rendering. Use for: AI art, product mockups, concept art, social media graphics, marketing visuals, illustrations. Triggers: flux, image generation, ai image, text to image, stable diffusion, generate image, ai art, midjourney alternative, dall-e alternative, text2img, t2i, image generator, ai picture, create image with ai, generative ai, ai illustration, grok image, gemini image, gpt image, openai image, chatgpt image",
-      "allowedTools": [
-        "Bash(belt *)"
-      ],
-      "hidden": false
-    },
-    {
       "name": "analyze-project",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -564,6 +582,16 @@
       "zh": "Flutter 本地化",
       "description": "用于 Flutter 项目本地化配置的技能，覆盖多语言资源、国际化设置与语言切换的最佳实践。",
       "enDescription": "Add `flutter_localizations` and `intl` dependencies, enable \\\"generate true\\\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "implement-spec",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "规格实现",
+      "description": "Implement a specification in code.",
+      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
@@ -1069,6 +1097,16 @@
       "hidden": false
     },
     {
+      "name": "reddit-automation",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "Reddit 自动化营销",
+      "description": "Find Reddit threads where people are genuinely asking for what you offer, then draft short, genuinely helpful replies — disclosing your affiliation honestly and naming your product only when it truly answers the question. Two moves: discovery — scan the right subreddits for real needs (recommendation asks, expressed pain, competitor mentions) and rank the few threads where you can actually help; drafting — write from real experience, respect each community's self-promo rules, and keep a human in the loop to review and post. This markets on Reddit the honest way: contribute value, disclose who you are, never astroturf. Distilled from the playbook behind doany.ai's Reddit agent. Triggers on \"find reddit opportunities\", \"reddit marketing\", \"reddit automation\", \"reply on reddit for my product\", \"reddit community engagement\", \"reddit lead gen\", or any ask to turn Reddit threads into genuine, disclosed marketing replies.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "tiktok-api",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
@@ -1121,16 +1159,6 @@
       "hidden": false
     },
     {
-      "name": "wp-playground",
-      "category": "自动化与集成",
-      "enCategory": "Automation & Integration",
-      "zh": "WP Playground 路由",
-      "description": "用作 WordPress Playground 的路由封装技能，适用于模糊的 Playground 工作、@wp-playground/cli 的本地 CLI 运行、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。\n若要编写或审查 Blueprint JSON，请直接使用 blueprint 技能。",
-      "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
       "name": "agent-development",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
@@ -1138,6 +1166,18 @@
       "description": "当用户提出“创建一个 agent”“添加一个 agent”“编写一个子 agent”“agent frontmatter”“何时使用 description”“agent 示例”“agent 工具”“agent 颜色”“自主 agent”等问题，或需要关于 agent 结构、系统提示词、触发条件或针对 Claude Code 插件的 agent 开发最佳实践指导时，使用本技能。",
       "enDescription": "This skill should be used when the user asks to \\\"create an agent\\\", \\\"add an agent\\\", \\\"write a subagent\\\", \\\"agent frontmatter\\\", \\\"when to use description\\\", \\\"agent examples\\\", \\\"agent tools\\\", \\\"agent colors\\\", \\\"autonomous agent\\\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
       "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "ai-image-generation",
+      "category": "AI 与智能体",
+      "enCategory": "AI & Agents",
+      "zh": "AI 图像生成",
+      "description": "通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 及 50+ 模型生成 AI 图像。 支持文生图、图生图、inpainting、LoRA、图像编辑、放大、文字渲染。\n适用于 AI 艺术、产品样机、概念图、社交媒体图、营销视觉与插画。 触发词包括 flux、image generation、ai image、text to image、midjourney alternative 等。",
+      "enDescription": "Generate AI images with GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI. Models: GPT-Image-2, FLUX Dev LoRA, FLUX.2 Klein LoRA, Gemini 3 Pro Image, Grok Imagine, Seedream 4.5, Reve, ImagineArt. Capabilities: text-to-image, image-to-image, inpainting, LoRA, image editing, upscaling, text rendering. Use for: AI art, product mockups, concept art, social media graphics, marketing visuals, illustrations. Triggers: flux, image generation, ai image, text to image, stable diffusion, generate image, ai art, midjourney alternative, dall-e alternative, text2img, t2i, image generator, ai picture, create image with ai, generative ai, ai illustration, grok image, gemini image, gpt image, openai image, chatgpt image",
+      "allowedTools": [
+        "Bash(belt *)"
+      ],
       "hidden": false
     },
     {
@@ -1361,31 +1401,91 @@
       "hidden": false
     },
     {
-      "name": "banner-creator",
+      "name": "blueprint",
       "category": "其他",
       "enCategory": "其他",
       "zh": "",
-      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
+      "description": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
       "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
     {
-      "name": "banner-design",
+      "name": "openspec-implementation",
       "category": "其他",
       "enCategory": "其他",
       "zh": "",
-      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "description": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
       "enDescription": "",
       "allowedTools": [],
       "hidden": false
     },
     {
-      "name": "google-mobile-ads-banner",
+      "name": "wordpress-router",
       "category": "其他",
       "enCategory": "其他",
       "zh": "",
-      "description": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
+      "description": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-abilities-audit",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-abilities-verify",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-patterns",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-playground",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-plugin-directory-guidelines",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
+      "enDescription": "",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "write-tech-spec",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
       "enDescription": "",
       "allowedTools": [],
       "hidden": false

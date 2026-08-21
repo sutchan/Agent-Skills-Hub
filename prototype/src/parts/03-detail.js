@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.18.0 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.19.5 — 详情弹窗、键盘可达性与分享
 // 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
 const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
@@ -79,6 +79,21 @@ function openSettings() {
           <button id="settingsDensityBtn" class="btn btn-outline" aria-pressed="${state.density === DENSITY_COMPACT}">${state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable")}</button>
         </div>
       </section>
+      <section class="block">
+        <h3>${I18N.t("settings.uiGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.showDesc")}</span>
+          <button id="settingsDescBtn" class="btn btn-outline" aria-pressed="${state.showDesc}" data-on="${state.showDesc ? "on" : "off"}">${state.showDesc ? "开 / On" : "关 / Off"}</button>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.showCat")}</span>
+          <button id="settingsCatBtn" class="btn btn-outline" aria-pressed="${state.showCat}" data-on="${state.showCat ? "on" : "off"}">${state.showCat ? "开 / On" : "关 / Off"}</button>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.showBar")}</span>
+          <button id="settingsBarBtn" class="btn btn-outline" aria-pressed="${state.showBar}" data-on="${state.showBar ? "on" : "off"}">${state.showBar ? "开 / On" : "关 / Off"}</button>
+        </div>
+      </section>
     </div>
     <div id="dialogFoot" class="dialog-foot">
       <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
@@ -121,6 +136,22 @@ function openSettings() {
     const b = $("#settingsDensityBtn");
     if (b) { b.textContent = state.density === DENSITY_COMPACT ? I18N.t("settings.densityCompact") : I18N.t("settings.densityComfortable"); b.setAttribute("aria-pressed", state.density === DENSITY_COMPACT); }
   });
+  // UI 元素显隐：描述 / 分类标签 / 分类色条，切换后同步 <html data-show-*> 并持久化，影响卡片局部隐藏
+  const bindUISwitch = (btnId, lsKey, onToggle) => {
+    const b = $(btnId);
+    if (!b) return;
+    b.addEventListener("click", () => {
+      onToggle();
+      savePref(lsKey, state[lsKey] ? "true" : "false");
+      applyUI();
+      b.textContent = state[lsKey] ? "开 / On" : "关 / Off";
+      b.setAttribute("aria-pressed", state[lsKey]);
+      b.dataset.on = state[lsKey] ? "on" : "off";
+    });
+  };
+  bindUISwitch("#settingsDescBtn", LS_SHOW_DESC, () => { state.showDesc = !state.showDesc; });
+  bindUISwitch("#settingsCatBtn", LS_SHOW_CAT, () => { state.showCat = !state.showCat; });
+  bindUISwitch("#settingsBarBtn", LS_SHOW_BAR, () => { state.showBar = !state.showBar; });
 }
 
 // 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）

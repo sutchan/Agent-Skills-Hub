@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.18.0 — 独立国际化模块
+// prototype/src/i18n.js v1.19.5 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -51,6 +51,10 @@
       "settings.density": "卡片间距",
       "settings.densityComfortable": "舒适 / Comfortable",
       "settings.densityCompact": "紧凑 / Compact",
+      "settings.uiGroup": "界面元素 / UI elements",
+      "settings.showDesc": "显示技能描述",
+      "settings.showCat": "显示分类标签",
+      "settings.showBar": "显示分类色条",
       "settings.done": "完成",
       "share.promos": [
         "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
@@ -101,6 +105,10 @@
       "settings.density": "Card spacing",
       "settings.densityComfortable": "Comfortable",
       "settings.densityCompact": "Compact",
+      "settings.uiGroup": "UI elements",
+      "settings.showDesc": "Show skill description",
+      "settings.showCat": "Show category label",
+      "settings.showBar": "Show category color bar",
       "settings.done": "Done",
       "share.promos": [
         "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
