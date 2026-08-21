@@ -1,0 +1,670 @@
+{
+  "total": 62,
+  "categories": [
+    "品牌与设计",
+    "文档与内容",
+    "数据分析与可视化",
+    "开发框架与平台",
+    "文件与格式处理"
+  ],
+  "categoryEn": {
+    "品牌与设计": "Brand & Design",
+    "文档与内容": "Docs & Content",
+    "数据分析与可视化": "Data Analysis & Visualization",
+    "开发框架与平台": "Dev Frameworks & Platforms",
+    "文件与格式处理": "File & Format Handling"
+  },
+  "skills": [
+    {
+      "name": "brand-guidelines",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Anthropic 品牌规范",
+      "description": "将 Anthropic 官方品牌色板与字体应用于任何可从 Anthropic 观感中获益的工件。当品牌色或风格指南、视觉格式化或公司设计标准适用时使用。",
+      "enDescription": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "brand-review",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "品牌声音与风格审查",
+      "description": "根据你的品牌声音、风格指南与信息支柱审查内容，按严重程度标记偏差并给出具体的修改前后建议。适用于交付前检查草稿、审计文案的一致性、术语与语气，或筛查无根据的声明、缺失免责声明及其它法律问题。",
+      "enDescription": "Review content against your brand voice, style guide, and messaging pillars, flagging deviations by severity with specific before/after fixes. Use when checking a draft before it ships, when auditing copy for voice consistency and terminology, or when screening for unsubstantiated claims, missing disclaimers, and other legal flags.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "discover-brand",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "品牌发现与定位",
+      "description": "用于品牌发现与定位的技能，通过调研与梳理品牌资产、市场与目标人群，帮助建立清晰、差异化的品牌定位与视觉方向。",
+      "enDescription": "This skill orchestrates autonomous discovery of brand materials across enterprise platforms (Notion, Confluence, Google Drive, Box, SharePoint, Figma, Gong, Granola, Slack). It should be used when the user asks to \\\"discover brand materials\\\", \\\"find brand documents\\\", \\\"search for brand guidelines\\\", \\\"audit brand content\\\", \\\"what brand materials do we have\\\", \\\"find our style guide\\\", \\\"where are our brand docs\\\", \\\"do we have a style guide\\\", \\\"discover brand voice\\\", \\\"brand content audit\\\", or \\\"find brand assets\\\".",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "figma-code-connect",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Figma 代码连接",
+      "description": "创建并维护 Figma Code Connect 模板文件（`.figma.ts`），将 Figma 组件映射到代码片段。\n当用户提及 Code Connect、Figma 组件映射、设计转代码，或要求创建/更新 `.figma.ts` 文件时触发。",
+      "enDescription": "Creates and maintains Figma Code Connect template files that map Figma components to code snippets. Use when the user mentions Code Connect, Figma component mapping, design-to-code translation, or asks to create/update .figma.ts or .figma.js files.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "figma-design-to-code",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Figma 设计转代码",
+      "description": "在调用 get_design_context 等 Figma MCP 工具之前必须触发的强制前置技能。\n当用户想要将 Figma 设计实现、构建或移植为代码时（如「实现这个 Figma 设计」「把 Figma 转成代码」），提供正确落地设计稿的关键步骤与规范。",
+      "enDescription": "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "figma-generate-design",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Figma 设计生成",
+      "description": "与 figma-use 配合，将应用页面、视图或多区域布局翻译为 Figma 设计。\n当用户想把页面/弹窗/抽屉/侧栏等组合视图从代码或描述构建、更新到 Figma 时触发。\n从 Code Connect 文件与组件库中发掘设计系统组件、变量与样式，用设计令牌而非硬编码值逐段组装视图。",
+      "enDescription": "Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma', 'create in Figma from code', 'push page to Figma', 'take this app/page and build it in Figma', 'create a screen', 'build a landing page in Figma', 'update the Figma screen to match code', 'convert this modal/dialog/drawer/panel to Figma'. This is the preferred workflow skill whenever the user wants to build or update a full page, modal, dialog, drawer, sidebar, panel, or any composed multi-section view in Figma from code or a description. Discovers design system components, variables, and styles from Code Connect files, existing screens, and library search, then imports them and assembles views incrementally section-by-section using design system tokens instead of hardcoded values.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "figma-generate-library",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Figma 设计系统构建",
+      "description": "从代码库在 Figma 中构建或更新专业级设计系统，包括创建变量/令牌、构建组件库、\n为单个组件建立正确的变体集与变量绑定、配置明暗主题、记录设计基础，并弥合代码与 Figma 的差距。\n说明「构建什么、按什么顺序构建」，与教授 API 调用方式的 figma-use 技能互补。",
+      "enDescription": "Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "frontend-design",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "独特的前端视觉设计",
+      "description": "在构建新 UI 或重塑现有 UI 时提供独特、有意的视觉设计指导，涵盖美学方向、排版，帮助做出不显模板化的设计选择。",
+      "enDescription": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "logo-creator",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "AI Logo 生成",
+      "description": "用于 AI 生成 Logo 与图标的技能，帮助快速产出品牌标识与图形素材。",
+      "enDescription": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "svg-logo-designer",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "SVG Logo 设计",
+      "description": "用于设计 SVG Logo 与图标的技能，帮助产出清晰、可缩放的矢量品牌图形。",
+      "enDescription": "Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "theme-factory",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "工件主题样式工具箱",
+      "description": "用于为主题美化工件的工具箱，适用于幻灯片、文档、报告、HTML 落地页等工件。内置 10 套预置主题（含颜色/字体），可应用到任意已创建工件，也可即时生成新主题。",
+      "enDescription": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "web-design-guidelines",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Web 设计规范审查",
+      "description": "审查 UI 代码是否符合 Web 界面规范。当被要求“审查我的 UI”“检查可访问性”“审计设计”“审查 UX”或“检查我的站点是否遵循最佳实践”时使用。",
+      "enDescription": "Review UI code for Web Interface Guidelines compliance. Use when asked to \\\"review my UI\\\", \\\"check accessibility\\\", \\\"audit design\\\", \\\"review UX\\\", or \\\"check my site against best practices\\\".",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "brainstorming",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "头脑风暴",
+      "description": "在任何创意工作（创建功能、构建组件、添加功能或修改行为）之前必须使用本技能，用于在实现前探索用户意图、需求与设计。",
+      "enDescription": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "code-review",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "代码审查",
+      "description": "从两个维度审查自某一固定点（commit、分支、tag 或 merge-base）以来的改动：标准（代码是否遵循仓库的文档化编码规范）与规格（代码是否符合所发起 issue/规格的要求）。两个审查并行在子代理中运行并并排汇报。当用户想要审查分支、PR、进行中的改动或“自 X 以来的改动”时使用。",
+      "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\\\"review since X\\\\\".",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "coding-standards",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "跨项目编码规范基线",
+      "description": "跨项目共享的编码约定基线，涵盖命名、可读性、不可变性与代码质量审查。在审查代码质量或命名、且没有适用的框架特定技能时使用。",
+      "enDescription": "Baseline cross-project coding conventions for naming, readability, immutability, and code-quality review. Use detailed frontend or backend skills for framework-specific patterns. Use when reviewing code quality or naming with no framework-specific skill that applies.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "documentation",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "技术文档编写与维护",
+      "description": "编写与维护技术文档。当用户要求“为…写文档”“记录这个”“创建 README”“编写 runbook”“编写入职指南”或需要任何形式的技术写作（API 文档、架构文档或运维手册）时触发。",
+      "enDescription": "Write and maintain technical documentation. Trigger with \\\"write docs for\\\", \\\"document this\\\", \\\"create a README\\\", \\\"write a runbook\\\", \\\"onboarding guide\\\", or when the user needs help with any form of technical writing — API docs, architecture docs, or operational runbooks.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "find-skills",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "技能发现与安装",
+      "description": "帮助用户发现并安装可用的 agent 技能。当用户问“我该怎么做 X”“找一个做 X 的技能”“有没有能做…的技能”或表达想要扩展能力时，使用本技能来寻找可能以可安装技能形式存在的功能。",
+      "enDescription": "Helps users discover and install agent skills when they ask questions like \\\"how do I do X\\\", \\\"find a skill for X\\\", \\\"is there a skill that can...\\\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "grill-me",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "犀利访谈打磨",
+      "description": "以严苛的追问式访谈来打磨计划或设计，通过连续、尖锐的提问帮助发现盲点、完善决策并提升方案质量。",
+      "enDescription": "A relentless interview to sharpen a plan or design.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "grill-with-docs",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "访谈与文档产出",
+      "description": "以严苛的追问式访谈打磨计划或设计，并同步产出 ADR（架构决策记录）与术语表文档，让访谈结论沉淀为可复用的文档资产。",
+      "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "grilling",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "深度逼问思维工具",
+      "description": "针对计划、决策或想法对用户进行不间断的追问与压力测试。当用户希望检验自己的思路，\n或使用任何「逼问」触发语时启用；以设计树形式梳理决策分支，分轮次逼近共识。",
+      "enDescription": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "handoff",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "会话交接文档",
+      "description": "将当前对话压缩成一份交接文档，供另一个 agent 接手继续工作。",
+      "enDescription": "Compact the current conversation into a handoff document for another agent to pick up.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "skill-creator",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "技能创建与优化",
+      "description": "用于创建有效技能的指南，当用户想要创建新技能（或更新现有技能）以扩展 CodeBuddy 的能力（借助专业知识、工作流或工具集成）时使用。",
+      "enDescription": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "video",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "AI 视频工作流",
+      "description": "用于视频创建、生成与制作工作流的技能，覆盖视频生成、编辑、模板、讲解视频、产品演示、视频管线等场景，以及“复制这个剪辑”“匹配这个视频风格”“把这个视频反向工程”等指令。",
+      "enDescription": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "video-editing",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "AI 辅助视频剪辑工作流",
+      "description": "AI 辅助视频编辑工作流，用于剪辑、组织与增强真实素材，覆盖从原始拍摄到 FFmpeg、Remotion、ElevenLabs、fal.ai 再到 Descript 或 CapCut 最终润色的完整管线。当用户想要编辑视频、剪辑素材、创建 vlog 或构建视频内容时使用。",
+      "enDescription": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "data-visualization",
+      "category": "数据分析与可视化",
+      "enCategory": "Data Analysis & Visualization",
+      "zh": "Python 数据可视化",
+      "description": "用于 Python 数据可视化分析的技能，覆盖 matplotlib、seaborn、plotly 等主流库，帮助将数据转化为清晰、有洞察力的图表。",
+      "enDescription": "Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "agent-browser",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "浏览器自动化 CLI",
+      "description": "面向 AI 代理的浏览器自动化命令行工具。当用户需要操作网站（导航、填表、点击、截图、\n抓取数据、测试 Web 应用）或自动化任意浏览器任务时触发；也支持 Electron 桌面应用与云浏览器自动化。",
+      "enDescription": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \\\"open a website\\\", \\\"fill out a form\\\", \\\"click a button\\\", \\\"take a screenshot\\\", \\\"scrape data from a page\\\", \\\"test this web app\\\", \\\"login to a site\\\", \\\"automate browser actions\\\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
+      "allowedTools": [
+        "Bash(agent-browser:*)",
+        "Bash(npx agent-browser:*)"
+      ],
+      "hidden": true
+    },
+    {
+      "name": "agent-development",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Agent 开发指南",
+      "description": "当用户提出“创建一个 agent”“添加一个 agent”“编写一个子 agent”“agent frontmatter”“何时使用 description”“agent 示例”“agent 工具”“agent 颜色”“自主 agent”等问题，或需要关于 agent 结构、系统提示词、触发条件或针对 Claude Code 插件的 agent 开发最佳实践指导时，使用本技能。",
+      "enDescription": "This skill should be used when the user asks to \\\"create an agent\\\", \\\"add an agent\\\", \\\"write a subagent\\\", \\\"agent frontmatter\\\", \\\"when to use description\\\", \\\"agent examples\\\", \\\"agent tools\\\", \\\"agent colors\\\", \\\"autonomous agent\\\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "ai-avatar-video",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "AI 数字人视频",
+      "description": "通过 inference.sh CLI 创建 AI 数字人与对口型视频。 推荐使用 P-Video-Avatar（最快、最便宜、内置 TTS），也可用 OmniHuman、Fabric、PixVerse。\n音频方面支持 Inworld TTS-2（100+ 语言、面向角色的情感操控）、ElevenLabs、Kokoro。 能力包括音频驱动数字人、文本转数字人、对口型视频、口播视频生成、虚拟主播、UGC 内容。\n适用于 AI 主播、讲解视频、虚拟网红、配音、营销视频、UGC 广告、游戏角色、NPC 对话等场景。 触发词包括 ai avatar、talking head、lipsync、avatar video 等。",
+      "enDescription": "Create AI avatar and talking head videos via inference.sh CLI. Recommended: P-Video-Avatar (fastest, cheapest, built-in TTS). Also: OmniHuman, Fabric, PixVerse. Audio: Inworld TTS-2 (100+ languages, emotion steering for characters), ElevenLabs, Kokoro. Capabilities: audio-driven avatars, text-to-avatar, lipsync videos, talking head generation, virtual presenters, UGC content. Use for: AI presenters, explainer videos, virtual influencers, dubbing, marketing videos, UGC ads, gaming avatars, NPC dialogue. Triggers: ai avatar, talking head, lipsync, avatar video, virtual presenter, ai spokesperson, audio driven video, heygen alternative, synthesia alternative, talking avatar, lip sync, video avatar, ai presenter, digital human, ugc, ugc video, ugc ad, avatar ugc",
+      "allowedTools": [
+        "Bash(belt *)"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "ai-image-generation",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "AI 图像生成",
+      "description": "通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 及 50+ 模型生成 AI 图像。 支持文生图、图生图、inpainting、LoRA、图像编辑、放大、文字渲染。\n适用于 AI 艺术、产品样机、概念图、社交媒体图、营销视觉与插画。 触发词包括 flux、image generation、ai image、text to image、midjourney alternative 等。",
+      "enDescription": "Generate AI images with GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI. Models: GPT-Image-2, FLUX Dev LoRA, FLUX.2 Klein LoRA, Gemini 3 Pro Image, Grok Imagine, Seedream 4.5, Reve, ImagineArt. Capabilities: text-to-image, image-to-image, inpainting, LoRA, image editing, upscaling, text rendering. Use for: AI art, product mockups, concept art, social media graphics, marketing visuals, illustrations. Triggers: flux, image generation, ai image, text to image, stable diffusion, generate image, ai art, midjourney alternative, dall-e alternative, text2img, t2i, image generator, ai picture, create image with ai, generative ai, ai illustration, grok image, gemini image, gpt image, openai image, chatgpt image",
+      "allowedTools": [
+        "Bash(belt *)"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "ai-music",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "AI 音乐生成",
+      "description": "通过 runcomfy CLI 智能路由生成 AI 音乐。 优先路由到 ElevenLabs AI Music Generation（高级 44.1kHz 立体声人声音轨）或 ACE Step / ACE Step 1.5（标签驱动作曲、多语言歌词、成本更低）。\n还支持 ACE Step 音频 inpaint（重生成音轨内某段）与 outpaint（在音轨前后延长）。 适用场景包括高端人声片段、低价背景音乐库、多语言流行歌曲、修复糟糕的副歌、把 30 秒草稿延长成 2 分钟成品等。",
+      "enDescription": "Generate AI music on RunComfy via the `runcomfy` CLI — a smart router across the music-model catalog. Routes to ElevenLabs AI Music Generation (premium 44.1 kHz stereo vocal tracks, 5 s–5 min, $0.0083/s) and ACE Step / ACE Step 1.5 (StepFun-AI open-weights, tag-driven composition, multilingual lyrics, $0.0002–0.0003/s, ~27× cheaper), plus ACE Step audio-inpaint (regenerate a time range inside an existing track) and ACE Step audio-outpaint (extend a track before or after). Picks the right model for the user's actual intent — premium vocal hook, cheap background music library, multilingual pop song, repair a bad chorus, lengthen a 30 s draft into a 2 min cut — and ships each model's documented prompting patterns plus the minimal `runcomfy run` invoke. Triggers on \\\"generate music\\\", \\\"make a song\\\", \\\"AI music\\\", \\\"background music\\\", \\\"instrumental track\\\", \\\"soundtrack\\\", \\\"jingle\\\", \\\"theme music\\\", \\\"royalty-free music\\\", \\\"compose\\\", \\\"music with lyrics\\\", \\\"extend music\\\", \\\"fix this song\\\", \\\"inpaint music\\\", or any explicit ask to generate or edit music.",
+      "allowedTools": [
+        "Bash(runcomfy *)"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "ai-video-generation",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "AI 视频生成",
+      "description": "通过 inference.sh CLI 使用 Veo、Seedance、HappyHorse、Wan、Grok 及 40+ 模型生成 AI 视频。 支持文生视频、图生视频、参考图转视频、视频编辑、对口型、角色动画、视频放大与 Foley 音效。\n适用于社交媒体视频、营销内容、讲解视频、产品演示与 AI 数字人。 触发词包括 video generation、ai video、text to video、veo、animate image 等。",
+      "enDescription": "Generate AI videos with Google Veo, Seedance 2.0, HappyHorse, Wan, Grok and 40+ models via inference.sh CLI. Models: Veo 3.1, Veo 3, Seedance 2.0, HappyHorse 1.0, Wan 2.5, Grok Imagine Video, OmniHuman, Fabric, HunyuanVideo. Capabilities: text-to-video, image-to-video, reference-to-video, video editing, lipsync, avatar animation, video upscaling, foley sound. Use for: social media videos, marketing content, explainer videos, product demos, AI avatars. Triggers: video generation, ai video, text to video, image to video, veo, animate image, video from image, ai animation, video generator, generate video, t2v, i2v, ai video maker, create video with ai, runway alternative, pika alternative, sora alternative, kling alternative, seedance, happyhorse",
+      "allowedTools": [
+        "Bash(belt *)"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "ai-video-generation-2",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "AI 视频生成（RunComfy）",
+      "description": "通过本地 RunComfy CLI 在 RunComfy 目录中智能路由生成 AI 视频，覆盖文生视频、图生视频、参考视频转视频以及 Veo 视频扩展。作为智能路由器，根据用户真实意图匹配最合适的视频生成模型，并附上对应模型的提示词写法。",
+      "enDescription": "Generate AI videos on RunComfy via the `runcomfy` CLI — a smart router across the full video-model catalog: HappyHorse 1.0 (Arena #1, native in-pass audio), Wan-AI Wan 2-7 (open weights, audio-driven lip-sync), ByteDance Seedance v2 / 1-5 / 1-0 (multi-modal cinematic), Kling 3.0 / 2-6, Google Veo 3-1, MiniMax Hailuo 2-3, ByteDance Dreamina 3-0. Covers text-to-video (t2v), image-to-video (i2v), and Veo's video-extend endpoint. The skill picks the right model for the user's intent (Arena-#1 quality, multi-shot character identity, in-pass audio, cinematic motion, fastest path, sub-15s clip, longest duration) and ships each model's documented prompting patterns plus the minimal `runcomfy run` invoke. Triggers on \\\"generate video\\\", \\\"make a video\\\", \\\"text to video\\\", \\\"t2v\\\", \\\"image to video\\\", \\\"i2v\\\", \\\"animate\\\", \\\"AI video\\\", \\\"make X move\\\", \\\"video from prompt\\\", \\\"video from image\\\", or any explicit ask to produce a video clip from prompt or still.",
+      "allowedTools": [
+        "Bash(runcomfy *)"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "architecture-blueprint-generator",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "项目架构蓝图生成器",
+      "description": "综合分析代码库以生成详尽架构文档的蓝图生成器。自动识别技术栈与架构模式，\n生成可视化图表，记录实现模式，并提供可扩展的架构蓝图以维护架构一致性、指导新开发。",
+      "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "clerk-nextjs-patterns",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Clerk 认证模式",
+      "description": "高级 Next.js 模式——middleware、Server Actions、缓存等，帮助在 Clerk + Next.js 应用中落地稳健的认证与集成模式。",
+      "enDescription": "Advanced Next.js patterns - middleware, Server Actions, caching with",
+      "allowedTools": [
+        "WebFetch"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "cloudbase",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "CloudBase 全栈开发",
+      "description": "腾讯云开发 CloudBase 全栈开发技能，覆盖 Web/小程序/uni-app 前端、云函数、云数据库、云存储与内置大模型能力，提供从接入到部署的全流程指导。",
+      "enDescription": "Use this skill when you develop, design, build, deploy, debug, migrate, or troubleshoot CloudBase (腾讯云开发, 云开发, TCB, 微信云开发) projects. Covers Web, 微信小程序, 小程序, uni-app, mobile (iOS, Android, Flutter, React Native). UI (页面, 界面, 表单, form, dashboard, prototype, 原型); auth (登录, 注册, OAuth, 微信登录, publishable key); databases (NoSQL 文档数据库, MySQL 关系型数据库, PostgreSQL/CloudBase PG, app.rdb(), queryPgDatabase/managePgDatabase, CRUD, 查询, security rules); 云函数/cloud functions (serverless, scf_bootstrap); CloudRun (云托管, Dockerfile); 云存储. Built-in AI (内置大模型, AI 对话, streaming, 流式输出, 图片生成, generateText, streamText, createModel, generateImage, TokenHub, Hunyuan, hunyuan-exp, DeepSeek, deepseek, GLM, Kimi, Token Credits 资源包, 小程序成长计划). 第三方大模型, 大模型接入, 大模型调用, LLM API, AI agent, 智能体, AI Agent, AG-UI, LangGraph. Ops (巡检, 诊断, health check, 日志, troubleshooting). Spec (需求文档, 技术方案, requirements, tasks.md). Do NOT use for non-CloudBase projects, pure frontend without CloudBase, or self-hosted backends without CloudBase.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "dart-build-cli-app",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Dart 命令行应用构建",
+      "description": "用于构建 Dart 命令行应用的技能，覆盖 CLI 应用的参数解析、输入输出、错误处理与发布等最佳实践。",
+      "enDescription": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "dart-flutter-patterns",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Dart/Flutter 模式",
+      "description": "用于编写生产级 Dart/Flutter 代码的技能，涵盖面向 Flutter/Dart 的架构模式、代码组织与工程实践，帮助构建健壮、可维护的跨平台应用。",
+      "enDescription": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "eve",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "eve 后端 Agent 框架",
+      "description": "使用 eve 框架构建可持久化的后端 AI 智能体（agent）。用于创建、编辑或调试 eve 项目——包括 agent 指令、技能、工具、连接、渠道、沙箱、子 agent、定时任务或评测。",
+      "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "flutter-apply-architecture-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Flutter 分层架构",
+      "description": "使用推荐的分层方法（UI、Logic、Data）来架构 Flutter 应用。在构建新项目或为可扩展性重构时使用。",
+      "enDescription": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "flutter-build-responsive-layout",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Flutter 响应式布局",
+      "description": "用于构建 Flutter 响应式布局的技能，覆盖自适应屏幕尺寸、断点处理与多设备适配的最佳实践。",
+      "enDescription": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "flutter-dart-code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Flutter 代码审查",
+      "description": "与框架无关的 Flutter/Dart 代码审查清单，覆盖 widget 最佳实践、状态管理模式（BLoC、Riverpod、Provider、GetX、MobX、Signals）、Dart 惯用法、性能、可访问性、安全与整洁架构。\n无论项目使用何种状态管理库，审查 Flutter/Dart 代码时使用。",
+      "enDescription": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "flutter-setup-localization",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Flutter 本地化",
+      "description": "用于 Flutter 项目本地化配置的技能，覆盖多语言资源、国际化设置与语言切换的最佳实践。",
+      "enDescription": "Add `flutter_localizations` and `intl` dependencies, enable \\\"generate true\\\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "image-to-video",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "图片转视频",
+      "description": "在 RunComfy 上将任意静态图片动画化，本技能是匹配用户意图到正确 i2v 模型的智能路由器。 常规动画选用 HappyHorse 1.0 I2V（Arena #1、原生音频、身份保持），自定义配音对口型用 Wan 2.7 配合 audio_url，多模态动画用 Seedance 2.0 Pro。\n通过本地 RunComfy CLI 调用 runcomfy run 相关端点。",
+      "enDescription": "Animate any still image on RunComfy — this skill is a smart router that matches the user's intent to the right i2v model in the RunComfy catalog. Picks HappyHorse 1.0 I2V (Arena #1, native audio, identity preservation) for general animations, Wan 2.7 with `audio_url` for custom-voiceover lip-sync, or Seedance 2.0 Pro for multi-modal animation from image + reference video + reference audio. Bundles each model's documented prompting patterns so the caller gets sharper output without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/image-to-video` (or endpoint variant) through the local RunComfy CLI. Triggers on \\\"image to video\\\", \\\"image-to-video\\\", \\\"i2v\\\", \\\"animate image\\\", \\\"make this move\\\", or any explicit ask to turn a still into video.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "improve-codebase-architecture",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "代码库架构深化报告",
+      "description": "扫描代码库寻找可深化的架构机会，生成可视化 HTML 报告，并就你选中的候选进行犀利追问式打磨。",
+      "enDescription": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "lark-meeting",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "飞书视频会议",
+      "description": "飞书视频会议：查询会议记录与会议产物(纪要/逐字稿/妙记)、妙记搜索/上传/下载/编辑、机器人参与会议；查询进行中的会议、实时会议内容(发言/聊天/共享文档)问答(会上/会里)、发送会中聊天/表情；基于 meeting_id、meeting_no、event_id、note_id、minute_token、vc-node-id 或妙记 URL 查询相关信息。预约会议、忙闲和会议室管理走 lark-calendar。",
+      "enDescription": "Lark video meetings: query meeting records and meeting artifacts (minutes/transcripts/notes), search/upload/download/edit notes, bot participation in meetings; query ongoing meetings, ask questions over real-time meeting content (speech/chat/shared docs), send in-meeting chat/emojis; query by meeting_id, meeting_no, event_id, note_id, minute_token, vc-node-id or note URL. Meeting scheduling, availability and room management go through lark-calendar.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "next-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Next.js 最佳实践",
+      "description": "Next.js 开发最佳实践指南，涵盖文件约定、服务端组件（RSC）边界、数据模式、异步 API、\nmetadata、错误处理、路由处理器、图片/字体优化与打包策略。",
+      "enDescription": "Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "nextjs-app-router-patterns",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Next.js 路由模式",
+      "description": "掌握 Next.js 14+ App Router，覆盖 Server Components、流式渲染、并行路由与高级数据获取。在构建 Next.js 应用、实现 SSR/SSG 或优化 React Server Components 时使用。",
+      "enDescription": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "nextjs-code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Next.js 代码审查",
+      "description": "为 Next.js 应用提供全面的代码审查能力，校验 Server Components、Client Components、Server Actions、缓存策略、metadata、API 路由、middleware 与性能模式。\n在审查 Next.js App Router 代码改动、合并 PR 前、实现新功能后或进行架构校验时使用。",
+      "enDescription": "Provides comprehensive code review capability for Next.js applications, validates Server Components, Client Components, Server Actions, caching strategies, metadata, API routes, middleware, and performance patterns. Use when reviewing Next.js App Router code changes, before merging pull requests, after implementing new features, or for architecture validation. Triggers on \\\"review Next.js code\\\", \\\"Next.js code review\\\", \\\"check my Next.js app\\\".",
+      "allowedTools": [
+        "Read",
+        "Edit",
+        "Grep",
+        "Glob",
+        "Bash"
+      ],
+      "hidden": false
+    },
+    {
+      "name": "nextjs-react-typescript",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Next.js TS 专家",
+      "description": "TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家，提供相关技术栈的深入指导与最佳实践。",
+      "enDescription": "Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "orca-cli",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Orca CLI 操作",
+      "description": "使用公开的 `orca` CLI 操作 Orca 管理的工作树、目录上下文、终端、仓库、自动化、产物、技能共享、工作树评论及 Orca 应用内嵌浏览器。",
+      "enDescription": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "setup-matt-pocock-skills",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "工程技能仓库初始化",
+      "description": "为工程技能配置本仓库：设置问题跟踪器、分类标签词汇与域文档布局。在首次使用其他工程技能前运行一次。",
+      "enDescription": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "supabase",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Supabase 全栈开发",
+      "description": "Supabase 全栈开发技能，覆盖数据库、认证、实时、存储、Edge Functions 等能力的开发指导与最佳实践。",
+      "enDescription": "Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libraries and SSR integrations (supabase-js, @supabase/ssr) in Next.js, React, SvelteKit, Astro, Remix; auth issues (login, logout, sessions, JWT, cookies, getSession, getUser, getClaims, RLS); Supabase CLI or MCP server; schema changes, migrations, declarative schemas, security audits, Postgres extensions (pg_graphql, pg_cron, pg_vector); debugging and troubleshooting errors or unexpected behavior on Supabase projects (HTTP errors, Postgres errors, RLS surprises, permission denied, schema cache issues, timeouts, Edge Function crashes, Realtime drops, Storage failures) and reading or querying logs (Logs Explorer, ClickHouse).",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Postgres 最佳实践",
+      "description": "由 Supabase 维护的 Postgres 最佳实践，适用于任何位置运行的 Postgres。在编写或修改 Postgres 相关内容（建表/改表与选列类型、schema 设计、迁移与声明式 schema 文件、RLS 策略及其测试、索引、触发器、数据库函数、队列与定时任务、向量搜索、恢复/导入）之前必须先加载本技能，也用于诊断慢查询、高 CPU、超时、EXPLAIN 计划、连接耗尽、锁、膨胀或错误租户数据等问题。",
+      "enDescription": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "twitter-api",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Twitter/X API 替代",
+      "description": "基于 fetcher.sh 的 Twitter API 与 X API 替代方案——按次计费（USDC/x402）或用 Bearer key 预付费积分，无需 OAuth 与开发者应用。用于按关键词、话题或高级操作符（from:、to:、since:、until:、min_faves:、filter:）搜索推文，按账号抓取 Twitter/X 个人资料、拉取用户推文/回复/粉丝/关注，获取单条推文及其回复/转推者，读取 Twitter List 成员或推文，按国家查看热门话题，或按名称搜索 X 账号。也覆盖 Twitter 数据管线、竞品监控、话题跟踪、情感分析输入或粉丝导出，无需官方 X API 的定价档位或应用审核流程。",
+      "enDescription": "A Twitter API alternative and X API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no OAuth and no developer application. Use when the user wants to search tweets by keyword, hashtag, or advanced operators (from:, to:, since:, until:, min_faves:, filter:), scrape a Twitter/X profile by handle, pull a user's tweets, replies, followers, or followings, fetch a single tweet with its replies or retweeters, read a Twitter List's members or tweets, check trending topics by country, or search for X accounts by name. Also covers Twitter data pipelines, competitor monitoring, hashtag tracking, sentiment analysis input, or follower export without the official X API's pricing tiers or app-review process.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vercel React 组合模式",
+      "description": "可扩展的 React 组合模式。用于重构布尔属性泛滥的组件、构建灵活的组件库或设计可复用 API。涉及复合组件、render props、context providers 或组件架构的任务时触发。包含 React 19 API 变更。",
+      "enDescription": "React composition patterns that scale. Use when refactoring components with boolean prop proliferation, building flexible component libraries, or designing reusable APIs. Triggers on tasks involving compound components, render props, context providers, or component architecture. Includes React 19 API changes.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vercel React 优化",
+      "description": "来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。在编写、审查或重构 React/Next.js 代码以确保最佳性能模式时使用，覆盖涉及 React 组件、Next.js 页面、数据获取、打包优化或性能改进的任务。",
+      "enDescription": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "video-edit",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "AI 视频编辑",
+      "description": "在 RunComfy 上编辑现有视频，本技能是匹配用户意图到正确编辑模型的智能路由器。 通用重风格/换背景/包装替换选 Wan 2.7 Edit-Video，参考视频动作迁移选 Kling 2.6 Pro Motion Control，轻量身份稳定重风格/换装选 Lucy Edit Restyle。\n通过本地 RunComfy CLI 调用 runcomfy run 相关端点。",
+      "enDescription": "Edit existing video on RunComfy — this skill is a smart router that matches the user's intent to the right edit model in the RunComfy catalog. Picks Wan 2.7 Edit-Video (general restyle / background swap / packaging swap, identity + motion preservation), Kling 2.6 Pro Motion Control (transfer precise motion from a reference video to a target character), or Lucy Edit Restyle (lightweight identity-stable restyle / outfit swap). Bundles each model's documented prompting patterns so the skill gets sharper edits without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/<endpoint>` through the local RunComfy CLI. Triggers on \\\"video edit\\\", \\\"edit video\\\", \\\"restyle video\\\", \\\"swap video background\\\", \\\"motion control\\\", \\\"outfit swap video\\\", or any explicit ask to transform a video.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "web-artifacts-builder",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Web 多组件构件构建",
+      "description": "使用现代前端 Web 技术（React、Tailwind CSS、shadcn/ui）创建复杂多组件的 claude.ai HTML 构件的工具套件。适用于需要状态管理、路由或 shadcn/ui 组件的复杂构件，而非简单的单文件 HTML/JSX 构件。",
+      "enDescription": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "wp-playground",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WP Playground 路由",
+      "description": "用作 WordPress Playground 的路由封装技能，适用于模糊的 Playground 工作、@wp-playground/cli 的本地 CLI 运行、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。\n若要编写或审查 Blueprint JSON，请直接使用 blueprint 技能。",
+      "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "docx",
+      "category": "文件与格式处理",
+      "enCategory": "File & Format Handling",
+      "zh": "Word 文档创建与处理",
+      "description": "任何涉及 Word 文档（.docx）的任务都应使用本技能，包括创建、编辑、读取、解析或提取 .docx 内容，或处理需要 Word 文档输入/输出的场景。",
+      "enDescription": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files) or Word templates (.dotx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', '.dotx', or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx or .dotx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a 'report', 'memo', 'letter', 'template', or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "pdf",
+      "category": "文件与格式处理",
+      "enCategory": "File & Format Handling",
+      "zh": "PDF 文件处理",
+      "description": "任何涉及 PDF 文件的操作都应使用本技能，包括读取或提取 PDF 文本/表格、合并、拆分、旋转、加水印、创建新 PDF、填写表单、加解密、提取图片以及对扫描 PDF 做 OCR。",
+      "enDescription": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "pptx",
+      "category": "文件与格式处理",
+      "enCategory": "File & Format Handling",
+      "zh": "PPT 演示文稿处理",
+      "description": "任何涉及 .pptx 文件的操作（输入或输出）都应使用本技能，包括创建幻灯片、读取/解析/提取 .pptx 文本、编辑修改现有演示文稿、合并拆分幻灯片、使用模板、版式、演讲者备注或注释。",
+      "enDescription": "Use this skill any time a .pptx or .potx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx or .potx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates (.potx), layouts, speaker notes, or comments. Trigger whenever the user mentions \\\\\"deck,\\\\\" \\\\\"slides,\\\\\" \\\\\"presentation,\\\\\" or references a .pptx or .potx filename, regardless of what they plan to do with the content afterward. If a .pptx or .potx file needs to be opened, created, or touched, use this skill.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "xlsx",
+      "category": "文件与格式处理",
+      "enCategory": "File & Format Handling",
+      "zh": "电子表格文件处理",
+      "description": "任何以电子表格文件为主要输入或输出的任务都应使用本技能，包括打开/读取/编辑/修复现有 .xlsx、.xlsm、.xltx、.csv、.tsv 文件（加列、算公式、格式化、图表、清理脏数据）、从零或其他数据源新建表格、在表格文件格式间转换，以及清理/重组混乱的表格数据。\n产出物必须是电子表格文件。 当主要产出是 Word 文档、HTML 报告、独立 Python 脚本、数据库管线或 Google Sheets API 集成时不要触发。",
+      "enDescription": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\\\"the xlsx in my downloads\\\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
+      "allowedTools": [],
+      "hidden": false
+    }
+  ]
+}

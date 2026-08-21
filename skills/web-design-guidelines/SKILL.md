@@ -1,12 +1,15 @@
 ---
 name: web-design-guidelines
-description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".
+category: 品牌与设计
+en_category: Brand & Design
+zh: Web 设计规范审查
+description: 审查 UI 代码是否符合 Web 界面规范。当被要求“审查我的 UI”“检查可访问性”“审计设计”“审查 UX”或“检查我的站点是否遵循最佳实践”时使用。
+en_description: "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\"."
 metadata:
-  author: vercel
-  version: "1.0.0"
-  argument-hint: <file-or-pattern>
+author: vercel
+version: 1.0.0
+argument-hint: <file-or-pattern>
 ---
-
 # Web Interface Guidelines
 
 Review files for compliance with Web Interface Guidelines.

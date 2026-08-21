@@ -1,6 +1,8 @@
 # Project Specification — Agent Skills Hub
 
+> 路径：`openspec/project.md` · 版本：1.14.61
 > 本文件是 OpenSpec 的项目级规范（project spec），定义变更工作流、产物约定与本仓库结构对齐方式。
+> 已落地能力基线见 [`spec.md`](spec.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 > 配套技能：`skills/openspec-propose`、`skills/openspec-apply-change`、`skills/openspec-explore`、`skills/openspec-archive-change`。
 
 ## 1. 项目概览
@@ -12,14 +14,14 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 | 路径 | 用途 | 是否变更常客 |
 |---|---|---|
-| `skills/<name>/SKILL.md` | 单个技能定义（frontmatter + 正文） | ✅ 高频 |
+| `skills/<name>/SKILL.md` | 单个技能定义（正文 + frontmatter；`name`/`description`/`category`/`zh` 为必填字段，构建脚本以磁盘为准读取） | ✅ 高频 |
 | `skills/<name>/references/`、`scripts/`、`assets/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `README.md` | 技能清单（中文描述映射） | ✅ 中频 |
 | `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据 | ✅ 中频 |
-| `prototype/` | 预构建静态 HTML 高保真原型（打开 `prototype/out/index.html` 预览） | ✅ 中频 |
-| `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（已预构建产物，源码不随仓库分发） | ✅ 中频 |
+| `prototype/` | 预构建静态 HTML 高保真原型（打开 `prototype/index.html` 预览） | ✅ 中频 |
+| `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（源码 `prototype/src/` 随仓库分发，`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物） | ✅ 中频 |
 | `tools/` | 仓库级脚本（`coverage.py`、`skills_readme.py`） | ◻️ 低频 |
-| `openspec/` | OpenSpec 变更产物 | ✅ 本目录 |
+| `openspec/` | OpenSpec 规范：`project.md`（约定）、`spec.md`（能力基线）、`changes/`（提案）、`archive/`（归档） | ✅ 本目录 |
 
 ## 3. 变更工作流（OpenSpec）
 
@@ -41,44 +43,42 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 ## 4.5 数据结构与接口标准（展示页）
 
-展示页（原型）为**预构建静态产物**：`prototype/out/index.html` + `prototype/out/_next/` 静态资源，技能数据在构建期由 `build_site.mjs`（或 `build_site.py`）从磁盘 `skills/<name>/SKILL.md` 生成并预渲染进 HTML/JS bundle。仓库随附的 `prototype/out/` 即为最终交付物，**数据源以磁盘 `skills/<name>/SKILL.md` 为准**，勿手改产物；如需修订展示效果，应基于源码重新构建并同步 `prototype/out/`。
+展示页（原型）为**预构建静态产物**：`prototype/index.html` 为单一自包含文件（CSS/JS/数据/i18n 全部内联），技能数据在构建期由仓库根 `build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 生成 `data/skills-data.json`，再由仓库根 `build.mjs` 内联注入并预渲染进 HTML。仓库随附的 `prototype/index.html` 即为最终交付物，**数据源以磁盘 `skills/<name>/SKILL.md` 为准**，勿手改产物；如需修订展示效果，应重跑构建脚本并同步 `prototype/index.html`。
 
-### 4.5.1 `skills.json` Schema
+### 4.5.1 `skills-data.json` Schema
 
 ```jsonc
 {
-  "meta":   { "title", "subtitle", "author", "repo", "count", "generated_at" },
-  "categories": [ { "name": "中文分类名", "en": "English Category", "count": 整数 } ],
+  "total":      整数,                         // 可见技能总数（动态统计 = 过滤 hidden 后的 skills.length，以运行时 data/skills-data.json 为准）
+  "categories": [ "中文分类名", ... ],          // 去重后的中文分类名 string 数组（无 count）
   "skills": [ {
-    "name":        "中文技能名",
-    "en_name":     "english-skill-name",   // 英文别名；UI 仅当 en_name !== name 时展示
-    "en_desc":     "English description",   // 英文简介（en 视图 / 回退）
-    "zh_desc":     "中文简介",              // 中文简介（zh 视图 / 回退）
-    "category":    "中文分类名",            // 必须命中 categories[].name
-    "dir":         "skills/<dir>/",         // 磁盘目录名，须真实存在
-    "has_scripts":     boolean,             // 是否有 scripts/（只读徽章）
-    "has_references":  boolean,             // 是否有 references/（只读徽章）
-    "has_assets":      boolean              // 是否有 assets/（只读徽章）
+    "name":         "english-skill-name",     // 英文名（SKILL.md 目录名），卡片主标题
+    "category":     "中文分类名",             // 必须命中 categories[] 中某一项
+    "zh":           "中文简介",               // 中文描述（卡片 .desc.zh）
+    "description":  "English description",    // 英文简介（详情页 en 视图 / 回退）
+    "allowedTools": [ "string", ... ]         // 授权工具列表
   } ]
 }
 ```
+
+> 注：原型与 app 共用同一扁平结构；分类仅存中文名（string 数组），由 `skills[].category` 去重推导，不存 count / en_name / meta 嵌套。
 
 ### 4.5.2 原型形态与数据来源
 
 | 项 | 说明 |
 |---|---|
-| 形态 | 原型为**预构建静态 HTML**（`prototype/out/index.html` + `prototype/out/_next/` 静态资源），可离线打开，无运行时依赖，不随源码分发 |
-| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md`（frontmatter + 正文），原型在构建时已将 200 技能 / 13 分类预渲染进 HTML/JS bundle |
-| 分类归属 | 取 `SKILL.md` frontmatter `category`，回退 `README.md` 的 `### 分类（N）` 标题 |
-| 中文描述 | 取自 `README.md` 的 `- **[name](skills/name/)** — desc` 映射 |
-| 计数 | `meta.count` = 技能总数（200）；各分类计数动态写入 |
+| 形态 | 原型为**预构建自包含静态 HTML**（`prototype/index.html` 单文件内联全部资源），可离线打开，无运行时依赖；`prototype/src/` 源码随仓库分发，`prototype/index.html` 为构建产物 |
+| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md` 的 frontmatter（`build-skills-data.mjs` 解析必填字段 `name`/`description`/`category`/`en_category`/`zh`/`en_description` 与可选 `allowedTools`/`hidden`），其中 **`description` 为中文完整描述（默认展示语言），`en_description` 为英文原文描述，`en_category` 为英文分类名**；`build-skills-data.mjs` 生成 `data/skills-data.json`，`build.mjs` 已将其全部技能预渲染进 `prototype/index.html`。README 自 v1.14.55 起改为领域概览表、不再逐项列出技能，故分类与描述**不再**依赖 README 映射 |
+| 分类归属 | 分类**完全取自 `SKILL.md` frontmatter 的 `category` 字段（中文稳定键）**（`build-skills-data.mjs` 由 `skills[].category` 去重推导 `categories[]`，并生成 `categoryEn` 中文→英文映射），不再从 README 解析 |
+| 中文描述 | 取自 `SKILL.md` frontmatter 的 `description` 字段（中文，默认展示），`zh` 为中文一句话摘要（卡片标题） |
+| 计数 | `total` = 可见技能数（动态统计，排除 `hidden:true` 的内部预览技能，以 `data/skills-data.json` 运行时值为准）；各分类 `count` 由脚本统计写入 |
 
 ### 4.5.3 展示页交互规则（已固化进静态产物）
 
-1. **过滤维度两项**：① 关键词搜索（`name`/`zh_desc`/`en_desc`/`category` 不敏感匹配）；② 分类单选（chip 切换，「全部」复位）。二者取交集。
+1. **过滤维度两项**：① 关键词搜索（`name`/`zh`/`description`/`category` 不敏感匹配）；② 分类单选（chip 切换，「全部」复位）。二者取交集。
 2. **标签展示**：卡片与详情页展示由目录名派生的关键词 `#tags`（如 `agent-browser` → `#agent #browser`），仅作展示，不提供标签维度过滤。
 3. **视图切换**：`grid`（多列卡片）/ `list`（单列横向）仅改变布局，不影响过滤结果。
-4. **英文别名展示**：仅当 `en_name !== name` 时渲染英文别名，避免与中文名重复。
+4. **中文别名展示**：卡片主标题显示英文名 `name`，中文描述在 `.desc.zh` 行展示，不另渲染英文别名。
 
 ### 4.5.4 分享功能规则（prototype 与 app 两层共通）
 
@@ -96,17 +96,17 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 ## 5. 仓库一致性红线（本项目的额外约束）
 
-1. **单一数据源**：技能权威 = `skills/<name>/SKILL.md`；原型为预构建静态产物，**数据源以磁盘 SKILL.md 为准**。
+1. **单一数据源**：技能权威 = `skills/<name>/SKILL.md`；原型为预构建静态产物，**数据源以磁盘 SKILL.md 为准**；`data/skills-data.json` 为构建产物，**勿手改**，重跑 `npm run build` 再生。
 2. **无嵌套副本**：技能不得出现在非 `skills/<name>/` 的位置（如 `skills/video-use/skills/`、`skills/tools/` 均为非法）。
 3. **数据有效性**：原型展示的技能必须与磁盘 `skills/<name>/SKILL.md` 一致；删除技能时同步清理 `README.md`。
-4. **展示页规范**：UI 设计须对齐 `prototype/DESIGN.md`（配色令牌、响应式、可访问性、交互流程）。
-5. **原型可复现**：HTML 原型由 Next.js 源码（`prototype/` 历史版本）构建；如需修订展示效果，应基于源码重新构建并将 `prototype/out/` 同步回仓库；`prototype/DESIGN.md` 与 `prototype/COMPONENTS.md` 须与实际产物一致。
+4. **展示页规范**：UI 设计须对齐 `prototype/DESIGN.md`（配色令牌、响应式、可访问性、交互流程、§8 品牌形象规范）。
+5. **原型可复现**：HTML 原型由仓库根 `build.mjs` 将 `prototype/src/` 模板 + `data/skills-data.json` 内联构建为 `prototype/index.html`；如需修订展示效果，应重跑 `npm run build` 并将产物同步回仓库；`prototype/DESIGN.md` 与 `prototype/COMPONENTS.md` 须与实际产物一致。
 
 ## 6. 版本与发布
 
 - 语义化版本（SemVer），变更在 `CHANGELOG.md` 追加条目。
-- 展示页版本见 `prototype/package.json`（`version`）。
-- 发版步骤：更新 `skills.json`（重跑脚本）→ 更新 `CHANGELOG.md` → 打 tag。
+- 展示页版本见仓库根 `package.json`（`version`）。
+- 发版步骤：更新 `data/skills-data.json`（重跑 `npm run build`）→ 更新 `CHANGELOG.md` → 打 tag。
 
 ## 7. 提交信息规范
 

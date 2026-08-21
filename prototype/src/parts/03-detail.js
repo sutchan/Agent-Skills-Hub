@@ -1,43 +1,123 @@
-// prototype/src/parts/03-detail.js v1.14.9 — 详情弹窗、键盘可达性与分享
+// prototype/src/parts/03-detail.js v1.17.2 — 详情弹窗、键盘可达性与分享
+// 查看技能按钮指向 GitHub 仓库中该 skill 的目录（tree 视图），稳定可用、跨部署环境一致
+const REPO_SKILLS_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/";
 function openDetail(s) {
+  track("view_skill", { skill: s.name, category: s.category });
   const overlay = $("#overlay");
   const dialog = $("#dialog");
   // 记录打开前的焦点元素，关闭后归还（WCAG 焦点管理）
   dialog._lastFocused = document.activeElement;
-  // 本地仓库链接用相对路径 skills/<name>/（部署后由 GitHub 自动解析为 tree/main/skills/<name>/）
   const html = `
     <div id="dialogHead" class="dialog-head">
-      <div class="d-avatar">${initials(s.name)}</div>
+      <div class="avatar">${initials(s.name)}</div>
       <div>
-        <h2 id="dialogVisibleTitle" class="dialog-title">${esc(s.name)}</h2>
-        <div id="dialogBlockCat" class="dialog-cat">${esc(s.category)}</div>
+        <h2 id="dialogVisibleTitle" class="dialog-title">${esc(s.zh || s.name)}</h2>
+        <div class="sub en">${esc(s.name)}</div>
+        <div id="dialogBlockCat" class="dialog-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
       </div>
-      <button id="closeBtn" class="icon-btn" aria-label="${I18N.t("detail.close", "zh")}">✕</button>
+      <button id="closeBtn" class="icon-btn dialog-close" aria-label="${I18N.t("detail.close")}">✕</button>
     </div>
     <div id="dialogBody" class="dialog-body">
-      <section id="dialogBlockZh" class="block"><h3 class="zh">${I18N.t("detail.zhTitle", "zh")}</h3><p>${esc(s.zh)}</p></section>
-      <section id="dialogBlockEn" class="block"><h3 class="en">${I18N.t("detail.enTitle", "en")}</h3><p>${esc(s.description)}</p></section>
+      <section id="dialogBlockZh" class="block zh"><h3 class="zh">${I18N.t("detail.zhTitle")}</h3><p>${esc(s.zh)}</p><p class="zh-desc">${esc(s.description)}</p></section>
+      <section id="dialogBlockEn" class="block en"><h3 class="en">${I18N.t("detail.enTitle")}</h3><p>${esc(s.enDescription || "")}</p></section>
       <section id="dialogBlockTools" class="block"><h3>${I18N.t("detail.toolsTitle")}</h3><div class="tools">${(Array.isArray(s.allowedTools) ? s.allowedTools : String(s.allowedTools || "").split(",").map((t) => t.trim()).filter(Boolean)).map((t) => `<code>${esc(t)}</code>`).join("")}</div></section>
     </div>
     <div id="dialogFoot" class="dialog-foot">
-      <a class="btn btn-primary" href="skills/${encodeURIComponent(s.name)}/" target="_blank" rel="noopener">
-        <span class="zh">${I18N.t("detail.open", "zh")}</span><span class="en">${I18N.t("detail.openEn", "en")}</span>
+      <a class="btn btn-primary" href="${REPO_SKILLS_TREE}${encodeURIComponent(s.name)}/" target="_blank" rel="noopener">
+        <span class="zh">${I18N.t("detail.open")}</span><span class="en">${I18N.t("detail.openEn")}</span>
       </a>
       <button id="shareBtn" class="btn btn-ghost">${I18N.t("share.btn")}</button>
     </div>`;
   dialog.innerHTML = html;
-  overlay.classList.add("open");
+  // 统一用 `show` 类驱动遮罩与弹窗显示（与 CSS .overlay.show/.dialog.show 匹配，修复此前 open/show 不匹配导致弹窗无法打开）
+  overlay.classList.add("show");
+  dialog.classList.add("show");
   document.body.classList.add("no-scroll");
   trapFocus(dialog);
   $("#closeBtn").addEventListener("click", closeDetail);
   $("#shareBtn").addEventListener("click", () => shareSkill(s));
 }
 
+// 设置弹窗：复用现有 #dialog 框架（trapFocus/closeDetail），承载语言/主题切换
+function openSettings() {
+  track("open_settings");
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
+  dialog._lastFocused = document.activeElement;
+  const html = `
+    <div id="dialogHead" class="dialog-head">
+      <div class="avatar">⚙</div>
+      <div><h2 id="dialogVisibleTitle" class="dialog-title">${I18N.t("settings.title")}</h2></div>
+      <button id="closeBtn" class="icon-btn dialog-close" aria-label="${I18N.t("detail.close")}">✕</button>
+    </div>
+    <div id="dialogBody" class="dialog-body">
+      <section class="block">
+        <h3>${I18N.t("settings.langGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.language")}</span>
+          <button id="settingsLangBtn" class="btn btn-outline" aria-pressed="${state.lang === "en"}">${state.lang === "zh" ? "中文" : "English"}</button>
+        </div>
+      </section>
+      <section class="block">
+        <h3>${I18N.t("settings.themeGroup")}</h3>
+        <div class="settings-row">
+          <span class="settings-label">${I18N.t("settings.theme")}</span>
+          <button id="settingsThemeBtn" class="btn btn-outline" aria-pressed="${state.theme === "dark"}">${state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"}</button>
+        </div>
+      </section>
+    </div>
+    <div id="dialogFoot" class="dialog-foot">
+      <button id="settingsDoneBtn" class="btn btn-primary">${I18N.t("settings.done")}</button>
+    </div>`;
+  dialog.innerHTML = html;
+  overlay.classList.add("show");
+  dialog.classList.add("show");
+  document.body.classList.add("no-scroll");
+  trapFocus(dialog);
+  $("#closeBtn").addEventListener("click", closeDetail);
+  $("#settingsDoneBtn").addEventListener("click", closeDetail);
+  // 语言/主题切换：复用现有 applyLang/applyTheme（同作用域）；就地更新文案，不重建弹窗避免焦点/监听抖动
+  $("#settingsLangBtn").addEventListener("click", () => {
+    state.lang = state.lang === "zh" ? "en" : "zh";
+    savePref(LS_LANG, state.lang);
+    applyLang();
+    refreshSettingsBody();
+  });
+  $("#settingsThemeBtn").addEventListener("click", () => {
+    state.theme = state.theme === "light" ? "dark" : "light";
+    savePref(LS_THEME, state.theme);
+    applyTheme();
+    const b = $("#settingsThemeBtn");
+    if (b) { b.textContent = state.theme === "dark" ? "深色 / Dark" : "浅色 / Light"; b.setAttribute("aria-pressed", state.theme === "dark"); }
+  });
+}
+
+// 设置弹窗：语言切换后就地刷新动态文案（不重建骨架，保留焦点陷阱与事件绑定）
+function refreshSettingsBody() {
+  const title = $("#dialogVisibleTitle");
+  if (title) title.textContent = I18N.t("settings.title");
+  const langBtn = $("#settingsLangBtn");
+  if (langBtn) { langBtn.textContent = state.lang === "zh" ? "中文" : "English"; langBtn.setAttribute("aria-pressed", state.lang === "en"); }
+  // 区块标题与标签为动态 i18n，直接查询并更新
+  const heads = document.querySelectorAll("#dialogBody .block h3");
+  if (heads[0]) heads[0].textContent = I18N.t("settings.langGroup");
+  if (heads[1]) heads[1].textContent = I18N.t("settings.themeGroup");
+  const labels = document.querySelectorAll("#dialogBody .settings-label");
+  if (labels[0]) labels[0].textContent = I18N.t("settings.language");
+  if (labels[1]) labels[1].textContent = I18N.t("settings.theme");
+}
+
 function closeDetail() {
   const overlay = $("#overlay");
   const dialog = $("#dialog");
-  overlay.classList.remove("open");
+  overlay.classList.remove("show");
+  dialog.classList.remove("show");
   document.body.classList.remove("no-scroll");
+  // 移除焦点陷阱的 keydown 监听，避免多次打开后监听器在 #dialog 上累积叠加
+  if (typeof dialog._onKey === "function") {
+    dialog.removeEventListener("keydown", dialog._onKey);
+    dialog._onKey = null;
+  }
   dialog.innerHTML = "";
   // 归还焦点到打开前的元素，避免 Tab 顺序跳到页面顶部
   if (dialog._lastFocused && typeof dialog._lastFocused.focus === "function") {
@@ -51,29 +131,45 @@ function trapFocus(container) {
   if (!focusables.length) return;
   const first = focusables[0], last = focusables[focusables.length - 1];
   first.focus();
-  container.addEventListener("keydown", function onKey(e) {
-    if (e.key === "Escape") { closeDetail(); container.removeEventListener("keydown", onKey); }
+  // 保存引用供 closeDetail 统一移除（无论通过 Esc 还是关闭按钮/遮罩关闭都能清理）
+  container._onKey = function onKey(e) {
+    if (e.key === "Escape") { closeDetail(); return; }
     if (e.key !== "Tab") return;
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-  });
+  };
+  container.addEventListener("keydown", container._onKey);
 }
 
 function shareSkill(s) {
+  track("share_skill", { skill: s.name });
   const text = buildShareText(s.name);
   if (navigator.share) {
-    navigator.share({ title: "Agent Skills Hub", text, url: location.href }).catch(() => {});
-  } else if (navigator.clipboard && navigator.clipboard.writeText) {
+    // 系统分享：成功/失败都给出可见反馈；被取消或失败则回退到剪贴板复制
+    navigator.share({ title: "Agent Skills Hub", text, url: location.href })
+      .then(() => showToast(I18N.t("share.copied")))
+      .catch((err) => {
+        if (err && err.name === "AbortError") return; // 用户主动取消，不回退
+        copyToClipboard(text);
+      });
+  } else {
+    copyToClipboard(text);
+  }
+}
+
+// 统一的剪贴板复制入口：优先 Clipboard API，失败降级到 textarea execCommand
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => showToast(I18N.t("share.copied"))).catch(() => fallbackCopy(text));
   } else {
     fallbackCopy(text);
   }
 }
 
-// 规范要求相对路径 skills/<name>/：部署后由 GitHub 自动解析为 tree/main/skills/<name>/，
-// 离线/无 location 场景回退相对路径（不依赖任何外部 repo 配置字段）
+// 分享链接使用绝对 GitHub URL（与 #dialog 的「查看技能」按钮一致的 REPO_SKILLS_TREE 常量），
+// 保证复制到外部平台（微信/Twitter 等）后可直接点击打开，与 app 层 share.ts 行为对齐（openspec §4.5.4）
 function buildShareText(name) {
-  const base = "skills/" + encodeURIComponent(name) + "/";
+  const base = REPO_SKILLS_TREE + encodeURIComponent(name) + "/";
   const promos = I18N.t("share.promos") || [];
   const n = (SKILLS_DATA ? SKILLS_DATA.total : 0) + "+";
   const promo = promos.length

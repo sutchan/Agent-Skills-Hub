@@ -1,0 +1,5 @@
+<!-- Agent Skills Hub 单色标志 v1.14.57 — 深墨绿底 #10231a + 主绿图形，引用唯一来源 hub.svg symbol -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
+  <rect width="32" height="32" rx="8" fill="#10231a" />
+  <use href="/hub.svg#ash-hub" xlink:href="/hub.svg#ash-hub" width="32" height="32" color="#2e9e6b" />
+</svg>

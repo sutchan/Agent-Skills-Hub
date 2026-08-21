@@ -1,60 +1,160 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.8 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.17.2 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agent Skills Hub · 原型</title>
+  <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 {SKILLS_TOTAL} 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Agent Skills Hub" />
+  <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
+  <meta property="og:description" content="集中管理 {SKILLS_TOTAL}+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:image" content="banner-og.svg" />
+  <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
+  <meta name="twitter:description" content="集中管理 {SKILLS_TOTAL}+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:image" content="banner-og.svg" />
+  <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
   <style>{{CSS}}</style>
+  {{ANALYTICS}}
 </head>
 <body>
+  <!-- 品牌图形单一来源 symbol（与 brand/hub.svg 内容一致，currentColor 驱动；DESIGN §8.2） -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="ash-hub" viewBox="0 0 32 32">
+      <g fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+        <line x1="16" y1="16" x2="16" y2="7.5" opacity=".55" />
+        <line x1="16" y1="16" x2="24.5" y2="21" opacity=".55" />
+        <line x1="16" y1="16" x2="7.5" y2="21" opacity=".55" />
+        <circle cx="16" cy="16" r="3.4" fill="currentColor" stroke="none" />
+        <circle cx="16" cy="7.5" r="2.3" stroke="none" />
+        <circle cx="24.5" cy="21" r="2.3" stroke="none" />
+        <circle cx="7.5" cy="21" r="2.3" stroke="none" />
+      </g>
+    </symbol>
+    <!-- logo 圆角底渐变：浅 #2e9e6b → 深 #5cc98c（DESIGN §8.3） -->
+    <linearGradient id="ash-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="hsl(152 56% 40%)" />
+      <stop offset="1" stop-color="hsl(146 52% 60%)" />
+    </linearGradient>
+  </svg>
   <header class="topbar" id="siteHeader">
     <div class="topbar-inner" id="topbarInner">
       <a class="brand" id="brandLink" href="#">
-        <span class="logo">S</span>
-        <span>Skills Hub <small data-i18n="brand.subtitle">Agent Skills Hub 原型</small></span>
-      </a>
-      <div class="topbar-spacer"></div>
-      <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言 / Switch language" data-i18n="lang.toggle">中 / EN</button>
-      <button class="icon-btn" id="themeBtn" title="主题 / Theme" aria-label="切换主题 / Switch theme" data-i18n="theme.toggle">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon">
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+        <svg class="logo" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
+          <rect width="32" height="32" rx="8" fill="url(#ash-grad)" />
+          <use href="#ash-hub" xlink:href="#ash-hub" width="32" height="32" color="#fff" />
         </svg>
-      </button>
+        <span>Skills Hub <small data-i18n="brand.subtitle">高质量 Agent 技能库</small></span>
+      </a>
+      <div class="topbar-actions" id="topbarActions">
+        <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言 / Switch language" aria-pressed="false">中</button>
+        <button class="icon-btn" id="themeBtn" title="主题 / Theme" aria-label="切换主题 / Switch theme" aria-pressed="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="themeIcon">
+            <g class="theme-sun">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+            </g>
+            <path class="theme-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" style="display:none"></path>
+          </svg>
+        </button>
+        <button class="icon-btn" id="settingsBtn" title="设置 / Settings" aria-label="打开设置 / Open settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
 
-  <section class="hero" id="hero">
-    <h1 class="zh" id="heroTitleZh" data-i18n="hero.title">发现并复用 200+ 高质量 Agent 技能</h1>
-    <h1 class="en" id="heroTitleEn" data-i18n="hero.title">Discover & reuse 200+ high-quality agent skills</h1>
-    <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
-    <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
-    <div class="stats" id="heroStats" aria-live="polite">
-      <div class="stat"><div class="num" id="statTotal">0</div><div class="label zh" data-i18n="stat.total">技能总数</div><div class="label en" data-i18n="stat.total">Total skills</div></div>
-      <div class="stat"><div class="num" id="statCats">0</div><div class="label zh" data-i18n="stat.cats">分类</div><div class="label en" data-i18n="stat.cats">Categories</div></div>
-      <div class="stat"><div class="num" id="statShown">0</div><div class="label zh" data-i18n="stat.shown">当前展示</div><div class="label en" data-i18n="stat.shown">Shown</div></div>
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <svg class="hero-net" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g stroke="hsl(var(--line))" stroke-width="1" opacity=".5">
+        <line x1="120" y1="60" x2="400" y2="120" /><line x1="400" y1="120" x2="680" y2="70" />
+        <line x1="400" y1="120" x2="220" y2="200" /><line x1="400" y1="120" x2="600" y2="190" />
+        <line x1="120" y1="60" x2="220" y2="200" /><line x1="680" y1="70" x2="600" y2="190" />
+      </g>
+      <g fill="hsl(var(--node))">
+        <circle cx="120" cy="60" r="5" /><circle cx="680" cy="70" r="5" />
+        <circle cx="220" cy="200" r="5" /><circle cx="600" cy="190" r="5" />
+        <circle cx="400" cy="120" r="11" fill="hsl(var(--primary))" />
+      </g>
+    </svg>
+    <div class="hero-inner">
+      <span class="hero-eyebrow zh" data-i18n="hero.eyebrow">Agent 技能枢纽</span>
+      <span class="hero-eyebrow en" data-i18n="hero.eyebrow">Agent Skills Hub</span>
+      <h1 class="zh" id="heroTitle">零散的 agent 技能，<span class="accent">汇聚</span>成一处可检索的枢纽</h1>
+      <h1 class="en" id="heroTitleEn" aria-hidden="true">Scattered agent skills, <span class="accent">unified</span> into one searchable hub</h1>
+      <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
+      <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
+      <div class="hero-stat" id="heroStats" aria-live="polite">
+        <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl zh" data-i18n="stat.total">技能总数</div><div class="lbl en" data-i18n="stat.total">Total skills</div></div>
+        <div class="stat"><div class="num" id="statCats">0</div><div class="lbl zh" data-i18n="stat.cats">分类</div><div class="lbl en" data-i18n="stat.cats">Categories</div></div>
+      </div>
+      <ul class="hero-features" aria-label="Highlights">
+        <li class="zh">⚙️ 零维护清单 · 构建自动生成</li><li class="en">⚙️ Zero-maintenance, auto-generated</li>
+        <li class="zh">🌏 中文本地化 · 开箱即用</li><li class="en">🌏 Chinese-localized, ready to use</li>
+        <li class="zh">🚀 离线可用 · 无框架依赖</li><li class="en">🚀 Works offline, framework-free</li>
+      </ul>
     </div>
   </section>
 
   <div class="controls" id="searchControls">
-    <div class="search" id="searchBox">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
-      <input id="searchInput" type="search" aria-label="搜索技能 / Search skills" placeholder="搜索技能名称或描述…" />
-    </div>
-    <div class="view-toggle" id="viewToggle">
-      <button class="view-btn active" data-view="grid" title="网格">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
-      </button>
-      <button class="view-btn" data-view="list" title="列表">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg>
-      </button>
+    <div class="controls-inner" id="searchControlsInner">
+      <form class="search" id="searchBox" role="search" onsubmit="return false">
+        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <label class="sr-only" for="searchInput">搜索技能 / Search skills</label>
+        <input id="searchInput" type="search" placeholder="搜索技能名称或描述…" />
+      </form>
+      <div class="view-toggle" id="viewToggle">
+        <button class="view-btn active" data-view="grid" title="网格">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+        </button>
+        <button class="view-btn" data-view="list" title="列表">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg>
+        </button>
+      </div>
+      <span class="result-count" id="resultCount" aria-live="polite"></span>
     </div>
   </div>
 
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="cats-scroll" id="cats"></div></nav>
 
-  <main class="grid" id="grid" aria-label="技能列表" aria-live="polite"></main>
+  <main class="grid" id="grid" aria-label="技能列表" aria-live="off"></main>
+
+  <!-- 页脚区：品牌 + 导航链接 + 版本/协议（id 供脚本与测试精确选取；文案随语言切换） -->
+  <footer class="site-footer" id="siteFooter">
+    <div class="footer-inner" id="footerInner">
+      <div class="footer-brand" id="footerBrand">
+        <a class="footer-logo" id="footerLogo" href="#" aria-label="Agent Skills Hub">
+          <svg class="logo" style="width:20px;height:20px" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
+            <rect width="32" height="32" rx="8" fill="url(#ash-grad)" />
+            <use href="#ash-hub" xlink:href="#ash-hub" width="32" height="32" color="#fff" />
+          </svg>
+          <span>Skills Hub</span>
+        </a>
+        <p class="footer-desc zh" id="footerDescZh" data-i18n="footer.desc">高质量 Agent 技能目录，按分类浏览、搜索、即取即用。</p>
+        <p class="footer-desc en" id="footerDescEn" data-i18n="footer.desc">A curated directory of high-quality agent skills — browse, search, and reuse.</p>
+      </div>
+      <nav class="footer-links" id="footerLinks" aria-label="页脚导航 / Footer links">
+        <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener">GitHub</a>
+        <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener">README</a>
+      </nav>
+    </div>
+    <div class="footer-bottom" id="footerBottom">
+      <span class="footer-ver" id="footerVer">v{{VERSION}}</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
+      <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
+    </div>
+  </footer>
 
   <div class="overlay" id="overlay">
     <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogVisibleTitle"></div>

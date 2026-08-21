@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # coverage.py — 统计 skills/*/SKILL.md 的中文（CJK）翻译覆盖情况
-# 路径: tools/coverage.py 版本: 1.0.0
+# 路径: tools/coverage.py 版本: 1.0.1
 
 import os
 import re
@@ -19,7 +19,13 @@ def main():
     min_ratio = None
     args = sys.argv[1:]
     if "--threshold" in args:
-        threshold = float(args[args.index("--threshold") + 1])
+        ti = args.index("--threshold")
+        if ti + 1 >= len(args):
+            sys.exit("错误：--threshold 需要跟一个数值参数")
+        try:
+            threshold = float(args[ti + 1])
+        except ValueError:
+            sys.exit(f"错误：--threshold 参数无效：{args[ti + 1]!r}")
     if "--min-translated-ratio" in args:
         min_ratio = float(args[args.index("--min-translated-ratio") + 1])
 
@@ -32,7 +38,11 @@ def main():
         with open(md, "r", encoding="utf-8") as f:
             text = f.read()
         m = re.match(r"^---\s*\n.*?\n---", text, re.DOTALL)
-        body = text[m.end():] if m else text
+        if m:
+            body = text[m.end():]
+        else:
+            # 无 frontmatter（如社区技能直接以正文开头）时，整篇视为正文参与 CJK 占比统计
+            body = text
         cjk = len(CJK.findall(body))
         total = len(body)
         ratio = cjk / total if total else 0.0

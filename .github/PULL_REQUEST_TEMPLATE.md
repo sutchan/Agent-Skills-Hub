@@ -1,36 +1,46 @@
-<!-- 感谢为本仓库提交 PR！请根据实际情况填写。 -->
+## 变更总结
 
-## 变更摘要（Summary）
+<!-- 简要说明本次 PR 做了什么、为什么（动机）。 -->
 
-<!-- 简要说明本次 PR 做了什么，不超过 72 字符的标题可放开头 -->
+## 变更类型
 
-## 变更类型（Type）
+<!-- 在对应项勾选（提交信息需与 type 一致）。 -->
 
-- [ ] feat（新增技能 / 新功能）
-- [ ] fix（修复缺陷）
-- [ ] docs（文档更新）
-- [ ] refactor（重构）
-- [ ] style（格式/样式）
-- [ ] test（测试）
-- [ ] chore（构建/依赖/配置）
-- [ ] perf（性能优化）
+- [ ] feat: 新功能
+- [ ] fix: 修复 bug
+- [ ] docs: 文档更新
+- [ ] style: 代码风格 / 格式
+- [ ] refactor: 代码重构（无行为变化）
+- [ ] test: 测试相关
+- [ ] chore: 构建 / 依赖 / 配置
+- [ ] perf: 性能优化
+- [ ] ci: CI/CD 配置
+- [ ] revert: 回滚
 
-## 关联 Issue
+## 提交信息
 
-<!-- 如 Closes #123 或 相关 #456 -->
+<!-- 请提供一个符合 Conventional Commits 的提交信息示例：
+     `<type>: <描述>`，如 `docs: 新增 .github Community Health Files`
+     若涉及版本变更，请在正文/页脚标注新版本号。 -->
 
-## 变更详情（Details）
+```
+<type>: <描述>
+```
 
-<!-- 关键改动、动机、影响范围 -->
+## 一致性检查清单
 
-## 检查清单（Checklist）
+- [ ] `npm run build` 已运行且通过，`data/skills-data.json` 已重新生成
+- [ ] 涉及技能改动时，`SKILL.md` 前置元数据完整（name/description/category/zh/en_description）
+- [ ] `en_description` 变更时已同步更新 `description` 中文译文
+- [ ] README 中英文、CHANGELOG、package.json 版本号三者一致（含版本 bump）
+- [ ] CHANGELOG 已新增对应版本小节，且底部有 release tag 锚点
+- [ ] 无 `console.log` / `debugger` 残留（脚本除外）
+- [ ] 新文件头已标注路径与版本号
 
-- [ ] 提交信息遵循 `<type>: <描述>` 规范（首字母小写、≤50 字符）
-- [ ] 若新增/更新技能，已运行 `python tools/skills_readme.py verify` 校验 README 一致
-- [ ] 若改动技能正文，已运行 `python tools/coverage.py` 检查翻译覆盖率
-- [ ] 若影响分类或总数，已同步 `README.md` 与 `README.en.md`
-- [ ] 已在 `CHANGELOG.md` 追加变更记录（遵循 Keep a Changelog 与 SemVer）
-- [ ] 无密钥 / Token 泄漏，无 `console.log` / `debugger` 残留
-- [ ] 已阅读并遵守 [行为准则](CODE_OF_CONDUCT.md)
+## 测试说明
 
-## 补充信息（Optional）
+<!-- 描述如何验证本次变更（构建、本地预览、手工用例等）。 -->
+
+## 相关 Issue / PR
+
+<!-- 引用相关 issue 或 PR，如 `Closes #123`。 -->

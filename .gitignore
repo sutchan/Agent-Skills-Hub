@@ -13,9 +13,6 @@ logs/
 skills-manager.db
 skills-manager.db-shm
 skills-manager.db-wal
-skills/skills-manager.db
-skills/skills-manager.db-shm
-skills/skills-manager.db-wal
 
 # skills-manager 误写入 skills/ 的整份仓库嵌套副本，非源码
 skills/skills/
@@ -51,8 +48,12 @@ prototype/out/_next/
 .secret.key
 .env
 .env.local
+*.txt
+*.ffs_db
 
-# 密钥 / 凭证（禁止入库）
-.secret.key
-.env
-.env.local
+# 构建脚本（核心工具链，必须入库）：放行根构建脚本与 CI 兼容转发层
+# 其余 *.mjs 临时脚本默认忽略，避免污染
+*.mjs
+!build-skills-data.mjs
+!build.mjs
+!prototype/build-skills-data.mjs

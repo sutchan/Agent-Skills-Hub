@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.14.8 — 独立国际化模块
+// prototype/src/i18n.js v1.17.2 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -11,72 +11,88 @@
   // 若本字典在运行时被外部篡改或加载失败，模块仍可通过兜底逻辑运行。
   var translations = {
     zh: {
-      "brand.subtitle": "Agent Skills Hub 原型",
+      "brand.subtitle": "高质量 Agent 技能库",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
-      "hero.title": "发现并复用 {n} 高质量 Agent 技能",
+      "hero.eyebrow": "Agent 技能枢纽",
+      "hero.title": "零散的 agent 技能，汇聚成一处可检索的枢纽",
       "hero.subtitle": "按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。",
       "stat.total": "技能总数",
       "stat.cats": "分类",
-      "stat.shown": "当前展示",
       "search.placeholder": "搜索技能名称或描述…",
-      "empty": "未找到匹配的技能",
       "detail.zhTitle": "中文描述",
       "detail.enTitle": "英文说明",
-      "detail.catTitle": "分类 / Category",
+      "detail.catTitle": "分类 / Category", // 预留：详情弹窗分类标题
       "detail.toolsTitle": "授权工具 / Allowed tools",
       "detail.close": "关闭 / Close",
       "detail.open": "查看技能",
       "detail.openEn": "Open skill",
-      "detail.zhName": "中文名", // 详情弹窗内中文名标题（预留）
+      "detail.zhName": "中文名", // 预留：详情弹窗内中文名标题
       "empty.desc": "换个关键词或分类试试，或清除当前筛选。",
       "empty.clear": "清除筛选",
       "share.btn": "分享",
-      "share.copyOk": "已复制链接与宣传文案",
-      "share.copyFail": "复制失败，请手动复制",
       "share.copied": "已复制到剪贴板",
       "share.failed": "复制失败，请手动复制",
       "filter.all": "全部",
       "empty.title": "未找到匹配的技能",
+      "card.noDesc": "暂无中文描述。",
+      "result.count": "共 {n} 个技能",
+      "result.empty": "无匹配结果",
+      "settings.title": "设置",
+      "settings.langGroup": "语言 / Language",
+      "settings.language": "界面语言",
+      "settings.themeGroup": "主题 / Theme",
+      "settings.theme": "外观主题",
+      "settings.done": "完成",
       "share.promos": [
         "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
         "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
         "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，{n} 技能即插即用，开源免费！"
-      ]
+      ],
+      "footer.desc": "高质量 Agent 技能目录，按分类浏览、搜索、即取即用。",
+      "footer.copyright": "开源免费 · MIT 协议"
     },
     en: {
-      "brand.subtitle": "Agent Skills Hub Prototype",
+      "brand.subtitle": "Curated agent skill library",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
-      "hero.title": "Discover & reuse {n} high-quality agent skills",
+      "hero.eyebrow": "Agent Skills Hub",
+      "hero.title": "Scattered agent skills, unified into one searchable hub",
       "hero.subtitle": "Browse by category, search, or inspect skill details — ready to drop into your coding agent.",
       "stat.total": "Total skills",
       "stat.cats": "Categories",
-      "stat.shown": "Shown",
       "search.placeholder": "Search skills by name or description…",
-      "empty": "No matching skills",
       "detail.zhTitle": "Description (zh)",
       "detail.enTitle": "Description (en)",
-      "detail.catTitle": "Category / 分类",
+      "detail.catTitle": "Category / 分类", // 预留：详情弹窗分类标题
       "detail.toolsTitle": "Allowed tools / 授权工具",
       "detail.close": "Close / 关闭",
       "detail.open": "Open skill",
       "detail.openEn": "Open skill",
-      "detail.zhName": "Chinese name",
+      "detail.zhName": "Chinese name", // 预留：详情弹窗内中文名标题
       "empty.desc": "Try a different keyword or category, or clear the current filter.",
       "empty.clear": "Clear filters",
       "share.btn": "Share",
-      "share.copyOk": "Link & promo copied",
-      "share.copyFail": "Copy failed, please copy manually",
       "share.copied": "Copied to clipboard",
       "share.failed": "Copy failed, please copy manually",
       "filter.all": "All",
       "empty.title": "No matching skills",
+      "card.noDesc": "No description available.",
+      "result.count": "{n} skills",
+      "result.empty": "No matches",
+      "settings.title": "Settings",
+      "settings.langGroup": "Language",
+      "settings.language": "Interface language",
+      "settings.themeGroup": "Theme",
+      "settings.theme": "Appearance theme",
+      "settings.done": "Done",
       "share.promos": [
         "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
         "🚀 Agent Skills Hub: {n} curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",
         "💡 Want a stronger coding agent? Explore Agent Skills Hub: {n} plug-and-play skills, open source and free!"
-      ]
+      ],
+      "footer.desc": "A curated directory of high-quality agent skills — browse, search, and reuse.",
+      "footer.copyright": "Open source · MIT License"
     }
   };
 
