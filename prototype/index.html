@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 101 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 108 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 101+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 108+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 101+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 108+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
@@ -557,22 +557,20 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 101,
+  "total": 108,
   "categories": [
     "品牌与设计",
     "文档与内容",
     "数据分析与可视化",
     "开发框架与平台",
-    "文件与格式处理",
-    "其他"
+    "文件与格式处理"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
     "文档与内容": "Docs & Content",
     "数据分析与可视化": "Data Analysis & Visualization",
     "开发框架与平台": "Dev Frameworks & Platforms",
-    "文件与格式处理": "File & Format Handling",
-    "其他": "其他"
+    "文件与格式处理": "File & Format Handling"
   },
   "skills": [
     {
@@ -856,6 +854,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "sports-news",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "体育新闻",
+      "description": "通过 RSS/Atom 订阅源与 Google News 获取体育新闻。抓取头条、按关键词搜索、按日期筛选。涵盖足球新闻、转会传闻、比赛战报，以及通过 Google News 覆盖任意体育项目。",
+      "enDescription": "| Sports news via RSS/Atom feeds and Google News. Fetch headlines, search by query, filter by date. Covers football news, transfer rumors, match reports, and any sport via Google News.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "twitter-automation",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
@@ -888,12 +896,32 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "wechat-article-writer",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "公众号文章写作",
+      "description": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
+      "enDescription": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "data-visualization",
       "category": "数据分析与可视化",
       "enCategory": "Data Analysis & Visualization",
       "zh": "Python 数据可视化",
       "description": "用于 Python 数据可视化分析的技能，覆盖 matplotlib、seaborn、plotly 等主流库，帮助将数据转化为清晰、有洞察力的图表。",
       "enDescription": "Create effective data visualizations with Python (matplotlib, seaborn, plotly). Use when building charts, choosing the right chart type for a dataset, creating publication-quality figures, or applying design principles like accessibility and color theory.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "football-data",
+      "category": "数据分析与可视化",
+      "enCategory": "Data Analysis & Visualization",
+      "zh": "足球数据",
+      "description": "覆盖全球主要足球联赛的数据——积分榜、赛程、比赛统计、预期进球（xG）、转会、球员档案、历史交锋、球队实力（Elo）与比赛预测。零配置、无需 API Key。涵盖英超、西甲、德甲、意甲、法甲、美职联、欧冠、世界杯、英冠、荷甲、葡超、巴甲、俄超、苏超/比甲/土超顶级联赛、欧洲杯等（调用 get_competitions 获取实时列表）。",
+      "enDescription": "| Football (soccer) data across the world's major leagues — standings, schedules, match stats, xG, transfers, player profiles, head-to-head history, team strength (Elo), and match forecasts. Zero config, no API keys. Covers Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, Champions League, World Cup, Championship, Eredivisie, Primeira Liga, Serie A Brazil, Russian Premier League, Scottish/Belgian/Turkish top flights, European Championship, and more (call get_competitions for the live list).",
       "allowedTools": [],
       "hidden": false
     },
@@ -1011,6 +1039,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "better-auth-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Better Auth 最佳实践",
+      "description": "配置 Better Auth 服务端与客户端的认证方案，搭建数据库适配器、管理会话、添加插件并处理环境变量。当用户提及 Better Auth、betterauth、auth.ts，或需要用邮箱密码、OAuth 或插件配置搭建 TypeScript 认证时使用。",
+      "enDescription": "Configure Better Auth server and client, set up database adapters, manage sessions, add plugins, and handle environment variables. Use when users mention Better Auth, betterauth, auth.ts, or need to set up TypeScript authentication with email/password, OAuth, or plugin configuration.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "bun",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -1113,6 +1151,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "fastify-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Fastify 最佳实践",
+      "description": "指导用 TypeScript 或 JavaScript 开发 Fastify Node.js 后端服务与 REST API。在构建、配置或调试 Fastify 应用时使用——包括定义路由、实现插件、配置 JSON Schema 校验、处理错误、优化性能、管理认证、配置 CORS 与安全头、集成数据库、使用 WebSocket 以及生产部署。覆盖完整 Fastify 请求生命周期（hooks、序列化、Pino 日志）与通过 strip types 的 TypeScript 集成。",
+      "enDescription": "Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, managing authentication, configuring CORS and security headers, integrating databases, working with WebSockets, and deploying to production. Covers the full Fastify request lifecycle (hooks, serialization, logging with Pino) and TypeScript integration via strip types. Trigger terms: Fastify, Node.js server, REST API, API routes, backend framework, fastify.config, server.ts, app.ts.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "fix-sentry-issues",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -1126,8 +1174,8 @@ html[data-lang="zh"] .en { display: none; }
       "name": "flutter-apply-architecture-best-practices",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
-      "zh": "Flutter 分层架构",
-      "description": "使用推荐的分层方法（UI、Logic、Data）来架构 Flutter 应用。在构建新项目或为可扩展性重构时使用。",
+      "zh": "Flutter 架构最佳实践",
+      "description": "用推荐的分层方式（UI、Logic、Data）为 Flutter 应用做架构设计。在搭建新项目或为可扩展性重构时使用。",
       "enDescription": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
       "allowedTools": [],
       "hidden": false
@@ -1263,6 +1311,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "nestjs-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "NestJS 最佳实践",
+      "description": "NestJS 生产级应用的最佳实践与架构模式。在编写、审查或重构 NestJS 代码，以确保模块、依赖注入、安全与性能的正确模式时使用。",
+      "enDescription": "NestJS best practices and architecture patterns for building production-ready applications. This skill should be used when writing, reviewing, or refactoring NestJS code to ensure proper patterns for modules, dependency injection, security, and performance.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "next-best-practices",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -1359,6 +1417,16 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "remotion-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Remotion 最佳实践",
+      "description": "Remotion 系列技能的路由入口。当用户用代码（React）生成视频、搭建 Remotion 项目或组合多个 Remotion 技能时使用。",
+      "enDescription": "Router for all Remotion skills",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "repo-intake-and-plan",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
@@ -1389,12 +1457,32 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false
     },
     {
+      "name": "stripe-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Stripe 最佳实践",
+      "description": "指导 Stripe 集成决策，涵盖 API 选型（Checkout Sessions 与 Payment Intents 等）、Webhook 处理、订阅与计费、退款与争议、税务与合规、以及安全密钥管理。在接入支付、对账或排查支付异常时使用。",
+      "enDescription": ">- Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, restricted keys, webhooks, OAuth). Use when building, modifying, or reviewing any Stripe integration, including accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
       "name": "supabase",
       "category": "开发框架与平台",
       "enCategory": "Dev Frameworks & Platforms",
       "zh": "Supabase 全栈开发",
       "description": "Supabase 全栈开发技能，覆盖数据库、认证、实时、存储、Edge Functions 等能力的开发指导与最佳实践。",
       "enDescription": "Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libraries and SSR integrations (supabase-js, @supabase/ssr) in Next.js, React, SvelteKit, Astro, Remix; auth issues (login, logout, sessions, JWT, cookies, getSession, getUser, getClaims, RLS); Supabase CLI or MCP server; schema changes, migrations, declarative schemas, security audits, Postgres extensions (pg_graphql, pg_cron, pg_vector); debugging and troubleshooting errors or unexpected behavior on Supabase projects (HTTP errors, Postgres errors, RLS surprises, permission denied, schema cache issues, timeouts, Edge Function crashes, Realtime drops, Storage failures) and reading or querying logs (Logs Explorer, ClickHouse).",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Supabase Postgres 最佳实践",
+      "description": "由 Supabase 维护的 Postgres 最佳实践，适用于任意环境运行的 Postgres。在编写或修改任何 Postgres 数据库对象之前加载本技能：建表/改表与选列类型（含 schema 设计）、迁移与声明式 schema 文件、RLS 策略及其测试、索引、触发器、数据库函数、队列与定时任务（pg_cron、pgmq）、向量/语义搜索（pgvector）、恢复转储（pg_restore）或导入数据。诊断慢查询、高 CPU、超时、EXPLAIN 计划、连接耗尽、锁、膨胀，或租户/用户可见到错误数据时也加载。不仅是性能指南——schema、迁移、安全与 SQL 编写任务（哪怕只改一列或一条查询）都需遵循这些规则。",
+      "enDescription": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1445,6 +1533,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "Twitter/X API 替代",
       "description": "基于 fetcher.sh 的 Twitter API 与 X API 替代方案——按次计费（USDC/x402）或用 Bearer key 预付费积分，无需 OAuth 与开发者应用。用于按关键词、话题或高级操作符（from:、to:、since:、until:、min_faves:、filter:）搜索推文，按账号抓取 Twitter/X 个人资料、拉取用户推文/回复/粉丝/关注，获取单条推文及其回复/转推者，读取 Twitter List 成员或推文，按国家查看热门话题，或按名称搜索 X 账号。也覆盖 Twitter 数据管线、竞品监控、话题跟踪、情感分析输入或粉丝导出，无需官方 X API 的定价档位或应用审核流程。",
       "enDescription": "A Twitter API alternative and X API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no OAuth and no developer application. Use when the user wants to search tweets by keyword, hashtag, or advanced operators (from:, to:, since:, until:, min_faves:, filter:), scrape a Twitter/X profile by handle, pull a user's tweets, replies, followers, or followings, fetch a single tweet with its replies or retweeters, read a Twitter List's members or tweets, check trending topics by country, or search for X accounts by name. Also covers Twitter data pipelines, competitor monitoring, hashtag tracking, sentiment analysis input, or follower export without the official X API's pricing tiers or app-review process.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "uni-app",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "uni-app 跨端开发",
+      "description": "uni-app 跨平台开发框架的综合技能参考。在用 Vue 语法编写一次代码、发布到小程序/H5/App 多端，或配置条件编译、原生能力桥接时使用。",
+      "enDescription": "Comprehensive skill reference for uni-app cross-platform development framework",
       "allowedTools": [],
       "hidden": false
     },
@@ -1585,36 +1683,6 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "电子表格文件处理",
       "description": "任何以电子表格文件为主要输入或输出的任务都应使用本技能，包括打开/读取/编辑/修复现有 .xlsx、.xlsm、.xltx、.csv、.tsv 文件（加列、算公式、格式化、图表、清理脏数据）、从零或其他数据源新建表格、在表格文件格式间转换，以及清理/重组混乱的表格数据。\n产出物必须是电子表格文件。 当主要产出是 Word 文档、HTML 报告、独立 Python 脚本、数据库管线或 Google Sheets API 集成时不要触发。",
       "enDescription": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\\\\"the xlsx in my downloads\\\\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "better-auth-best-practices",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Configure Better Auth server and client, set up database adapters, manage sessions, add plugins, and handle environment variables. Use when users mention Better Auth, betterauth, auth.ts, or need to set up TypeScript authentication with email/password, OAuth, or plugin configuration.",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "remotion-best-practices",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Router for all Remotion skills",
-      "enDescription": "",
-      "allowedTools": [],
-      "hidden": false
-    },
-    {
-      "name": "supabase-postgres-best-practices",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
-      "enDescription": "",
       "allowedTools": [],
       "hidden": false
     }

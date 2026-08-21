@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.17.0 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.17.7 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -12,17 +12,25 @@ function track(event, params) {
   } catch (e) { /* 统计失败不影响主流程 */ }
 }
 
-const LS_THEME = "ash-theme", LS_LANG = "ash-lang";
+const LS_THEME = "ash-theme", LS_LANG = "ash-lang", LS_VIEW = "ash-view", LS_DENSITY = "ash-density";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
+const DENSITY_COMFORT = "comfortable", DENSITY_COMPACT = "compact";
 const DEBOUNCE_MS = 120;
 
 const state = {
   theme: "light",
   lang: "zh",
   view: VIEW_GRID,
+  density: DENSITY_COMFORT,
   query: "",
   cat: null,
 };
+
+// 偏好读取辅助：校验合法枚举值，非法则回退默认（避免脏 localStorage 破坏状态）
+function loadEnum(key, allowed, fallback) {
+  const v = loadPref(key, null);
+  return allowed.indexOf(v) !== -1 ? v : fallback;
+}
 
 function loadPref(key, fallback) {
   try { const v = localStorage.getItem(key); return v == null ? fallback : v; } catch (e) { return fallback; }

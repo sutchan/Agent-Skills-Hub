@@ -13,6 +13,17 @@
 - **数据重建**：`node build-skills-data.mjs` 重建 `data/skills-data.json`，技能总数 82（可见 82，hidden 1，共 83 个目录），无「其他」分类；`npm run build` 同步 `prototype/index.html` 与 `app/app/data/skills-data.json`
 - **版本同步**：`package.json` 升至 v1.17.4，README/README.en 技能总数（82）、领域表计数与版本徽章对齐
 
+### fix: 第二轮补全 24 个新技能 frontmatter 消除「其他」分类
+
+- **补全字段**：为 `analyze-project`、`codebase-design`、`diagnosing-bugs`、`domain-modeling`、`paper-context-resolver`、`prototype`、`repo-intake-and-plan`、`tdd`、`to-spec`（开发方法论）、`twitter-automation`（文档）、`insforge-cli`、`tiktok-api`、`traceknot`、`vue-best-practices`、`vue-debug-guides`、`vue-pinia-best-practices`、`vue-router-best-practices`、`better-auth-best-practices`、`remotion-best-practices`、`supabase-postgres-best-practices`、`fastify-best-practices`、`flutter-apply-architecture-best-practices`、`nestjs-best-practices`、`stripe-best-practices`、`uni-app`（开发框架）、`wechat-article-writer`（文档）共 26 个技能补齐 `category` / `en_category` / `zh` / `description`(中文) / `en_description`(英文) 字段
+- **消除「其他」分类**：分多批补全后「其他」分类归零，5 大领域计数为：品牌与设计 17 / 文档与内容 15 / 数据分析与可视化 1 / 开发框架与平台 70 / 文件与格式处理 4
+- **数据重建**：`npm run build` 重建 `data/skills-data.json`（total 106，可见 106，hidden 1，共 107 目录），同步 `prototype/index.html` 与 `app/app/data/skills-data.json`；README/README.en 技能总数（106）、领域表计数对齐
+
+### fix: 第三轮补全 2 个新技能 frontmatter 消除「其他」分类
+
+- **补全字段**：为 `football-data`（数据分析与可视化）、`sports-news`（文档与内容）补齐 `category` / `en_category` / `zh` / `description`(中文) / `en_description`(英文) 字段
+- **消除「其他」分类**：「其他」分类归零，技能总数 108（可见 108，hidden 1，共 109 目录）；README/README.en 技能总数（108）对齐
+
 ## [1.17.3] - 2026-08-21
 
 ### feat: 补全 8 个新技能 frontmatter 并重建技能数据

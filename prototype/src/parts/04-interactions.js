@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.17.2 — 主题/语言切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.17.7 — 主题/语言/视图/密度切换与事件绑定
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -7,6 +7,18 @@ function applyTheme() {
     // aria-pressed 表示当前是否处于深色（按钮状态语义）
     btn.setAttribute("aria-pressed", state.theme === "dark" ? "true" : "false");
   }
+}
+
+// 视图模式（网格/列表）：同步到 <html data-view>，驱动 .grid 列布局与卡片排布
+function applyView() {
+  document.documentElement.setAttribute("data-view", state.view);
+  // 顶栏视图切换按钮的 active 态同步（与设置弹窗内的切换保持一致）
+  $$(".view-btn").forEach((b) => b.classList.toggle("active", b.dataset.view === state.view));
+}
+
+// 显示密度（舒适/紧凑）：同步到 <html data-density>，由 CSS 控制卡片间距与内边距
+function applyDensity() {
+  document.documentElement.setAttribute("data-density", state.density);
 }
 
 function applyLang() {
