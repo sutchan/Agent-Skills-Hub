@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 122 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 125 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 122+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 125+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 122+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 125+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
@@ -569,7 +569,7 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 122,
+  "total": 125,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -782,6 +782,16 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "Web 设计规范审查",
       "description": "审查 UI 代码是否符合 Web 界面规范。当被要求“审查我的 UI”“检查可访问性”“审计设计”“审查 UX”或“检查我的站点是否遵循最佳实践”时使用。",
       "enDescription": "Review UI code for Web Interface Guidelines compliance. Use when asked to \\\"review my UI\\\", \\\"check accessibility\\\", \\\"audit design\\\", \\\"review UX\\\", or \\\"check my site against best practices\\\".",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "winui-design",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "WinUI 设计",
+      "description": "在设计、评审或修复 WinUI 3 时使用：布局规划、控件选择、Fluent Design 对齐、浅色/深色/高对比度主题、排版、间距、画刷、可访问性，以及 XAML 数据绑定设计。在编写新 XAML、评审 UI PR、将桌面 UI 迁移到 WinUI，或在 WinUI 控件/模式间取舍前加载。",
+      "enDescription": "Use when designing, reviewing, or fixing WinUI 3: layout planning, control choice, Fluent Design alignment, Light/Dark/High Contrast theming, typography, spacing, brushes, accessibility, and XAML data-binding design. Load before authoring new XAML, reviewing UI PRs, migrating desktop UI to WinUI, or choosing between WinUI controls/patterns.",
       "allowedTools": [],
       "hidden": false
     },
@@ -1775,6 +1785,26 @@ html[data-lang="zh"] .en { display: none; }
       "zh": "Web 多组件构件构建",
       "description": "使用现代前端 Web 技术（React、Tailwind CSS、shadcn/ui）创建复杂多组件的 claude.ai HTML 构件的工具套件。适用于需要状态管理、路由或 shadcn/ui 组件的复杂构件，而非简单的单文件 HTML/JSX 构件。",
       "enDescription": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "windows-ui-automation",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Windows UI 自动化",
+      "description": "精通 Windows UI Automation（UIA）与 Win32 API 的桌面自动化。专注于以可访问、安全的方式自动化 Windows 应用，包括元素发现、输入模拟与进程交互。该技能为高风险（HIGH-RISK），对系统访问需严格的安保控制。",
+      "enDescription": "Expert in Windows UI Automation (UIA) and Win32 APIs for desktop automation. Specializes in accessible, secure automation of Windows applications including element discovery, input simulation, and process interaction. HIGH-RISK skill requiring strict security controls for system access.",
+      "allowedTools": [],
+      "hidden": false
+    },
+    {
+      "name": "winui-dev-workflow",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WinUI 开发工作流",
+      "description": "WinUI 3 应用的构建与运行工作流——项目创建、BuildAndRun.ps1 脚本、winapp run、错误诊断与前置依赖。在构建、运行 WinUI 3 项目，或修复其构建错误时使用。",
+      "enDescription": "Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites. Use when building, running, or fixing build errors in a WinUI 3 project.",
       "allowedTools": [],
       "hidden": false
     },

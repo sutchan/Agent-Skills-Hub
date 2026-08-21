@@ -20,6 +20,16 @@
 - **消除「其他」分类**：「其他」分类归零，5 大领域稳定；技能总数 122（可见 122，hidden 1，共 123 目录）
 - **数据重建**：`npm run build` 重建 `data/skills-data.json`，同步 `prototype/index.html` 与 `app/app/data/skills-data.json`；README/README.en 技能总数（122）对齐
 
+### fix: 第五轮补全 4 个未翻译技能 frontmatter 消除「其他」分类
+
+- **补全字段**：为 `code-review`（开发框架与平台）、`grill-me`/`grill-with-docs`/`grilling`（文档与内容）补齐 `category` / `en_category` / `zh` / `description`(中文) / `en_description`(英文) 字段
+- **全量翻译校验通过**：所有 122 个可见技能的 `description` 均为中文、均含 `zh` 与 `en_description`，「其他」分类归零
+
+### fix: 第六轮补全 3 个 WinUI 技能 frontmatter 消除「其他」分类
+
+- **补全字段**：为 `windows-ui-automation`、`winui-dev-workflow`（开发框架与平台）、`winui-design`（品牌与设计）补齐 `category` / `en_category` / `zh` / `description`(中文) / `en_description`(英文) 字段；`windows-ui-automation` 的 `risk_level`/`model` 额外字段保留
+- **全量翻译校验通过**：所有 125 个可见技能的 `description` 均为中文、均含 `zh` 与 `en_description`，「其他」分类归零；README/README.en 技能总数（125）对齐
+
 ### feat: 完善设置弹窗（新增视图模式与显示密度选项）
 
 - **设置项扩充**：设置弹窗在原有「语言 / 主题」基础上新增「布局（网格 / 列表）」与「密度（舒适 / 紧凑）」两组切换
