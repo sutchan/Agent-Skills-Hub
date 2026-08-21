@@ -1,29 +1,16 @@
 ---
 name: image-to-video
 category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 zh: 图片转视频
-zh-desc: >-
+description: |-
   在 RunComfy 上将任意静态图片动画化，本技能是匹配用户意图到正确 i2v 模型的智能路由器。 常规动画选用 HappyHorse 1.0 I2V（Arena #1、原生音频、身份保持），自定义配音对口型用 Wan 2.7 配合 audio_url，多模态动画用 Seedance 2.0 Pro。
-
   通过本地 RunComfy CLI 调用 runcomfy run 相关端点。
-displayName: "Image-to-Video — Pro Pack on RunComfy"
-description: >
-  Animate any still image on RunComfy — this skill is a smart router
-  that matches the user's intent to the right i2v model in the
-  RunComfy catalog. Picks HappyHorse 1.0 I2V (Arena #1, native audio,
-  identity preservation) for general animations, Wan 2.7 with
-  `audio_url` for custom-voiceover lip-sync, or Seedance 2.0 Pro for
-  multi-modal animation from image + reference video + reference
-  audio. Bundles each model's documented prompting patterns so the
-  caller gets sharper output without burning iterations on the wrong
-  model. Calls `runcomfy run <vendor>/<model>/image-to-video` (or
-  endpoint variant) through the local RunComfy CLI. Triggers on
-  "image to video", "image-to-video", "i2v", "animate image", "make
-  this move", or any explicit ask to turn a still into video.
-homepage: https://www.runcomfy.com
+en_description: "Animate any still image on RunComfy — this skill is a smart router that matches the user's intent to the right i2v model in the RunComfy catalog. Picks HappyHorse 1.0 I2V (Arena #1, native audio, identity preservation) for general animations, Wan 2.7 with `audio_url` for custom-voiceover lip-sync, or Seedance 2.0 Pro for multi-modal animation from image + reference video + reference audio. Bundles each model's documented prompting patterns so the caller gets sharper output without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/image-to-video` (or endpoint variant) through the local RunComfy CLI. Triggers on \"image to video\", \"image-to-video\", \"i2v\", \"animate image\", \"make this move\", or any explicit ask to turn a still into video."
+displayName: Image-to-Video — Pro Pack on RunComfy
+homepage: "https://www.runcomfy.com"
 license: MIT
 ---
-
 # Image-to-Video — Pro Pack on RunComfy
 
 [runcomfy.com](https://www.runcomfy.com/?utm_source=skills.sh&utm_medium=skill&utm_campaign=image-to-video) · [HappyHorse I2V](https://www.runcomfy.com/models/happyhorse/happyhorse-1-0/image-to-video?utm_source=skills.sh&utm_medium=skill&utm_campaign=image-to-video) · [Wan 2.7](https://www.runcomfy.com/models/wan-ai/wan-2-7/text-to-video?utm_source=skills.sh&utm_medium=skill&utm_campaign=image-to-video) · [Seedance 2.0 Pro](https://www.runcomfy.com/models/bytedance/seedance-v2/pro?utm_source=skills.sh&utm_medium=skill&utm_campaign=image-to-video) · [GitHub](https://github.com/agentspace-so/runcomfy-skills/tree/main/image-to-video)

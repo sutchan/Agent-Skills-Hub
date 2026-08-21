@@ -1,15 +1,15 @@
 ---
 name: figma-generate-library
-description: "Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together."
 category: 品牌与设计
+en_category: Brand & Design
 zh: Figma 设计系统构建
-zh-desc: |-
+description: |-
   从代码库在 Figma 中构建或更新专业级设计系统，包括创建变量/令牌、构建组件库、
   为单个组件建立正确的变体集与变量绑定、配置明暗主题、记录设计基础，并弥合代码与 Figma 的差距。
   说明「构建什么、按什么顺序构建」，与教授 API 调用方式的 figma-use 技能互补。
+en_description: Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together.
 disable-model-invocation: false
 ---
-
 # Design System Builder — Figma MCP Skill
 
 Build professional-grade design systems in Figma that match code. This skill orchestrates multi-phase workflows across 20–100+ `use_figma` calls, enforcing quality patterns from real-world design systems (Material 3, Polaris, Figma UI3, Simple DS).

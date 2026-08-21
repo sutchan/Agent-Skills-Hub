@@ -30,8 +30,8 @@
 ## 一致性检查清单
 
 - [ ] `npm run build` 已运行且通过，`data/skills-data.json` 已重新生成
-- [ ] 涉及技能改动时，`SKILL.md` 前置元数据完整（name/description/category/zh/zh-desc）
-- [ ] `description` 变更时已同步更新 `zh-desc` 中文译文
+- [ ] 涉及技能改动时，`SKILL.md` 前置元数据完整（name/description/category/zh/en_description）
+- [ ] `en_description` 变更时已同步更新 `description` 中文译文
 - [ ] README 中英文、CHANGELOG、package.json 版本号三者一致（含版本 bump）
 - [ ] CHANGELOG 已新增对应版本小节，且底部有 release tag 锚点
 - [ ] 无 `console.log` / `debugger` 残留（脚本除外）

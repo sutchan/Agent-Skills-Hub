@@ -1,4 +1,4 @@
-// build-skills-data.mjs v1.16.0
+// build-skills-data.mjs v1.16.2
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
 // 分类(category)、简短中文名称(zh)与 description 中文译文(zh-desc)均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 // 注意语义约定：zh 为「简短中文名称」（卡片标题），zh-desc 为「中文描述」（卡片描述区）；勿将描述句填入 zh。
@@ -119,10 +119,12 @@ function main() {
     skills.push({
       name: fm.name || name,
       category,
+      // 英文分类名：英文态展示（frontmatter en_category）
+      enCategory: fm.en_category || category,
       zh: fm.zh || "",
+      // 默认展示语言为中文：description 存中文（由原 zh-desc 提升），enDescription 存英文（由原 description 迁移）
       description: fm.description || "",
-      // 中文翻译：SKILL.md frontmatter 的 zh-desc（description 的中文译文，必填，与 zh 一句话摘要区分）
-      zhDesc: fm["zh-desc"] || "",
+      enDescription: fm.en_description || "",
       allowedTools: normalizeTools(fm["allowed-tools"]),
       hidden: fm.hidden === true || fm.hidden === "true",
     });
@@ -132,7 +134,10 @@ function main() {
   for (const s of skills) if (!order.includes(s.category)) order.push(s.category);
   skills.sort((a, b) => order.indexOf(a.category) - order.indexOf(b.category));
   const total = skills.filter((s) => !s.hidden).length;
-  writeFileSync(OUT, JSON.stringify({ total, categories: order, skills }, null, 2), "utf8");
+  // 分类中文名 -> 英文名映射（英文态 chip/展示用；中文 category 为稳定键）
+  const categoryEn = {};
+  for (const s of skills) categoryEn[s.category] = s.enCategory;
+  writeFileSync(OUT, JSON.stringify({ total, categories: order, categoryEn, skills }, null, 2), "utf8");
   console.log(`Wrote ${skills.length} skills across ${order.length} categories -> ${OUT}`);
 }
 

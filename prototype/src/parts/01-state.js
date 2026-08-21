@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.14.66 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.16.2 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -74,7 +74,7 @@ let SKILL_MAP = new Map();
 // 预聚合小写检索串缓存在 s._hay（见 05-main init），避免每次输入重复拼接+小写化
 function matches(s, q) {
   if (!q) return true;
-  const hay = s._hay != null ? s._hay : (s.name + " " + s.zh + " " + s.description + " " + s.category).toLowerCase();
+  const hay = s._hay != null ? s._hay : (s.name + " " + s.zh + " " + s.description + " " + (s.enDescription || "") + " " + s.category + " " + (s.enCategory || "")).toLowerCase();
   const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
   return terms.every((term) => hay.includes(term));
 }

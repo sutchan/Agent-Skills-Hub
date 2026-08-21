@@ -1,12 +1,11 @@
 ---
 name: nextjs-app-router-patterns
 category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 zh: Next.js 路由模式
-zh-desc: >-
-  掌握 Next.js 14+ App Router，覆盖 Server Components、流式渲染、并行路由与高级数据获取。在构建 Next.js 应用、实现 SSR/SSG 或优化 React Server Components 时使用。
-description: Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.
+description: 掌握 Next.js 14+ App Router，覆盖 Server Components、流式渲染、并行路由与高级数据获取。在构建 Next.js 应用、实现 SSR/SSG 或优化 React Server Components 时使用。
+en_description: Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.
 ---
-
 # Next.js App Router Patterns
 
 Comprehensive patterns for Next.js 14+ App Router architecture, Server Components, and modern full-stack React development.

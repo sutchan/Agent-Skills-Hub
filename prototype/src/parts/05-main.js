@@ -1,11 +1,11 @@
-// prototype/src/parts/05-main.js v1.15.0 — 应用启动编排
+// prototype/src/parts/05-main.js v1.16.2 — 应用启动编排
 function init() {
   // 从偏好恢复（localStorage 不可用时回退默认）
   state.theme = loadPref(LS_THEME, "light");
   state.lang = loadPref(LS_LANG, "zh");
   // 预聚合：每个技能缓存小写检索串 _hay，并建立 name->skill 索引，避免运行时重复计算
   SKILLS_DATA.skills.forEach((s) => {
-    s._hay = (s.name + " " + s.zh + " " + s.description + " " + s.category).toLowerCase();
+    s._hay = (s.name + " " + s.zh + " " + s.description + " " + (s.enDescription || "") + " " + s.category + " " + (s.enCategory || "")).toLowerCase();
     SKILL_MAP.set(s.name, s);
   });
   applyTheme();

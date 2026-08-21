@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.14.72 — 技能浏览器（网格/列表/搜索/分类/视图）
+// app/components/SkillsExplorer.tsx v1.16.2 — 技能浏览器（网格/列表/搜索/分类/视图）
 // 自包含查询/视图/toast 状态，组合 ui 原语与 SkillCard；双语通过 lib/i18n 的 t() 取词，与原型一致。
 "use client";
 
@@ -36,11 +36,18 @@ export function SkillsExplorer({ skills, lang }: Props) {
     return Array.from(set);
   }, [skills]);
 
+  // 分类中文名 -> 英文名映射（英文态 chip 显示；从各技能 enCategory 派生）
+  const categoryEn = useMemo(() => {
+    const m: Record<string, string> = {};
+    for (const s of skills) if (!m[s.category] && s.enCategory) m[s.category] = s.enCategory;
+    return m;
+  }, [skills]);
+
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
     return skills.filter((s) => {
       const okCat = activeCat == null || s.category === activeCat;
-      const hay = `${s.name} ${s.zh} ${s.description} ${s.category}`.toLowerCase();
+      const hay = `${s.name} ${s.zh} ${s.description} ${s.enDescription || ""} ${s.category}`.toLowerCase();
       const okQ = !q || hay.includes(q);
       return okCat && okQ;
     });
@@ -83,7 +90,8 @@ export function SkillsExplorer({ skills, lang }: Props) {
                 aria-pressed={activeCat === c}
                 onClick={() => setActiveCat(c)}
               >
-                {c}
+                <span className="zh">{c}</span>
+                <span className="en">{categoryEn[c] || c}</span>
                 <span className="chip-count">{count}</span>
               </button>
             );

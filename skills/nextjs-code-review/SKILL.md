@@ -1,15 +1,14 @@
 ---
 name: nextjs-code-review
 category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 zh: Next.js 代码审查
-zh-desc: >-
+description: |-
   为 Next.js 应用提供全面的代码审查能力，校验 Server Components、Client Components、Server Actions、缓存策略、metadata、API 路由、middleware 与性能模式。
-
   在审查 Next.js App Router 代码改动、合并 PR 前、实现新功能后或进行架构校验时使用。
-description: Provides comprehensive code review capability for Next.js applications, validates Server Components, Client Components, Server Actions, caching strategies, metadata, API routes, middleware, and performance patterns. Use when reviewing Next.js App Router code changes, before merging pull requests, after implementing new features, or for architecture validation. Triggers on "review Next.js code", "Next.js code review", "check my Next.js app".
+en_description: "Provides comprehensive code review capability for Next.js applications, validates Server Components, Client Components, Server Actions, caching strategies, metadata, API routes, middleware, and performance patterns. Use when reviewing Next.js App Router code changes, before merging pull requests, after implementing new features, or for architecture validation. Triggers on \"review Next.js code\", \"Next.js code review\", \"check my Next.js app\"."
 allowed-tools: Read, Edit, Grep, Glob, Bash
 ---
-
 # Next.js Code Review
 
 ## Overview

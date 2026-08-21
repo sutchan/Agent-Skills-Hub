@@ -22,10 +22,11 @@
 ```ts
 type SkillEntry = {
   name: string;            // 目录名（kebab-case），唯一键
-  category: string;        // 中文分类名（仅存中文，如 "前端与 UI 设计"）
+  category: string;        // 中文分类名（稳定键，如 "品牌与设计"）
+  enCategory: string;      // 英文分类名（SKILL.md frontmatter en_category，英文态展示）
   zh: string;              // 中文一句话描述
-  description: string;     // 英文原文描述（SKILL.md 正文/description）
-  zhDesc: string;          // description 的中文译文（SKILL.md frontmatter zh-desc，处理技能时必须翻译生成）
+  description: string;     // 中文完整描述（默认展示语言，SKILL.md frontmatter description）
+  enDescription: string;   // 英文原文描述（SKILL.md frontmatter en_description）
   allowedTools: string[];  // SKILL.md frontmatter 的 allowed-tools（无则 []）
   hidden: boolean;         // 是否在展示页/索引中隐藏（frontmatter hidden:true，如 agent-browser 等内部预览用）
 };
@@ -36,13 +37,14 @@ type SkillEntry = {
 type SkillsData = {
   total: number;           // = 过滤 hidden 后的可见技能数（动态统计，非硬编码）
   categories: string[];    // 去重后的中文分类名（由 skills[].category 推导，不存 count）
+  categoryEn: Record<string, string>; // 分类中文名 -> 英文名映射（英文态 chip/展示用）
   skills: SkillEntry[];
 };
 ```
 
 ### 2.3 一致性规则（固化）
 - `category` 必须与 README 分类标题（英文 README 的 `### Category (N)`）**名称一致**；中文 README 分类标题用 `### 分类（N）` 形式。
-- `zh` 取自中文 README 表格第二列；英文 `description` 取自 SKILL.md 原文；**处理技能时必须将 `description` 翻译为中文写入 `zh-desc`**（中文译文，非一句话摘要），`zhDesc` 由构建脚本从 frontmatter `zh-desc` 读取。
+- `zh` 取自中文 README 表格第二列；`description` 为中文完整描述（默认展示语言）；`en_description` 为英文原文描述。**处理技能时必须同时提供中文 `description` 与英文 `en_description`**，`enDescription` 由构建脚本从 frontmatter `en_description` 读取。
 - `data/skills-data.json` 为**构建产物，勿手改**，重跑 `npm run build` 再生。
 - 当前磁盘技能目录 **动态统计**（数量以 `data/skills-data.json` 的 `total` 为准，README 不再写死具体数值）。
 

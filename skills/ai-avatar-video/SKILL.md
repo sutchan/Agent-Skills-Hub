@@ -1,17 +1,15 @@
 ---
 name: ai-avatar-video
 category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 zh: AI 数字人视频
-zh-desc: >-
+description: |-
   通过 inference.sh CLI 创建 AI 数字人与对口型视频。 推荐使用 P-Video-Avatar（最快、最便宜、内置 TTS），也可用 OmniHuman、Fabric、PixVerse。
-
   音频方面支持 Inworld TTS-2（100+ 语言、面向角色的情感操控）、ElevenLabs、Kokoro。 能力包括音频驱动数字人、文本转数字人、对口型视频、口播视频生成、虚拟主播、UGC 内容。
-
   适用于 AI 主播、讲解视频、虚拟网红、配音、营销视频、UGC 广告、游戏角色、NPC 对话等场景。 触发词包括 ai avatar、talking head、lipsync、avatar video 等。
-description: "Create AI avatar and talking head videos via inference.sh CLI. Recommended: P-Video-Avatar (fastest, cheapest, built-in TTS). Also: OmniHuman, Fabric, PixVerse. Audio: Inworld TTS-2 (100+ languages, emotion steering for characters), ElevenLabs, Kokoro. Capabilities: audio-driven avatars, text-to-avatar, lipsync videos, talking head generation, virtual presenters, UGC content. Use for: AI presenters, explainer videos, virtual influencers, dubbing, marketing videos, UGC ads, gaming avatars, NPC dialogue. Triggers: ai avatar, talking head, lipsync, avatar video, virtual presenter, ai spokesperson, audio driven video, heygen alternative, synthesia alternative, talking avatar, lip sync, video avatar, ai presenter, digital human, ugc, ugc video, ugc ad, avatar ugc"
+en_description: "Create AI avatar and talking head videos via inference.sh CLI. Recommended: P-Video-Avatar (fastest, cheapest, built-in TTS). Also: OmniHuman, Fabric, PixVerse. Audio: Inworld TTS-2 (100+ languages, emotion steering for characters), ElevenLabs, Kokoro. Capabilities: audio-driven avatars, text-to-avatar, lipsync videos, talking head generation, virtual presenters, UGC content. Use for: AI presenters, explainer videos, virtual influencers, dubbing, marketing videos, UGC ads, gaming avatars, NPC dialogue. Triggers: ai avatar, talking head, lipsync, avatar video, virtual presenter, ai spokesperson, audio driven video, heygen alternative, synthesia alternative, talking avatar, lip sync, video avatar, ai presenter, digital human, ugc, ugc video, ugc ad, avatar ugc"
 allowed-tools: Bash(belt *)
 ---
-
 > **Install the belt CLI skill:** `npx skills add belt-sh/cli`
 
 # AI Avatar & Talking Head Videos

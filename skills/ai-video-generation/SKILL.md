@@ -1,15 +1,14 @@
 ---
 name: ai-video-generation
 category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 zh: AI 视频生成
-zh-desc: >-
+description: |-
   通过 inference.sh CLI 使用 Veo、Seedance、HappyHorse、Wan、Grok 及 40+ 模型生成 AI 视频。 支持文生视频、图生视频、参考图转视频、视频编辑、对口型、角色动画、视频放大与 Foley 音效。
-
   适用于社交媒体视频、营销内容、讲解视频、产品演示与 AI 数字人。 触发词包括 video generation、ai video、text to video、veo、animate image 等。
-description: "Generate AI videos with Google Veo, Seedance 2.0, HappyHorse, Wan, Grok and 40+ models via inference.sh CLI. Models: Veo 3.1, Veo 3, Seedance 2.0, HappyHorse 1.0, Wan 2.5, Grok Imagine Video, OmniHuman, Fabric, HunyuanVideo. Capabilities: text-to-video, image-to-video, reference-to-video, video editing, lipsync, avatar animation, video upscaling, foley sound. Use for: social media videos, marketing content, explainer videos, product demos, AI avatars. Triggers: video generation, ai video, text to video, image to video, veo, animate image, video from image, ai animation, video generator, generate video, t2v, i2v, ai video maker, create video with ai, runway alternative, pika alternative, sora alternative, kling alternative, seedance, happyhorse"
+en_description: "Generate AI videos with Google Veo, Seedance 2.0, HappyHorse, Wan, Grok and 40+ models via inference.sh CLI. Models: Veo 3.1, Veo 3, Seedance 2.0, HappyHorse 1.0, Wan 2.5, Grok Imagine Video, OmniHuman, Fabric, HunyuanVideo. Capabilities: text-to-video, image-to-video, reference-to-video, video editing, lipsync, avatar animation, video upscaling, foley sound. Use for: social media videos, marketing content, explainer videos, product demos, AI avatars. Triggers: video generation, ai video, text to video, image to video, veo, animate image, video from image, ai animation, video generator, generate video, t2v, i2v, ai video maker, create video with ai, runway alternative, pika alternative, sora alternative, kling alternative, seedance, happyhorse"
 allowed-tools: Bash(belt *)
 ---
-
 > **Install the belt CLI skill:** `npx skills add belt-sh/cli`
 
 # AI Video Generation

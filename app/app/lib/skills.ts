@@ -1,4 +1,4 @@
-// app/app/lib/skills.ts v1.14.71 — 技能数据读取与类型
+// app/app/lib/skills.ts v1.16.2 — 技能数据读取与类型
 // 数据源：app/app/data/skills-data.json（由 app/scripts/sync-data.cjs 从仓库根
 // data/skills-data.json 同步，构建期由 build-skills-data.mjs 生成）。
 // 在 Next.js 服务端组件中以 fs 读取，避免客户端拉取大体积 JSON。
@@ -11,8 +11,10 @@ export interface Skill {
   zh: string;
   description: string;
   category: string;
-  // build-skills-data.mjs 生成的中文描述译文（zh-desc），卡片在中文态显示（对齐原型 cardHTML）
-  zhDesc?: string;
+  // 英文分类名（frontmatter en_category），英文态 chip/卡片/详情显示
+  enCategory?: string;
+  // build-skills-data.mjs 生成的英文描述（原 description 迁移），卡片在英文态显示（对齐原型 cardHTML）
+  enDescription?: string;
   // build-skills-data.mjs 经 normalizeTools() 已规范为 string[]（见 prototype 修复 v1.14.6）。
   // 这里以 string[] 为权威类型，渲染层无需再 split。
   allowedTools?: string[];
@@ -22,9 +24,11 @@ export interface Skill {
 }
 
 export interface SkillsData {
-  // 与 build-skills-data.mjs 生成结构一致：{ total, categories, skills }
+  // 与 build-skills-data.mjs 生成结构一致：{ total, categories, categoryEn, skills }
   total: number;
   categories: string[];
+  // 分类中文名 -> 英文名映射（英文态 chip 显示）
+  categoryEn?: Record<string, string>;
   skills: Skill[];
 }
 

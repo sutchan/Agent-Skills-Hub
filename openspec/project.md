@@ -68,9 +68,9 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 | 项 | 说明 |
 |---|---|
 | 形态 | 原型为**预构建自包含静态 HTML**（`prototype/index.html` 单文件内联全部资源），可离线打开，无运行时依赖；`prototype/src/` 源码随仓库分发，`prototype/index.html` 为构建产物 |
-| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md` 的 frontmatter（`build-skills-data.mjs` 解析必填字段 `name`/`description`/`category`/`zh`/`zh-desc` 与可选 `allowedTools`/`hidden`），其中 **`zh-desc` 为 `description` 的中文译文（处理技能时必须翻译生成，区别于一句话摘要 `zh`）**；`build-skills-data.mjs` 生成 `data/skills-data.json`，`build.mjs` 已将其全部技能预渲染进 `prototype/index.html`。README 自 v1.14.55 起改为领域概览表、不再逐项列出技能，故分类与描述**不再**依赖 README 映射 |
-| 分类归属 | 分类**完全取自 `SKILL.md` frontmatter 的 `category` 字段**（`build-skills-data.mjs` 由 `skills[].category` 去重推导 `categories[]`），不再从 README 解析 |
-| 中文描述 | 取自 `SKILL.md` frontmatter 的 `zh` 字段（必填），回退英文 `description` |
+| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md` 的 frontmatter（`build-skills-data.mjs` 解析必填字段 `name`/`description`/`category`/`en_category`/`zh`/`en_description` 与可选 `allowedTools`/`hidden`），其中 **`description` 为中文完整描述（默认展示语言），`en_description` 为英文原文描述，`en_category` 为英文分类名**；`build-skills-data.mjs` 生成 `data/skills-data.json`，`build.mjs` 已将其全部技能预渲染进 `prototype/index.html`。README 自 v1.14.55 起改为领域概览表、不再逐项列出技能，故分类与描述**不再**依赖 README 映射 |
+| 分类归属 | 分类**完全取自 `SKILL.md` frontmatter 的 `category` 字段（中文稳定键）**（`build-skills-data.mjs` 由 `skills[].category` 去重推导 `categories[]`，并生成 `categoryEn` 中文→英文映射），不再从 README 解析 |
+| 中文描述 | 取自 `SKILL.md` frontmatter 的 `description` 字段（中文，默认展示），`zh` 为中文一句话摘要（卡片标题） |
 | 计数 | `total` = 可见技能数（动态统计，排除 `hidden:true` 的内部预览技能，以 `data/skills-data.json` 运行时值为准）；各分类 `count` 由脚本统计写入 |
 
 ### 4.5.3 展示页交互规则（已固化进静态产物）

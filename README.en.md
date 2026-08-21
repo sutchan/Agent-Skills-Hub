@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.16.0-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
+[![Version](https://img.shields.io/badge/version-v1.16.2-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
 
 > **Author**: Sut Chan ｜ **Repository**: https://github.com/sutchan/Agent-Skills-Hub
 >
@@ -18,7 +18,7 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 |---|---|---|
 | ⚙️ | **Zero-maintenance listing** | Skill data and the showcase page are auto-generated from on-disk `skills/*/SKILL.md` by `npm run build` — no manual listing to maintain when adding or removing skills |
 | 🗂️ | **48 skills · 5 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling |
-| 🌏 | **Chinese localization** | Chinese category + one-line summary + full Chinese description (`zh-desc`) — ready for Chinese-speaking agent users |
+| 🌏 | **Chinese by default** | Chinese category (`category`) + English category (`en_category`) + one-line summary + full Chinese description (`description`, default display language), English original in `en_description` — ready for Chinese-speaking agent users |
 | 📦 | **One-click install** | Bulk install / update / remove via [skills-manager](https://github.com/xingkongliang/skills-manager) |
 | 🚀 | **Works offline** | Self-contained static showcase (`prototype/index.html`) inlines all data — double-click to browse every skill with no framework dependency |
 
@@ -118,7 +118,7 @@ The project uses a unified vector logo and favicon in brand green `#2e9e6b` (HSL
 
 - New skills: use the [`skill-creator`](skills/skill-creator/) skill to create and evaluate per guidelines.
 - Name skill directories in `kebab-case`, e.g. `python-testing/`.
-- `SKILL.md` must include `name`, `description`, `category`, and `zh` front-matter; `category` is one of the 5 domains defined in [`prototype/`](prototype/), `zh` is a one-line Chinese description, and `build-skills-data.mjs` reads these fields from the on-disk `skills/` as the single source of truth.
+- `SKILL.md` must include `name`, `description`, `category`, `en_category`, `zh`, and `en_description` front-matter; `category` is one of the 5 domains defined in [`prototype/`](prototype/) (Chinese stable key), `en_category` is the corresponding English category name, `zh` is a one-line Chinese description, `description` is the Chinese full description (default display language), `en_description` is the English original, and `build-skills-data.mjs` reads these fields from the on-disk `skills/` as the single source of truth.
 - After skill changes, run `npm run build` to regenerate `data/skills-data.json` and the showcase.
 
 See also [CONTRIBUTING.md](.github/CONTRIBUTING.md).

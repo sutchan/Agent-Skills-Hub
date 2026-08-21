@@ -1,4 +1,4 @@
-// app/components/skill-card.tsx v1.14.72 — 技能卡片（对齐 prototype 02-render.js cardHTML）
+// app/components/skill-card.tsx v1.16.2 — 技能卡片（对齐 prototype 02-render.js cardHTML）
 // 标题与描述按当前语言互斥显示：中文态 .zh，英文态 .en（由 globals.css html[data-lang] 控制）。
 import type { Skill } from "@/lib/types";
 import { catHue } from "@/lib/catHue";
@@ -44,10 +44,10 @@ export function SkillCard({ skill, view, onOpen }: Props) {
         </div>
       </div>
       <div className="card-desc">
-        <span className="zh">{skill.zhDesc || skill.zh || ""}</span>
-        <span className="en">{skill.description || ""}</span>
+        <span className="zh">{skill.description || skill.zh || ""}</span>
+        <span className="en">{skill.enDescription || ""}</span>
       </div>
-      <div className="card-cat">{skill.category}</div>
+      <div className="card-cat"><span className="zh">{skill.category}</span><span className="en">{skill.enCategory || skill.category}</span></div>
     </article>
   );
 }

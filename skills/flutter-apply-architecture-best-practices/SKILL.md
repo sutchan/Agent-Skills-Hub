@@ -1,13 +1,13 @@
 ---
-category: 开发框架与平台
-zh: Flutter 分层架构
-zh-desc: >-
-  使用推荐的分层方法（UI、Logic、Data）来架构 Flutter 应用。在构建新项目或为可扩展性重构时使用。
 name: flutter-apply-architecture-best-practices
-description: Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
+zh: Flutter 分层架构
+description: 使用推荐的分层方法（UI、Logic、Data）来架构 Flutter 应用。在构建新项目或为可扩展性重构时使用。
+en_description: Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.
 metadata:
-  model: models/gemini-3.1-pro-preview
-  last_modified: Tue, 21 Apr 2026 20:11:20 GMT
+model: models/gemini-3.1-pro-preview
+last_modified: "Tue, 21 Apr 2026 20:11:20 GMT"
 ---
 # Architecting Flutter Applications
 

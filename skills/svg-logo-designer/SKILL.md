@@ -1,12 +1,11 @@
 ---
-category: 品牌与设计
-zh: SVG Logo 设计
-zh-desc: >-
-  用于设计 SVG Logo 与图标的技能，帮助产出清晰、可缩放的矢量品牌图形。
 name: svg-logo-designer
-description: "Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs."
+category: 品牌与设计
+en_category: Brand & Design
+zh: SVG Logo 设计
+description: 用于设计 SVG Logo 与图标的技能，帮助产出清晰、可缩放的矢量品牌图形。
+en_description: Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.
 ---
-
 # SVG Logo Designer
 
 This skill creates professional, scalable vector graphic (SVG) logos from design specifications, offering multiple variations and layout options.

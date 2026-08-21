@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.15.0 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.16.2 — 列表/网格渲染与统计
 function renderStats() {
   // 对齐 app AppShell：hero 仅展示可见技能总数与分类数（排除 hidden）
   $("#statTotal").textContent = SKILLS_DATA.skills.filter((s) => !s.hidden).length;
@@ -8,11 +8,13 @@ function renderStats() {
 
 function renderCats(counts) {
   const cats = SKILLS_DATA.categories;
+  const en = SKILLS_DATA.categoryEn || {};
   // "全部"chip 用中性 hue，分类 chip 用 catHue 派生色相（对齐 app：--hue 驱动多色）
   const items = [`<button class="chip${state.cat == null ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${state.cat == null}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cat === c;
-    items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}">${esc(c)} <span class="chip-count">${counts.get(c) || 0}</span></button>`);
+    // chip 分类名中英互斥：中文态显示 category，英文态显示 categoryEn[c]
+    items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}"><span class="zh">${esc(c)}</span><span class="en">${esc(en[c] || c)}</span> <span class="chip-count">${counts.get(c) || 0}</span></button>`);
   });
   $("#cats").innerHTML = items.join("");
 }
@@ -29,13 +31,12 @@ function skillCatIndex(s) {
 
 // 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-desc/card-cat）
 // 使用原生 <button> 保证可聚焦、Enter/Space 原生触发（P1-1 a11y）；
-// 标题与描述均按当前语言互斥显示（.zh/.en 由 base.css html[data-lang] 控制）：
-// 中文态显示中文名 + 中文描述（zhDesc），英文态显示英文名 + 英文描述（description）
-// 描述三级回退（P0-2）：zhDesc → zh（标题兜底）→ description（英文），避免中文态空白
+// 默认展示语言为中文：标题与描述均按当前语言互斥显示（.zh/.en 由 base.css html[data-lang] 控制）：
+// 中文态显示中文名 + 中文描述（description），英文态显示英文名 + 英文描述（enDescription）
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   const ci = skillCatIndex(s);
-  const descZh = s.zhDesc || s.zh || s.description || I18N.t("card.noDesc");
+  const descZh = s.description || s.zh || I18N.t("card.noDesc");
   return `<button type="button" class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${ci}" aria-label="${esc(label)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
     <div class="title-row">
@@ -47,9 +48,9 @@ function cardHTML(s) {
     </div>
     <div class="card-desc">
       <span class="zh">${esc(descZh)}</span>
-      <span class="en">${esc(s.description || "")}</span>
+      <span class="en">${esc(s.enDescription || "")}</span>
     </div>
-    <div class="card-cat">${esc(s.category)}</div>
+    <div class="card-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
   </button>`;
 }
 

@@ -47,7 +47,7 @@ npm run build        # 验证构建链路，生成 data 与 prototype
 ### 更新已有技能
 
 - 修改 `SKILL.md` 正文或前置元数据后，同样运行 `npm run build` 刷新产物。
-- 若改动 `description`，必须同步更新 `zh-desc`（中文译文），保持中英一致。
+- 若改动 `en_description`（英文原文），必须同步更新 `description`（中文译文），保持中英一致。
 
 ## SKILL.md 前置元数据要求
 
@@ -56,15 +56,16 @@ npm run build        # 验证构建链路，生成 data 与 prototype
 ```yaml
 ---
 name: <kebab-case 技能名，与目录名一致>
-description: <英文原文描述>
-category: <5 大领域之一>
+description: <中文完整描述，默认展示语言>
+category: <5 大领域之一，中文稳定键>
+en_category: <对应英文分类名，英文态展示>
 zh: <中文一句话简介>
-zh-desc: <description 的完整中文译文，处理技能时必须翻译生成>
+en_description: <英文原文描述，处理技能时保留>
 ---
 ```
 
-- `category` 取 [`prototype/`](../prototype/) 既有的 **5 大领域**之一：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`开发框架与平台`、`文件与格式处理`。
-- `zh-desc` 与 `zh` 的区别：`zh` 是一句话摘要，`zh-desc` 是 `description` 的完整中文译文。
+- `category` 取 [`prototype/`](../prototype/) 既有的 **5 大领域**之一：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`开发框架与平台`、`文件与格式处理`（中文，稳定键）；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`）。
+- `description` 与 `zh` 的区别：`zh` 是一句话摘要，`description` 是完整中文描述；`en_description` 为英文原文描述（默认展示中文，英文态展示英文）。
 - `build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，`category` 与 README 分类名严格一致。
 
 ## 数据与构建
@@ -109,7 +110,7 @@ docs: 新增 .github Community Health Files 并同步版本至 v1.14.70
 1. 从 `main` 拉出 `feature/*` 或 `fix/*` 分支进行改动。
 2. 完成后运行 `npm run build`，确认构建通过。
 3. 提交前检查清单：
-   - [ ] `SKILL.md` frontmatter 字段完整（name/description/category/zh/zh-desc）
+   - [ ] `SKILL.md` frontmatter 字段完整（name/description/category/zh/en_description）
    - [ ] 数据已通过 `npm run build` 重新生成
    - [ ] README 中英文、CHANGELOG、package.json 版本号一致
    - [ ] 无 `console.log` / `debugger` 残留（脚本除外）

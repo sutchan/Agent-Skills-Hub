@@ -2,6 +2,28 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.2] - 2026-08-21
+
+### feat: category 增加英文 en_category，英文态分类名本地化
+
+- **字段新增**：55 个 `SKILL.md` frontmatter 增加 `en_category`（英文分类名），`category`（中文）保留为稳定键
+- **数据契约**：`build-skills-data.mjs` 输出每技能 `enCategory`（英文分类名）+ 顶层 `categoryEn`（中文→英文映射）；`total=54`、5 大分类不变
+- **原型展示**：`02-render.js`（chip + 卡片分类名）、`03-detail.js`（详情分类名）英文态 `.en` 显示 `enCategory`，中文态 `.zh` 显示 `category`；搜索 haystack 加入 `enCategory`
+- **app 展示**：`skills.ts` 类型加 `enCategory`/`categoryEn`，`SkillsExplorer` chip、`skill-card`、`skill-detail` 英文态显示英文分类名
+- **版本同步**：`package.json` 升至 v1.16.2，README/README.en 徽章、CHANGELOG 顶部对齐
+
+## [1.16.1] - 2026-08-21
+
+### refactor: SKILL.md description 中文化，默认展示中文
+
+- **字段契约调整**：`SKILL.md` frontmatter 的 `description` 由「英文原文」改为「中文完整描述」（默认展示语言），英文原文迁移至新增 `en_description` 字段；删除冗余 `zh-desc`
+- **批量改写 55 个 SKILL.md**：`description` ← 原 `zh-desc`（中文），`en_description` ← 原 `description`（英文），`zh` 一句话摘要保留
+- **数据契约**：`build-skills-data.mjs` 输出 `description`（中文）+ `enDescription`（英文），取代 `zhDesc`；数据 `total=54`、5 大分类无「其他」
+- **原型展示**：`02-render.js` / `03-detail.js` 中文态默认展示 `description`，英文态展示 `enDescription`；搜索 haystack 覆盖中英描述
+- **app 展示**：`skills.ts` 类型 `zhDesc`→`enDescription`，`skill-card` / `skill-detail` / `SkillsExplorer` 同步
+- **文档同步**：README/README.en、`.github/CONTRIBUTING`、`PULL_REQUEST_TEMPLATE`、`openspec/spec`、`openspec/project` 更新 frontmatter 字段说明
+- **版本同步**：`package.json` 升至 v1.16.1，README/README.en 徽章、CHANGELOG 顶部对齐
+
 ## [1.16.0] - 2026-08-21
 
 ### fix: 修复卡片技能描述误入技能名称的 bug
@@ -11,18 +33,6 @@
 - **数据重建**：`node build-skills-data.mjs` 重建 `data/skills-data.json`
 - **约定明确**：修正 `build-skills-data.mjs` 头注释，明确 `zh`=简短中文名称、`zh-desc`=中文描述，防止再次误填
 - **版本同步**：`package.json` 为权威源 v1.16.0，README/README.en 版本徽章、CHANGELOG 顶部对齐
-
-## [1.14.73] - 2026-08-21
-
-### chore: 整理技能库 SKILL.md frontmatter 并重建数据
-
-- **补全 8 个技能 frontmatter**：新增 `category` / `zh` / `zh-desc` 字段，消除「其他」分类
-  - 新增 4 个 figma 技能（figma-code-connect / figma-design-to-code / figma-generate-design / figma-generate-library）归入「品牌与设计」
-  - 补全 agent-browser、architecture-blueprint-generator、next-best-practices（开发框架与平台）与 grilling（文档与内容）
-- **数据重建**：`node build-skills-data.mjs` 重算，技能总数 49 → 55，分类计数更新（品牌与设计 12 / 开发框架 27）
-- **原型同步**：`node build.mjs` 重建 `prototype/index.html`
-- **文档同步**：README/README.en 技能包总数（49→55）、领域表计数、版本徽章升至 v1.14.73
-- **回收站目录**：`skills/RecycleBin~*.ffs_tmp/` 为 FreeFileSync 残留，保留待用户确认后删除
 
 ## [1.14.72] - 2026-08-20
 
