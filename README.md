@@ -2,13 +2,11 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.19.20-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.19.22-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
 
 > **作者**：Sut Chan ｜ **项目**：https://github.com/sutchan/Agent-Skills-Hub
->
-> 一个集中管理的 AI 技能（Skill）集合，涵盖品牌设计、文档内容、数据分析、开发框架、文件格式、AI 与智能体、音视频、自动化集成与安全等领域，GitHub 上共 147 个技能包。
 
-每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源。本仓库对技能做了“中文目录 + 中文描述”的本地化；技能正文（`SKILL.md`）主要保留上游英文，翻译覆盖率由 CI 中的 `tools/coverage.py` 统计。
+一个集中管理的 AI 技能（Skill）集合，涵盖品牌设计、文档内容、数据分析、开发框架、文件格式、AI 与智能体、音视频、自动化集成与安全等 9 大领域，共 147 个技能包。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 CI 的 `tools/coverage.py` 统计。
 
 ## 项目亮点
 
@@ -28,7 +26,6 @@
 - [技能浏览](#技能浏览)
 - [使用方式](#使用方式)
 - [在线展示页面](#在线展示页面)
-- [品牌资产](#品牌资产)
 - [贡献指南](#贡献指南)
 - [许可证](#许可证)
 - [相关文档](#相关文档)
@@ -104,19 +101,6 @@ npm run dev      # 本地开发服务器
 npm run build    # 生产构建
 npm run start    # 启动生产服务
 ```
-
-## 品牌资产
-
-项目采用统一的矢量品牌标志与网站图标，主色为品牌绿 `#2e9e6b`（HSL `152 56% 40%`），与设计系统 `--primary` 同源（深色模式提亮为 `#5cc98c` / `146 52% 60%`）。品牌图形（三节点 Hub）唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（currentColor 驱动）；标志/图标统一存放于 [`app/public/`](app/public/) 并 `<use href="/hub.svg#ash-hub">` 引用同源 symbol，原型与 `app/` 共用同一图形定义，保证造型单一来源、零硬编码副本。
-
-| 资产 | 文件 | 说明 |
-|------|------|------|
-| 图形唯一来源 | [`app/public/hub.svg`](app/public/hub.svg) | `<symbol id="ash-hub">` 单一图形定义（currentColor） |
-| 彩色主标志 | [`app/public/logo.svg`](app/public/logo.svg) | 圆角方底 + 三节点汇聚 Hub，用于页眉、文档封面 |
-| 单色标志 | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | 深墨绿底 + 主绿图形，用于浅色页脚/印刷 |
-| 网站图标 | [`app/public/favicon.svg`](app/public/favicon.svg) | 纯绿无渐变，浏览器标签与书签；同时作为 Next.js `/favicon.svg` |
-| README 横幅 | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 主绿渐变 + 衬线项目名，标题下 hero 图 |
-| 社交分享横幅 | [`app/public/banner-og.svg`](app/public/banner-og.svg) | 1200×628 Open Graph / 社交卡 |
 
 ## 贡献指南
 

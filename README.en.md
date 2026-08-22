@@ -2,13 +2,11 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.19.20-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
+[![Version](https://img.shields.io/badge/version-v1.19.22-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
 
 > **Author**: Sut Chan ｜ **Repository**: https://github.com/sutchan/Agent-Skills-Hub
->
-> A centrally managed collection of AI skills covering brand design, docs & content, data analysis, dev frameworks, file & format handling, AI & agents, media, automation, and security — 147 skill packs on GitHub.
 
-Each skill is a standalone directory containing `SKILL.md` (name + description metadata + usage notes) plus optional `scripts/`, `references/`, `assets/`, `agents/`. This repo localizes skills with Chinese categories and descriptions; skill bodies (`SKILL.md`) largely keep upstream English, with translation coverage tracked by `tools/coverage.py` in CI.
+A centrally managed collection of AI skills covering brand design, docs & content, data analysis, dev frameworks, file & format handling, AI & agents, media, automation, and security across 9 domains — 147 skill packs on GitHub. Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
 
 ## Highlights
 
@@ -28,7 +26,6 @@ Each skill is a standalone directory containing `SKILL.md` (name + description m
 - [Browsing Skills](#browsing-skills)
 - [Usage](#usage)
 - [Online Showcase](#online-showcase)
-- [Brand Assets](#brand-assets)
 - [Contributing](#contributing)
 - [License](#license)
 - [Related Documents](#related-documents)
@@ -104,19 +101,6 @@ npm run dev      # local dev server
 npm run build    # production build
 npm run start    # start production server
 ```
-
-## Brand Assets
-
-The project uses a unified vector logo and favicon in brand green `#2e9e6b` (HSL `152 56% 40%`), sharing the same hue as the design system `--primary` (light mode brightens to `#5cc98c` / `146 52% 60%`). The brand glyph (three nodes converging to a hub) has a single source of truth in [`app/public/hub.svg`](app/public/hub.svg) as `<symbol id="ash-hub">` (driven by `currentColor`); all marks live in [`app/public/`](app/public/) and reference the same symbol via `<use href="/hub.svg#ash-hub">`, so the prototype and `app/` share one glyph definition with zero hard-coded copies.
-
-| Asset | File | Description |
-|-------|------|-------------|
-| Glyph source | [`app/public/hub.svg`](app/public/hub.svg) | `<symbol id="ash-hub">` single glyph definition (currentColor) |
-| Color logo | [`app/public/logo.svg`](app/public/logo.svg) | Rounded-square tile with three nodes converging to a hub; for headers and covers |
-| Monochrome logo | [`app/public/logo-monochrome.svg`](app/public/logo-monochrome.svg) | Dark-green tile with brand-green glyph; for light footers / print |
-| Favicon | [`app/public/favicon.svg`](app/public/favicon.svg) | Solid green, no gradient; for browser tabs and bookmarks; also served as Next.js `/favicon.svg` |
-| README banner | [`app/public/banner.svg`](app/public/banner.svg) | 1200×400 brand-green gradient + serif title/subtitle |
-| Social share banner | [`app/public/banner-og.svg`](app/public/banner-og.svg) | 1200×628 Open Graph / social card |
 
 ## Contributing
 
