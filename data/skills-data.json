@@ -1,5 +1,5 @@
 {
-  "total": 165,
+  "total": 176,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -9,8 +9,7 @@
     "AI 与智能体",
     "音视频与多媒体",
     "安全",
-    "开发框架与平台",
-    "其他"
+    "开发框架与平台"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
@@ -21,8 +20,7 @@
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
     "安全": "Security",
-    "开发框架与平台": "Dev Frameworks & Platforms",
-    "其他": "其他"
+    "开发框架与平台": "Dev Frameworks & Platforms"
   },
   "skills": [
     {
@@ -104,6 +102,20 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/discover-brand",
       "githubDir": "skills/discover-brand"
+    },
+    {
+      "name": "dramatic",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "戏剧风设计系统",
+      "description": "高对比、戏剧化的设计系统，以大胆的版式、沉浸式视觉与非常规构图抓住注意力。",
+      "enDescription": "High-contrast, theatrical design system with bold layouts, immersive visuals, and unconventional compositions that command attention.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dramatic",
+      "githubDir": "skills/dramatic"
     },
     {
       "name": "favicon",
@@ -210,19 +222,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-mobile-ads-banner",
       "githubDir": "skills/google-mobile-ads-banner"
-    },
-    {
-      "name": "hyperframes-creative",
-      "category": "品牌与设计",
-      "enCategory": "Brand & Design",
-      "zh": "HyperFrames 创意指导",
-      "description": "HyperFrames 视频的非动画创意指导。用于设计规格（frame.md / design.md）处理、调色板、排版、旁白、节拍规划、音频反应式视觉、组合模式与品牌/风格决策。原子动效模式与场景蓝图见 hyperframes-animation。",
-      "enDescription": "Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns, and brand / style decisions. For atomic motion patterns and scene blueprints, use `hyperframes-animation`.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-creative",
-      "githubDir": "skills/hyperframes-creative"
     },
     {
       "name": "logo-animation",
@@ -409,6 +408,66 @@
       "githubDir": "skills/documentation"
     },
     {
+      "name": "drama-analyzer",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "剧本故事分析",
+      "description": "分析故事文本，提炼主要情节点并分析戏剧功能。适用于分析小说、剧本大纲、故事梗概等文本，识别关键转折点和情感节点。",
+      "enDescription": "Analyze story texts, extract key plot points and analyze dramatic functions. Use for analyzing novels, screenplay outlines, story synopses, and similar texts; identify turning points and emotional beats.",
+      "homepage": "",
+      "allowedTools": [
+        "[]"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-analyzer",
+      "githubDir": "skills/drama-analyzer"
+    },
+    {
+      "name": "drama-creator",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "短剧剧本创作",
+      "description": "创作竖屏短剧剧本，包括宏观建构、剧本创作、精准优化、创意发想。适用于从零开始创作短剧、优化现有剧本、设计故事大纲和悬念钩子。",
+      "enDescription": "Write vertical short-drama screenplays, covering macro structuring, scriptwriting, precise optimization, and idea generation. Use to create short dramas from scratch, refine existing scripts, design story outlines, and craft suspense hooks.",
+      "homepage": "",
+      "allowedTools": [
+        "[]"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-creator",
+      "githubDir": "skills/drama-creator"
+    },
+    {
+      "name": "drama-planner",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "短剧策划方案",
+      "description": "制定竖屏短剧专业策划方案，含情绪价值分析、黄金三秒钩子设计、三幕式结构规划等。适用于短剧项目前期策划、商业化方案设计、创作指导。",
+      "enDescription": "Produce professional vertical short-drama planning packages: emotional-value analysis, golden-three-seconds hook design, three-act structure planning. Use for early-stage short-drama project planning, commercialization design, and creative direction.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-planner",
+      "githubDir": "skills/drama-planner"
+    },
+    {
+      "name": "drama-workflow",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "剧本分析工作流",
+      "description": "协调情节点戏剧功能分析流程，管理文本预处理、并行分析、结果整合。适用于长文本的情节点和戏剧功能分析、需要结构化分析报告的场景。",
+      "enDescription": "Orchestrate the plot-point and dramatic-function analysis workflow: manage text preprocessing, parallel analysis, and result consolidation. Use for long-text plot-point and dramatic-function analysis and structured analysis reports.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-workflow",
+      "githubDir": "skills/drama-workflow"
+    },
+    {
       "name": "find-skills",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
@@ -487,6 +546,49 @@
       "githubDir": "skills/handoff"
     },
     {
+      "name": "planning-with-files",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "文件规划助手",
+      "description": "Manus 式持久化基于文件的规划，为 AI 编码智能体在磁盘保留 task_plan.md、findings.md、progress.md，使工作在上下文丢失与 /clear 后仍能存活。当用户要求规划、拆分或组织多步骤项目、研究任务或任何需要 5+ 工具调用的工作时使用。支持 /clear 后自动会话恢复。",
+      "enDescription": "Manus-style persistent file-based planning for AI coding agents: keeps task_plan.md, findings.md, and progress.md on disk so work survives context loss and /clear. Use when asked to plan, break down, or organize a multi-step project, research task, or any work requiring 5+ tool calls. Supports automatic session recovery after /clear.",
+      "homepage": "",
+      "allowedTools": [
+        "Read Write Edit Bash Glob Grep"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
+      "githubDir": "skills/planning-with-files"
+    },
+    {
+      "name": "short-drama-storyboard",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "短剧分镜表",
+      "description": "把已接受的中文短剧剧本和资产转成原文落实表、有戏剧动机的镜头、连续性边界与冻结关键帧提示词；关键场次可先做场次视觉计划或 Coverage Audition 比对。",
+      "enDescription": "Turn an accepted Chinese short-drama script and assets into a shot list with source-line mapping, dramatically motivated shots, continuity boundaries, and frozen keyframe prompts; key scenes can get a scene visual plan or Coverage Audition comparison first.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-storyboard",
+      "githubDir": "skills/short-drama-storyboard"
+    },
+    {
+      "name": "short-drama-write",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "短剧剧本写作",
+      "description": "编剧环节：创作或修订中文短剧、漫剧单集卡、因果节拍与可拍摄的 Markdown 剧本，也负责把现有中文剧本以保留原文、预览语义差异、创作者接受后发布的方式规范化。",
+      "enDescription": "Screenwriting stage: create or revise Chinese short-drama and manga single-episode cards, causal beats, and shootable Markdown scripts; also normalize existing Chinese scripts by preserving the original, previewing semantic diffs, and publishing only after creator acceptance.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-write",
+      "githubDir": "skills/short-drama-write"
+    },
+    {
       "name": "skill-creator",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
@@ -512,6 +614,19 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/sports-news",
       "githubDir": "skills/sports-news"
+    },
+    {
+      "name": "travel-planner",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "旅行规划助手",
+      "description": "当用户需要规划行程、创建旅行 itinerary、管理旅行预算或寻求目的地建议时使用。首次使用时收集预算水平、旅行风格、兴趣与饮食限制等偏好，生成逐日行程、预算拆分、打包清单、文化注意事项与区域专属时间表，并维护偏好与历史行程库以做个性化推荐。",
+      "enDescription": "Use whenever users need help planning trips, creating travel itineraries, managing travel budgets, or seeking destination advice. On first use, collects comprehensive travel preferences including budget level, travel style, interests, and dietary restrictions. Generates detailed plans with day-by-day itineraries, budget breakdowns, packing checklists, cultural do's and don'ts, and region-specific schedules. Maintains a database of preferences and past trips for personalized recommendations.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner",
+      "githubDir": "skills/travel-planner"
     },
     {
       "name": "wechat-article-writer",
@@ -966,6 +1081,32 @@
       "githubDir": "skills/descript"
     },
     {
+      "name": "hyperframes-core",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "HyperFrames 组合合约",
+      "description": "HyperFrames 组合合约——构建一个可渲染项目。用于组合结构、data-* 时间属性、class=\"clip\"、轨道、子组合、变量、框架自有媒体播放、确定性渲染规则与校验。",
+      "enDescription": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the data-* timing attributes, class=\"clip\", tracks, sub-compositions, variables, framework-owned media playback, deterministic rendering rules, and validation.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-core",
+      "githubDir": "skills/hyperframes-core"
+    },
+    {
+      "name": "hyperframes-creative",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "HyperFrames 创意指导",
+      "description": "HyperFrames 视频的非动画创意指导。用于设计规格（frame.md / design.md）处理、调色板、排版、旁白、节拍规划、音频反应式视觉、组合模式与品牌/风格决策。",
+      "enDescription": "Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns, and brand/style decisions.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-creative",
+      "githubDir": "skills/hyperframes-creative"
+    },
+    {
       "name": "image-to-video",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
@@ -1006,6 +1147,32 @@
       "githubDir": "skills/luma"
     },
     {
+      "name": "manga-drama",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "漫剧生成器",
+      "description": "漫剧生成器——基于 Seedance 的漫画风格短剧生成工具。支持以主角图片为基础，自动生成漫剧分镜脚本并生成视频。适用于创作漫画风格的短视频、角色故事、动画。",
+      "enDescription": "Manga-drama generator — a Seedance-based tool for comic-style short-drama generation. Auto-generates manga storyboard scripts from a protagonist image and produces video. Use for comic-style shorts, character stories, and animation.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/manga-drama",
+      "githubDir": "skills/manga-drama"
+    },
+    {
+      "name": "mcp-vods",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "影视点播搜索 MCP",
+      "description": "用于追剧/追番的技能，为 AI 提供搜索影视播放地址的能力，并支持在小米电视上直接播放。当用户想搜索影视、动漫、短剧、综艺等节目信息或更新进度时使用此技能。",
+      "enDescription": "A skill for tracking dramas and anime that gives the AI the ability to search for video-playback sources and play them directly on a Xiaomi TV. Use when the user wants to search for movies, anime, short dramas, variety shows, or check episode progress.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/mcp-vods",
+      "githubDir": "skills/mcp-vods"
+    },
+    {
       "name": "opus-clip",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
@@ -1043,6 +1210,20 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/scripting-and-storyboarding",
       "githubDir": "skills/scripting-and-storyboarding"
+    },
+    {
+      "name": "short-drama-video-prompts",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "短剧视频提示词",
+      "description": "为已接受的短剧镜头和关键帧编写或修改可复制的通用视频提示词与运动规格，也负责跨镜时间线配乐/主题曲的 provider-neutral 音乐规格。",
+      "enDescription": "Write or revise copy-paste universal video prompts and motion specs for accepted short-drama shots and keyframes, and own the provider-neutral music spec for cross-shot timeline scoring/theme songs.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-video-prompts",
+      "githubDir": "skills/short-drama-video-prompts"
     },
     {
       "name": "suno",
@@ -1464,19 +1645,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-setup-localization",
       "githubDir": "skills/flutter-setup-localization"
-    },
-    {
-      "name": "hyperframes-core",
-      "category": "开发框架与平台",
-      "enCategory": "Dev Frameworks & Platforms",
-      "zh": "HyperFrames 组合渲染合约",
-      "description": "HyperFrames 组合合约——构建一个可渲染项目。用于组合结构、data-* 时间属性、class=\"clip\"、轨道、子组合、变量、框架自有媒体播放、确定性渲染规则与校验。也涵盖 Tailwind 项目与 STORYBOARD.md / SCRIPT.md 规划格式。在编写组合 HTML 前阅读。",
-      "enDescription": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-core",
-      "githubDir": "skills/hyperframes-core"
     },
     {
       "name": "implement-spec",
@@ -2228,21 +2396,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
       "githubDir": "skills/writing-plans"
-    },
-    {
-      "name": "planning-with-files",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Manus-style persistent file-based planning for AI coding agents: keeps task_plan.md, findings.md, and progress.md on disk so work survives context loss and /clear. Use when asked to plan out, break down, or organize a multi-step project, research task, or any work requiring 5+ tool calls. Supports automatic session recovery after /clear.",
-      "enDescription": "",
-      "homepage": "",
-      "allowedTools": [
-        "Read Write Edit Bash Glob Grep"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
-      "githubDir": "skills/planning-with-files"
     }
   ]
 }

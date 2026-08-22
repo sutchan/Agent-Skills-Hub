@@ -210,6 +210,35 @@
     "size": 8678,
     "files": 4
   },
+  "drama-analyzer": {
+    "popularity": 1,
+    "size": 12413,
+    "files": 3,
+    "skillVersion": "2.1.0"
+  },
+  "drama-creator": {
+    "popularity": 0,
+    "size": 42963,
+    "files": 5,
+    "skillVersion": "2.2.0"
+  },
+  "drama-planner": {
+    "popularity": 0,
+    "size": 26710,
+    "files": 3,
+    "skillVersion": "2.1.0"
+  },
+  "drama-workflow": {
+    "popularity": 2,
+    "size": 30112,
+    "files": 3,
+    "skillVersion": "2.1.0"
+  },
+  "dramatic": {
+    "popularity": 0,
+    "size": 5243,
+    "files": 2
+  },
   "eve": {
     "popularity": 0,
     "size": 1368,
@@ -337,12 +366,12 @@
   },
   "hyperframes-core": {
     "popularity": 0,
-    "size": 163410,
+    "size": 163176,
     "files": 20
   },
   "hyperframes-creative": {
-    "popularity": 2,
-    "size": 1306651,
+    "popularity": 1,
+    "size": 1197246,
     "files": 78
   },
   "image-to-video": {
@@ -429,10 +458,20 @@
     "files": 6,
     "skillVersion": "1.0.0"
   },
+  "manga-drama": {
+    "popularity": 1,
+    "size": 25031,
+    "files": 3
+  },
   "marketing-plan": {
     "popularity": 1,
     "size": 246824,
     "files": 15
+  },
+  "mcp-vods": {
+    "popularity": 1,
+    "size": 2011,
+    "files": 1
   },
   "muapi-3d-logo-animation": {
     "popularity": 0,
@@ -504,7 +543,7 @@
   },
   "planning-with-files": {
     "popularity": 0,
-    "size": 258842,
+    "size": 257614,
     "files": 29
   },
   "playwright-best-practices": {
@@ -600,6 +639,21 @@
     "size": 85493,
     "files": 10
   },
+  "short-drama-storyboard": {
+    "popularity": 1,
+    "size": 166996,
+    "files": 22
+  },
+  "short-drama-video-prompts": {
+    "popularity": 1,
+    "size": 204373,
+    "files": 22
+  },
+  "short-drama-write": {
+    "popularity": 0,
+    "size": 205632,
+    "files": 19
+  },
   "simplify": {
     "popularity": 0,
     "size": 3303,
@@ -677,6 +731,11 @@
     "popularity": 0,
     "size": 683654,
     "files": 51
+  },
+  "travel-planner": {
+    "popularity": 1,
+    "size": 58764,
+    "files": 7
   },
   "twitter-api": {
     "popularity": 1,

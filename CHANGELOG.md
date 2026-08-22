@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.9] - 2026-08-22
+
+### refactor: 接入 11 个新技能并补全契约字段（统一 LF）
+
+- 新增 11 个技能目录：drama-analyzer / drama-creator / drama-planner / drama-workflow / dramatic / hyperframes-core / hyperframes-creative / manga-drama / mcp-vods / travel-planner / planning-with-files（含 3 个短剧系列：short-drama-storyboard / short-drama-video-prompts / short-drama-write）
+- 为 14 个新/改动技能补全缺失的 4 个必填字段（`en_description`/`zh_displayName`/`category`/`en_category`）；原 `category` 非法子类（story-analysis/creation/workflow）映射回 9 大稳定领域
+- 全部新技能文本资源经 `ensure-lf` 转为 Unix(LF) 格式（8 个 CRLF 文件修复）
+- `validate-skills.mjs` 校验 177 技能全部通过，0 头部泄漏、0 越界、0 其他类
+- `data/skills-data.json` 重建：177 技能 / 9 类 / 可见 176（含 1 hidden）
+- 根 `package.json` version 升至 v1.20.9
+
+[1.20.9]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.9
+
 ## [1.20.8] - 2026-08-22
 
 ### refactor: 剥离 prototype.html 中「对齐 app 组件库」的预留类
