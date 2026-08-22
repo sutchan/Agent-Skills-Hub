@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`openspec/spec.md` · 版本：1.19.19
+> 路径：`openspec/spec.md` · 版本：1.19.24
 > 本文件固化**当前已落地能力**的基线规范，作为变更的起点与回退基准。
 > 详细数据契约、交互与分享规则见 [`project.md`](project.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 
@@ -44,10 +44,9 @@ type SkillsData = {
 ```
 
 ### 2.3 一致性规则（固化）
-- `category` 必须与 README 分类标题（英文 README 的 `### Category (N)`）**名称一致**；中文 README 分类标题用 `### 分类（N）` 形式。
-- `zh` 取自中文 README 表格第二列；`description` 为中文完整描述（默认展示语言）；`en_description` 为英文原文描述。**处理技能时必须同时提供中文 `description` 与英文 `en_description`**，`enDescription` 由构建脚本从 frontmatter `en_description` 读取。
-- `data/skills-data.json` 为**构建产物，勿手改**，重跑 `npm run build` 再生。
-- 当前磁盘技能目录 **动态统计**（数量以 `data/skills-data.json` 的 `total` 为准，README 不再写死具体数值）。
+- `category` 必须是 9 大稳定中文分类键之一（见 §1 / README 领域表格）；`en_category` 为对应英文名。`build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，未知分类自动追加为末位「其他」类（属违规，须为零）。
+- `zh` 为中文一句话简介；`description` 为中文完整描述（默认展示语言）；`en_description` 为英文原文描述。**处理技能时必须同时提供中文 `description` 与英文 `en_description`**，`enDescription` 由构建脚本从 frontmatter `en_description` 读取。
+- `data/skills-data.json` 为**构建产物，勿手改**，重跑 `npm run build` 再生；README 领域表格的计数须与构建后的 `data/skills-data.json` 一致，数量以 `total`（过滤 hidden 后的可见技能数）为准。
 
 ---
 

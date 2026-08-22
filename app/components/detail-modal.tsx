@@ -1,4 +1,4 @@
-// app/components/detail-modal.tsx v1.19.20 — 技能详情弹窗（元信息：作者/STAR/首次收录/协议/版本/GitHub目录 + 安装命令 + 相关技能）
+// app/components/detail-modal.tsx v1.19.23 — 技能详情弹窗（元信息：作者/STAR/首次收录/协议/版本/GitHub目录 + 安装命令 + 相关技能）
 "use client";
 import { useEffect } from "react";
 import type { Lang } from "../lib/share";
@@ -30,11 +30,13 @@ export function DetailModal({
   lang,
   allSkills,
   onClose,
+  onOpenSkill,
 }: {
   skill: Skill;
   lang: Lang;
   allSkills: Skill[];
   onClose: () => void;
+  onOpenSkill: (s: Skill) => void;
 }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -206,7 +208,7 @@ export function DetailModal({
                     type="button"
                     className="related-card"
                     style={{ ["--hue" as string]: catHue(r.category) }}
-                    onClick={() => onClose()}
+                    onClick={() => onOpenSkill(r)}
                   >
                     <span className="rc-cat">{r.category}</span>
                     <span className="rc-name">{r.zh || r.name}</span>

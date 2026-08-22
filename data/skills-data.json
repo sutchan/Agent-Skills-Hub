@@ -1531,7 +1531,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-dev-workflow",
       "githubDir": "skills/winui-dev-workflow",
-      "size": 67303,
+      "size": 67305,
       "files": 4,
       "popularity": 1
     },
@@ -1666,7 +1666,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-development",
       "githubDir": "skills/wp-plugin-development",
-      "size": 11507,
+      "size": 11379,
       "files": 8,
       "popularity": 1
     },

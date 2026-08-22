@@ -1,6 +1,6 @@
 # app/ · 项目 Web 应用
 
-> 路径：`app/` · 版本：1.19.19 · 本目录为 **项目 Web 应用（WebApp）** 的专属工作区。
+> 路径：`app/` · 版本：1.19.24 · 本目录为 **项目 Web 应用（WebApp）** 的专属工作区。
 
 ## 定位
 
@@ -20,7 +20,7 @@
 | `app/next.config.mjs` / `app/tsconfig.json` | Next.js 与 TypeScript 配置 |
 | `app/package.json` | 依赖与脚本（`dev` / `build` / `start`，含 `predev`/`prebuild` 同步数据） |
 
-> 说明：早期版本路由代码置于 `app/app/`（App Router 嵌套目录），现已扁平化至 `app/` 根；共享令牌由 `app/tokens-shared.css` 提供（由 `build.mjs` 从 `prototype/src/styles/tokens.css` 生成），`app/globals.css` 通过 `@import "./tokens-shared.css"` 消费，`app/app/` 历史嵌套目录已清理移除。
+> 说明：早期版本路由代码置于 `app/app/`（App Router 嵌套目录），现已扁平化至 `app/` 根；共享令牌由 `app/app/tokens-shared.css` 提供（由 `build.mjs` 从 `prototype/src/styles/tokens.css` 自动生成，勿手改），`app/globals.css` 通过 `@import "./tokens-shared.css"` 消费。
 
 ## 约定
 

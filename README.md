@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.19.23-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.19.24-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
 
 > **作者**：Sut Chan ｜ **项目**：https://github.com/sutchan/Agent-Skills-Hub
 
@@ -47,14 +47,14 @@
 
 | 领域 | 技能数 |
 |------|--------|
-| 品牌与设计 | 21 |
+| 品牌与设计 | 24 |
 | 文档与内容 | 12 |
 | 数据分析与可视化 | 2 |
-| 开发框架与平台 | 62 |
+| 开发框架与平台 | 72 |
 | 文件与格式处理 | 4 |
 | AI 与智能体 | 9 |
 | 音视频与多媒体 | 10 |
-| 自动化与集成 | 10 |
+| 自动化与集成 | 11 |
 | 安全 | 4 |
 
 > 浏览全部技能：

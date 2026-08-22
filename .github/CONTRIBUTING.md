@@ -2,7 +2,7 @@
 
 感谢你愿意为 **Agent Skills Hub** 贡献！本指南帮助你在不破坏数据管线与规范的前提下，新增或更新技能、修复文档、提交变更。
 
-> 路径：`.github/CONTRIBUTING.md` · 版本：1.19.19
+> 路径：`.github/CONTRIBUTING.md` · 版本：1.19.24
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 
 ## 目录

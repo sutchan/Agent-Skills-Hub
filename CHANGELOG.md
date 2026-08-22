@@ -2,12 +2,29 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.24] - 2026-08-22
+
+### docs: 修复文档版本滞后与技能计数矛盾
+
+- 重跑 `npm run build` 刷新 `data/skills-data.json`（148 技能 / 9 分类，可见 147 个技能包）
+- README 领域计数表修正为真实分布（品牌24/文档12/数据2/开发72/文件4/AI9/音视频10/自动化11/安全4），与构建产物一致
+- 同步滞后头注释至 v1.19.24：openspec 三文档、app/README.md、.github/CONTRIBUTING.md、prototype/DESIGN.md、prototype/COMPONENTS.md
+- 修正 openspec/spec.md §2.3 一致性规则（原引用已废弃的 README `### 分类（N）` 标题，改为与领域表格及动态统计一致）
+
 ## [1.19.23] - 2026-08-22
 
 ### docs: 精简 README 去除工作区配置说明
 
 - README 中/英删除「工作区配置 / Workspace」目录条目（非必要说明）
 - 版本徽章同步至 v1.19.23
+
+### fix: 修复详情弹窗相关技能交互与前端性能/规范问题
+
+- `detail-modal.tsx`：新增 `onOpenSkill` 回调，相关技能卡片点击由「仅关闭弹窗」改为「切换打开该技能详情」（P0 功能缺陷）
+- `skill-card.tsx`：包裹 `React.memo`，避免父组件 state 变化导致全部可见卡片重渲（P1 性能）
+- `SkillsExplorer.tsx`：排序比较器类型由 `any` 改为 `Skill`，符合禁 any 规范（P1）
+- 删除零引用的死代码 `lib/i18n.ts`（组件全部用内联三元，无任何 import，且 `Lang` 类型来自 `share.ts`，删除无副作用）（P1）
+- 被改文件头注释同步至 v1.19.23
 
 ## [1.19.22] - 2026-08-22
 
@@ -1570,3 +1587,4 @@
 [1.19.21]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.21
 [1.19.22]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.22
 [1.19.23]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.23
+[1.19.24]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.24

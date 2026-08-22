@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.19.20 — 技能浏览器（分类多选 + 搜索 + 排序 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
+// app/components/SkillsExplorer.tsx v1.19.23 — 技能浏览器（分类多选 + 搜索 + 排序 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -73,7 +73,7 @@ export function SkillsExplorer({
       if (kw && !(`${s.name} ${s.zh || ""} ${s.description}`.toLowerCase().includes(kw))) return false;
       return true;
     });
-    const cmp: Record<typeof sort, (a: any, b: any) => number> = {
+    const cmp: Record<typeof sort, (a: Skill, b: Skill) => number> = {
       name: (a, b) => String(a.name).localeCompare(String(b.name)),
       "name-desc": (a, b) => String(b.name).localeCompare(String(a.name)),
       cat: (a, b) => String(a.category).localeCompare(String(b.category), "zh") || String(a.name).localeCompare(String(b.name)),
@@ -294,6 +294,7 @@ export function SkillsExplorer({
           lang={lang}
           allSkills={data.skills}
           onClose={() => setDetail(null)}
+          onOpenSkill={(sk) => setDetail(sk)}
         />
       )}
     </section>
