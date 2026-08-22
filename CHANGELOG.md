@@ -17,14 +17,6 @@
 - 合并中/英开场白为单段，去除冗余作者/项目重复行
 - 版本徽章同步至 v1.19.22（上轮为 v1.19.21，README 显示滞后已修正）
 
-## [1.19.22] - 2026-08-22
-
-### chore: 清理扁平化遗留的冗余 tokens-shared.css
-
-- 删除 `app/app/tokens-shared.css` 历史兼容副本（内容与被引用的规范文件 `app/tokens-shared.css` 完全一致，且无任何文件引用）
-- 更新 `app/README.md` 目录说明，反映 `app/app/` 嵌套目录已清理、规范令牌路径为 `app/tokens-shared.css`
-- package.json 升至 v1.19.22
-
 ## [1.19.21] - 2026-08-21
 
 ### fix: 详情弹窗整体滚动（消除仅底部区域单独滚动条）
