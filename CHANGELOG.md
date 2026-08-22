@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.0] - 2026-08-22
+
+### feat: 原型体验改进 A/B/C（Hero 搜索 + 字体色板精修 + 移动端 Sheet）
+
+- **A 方案 · Hero 搜索前置与节点网联动**：Hero 区新增 `#heroSearch` 搜索框，与顶部 `#searchInput` 共享同一 `state.query`（双向同步）；搜索/筛选时 `#heroNet` 节点网核心点亮、连线脉冲动画，提供视觉联动反馈（`index.html`/`04-interactions.js`/`layout.css`）
+- **B 方案 · 字体与品牌色精修**：`--font-display` 升级为 Iowan/Palatino 衬线栈提升展示质感；深色主题主色相由 146 统一为 152，与浅色零漂移；卡片分类条加粗至 6px 并 hover 发光、标题字号 15→16px 强化层级（`tokens.css`/`components.css`）
+- **C 方案 · 移动端 Sheet 与空状态插画**：≤640px 详情弹窗改为底部抽屉 Sheet（居中 Modal 仅桌面端），`aria-labelledby` 动态绑定 `#d-title`；空状态新增节点网+放大镜「签名插画」（`03-detail.js`/`02-render.js`/`layout.css`）
+- 版本同步：根 `package.json` 升至 v1.20.0，相关文件头注释对齐
+
 ## [1.19.41] - 2026-08-22
 
 ### fix: 分页每页显示数量由 100 调整为 48
@@ -1778,3 +1787,6 @@
 
 [1.19.40]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.40
 [1.19.39]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.39
+[1.19.41]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.41
+[1.20.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.0
+[1.19.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.42

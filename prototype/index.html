@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.18.3 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.20.0 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -21,7 +21,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
-  <style>/* prototype/src/styles/tokens.css v1.15.0 — 设计令牌 + reset（DESIGN.md §2 事实来源）
+  <style>/* prototype/src/styles/tokens.css v1.20.0 — 设计令牌 + reset（DESIGN.md §2 事实来源）
  *
  * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
  * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）为历史兼容保留，供 base/layout/components 模块消费，
@@ -185,7 +185,7 @@ body.no-scroll { overflow: hidden; }
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
 
-/* prototype/src/styles/layout.css v1.19.7 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.20.0 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -317,7 +317,7 @@ html[data-lang="zh"] .en { display: none; }
 .footer-stats .num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; line-height: 1.1; }
 .footer-stats .lbl { font-size: 11.5px; color: var(--text-2); }
 
-/* prototype/src/styles/components.css v1.19.20 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.20.0 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -712,7 +712,7 @@ html[data-lang="zh"] .en { display: none; }
       </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.19.41</span>
+      <span class="footer-ver" id="footerVer">v1.19.42</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -2060,7 +2060,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ads-creative",
       "githubDir": "skills/ads-creative",
-      "size": 1692,
+      "size": 1670,
       "files": 1,
       "popularity": 1
     },
@@ -2076,7 +2076,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/analyze-project",
       "githubDir": "skills/analyze-project",
-      "size": 30141,
+      "size": 30095,
       "files": 4,
       "popularity": 0
     },
@@ -2092,7 +2092,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/architecture-blueprint-generator",
       "githubDir": "skills/architecture-blueprint-generator",
-      "size": 14051,
+      "size": 13727,
       "files": 1,
       "popularity": 3
     },
@@ -2108,7 +2108,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/blueprint",
       "githubDir": "skills/blueprint",
-      "size": 17001,
+      "size": 16581,
       "files": 1,
       "popularity": 2
     },
@@ -2140,7 +2140,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bun",
       "githubDir": "skills/bun",
-      "size": 2245,
+      "size": 2158,
       "files": 1,
       "popularity": 1
     },
@@ -2156,7 +2156,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/chrome-webstore-release-blueprint",
       "githubDir": "skills/chrome-webstore-release-blueprint",
-      "size": 9358,
+      "size": 9095,
       "files": 1,
       "popularity": 0
     },
@@ -2173,7 +2173,7 @@ html[data-lang="zh"] .en { display: none; }
       "skillVersion": "2.30.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/cloudbase",
       "githubDir": "skills/cloudbase",
-      "size": 1174215,
+      "size": 1174051,
       "files": 133,
       "popularity": 3
     },
@@ -2189,7 +2189,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review",
       "githubDir": "skills/code-review",
-      "size": 7295,
+      "size": 7207,
       "files": 2,
       "popularity": 0
     },
@@ -2205,7 +2205,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review-and-quality",
       "githubDir": "skills/code-review-and-quality",
-      "size": 21318,
+      "size": 20921,
       "files": 1,
       "popularity": 0
     },
@@ -2221,7 +2221,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/codebase-design",
       "githubDir": "skills/codebase-design",
-      "size": 12217,
+      "size": 12102,
       "files": 4,
       "popularity": 0
     },
@@ -2237,7 +2237,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-build-cli-app",
       "githubDir": "skills/dart-build-cli-app",
-      "size": 9388,
+      "size": 9202,
       "files": 1,
       "popularity": 0
     },
@@ -2253,7 +2253,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-flutter-patterns",
       "githubDir": "skills/dart-flutter-patterns",
-      "size": 16897,
+      "size": 16333,
       "files": 1,
       "popularity": 0
     },
@@ -2269,7 +2269,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/debugging-and-error-recovery",
       "githubDir": "skills/debugging-and-error-recovery",
-      "size": 11521,
+      "size": 11220,
       "files": 1,
       "popularity": 0
     },
@@ -2285,7 +2285,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/diagnosing-bugs",
       "githubDir": "skills/diagnosing-bugs",
-      "size": 10410,
+      "size": 10271,
       "files": 3,
       "popularity": 0
     },
@@ -2301,7 +2301,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/eve",
       "githubDir": "skills/eve",
-      "size": 1385,
+      "size": 1357,
       "files": 1,
       "popularity": 0
     },
@@ -2317,7 +2317,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/executing-plans",
       "githubDir": "skills/executing-plans",
-      "size": 2584,
+      "size": 2519,
       "files": 1,
       "popularity": 0
     },
@@ -2333,7 +2333,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/fastify-best-practices",
       "githubDir": "skills/fastify-best-practices",
-      "size": 199029,
+      "size": 198954,
       "files": 21,
       "popularity": 1
     },
@@ -2349,7 +2349,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-apply-architecture-best-practices",
       "githubDir": "skills/flutter-apply-architecture-best-practices",
-      "size": 6695,
+      "size": 6534,
       "files": 1,
       "popularity": 0
     },
@@ -2365,7 +2365,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-build-responsive-layout",
       "githubDir": "skills/flutter-build-responsive-layout",
-      "size": 7198,
+      "size": 7058,
       "files": 1,
       "popularity": 0
     },
@@ -2381,7 +2381,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-dart-code-review",
       "githubDir": "skills/flutter-dart-code-review",
-      "size": 24067,
+      "size": 23629,
       "files": 1,
       "popularity": 1
     },
@@ -2397,7 +2397,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-setup-localization",
       "githubDir": "skills/flutter-setup-localization",
-      "size": 6376,
+      "size": 6165,
       "files": 1,
       "popularity": 0
     },
@@ -2429,7 +2429,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/implement-spec",
       "githubDir": "skills/implement-spec",
-      "size": 2383,
+      "size": 2347,
       "files": 2,
       "popularity": 0
     },
@@ -2445,7 +2445,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/improve-codebase-architecture",
       "githubDir": "skills/improve-codebase-architecture",
-      "size": 13265,
+      "size": 13193,
       "files": 3,
       "popularity": 1
     },
@@ -2462,7 +2462,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "Apache-2.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-cli",
       "githubDir": "skills/insforge-cli",
-      "size": 216674,
+      "size": 216273,
       "files": 30,
       "popularity": 1
     },
@@ -2479,7 +2479,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "Apache-2.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-debug",
       "githubDir": "skills/insforge-debug",
-      "size": 53755,
+      "size": 53554,
       "files": 11,
       "popularity": 0
     },
@@ -2495,7 +2495,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-android-emulator",
       "githubDir": "skills/limrun-android-emulator",
-      "size": 15132,
+      "size": 14792,
       "files": 1,
       "popularity": 1
     },
@@ -2511,7 +2511,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-detox-testing",
       "githubDir": "skills/limrun-detox-testing",
-      "size": 5734,
+      "size": 5629,
       "files": 1,
       "popularity": 1
     },
@@ -2527,7 +2527,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-ios-simulator",
       "githubDir": "skills/limrun-ios-simulator",
-      "size": 13247,
+      "size": 12933,
       "files": 1,
       "popularity": 1
     },
@@ -2543,7 +2543,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode",
       "githubDir": "skills/limrun-xcode",
-      "size": 15157,
+      "size": 14825,
       "files": 1,
       "popularity": 0
     },
@@ -2559,7 +2559,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode-bazel",
       "githubDir": "skills/limrun-xcode-bazel",
-      "size": 15932,
+      "size": 15794,
       "files": 3,
       "popularity": 0
     },
@@ -2576,7 +2576,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nestjs-best-practices",
       "githubDir": "skills/nestjs-best-practices",
-      "size": 175360,
+      "size": 175230,
       "files": 43,
       "popularity": 0
     },
@@ -2592,7 +2592,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/next-best-practices",
       "githubDir": "skills/next-best-practices",
-      "size": 84305,
+      "size": 84150,
       "files": 20,
       "popularity": 1
     },
@@ -2608,7 +2608,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-app-router-patterns",
       "githubDir": "skills/nextjs-app-router-patterns",
-      "size": 14518,
+      "size": 14404,
       "files": 2,
       "popularity": 0
     },
@@ -2630,7 +2630,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-code-review",
       "githubDir": "skills/nextjs-code-review",
-      "size": 29706,
+      "size": 29440,
       "files": 4,
       "popularity": 0
     },
@@ -2646,7 +2646,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-react-typescript",
       "githubDir": "skills/nextjs-react-typescript",
-      "size": 2206,
+      "size": 2154,
       "files": 1,
       "popularity": 0
     },
@@ -2662,7 +2662,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/openspec-implementation",
       "githubDir": "skills/openspec-implementation",
-      "size": 9247,
+      "size": 8909,
       "files": 1,
       "popularity": 0
     },
@@ -2678,7 +2678,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/paper-context-resolver",
       "githubDir": "skills/paper-context-resolver",
-      "size": 4179,
+      "size": 4129,
       "files": 3,
       "popularity": 0
     },
@@ -2695,7 +2695,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/php-pro",
       "githubDir": "skills/php-pro",
-      "size": 56108,
+      "size": 55899,
       "files": 6,
       "popularity": 1
     },
@@ -2713,7 +2713,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
       "githubDir": "skills/planning-with-files",
-      "size": 259272,
+      "size": 258783,
       "files": 29,
       "popularity": 0
     },
@@ -2730,7 +2730,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-best-practices",
       "githubDir": "skills/playwright-best-practices",
-      "size": 789664,
+      "size": 789360,
       "files": 59,
       "popularity": 0
     },
@@ -2748,7 +2748,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
       "githubDir": "skills/playwright-cli",
-      "size": 60814,
+      "size": 60393,
       "files": 10,
       "popularity": 0
     },
@@ -2764,7 +2764,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-explore-website",
       "githubDir": "skills/playwright-explore-website",
-      "size": 888,
+      "size": 870,
       "files": 1,
       "popularity": 0
     },
@@ -2780,7 +2780,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype",
       "githubDir": "skills/prototype",
-      "size": 16448,
+      "size": 16421,
       "files": 4,
       "popularity": 0
     },
@@ -2797,7 +2797,7 @@ html[data-lang="zh"] .en { display: none; }
       "skillVersion": "1.0.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/react-doctor",
       "githubDir": "skills/react-doctor",
-      "size": 1776,
+      "size": 1735,
       "files": 1,
       "popularity": 0
     },
@@ -2813,7 +2813,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/receiving-code-review",
       "githubDir": "skills/receiving-code-review",
-      "size": 6695,
+      "size": 6489,
       "files": 1,
       "popularity": 0
     },
@@ -2829,7 +2829,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/repo-intake-and-plan",
       "githubDir": "skills/repo-intake-and-plan",
-      "size": 17821,
+      "size": 17770,
       "files": 5,
       "popularity": 0
     },
@@ -2845,7 +2845,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/requesting-code-review",
       "githubDir": "skills/requesting-code-review",
-      "size": 9194,
+      "size": 9098,
       "files": 2,
       "popularity": 0
     },
@@ -2861,7 +2861,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/setup-matt-pocock-skills",
       "githubDir": "skills/setup-matt-pocock-skills",
-      "size": 20010,
+      "size": 19893,
       "files": 7,
       "popularity": 0
     },
@@ -2877,7 +2877,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/shadcn-ui",
       "githubDir": "skills/shadcn-ui",
-      "size": 88794,
+      "size": 88473,
       "files": 10,
       "popularity": 0
     },
@@ -2893,7 +2893,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/simplify",
       "githubDir": "skills/simplify",
-      "size": 3355,
+      "size": 3303,
       "files": 1,
       "popularity": 0
     },
@@ -2909,7 +2909,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/stripe-best-practices",
       "githubDir": "skills/stripe-best-practices",
-      "size": 62306,
+      "size": 62222,
       "files": 7,
       "popularity": 0
     },
@@ -2927,7 +2927,7 @@ html[data-lang="zh"] .en { display: none; }
       "skillVersion": "0.1.2",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase",
       "githubDir": "skills/supabase",
-      "size": 22192,
+      "size": 22043,
       "files": 4,
       "popularity": 0
     },
@@ -2944,7 +2944,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase-postgres-best-practices",
       "githubDir": "skills/supabase-postgres-best-practices",
-      "size": 64304,
+      "size": 64244,
       "files": 36,
       "popularity": 2
     },
@@ -2960,7 +2960,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/systematic-debugging",
       "githubDir": "skills/systematic-debugging",
-      "size": 42298,
+      "size": 42014,
       "files": 11,
       "popularity": 0
     },
@@ -2976,7 +2976,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tdd",
       "githubDir": "skills/tdd",
-      "size": 7786,
+      "size": 7747,
       "files": 4,
       "popularity": 1
     },
@@ -2992,7 +2992,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/to-spec",
       "githubDir": "skills/to-spec",
-      "size": 3523,
+      "size": 3447,
       "files": 2,
       "popularity": 0
     },
@@ -3008,7 +3008,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/traceknot",
       "githubDir": "skills/traceknot",
-      "size": 692196,
+      "size": 691981,
       "files": 51,
       "popularity": 0
     },
@@ -3024,7 +3024,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/uni-app",
       "githubDir": "skills/uni-app",
-      "size": 99816,
+      "size": 99705,
       "files": 16,
       "popularity": 1
     },
@@ -3041,7 +3041,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-composition-patterns",
       "githubDir": "skills/vercel-composition-patterns",
-      "size": 52824,
+      "size": 52730,
       "files": 14,
       "popularity": 0
     },
@@ -3058,7 +3058,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-react-best-practices",
       "githubDir": "skills/vercel-react-best-practices",
-      "size": 238942,
+      "size": 238792,
       "files": 76,
       "popularity": 1
     },
@@ -3075,7 +3075,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-best-practices",
       "githubDir": "skills/vue-best-practices",
-      "size": 115611,
+      "size": 115458,
       "files": 23,
       "popularity": 0
     },
@@ -3091,7 +3091,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-debug-guides",
       "githubDir": "skills/vue-debug-guides",
-      "size": 621686,
+      "size": 621483,
       "files": 140,
       "popularity": 0
     },
@@ -3110,7 +3110,7 @@ html[data-lang="zh"] .en { display: none; }
       "skillVersion": "1.0.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-pinia-best-practices",
       "githubDir": "skills/vue-pinia-best-practices",
-      "size": 39314,
+      "size": 39292,
       "files": 7,
       "popularity": 0
     },
@@ -3129,7 +3129,7 @@ html[data-lang="zh"] .en { display: none; }
       "skillVersion": "1.0.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-router-best-practices",
       "githubDir": "skills/vue-router-best-practices",
-      "size": 44619,
+      "size": 44595,
       "files": 9,
       "popularity": 0
     },
@@ -3146,7 +3146,7 @@ html[data-lang="zh"] .en { display: none; }
       "license": "Complete terms in LICENSE.txt",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-artifacts-builder",
       "githubDir": "skills/web-artifacts-builder",
-      "size": 46867,
+      "size": 46794,
       "files": 5,
       "popularity": 0
     },
@@ -3162,7 +3162,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-dev-workflow",
       "githubDir": "skills/winui-dev-workflow",
-      "size": 67314,
+      "size": 67209,
       "files": 4,
       "popularity": 1
     },
@@ -3178,7 +3178,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/woocommerce-backend-dev",
       "githubDir": "skills/woocommerce-backend-dev",
-      "size": 41956,
+      "size": 41907,
       "files": 9,
       "popularity": 0
     },
@@ -3194,7 +3194,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wordpress-router",
       "githubDir": "skills/wordpress-router",
-      "size": 5445,
+      "size": 5393,
       "files": 2,
       "popularity": 1
     },
@@ -3210,7 +3210,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-audit",
       "githubDir": "skills/wp-abilities-audit",
-      "size": 42367,
+      "size": 42168,
       "files": 4,
       "popularity": 0
     },
@@ -3226,7 +3226,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-verify",
       "githubDir": "skills/wp-abilities-verify",
-      "size": 57861,
+      "size": 57646,
       "files": 7,
       "popularity": 1
     },
@@ -3242,7 +3242,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-block-themes",
       "githubDir": "skills/wp-block-themes",
-      "size": 13212,
+      "size": 13095,
       "files": 8,
       "popularity": 1
     },
@@ -3258,7 +3258,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-patterns",
       "githubDir": "skills/wp-patterns",
-      "size": 45325,
+      "size": 45162,
       "files": 8,
       "popularity": 1
     },
@@ -3274,7 +3274,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-performance",
       "githubDir": "skills/wp-performance",
-      "size": 18033,
+      "size": 17886,
       "files": 11,
       "popularity": 0
     },
@@ -3290,7 +3290,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-playground",
       "githubDir": "skills/wp-playground",
-      "size": 21636,
+      "size": 21583,
       "files": 4,
       "popularity": 1
     },
@@ -3306,7 +3306,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-development",
       "githubDir": "skills/wp-plugin-development",
-      "size": 11388,
+      "size": 11276,
       "files": 8,
       "popularity": 1
     },
@@ -3322,7 +3322,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-directory-guidelines",
       "githubDir": "skills/wp-plugin-directory-guidelines",
-      "size": 50643,
+      "size": 50510,
       "files": 4,
       "popularity": 1
     },
@@ -3338,7 +3338,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/write-tech-spec",
       "githubDir": "skills/write-tech-spec",
-      "size": 8324,
+      "size": 8228,
       "files": 1,
       "popularity": 0
     },
@@ -3354,7 +3354,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
       "githubDir": "skills/writing-plans",
-      "size": 9128,
+      "size": 8956,
       "files": 2,
       "popularity": 0
     }
@@ -3768,7 +3768,7 @@ function matches(s, terms) {
   return terms.every((term) => hay.includes(term));
 }
 
-// prototype/src/parts/02-render.js v1.19.20 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.20.0 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
@@ -3938,7 +3938,7 @@ function renderPager(total, totalPages) {
   pager.innerHTML = items.join("");
 }
 
-// prototype/src/parts/03-detail.js v1.19.20 — 详情弹窗：元信息区(作者/STAR/首次收录/协议/GitHub目录) + 安装命令 + 相关技能 + 复制
+// prototype/src/parts/03-detail.js v1.20.0 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）
@@ -4137,6 +4137,12 @@ function openDetail(arg) {
   const dialog = document.getElementById("dialog");
   // 详情内容注入常驻 #dialog（保留元素，避免破坏设置弹窗等复用者）
   dialog.innerHTML = detailHTML(skill);
+  // 方案 C：移动端（≤640px）改为底部抽屉 Sheet，否则居中 Modal
+  const isSheet = window.matchMedia("(max-width: 640px)").matches;
+  dialog.classList.toggle("sheet", isSheet);
+  dialog.classList.toggle("modal", !isSheet);
+  // 无障碍：弹窗标题由详情动态渲染的 #d-title 提供（避免指向不存在的静态 id）
+  dialog.setAttribute("aria-labelledby", "d-title");
   overlay.classList.add("show");
   dialog.classList.add("show"); // #dialog 默认 display:none，需 .show 才可见
   document.body.classList.add("no-scroll");
@@ -4161,6 +4167,8 @@ function closeDetail() {
   overlay.classList.remove("show");
   if (dialog) {
     dialog.classList.remove("show"); // 还原 #dialog 隐藏态
+    dialog.classList.remove("sheet", "modal");
+    dialog.removeAttribute("aria-labelledby");
     dialog.innerHTML = ""; // 仅清空内容，保留 #dialog 容器
   }
   document.body.classList.remove("no-scroll");
@@ -4174,7 +4182,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// prototype/src/parts/04-interactions.js v1.19.20 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.20.0 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");

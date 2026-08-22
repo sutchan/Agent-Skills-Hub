@@ -1327,7 +1327,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ads-creative",
       "githubDir": "skills/ads-creative",
-      "size": 1692,
+      "size": 1670,
       "files": 1,
       "popularity": 1
     },
@@ -1343,7 +1343,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/analyze-project",
       "githubDir": "skills/analyze-project",
-      "size": 30141,
+      "size": 30095,
       "files": 4,
       "popularity": 0
     },
@@ -1359,7 +1359,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/architecture-blueprint-generator",
       "githubDir": "skills/architecture-blueprint-generator",
-      "size": 14051,
+      "size": 13727,
       "files": 1,
       "popularity": 3
     },
@@ -1375,7 +1375,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/blueprint",
       "githubDir": "skills/blueprint",
-      "size": 17001,
+      "size": 16581,
       "files": 1,
       "popularity": 2
     },
@@ -1407,7 +1407,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bun",
       "githubDir": "skills/bun",
-      "size": 2245,
+      "size": 2158,
       "files": 1,
       "popularity": 1
     },
@@ -1423,7 +1423,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/chrome-webstore-release-blueprint",
       "githubDir": "skills/chrome-webstore-release-blueprint",
-      "size": 9358,
+      "size": 9095,
       "files": 1,
       "popularity": 0
     },
@@ -1440,7 +1440,7 @@
       "skillVersion": "2.30.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/cloudbase",
       "githubDir": "skills/cloudbase",
-      "size": 1174215,
+      "size": 1174051,
       "files": 133,
       "popularity": 3
     },
@@ -1456,7 +1456,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review",
       "githubDir": "skills/code-review",
-      "size": 7295,
+      "size": 7207,
       "files": 2,
       "popularity": 0
     },
@@ -1472,7 +1472,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review-and-quality",
       "githubDir": "skills/code-review-and-quality",
-      "size": 21318,
+      "size": 20921,
       "files": 1,
       "popularity": 0
     },
@@ -1488,7 +1488,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/codebase-design",
       "githubDir": "skills/codebase-design",
-      "size": 12217,
+      "size": 12102,
       "files": 4,
       "popularity": 0
     },
@@ -1504,7 +1504,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-build-cli-app",
       "githubDir": "skills/dart-build-cli-app",
-      "size": 9388,
+      "size": 9202,
       "files": 1,
       "popularity": 0
     },
@@ -1520,7 +1520,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-flutter-patterns",
       "githubDir": "skills/dart-flutter-patterns",
-      "size": 16897,
+      "size": 16333,
       "files": 1,
       "popularity": 0
     },
@@ -1536,7 +1536,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/debugging-and-error-recovery",
       "githubDir": "skills/debugging-and-error-recovery",
-      "size": 11521,
+      "size": 11220,
       "files": 1,
       "popularity": 0
     },
@@ -1552,7 +1552,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/diagnosing-bugs",
       "githubDir": "skills/diagnosing-bugs",
-      "size": 10410,
+      "size": 10271,
       "files": 3,
       "popularity": 0
     },
@@ -1568,7 +1568,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/eve",
       "githubDir": "skills/eve",
-      "size": 1385,
+      "size": 1357,
       "files": 1,
       "popularity": 0
     },
@@ -1584,7 +1584,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/executing-plans",
       "githubDir": "skills/executing-plans",
-      "size": 2584,
+      "size": 2519,
       "files": 1,
       "popularity": 0
     },
@@ -1600,7 +1600,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/fastify-best-practices",
       "githubDir": "skills/fastify-best-practices",
-      "size": 199029,
+      "size": 198954,
       "files": 21,
       "popularity": 1
     },
@@ -1616,7 +1616,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-apply-architecture-best-practices",
       "githubDir": "skills/flutter-apply-architecture-best-practices",
-      "size": 6695,
+      "size": 6534,
       "files": 1,
       "popularity": 0
     },
@@ -1632,7 +1632,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-build-responsive-layout",
       "githubDir": "skills/flutter-build-responsive-layout",
-      "size": 7198,
+      "size": 7058,
       "files": 1,
       "popularity": 0
     },
@@ -1648,7 +1648,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-dart-code-review",
       "githubDir": "skills/flutter-dart-code-review",
-      "size": 24067,
+      "size": 23629,
       "files": 1,
       "popularity": 1
     },
@@ -1664,7 +1664,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-setup-localization",
       "githubDir": "skills/flutter-setup-localization",
-      "size": 6376,
+      "size": 6165,
       "files": 1,
       "popularity": 0
     },
@@ -1696,7 +1696,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/implement-spec",
       "githubDir": "skills/implement-spec",
-      "size": 2383,
+      "size": 2347,
       "files": 2,
       "popularity": 0
     },
@@ -1712,7 +1712,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/improve-codebase-architecture",
       "githubDir": "skills/improve-codebase-architecture",
-      "size": 13265,
+      "size": 13193,
       "files": 3,
       "popularity": 1
     },
@@ -1729,7 +1729,7 @@
       "license": "Apache-2.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-cli",
       "githubDir": "skills/insforge-cli",
-      "size": 216674,
+      "size": 216273,
       "files": 30,
       "popularity": 1
     },
@@ -1746,7 +1746,7 @@
       "license": "Apache-2.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-debug",
       "githubDir": "skills/insforge-debug",
-      "size": 53755,
+      "size": 53554,
       "files": 11,
       "popularity": 0
     },
@@ -1762,7 +1762,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-android-emulator",
       "githubDir": "skills/limrun-android-emulator",
-      "size": 15132,
+      "size": 14792,
       "files": 1,
       "popularity": 1
     },
@@ -1778,7 +1778,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-detox-testing",
       "githubDir": "skills/limrun-detox-testing",
-      "size": 5734,
+      "size": 5629,
       "files": 1,
       "popularity": 1
     },
@@ -1794,7 +1794,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-ios-simulator",
       "githubDir": "skills/limrun-ios-simulator",
-      "size": 13247,
+      "size": 12933,
       "files": 1,
       "popularity": 1
     },
@@ -1810,7 +1810,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode",
       "githubDir": "skills/limrun-xcode",
-      "size": 15157,
+      "size": 14825,
       "files": 1,
       "popularity": 0
     },
@@ -1826,7 +1826,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode-bazel",
       "githubDir": "skills/limrun-xcode-bazel",
-      "size": 15932,
+      "size": 15794,
       "files": 3,
       "popularity": 0
     },
@@ -1843,7 +1843,7 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nestjs-best-practices",
       "githubDir": "skills/nestjs-best-practices",
-      "size": 175360,
+      "size": 175230,
       "files": 43,
       "popularity": 0
     },
@@ -1859,7 +1859,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/next-best-practices",
       "githubDir": "skills/next-best-practices",
-      "size": 84305,
+      "size": 84150,
       "files": 20,
       "popularity": 1
     },
@@ -1875,7 +1875,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-app-router-patterns",
       "githubDir": "skills/nextjs-app-router-patterns",
-      "size": 14518,
+      "size": 14404,
       "files": 2,
       "popularity": 0
     },
@@ -1897,7 +1897,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-code-review",
       "githubDir": "skills/nextjs-code-review",
-      "size": 29706,
+      "size": 29440,
       "files": 4,
       "popularity": 0
     },
@@ -1913,7 +1913,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-react-typescript",
       "githubDir": "skills/nextjs-react-typescript",
-      "size": 2206,
+      "size": 2154,
       "files": 1,
       "popularity": 0
     },
@@ -1929,7 +1929,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/openspec-implementation",
       "githubDir": "skills/openspec-implementation",
-      "size": 9247,
+      "size": 8909,
       "files": 1,
       "popularity": 0
     },
@@ -1945,7 +1945,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/paper-context-resolver",
       "githubDir": "skills/paper-context-resolver",
-      "size": 4179,
+      "size": 4129,
       "files": 3,
       "popularity": 0
     },
@@ -1962,7 +1962,7 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/php-pro",
       "githubDir": "skills/php-pro",
-      "size": 56108,
+      "size": 55899,
       "files": 6,
       "popularity": 1
     },
@@ -1980,7 +1980,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
       "githubDir": "skills/planning-with-files",
-      "size": 259272,
+      "size": 258783,
       "files": 29,
       "popularity": 0
     },
@@ -1997,7 +1997,7 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-best-practices",
       "githubDir": "skills/playwright-best-practices",
-      "size": 789664,
+      "size": 789360,
       "files": 59,
       "popularity": 0
     },
@@ -2015,7 +2015,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
       "githubDir": "skills/playwright-cli",
-      "size": 60814,
+      "size": 60393,
       "files": 10,
       "popularity": 0
     },
@@ -2031,7 +2031,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-explore-website",
       "githubDir": "skills/playwright-explore-website",
-      "size": 888,
+      "size": 870,
       "files": 1,
       "popularity": 0
     },
@@ -2047,7 +2047,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype",
       "githubDir": "skills/prototype",
-      "size": 16448,
+      "size": 16421,
       "files": 4,
       "popularity": 0
     },
@@ -2064,7 +2064,7 @@
       "skillVersion": "1.0.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/react-doctor",
       "githubDir": "skills/react-doctor",
-      "size": 1776,
+      "size": 1735,
       "files": 1,
       "popularity": 0
     },
@@ -2080,7 +2080,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/receiving-code-review",
       "githubDir": "skills/receiving-code-review",
-      "size": 6695,
+      "size": 6489,
       "files": 1,
       "popularity": 0
     },
@@ -2096,7 +2096,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/repo-intake-and-plan",
       "githubDir": "skills/repo-intake-and-plan",
-      "size": 17821,
+      "size": 17770,
       "files": 5,
       "popularity": 0
     },
@@ -2112,7 +2112,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/requesting-code-review",
       "githubDir": "skills/requesting-code-review",
-      "size": 9194,
+      "size": 9098,
       "files": 2,
       "popularity": 0
     },
@@ -2128,7 +2128,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/setup-matt-pocock-skills",
       "githubDir": "skills/setup-matt-pocock-skills",
-      "size": 20010,
+      "size": 19893,
       "files": 7,
       "popularity": 0
     },
@@ -2144,7 +2144,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/shadcn-ui",
       "githubDir": "skills/shadcn-ui",
-      "size": 88794,
+      "size": 88473,
       "files": 10,
       "popularity": 0
     },
@@ -2160,7 +2160,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/simplify",
       "githubDir": "skills/simplify",
-      "size": 3355,
+      "size": 3303,
       "files": 1,
       "popularity": 0
     },
@@ -2176,7 +2176,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/stripe-best-practices",
       "githubDir": "skills/stripe-best-practices",
-      "size": 62306,
+      "size": 62222,
       "files": 7,
       "popularity": 0
     },
@@ -2194,7 +2194,7 @@
       "skillVersion": "0.1.2",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase",
       "githubDir": "skills/supabase",
-      "size": 22192,
+      "size": 22043,
       "files": 4,
       "popularity": 0
     },
@@ -2211,7 +2211,7 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase-postgres-best-practices",
       "githubDir": "skills/supabase-postgres-best-practices",
-      "size": 64304,
+      "size": 64244,
       "files": 36,
       "popularity": 2
     },
@@ -2227,7 +2227,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/systematic-debugging",
       "githubDir": "skills/systematic-debugging",
-      "size": 42298,
+      "size": 42014,
       "files": 11,
       "popularity": 0
     },
@@ -2243,7 +2243,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tdd",
       "githubDir": "skills/tdd",
-      "size": 7786,
+      "size": 7747,
       "files": 4,
       "popularity": 1
     },
@@ -2259,7 +2259,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/to-spec",
       "githubDir": "skills/to-spec",
-      "size": 3523,
+      "size": 3447,
       "files": 2,
       "popularity": 0
     },
@@ -2275,7 +2275,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/traceknot",
       "githubDir": "skills/traceknot",
-      "size": 692196,
+      "size": 691981,
       "files": 51,
       "popularity": 0
     },
@@ -2291,7 +2291,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/uni-app",
       "githubDir": "skills/uni-app",
-      "size": 99816,
+      "size": 99705,
       "files": 16,
       "popularity": 1
     },
@@ -2308,7 +2308,7 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-composition-patterns",
       "githubDir": "skills/vercel-composition-patterns",
-      "size": 52824,
+      "size": 52730,
       "files": 14,
       "popularity": 0
     },
@@ -2325,7 +2325,7 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-react-best-practices",
       "githubDir": "skills/vercel-react-best-practices",
-      "size": 238942,
+      "size": 238792,
       "files": 76,
       "popularity": 1
     },
@@ -2342,7 +2342,7 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-best-practices",
       "githubDir": "skills/vue-best-practices",
-      "size": 115611,
+      "size": 115458,
       "files": 23,
       "popularity": 0
     },
@@ -2358,7 +2358,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-debug-guides",
       "githubDir": "skills/vue-debug-guides",
-      "size": 621686,
+      "size": 621483,
       "files": 140,
       "popularity": 0
     },
@@ -2377,7 +2377,7 @@
       "skillVersion": "1.0.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-pinia-best-practices",
       "githubDir": "skills/vue-pinia-best-practices",
-      "size": 39314,
+      "size": 39292,
       "files": 7,
       "popularity": 0
     },
@@ -2396,7 +2396,7 @@
       "skillVersion": "1.0.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-router-best-practices",
       "githubDir": "skills/vue-router-best-practices",
-      "size": 44619,
+      "size": 44595,
       "files": 9,
       "popularity": 0
     },
@@ -2413,7 +2413,7 @@
       "license": "Complete terms in LICENSE.txt",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-artifacts-builder",
       "githubDir": "skills/web-artifacts-builder",
-      "size": 46867,
+      "size": 46794,
       "files": 5,
       "popularity": 0
     },
@@ -2429,7 +2429,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-dev-workflow",
       "githubDir": "skills/winui-dev-workflow",
-      "size": 67314,
+      "size": 67209,
       "files": 4,
       "popularity": 1
     },
@@ -2445,7 +2445,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/woocommerce-backend-dev",
       "githubDir": "skills/woocommerce-backend-dev",
-      "size": 41956,
+      "size": 41907,
       "files": 9,
       "popularity": 0
     },
@@ -2461,7 +2461,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wordpress-router",
       "githubDir": "skills/wordpress-router",
-      "size": 5445,
+      "size": 5393,
       "files": 2,
       "popularity": 1
     },
@@ -2477,7 +2477,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-audit",
       "githubDir": "skills/wp-abilities-audit",
-      "size": 42367,
+      "size": 42168,
       "files": 4,
       "popularity": 0
     },
@@ -2493,7 +2493,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-verify",
       "githubDir": "skills/wp-abilities-verify",
-      "size": 57861,
+      "size": 57646,
       "files": 7,
       "popularity": 1
     },
@@ -2509,7 +2509,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-block-themes",
       "githubDir": "skills/wp-block-themes",
-      "size": 13212,
+      "size": 13095,
       "files": 8,
       "popularity": 1
     },
@@ -2525,7 +2525,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-patterns",
       "githubDir": "skills/wp-patterns",
-      "size": 45325,
+      "size": 45162,
       "files": 8,
       "popularity": 1
     },
@@ -2541,7 +2541,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-performance",
       "githubDir": "skills/wp-performance",
-      "size": 18033,
+      "size": 17886,
       "files": 11,
       "popularity": 0
     },
@@ -2557,7 +2557,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-playground",
       "githubDir": "skills/wp-playground",
-      "size": 21636,
+      "size": 21583,
       "files": 4,
       "popularity": 1
     },
@@ -2573,7 +2573,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-development",
       "githubDir": "skills/wp-plugin-development",
-      "size": 11388,
+      "size": 11276,
       "files": 8,
       "popularity": 1
     },
@@ -2589,7 +2589,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-directory-guidelines",
       "githubDir": "skills/wp-plugin-directory-guidelines",
-      "size": 50643,
+      "size": 50510,
       "files": 4,
       "popularity": 1
     },
@@ -2605,7 +2605,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/write-tech-spec",
       "githubDir": "skills/write-tech-spec",
-      "size": 8324,
+      "size": 8228,
       "files": 1,
       "popularity": 0
     },
@@ -2621,7 +2621,7 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
       "githubDir": "skills/writing-plans",
-      "size": 9128,
+      "size": 8956,
       "files": 2,
       "popularity": 0
     }
