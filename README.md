@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.19.22-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.19.23-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
 
 > **作者**：Sut Chan ｜ **项目**：https://github.com/sutchan/Agent-Skills-Hub
 
@@ -123,4 +123,3 @@ npm run start    # 启动生产服务
 - [英文文档](README.en.md) — English README
 - [许可证](LICENSE) — 项目整体许可证（MIT）
 - 项目地址：https://github.com/sutchan/Agent-Skills-Hub
-- 工作区配置：[agent-skills-hub.code-workspace](agent-skills-hub.code-workspace)

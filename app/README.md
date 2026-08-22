@@ -20,7 +20,7 @@
 | `app/next.config.mjs` / `app/tsconfig.json` | Next.js 与 TypeScript 配置 |
 | `app/package.json` | 依赖与脚本（`dev` / `build` / `start`，含 `predev`/`prebuild` 同步数据） |
 
-> 说明：早期版本路由代码置于 `app/app/`（App Router 嵌套目录），现已扁平化至 `app/` 根；`app/app/` 仅保留历史 `tokens-shared.css` 兼容文件。
+> 说明：早期版本路由代码置于 `app/app/`（App Router 嵌套目录），现已扁平化至 `app/` 根；共享令牌由 `app/tokens-shared.css` 提供（由 `build.mjs` 从 `prototype/src/styles/tokens.css` 生成），`app/globals.css` 通过 `@import "./tokens-shared.css"` 消费，`app/app/` 历史嵌套目录已清理移除。
 
 ## 约定
 
