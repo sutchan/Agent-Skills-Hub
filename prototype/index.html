@@ -329,10 +329,20 @@ html[data-lang="zh"] .en { display: none; }
   font-size: 13px; cursor: pointer; transition: background .15s, color .15s, border-color .15s;
 }
 .chip:hover { border-color: hsl(var(--hue) 70% 50%); color: hsl(var(--hue) 75% 42%); }
-/* 选中态以单一主色强调（DESIGN §8.3 禁用异色相于强调元素），保证对比度 ≥4.5:1 且任意分类统一 */
-.chip.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); }
+/* 选中态：保持各自分类色相（--hue），以「加深的彩色实心底 + 白字」强调，
+   既满足彩色 tag 诉求，又保证对比度 ≥4.5:1（深色底托白字）；
+   「全部」中性筛选器仍用主色绿（见 .chip-all.active），避免异色相混淆全量语义 */
+.chip.active {
+  background: hsl(var(--hue) 72% 38%);
+  color: hsl(0 0% 100%);
+  border-color: hsl(var(--hue) 72% 32%);
+  box-shadow: 0 2px 10px hsl(var(--hue) 72% 40% / .4);
+}
+.chip.active:hover { color: hsl(0 0% 100%); }
 .chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
 .chip.active .chip-count { opacity: 1; }
+/* 「全部」chip：选中态回落到单一主色绿（中性全量筛选器语义） */
+.chip-all.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); box-shadow: var(--shadow-pop); }
 
 /* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + title-row + card-title/sub/cat）
    渲染为原生 <button>（a11y 语义），需重置 button 默认样式 */
@@ -3795,7 +3805,7 @@ function renderCats(counts) {
   const en = SKILLS_DATA.categoryEn || {};
   const allActive = state.cats.length === 0;
   // "全部"chip 用中性 hue，分类 chip 用 catHue 派生色相（对齐 app：--hue 驱动多色）
-  const items = [`<button class="chip${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`];
+  const items = [`<button class="chip chip-all${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cats.indexOf(c) !== -1;
     // chip 分类名中英互斥：中文态显示 category，英文态显示 categoryEn[c]

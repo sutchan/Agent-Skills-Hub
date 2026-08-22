@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.1] - 2026-08-22
+
+### docs: 统一技能文件为 Unix(LF) 换行符规范
+
+- `.github/CONTRIBUTING.md` 新增「文件换行符规范（强制）」章节：所有 `skills/<name>/` 下文本资源统一使用 LF，禁止 CRLF；新增技能自动按 LF 写入
+- `.gitattributes` 明确 `skills/** text eol=lf` 覆盖 SKILL.md 及 scripts/references/assets/agents 全部文本资源，配合编辑器 `files.eol: "\n"` 防回潮
+- PR 检查清单增加「文件换行符为 Unix(LF)」勾选项；CONTRIBUTING 头注释升至 v1.20.1
+- 根 `package.json` version 升至 v1.20.1
+
 ## [1.20.0] - 2026-08-22
 
 ### feat: 原型体验改进 A/B/C（Hero 搜索 + 字体色板精修 + 移动端 Sheet）
@@ -1798,4 +1807,5 @@
 [1.19.39]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.39
 [1.19.41]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.41
 [1.20.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.0
+[1.20.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.1
 [1.19.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.42

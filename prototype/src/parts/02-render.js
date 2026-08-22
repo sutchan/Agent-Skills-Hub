@@ -17,7 +17,7 @@ function renderCats(counts) {
   const en = SKILLS_DATA.categoryEn || {};
   const allActive = state.cats.length === 0;
   // "全部"chip 用中性 hue，分类 chip 用 catHue 派生色相（对齐 app：--hue 驱动多色）
-  const items = [`<button class="chip${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`];
+  const items = [`<button class="chip chip-all${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`];
   cats.forEach((c) => {
     const active = state.cats.indexOf(c) !== -1;
     // chip 分类名中英互斥：中文态显示 category，英文态显示 categoryEn[c]

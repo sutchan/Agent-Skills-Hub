@@ -1,0 +1,21 @@
+# 统一换行符策略（Agent-Skills-Hub）
+# 默认让 Git 按内容自动判定文本/二进制
+* text=auto
+
+# skills 目录（含 SKILL.md 及 scripts/references/assets/agents 全部文本资源）强制使用 Unix(LF) 换行
+# 避免 Windows 下 core.autocrlf=true 导致 CRLF 回潮（见 .github/CONTRIBUTING.md「文件换行符规范」）
+skills/** text eol=lf
+
+# 以下为二进制资源，禁止换行符转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.zip binary
+*.pdf binary

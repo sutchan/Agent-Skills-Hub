@@ -2,7 +2,7 @@
 
 感谢你愿意为 **Agent Skills Hub** 贡献！本指南帮助你在不破坏数据管线与规范的前提下，新增或更新技能、修复文档、提交变更。
 
-> 路径：`.github/CONTRIBUTING.md` · 版本：1.19.24
+> 路径：`.github/CONTRIBUTING.md` · 版本：1.20.1
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 
 ## 目录
@@ -40,7 +40,7 @@ npm run build        # 验证构建链路，生成 data 与 prototype
 
 1. 建议先使用内置的 [`skill-creator`](../skills/skill-creator/) 技能按规范创建与评估新技能。
 2. 在 `skills/<name>/` 下创建目录，命名使用小写中划线（`kebab-case`），目录名须与 frontmatter `name` 字段一致，例如 `python-testing/`。
-3. 编写 `SKILL.md`（正文 + 前置元数据，见下节）。
+3. 编写 `SKILL.md`（正文 + 前置元数据，见下节）。**文件必须使用 Unix 换行符（LF，`\n`），禁止使用 Windows CRLF（`\r\n`）**。
 4. 可选：补充 `scripts/`、`references/`、`assets/`、`agents/` 等资源。
 5. 运行 `npm run build` 重新生成数据与展示页。
 
@@ -48,6 +48,22 @@ npm run build        # 验证构建链路，生成 data 与 prototype
 
 - 修改 `SKILL.md` 正文或前置元数据后，同样运行 `npm run build` 刷新产物。
 - 若改动 `en_description`（英文原文），必须同步更新 `description`（中文译文），保持中英一致。
+
+## 文件换行符规范（强制）
+
+所有技能文件（`skills/<name>/` 下的 `SKILL.md` 及 `scripts/`、`references/`、`assets/`、`agents/` 等全部文本资源）**统一使用 Unix 换行符（LF，`\n`）**，禁止使用 Windows CRLF（`\r\n`）。
+
+- 仓库历史文件多为 CRLF，新增与更新时须主动转换为 LF。
+- Git 端到端一致性：建议在仓库根 `.gitattributes` 中声明 `*.md text eol=lf`、`*.py text eol=lf` 等，使检出与提交均归一为 LF。
+- 批量转换示例（PowerShell）：
+
+  ```powershell
+  # 将单个文件转为 LF
+  (Get-Content -Raw -Path skills/<name>/SKILL.md) -replace "`r`n", "`n" | Set-Content -NoNewline -Encoding utf8 skills/<name>/SKILL.md
+  ```
+
+- 编辑器（VS Code）可设置 `"files.eol": "\n"` 与「在保存时删除行尾空白」，新文件自动落 LF。
+- **红线**：CRLF 文件在做正则整块替换类批处理时易静默失效（捕获的 `\r\n` 与磁盘真实换行不匹配），一律改用「按行 `split(/\r?\n/)` 改写再 `join('\n')`」或直接使用 CRLF 安全的编辑工具。
 
 ## SKILL.md 前置元数据要求
 
@@ -132,7 +148,8 @@ docs: 新增 .github Community Health Files 并同步版本至 v1.14.70
 2. 完成后运行 `npm run build`，确认构建通过。
 3. 提交前检查清单：
    - [ ] `SKILL.md` frontmatter 字段完整（name/description/en_description/zh/category/en_category）
-   - [ ] `node scripts/validate-skills.mjs` 校验通过（必填、分类、顺序、无冲突键）
+  - [ ] 文件换行符为 Unix(LF)，非 Windows CRLF
+  - [ ] `node tools/validate-skills.mjs` 校验通过（必填、分类、顺序、无冲突键）
    - [ ] 数据已通过 `npm run build` 重新生成
    - [ ] README 中英文、CHANGELOG、package.json 版本号一致
    - [ ] 无 `console.log` / `debugger` 残留（脚本除外）
