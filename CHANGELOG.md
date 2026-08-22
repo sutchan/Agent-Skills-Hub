@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.23] - 2026-08-22
+
+### docs: 精简 README 去除工作区配置说明
+
+- README 中/英删除「工作区配置 / Workspace」目录条目（非必要说明）
+- 版本徽章同步至 v1.19.23
+
+## [1.19.22] - 2026-08-22
+
+### docs: 精简 README 去除品牌资产等非必要章节
+
+- README 中/英删除「品牌资产 / Brand Assets」整章及对应目录条目（品牌资产细节已集中于 `app/public/` 与代码，README 保持精简）
+- 合并中/英开场白为单段，去除冗余作者/项目重复行
+- 版本徽章同步至 v1.19.22（上轮为 v1.19.21，README 显示滞后已修正）
+
 ## [1.19.21] - 2026-08-21
 
 ### fix: 详情弹窗整体滚动（消除仅底部区域单独滚动条）
@@ -1551,3 +1566,7 @@
 [1.19.17]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.17
 [1.19.18]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.18
 [1.19.19]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.19
+[1.19.20]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.20
+[1.19.21]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.21
+[1.19.22]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.22
+[1.19.23]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.23
