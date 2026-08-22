@@ -255,7 +255,7 @@ function renderHeroNodes() {
     node.setAttribute("cx", x.toFixed(1));
     node.setAttribute("cy", y.toFixed(1));
     node.setAttribute("r", r.toFixed(1));
-    node.setAttribute("fill", `hsl(${catHue(c)} 65% 50%)`);
+    node.setAttribute("fill", `hsl(${catHue(c)} 65% 38%)`);
     node.setAttribute("data-cat", c);
     node.setAttribute("role", "button");
     node.setAttribute("tabindex", "0");

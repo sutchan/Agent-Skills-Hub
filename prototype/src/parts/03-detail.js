@@ -40,7 +40,7 @@ function popularityHTML(pop) {
 // 复制技能名到剪贴板（提示已复制）
 function copySkillName(name) {
   const done = () => {
-    const tip = document.getElementById("copyTip");
+    const tip = $("#copyTip");
     if (tip) {
       tip.textContent = I18N.t("detail.copied");
       tip.classList.add("show");
@@ -68,7 +68,7 @@ function fallbackCopy(text, done) {
 function copyCmdButton(btn) {
   const cmd = btn.getAttribute("data-cmd") || "";
   const done = () => {
-    const tip = document.getElementById("copyCmdTip");
+    const tip = $("#copyCmdTip");
     if (tip) {
       tip.textContent = I18N.t("detail.copied");
       tip.classList.add("show");
@@ -110,20 +110,15 @@ function detailHTML(skill) {
     titleHTML = `<h2 class="d-title" id="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
   }
 
-  // 元信息区：原始名称 / 分类 / 作者 / STAR / 首次收录 / 协议 / 版本 / 主页 / GitHub 目录
+  // 元信息区：技能名称 / 分类 / 主页 / GitHub 目录
+  // 仅渲染 data 中真实存在的字段（author/stars/license/version/firstSeen 在数据源中不存在，已移除对应死代码）
   // 未知项（空值）直接不显示，不渲染占位符
-  const starsText = skill.stars != null ? String(skill.stars) : "";
   const catText = skill.enCategory ? `${skill.category} · ${skill.enCategory}` : (skill.category || "");
   // 仅当 homepage 为合法 http(s) 链接时才作为外链展示
   const hp = /^https?:\/\//i.test(skill.homepage || "") ? skill.homepage : "";
   const metaRows = [
     metaRow(I18N.t("detail.rawName"), skill.name),
     metaRow(I18N.t("detail.category"), catText),
-    metaRow(I18N.t("detail.author"), skill.author || ""),
-    metaRow(I18N.t("detail.stars"), starsText),
-    metaRow(I18N.t("detail.firstSeen"), skill.firstSeen || ""),
-    metaRow(I18N.t("detail.license"), skill.license || ""),
-    metaRow(I18N.t("detail.version"), skill.skillVersion || ""),
     metaRow(I18N.t("detail.homepage"), hp, true),
     metaRow(I18N.t("detail.githubDir"), githubUrl, true),
   ].join("");
@@ -193,8 +188,8 @@ function openDetail(arg) {
   // 04-interactions 可能传入 skill 对象（原委托逻辑），也可能传入 name 字符串
   const skill = typeof arg === "string" ? SKILL_MAP.get(arg) : arg;
   if (!skill || !skill.name) return;
-  const overlay = document.getElementById("overlay");
-  const dialog = document.getElementById("dialog");
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
   // 详情内容注入常驻 #dialog（保留元素，避免破坏设置弹窗等复用者）
   dialog.innerHTML = detailHTML(skill);
   // 方案 C：移动端（≤640px）改为底部抽屉 Sheet，否则居中 Modal
@@ -207,11 +202,11 @@ function openDetail(arg) {
   dialog.classList.add("show"); // #dialog 默认 display:none，需 .show 才可见
   document.body.classList.add("no-scroll");
 
-  document.getElementById("detailClose").addEventListener("click", closeDetail);
-  const copyBtn = document.getElementById("copyNameBtn");
+  $("#detailClose").addEventListener("click", closeDetail);
+  const copyBtn = $("#copyNameBtn");
   if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
   // 复制安装命令
-  const copyCmdBtn = document.getElementById("copyCmdBtn");
+  const copyCmdBtn = $("#copyCmdBtn");
   if (copyCmdBtn) copyCmdButton(copyCmdBtn);
 
   // 相关技能点击 → 切换详情
@@ -221,8 +216,8 @@ function openDetail(arg) {
 }
 
 function closeDetail() {
-  const overlay = document.getElementById("overlay");
-  const dialog = document.getElementById("dialog");
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
   if (!overlay) return;
   overlay.classList.remove("show");
   if (dialog) {
@@ -237,7 +232,7 @@ function closeDetail() {
 // 全局 Esc 关闭（grid 点击委托与 overlay 点击关闭已在 04-interactions 处理）
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
-    const overlay = document.getElementById("overlay");
+    const overlay = $("#overlay");
     if (overlay && overlay.classList.contains("show")) closeDetail();
   }
 });

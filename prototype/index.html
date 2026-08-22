@@ -275,7 +275,7 @@ html[data-lang="zh"] .en { display: none; }
 /* 弹窗（扩展详情） */
 .overlay { position: fixed; inset: 0; z-index: 50; background: hsl(var(--shadow-color) / .5); backdrop-filter: blur(2px); display: none; }
 .overlay.show { display: block; }
-.dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; }
+.dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; transform-origin: center; }
 .dialog.show { display: flex; }
 /* 方案 B：骰子抽技能翻牌动画（3D 翻转展开） */
 .dialog.flip { animation: dialogFlip .55s cubic-bezier(.34,1.4,.64,1); }
@@ -404,7 +404,8 @@ html[data-lang="zh"] .en { display: none; }
 .card-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
 /* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
 .card .cat-bar { height: 6px; border-radius: 999px; background: hsl(var(--hue, 152) 65% 38%); margin: -16px -16px 0; transition: filter .2s ease, box-shadow .2s ease; }
-.card:hover .cat-bar { filter: saturate(1.15) brightness(1.02); box-shadow: 0 2px 10px hsl(var(--hue, 152) 65% 38% / .5); }
+.card:hover .cat-bar { filter: saturate(1.15) brightness(1.05); box-shadow: 0 2px 10px hsl(var(--hue, 152) 55% 50% / .45); }
+/* 方案 D：头像按分类 hue 渐变（同 cat-bar 色），让每张卡片有一抹个性色 */
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, hsl(var(--hue, 152) 70% 46%), hsl(var(--hue, 152) 65% 38%)); color: #fff; display: grid; place-items: center; font-weight: 700; box-shadow: 0 2px 8px hsl(var(--hue, 152) 60% 40% / .35); }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; flex: none; }
 .title-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
@@ -780,7 +781,7 @@ html[data-lang="zh"] .en { display: none; }
       </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.20.3</span>
+      <span class="footer-ver" id="footerVer">v1.20.4</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -824,21 +825,14 @@ html[data-lang="zh"] .en { display: none; }
       "stat.enCov": "英文描述",
       "stat.langs": "支持语言",
       "search.placeholder": "搜索技能名称或描述…",
-      "detail.zhTitle": "中文描述",
-      "detail.enTitle": "英文说明",
-      "detail.catTitle": "分类 / Category", // 预留：详情弹窗分类标题
       "detail.category": "分类 / Category",
       "detail.homepage": "主页 / Homepage",
       "detail.rawName": "技能名称 / Name",
       "detail.toolsTitle": "授权工具 / Allowed tools",
       "detail.close": "关闭 / Close",
-      "detail.open": "查看技能",
-      "detail.openEn": "Open skill",
-      "detail.zhName": "中文名", // 预留：详情弹窗内中文名标题
-      "detail.author": "作者 / Author",
       "detail.license": "协议 / License",
       "detail.version": "版本 / Version",
-      "detail.githubDir": "GitHub 目录 / Source",
+      "detail.githubDir": "GitHub 源码 / Source",
       "detail.stars": "星标 / Stars",
       "detail.firstSeen": "首次收录 / First seen",
       "detail.install": "安装命令 / Install",
@@ -917,30 +911,18 @@ html[data-lang="zh"] .en { display: none; }
       "stat.enCov": "EN described",
       "stat.langs": "Languages",
       "search.placeholder": "Search skills by name or description…",
-      "detail.zhTitle": "Description (zh)",
-      "detail.enTitle": "Description (en)",
-      "detail.catTitle": "Category / 分类", // 预留：详情弹窗分类标题
       "detail.category": "Category",
       "detail.homepage": "Homepage",
       "detail.rawName": "Skill name / Name",
       "detail.toolsTitle": "Allowed tools / 授权工具",
       "detail.close": "Close / 关闭",
-      "detail.open": "Open skill",
-      "detail.openEn": "Open skill",
-      "detail.zhName": "Chinese name", // 预留：详情弹窗内中文名标题
-      "detail.author": "Author",
-      "detail.license": "License",
-      "detail.version": "Version",
       "detail.githubDir": "GitHub source",
-      "detail.stars": "Stars",
-      "detail.firstSeen": "First seen",
       "detail.install": "Install",
       "detail.copyCmd": "Copy command",
       "detail.tools": "Allowed tools",
       "detail.related": "Related skills",
       "detail.copyName": "Copy name",
       "detail.copied": "Copied",
-      "detail.unknown": "Unknown",
       "detail.size": "Size",
       "detail.files": "Files",
       "detail.filesUnit": "",
@@ -1261,17 +1243,12 @@ function skillSlug(name) {
 }
 
 // 分类在固定顺序中的序号（与 app SkillsExplorer data-cat 对齐，驱动 cat-bar 色板）
-function skillCatIndex(s) {
-  return SKILLS_DATA.categories.indexOf(s.category);
-}
-
 // 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-desc/card-cat）
 // 使用原生 <button> 保证可聚焦、Enter/Space 原生触发（P1-1 a11y）；
 // 默认展示语言为中文：标题与描述均按当前语言互斥显示（.zh/.en 由 base.css html[data-lang] 控制）：
 // 中文态显示中文名 + 中文描述（description），英文态显示英文名 + 英文描述（enDescription）
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
-  const ci = skillCatIndex(s);
   const descZh = s.description || s.zh || I18N.t("card.noDesc");
   return `<button type="button" class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${esc(s.category)}" aria-label="${esc(label)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
@@ -1426,7 +1403,7 @@ function popularityHTML(pop) {
 // 复制技能名到剪贴板（提示已复制）
 function copySkillName(name) {
   const done = () => {
-    const tip = document.getElementById("copyTip");
+    const tip = $("#copyTip");
     if (tip) {
       tip.textContent = I18N.t("detail.copied");
       tip.classList.add("show");
@@ -1454,7 +1431,7 @@ function fallbackCopy(text, done) {
 function copyCmdButton(btn) {
   const cmd = btn.getAttribute("data-cmd") || "";
   const done = () => {
-    const tip = document.getElementById("copyCmdTip");
+    const tip = $("#copyCmdTip");
     if (tip) {
       tip.textContent = I18N.t("detail.copied");
       tip.classList.add("show");
@@ -1496,20 +1473,15 @@ function detailHTML(skill) {
     titleHTML = `<h2 class="d-title" id="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
   }
 
-  // 元信息区：原始名称 / 分类 / 作者 / STAR / 首次收录 / 协议 / 版本 / 主页 / GitHub 目录
+  // 元信息区：技能名称 / 分类 / 主页 / GitHub 目录
+  // 仅渲染 data 中真实存在的字段（author/stars/license/version/firstSeen 在数据源中不存在，已移除对应死代码）
   // 未知项（空值）直接不显示，不渲染占位符
-  const starsText = skill.stars != null ? String(skill.stars) : "";
   const catText = skill.enCategory ? `${skill.category} · ${skill.enCategory}` : (skill.category || "");
   // 仅当 homepage 为合法 http(s) 链接时才作为外链展示
   const hp = /^https?:\/\//i.test(skill.homepage || "") ? skill.homepage : "";
   const metaRows = [
     metaRow(I18N.t("detail.rawName"), skill.name),
     metaRow(I18N.t("detail.category"), catText),
-    metaRow(I18N.t("detail.author"), skill.author || ""),
-    metaRow(I18N.t("detail.stars"), starsText),
-    metaRow(I18N.t("detail.firstSeen"), skill.firstSeen || ""),
-    metaRow(I18N.t("detail.license"), skill.license || ""),
-    metaRow(I18N.t("detail.version"), skill.skillVersion || ""),
     metaRow(I18N.t("detail.homepage"), hp, true),
     metaRow(I18N.t("detail.githubDir"), githubUrl, true),
   ].join("");
@@ -1579,8 +1551,8 @@ function openDetail(arg) {
   // 04-interactions 可能传入 skill 对象（原委托逻辑），也可能传入 name 字符串
   const skill = typeof arg === "string" ? SKILL_MAP.get(arg) : arg;
   if (!skill || !skill.name) return;
-  const overlay = document.getElementById("overlay");
-  const dialog = document.getElementById("dialog");
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
   // 详情内容注入常驻 #dialog（保留元素，避免破坏设置弹窗等复用者）
   dialog.innerHTML = detailHTML(skill);
   // 方案 C：移动端（≤640px）改为底部抽屉 Sheet，否则居中 Modal
@@ -1593,11 +1565,11 @@ function openDetail(arg) {
   dialog.classList.add("show"); // #dialog 默认 display:none，需 .show 才可见
   document.body.classList.add("no-scroll");
 
-  document.getElementById("detailClose").addEventListener("click", closeDetail);
-  const copyBtn = document.getElementById("copyNameBtn");
+  $("#detailClose").addEventListener("click", closeDetail);
+  const copyBtn = $("#copyNameBtn");
   if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
   // 复制安装命令
-  const copyCmdBtn = document.getElementById("copyCmdBtn");
+  const copyCmdBtn = $("#copyCmdBtn");
   if (copyCmdBtn) copyCmdButton(copyCmdBtn);
 
   // 相关技能点击 → 切换详情
@@ -1607,8 +1579,8 @@ function openDetail(arg) {
 }
 
 function closeDetail() {
-  const overlay = document.getElementById("overlay");
-  const dialog = document.getElementById("dialog");
+  const overlay = $("#overlay");
+  const dialog = $("#dialog");
   if (!overlay) return;
   overlay.classList.remove("show");
   if (dialog) {
@@ -1623,7 +1595,7 @@ function closeDetail() {
 // 全局 Esc 关闭（grid 点击委托与 overlay 点击关闭已在 04-interactions 处理）
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
-    const overlay = document.getElementById("overlay");
+    const overlay = $("#overlay");
     if (overlay && overlay.classList.contains("show")) closeDetail();
   }
 });
@@ -1862,21 +1834,6 @@ function updateHeroNet() {
   });
 }
 
-// 方案 B：随机抽一个技能（翻牌动画开盲盒）
-function rollDice() {
-  const pool = SKILLS_DATA.skills.filter((s) => !s.hidden);
-  if (!pool.length) return;
-  const skill = pool[Math.floor(Math.random() * pool.length)];
-  const dialog = document.getElementById("dialog");
-  openDetail(skill);
-  if (dialog) {
-    dialog.classList.remove("flip");
-    void dialog.offsetWidth; // 触发重排以重启动画
-    dialog.classList.add("flip");
-  }
-  track("dice_roll", { skill: skill.name });
-}
-
 // 方案 A：按分类动态生成节点（半径随技能数变化），环绕核心排布，可交互
 function renderHeroNodes() {
   const g = $("#netNodes");
@@ -1900,7 +1857,7 @@ function renderHeroNodes() {
     node.setAttribute("cx", x.toFixed(1));
     node.setAttribute("cy", y.toFixed(1));
     node.setAttribute("r", r.toFixed(1));
-    node.setAttribute("fill", `hsl(${catHue(c)} 65% 50%)`);
+    node.setAttribute("fill", `hsl(${catHue(c)} 65% 38%)`);
     node.setAttribute("data-cat", c);
     node.setAttribute("role", "button");
     node.setAttribute("tabindex", "0");
@@ -1929,6 +1886,21 @@ function toggleHeroCat(cat) {
   updateHeroNet();
   renderGrid();
   track("hero_node_filter", { cat, active: state.cats.includes(cat) });
+}
+
+// 方案 B：随机抽一个技能（翻牌动画开盲盒）
+function rollDice() {
+  const pool = SKILLS_DATA.skills.filter((s) => !s.hidden);
+  if (!pool.length) return;
+  const skill = pool[Math.floor(Math.random() * pool.length)];
+  const dialog = document.getElementById("dialog");
+  openDetail(skill);
+  if (dialog) {
+    dialog.classList.remove("flip");
+    void dialog.offsetWidth; // 触发重排以重启动画
+    dialog.classList.add("flip");
+  }
+  track("dice_roll", { skill: skill.name });
 }
 
 // prototype/src/parts/05-main.js v1.19.6 — 应用启动编排

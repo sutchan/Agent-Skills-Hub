@@ -45,17 +45,12 @@ function skillSlug(name) {
 }
 
 // 分类在固定顺序中的序号（与 app SkillsExplorer data-cat 对齐，驱动 cat-bar 色板）
-function skillCatIndex(s) {
-  return SKILLS_DATA.categories.indexOf(s.category);
-}
-
 // 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-desc/card-cat）
 // 使用原生 <button> 保证可聚焦、Enter/Space 原生触发（P1-1 a11y）；
 // 默认展示语言为中文：标题与描述均按当前语言互斥显示（.zh/.en 由 base.css html[data-lang] 控制）：
 // 中文态显示中文名 + 中文描述（description），英文态显示英文名 + 英文描述（enDescription）
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
-  const ci = skillCatIndex(s);
   const descZh = s.description || s.zh || I18N.t("card.noDesc");
   return `<button type="button" class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${esc(s.category)}" aria-label="${esc(label)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
