@@ -57,9 +57,12 @@ export interface SkillsData {
   skills: Skill[];
 }
 
-// 仓库根 data/：__dirname=app/lib → 上提两级到仓库根
-const DATA_PATH = path.resolve(__dirname, "..", "..", "data", "skills-data.json");
-const METRICS_PATH = path.resolve(__dirname, "..", "..", "data", "skills-metrics.json");
+// 仓库根 data/：数据为仓库根目录的静态产物，位于 app 项目根的上层。
+// @note 修复：Next.js 会把服务端模块打包（webpack node target），__dirname 指向 .next 输出目录而非源码，
+// 无法用于定位源码旁的 data/。构建期静态页从 app 目录执行（README: cd app && npm run build），
+// 故以 process.cwd()（=app/）锚定仓库根 data/ 最可靠。
+const DATA_PATH = path.resolve(process.cwd(), "..", "data", "skills-data.json");
+const METRICS_PATH = path.resolve(process.cwd(), "..", "data", "skills-metrics.json");
 
 // 模块级缓存：数据文件为构建期静态文件，运行期不变。
 // 避免每个请求重复 readFileSync + JSON.parse（Vercel server-hoist-static-io）。

@@ -8,10 +8,11 @@ import { AppShell } from "./components/AppShell";
 export const dynamic = "force-static";
 
 // 项目版本取自根 package.json（单一权威源），供页脚展示，避免硬编码漂移。
+// @note 修复：与 skills.ts 同理，__dirname 在打包后不可用，改用 process.cwd()（=app/）锚定仓库根。
 // package.json 为静态文件，运行期不变，模块级缓存避免每次请求重复读盘（server-hoist-static-io）。
 const VERSION: string = (() => {
   try {
-    const raw = fs.readFileSync(path.resolve(__dirname, "..", "package.json"), "utf8");
+    const raw = fs.readFileSync(path.resolve(process.cwd(), "..", "package.json"), "utf8");
     return JSON.parse(raw).version || "";
   } catch {
     return "";

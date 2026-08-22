@@ -144,7 +144,7 @@ export function SkillsExplorer({
             value={raw}
             onChange={(e) => { if (composing.current) return; setRaw(e.target.value); }}
             onCompositionStart={() => { composing.current = true; }}
-            onCompositionEnd={(e) => { composing.current = false; setRaw(e.target.value); }}
+            onCompositionEnd={(e) => { composing.current = false; setRaw(e.currentTarget.value); }}
             aria-label={lang === "zh" ? "搜索技能" : "Search skills"}
           />
         </div>
