@@ -256,7 +256,7 @@
 
 ## 8. 品牌形象规范（Brand Identity）
 
-品牌资产为矢量 SVG，单一事实来源位于 [`app/public/`](app/public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`app/public/hub.svg`](app/public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`app/public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
+品牌资产为矢量 SVG，单一事实来源位于仓库根 [`public/`](public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`public/hub.svg`](public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
 > 版本：v1.19.13 — 筛选增强：分类筛选由单选升级为**多选 OR**（state.cat → state.cats 数组，空=全部，点击 chip 非破坏式 toggle）；新增**排序**下拉（控制区 `#sortSelect`：名称 A-Z / 名称 Z-A / 按分类 / 按中文名，默认 A-Z）。原型 `02-render.js` 新增 `sortSkills()`、renderCats 按 `state.cats.includes` 判 active；`04-interactions.js` 分类点击改 toggle、`clearFilters` 重置 cats+sort、绑定 `#sortSelect` change；`index.html` 控制区加排序 select + `i18n.js` 加 `sort.*` 中英文案 + `components.css` 加 `.sort-wrap select` 样式。app `SkillsExplorer.tsx` 改 `cats` 多选(toggleCat)+`sort` state+排序比较器+控制区 select；`globals.css` 补 `.sort-wrap` 样式。其余同 v1.19.12（全字段规范重排 SKILL.md 头部注释）+ v1.19.7（统计迁入页脚 4 项：技能总数/分类/英文描述覆盖/支持语言）+ v1.19.6（名称显示分组 + 设置紧凑化）+ v1.19.5（界面元素分组）+ v1.19.4（app 卡片层重建、`app/components/` 最小可用 `AppShell`/`SkillsExplorer`/`skill-card`、`.card-body` 列表布局修复）+ v1.19.3（原型卡片双名/列表修复）+ v1.18.3（页眉品牌区优化、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
 
@@ -269,11 +269,11 @@
 | 变体 | 文件 | 用途 | 背景 |
 |------|------|------|------|
 | 彩色主标志 | `logo.svg` | 官网页眉、README 头图、文档封面 | 浅/深皆可（自身含底） |
-| 单色版 | `app/public/logo-monochrome.svg` | 页脚、浅色文档、印刷单色场景 | 浅色 |
-| 网站图标 | `app/public/favicon.svg` | 浏览器标签、书签 | 透明（纯绿图形） |
-| README 横幅 | `app/public/banner.svg` | `README.md`/`README.en.md` 标题下顶部 hero（1200×400，主绿渐变 + 衬线项目名/副标题） | 浅/深皆可（自身含底） |
-| 社交分享横幅 | `app/public/banner-og.svg` | Open Graph / 社交卡（Twitter·X、LinkedIn 等，1.91:1 = 1200×628），避免文字被裁切 | 浅/深皆可（自身含底） |
-| 应用图标 / 网站图标 | `app/public/favicon.svg` | Next.js `/favicon.svg` 与浏览器标签、书签（纯绿无渐变） | 透明（纯绿图形） |
+| 单色版 | `public/logo-monochrome.svg` | 页脚、浅色文档、印刷单色场景 | 浅色 |
+| 网站图标 | `public/favicon.svg` | 浏览器标签、书签 | 透明（纯绿图形） |
+| README 横幅 | `public/banner.svg` | `README.md`/`README.en.md` 标题下顶部 hero（1200×400，主绿渐变 + 衬线项目名/副标题） | 浅/深皆可（自身含底） |
+| 社交分享横幅 | `public/banner-og.svg` | Open Graph / 社交卡（Twitter·X、LinkedIn 等，1.91:1 = 1200×628），避免文字被裁切 | 浅/深皆可（自身含底） |
+| 应用图标 / 网站图标 | `public/favicon.svg` | Next.js `/favicon.svg` 与浏览器标签、书签（纯绿无渐变） | 透明（纯绿图形） |
 
 ### 8.2 标志网格与安全区
 
@@ -298,7 +298,7 @@
 
 - 格式：SVG（矢量，自适应任意 DPI）；如目标平台仅接受位图，由 `favicon.svg` 栅格化为 32×32 / 180×180（apple-touch）PNG。
 - 颜色：纯 `#2e9e6b` 底 + 反白图形，无渐变（保证 16px 下清晰）。
-- 部署：`prototype/favicon.svg` 由根 `build.mjs` 从 `app/public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons.icon = "/favicon.svg"` 引用 `app/public/favicon.svg`。
+- 部署：`prototype/favicon.svg` 由根 `build.mjs` 从 `public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons.icon = "/favicon.svg"` 引用 `public/favicon.svg`。
 
 ### 8.5 禁用示例（Don'ts）
 
@@ -311,5 +311,5 @@
 ### 8.6 使用约定
 
 - 页眉品牌区：标志（30×30，圆角底 + 极淡主绿光晕 `box-shadow`，hover `scale(1.06)`）+ 文字两行——主名「Agent Skills Hub」（衬线 `--font-display`，17px/700）+ 副标题（11px/`--text-2`/弱化），见 `app/components/AppShell.tsx` 的 `BrandMark()`+`.brand-text` 与原型 `prototype/src/index.html` 的 `.brand`+`.brand-text`。
-- 代码内联引用：原型用 data-URI 内联 `app/public/hub.svg` 的 symbol + 外链 `favicon.svg` 双重声明（见 `prototype/src/index.html` `<head>`）。
-- 品牌资产变更须同步：①本 §8 与 README「品牌资产」；②`app/public/hub.svg` 与 `app/public/*` 资产同源；③版本号 bump。
+- 代码内联引用：原型用 data-URI 内联 `public/hub.svg` 的 symbol + 外链 `favicon.svg` 双重声明（见 `prototype/src/index.html` `<head>`）。
+- 品牌资产变更须同步：①本 §8 与 README「品牌资产」；②`public/hub.svg` 与 `public/*` 资产同源；③版本号 bump。

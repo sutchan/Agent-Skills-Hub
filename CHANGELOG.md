@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.16] - 2026-08-22
+
+### refactor: 扁平化 app/ 目录结构并提升静态资源层级
+
+- 消除双层 `app/app/` 嵌套：Next.js 应用代码（components/lib/layout/page/globals.css/tokens-shared.css/icon.*）上移至 `app/` 根，项目根 `app/` 即 Next 项目根（tsconfig `@/*`→`./*` 兼容，无需改；`app/lib/skills.ts` 以 `process.cwd()/../data` 锚定仓库根 data，cwd 不变）
+- 品牌静态资源 `app/public/` → 仓库根 `public/`（favicon/logo/hub/banner 等），单一事实来源现位于仓库根 `public/`
+- 同步更新引用：`tools/build.mjs` 品牌 favicon 复制源 `app/public/`→`public/`；README 中/英 banner 路径 `app/public/`→`public/`；`prototype/DESIGN.md` §8 品牌资产路径全部改为 `public/`
+- 记忆库：删除 `brand/` 目录作为资产来源的长期使用方案（ID 94630702），MEMORY.md 明确「品牌资产单一来源现为仓库根 `public/`，`brand/` 已废弃」
+- 根 `package.json` version 升至 v1.20.16
+
+[1.20.16]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.16
+
 ## [1.20.15] - 2026-08-22
 
 ### chore: 恢复 edgeone.json 并显式声明 app/ 子项目构建（方案 B）

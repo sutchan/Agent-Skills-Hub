@@ -1,6 +1,6 @@
 # Agent Skills Hub
 
-![Agent Skills Hub Banner](app/public/banner.svg)
+![Agent Skills Hub Banner](public/banner.svg)
 
 [![Version](https://img.shields.io/badge/version-v1.20.14-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
 
