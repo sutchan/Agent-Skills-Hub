@@ -64,3 +64,4 @@ prototype/out/_next/
 !tools/sync-tokens.mjs
 !prototype/build-skills-data.mjs
 !tools/validate-skills.mjs
+!tools/_scan_fm_bug.mjs

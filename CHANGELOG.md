@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.35] - 2026-08-22
+
+### chore: 迁移 scripts/_scan_fm_bug.mjs 至 tools/ 并删除 scripts 目录
+
+- **脚本迁移**：长期 frontmatter 质检脚本 `scripts/_scan_fm_bug.mjs` 移入 `tools/_scan_fm_bug.mjs`（内容重建，补位置注释；原文件未受 git 跟踪，由已知内容恢复）
+- **目录清理**：删除空 `scripts/` 目录，长期脚本统一归入 `tools/`
+- **gitignore 白名单**：补充 `!tools/_scan_fm_bug.mjs`
+- **版本同步**：根 `package.json` 升至 v1.19.35，README 徽章对齐
+
+## [1.19.34] - 2026-08-22
+
+### feat: 拆分 9 大分类为 13 类，增强技能归类粒度
+
+- 原「开发框架与平台」(72) 拆分为 5 个子类：**前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS / 工程实践与质量**
+- 补齐 19 个缺失 `category` 字段的技能（含 `ads-creative`、`eve`、`orca-cli`、`php-pro`、`video` 等），消除"其他"越界类
+- `tools/build-skills-data.mjs`：`CATEGORY_ORDER` 更新为 13 类，新增 `CATEGORY_EN` 中文→英文映射表（英文态 chip/筛选不再退化成中文）
+- 当前规模：**152 个技能包 / 13 大领域**（品牌与设计 27 · 工程实践与质量 30 · 前端开发 14 · 移动端开发 12 · WordPress 10 · 音视频 11 · 文档 11 · 自动化 10 · 后端 9 · AI 8 · 数据分析 2 · 文件 4 · 安全 4）
+- README 中/英领域表与计数同步；原型与 app 筛选器动态读取数据，无需硬编码改动
+- 版本同步：根 `package.json` 升至 v1.19.34，README 徽章对齐
+
 ## [1.19.33] - 2026-08-22
 
 ### refactor: 补齐组件头注释并抽离复制逻辑
@@ -1684,4 +1704,5 @@
 [1.19.30]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.30
 [1.19.31]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.31
 [1.19.32]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.32
+[1.19.34]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.34
 [1.19.33]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.33
