@@ -1,5 +1,5 @@
-/* app/globals.css v1.19.21 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
- * 设计令牌通过 @import "./tokens-shared.css" 消费 build.mjs 自动生成的共享令牌
+/* app/globals.css v1.19.27 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+ * 设计令牌通过 @import "./tokens-shared.css" 消费 tools/sync-tokens.mjs 同步生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
 

@@ -1,4 +1,4 @@
-/* app/tokens-shared.css — 由 build.mjs 从 prototype/src/styles/tokens.css 自动生成（勿手改；事实源见 DESIGN §2） */
+/* app/tokens-shared.css — 由 tools/sync-tokens.mjs 从 prototype/src/styles/tokens.css 同步生成（勿手改；事实源见 DESIGN §2） */
 :root {
   --background: 0 0% 100%;          /* 页面背景 */
   --foreground: 224 24% 12%;        /* 主文字 */

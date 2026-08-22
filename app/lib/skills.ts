@@ -1,6 +1,6 @@
-// app/lib/skills.ts v1.19.20 — 技能数据读取与类型
-// 数据源：app/data/skills-data.json（由 app/scripts/sync-data.cjs 从仓库根
-// data/skills-data.json 同步，构建期由 build-skills-data.mjs 生成）。
+// app/lib/skills.ts v1.19.25 — 技能数据读取与类型
+// 数据源：仓库根 data/skills-data.json（由根 build 流程 build-skills-data.mjs 生成，单一来源）。
+// app 内不再保留数据拷贝；直接以 fs 读取仓库根文件，避免双源漂移。
 // 在 Next.js 服务端组件中以 fs 读取，避免客户端拉取大体积 JSON。
 
 import fs from "node:fs";
@@ -45,7 +45,8 @@ export interface SkillsData {
   skills: Skill[];
 }
 
-const DATA_PATH = path.resolve(__dirname, "..", "data", "skills-data.json");
+// 仓库根 data/skills-data.json：__dirname=app/lib → 上提两级到仓库根
+const DATA_PATH = path.resolve(__dirname, "..", "..", "data", "skills-data.json");
 
 // 模块级缓存：skills-data.json 为构建期静态文件，运行期不变。
 // 避免每个请求重复 readFileSync + JSON.parse（Vercel server-hoist-static-io）。

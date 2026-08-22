@@ -59,5 +59,8 @@ prototype/out/_next/
 *.mjs
 !build-skills-data.mjs
 !build.mjs
+!tools/build-skills-data.mjs
+!tools/build.mjs
+!tools/sync-tokens.mjs
 !prototype/build-skills-data.mjs
 !scripts/validate-skills.mjs

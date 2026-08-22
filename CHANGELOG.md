@@ -2,6 +2,29 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.27] - 2026-08-22
+
+### refactor: 收尾前端扁平化迁移（app 路径修正、React 统一、单源数据、令牌拆分）
+
+- **tsconfig 别名**：`paths "@/*"` 由 `./app/*` 改为 `./*`，适配 app 源码已上提到 `app/` 根（消除双层 app/app 混淆）
+- **React 版本统一**：`app/package.json` 的 react/react-dom/@types 由 19.x 统一回 18.3.x（与 Next 14.2 官方配套，消除版本分裂）
+- **数据单源读取（Q6=B）**：`app/lib/skills.ts` 的 `DATA_PATH` 改为读取仓库根 `data/skills-data.json`；删除 `app/data/skills-data.json` 副本与废弃的 `app/scripts/sync-data.cjs`，移除 `predev/prebuild` 同步钩子，杜绝双源漂移
+- **令牌同步拆分（Q7/Q8=A）**：从 `tools/build.mjs` 移除写 `app/tokens-shared.css` 段落，拆出独立 `tools/sync-tokens.mjs`（抽取 prototype 令牌 :root + 暗色块写入 app 静态副本）；视觉变更后手动运行并随仓库提交
+- **构建脚本迁移**：根 `build.mjs`/`build-skills-data.mjs` 已移入 `tools/`（上轮完成），ROOT 改为 `dirname(__dirname)`，根 `package.json` 的 build/serve 脚本路径同步更新
+- 版本同步：根 `package.json` 升至 v1.19.27，README 徽章对齐
+
+## [1.19.26] - 2026-08-22
+
+### fix: 修复 skills-manager 中 description 双引号导致的渲染混乱
+
+- 将 25 个技能 `description` 的双引号单行（`"..."`）统一改为 YAML 块标量 `|-`（含全角标点的 `winui-dev-workflow`、`wp-plugin-development` 此前在 skills-manager 显示错位，改后修复）
+- `.github/CONTRIBUTING.md` 新增「值格式规范」：description/en_description 含中文全角标点或长句须用 `|-` 块标量，禁止双引号单行（部分 manager 非严格 YAML 会误解析）
+- 重新 `npm run build` 验证：148 技能 / 9 分类，无「其他」类越界
+
+## [1.19.25] - 2026-08-22
+
+### docs: 同步文档与构建产物至 v1.19.25
+
 ## [1.19.24] - 2026-08-22
 
 ### docs: 修复文档版本滞后与技能计数矛盾
@@ -1588,3 +1611,5 @@
 [1.19.22]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.22
 [1.19.23]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.23
 [1.19.24]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.24
+[1.19.25]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.25
+[1.19.26]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.26

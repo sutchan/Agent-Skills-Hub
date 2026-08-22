@@ -7,8 +7,8 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-// 脚本已移出 prototype/ 到仓库根目录；技能数据输出到仓库根 /data
-const ROOT = __dirname;
+// 脚本位于 tools/ 子目录；ROOT 上提一级为仓库根
+const ROOT = dirname(__dirname);
 const SKILLS_DIR = join(ROOT, "skills");
 const OUT = join(ROOT, "data", "skills-data.json");
 

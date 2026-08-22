@@ -4,8 +4,10 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-// 脚本已移出 prototype/ 到仓库根目录；原型源位于 prototype/
-const PROTO = join(__dirname, "prototype");
+// 脚本位于 tools/ 子目录；ROOT 上提一级为仓库根
+const ROOT = dirname(__dirname);
+// 原型源位于仓库根 prototype/
+const PROTO = join(ROOT, "prototype");
 const SRC = join(PROTO, "src");
 // 产物直接输出到 prototype/ 根目录（index.html + favicon.svg），不再嵌套 out/ 子目录，
 // 使 prototype/index.html 即部署入口，edgeone.json 的 outputDirectory 指向 ./prototype。
@@ -29,7 +31,7 @@ const js = readdirSync(PARTS_DIR)
   .map((f) => readFileSync(join(PARTS_DIR, f), "utf8"))
   .join("\n");
 const i18n = readFileSync(join(SRC, "i18n.js"), "utf8");
-const data = readFileSync(join(__dirname, "data", "skills-data.json"), "utf8");
+const data = readFileSync(join(ROOT, "data", "skills-data.json"), "utf8");
 // 真实技能总数（数据单一来源），用于注入 meta description / og:description / twitter:description，
 // 避免 SEO/分享文案与磁盘技能实况漂移
 const SKILLS_TOTAL = (() => {
@@ -37,7 +39,7 @@ const SKILLS_TOTAL = (() => {
 })();
 // 项目版本取自根 package.json（单一权威源），注入页脚展示（避免硬编码漂移）
 const PROJECT_VERSION = (() => {
-  try { return JSON.parse(readFileSync(join(__dirname, "package.json"), "utf8")).version; }
+  try { return JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version; }
   catch (e) { return ""; }
 })();
 
@@ -71,13 +73,13 @@ writeFileSync(join(OUT_DIR, "index.html"), out, "utf8");
 
 // 复制品牌 favicon 到 prototype/ 根目录，使原型部署后 <link rel="icon" href="favicon.svg"> 可达（data URI 仍保证离线自包含）
 // 品牌资产统一存放于 app/public/（单一来源），app/icon.svg 为应用图标同源生成
-const favSrc = join(__dirname, "app", "public", "favicon.svg");
+const favSrc = join(ROOT, "app", "public", "favicon.svg");
 if (existsSync(favSrc)) {
   copyFileSync(favSrc, join(OUT_DIR, "favicon.svg"));
   console.log("Copied favicon.svg -> prototype/favicon.svg");
 }
 // 复制社交分享横幅（Open Graph / Twitter Card），供 index.html 的 og:image 引用
-const ogSrc = join(__dirname, "app", "public", "banner-og.svg");
+const ogSrc = join(ROOT, "app", "public", "banner-og.svg");
 if (existsSync(ogSrc)) {
   copyFileSync(ogSrc, join(OUT_DIR, "banner-og.svg"));
   console.log("Copied banner-og.svg -> prototype/banner-og.svg");
@@ -85,25 +87,5 @@ if (existsSync(ogSrc)) {
 
 console.log(`Built self-contained prototype -> ${join(OUT_DIR, "index.html")} (${(out.length / 1024).toFixed(1)} KB)`);
 
-// 令牌单一来源同步：从原型设计令牌（DESIGN §2 事实源）提取纯变量块，
-// 生成 app/app/tokens-shared.css，供 app/globals.css 通过 @import 消费。
-// 这样修改 prototype/src/styles/tokens.css 后，rebuild 即自动同步到 Next 应用，消除手抄漂移。
-function extractTokens(srcCss) {
-  const root = srcCss.match(/:root\s*\{([\s\S]*?)\n\}/);
-  const dark = srcCss.match(/html\[data-theme="dark"\]\s*\{([\s\S]*?)\n\}/);
-  const block = (m) => (m ? m[1].split("\n").filter((l) => l.trim() && !l.trim().startsWith("*") && !l.trim().startsWith("/*") && !l.trim().startsWith(".sr-only")).join("\n") : "");
-  return `/* app/app/tokens-shared.css — 由 build.mjs 从 prototype/src/styles/tokens.css 自动生成（勿手改；事实源见 DESIGN §2） */
-:root {
-${block(root)}
-}
-html[data-theme="dark"] {
-${block(dark)}
-}
-`;
-}
-const tokensSrc = readFileSync(join(STYLES_DIR, "tokens.css"), "utf8");
-const sharedTokens = extractTokens(tokensSrc);
-const sharedTokensPath = join(__dirname, "app", "app", "tokens-shared.css");
-mkdirSync(dirname(sharedTokensPath), { recursive: true });
-writeFileSync(sharedTokensPath, sharedTokens, "utf8");
-console.log("Generated tokens-shared.css -> app/app/tokens-shared.css");
+// 注：app/tokens-shared.css 不再由本脚本生成。令牌单一来源同步已拆出为
+// tools/sync-tokens.mjs（事实源 prototype/src/styles/tokens.css），视觉变更后手动运行。
