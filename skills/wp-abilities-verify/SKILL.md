@@ -3,8 +3,8 @@ name: wp-abilities-verify
 description: "核验 WordPress 插件的 Abilities API 注册：枚举能力、检查回调行为是否与各注解声明一致（对抗式「只读却写入」检测）、校验权限与 schema，并校验 wp-abilities-audit 产出的审计文档。"
 en_description: "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit."
 zh_displayName: WP 能力核验
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: WordPress 与 CMS
+en_category: WordPress & CMS
 compatibility: "Targets WordPress 7.0+ plugins (PHP 7.4.0+). Requires a runnable environment (wp-env, docker-based dev stack, or equivalent) for runtime mode; static mode runs entirely from the plugin checkout with no env. Filesystem-based agent with bash + node."
 ---
 

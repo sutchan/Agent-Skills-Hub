@@ -5,8 +5,8 @@ description: |-
   生成可视化图表，记录实现模式，并提供可扩展的架构蓝图以维护架构一致性、指导新开发。
 en_description: Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.
 zh_displayName: 项目架构蓝图生成器
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
 # Comprehensive Project Architecture Blueprint Generator
 

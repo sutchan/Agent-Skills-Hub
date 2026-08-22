@@ -11,6 +11,15 @@
 - **C 方案 · 移动端 Sheet 与空状态插画**：≤640px 详情弹窗改为底部抽屉 Sheet（居中 Modal 仅桌面端），`aria-labelledby` 动态绑定 `#d-title`；空状态新增节点网+放大镜「签名插画」（`03-detail.js`/`02-render.js`/`layout.css`）
 - 版本同步：根 `package.json` 升至 v1.20.0，相关文件头注释对齐
 
+## [1.19.43] - 2026-08-22
+
+### fix: 补全 13 类分类映射并修复 prototype 构建转发
+
+- 将 80 个仍为「开发框架与平台」的 SKILL.md 按语义归入 13 类子类（前端开发/后端与平台/移动端开发/WordPress 与 CMS/工程实践与质量）
+- 修复 `prototype/build-skills-data.mjs` 转发目标（`../build-skills-data.mjs` 不存在 → `../tools/build-skills-data.mjs`），解决 CI `Cannot find module` 报错
+- 重建 `data/skills-data.json`（13 类 / 158 skills）与 `prototype/index.html`
+- 版本同步：根 `package.json` 升至 v1.19.43，README 中/英徽章对齐
+
 ## [1.19.41] - 2026-08-22
 
 ### fix: 分页每页显示数量由 100 调整为 48

@@ -3,8 +3,8 @@ name: wp-performance
 description: "排查或提升 WordPress 性能（后端专用）：性能剖析与测量（WP-CLI profile/doctor、Server-Timing、通过 REST 响应头的 Query Monitor）、数据库/查询优化、自动加载选项、对象缓存、cron、HTTP API 调用与安全验证。"
 en_description: "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification."
 zh_displayName: WordPress 性能优化
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: WordPress 与 CMS
+en_category: WordPress & CMS
 compatibility: "Targets WordPress 6.9+ (PHP 7.2.24+). Backend-only agent; prefers WP-CLI (doctor/profile) when available."
 ---
 

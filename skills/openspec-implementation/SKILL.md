@@ -4,8 +4,8 @@ description: "按顺序推进已批准的规格提案，结合测试与校验完
 en_description: Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include "openspec implement", "implement", "apply change", "execute spec", "work through tasks", "build feature", "start implementation".
 
 zh_displayName: OpenSpec 实现
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
 
 # Specification Implementation
