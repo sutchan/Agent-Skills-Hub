@@ -88,6 +88,10 @@
       "settings.nameZh": "仅中文",
       "settings.nameEn": "仅英文",
       "settings.done": "完成",
+      "language.zh": "中文",
+      "language.en": "英文",
+      "theme.light": "浅色",
+      "theme.dark": "深色",
       "share.promos": [
         "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",
         "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
@@ -169,6 +173,10 @@
       "settings.nameZh": "Chinese",
       "settings.nameEn": "English",
       "settings.done": "Done",
+      "language.zh": "Chinese",
+      "language.en": "English",
+      "theme.light": "Light",
+      "theme.dark": "Dark",
       "share.promos": [
         "😎 I found Agent Skills Hub — a library of {n} high-quality AI agent skills you can drop straight into your coding agent. Free & open source!",
         "🚀 Agent Skills Hub: {n} curated agent skills. Browse by category, search, inspect details — boost your AI coding workflow.",

@@ -92,27 +92,8 @@ function bind() {
     if (composing) return; // 输入法组合中，跳过
     clearTimeout(t);
     const v = e.target.value;
-    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); syncHeroSearch(v); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
+    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
-  // 方案 A：Hero 区搜索框前置，与顶部 #searchInput 共享同一 state.query
-  const hsi = $("#heroSearchInput");
-  const hsc = $("#heroSearchClear");
-  if (hsi) {
-    let ht;
-    let hc = false;
-    hsi.addEventListener("compositionstart", () => { hc = true; clearTimeout(ht); });
-    hsi.addEventListener("compositionend", (e) => {
-      hc = false;
-      ht = setTimeout(() => runSearch(e.target.value), DEBOUNCE_MS);
-    });
-    hsi.addEventListener("input", (e) => {
-      if (hc) return;
-      if (hsc) hsc.hidden = !e.target.value;
-      clearTimeout(ht);
-      ht = setTimeout(() => runSearch(e.target.value), DEBOUNCE_MS);
-    });
-  }
-  if (hsc) hsc.addEventListener("click", () => { if (hsi) hsi.value = ""; hsc.hidden = true; runSearch(""); hsi.focus(); });
   // 方案 B：骰子按钮
   const diceBtn = $("#diceBtn");
   if (diceBtn) diceBtn.addEventListener("click", rollDice);
@@ -159,7 +140,7 @@ function bind() {
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; syncHeroSearch(""); updateHeroNet(); renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; updateHeroNet(); renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
@@ -197,26 +178,6 @@ function bind() {
     }, { passive: true });
     updateToTop();
   }
-}
-
-// 方案 A：Hero 搜索框驱动 state.query；与顶部搜索框共享同一状态，双向同步
-function runSearch(v) {
-  state.query = v;
-  state.page = 0;
-  const si = $("#searchInput");
-  if (si && si.value !== v) si.value = v;
-  updateHeroNet();
-  renderGrid();
-  if (v) track("search", { query: v });
-}
-
-// 顶部搜索框变化后同步回填 Hero 搜索框（避免两框状态不一致）
-function syncHeroSearch(v) {
-  const hsi = $("#heroSearchInput");
-  if (hsi && hsi.value !== v) hsi.value = v;
-  const hsc = $("#heroSearchClear");
-  if (hsc) hsc.hidden = !v;
-  updateHeroNet();
 }
 
 // 方案 A：搜索/筛选时点亮节点网核心，节点随查询激活（视觉联动反馈）
@@ -299,4 +260,100 @@ function rollDice() {
     dialog.classList.add("flip");
   }
   track("dice_roll", { skill: skill.name });
+}
+
+// 设置弹窗：复用常驻 #dialog 容器（与详情共用框架），注入设置面板并绑定交互
+function openSettings() {
+  const dialog = $("#dialog");
+  const overlay = $("#overlay");
+  if (!dialog || !overlay) return;
+  const t = (k) => I18N.t(k);
+  // 单选组：根据 state 当前值标记 active；点击即写回 state + 持久化 + 应用
+  const seg = (name, current, opts) =>
+    `<div class="seg" role="group" aria-label="${esc(t(name))}">` +
+    opts.map((o) =>
+      `<button type="button" class="seg-btn${o.val === current ? " active" : ""}" data-name="${name}" data-val="${o.val}">${esc(t(o.label))}</button>`
+    ).join("") +
+    `</div>`;
+  const toggle = (key, on) =>
+    `<button type="button" class="switch${on ? " on" : ""}" data-switch="${key}" role="switch" aria-checked="${on}" aria-label="${esc(t(key))}"><span class="knob"></span></button>`;
+
+  dialog.innerHTML = `
+  <div class="settings-panel" id="settingsPanel" role="document">
+    <div class="settings-head">
+      <h2 class="zh" data-i18n="settings.title">设置</h2>
+      <h2 class="en" data-i18n="settings.title">Settings</h2>
+      <button type="button" class="icon-btn close-x" id="settingsClose" aria-label="${esc(t("settings.done"))}">&times;</button>
+    </div>
+    <div class="settings-body">
+      <div class="settings-group">
+        <div class="settings-label zh" data-i18n="settings.langGroup">语言 / Language</div>
+        <div class="settings-label en" data-i18n="settings.langGroup">Language</div>
+        ${seg("settings.language", state.lang, [{ val: "zh", label: "language.zh" }, { val: "en", label: "language.en" }])}
+      </div>
+      <div class="settings-group">
+        <div class="settings-label zh" data-i18n="settings.themeGroup">主题 / Theme</div>
+        <div class="settings-label en" data-i18n="settings.themeGroup">Theme</div>
+        ${seg("settings.theme", state.theme, [{ val: "light", label: "theme.light" }, { val: "dark", label: "theme.dark" }])}
+      </div>
+      <div class="settings-group">
+        <div class="settings-label zh" data-i18n="settings.viewGroup">布局 / Layout</div>
+        <div class="settings-label en" data-i18n="settings.viewGroup">Layout</div>
+        ${seg("settings.view", state.view, [{ val: VIEW_GRID, label: "settings.viewGrid" }, { val: VIEW_LIST, label: "settings.viewList" }])}
+      </div>
+      <div class="settings-group">
+        <div class="settings-label zh" data-i18n="settings.densityGroup">密度 / Density</div>
+        <div class="settings-label en" data-i18n="settings.densityGroup">Density</div>
+        ${seg("settings.density", state.density, [{ val: DENSITY_COMFORT, label: "settings.densityComfortable" }, { val: DENSITY_COMPACT, label: "settings.densityCompact" }])}
+      </div>
+      <div class="settings-group">
+        <div class="settings-label zh" data-i18n="settings.uiGroup">界面元素 / UI elements</div>
+        <div class="settings-label en" data-i18n="settings.uiGroup">UI elements</div>
+        <div class="settings-row"><span class="zh" data-i18n="settings.showDesc">显示技能描述</span><span class="en" data-i18n="settings.showDesc">Show skill description</span>${toggle("showDesc", state.showDesc)}</div>
+        <div class="settings-row"><span class="zh" data-i18n="settings.showCat">显示分类标签</span><span class="en" data-i18n="settings.showCat">Show category label</span>${toggle("showCat", state.showCat)}</div>
+        <div class="settings-row"><span class="zh" data-i18n="settings.showBar">显示分类色条</span><span class="en" data-i18n="settings.showBar">Show category color bar</span>${toggle("showBar", state.showBar)}</div>
+      </div>
+      <div class="settings-group">
+        <div class="settings-label zh" data-i18n="settings.nameGroup">名称显示 / Name display</div>
+        <div class="settings-label en" data-i18n="settings.nameGroup">Name display</div>
+        ${seg("settings.name", state.nameMode, [{ val: NAME_MODE_BOTH, label: "settings.nameBoth" }, { val: NAME_MODE_ZH, label: "settings.nameZh" }, { val: NAME_MODE_EN, label: "settings.nameEn" }])}
+      </div>
+    </div>
+  </div>`;
+  // 选中态同步到 <html data-*>，保证 .modal 居中（非移动端 Sheet）
+  dialog.classList.remove("sheet");
+  dialog.classList.add("modal");
+  dialog.setAttribute("aria-labelledby", "");
+  overlay.classList.add("show");
+  dialog.classList.add("show");
+  document.body.classList.add("no-scroll");
+  I18N.setLang(state.lang); // 触发 syncDOM 刷新面板内 data-i18n 文案
+
+  // 单选段按钮
+  dialog.querySelectorAll(".seg-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const name = btn.dataset.name, val = btn.dataset.val;
+      if (name === "settings.language") { state.lang = val; savePref(LS_LANG, val); applyLang(); }
+      else if (name === "settings.theme") { state.theme = val; savePref(LS_THEME, val); applyTheme(); }
+      else if (name === "settings.view") { state.view = val; savePref(LS_VIEW, val); applyView(); renderGrid(); }
+      else if (name === "settings.density") { state.density = val; savePref(LS_DENSITY, val); applyDensity(); }
+      else if (name === "settings.name") { state.nameMode = val; savePref(LS_NAME_MODE, val); applyNameMode(); }
+      dialog.querySelectorAll(`.seg-btn[data-name="${name}"]`).forEach((b) => b.classList.toggle("active", b === btn));
+    });
+  });
+  // 开关
+  dialog.querySelectorAll(".switch").forEach((sw) => {
+    sw.addEventListener("click", () => {
+      const key = sw.dataset.switch;
+      const next = !sw.classList.contains("on");
+      sw.classList.toggle("on", next);
+      sw.setAttribute("aria-checked", String(next));
+      if (key === "showDesc") { state.showDesc = next; savePref(LS_SHOW_DESC, String(next)); }
+      else if (key === "showCat") { state.showCat = next; savePref(LS_SHOW_CAT, String(next)); }
+      else if (key === "showBar") { state.showBar = next; savePref(LS_SHOW_BAR, String(next)); }
+      applyUI();
+    });
+  });
+  const closeBtn = $("#settingsClose");
+  if (closeBtn) closeBtn.addEventListener("click", closeDetail);
 }

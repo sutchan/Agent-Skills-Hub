@@ -173,6 +173,21 @@
 .settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0; min-height: 32px; }
 .settings-label { font-size: 13px; color: var(--text); }
 
+/* 设置弹窗容器：复用 #dialog，内容填充 .settings-panel */
+.settings-panel { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--surface); overflow-y: auto; overflow-x: hidden; }
+.settings-head { display: flex; align-items: center; gap: 12px; padding: 18px 22px 12px; border-bottom: 1px solid var(--border); }
+.settings-head h2 { margin: 0; flex: 1; font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--text-1); }
+.settings-head .close-x { width: 34px; height: 34px; flex: none; border-radius: 10px; border: 1px solid var(--border); background: hsl(var(--muted)); color: var(--text-2); font-size: 20px; line-height: 1; cursor: pointer; transition: background .15s, color .15s; }
+.settings-head .close-x:hover { background: hsl(var(--muted) / .7); color: var(--text); }
+.settings-body { padding: 8px 22px 22px; display: flex; flex-direction: column; gap: 18px; }
+.settings-group { display: flex; flex-direction: column; gap: 8px; }
+/* 开关（iOS 风格）：data-switch 驱动 .on 态，aria-checked 同步无障碍 */
+.switch { width: 42px; height: 24px; flex: none; border-radius: 999px; border: 1px solid var(--border); background: hsl(var(--muted)); position: relative; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
+.switch .knob { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--surface); box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .2s ease; }
+.switch.on { background: hsl(var(--primary)); border-color: hsl(var(--primary)); }
+.switch.on .knob { transform: translateX(18px); }
+
+
 /* 分段控件（名称显示策略等紧凑单选）：横向等宽按钮组，替代独立 outline 按钮，更省空间 */
 .seg { display: inline-flex; width: 100%; border: 1px solid var(--border); border-radius: 9px; overflow: hidden; background: hsl(var(--muted)); }
 .seg-btn { flex: 1; padding: 6px 4px; border: none; background: transparent; color: var(--text-2); font-size: 12.5px; font-weight: 500; cursor: pointer; transition: background .15s, color .15s; line-height: 1.2; }

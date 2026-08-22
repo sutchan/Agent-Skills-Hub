@@ -6,10 +6,10 @@
 /* 右侧按钮组（语言/主题/设置）与品牌左对齐；spacer 弹性占据中间空隙，把按钮组推到右侧 */
 .topbar-actions { display: flex; align-items: center; gap: 6px; }
 .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; min-width: 0; text-decoration: none; color: inherit; }
-.brand .logo { width: 30px; height: 30px; flex: none; border-radius: 8px; transition: transform .25s ease, box-shadow .25s ease; box-shadow: 0 2px 8px hsl(var(--primary) / .28); }
+.brand .logo { width: 50px; height: 50px; flex: none; border-radius: 8px; transition: transform .25s ease, box-shadow .25s ease; box-shadow: 0 2px 8px hsl(var(--primary) / .28); }
 .brand:hover .logo { transform: scale(1.06); box-shadow: 0 4px 14px hsl(var(--primary) / .42); }
 .brand-text { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
-.brand-name { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: -.01em; color: var(--text-1); }
+.brand-name { font-family: var(--font-display); font-size: 24px; font-weight: 700; letter-spacing: -.01em; color: var(--text-1); }
 .brand-sub { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1）；独立卡片，限宽居中与网格对齐 */
@@ -33,15 +33,6 @@
 .hero h1 { margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); line-height: 1.12; letter-spacing: -.01em; color: hsl(var(--foreground)); }
 .hero h1 .accent { color: hsl(var(--primary)); }
 .hero p { margin: 0; color: var(--text-2); font-size: 15px; max-width: 56ch; }
-/* 方案 A：Hero 搜索前置框 */
-.hero-search { display: flex; align-items: center; gap: 10px; margin-top: 22px; max-width: 480px; padding: 11px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-pop); transition: border-color .2s ease, box-shadow .2s ease; }
-.hero-search:focus-within { border-color: hsl(var(--primary)); box-shadow: 0 0 0 3px hsl(var(--ring) / .25); }
-.hero-search .hs-icon { flex: none; width: 18px; height: 18px; color: var(--text-2); }
-.hero-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: hsl(var(--foreground)); font-size: 15px; font-family: var(--font-sans); }
-.hero-search input::placeholder { color: var(--text-2); }
-.hero-search input::-webkit-search-cancel-button { display: none; }
-.hero-search .hs-clear { flex: none; width: 26px; height: 26px; border: 0; border-radius: 50%; background: hsl(var(--secondary)); color: var(--text-2); font-size: 18px; line-height: 1; cursor: pointer; transition: background .2s ease, color .2s ease; }
-.hero-search .hs-clear:hover { background: hsl(var(--primary) / .15); color: hsl(var(--primary)); }
 .hero-stat { display: inline-flex; gap: 22px; margin-top: 20px; flex-wrap: wrap; }
 .hero-stat .num { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; }
 .hero-stat .lbl { font-size: 12px; color: var(--text-2); }
