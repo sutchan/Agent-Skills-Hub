@@ -3,7 +3,7 @@ name: flutter-build-responsive-layout
 description: 用于构建 Flutter 响应式布局的技能，覆盖自适应屏幕尺寸、断点处理与多设备适配的最佳实践。
 en_description: Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.
 zh: Flutter 响应式布局
-category: 开发框架与平台
+category: 移动端开发
 en_category: Dev Frameworks & Platforms
 last_modified: "Tue, 21 Apr 2026 20:17:40 GMT"
 model: models/gemini-3.1-pro-preview

@@ -5,7 +5,7 @@ description: |-
   无论项目使用何种状态管理库，审查 Flutter/Dart 代码时使用。
 en_description: Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.
 zh: Flutter 代码审查
-category: 开发框架与平台
+category: 移动端开发
 en_category: Dev Frameworks & Platforms
 origin: ECC
 metadata:

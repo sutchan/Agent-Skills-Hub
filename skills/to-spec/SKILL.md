@@ -3,7 +3,7 @@ name: to-spec
 description: 将当前对话整理为规格说明并发布。当用户想把讨论结论固化为可执行的规格、设计文档或任务清单时使用。
 en_description: Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed."
 zh: 转规格文档
-category: 开发框架与平台
+category: 工程实践与质量
 en_category: Dev Frameworks & Platforms
 disable-model-invocation: true
 ---

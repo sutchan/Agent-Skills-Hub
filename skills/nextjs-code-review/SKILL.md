@@ -5,7 +5,7 @@ description: |-
   在审查 Next.js App Router 代码改动、合并 PR 前、实现新功能后或进行架构校验时使用。
 en_description: "Provides comprehensive code review capability for Next.js applications, validates Server Components, Client Components, Server Actions, caching strategies, metadata, API routes, middleware, and performance patterns. Use when reviewing Next.js App Router code changes, before merging pull requests, after implementing new features, or for architecture validation. Triggers on \"review Next.js code\", \"Next.js code review\", \"check my Next.js app\"."
 zh: Next.js 代码审查
-category: 开发框架与平台
+category: 前端开发
 en_category: Dev Frameworks & Platforms
 allowed-tools: Read, Edit, Grep, Glob, Bash
 ---

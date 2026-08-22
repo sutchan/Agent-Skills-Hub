@@ -3,7 +3,7 @@ name: simplify
 description: "简化与精炼近期修改的代码，提升清晰度与一致性。在编写代码后用于改善可读性，且不改变功能行为。"
 en_description: "Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality."
 zh: 代码简化重构
-category: 开发框架与平台
+category: 工程实践与质量
 en_category: Dev Frameworks & Platforms
 ---
 

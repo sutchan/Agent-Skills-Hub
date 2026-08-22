@@ -1,4 +1,5 @@
 ---
+category: WordPress 与 CMS
 name: woocommerce-backend-dev
 description: Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**
 ---

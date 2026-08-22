@@ -1,4 +1,5 @@
 ---
+category: 后端与平台
 name: stripe-best-practices
 description: >-
   Guides Stripe integration decisions across API selection (Checkout Sessions vs

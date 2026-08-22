@@ -3,7 +3,7 @@ name: wp-abilities-audit
 description: "审计 WordPress 插件的 REST 接口面，产出标准化审计文档，提议 Abilities API 注册项。生成含 YAML schema 与散文段落的 markdown 文档，供人与 agent 在规划注册推广时共同消费。适用于任意 WP 插件。"
 en_description: "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin."
 zh: WP 能力审计
-category: 开发框架与平台
+category: WordPress 与 CMS
 en_category: Dev Frameworks & Platforms
 compatibility: "Targets WordPress 7.0+ (PHP 7.4.0+). Filesystem-based agent with bash + node. Requires access to the plugin checkout; some workflows benefit from WP-CLI but don't require it."
 ---

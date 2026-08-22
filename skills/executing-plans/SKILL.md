@@ -3,7 +3,7 @@ name: executing-plans
 description: 当你有一份书面实现计划，需要在独立会话中执行并带评审检查点时使用
 en_description: Use when you have a written implementation plan to execute in a separate session with review checkpoints
 zh: 执行计划
-category: 开发框架与平台
+category: 工程实践与质量
 en_category: Dev Frameworks & Platforms
 ---
 

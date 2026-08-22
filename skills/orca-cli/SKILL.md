@@ -1,4 +1,5 @@
 ---
+category: 工程实践与质量
 name: orca-cli
 description: >-
   Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts,
