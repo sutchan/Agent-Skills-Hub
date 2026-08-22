@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.19.23 — 技能浏览器（分类多选 + 搜索 + 排序 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
+// app/components/SkillsExplorer.tsx v1.19.32 — 技能浏览器（分类多选 + 搜索 + 排序 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -90,6 +90,12 @@ export function SkillsExplorer({
     [filtered, safePage]
   );
   useEffect(() => { setPage(0); }, [q, cats, sort]);
+
+  // 翻页：更新页码并滚动回网格顶部，避免视口停留在底部（体感流畅度优化）
+  const goPage = (p: number) => {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   // 分类 chip 点击：多选 toggle（"全部"清空）
   const toggleCat = (c: string) => {
@@ -248,7 +254,7 @@ export function SkillsExplorer({
             className="pg-btn"
             disabled={safePage <= 0}
             aria-label={lang === "zh" ? "上一页" : "Previous"}
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            onClick={() => goPage(Math.max(0, safePage - 1))}
           >
             ‹
           </button>
@@ -267,7 +273,7 @@ export function SkillsExplorer({
                 type="button"
                 className={`pg-btn num${p === safePage ? " active" : ""}`}
                 aria-current={p === safePage ? "page" : "false"}
-                onClick={() => setPage(p)}
+                onClick={() => goPage(p)}
               >
                 {p + 1}
               </button>
@@ -278,7 +284,7 @@ export function SkillsExplorer({
             className="pg-btn"
             disabled={safePage >= totalPages - 1}
             aria-label={lang === "zh" ? "下一页" : "Next"}
-            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+            onClick={() => goPage(Math.min(totalPages - 1, safePage + 1))}
           >
             ›
           </button>

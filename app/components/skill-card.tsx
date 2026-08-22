@@ -1,14 +1,9 @@
-// app/components/skill-card.tsx v1.19.23 — 技能卡片（原生 button，含双语标题与 .card-body 列表布局修复）
+// app/components/skill-card.tsx v1.19.29 — 技能卡片（原生 button，含双语标题与 .card-body 列表布局修复）
 "use client";
 import { memo } from "react";
 import { catHue } from "../lib/catHue";
+import { initials } from "../lib/initials";
 import type { Skill } from "../lib/skills";
-
-function initials(name: string): string {
-  const parts = name.split(/[-_\s]+/).filter(Boolean);
-  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-  return name.slice(0, 2).toUpperCase();
-}
 
 export const SkillCard = memo(function SkillCard({
   skill,

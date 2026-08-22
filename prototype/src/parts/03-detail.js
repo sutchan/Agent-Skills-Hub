@@ -163,13 +163,13 @@ function detailHTML(skill) {
 
   return `
   <div id="detailPanel" class="detail" role="dialog" aria-modal="true" aria-label="${esc(titleZh)}">
-    <button id="detailClose" class="detail-close" aria-label="${I18N.t("detail.close")}">×</button>
     <div class="detail-head">
       ${titleHTML}
       <div class="d-actions">
         <button id="copyNameBtn" class="btn ghost" data-name="${esc(skill.name)}">${I18N.t("detail.copyName")}</button>
         <span id="copyTip" class="copy-tip"></span>
       </div>
+      <button id="detailClose" class="detail-close" aria-label="${I18N.t("detail.close")}">×</button>
     </div>
     <div class="detail-meta">${metaRows}</div>
     ${installHTML}

@@ -1,12 +1,10 @@
 ---
 name: theme-factory
-description: 用于为主题美化工件的工具箱，适用于幻灯片、文档、报告、HTML 落地页等工件。内置 10 套预置主题（含颜色/字体），可应用到任意已创建工件，也可即时生成新主题。
-en_description: Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.
-zh: 工件主题样式工具箱
-category: 品牌与设计
-en_category: Brand & Design
+description: Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.
 license: Complete terms in LICENSE.txt
 ---
+
+
 # Theme Factory Skill
 
 This skill provides a curated collection of professional font and color themes themes, each with carefully selected color palettes and font pairings. Once a theme is chosen, it can be applied to any artifact.

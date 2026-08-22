@@ -1,17 +1,12 @@
-// app/components/detail-modal.tsx v1.19.23 — 技能详情弹窗（元信息：作者/STAR/首次收录/协议/版本/GitHub目录 + 安装命令 + 相关技能）
+// app/components/detail-modal.tsx v1.19.29 — 技能详情弹窗（元信息：作者/STAR/首次收录/协议/版本/GitHub目录 + 安装命令 + 相关技能）
 "use client";
 import { useEffect } from "react";
 import type { Lang } from "../lib/share";
 import type { Skill } from "../lib/skills";
 import { catHue } from "../lib/catHue";
+import { initials } from "../lib/initials";
 
 const GITHUB_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main";
-
-function initials(name: string): string {
-  const parts = name.split(/[-_\s]+/).filter(Boolean);
-  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-  return name.slice(0, 2).toUpperCase();
-}
 
 function formatSize(bytes?: number): string {
   if (bytes == null) return "";
@@ -49,7 +44,7 @@ export function DetailModal({
   const related = allSkills
     .filter((s) => s.name !== skill.name && s.category === skill.category && !s.hidden)
     .slice(0, 4);
-  const githubUrl = `${GITHUB_TREE}/${skill.githubDir}`;
+  const githubUrl = `${GITHUB_TREE}/${encodeURIComponent(skill.githubDir)}`;
   const tools = (skill.allowedTools || []).filter(Boolean);
   const desc = lang === "zh" ? skill.description : skill.enDescription || skill.description;
 

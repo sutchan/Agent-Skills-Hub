@@ -1,15 +1,11 @@
 ---
 name: vercel-composition-patterns
-description: 可扩展的 React 组合模式。用于重构布尔属性泛滥的组件、构建灵活的组件库或设计可复用 API。涉及复合组件、render props、context providers 或组件架构的任务时触发。包含 React 19 API 变更。
-en_description: >-
+description:
   React composition patterns that scale. Use when refactoring components with
   boolean prop proliferation, building flexible component libraries, or
   designing reusable APIs. Triggers on tasks involving compound components,
   render props, context providers, or component architecture. Includes React 19
   API changes.
-zh: Vercel React 组合模式
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
 license: MIT
 metadata:
   author: vercel

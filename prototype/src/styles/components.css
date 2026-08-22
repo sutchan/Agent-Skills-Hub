@@ -146,10 +146,11 @@
 
 /* 详情弹窗（v1.19.14 重构：内容注入常驻 #dialog，.detail 充满 .dialog 避免双重边框）
    .dialog 已提供居中 / 圆角 / 阴影，.detail 仅作流式内容容器充满父级 */
-.detail { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--surface); overflow: hidden; }
-.detail-close { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--border); background: hsl(var(--muted)); color: var(--text-2); font-size: 20px; line-height: 1; cursor: pointer; transition: background .15s, color .15s; }
+.detail { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--surface); overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+/* 关闭按钮作为头部 flex 子项，避免与复制名称按钮 absolute 重叠（v1.19.31） */
+.detail-close { width: 34px; height: 34px; flex: none; border-radius: 10px; border: 1px solid var(--border); background: hsl(var(--muted)); color: var(--text-2); font-size: 20px; line-height: 1; cursor: pointer; transition: background .15s, color .15s; }
 .detail-close:hover { background: hsl(var(--muted) / .7); color: var(--text); }
-.detail-head { display: flex; align-items: flex-start; gap: 12px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); }
+.detail-head { display: flex; align-items: flex-start; gap: 12px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); position: relative; }
 .d-title { margin: 0; font-family: var(--font-display); font-weight: 700; line-height: 1.3; flex: 1; min-width: 0; font-size: 19px; }
 .d-title .zh { display: block; }
 .d-title .en { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); margin-top: 3px; word-break: break-word; }
@@ -177,7 +178,8 @@
 .heat-bars i.on { background: hsl(var(--primary)); }
 .pop-label { font-size: 11.5px; color: var(--text-3); }
 
-.detail-body { padding: 18px 22px 22px; overflow: auto; display: flex; flex-direction: column; gap: 16px; }
+/* 整张详情卡由外层 .detail 统一滚动，body 不再单独出现滚动条（v1.19.30） */
+.detail-body { padding: 18px 22px 22px; overflow: visible; display: flex; flex-direction: column; gap: 16px; flex: none; }
 .d-desc { margin: 0; line-height: 1.75; color: var(--text); white-space: pre-line; }
 .d-tools h4, .d-related h4 { margin: 0 0 9px; font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: .02em; }
 .tool-chips { display: flex; flex-wrap: wrap; gap: 7px; }

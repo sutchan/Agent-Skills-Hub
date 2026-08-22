@@ -1,4 +1,4 @@
-﻿// tools/validate-skills.mjs v1.19.28
+﻿// tools/validate-skills.mjs v1.19.29
 // 校验 skills/<name>/SKILL.md 的 frontmatter 规范性（CI 门禁）
 // 检查项：
 //   1. 必填展示字段齐全：name / description / en_description / zh / category / en_category

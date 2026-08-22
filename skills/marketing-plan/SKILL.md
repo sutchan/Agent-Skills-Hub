@@ -1,10 +1,6 @@
 ---
 name: marketing-plan
-description: 当用户需要为客户、所顾问公司或自有产品制定全面营销计划时使用；用户提及「营销计划」「增长计划」「GTM 计划」「上市计划」「AARRR 计划」「90 天营销计划」「12 个月营销路线图」「 fractional CMO 计划」或「fCMO 计划」时也使用。生成按 AARRR（获客、激活、留存、推荐、营收）组织的详尽 13 节计划，依据客户当前预算、团队与阶段定制，映射到未来融资里程碑，交叉引用 139 条营销创意库与内嵌 17 节现状审计量表，并给出完整营销运营栈说明各环节由哪些技能与 MCP/API 集成执行。输出可直接粘贴 Notion 的 markdown 文档。
-en_description: When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions "marketing plan," "growth plan," "GTM plan," "go-to-market plan," "AARRR plan," "90-day marketing plan," "12-month marketing roadmap," "fractional CMO plan," or "fCMO plan." Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.
-zh: 营销计划
-category: 文档与内容
-en_category: Docs & Content
+description: When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions "marketing plan," "growth plan," "GTM plan," "go-to-market plan," "AARRR plan," "90-day marketing plan," "12-month marketing roadmap," "fractional CMO plan," or "fCMO plan." Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.
 ---
 
 # Marketing Plan

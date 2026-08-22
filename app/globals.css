@@ -1,4 +1,4 @@
-/* app/globals.css v1.19.27 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+/* app/globals.css v1.19.29 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 tools/sync-tokens.mjs 同步生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -285,7 +285,8 @@ html[data-lang="zh"] .en { display: none; }
 
 /* 详情弹窗（v1.19.14 重构：复用 .dialog 框架，含元信息区 / 相关技能 / 复制名称）
    与原型 .detail 体系对齐，但外层为 .dialog 居中面板 */
-.detail .dialog-head.detail-head { display: flex; align-items: flex-start; gap: 12px; position: sticky; top: 0; z-index: 2; background: var(--surface); flex: none; }
+/* 详情弹窗：整卡由外层 .dialog 统一滚动，头部不固定（v1.19.30） */
+.detail .dialog-head.detail-head { display: flex; align-items: flex-start; gap: 12px; flex: none; }
 /* 详情弹窗各区块不被 flex 压缩：内容超出时由外层 .dialog 统一滚动（v1.19.21） */
 .detail .detail-meta, .detail .detail-metrics, .detail .d-install { flex: none; }
 .detail .d-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }

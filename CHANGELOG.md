@@ -2,6 +2,53 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.32] - 2026-08-22
+
+### perf: 应用性能优化（静态预渲染 + standalone + 翻页滚动）
+
+- **静态预渲染**：`page.tsx` 加 `export const dynamic = "force-static"`，锁定本地数据纯静态页，TTFB 最优
+- **部署精简**：`next.config.mjs` 加 `output: "standalone"`，生成精简 server bundle，冷启更快
+- **翻页体感**：`SkillsExplorer` 翻页封装 `goPage`，切换页码时 `window.scrollTo({top:0})` 回到网格顶部
+- 图标路径确认：`app/icon.svg` 在位（App Router 约定式），`layout.tsx` 指向无误，无 404 风险
+- GA4 `next/script strategy="afterInteractive"` 已符合最佳实践，未阻塞 LCP
+- 版本同步：根 `package.json`/README 中英文徽章升至 v1.19.32
+
+## [1.19.31] - 2026-08-22
+
+### fix: 修复 skill 详情关闭按钮与复制名称按钮重叠
+
+- **原型端（prototype）**：`#detailClose` 原为 `position:absolute` 浮于右上角，与头部右侧的复制名称按钮（`.d-actions`）空间争抢导致重叠；改为将关闭按钮移入 `.detail-head` flex 流程作为末尾子项，CSS 取消 absolute 定位，头部加 `position:relative` 兜底
+- 版本同步：根 `package.json` 升至 v1.19.31，README 徽章对齐
+
+## [1.19.30] - 2026-08-22
+
+### fix: skill 详情整卡滚动而非仅底部信息区滚动
+
+- **原型端（prototype）**：`.detail` 容器由 `overflow:hidden` 改为 `overflow-y:auto`，`.detail-body` 移除单独 `overflow:auto` 改为 `overflow:visible`，整张详情卡统一滚动
+- **应用端（app）**：移除详情头部 `position:sticky` 固定，整卡随外层 `.dialog` 统一滚动，消除「头部不动、只有描述区滚动」的观感
+- 版本同步：根 `package.json` 升至 v1.19.30，README 徽章对齐
+
+## [1.19.30] - 2026-08-22
+
+### perf: 应用性能优化（静态预渲染 + standalone + 翻页滚动）
+
+- **静态预渲染**：`page.tsx` 加 `export const dynamic = "force-static"`，锁定本地数据纯静态页，TTFB 最优
+- **部署精简**：`next.config.mjs` 加 `output: "standalone"`，生成精简 server bundle，冷启更快
+- **翻页体感**：`SkillsExplorer` 翻页封装 `goPage`，切换页码时 `window.scrollTo({top:0})` 回到网格顶部
+- 图标路径确认：`app/icon.svg` 在位（App Router 约定式），`layout.tsx` 指向无误，无 404 风险
+- GA4 `next/script strategy="afterInteractive"` 已符合最佳实践，未阻塞 LCP
+- 版本同步：根 `package.json`/README 中英文徽章升至 v1.19.30
+
+## [1.19.29] - 2026-08-22
+
+### refactor: 同步 app 头注释版本并抽离 initials 共享工具
+
+- **头注释对齐**：`app/` 下 11 个源文件头注释（page/AppShell/SkillsExplorer/skill-card/detail-modal/layout/globals.css + lib 5 文件）统一升至 v1.19.29，消除长期滞后（部分停留在 v1.14.x/v1.18.x）
+- **抽离共享工具**：新增 `app/lib/initials.ts`，`skill-card.tsx` 与 `detail-modal.tsx` 删除重复实现，改由单一来源导入
+- **配置清理**：`next.config.mjs` 修正 React 版本注释（实为 React 18 非 19）并删除未使用的 `images` 段
+- **URL 安全**：`detail-modal.tsx` 对 `githubDir` 做 `encodeURIComponent` 编码，防范特殊字符 URL 风险
+- 版本同步：根 `package.json` 升至 v1.19.29，README 徽章对齐
+
 ## [1.19.28] - 2026-08-22
 
 ### chore: 迁移 validate-skills.mjs 至 tools/ 并恢复丢失脚本
@@ -1622,3 +1669,9 @@
 [1.19.24]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.24
 [1.19.25]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.25
 [1.19.26]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.26
+[1.19.27]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.27
+[1.19.28]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.28
+[1.19.29]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.29
+[1.19.30]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.30
+[1.19.31]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.31
+[1.19.32]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.32

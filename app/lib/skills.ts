@@ -1,4 +1,4 @@
-// app/lib/skills.ts v1.19.25 — 技能数据读取与类型
+// app/lib/skills.ts v1.19.29 — 技能数据读取与类型
 // 数据源：仓库根 data/skills-data.json（由根 build 流程 build-skills-data.mjs 生成，单一来源）。
 // app 内不再保留数据拷贝；直接以 fs 读取仓库根文件，避免双源漂移。
 // 在 Next.js 服务端组件中以 fs 读取，避免客户端拉取大体积 JSON。
