@@ -1,10 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.19.38
+> 路径：`prototype/DESIGN.md` · 版本：1.20.4
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts，v1.14.42 样式拆分为 tokens/base/layout/components/responsive，v1.17.x 交互/布局/可访问性系列改进）**：`prototype/index.html` 为纯 HTML 自包含单文件——由根目录 `npm run build`（=`node build-skills-data.mjs && node build.mjs`）将 `src/index.html` 模板内联 `src/styles/tokens.css` 及按序拼接的 `src/styles/base.css` + `src/styles/layout.css` + `src/styles/components.css` + `src/styles/responsive.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据 `data/skills-data.json` 注入生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物（构建脚本 `build.mjs`/`build-skills-data.mjs` 置于仓库根，不混入原型目录）。
+> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts，v1.14.42 样式拆分为 tokens/base/layout/components/responsive，v1.17.x 交互/布局/可访问性系列改进）**：`prototype/index.html` 为纯 HTML 自包含单文件——由根目录 `npm run build`（=`node tools/build-skills-data.mjs && node tools/build.mjs`）将 `src/index.html` 模板内联 `src/styles/tokens.css` 及按序拼接的 `src/styles/base.css` + `src/styles/layout.css` + `src/styles/components.css` + `src/styles/responsive.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据（合并 `data/skills-data.json` + `data/skills-metrics.json` 后注入）生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物（构建脚本 `tools/build.mjs`/`tools/build-skills-data.mjs` 置于仓库根 `tools/`，不混入原型目录）。
 
 ---
 
@@ -239,8 +239,8 @@
   - `allowedTools`：授权工具列表；`hidden`：是否隐藏（`renderGrid` 过滤）。
   - `categoryEn`（根级）：分类中文→英文映射对象。
 - 分类计数由 `02-render.js` 的 `catCounts()` 预聚合为 `Map`，搜索由 `matches(s, terms)`（预切分词表缓存）实现。
-- 注意：`app/` 是项目**可运行 Web 应用**源码工作区（见 `app/README.md`），与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`。
-- 红色底线：数据契约须与 `build-skills-data.mjs`/`build.mjs`、`openspec/project.md` 严格一致。
+- 注意：`app/` 是项目**可运行 Web 应用**源码工作区，与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`（构建时由 `tools/build-skills-data.mjs` 生成 `data/skills-data.json` + `data/skills-metrics.json`）。
+- 红色底线：数据契约须与 `tools/build-skills-data.mjs`/`tools/build.mjs`、`openspec/spec.md` 严格一致。
 
 ---
 
@@ -250,7 +250,7 @@
 - 构建：根目录 `build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/index.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
 - 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/index.html`。
 - 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/index.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
-- 部署：腾讯云 EdgeOne（`edgeone.json`，以 `prototype/` 为站点根目录；`installCommand` 跳过依赖安装，`buildCommand` 执行 `npm run build` 重新生成产物）。
+- 部署：静态托管（以 `prototype/` 为站点根目录，`buildCommand` 执行 `npm run build` 重新生成产物；无运行时依赖，直接托管 `prototype/index.html` 即可）。
 
 ---
 

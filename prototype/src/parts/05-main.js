@@ -23,6 +23,7 @@ function init() {
   applyNameMode();
   applyLang(); // 内部触发 I18N.setLang -> syncDOM 填充全站文案
   bind();
+  renderHeroNodes(); // 方案 A：按分类动态生成可交互节点网
   renderGrid();
   // 量取顶栏高度注入 --topbar-h，供 .controls sticky 偏移使用（P2-1），并监听 resize 更新
   const setTopbarH = () => {

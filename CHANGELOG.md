@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.4] - 2026-08-22
+
+### docs: 修正文档事实错误与失效引用（规范/原型文档对齐最新架构）
+
+- **prototype/DESIGN.md**：头注释 1.19.38 → 1.20.4（纠正历史记录失实）；§7 部署段落移除已删除的 `edgeone.json` 引用，改为通用静态托管表述
+- **openspec/project.md**：§4.5.1 schema 注释修正（`zh`=中文摘要 / `description`=中文完整描述，原注释颠倒）；目录表与 §4.5 数据来源补全必备 6 字段（`zh_displayName` 而非 `zh`）；§4.5/§6 构建脚本路径统一补 `tools/` 前缀并补充 metrics 双产物架构；头注释 1.20.3 → 1.20.4
+- **prototype/COMPONENTS.md**：第 9 行构建脚本路径补 `tools/` 前缀并补 metrics 双产物；头注释 1.20.3 → 1.20.4
+- **README.en.md**：第 63/111 行补 `skills-metrics.json` 独立存储与轻量化说明，与中文版对称；版本徽章升至 v1.20.4
+- 根 `package.json` version 升至 v1.20.4
+
+[1.20.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.4
+
 ## [1.20.2] - 2026-08-22
 
 ### fix: 补全新加入技能契约并归并残留废弃子类
@@ -11,6 +23,27 @@
 - **校验结果**：`tools/validate-skills.mjs` 168 → 0 问题（166 技能全部通过）；`tools/_scan_fm_bug.mjs` 头部泄漏 0；`build-skills-data.mjs` 输出 166 技能（含 1 hidden）/ 9 类 / 0 越界
 - README 中/英领域表与计数同步（音视频与多媒体 11 → 19，总数 157 → 165）；prototype/index.html 重建
 - 版本同步：根 `package.json` 升至 v1.20.2，README 中/英文徽章对齐
+
+## [1.20.3] - 2026-08-22
+
+### refactor: 拆分频繁更新指标到独立数据文件
+
+- `tools/build-skills-data.mjs` 拆分为两个产物：`data/skills-data.json`（稳定元数据，仅 11 字段）+ `data/skills-metrics.json`（频繁更新指标 popularity/size/files/stars/firstSeen/skillVersion，以 name 为 key 的 map）
+- 主数据不再含频繁更新字段，指标更新时只重写小的 metrics 文件，避免每次重算重写整个大 JSON（166 技能）
+- `app/lib/skills.ts` `loadSkills()` 合并两个数据源；`tools/build.mjs` 构建时合并后注入 prototype（保持自包含）
+- 文档（README 中/英、CONTRIBUTING）更新数据架构说明；版本同步至 v1.20.3
+
+## [1.20.3] - 2026-08-22（补：文档缺陷修复）
+
+### docs: 按最新现状修复项目文档事实错误与失效引用
+
+- **README 中/英领域表计数修正**：自动化与集成 11 → 10、补充「其他（待归类修正）1」类，合计 166；开篇「9 大领域 / 165」改为真实表述（166 含待归类）
+- **CONTRIBUTING 分类矛盾修复**：第 78 行示例与第 103 行正文从「9 大 / 13 大」矛盾统一为 9 大稳定领域 + 其他类说明；frontmatter 示例与契约字段 `zh` → `zh_displayName`（对齐实际磁盘字段）
+- **路径失效修复**：CONTRIBUTING / openspec/spec.md / prototype/DESIGN.md 中 `scripts/validate-skills.mjs`、`node build-skills-data.mjs`、`node build.mjs` 全部补 `tools/` 前缀（脚本已迁 tools/）
+- **失效引用删除**：README 中/英、prototype/DESIGN.md 删除不存在的 `app/README.md` 引用（app/ 下无 README，已确认）
+- **分支表述更正**：CONTRIBUTING「发起 PR」从 `main` 改为 `dev`（本仓库工作分支为 dev）
+- **openspec/spec.md 数据契约补全**：§2.1 新增 §2.1.1 派生指标（SkillMetrics 来自 skills-metrics.json）；§2.3 分类红线标注「其他」类须清零（当前 1 个待修复）；头注释与版本权威源升至 v1.20.3
+- **头注释同步**：openspec/project.md、AGENTS.md、prototype/COMPONENTS.md、DESIGN.md 头注释 v1.19.38 → v1.20.3
 
 ## [1.20.1] - 2026-08-22
 
@@ -1818,6 +1851,7 @@
 [1.19.41]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.41
 [1.20.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.0
 [1.20.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.1
+[1.20.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.3
 [1.19.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.42
 
 [1.20.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.2

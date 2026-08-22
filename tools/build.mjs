@@ -31,7 +31,17 @@ const js = readdirSync(PARTS_DIR)
   .map((f) => readFileSync(join(PARTS_DIR, f), "utf8"))
   .join("\n");
 const i18n = readFileSync(join(SRC, "i18n.js"), "utf8");
-const data = readFileSync(join(ROOT, "data", "skills-data.json"), "utf8");
+const data = (() => {
+  const main = JSON.parse(readFileSync(join(ROOT, "data", "skills-data.json"), "utf8"));
+  // 合并频繁更新指标（data/skills-metrics.json）：以 name 为 key 覆盖到主数据 skill 对象
+  try {
+    const metrics = JSON.parse(readFileSync(join(ROOT, "data", "skills-metrics.json"), "utf8"));
+    main.skills = main.skills.map((s) => (metrics[s.name] ? { ...s, ...metrics[s.name] } : s));
+  } catch {
+    // 指标文件缺失时保持主数据原样（兜底字段已在 build-skills-data.mjs 写入）
+  }
+  return JSON.stringify(main);
+})();
 // 真实技能总数（数据单一来源），用于注入 meta description / og:description / twitter:description，
 // 避免 SEO/分享文案与磁盘技能实况漂移
 const SKILLS_TOTAL = (() => {

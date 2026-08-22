@@ -57,11 +57,11 @@ function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   const ci = skillCatIndex(s);
   const descZh = s.description || s.zh || I18N.t("card.noDesc");
-  return `<button type="button" class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${ci}" aria-label="${esc(label)}">
+  return `<button type="button" class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${esc(s.category)}" aria-label="${esc(label)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
     <div class="card-body">
       <div class="title-row">
-        <div class="avatar sm">${initials(s.name)}</div>
+        <div class="avatar sm" style="--hue:${catHue(s.category)}">${initials(s.name)}</div>
         <div class="card-title">
           <span class="zh">${esc(s.zh || s.name)}</span>
           <span class="en">${esc(s.name)}</span>

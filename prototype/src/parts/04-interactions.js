@@ -113,6 +113,9 @@ function bind() {
     });
   }
   if (hsc) hsc.addEventListener("click", () => { if (hsi) hsi.value = ""; hsc.hidden = true; runSearch(""); hsi.focus(); });
+  // 方案 B：骰子按钮
+  const diceBtn = $("#diceBtn");
+  if (diceBtn) diceBtn.addEventListener("click", rollDice);
   // 视图切换
   $$(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
@@ -223,4 +226,77 @@ function updateHeroNet() {
   const active = Boolean(state.query) || (state.cats && state.cats.length > 0);
   net.classList.toggle("filtering", active);
   net.classList.toggle("searching", Boolean(state.query));
+  // 方案 A：同步节点 active 态（被选中的分类高亮）
+  net.querySelectorAll(".hub-node[data-cat]").forEach((n) => {
+    n.classList.toggle("active", state.cats.includes(n.getAttribute("data-cat")));
+  });
+}
+
+// 方案 A：按分类动态生成节点（半径随技能数变化），环绕核心排布，可交互
+function renderHeroNodes() {
+  const g = $("#netNodes");
+  if (!g || !SKILLS_DATA.categories) return;
+  // 统计各分类技能数（categories 为分类名字符串数组，计数需从 skills 聚合）
+  const counts = new Map();
+  SKILLS_DATA.skills.forEach((s) => { if (!s.hidden) counts.set(s.category, (counts.get(s.category) || 0) + 1); });
+  const cats = SKILLS_DATA.categories;
+  const vals = cats.map((c) => counts.get(c) || 0);
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const cx = 400, cy = 120, R = 70; // 环绕半径（核心居中）
+  const n = cats.length;
+  g.innerHTML = "";
+  cats.forEach((c, i) => {
+    const ang = (-90 + (360 / n) * i) * Math.PI / 180; // 从顶部顺时针
+    const x = cx + R * Math.cos(ang), y = cy + R * Math.sin(ang);
+    const t = max > min ? ((counts.get(c) || 0) - min) / (max - min) : .5;
+    const r = 4 + t * 6; // 半径 4~10 随计数
+    const node = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    node.setAttribute("class", "hub-node");
+    node.setAttribute("cx", x.toFixed(1));
+    node.setAttribute("cy", y.toFixed(1));
+    node.setAttribute("r", r.toFixed(1));
+    node.setAttribute("fill", `hsl(${catHue(c)} 65% 50%)`);
+    node.setAttribute("data-cat", c);
+    node.setAttribute("role", "button");
+    node.setAttribute("tabindex", "0");
+    node.setAttribute("aria-label", `${c} ${counts.get(c) || 0}`);
+    node.addEventListener("mouseenter", () => highlightCatCards(c, true));
+    node.addEventListener("mouseleave", () => highlightCatCards(c, false));
+    node.addEventListener("click", () => toggleHeroCat(c));
+    node.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleHeroCat(c); } });
+    g.appendChild(node);
+  });
+}
+
+// 方案 A：节点 hover → 对应分类卡片脉冲高亮
+function highlightCatCards(cat, on) {
+  document.querySelectorAll("#grid .card").forEach((card) => {
+    if (card.dataset.cat === cat) card.classList.toggle("pulse", on);
+  });
+}
+
+// 方案 A：节点 click → 切换该分类筛选
+function toggleHeroCat(cat) {
+  const i = state.cats.indexOf(cat);
+  if (i >= 0) state.cats.splice(i, 1); else state.cats.push(cat);
+  state.page = 0;
+  renderCats();
+  updateHeroNet();
+  renderGrid();
+  track("hero_node_filter", { cat, active: state.cats.includes(cat) });
+}
+
+// 方案 B：随机抽一个技能（翻牌动画开盲盒）
+function rollDice() {
+  const pool = SKILLS_DATA.skills.filter((s) => !s.hidden);
+  if (!pool.length) return;
+  const skill = pool[Math.floor(Math.random() * pool.length)];
+  const dialog = document.getElementById("dialog");
+  openDetail(skill);
+  if (dialog) {
+    dialog.classList.remove("flip");
+    void dialog.offsetWidth; // 触发重排以重启动画
+    dialog.classList.add("flip");
+  }
+  track("dice_roll", { skill: skill.name });
 }

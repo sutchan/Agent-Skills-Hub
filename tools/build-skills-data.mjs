@@ -11,6 +11,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = dirname(__dirname);
 const SKILLS_DIR = join(ROOT, "skills");
 const OUT = join(ROOT, "data", "skills-data.json");
+// 频繁更新的派生指标（popularity/size/files/stars/firstSeen/skillVersion）独立存储，
+// 避免每次重算指标时重写整个主数据文件（含长 description）。以 name 为 key 的 map。
+const METRICS_OUT = join(ROOT, "data", "skills-metrics.json");
 
 // 非技能目录（仓库内其他子项目/资产），构建时跳过
 const EXCLUDE = new Set([".skills-manager", ".trae", "app", "brand", "data", "tools"]);
@@ -135,6 +138,8 @@ function normalizeTools(raw) {
 
 function main() {
   const skills = [];
+  // 频繁更新指标独立存储：以 name 为 key 的 map（popularity/size/files/stars/firstSeen/skillVersion）
+  const metrics = {};
   for (const name of readdirSync(SKILLS_DIR).sort()) {
     if (EXCLUDE.has(name)) continue;
     const d = join(SKILLS_DIR, name);
@@ -169,6 +174,17 @@ function main() {
       }
     };
     try { walk(d); } catch { /* 忽略 */ }
+    // 频繁更新指标：构建时计算，存入独立 metrics 文件（以 name 为 key）
+    const skillName = fm.name || name;
+    const skillMetrics = {
+      popularity: 0,
+      size,
+      files,
+      stars: stars != null ? stars : undefined,
+      firstSeen: firstSeen || undefined,
+      skillVersion: skillVersion || undefined,
+    };
+    metrics[skillName] = skillMetrics;
     skills.push({
       name: fm.name || name,
       category,
@@ -186,19 +202,13 @@ function main() {
       // 详情元信息（可选，缺失则不展示）
       author: author || undefined,
       license: license || undefined,
-      skillVersion: skillVersion || undefined,
-      // 社区指标（可选）：星标 / 首次收录 / 安装命令
-      stars: stars != null ? stars : undefined,
-      firstSeen: firstSeen || undefined,
       installCommand,
       githubDir,
-      // 派生展示指标
-      size,
-      files,
     });
   }
   // 热度（popularity）：被其他技能在 description 中提及本技能名的次数（相关性代理）
   const allNames = skills.map((s) => s.name);
+  // 频繁更新指标独立存储：以 name 为 key 的 map（已在 main 开头声明）
   for (const s of skills) {
     const hay = (s.description + " " + s.enDescription).toLowerCase();
     let pop = 0;
@@ -206,7 +216,8 @@ function main() {
       if (n === s.name) continue;
       if (hay.includes(n)) pop++;
     }
-    s.popularity = pop;
+    // 指标只写入 metrics 文件，主数据不含频繁更新字段（减少大文件重写）
+    metrics[s.name] = { ...(metrics[s.name] || {}), popularity: pop };
   }
   // 分类顺序：固定顺序在前，其余按出现顺序补在末尾
   const order = CATEGORY_ORDER.filter((c) => skills.some((s) => s.category === c));
@@ -217,7 +228,9 @@ function main() {
   const categoryEn = {};
   for (const s of skills) categoryEn[s.category] = s.enCategory;
   writeFileSync(OUT, JSON.stringify({ total, categories: order, categoryEn, skills }, null, 2), "utf8");
+  writeFileSync(METRICS_OUT, JSON.stringify(metrics, null, 2), "utf8");
   console.log(`Wrote ${skills.length} skills across ${order.length} categories -> ${OUT}`);
+  console.log(`Wrote metrics (popularity/size/files/stars/firstSeen/skillVersion) -> ${METRICS_OUT}`);
 }
 
 main();

@@ -1,6 +1,6 @@
 # Project Specification — Agent Skills Hub
 
-> 路径：`openspec/project.md` · 版本：1.19.38
+> 路径：`openspec/project.md` · 版本：1.20.4
 > 本文件是 OpenSpec 的项目级规范（project spec），定义变更工作流、产物约定与本仓库结构对齐方式。
 > 已落地能力基线见 [`spec.md`](spec.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 > 配套技能：`skills/openspec-propose`、`skills/openspec-apply-change`、`skills/openspec-explore`、`skills/openspec-archive-change`。
@@ -14,7 +14,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 | 路径 | 用途 | 是否变更常客 |
 |---|---|---|
-| `skills/<name>/SKILL.md` | 单个技能定义（正文 + frontmatter；`name`/`description`/`category`/`zh` 为必填字段，构建脚本以磁盘为准读取） | ✅ 高频 |
+| `skills/<name>/SKILL.md` | 单个技能定义（正文 + frontmatter；`name`/`description`/`en_description`/`zh_displayName`/`category`/`en_category` 为必备字段，构建脚本以磁盘为准读取） | ✅ 高频 |
 | `skills/<name>/references/`、`scripts/`、`assets/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `README.md` | 技能清单（中文描述映射） | ✅ 中频 |
 | `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据；入口 `app/page.tsx`/`app/layout.tsx`/`app/globals.css`，共享逻辑在 `app/lib/`，资产在 `app/public/`，组件在 `app/components/`（含 `detail/` 子模块） | ✅ 中频 |
@@ -37,13 +37,13 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 ## 4. Artifact 内容准则
 
 - **proposal.md**：只写「为什么」，含可观测的验收标准；不写实现细节。
-- **design.md**：只写「怎么做」，含文件级改动清单、数据结构、回退方案；引用本项目现有模块（如 `build.mjs`、`build-skills-data.mjs`、展示页）而非重复其全文。
+- **design.md**：只写「怎么做」，含文件级改动清单、数据结构、回退方案；引用本项目现有模块（如 `tools/build.mjs`、`tools/build-skills-data.mjs`、展示页）而非重复其全文。
 - **tasks.md**：步骤须可独立验证，每步标注涉及文件。
 - **约束**：`openspec instructions` 返回的 `context` / `rules` / `project_context` 是给 AI 的约束，**不得**写入产物文件。
 
 ## 4.5 数据结构与接口标准（展示页）
 
-展示页（原型）为**预构建静态产物**：`prototype/index.html` 为单一自包含文件（CSS/JS/数据/i18n 全部内联），技能数据在构建期由仓库根 `build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 生成 `data/skills-data.json`，再由仓库根 `build.mjs` 内联注入并预渲染进 HTML。仓库随附的 `prototype/index.html` 即为最终交付物，**数据源以磁盘 `skills/<name>/SKILL.md` 为准**，勿手改产物；如需修订展示效果，应重跑构建脚本并同步 `prototype/index.html`。
+展示页（原型）为**预构建静态产物**：`prototype/index.html` 为单一自包含文件（CSS/JS/数据/i18n 全部内联），技能数据在构建期由 `tools/build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 生成两份数据——`data/skills-data.json`（稳定元数据，11 字段）与 `data/skills-metrics.json`（频繁更新指标：popularity/size/files/stars/firstSeen/skillVersion，以 name 为 key 的 map），再由 `tools/build.mjs` 合并两文件后内联注入并预渲染进 HTML。仓库随附的 `prototype/index.html` 即为最终交付物，**数据源以磁盘 `skills/<name>/SKILL.md` 为准**，勿手改产物；如需修订展示效果，应重跑 `npm run build` 并同步 `prototype/index.html`。
 
 ### 4.5.1 `skills-data.json` Schema
 
@@ -54,8 +54,8 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
   "skills": [ {
     "name":         "english-skill-name",     // 英文名（SKILL.md 目录名），卡片主标题
     "category":     "中文分类名",             // 必须命中 categories[] 中某一项
-    "zh":           "中文简介",               // 中文描述（卡片 .desc.zh）
-    "description":  "English description",    // 英文简介（详情页 en 视图 / 回退）
+    "zh":           "中文一句话摘要",          // 卡片标题（zh_displayName 输出为 zh）
+    "description":  "中文完整描述",            // 默认展示语言（卡片 .desc.zh 正文）
     "allowedTools": [ "string", ... ]         // 授权工具列表
   } ]
 }
@@ -68,7 +68,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 | 项 | 说明 |
 |---|---|
 | 形态 | 原型为**预构建自包含静态 HTML**（`prototype/index.html` 单文件内联全部资源），可离线打开，无运行时依赖；`prototype/src/` 源码随仓库分发，`prototype/index.html` 为构建产物 |
-| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md` 的 frontmatter（`build-skills-data.mjs` 解析必填字段 `name`/`description`/`category`/`en_category`/`zh`/`en_description` 与可选 `allowedTools`/`hidden`），其中 **`description` 为中文完整描述（默认展示语言），`en_description` 为英文原文描述，`en_category` 为英文分类名**；`build-skills-data.mjs` 生成 `data/skills-data.json`，`build.mjs` 已将其全部技能预渲染进 `prototype/index.html`。README 自 v1.14.55 起改为领域概览表、不再逐项列出技能，故分类与描述**不再**依赖 README 映射 |
+| 技能数据来源 | 权威数据 = `skills/<name>/SKILL.md` 的 frontmatter（`tools/build-skills-data.mjs` 解析必备字段 `name`/`description`/`en_description`/`zh_displayName`/`category`/`en_category` 与可选 `allowedTools`/`hidden`），其中 **`description` 为中文完整描述（默认展示语言），`en_description` 为英文原文描述，`zh_displayName` 为中文一句话摘要（卡片标题，输出为 `zh`），`en_category` 为英文分类名**；`tools/build-skills-data.mjs` 生成 `data/skills-data.json`（稳定元数据）+ `data/skills-metrics.json`（频繁指标），`tools/build.mjs` 合并后预渲染进 `prototype/index.html`。README 自 v1.14.55 起改为领域概览表、不再逐项列出技能，故分类与描述**不再**依赖 README 映射 |
 | 分类归属 | 分类**完全取自 `SKILL.md` frontmatter 的 `category` 字段（中文稳定键）**（`build-skills-data.mjs` 由 `skills[].category` 去重推导 `categories[]`，并生成 `categoryEn` 中文→英文映射），不再从 README 解析 |
 | 中文描述 | 取自 `SKILL.md` frontmatter 的 `description` 字段（中文，默认展示），`zh` 为中文一句话摘要（卡片标题） |
 | 计数 | `total` = 可见技能数（动态统计，排除 `hidden:true` 的内部预览技能，以 `data/skills-data.json` 运行时值为准）；各分类 `count` 由脚本统计写入 |
@@ -100,13 +100,13 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 2. **无嵌套副本**：技能不得出现在非 `skills/<name>/` 的位置（如 `skills/video-use/skills/`、`skills/tools/` 均为非法）。
 3. **数据有效性**：原型展示的技能必须与磁盘 `skills/<name>/SKILL.md` 一致；删除技能时同步清理 `README.md`。
 4. **展示页规范**：UI 设计须对齐 `prototype/DESIGN.md`（配色令牌、响应式、可访问性、交互流程、§8 品牌形象规范）。
-5. **原型可复现**：HTML 原型由仓库根 `build.mjs` 将 `prototype/src/` 模板 + `data/skills-data.json` 内联构建为 `prototype/index.html`；如需修订展示效果，应重跑 `npm run build` 并将产物同步回仓库；`prototype/DESIGN.md` 与 `prototype/COMPONENTS.md` 须与实际产物一致。
+5. **原型可复现**：HTML 原型由 `tools/build.mjs` 将 `prototype/src/` 模板 + `data/skills-data.json` + `data/skills-metrics.json` 合并内联构建为 `prototype/index.html`；如需修订展示效果，应重跑 `npm run build` 并将产物同步回仓库；`prototype/DESIGN.md` 与 `prototype/COMPONENTS.md` 须与实际产物一致。
 
 ## 6. 版本与发布
 
 - 语义化版本（SemVer），变更在 `CHANGELOG.md` 追加条目。
 - 展示页版本见仓库根 `package.json`（`version`）。
-- 发版步骤：更新 `data/skills-data.json`（重跑 `npm run build`）→ 更新 `CHANGELOG.md` → 打 tag。
+- 发版步骤：重跑 `npm run build`（生成 `data/skills-data.json` + `data/skills-metrics.json` 与 `prototype/index.html`）→ 更新 `CHANGELOG.md` → 打 tag。
 
 ## 7. 提交信息规范
 

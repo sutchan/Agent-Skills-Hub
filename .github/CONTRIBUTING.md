@@ -2,7 +2,7 @@
 
 感谢你愿意为 **Agent Skills Hub** 贡献！本指南帮助你在不破坏数据管线与规范的前提下，新增或更新技能、修复文档、提交变更。
 
-> 路径：`.github/CONTRIBUTING.md` · 版本：1.20.1
+> 路径：`.github/CONTRIBUTING.md` · 版本：1.20.3
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 
 ## 目录
@@ -20,7 +20,7 @@
 ## 仓库速览
 
 - 每个技能是 `skills/<name>/SKILL.md` 的独立目录，可含 `scripts/`、`references/`、`assets/`、`agents/` 等资源。
-- 技能数据由根目录 `npm run build` 从磁盘 `skills/` 自动生成，产物为 `data/skills-data.json` 与自包含静态展示页 `prototype/index.html`。
+- 技能数据由根目录 `npm run build` 从磁盘 `skills/` 自动生成，产物为 `data/skills-data.json`（稳定元数据）与 `data/skills-metrics.json`（频繁更新的派生指标：popularity/size/files/stars/firstSeen/skillVersion，以 `name` 为 key 的 map），二者构建时合并后注入自包含静态展示页 `prototype/index.html`。
 - 展示方式：`prototype/index.html`（静态单文件，可离线打开）+ `app/`（Next.js 应用源码工作区）。
 
 ## 环境准备
@@ -74,8 +74,8 @@ npm run build        # 验证构建链路，生成 data 与 prototype
 name: <kebab-case 技能名，与目录名一致>
 description: <中文完整描述，默认展示语言>
 en_description: <英文原文描述，处理技能时保留>
-zh: <中文一句话简介>
-category: <9 大领域之一，中文稳定键>
+zh_displayName: <中文一句话简介>
+category: <9 大稳定领域之一，中文稳定键>
 en_category: <对应英文分类名，英文态展示>
 # 以下为可选字段（平台/工具元数据），原样保留即可：
 # version / compatibility / license / author / homepage
@@ -87,31 +87,31 @@ en_category: <对应英文分类名，英文态展示>
 
 **字段顺序规范**（推荐完整顺序，CI 校验前 6 个契约字段顺序与必填完整性）：
 
-1. **契约字段（必填，前置）**：`name` → `description` → `en_description` → `zh` → `category` → `en_category`
+1. **契约字段（必填，前置）**：`name` → `description` → `en_description` → `zh_displayName` → `category` → `en_category`
 2. **身份 / 来源**：`displayName` → `slug` → `emoji` → `author` → `homepage` → `license` → `version` → `compatibility` → `origin` → `last_modified`
 3. **能力 / 调用**：`keywords` → `argument-hint` → `effort` → `user-invocable` → `allowed-tools` → `disable-model-invocation` → `hooks` → `model` → `risk_level` → `acceptLicenseTerms` → `hidden`
 4. **平台嵌套块（最后）**：`metadata`
 
-未知字段追加在 `metadata` 之前即可。CI 通过 `scripts/validate-skills.mjs` 校验契约字段顺序与必填完整性。
+未知字段追加在 `metadata` 之前即可。CI 通过 `tools/validate-skills.mjs` 校验契约字段顺序与必填完整性。
 
 **字段分类**：
-- **展示契约字段**（参与卡片渲染，必填）：`name` / `description`（中文） / `en_description`（英文原文） / `zh` / `category` / `en_category`
+- **展示契约字段**（参与卡片渲染，必填）：`name` / `description`（中文） / `en_description`（英文原文） / `zh_displayName` / `category` / `en_category`
 - **平台/工具元数据**（可选，仅运行时或 Agent 平台使用，不参与展示）：`version`、`compatibility`、`license`、`author`、`homepage`、`metadata`（嵌套块，如 `metadata.openclaw.category`）、`user-invocable`、`allowed-tools`、`hooks`、`risk_level`、`model`、`displayName`、`emoji`、`slug`、`keywords`、`argument-hint`、`effort`、`origin`、`last_modified`、`acceptLicenseTerms`、`disable-model-invocation`
 
 **禁止字段**：不得出现 `description_zh` / `description_en` 等冲突键，中文译文统一写入 `description`、英文原文写入 `en_description`。
 
-- `category` 取 13 大领域之一（中文，稳定键）：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`前端开发`、`后端与平台`、`移动端开发`、`WordPress 与 CMS`、`工程实践与质量`、`文件与格式处理`、`自动化与集成`、`AI 与智能体`、`音视频与多媒体`、`安全`；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`、`前端开发` → `Frontend Dev`、`AI 与智能体` → `AI & Agents`）。
-- `description` 与 `zh` 的区别：`zh` 是一句话摘要，`description` 是完整中文描述；`en_description` 为英文原文描述（默认展示中文，英文态展示英文）。
-- `build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，`category` 与 README 分类名严格一致。
+- `category` 取 9 大稳定领域之一（中文，稳定键）：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`开发框架与平台`、`文件与格式处理`、`自动化与集成`、`AI 与智能体`、`音视频与多媒体`、`安全`；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`、`AI 与智能体` → `AI & Agents`）。未知分类会被 `tools/build-skills-data.mjs` 自动追加为末位「其他」类（属违规，须为零——当前有 1 个待修复）。
+- `description` 与 `zh_displayName` 的区别：`zh_displayName` 是一句话摘要，`description` 是完整中文描述；`en_description` 为英文原文描述（默认展示中文，英文态展示英文）。
+- `tools/build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，`category` 与 README 分类名严格一致。
 
 ## 数据与构建
 
 ```bash
-npm run build   # = node build-skills-data.mjs && node build.mjs
+npm run build   # = node tools/build-skills-data.mjs && node tools/build.mjs
 ```
 
-- `data/skills-data.json` 为**构建产物，勿手改**，需通过 `npm run build` 重新生成。
-- **frontmatter 校验**：提交前运行 `node scripts/validate-skills.mjs`，确保必填字段齐全、`category` 合法、无冲突键、契约字段顺序正确。CI 亦会执行此校验。
+- `data/skills-data.json` 与 `data/skills-metrics.json` 均为**构建产物，勿手改**，需通过 `npm run build` 重新生成。频繁更新的指标（如 popularity/stars/size）只需重算 `skills-metrics.json`，主数据文件保持稳定，避免每次指标更新重写大文件。
+- **frontmatter 校验**：提交前运行 `node tools/validate-skills.mjs`，确保必填字段齐全、`category` 合法、无冲突键、契约字段顺序正确。CI 亦会执行此校验。
 - 原型样式令牌仅改 `prototype/src/styles/tokens.css`，禁止在 `components.css`/`responsive.css`/`index.html` 散写颜色字面量。
 
 ## 文档与版本一致性
@@ -144,7 +144,7 @@ docs: 新增 .github Community Health Files 并同步版本至 v1.14.70
 
 ## 发起 Pull Request
 
-1. 从 `main` 拉出 `feature/*` 或 `fix/*` 分支进行改动。
+1. 从 `dev` 拉出 `feature/*` 或 `fix/*` 分支进行改动（本仓库工作分支为 `dev`，非 `main`）。
 2. 完成后运行 `npm run build`，确认构建通过。
 3. 提交前检查清单：
    - [ ] `SKILL.md` frontmatter 字段完整（name/description/en_description/zh/category/en_category）
@@ -153,7 +153,7 @@ docs: 新增 .github Community Health Files 并同步版本至 v1.14.70
    - [ ] 数据已通过 `npm run build` 重新生成
    - [ ] README 中英文、CHANGELOG、package.json 版本号一致
    - [ ] 无 `console.log` / `debugger` 残留（脚本除外）
-4. 使用仓库的 [Pull Request 模板](PULL_REQUEST_TEMPLATE.md) 提交 PR 到 `main`。
+4. 使用仓库的 [Pull Request 模板](PULL_REQUEST_TEMPLATE.md) 提交 PR 到 `dev`。
 5. 描述中说明：变更总结、动机、测试/构建验证方式。
 
 ## 行为准则

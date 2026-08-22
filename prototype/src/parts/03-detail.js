@@ -227,7 +227,7 @@ function closeDetail() {
   overlay.classList.remove("show");
   if (dialog) {
     dialog.classList.remove("show"); // 还原 #dialog 隐藏态
-    dialog.classList.remove("sheet", "modal");
+    dialog.classList.remove("sheet", "modal", "flip");
     dialog.removeAttribute("aria-labelledby");
     dialog.innerHTML = ""; // 仅清空内容，保留 #dialog 容器
   }

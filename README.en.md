@@ -2,11 +2,11 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.20.2-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
+[![Version](https://img.shields.io/badge/version-v1.20.4-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
 
 > **Author**: Sut Chan ｜ **Repository**: https://github.com/sutchan/Agent-Skills-Hub
 
-A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security across 9 domains — 165 skill packs on GitHub. Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
+A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security — plus a few skills pending category fix — 166 skill packs on GitHub. Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
 
 ## Highlights
 
@@ -15,7 +15,7 @@ A centrally managed collection of AI skills covering Brand & Design, Docs & Cont
 | | Highlight | Description |
 |---|---|---|
 | ⚙️ | **Zero-maintenance listing** | Skill data and the showcase page are auto-generated from on-disk `skills/*/SKILL.md` by `npm run build` — no manual listing to maintain when adding or removing skills |
-| 🗂️ | **165 skills · 9 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Security |
+| 🗂️ | **166 skills · 9 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Security (plus a few pending categorization, see table below) |
 | 🌏 | **Chinese by default** | Chinese category (`category`) + English category (`en_category`) + one-line summary + full Chinese description (`description`, default display language), English original in `en_description` — ready for Chinese-speaking agent users |
 | 📦 | **One-click install** | Bulk install / update / remove via [skills-manager](https://github.com/xingkongliang/skills-manager) |
 | 🚀 | **Works offline** | Self-contained static showcase (`prototype/index.html`) inlines all data — double-click to browse every skill with no framework dependency |
@@ -34,7 +34,7 @@ A centrally managed collection of AI skills covering Brand & Design, Docs & Cont
 
 ```
 <skill-name>/
-├── SKILL.md          # entry: name + description metadata + notes
+├── SKILL.md          # entry: frontmatter (name/description/en_description/zh_displayName/category/en_category) + notes
 ├── scripts/          # optional: executables
 ├── references/       # optional: reference docs
 ├── assets/           # optional: templates/assets
@@ -52,14 +52,15 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 | Data Analysis & Visualization | 2 |
 | Dev Frameworks & Platforms | 80 |
 | File & Format Handling | 4 |
-| Automation & Integration | 11 |
+| Automation & Integration | 10 |
 | AI & Agents | 8 |
 | Media & Multimedia | 19 |
 | Security | 4 |
+| Other (pending fix) | 1 |
 
 > Browse all skills:
 > - Static showcase: [`prototype/index.html`](prototype/index.html)
-> - Data file: [`data/skills-data.json`](data/skills-data.json) (auto-generated from `skills/` via `npm run build`)
+> - Data files: [`data/skills-data.json`](data/skills-data.json) (stable metadata, auto-generated from `skills/` via `npm run build`) + [`data/skills-metrics.json`](data/skills-metrics.json) (frequently-updated derived metrics, stored separately)
 > - Web app: see [Online Showcase](#online-showcase) below
 
 ## Usage
@@ -90,9 +91,9 @@ The repo provides two showcase options, both auto-generated from `skills/<name>/
 | Directory | Type | Purpose |
 |-----------|------|---------|
 | `prototype/index.html` | Static single-file showcase | Self-contained skill data inlined at build time; opens offline |
-| `app/` | Runnable web app (source) | Next.js app generating data from `skills/` (see [`app/README.md`](app/README.md)) |
+| `app/` | Runnable web app (source) | Next.js app generating data from `skills/` |
 
-`app/` is the web app source workspace; tech stack and commands per [`app/README.md`](app/README.md):
+`app/` is the web app source workspace; tech stack and commands per `app/package.json` and source under `app/`:
 
 ```bash
 cd app
@@ -106,8 +107,8 @@ npm run start    # start production server
 
 - New skills: use the [`skill-creator`](skills/skill-creator/) skill to create and evaluate per guidelines.
 - Name skill directories in `kebab-case`, e.g. `python-testing/`.
-- `SKILL.md` must include `name`, `description`, `en_description`, `zh_displayName`, `category`, and `en_category` front-matter; `category` is one of the 9 domains (Chinese stable key: 品牌与设计 / 文档与内容 / 数据分析与可视化 / 开发框架与平台 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 安全), `en_category` is the corresponding English category name, `zh_displayName` is a one-line Chinese summary, `description` is the Chinese full description (default display language), `en_description` is the English original, and `build-skills-data.mjs` reads these fields from the on-disk `skills/` as the single source of truth.
-- After skill changes, run `npm run build` to regenerate `data/skills-data.json` and the showcase.
+- `SKILL.md` must include `name`, `description`, `en_description`, `zh_displayName`, `category`, and `en_category` front-matter; `category` is one of the 9 stable domains (Chinese stable key: 品牌与设计 / 文档与内容 / 数据分析与可视化 / 开发框架与平台 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 安全), `en_category` is the corresponding English category name, `zh_displayName` is a one-line Chinese summary, `description` is the Chinese full description (default display language), `en_description` is the English original, and `tools/build-skills-data.mjs` reads these fields from the on-disk `skills/` as the single source of truth (unknown categories are appended as a trailing "其他/Other" category, which is a violation and must be zero — currently 1 pending fix).
+- After skill changes, run `npm run build` to regenerate `data/skills-data.json` + `data/skills-metrics.json` and the showcase. Frequently-updated metrics (popularity/stars/size/files) only need `skills-metrics.json` recomputed while the main data file stays lightweight.
 
 See also [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 

@@ -2,7 +2,7 @@
 
 本文件供 AI 编码助手（如 CodeBuddy / Claude）在处理本仓库变更时遵循。
 
-> 路径：`openspec/AGENTS.md` · 版本：1.19.38
+> 路径：`openspec/AGENTS.md` · 版本：1.20.3
 > 变更前先读 [`spec.md`](spec.md) 了解当前能力基线，再读 [`project.md`](project.md) 了解约定。
 
 ## 快速开始

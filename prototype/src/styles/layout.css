@@ -16,7 +16,10 @@
 .hero { position: relative; overflow: hidden; width: 100%; max-width: var(--maxw); margin: 8px auto 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); border-radius: 18px; }
 .hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; transition: opacity .3s ease; }
 .hero:hover .hero-net { opacity: .9; }
-.hero-net .hub-node { transform-box: fill-box; transform-origin: center; transition: fill .3s ease, r .3s ease; }
+.hero-net .hub-node { transform-box: fill-box; transform-origin: center; transition: fill .3s ease, r .3s ease, opacity .3s ease; cursor: pointer; }
+/* 方案 A：节点 hover 放大 + 发光，作为可交互技能星座 */
+.hero-net .hub-node:hover { r: 9; filter: drop-shadow(0 0 6px hsl(var(--node) / .9)); }
+.hero-net .hub-node.active { r: 10; fill: hsl(var(--primary)); filter: drop-shadow(0 0 8px hsl(var(--primary) / .9)); }
 .hero-net .hub-core { transition: r .3s ease, fill .3s ease; }
 /* 方案 A：筛选/搜索激活时节点网点亮联动 */
 .hero-net.filtering .hub-node { fill: hsl(var(--primary)); }
@@ -44,6 +47,15 @@
 .hero-stat .lbl { font-size: 12px; color: var(--text-2); }
 .hero-features { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
 .hero-features li { font-size: 12.5px; line-height: 1.5; color: var(--text-2); background: hsl(var(--secondary)); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
+/* 方案 B：骰子按钮（彩蛋） */
+.hero-dice { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.btn-dice { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; border: 1px solid hsl(var(--primary)); background: hsl(var(--primary) / .12); color: hsl(var(--primary)); font-size: 14px; font-weight: 600; cursor: pointer; transition: transform .12s ease, box-shadow .2s ease, background .2s ease; }
+.btn-dice:hover { background: hsl(var(--primary) / .2); box-shadow: 0 4px 14px hsl(var(--primary) / .3); }
+.btn-dice:active { transform: scale(.96) rotate(-4deg); }
+.btn-dice .dice-face { font-size: 16px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.btn-dice:active .dice-face { transform: rotate(360deg); }
+.dice-hint { font-size: 12.5px; color: var(--text-2); }
+@media (prefers-reduced-motion: reduce) { .btn-dice:active .dice-face { transform: none; } }
 
 /* 控制区（搜索 + 排序 + 分类）：背景全宽，内容限宽居中（与网格 --maxw 对齐） */
 /* top 偏移由 JS 量取顶栏高度注入 --topbar-h，避免顶栏换行时硬编码 52px 错位（P2-1） */
@@ -76,8 +88,16 @@
 /* 弹窗（扩展详情） */
 .overlay { position: fixed; inset: 0; z-index: 50; background: hsl(var(--shadow-color) / .5); backdrop-filter: blur(2px); display: none; }
 .overlay.show { display: block; }
-.dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; }
+.dialog { position: fixed; z-index: 51; inset: 0; margin: auto; width: min(720px, 92vw); height: min(82vh, 720px); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; transform-origin: center; }
 .dialog.show { display: flex; }
+/* 方案 B：骰子抽技能翻牌动画（3D 翻转展开） */
+.dialog.flip { animation: dialogFlip .55s cubic-bezier(.34,1.4,.64,1); }
+@keyframes dialogFlip {
+  0% { transform: perspective(1200px) rotateY(90deg) scale(.9); opacity: 0; }
+  60% { transform: perspective(1200px) rotateY(-12deg) scale(1.02); opacity: 1; }
+  100% { transform: perspective(1200px) rotateY(0deg) scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .dialog.flip { animation: none; } }
 .dialog-head { display: flex; align-items: center; gap: 12px; padding: 20px 22px; border-bottom: 1px solid var(--border); }
 .dialog-head h2 { margin: 0; font-family: var(--font-display); font-size: 18px; }
 .dialog-head .sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }

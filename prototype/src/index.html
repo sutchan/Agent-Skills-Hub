@@ -84,11 +84,9 @@
         <line class="net-line" x1="400" y1="120" x2="220" y2="200" /><line class="net-line" x1="400" y1="120" x2="600" y2="190" />
         <line class="net-line" x1="120" y1="60" x2="220" y2="200" /><line class="net-line" x1="680" y1="70" x2="600" y2="190" />
       </g>
-      <g fill="hsl(var(--node))">
-        <circle class="hub-node" cx="120" cy="60" r="5" /><circle class="hub-node" cx="680" cy="70" r="5" />
-        <circle class="hub-node" cx="220" cy="200" r="5" /><circle class="hub-node" cx="600" cy="190" r="5" />
-        <circle class="hub-node hub-core" cx="400" cy="120" r="11" fill="hsl(var(--primary))" />
-      </g>
+      <!-- 方案 A：节点由 JS 按分类计数动态生成（半径随技能数变化），中心 core 固定 -->
+      <g id="netNodes" fill="hsl(var(--node))"></g>
+      <circle class="hub-node hub-core" cx="400" cy="120" r="11" fill="hsl(var(--primary))" />
     </svg>
     <div class="hero-inner">
       <span class="hero-eyebrow zh" data-i18n="hero.eyebrow">Agent 技能枢纽</span>
@@ -107,6 +105,16 @@
         <li class="zh">🌏 中文本地化 · 开箱即用</li><li class="en">🌏 Chinese-localized, ready to use</li>
         <li class="zh">🚀 离线可用 · 无框架依赖</li><li class="en">🚀 Works offline, framework-free</li>
       </ul>
+      <!-- 方案 B：随机骰子，把浏览变开盲盒 -->
+      <div class="hero-dice">
+        <button type="button" id="diceBtn" class="btn-dice" aria-label="随机抽一个技能">
+          <span class="dice-face" aria-hidden="true">🎲</span>
+          <span class="zh" data-i18n="dice.btn">🎲 今天学点什么</span>
+          <span class="en" data-i18n="dice.btn">🎲 Learn something</span>
+        </button>
+        <span class="dice-hint zh" data-i18n="dice.hint">不知道从哪开始？让骰子决定。</span>
+        <span class="dice-hint en" data-i18n="dice.hint">Not sure where to start? Let the dice decide.</span>
+      </div>
     </div>
   </section>
 
