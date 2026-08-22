@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.28] - 2026-08-22
+
+### chore: 迁移 validate-skills.mjs 至 tools/ 并恢复丢失脚本
+
+- **恢复脚本**：`scripts/validate-skills.mjs` 在 `3c8c941` 后被误删，从 `3c8c941` 重建并移入 `tools/validate-skills.mjs`（UTF-8 编码，ROOT 路径逻辑不变，校验 148 技能通过）
+- **gitignore 白名单**：`!scripts/validate-skills.mjs` 改为 `!tools/validate-skills.mjs`
+- **版本注释**：脚本头注释更新为 `tools/validate-skills.mjs v1.19.28`
+- **版本同步**：根 `package.json` 升至 v1.19.28，README 徽章对齐
+
 ## [1.19.27] - 2026-08-22
 
 ### refactor: 收尾前端扁平化迁移（app 路径修正、React 统一、单源数据、令牌拆分）

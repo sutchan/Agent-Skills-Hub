@@ -63,4 +63,4 @@ prototype/out/_next/
 !tools/build.mjs
 !tools/sync-tokens.mjs
 !prototype/build-skills-data.mjs
-!scripts/validate-skills.mjs
+!tools/validate-skills.mjs
