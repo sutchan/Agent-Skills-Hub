@@ -80,6 +80,9 @@ const out = htmlTpl
 
 mkdirSync(OUT_DIR, { recursive: true });
 writeFileSync(join(OUT_DIR, "index.html"), out, "utf8");
+// 同源平行产物：prototype.html 与 index.html 内容完全一致，仅为命名入口（部分部署/评审场景期望 prototype.html）
+writeFileSync(join(OUT_DIR, "prototype.html"), out, "utf8");
+console.log(`Built self-contained prototype -> ${join(OUT_DIR, "prototype.html")} (${(out.length / 1024).toFixed(1)} KB)`);
 
 // 复制品牌 favicon 到 prototype/ 根目录，使原型部署后 <link rel="icon" href="favicon.svg"> 可达（data URI 仍保证离线自包含）
 // 品牌资产统一存放于 app/public/（单一来源），app/icon.svg 为应用图标同源生成

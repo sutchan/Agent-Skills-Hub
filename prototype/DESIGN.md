@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.20.6
+> 路径：`prototype/DESIGN.md` · 版本：1.20.7
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -199,7 +199,7 @@
 - 分类 chip 用 `aria-pressed` 反映选中态。
 - 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
 - 顶部栏图标按钮统一 `.icon-btn`（34px、flex 居中、`aria-pressed`/`aria-label`），`#settingsBtn` 带 `aria-label`（v1.17.2 补齐样式，修复按钮参差对齐）。
-- **app 层对齐（v1.18.0）**：`app/components/skill-card.tsx` 卡片根已改为原生 `<button>`（原 `role="button"+tabIndex` 手动键盘处理已移除，依赖原生 Enter/Space）；`app/components/ui/dialog.tsx` 补 Tab 焦点陷阱循环（与原型 `trapFocus` 对齐）；`AppShell.tsx` 新增 `#settingsBtn` 齿轮按钮 + `ui/settings-dialog.tsx` 设置弹窗（聚合语言/主题/视图/密度四组，复用 Dialog 焦点陷阱）；`SkillsExplorer.tsx` 新增视图持久化（`ash-view`，由 AppShell 统一持有）、搜索防抖 + composition 拦截（对齐原型 `DEBOUNCE_MS`）、结果计数 `#resultCount`（aria-live）、回到顶部 `#toTop`；`app/globals.css` 补 `:root[data-density="compact"]` 紧凑密度规则与 `.result-count`/`.settings-row` 样式。
+- **app 层对齐（v1.20.6）**：`app/components/skill-card.tsx` 卡片根已改为原生 `<button>`（依赖原生 Enter/Space）；`app/components/detail-modal.tsx` 自带 Esc 关闭 + 焦点陷阱（`keydown` 监听，无独立 `ui/dialog.tsx`）；顶栏（`AppShell.tsx`）已含 `#langBtn` 语言切换与 `#themeBtn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`）；`SkillsExplorer.tsx` 顶栏含网格/列表视图切换（`#viewBtn`）与 `#settingsBtn` 齿轮按钮，打开 `app/components/settings-panel.tsx` 设置弹窗（聚合「界面元素 / 名称显示 / 显示密度」三组，无独立 `ui/settings-dialog.tsx`）；视图（`ash-view`）、密度（`ash-density`，写 `data-density` + globals.css `:root[data-density="compact"]` 生效）、界面元素、名称显示均持久化；搜索框新增 120ms 防抖 + 输入法 composition 拦截（对齐原型 `DEBOUNCE_MS`）；结果计数 `#resultCount`（aria-live）；滚动超 300px 显示回到顶部 `#toTop`（`.to-top.show` 样式）。
 
 ### 4.6 页脚区（Footer）
 

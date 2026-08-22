@@ -1,4 +1,4 @@
-// app/components/settings-panel.tsx v1.19.38 — 设置面板（界面元素显隐 + 名称显示策略）
+// app/components/settings-panel.tsx v1.20.7 — 设置面板（界面元素显隐 + 名称显示策略 + 显示密度）
 import type { Lang } from "../lib/share";
 
 /** 设置面板：受控展示组件，state 由父组件持有 */
@@ -8,10 +8,12 @@ export function SettingsPanel({
   showCat,
   showBar,
   nameMode,
+  density,
   onShowDesc,
   onShowCat,
   onShowBar,
   onNameMode,
+  onDensity,
   onClose,
 }: {
   lang: Lang;
@@ -19,10 +21,12 @@ export function SettingsPanel({
   showCat: boolean;
   showBar: boolean;
   nameMode: "both" | "zh" | "en";
+  density: "comfortable" | "compact";
   onShowDesc: (v: boolean) => void;
   onShowCat: (v: boolean) => void;
   onShowBar: (v: boolean) => void;
   onNameMode: (m: "both" | "zh" | "en") => void;
+  onDensity: (d: "comfortable" | "compact") => void;
   onClose: () => void;
 }) {
   return (
@@ -68,6 +72,27 @@ export function SettingsPanel({
             onClick={() => onNameMode("en")}
           >
             {lang === "zh" ? "仅英文" : "English"}
+          </button>
+        </div>
+      </div>
+      <div className="settings-section">
+        <h3>{lang === "zh" ? "显示密度" : "Density"}</h3>
+        <div className="seg" role="group" aria-label={lang === "zh" ? "显示密度" : "Density"}>
+          <button
+            type="button"
+            className={`seg-btn${density === "comfortable" ? " active" : ""}`}
+            aria-pressed={density === "comfortable"}
+            onClick={() => onDensity("comfortable")}
+          >
+            {lang === "zh" ? "舒适" : "Comfortable"}
+          </button>
+          <button
+            type="button"
+            className={`seg-btn${density === "compact" ? " active" : ""}`}
+            aria-pressed={density === "compact"}
+            onClick={() => onDensity("compact")}
+          >
+            {lang === "zh" ? "紧凑" : "Compact"}
           </button>
         </div>
       </div>

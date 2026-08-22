@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.19.38 — 应用外壳（顶栏品牌区 + 语言切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.20.7 — 应用外壳（顶栏品牌区 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -16,10 +16,13 @@ function BrandMark() {
 
 export function AppShell({ data, version }: { data: SkillsData; version?: string }) {
   const [lang, setLang] = useState<Lang>("zh");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
     const saved = (typeof localStorage !== "undefined" && localStorage.getItem("ash-lang")) as Lang | null;
     if (saved === "zh" || saved === "en") setLang(saved);
+    const savedTheme = localStorage?.getItem("ash-theme");
+    if (savedTheme === "light" || savedTheme === "dark") setTheme(savedTheme);
   }, []);
 
   useEffect(() => {
@@ -27,6 +30,11 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     document.documentElement.lang = lang;
     if (typeof localStorage !== "undefined") localStorage.setItem("ash-lang", lang);
   }, [lang]);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    if (typeof localStorage !== "undefined") localStorage.setItem("ash-theme", theme);
+  }, [theme]);
 
   // 页脚统计（v1.19.7 由 hero 迁入并扩充）：可见技能总数、分类数、英文描述覆盖数、支持语言数
   const stats = useMemo(() => {
@@ -61,6 +69,15 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
             <path d="M3 12h18" />
             <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z" />
           </svg>
+        </button>
+        <button
+          id="themeBtn"
+          className="icon-btn"
+          title="主题 / Theme"
+          aria-label={theme === "dark" ? "切换到浅色" : "切换到深色"}
+          onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+        >
+          {theme === "dark" ? "☀" : "🌙"}
         </button>
       </header>
 

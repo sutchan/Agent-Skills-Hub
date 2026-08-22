@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.20.6 — 技能浏览器（编排：分类多选 + 搜索 + 排序 + 视图切换 + 设置 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
+// app/components/SkillsExplorer.tsx v1.20.7 — 技能浏览器（编排：分类多选 + 搜索 + 排序 + 视图切换 + 设置 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -22,13 +22,21 @@ export function SkillsExplorer({
   const [raw, setRaw] = useState(""); // 搜索框即时输入（受控）
   const [q, setQ] = useState(""); // 防抖后的查询（实际用于过滤，对齐原型 DEBOUNCE_MS=120）
   const composing = useRef(false); // 输入法组合中标志，避免拼音过程狂刷网格
-  const [view, setView] = useState<"grid" | "list">("grid");
+  const [view, setView] = useState<"grid" | "list">(() => {
+    try {
+      const v = localStorage.getItem("ash-view");
+      return v === "list" ? "list" : "grid";
+    } catch {
+      return "grid";
+    }
+  });
   const [sort, setSort] = useState<"name" | "name-desc" | "cat" | "zh">("name");
   // UI 元素显隐设置（独立持久化到 localStorage + <html data-show-*>）
   const [showDesc, setShowDesc] = useState(true);
   const [showCat, setShowCat] = useState(true);
   const [showBar, setShowBar] = useState(true);
   const [nameMode, setNameMode] = useState<"both" | "zh" | "en">("both");
+  const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
   const [settingsOpen, setShowSettings] = useState(false);
   const [detail, setDetail] = useState<Skill | null>(null);
   const [page, setPage] = useState(0);
@@ -44,6 +52,10 @@ export function SkillsExplorer({
     setShowBar(on(read("ash-show-bar")));
     const nm = read("ash-name-mode");
     if (nm === "zh" || nm === "en") setNameMode(nm);
+    const d = read("ash-density");
+    if (d === "comfortable" || d === "compact") setDensity(d);
+    const v = read("ash-view");
+    if (v === "grid" || v === "list") setView(v);
   }, []);
 
   // 搜索防抖（对齐原型 DEBOUNCE_MS=120）：raw 停止输入 120ms 后写入 q 触发过滤
@@ -52,6 +64,15 @@ export function SkillsExplorer({
     return () => clearTimeout(t);
   }, [raw]);
 
+  // 回到顶部（对齐原型 toTop：滚动超 300px 显隐）
+  const [showToTop, setShowToTop] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowToTop(window.scrollY > 300);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // 偏好变化时同步到 <html data-show-*> / data-name-mode + 持久化
   useEffect(() => {
     const root = document.documentElement;
@@ -59,6 +80,7 @@ export function SkillsExplorer({
     root.setAttribute("data-show-cat", showCat ? "on" : "off");
     root.setAttribute("data-show-bar", showBar ? "on" : "off");
     root.setAttribute("data-name-mode", nameMode);
+    root.setAttribute("data-density", density);
     const writeBool = (k: string, v: boolean) => {
       try { localStorage.setItem(k, v ? "true" : "false"); } catch { /* 隐私模式忽略 */ }
     };
@@ -69,7 +91,9 @@ export function SkillsExplorer({
     writeBool("ash-show-cat", showCat);
     writeBool("ash-show-bar", showBar);
     writeStr("ash-name-mode", nameMode);
-  }, [showDesc, showCat, showBar, nameMode]);
+    writeStr("ash-density", density);
+    writeStr("ash-view", view);
+  }, [showDesc, showCat, showBar, nameMode, density, view]);
 
   const catsAll = useMemo(() => data.categories, [data.categories]);
 
@@ -193,10 +217,12 @@ export function SkillsExplorer({
           showCat={showCat}
           showBar={showBar}
           nameMode={nameMode}
+          density={density}
           onShowDesc={setShowDesc}
           onShowCat={setShowCat}
           onShowBar={setShowBar}
           onNameMode={setNameMode}
+          onDensity={setDensity}
           onClose={() => setShowSettings(false)}
         />
       )}
@@ -230,6 +256,17 @@ export function SkillsExplorer({
           onOpenSkill={(sk) => setDetail(sk)}
         />
       )}
+
+      <button
+        id="toTop"
+        className={`to-top${showToTop ? " show" : ""}`}
+        aria-label={lang === "zh" ? "回到顶部" : "Back to top"}
+        aria-hidden={!showToTop}
+        tabIndex={showToTop ? 0 : -1}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        ↑
+      </button>
     </section>
   );
 }

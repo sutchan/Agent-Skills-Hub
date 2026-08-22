@@ -2,6 +2,28 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.8] - 2026-08-22
+
+### refactor: 剥离 prototype.html 中「对齐 app 组件库」的预留类
+
+- `prototype/src/styles/components.css`：删除仅用于 DESIGN/COMPONENTS 契约、原型从未渲染的预留类（`.badge`/`.src-badge`/`.skeleton`/`.separator`/`.dialog-title`/`.block`/`.tools`/`.skill-link`/`.tool-tag` 及对应注释）；这些组件规范已归属 `wireframes.html` 设计文档
+- `prototype/prototype.html` 与 `index.html` 经 `npm run build` 重建同步（237.3 KB，仅保留应用真实使用的样式）
+- 根 `package.json` version 升至 v1.20.8
+
+[1.20.8]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.8
+
+## [1.20.7] - 2026-08-22
+
+### feat: 补齐 app 与原型的主题/密度/回到顶部对齐缺口
+
+- `app/components/AppShell.tsx`：顶栏新增 `#themeBtn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`），与原型 `ThemeToggle` 对齐
+- `app/components/settings-panel.tsx`：设置弹窗新增「显示密度」组（舒适/紧凑段控，`onDensity` 写入 `data-density` + `ash-density`）
+- `app/components/SkillsExplorer.tsx`：新增 `#toTop` 回到顶部（滚动 >300px 显隐，`.to-top.show` 样式）；视图 `ash-view`、密度 `ash-density` 持久化补齐
+- `prototype/DESIGN.md` §4.5：修正「app 层对齐」描述——删除虚构的 `ui/dialog.tsx`/`ui/settings-dialog.tsx` 引用，改为真实文件 `settings-panel.tsx`（界面元素/名称显示/显示密度三组），语言/主题/视图切换在顶栏实现
+- 根 `package.json` version 升至 v1.20.7；`app/package.json` 升至 v1.1.17
+
+[1.20.7]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.7
+
 ## [1.20.6] - 2026-08-22
 
 ### fix: 对齐 app 搜索行为与原型（防抖 + 组合拦截 + 检索字段补全）
