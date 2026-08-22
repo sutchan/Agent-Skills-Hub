@@ -3,8 +3,8 @@ name: diagnosing-bugs
 description: 针对疑难 bug 与性能回退的诊断循环。当用户遇到难以定位的失败、偶发故障或变慢问题，需要系统化排查根因时使用。
 en_description: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
 zh_displayName: 缺陷诊断
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # Diagnosing Bugs

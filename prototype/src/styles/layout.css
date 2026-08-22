@@ -1,4 +1,4 @@
-/* prototype/src/styles/layout.css v1.19.7 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.20.0 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -14,14 +14,31 @@
 
 /* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1）；独立卡片，限宽居中与网格对齐 */
 .hero { position: relative; overflow: hidden; width: 100%; max-width: var(--maxw); margin: 8px auto 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); border-radius: 18px; }
-.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; }
+.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; transition: opacity .3s ease; }
 .hero:hover .hero-net { opacity: .9; }
+.hero-net .hub-node { transform-box: fill-box; transform-origin: center; transition: fill .3s ease, r .3s ease; }
+.hero-net .hub-core { transition: r .3s ease, fill .3s ease; }
+/* 方案 A：筛选/搜索激活时节点网点亮联动 */
+.hero-net.filtering .hub-node { fill: hsl(var(--primary)); }
+.hero-net.filtering .hub-core { r: 13; }
+.hero-net.searching .net-line { stroke: hsl(var(--primary) / .8); animation: netPulse 1.6s ease-in-out infinite; }
+@keyframes netPulse { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .hero-net.searching .net-line { animation: none; } }
 .hero-inner { position: relative; z-index: 1; max-width: 720px; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: hsl(var(--primary)); margin-bottom: 12px; }
 .hero-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--node); box-shadow: 0 0 0 4px hsl(var(--node) / .25); }
 .hero h1 { margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); line-height: 1.12; letter-spacing: -.01em; color: hsl(var(--foreground)); }
 .hero h1 .accent { color: hsl(var(--primary)); }
 .hero p { margin: 0; color: var(--text-2); font-size: 15px; max-width: 56ch; }
+/* 方案 A：Hero 搜索前置框 */
+.hero-search { display: flex; align-items: center; gap: 10px; margin-top: 22px; max-width: 480px; padding: 11px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-pop); transition: border-color .2s ease, box-shadow .2s ease; }
+.hero-search:focus-within { border-color: hsl(var(--primary)); box-shadow: 0 0 0 3px hsl(var(--ring) / .25); }
+.hero-search .hs-icon { flex: none; width: 18px; height: 18px; color: var(--text-2); }
+.hero-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: hsl(var(--foreground)); font-size: 15px; font-family: var(--font-sans); }
+.hero-search input::placeholder { color: var(--text-2); }
+.hero-search input::-webkit-search-cancel-button { display: none; }
+.hero-search .hs-clear { flex: none; width: 26px; height: 26px; border: 0; border-radius: 50%; background: hsl(var(--secondary)); color: var(--text-2); font-size: 18px; line-height: 1; cursor: pointer; transition: background .2s ease, color .2s ease; }
+.hero-search .hs-clear:hover { background: hsl(var(--primary) / .15); color: hsl(var(--primary)); }
 .hero-stat { display: inline-flex; gap: 22px; margin-top: 20px; flex-wrap: wrap; }
 .hero-stat .num { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; }
 .hero-stat .lbl { font-size: 12px; color: var(--text-2); }
@@ -67,6 +84,20 @@
 .dialog-head .dialog-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
 .dialog-close { margin-left: auto; }
 .dialog-body { padding: 22px; overflow: auto; }
+/* 方案 C：移动端（≤640px）详情弹窗改为底部抽屉 Sheet */
+.dialog.sheet { inset: auto 0 0 0; margin: 0; width: 100%; height: min(86vh, 760px); border-radius: 18px 18px 0 0; animation: sheetUp .28s ease; }
+.dialog.sheet .dialog-head { padding-top: 16px; }
+.dialog.sheet .dialog-head::before { content: ""; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 40px; height: 4px; border-radius: 999px; background: var(--border); }
+.dialog.sheet .dialog-head { position: relative; }
+@keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .dialog.sheet { animation: none; } }
+/* 方案 C：空状态签名插画（节点网 + 放大镜） */
+.empty-net { width: 120px; height: 80px; margin: 0 auto 14px; display: block; }
+.empty-net .en-line { stroke: hsl(var(--border)); stroke-width: 1.2; }
+.empty-net .en-node { fill: hsl(var(--node)); }
+.empty-net .en-core { fill: hsl(var(--primary)); }
+.empty-net .en-glass { fill: none; stroke: hsl(var(--primary)); stroke-width: 2.4; }
+.empty-net .en-handle { stroke: hsl(var(--primary)); stroke-width: 2.4; stroke-linecap: round; }
 
 /* 抽屉（Sheet）：移动端详情采用底部上滑抽屉，较居中弹窗更贴合小屏手势（对齐 COMPONENTS #9） */
 .sheet { position: fixed; z-index: 51; left: 0; right: 0; bottom: 0; width: 100%; max-height: 88vh; background: var(--surface); border-radius: 18px 18px 0 0; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; transform: translateY(100%); transition: transform .25s ease; }

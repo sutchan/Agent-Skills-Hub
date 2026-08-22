@@ -6,7 +6,7 @@
 
 > **Author**: Sut Chan ｜ **Repository**: https://github.com/sutchan/Agent-Skills-Hub
 
-A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security across 9 domains — 152 skill packs on GitHub. Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
+A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security across 9 domains — 157 skill packs on GitHub. Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
 
 ## Highlights
 
@@ -15,7 +15,7 @@ A centrally managed collection of AI skills covering Brand & Design, Docs & Cont
 | | Highlight | Description |
 |---|---|---|
 | ⚙️ | **Zero-maintenance listing** | Skill data and the showcase page are auto-generated from on-disk `skills/*/SKILL.md` by `npm run build` — no manual listing to maintain when adding or removing skills |
-| 🗂️ | **152 skills · 9 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Security |
+| 🗂️ | **157 skills · 9 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Security |
 | 🌏 | **Chinese by default** | Chinese category (`category`) + English category (`en_category`) + one-line summary + full Chinese description (`description`, default display language), English original in `en_description` — ready for Chinese-speaking agent users |
 | 📦 | **One-click install** | Bulk install / update / remove via [skills-manager](https://github.com/xingkongliang/skills-manager) |
 | 🚀 | **Works offline** | Self-contained static showcase (`prototype/index.html`) inlines all data — double-click to browse every skill with no framework dependency |
@@ -50,13 +50,9 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 | Brand & Design | 27 |
 | Docs & Content | 11 |
 | Data Analysis & Visualization | 2 |
-| Frontend Dev | 18 |
-| Backend & Platform | 6 |
-| Mobile Dev | 11 |
-| WordPress & CMS | 12 |
-| Engineering Practice & Quality | 29 |
+| Dev Frameworks & Platforms | 80 |
 | File & Format Handling | 4 |
-| Automation & Integration | 10 |
+| Automation & Integration | 11 |
 | AI & Agents | 8 |
 | Media & Multimedia | 11 |
 | Security | 4 |

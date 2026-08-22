@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.19.20 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.20.0 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -24,11 +24,12 @@
 /* 内容包裹层：列表态作为横向排布的主内容列，网格态仅作普通容器 */
 .card-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
 /* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
-.card .cat-bar { height: 4px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 50%); margin: -16px -16px 0; }
+.card .cat-bar { height: 6px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 50%); margin: -16px -16px 0; transition: filter .2s ease, box-shadow .2s ease; }
+.card:hover .cat-bar { filter: saturate(1.15) brightness(1.05); box-shadow: 0 2px 10px hsl(var(--hue, 152) 55% 50% / .45); }
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); display: grid; place-items: center; font-weight: 700; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; flex: none; }
 .title-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; font-size: 15px; line-height: 1.3; }
+.card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; font-size: 16px; line-height: 1.3; letter-spacing: -.005em; }
 /* 标题双语言显示（v1.18.1 起，v1.19.6 引入 nameMode）：
    默认双显：中文态中文名为主、英文原名作弱化副标题（覆盖 base 的 data-lang=zh .en 隐藏）；英文态仅英文原名
    名称显示策略 nameMode（<html data-name-mode>）：

@@ -24,8 +24,8 @@ en_description: >-
   processing payments, setting up subscriptions, collecting sales tax, VAT, or
   GST, creating connected accounts, or implementing secure key handling.
 zh_displayName: stripe-best-practices
-category: 后端与平台
-en_category: Backend & Platform
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 Latest Stripe API version: **2026-07-29.dahlia**. Always use the latest API version and SDK unless the user specifies otherwise.

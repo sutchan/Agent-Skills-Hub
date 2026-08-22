@@ -3,8 +3,8 @@ name: wp-playground
 description: "作为 WordPress Playground 的路由包装，处理歧义 Playground 任务、本地 CLI 运行 @wp-playground/cli、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。若需编写或审查 Blueprint JSON，直接用 blueprint 技能。"
 en_description: "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly."
 zh_displayName: WordPress 沙箱
-category: WordPress 与 CMS
-en_category: WordPress & CMS
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 compatibility: "Targets WordPress 7.0+, PHP 7.4.0+. Playground CLI requires Node.js 20.18+; runs WordPress in WebAssembly with SQLite."
 ---
 

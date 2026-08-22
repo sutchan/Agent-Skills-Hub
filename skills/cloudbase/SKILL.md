@@ -3,8 +3,8 @@ name: cloudbase
 description: 腾讯云开发 CloudBase 全栈开发技能，覆盖 Web/小程序/uni-app 前端、云函数、云数据库、云存储与内置大模型能力，提供从接入到部署的全流程指导。
 en_description: Use this skill when you develop, design, build, deploy, debug, migrate, or troubleshoot CloudBase (腾讯云开发, 云开发, TCB, 微信云开发) projects. Covers Web, 微信小程序, 小程序, uni-app, mobile (iOS, Android, Flutter, React Native). UI (页面, 界面, 表单, form, dashboard, prototype, 原型); auth (登录, 注册, OAuth, 微信登录, publishable key); databases (NoSQL 文档数据库, MySQL 关系型数据库, PostgreSQL/CloudBase PG, app.rdb(), queryPgDatabase/managePgDatabase, CRUD, 查询, security rules); 云函数/cloud functions (serverless, scf_bootstrap); CloudRun (云托管, Dockerfile); 云存储. Built-in AI (内置大模型, AI 对话, streaming, 流式输出, 图片生成, generateText, streamText, createModel, generateImage, TokenHub, Hunyuan, hunyuan-exp, DeepSeek, deepseek, GLM, Kimi, Token Credits 资源包, 小程序成长计划). 第三方大模型, 大模型接入, 大模型调用, LLM API, AI agent, 智能体, AI Agent, AG-UI, LangGraph. Ops (巡检, 诊断, health check, 日志, troubleshooting). Spec (需求文档, 技术方案, requirements, tasks.md). Do NOT use for non-CloudBase projects, pure frontend without CloudBase, or self-hosted backends without CloudBase.
 zh_displayName: CloudBase 全栈开发
-category: 后端与平台
-en_category: Backend & Platform
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 version: 2.30.0
 ---
 # CloudBase Development Guidelines

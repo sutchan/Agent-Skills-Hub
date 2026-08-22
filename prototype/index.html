@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 156 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 157 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 156+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:description" content="集中管理 157+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta property="og:image" content="banner-og.svg" />
   <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 156+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:description" content="集中管理 157+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
   <meta name="twitter:image" content="banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
@@ -62,7 +62,7 @@
   --shadow-pop: var(--shadow-lg);
 
   /* ===== 字体（DESIGN §2.2：衬线标题，对标 Anthropic Serif） ===== */
-  --font-display: Georgia, "Times New Roman", "Songti SC", "STSong", "PingFang SC", "Microsoft YaHei", serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Songti SC", "STSong", "PingFang SC", "Microsoft YaHei", system-ui, serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --font-en: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
@@ -89,21 +89,21 @@ html[data-theme="dark"] {
   --card-foreground: 220 18% 92%;
   --popover: 224 24% 11%;
   --popover-foreground: 220 18% 92%;
-  --primary: 146 52% 60%;
+  --primary: 152 56% 58%;
   --primary-foreground: 224 32% 8%;
   --secondary: 224 18% 18%;
   --secondary-foreground: 220 18% 88%;
   --muted: 224 18% 16%;
   --muted-foreground: 220 12% 60%;
-  --accent: 146 52% 22%;
-  --accent-foreground: 146 52% 82%;
+  --accent: 152 56% 22%;
+  --accent-foreground: 152 56% 82%;
   --destructive: 0 62% 52%;
   --destructive-foreground: 0 0% 100%;
   --border: 224 16% 22%;
   --input: 224 16% 24%;
-  --ring: 146 52% 60%;
-  --node: 146 52% 62%;              /* 深色节点亮绿 */
-  --line: 146 30% 34%;              /* 深色节点连线 */
+  --ring: 152 56% 58%;
+  --node: 152 56% 62%;              /* 深色节点亮绿 */
+  --line: 152 30% 34%;              /* 深色节点连线 */
   --shadow-color: 0 0% 0%;
 
   --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .4);
@@ -201,14 +201,31 @@ html[data-lang="zh"] .en { display: none; }
 
 /* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1）；独立卡片，限宽居中与网格对齐 */
 .hero { position: relative; overflow: hidden; width: 100%; max-width: var(--maxw); margin: 8px auto 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); border-radius: 18px; }
-.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; }
+.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; transition: opacity .3s ease; }
 .hero:hover .hero-net { opacity: .9; }
+.hero-net .hub-node { transform-box: fill-box; transform-origin: center; transition: fill .3s ease, r .3s ease; }
+.hero-net .hub-core { transition: r .3s ease, fill .3s ease; }
+/* 方案 A：筛选/搜索激活时节点网点亮联动 */
+.hero-net.filtering .hub-node { fill: hsl(var(--primary)); }
+.hero-net.filtering .hub-core { r: 13; }
+.hero-net.searching .net-line { stroke: hsl(var(--primary) / .8); animation: netPulse 1.6s ease-in-out infinite; }
+@keyframes netPulse { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .hero-net.searching .net-line { animation: none; } }
 .hero-inner { position: relative; z-index: 1; max-width: 720px; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: hsl(var(--primary)); margin-bottom: 12px; }
 .hero-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--node); box-shadow: 0 0 0 4px hsl(var(--node) / .25); }
 .hero h1 { margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); line-height: 1.12; letter-spacing: -.01em; color: hsl(var(--foreground)); }
 .hero h1 .accent { color: hsl(var(--primary)); }
 .hero p { margin: 0; color: var(--text-2); font-size: 15px; max-width: 56ch; }
+/* 方案 A：Hero 搜索前置框 */
+.hero-search { display: flex; align-items: center; gap: 10px; margin-top: 22px; max-width: 480px; padding: 11px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-pop); transition: border-color .2s ease, box-shadow .2s ease; }
+.hero-search:focus-within { border-color: hsl(var(--primary)); box-shadow: 0 0 0 3px hsl(var(--ring) / .25); }
+.hero-search .hs-icon { flex: none; width: 18px; height: 18px; color: var(--text-2); }
+.hero-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: hsl(var(--foreground)); font-size: 15px; font-family: var(--font-sans); }
+.hero-search input::placeholder { color: var(--text-2); }
+.hero-search input::-webkit-search-cancel-button { display: none; }
+.hero-search .hs-clear { flex: none; width: 26px; height: 26px; border: 0; border-radius: 50%; background: hsl(var(--secondary)); color: var(--text-2); font-size: 18px; line-height: 1; cursor: pointer; transition: background .2s ease, color .2s ease; }
+.hero-search .hs-clear:hover { background: hsl(var(--primary) / .15); color: hsl(var(--primary)); }
 .hero-stat { display: inline-flex; gap: 22px; margin-top: 20px; flex-wrap: wrap; }
 .hero-stat .num { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; }
 .hero-stat .lbl { font-size: 12px; color: var(--text-2); }
@@ -254,6 +271,20 @@ html[data-lang="zh"] .en { display: none; }
 .dialog-head .dialog-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
 .dialog-close { margin-left: auto; }
 .dialog-body { padding: 22px; overflow: auto; }
+/* 方案 C：移动端（≤640px）详情弹窗改为底部抽屉 Sheet */
+.dialog.sheet { inset: auto 0 0 0; margin: 0; width: 100%; height: min(86vh, 760px); border-radius: 18px 18px 0 0; animation: sheetUp .28s ease; }
+.dialog.sheet .dialog-head { padding-top: 16px; }
+.dialog.sheet .dialog-head::before { content: ""; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 40px; height: 4px; border-radius: 999px; background: var(--border); }
+.dialog.sheet .dialog-head { position: relative; }
+@keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .dialog.sheet { animation: none; } }
+/* 方案 C：空状态签名插画（节点网 + 放大镜） */
+.empty-net { width: 120px; height: 80px; margin: 0 auto 14px; display: block; }
+.empty-net .en-line { stroke: hsl(var(--border)); stroke-width: 1.2; }
+.empty-net .en-node { fill: hsl(var(--node)); }
+.empty-net .en-core { fill: hsl(var(--primary)); }
+.empty-net .en-glass { fill: none; stroke: hsl(var(--primary)); stroke-width: 2.4; }
+.empty-net .en-handle { stroke: hsl(var(--primary)); stroke-width: 2.4; stroke-linecap: round; }
 
 /* 抽屉（Sheet）：移动端详情采用底部上滑抽屉，较居中弹窗更贴合小屏手势（对齐 COMPONENTS #9） */
 .sheet { position: fixed; z-index: 51; left: 0; right: 0; bottom: 0; width: 100%; max-height: 88vh; background: var(--surface); border-radius: 18px 18px 0 0; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; transform: translateY(100%); transition: transform .25s ease; }
@@ -312,11 +343,12 @@ html[data-lang="zh"] .en { display: none; }
 /* 内容包裹层：列表态作为横向排布的主内容列，网格态仅作普通容器 */
 .card-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
 /* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
-.card .cat-bar { height: 4px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 50%); margin: -16px -16px 0; }
+.card .cat-bar { height: 6px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 50%); margin: -16px -16px 0; transition: filter .2s ease, box-shadow .2s ease; }
+.card:hover .cat-bar { filter: saturate(1.15) brightness(1.05); box-shadow: 0 2px 10px hsl(var(--hue, 152) 55% 50% / .45); }
 .avatar { width: 36px; height: 36px; border-radius: 10px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); display: grid; place-items: center; font-weight: 700; }
 .avatar.sm { width: 30px; height: 30px; font-size: 13px; flex: none; }
 .title-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; font-size: 15px; line-height: 1.3; }
+.card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; font-size: 16px; line-height: 1.3; letter-spacing: -.005em; }
 /* 标题双语言显示（v1.18.1 起，v1.19.6 引入 nameMode）：
    默认双显：中文态中文名为主、英文原名作弱化副标题（覆盖 base 的 data-lang=zh .en 隐藏）；英文态仅英文原名
    名称显示策略 nameMode（<html data-name-mode>）：
@@ -587,16 +619,16 @@ html[data-lang="zh"] .en { display: none; }
   </header>
 
   <section class="hero" id="hero" aria-labelledby="heroTitle">
-    <svg class="hero-net" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <svg class="hero-net" id="heroNet" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <g stroke="hsl(var(--line))" stroke-width="1" opacity=".5">
-        <line x1="120" y1="60" x2="400" y2="120" /><line x1="400" y1="120" x2="680" y2="70" />
-        <line x1="400" y1="120" x2="220" y2="200" /><line x1="400" y1="120" x2="600" y2="190" />
-        <line x1="120" y1="60" x2="220" y2="200" /><line x1="680" y1="70" x2="600" y2="190" />
+        <line class="net-line" x1="120" y1="60" x2="400" y2="120" /><line class="net-line" x1="400" y1="120" x2="680" y2="70" />
+        <line class="net-line" x1="400" y1="120" x2="220" y2="200" /><line class="net-line" x1="400" y1="120" x2="600" y2="190" />
+        <line class="net-line" x1="120" y1="60" x2="220" y2="200" /><line class="net-line" x1="680" y1="70" x2="600" y2="190" />
       </g>
       <g fill="hsl(var(--node))">
-        <circle cx="120" cy="60" r="5" /><circle cx="680" cy="70" r="5" />
-        <circle cx="220" cy="200" r="5" /><circle cx="600" cy="190" r="5" />
-        <circle cx="400" cy="120" r="11" fill="hsl(var(--primary))" />
+        <circle class="hub-node" cx="120" cy="60" r="5" /><circle class="hub-node" cx="680" cy="70" r="5" />
+        <circle class="hub-node" cx="220" cy="200" r="5" /><circle class="hub-node" cx="600" cy="190" r="5" />
+        <circle class="hub-node hub-core" cx="400" cy="120" r="11" fill="hsl(var(--primary))" />
       </g>
     </svg>
     <div class="hero-inner">
@@ -606,6 +638,11 @@ html[data-lang="zh"] .en { display: none; }
       <h1 class="en" id="heroTitleEn" aria-hidden="true">Scattered agent skills, <span class="accent">unified</span> into one searchable hub</h1>
       <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
       <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
+      <form class="hero-search" id="heroSearch" role="search" aria-label="搜索技能">
+        <svg class="hs-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="heroSearchInput" type="search" placeholder="搜索技能名称、描述或分类…" autocomplete="off" aria-label="搜索技能" />
+        <button type="button" id="heroSearchClear" class="hs-clear" aria-label="清除搜索" hidden>&times;</button>
+      </form>
       <ul class="hero-features" aria-label="Highlights">
         <li class="zh">⚙️ 零维护清单 · 构建自动生成</li><li class="en">⚙️ Zero-maintenance, auto-generated</li>
         <li class="zh">🌏 中文本地化 · 开箱即用</li><li class="en">🌏 Chinese-localized, ready to use</li>
@@ -683,7 +720,7 @@ html[data-lang="zh"] .en { display: none; }
   </footer>
 
   <div class="overlay" id="overlay">
-    <div class="dialog" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogVisibleTitle"></div>
+    <div class="dialog" id="dialog" role="dialog" aria-modal="true"></div>
   </div>
 
   <!-- 回到顶部按钮：长列表滚动后出现，提升长页面导航效率（id 供脚本精确选取） -->
@@ -695,36 +732,28 @@ html[data-lang="zh"] .en { display: none; }
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>const SKILLS_DATA = {
-  "total": 156,
+  "total": 157,
   "categories": [
     "品牌与设计",
     "文档与内容",
     "数据分析与可视化",
-    "前端开发",
-    "后端与平台",
-    "移动端开发",
-    "WordPress 与 CMS",
-    "工程实践与质量",
     "文件与格式处理",
     "自动化与集成",
     "AI 与智能体",
     "音视频与多媒体",
-    "安全"
+    "安全",
+    "开发框架与平台"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
     "文档与内容": "Docs & Content",
     "数据分析与可视化": "Data Analysis & Visualization",
-    "前端开发": "Frontend Dev",
-    "后端与平台": "Backend & Platform",
-    "移动端开发": "Mobile Dev",
-    "WordPress 与 CMS": "WordPress & CMS",
-    "工程实践与质量": "Engineering Practice & Quality",
     "文件与格式处理": "File & Format Handling",
     "自动化与集成": "Automation & Integration",
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
-    "安全": "Security"
+    "安全": "Security",
+    "开发框架与平台": "Dev Frameworks & Platforms"
   },
   "skills": [
     {
@@ -967,7 +996,7 @@ html[data-lang="zh"] .en { display: none; }
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-creative",
       "githubDir": "skills/hyperframes-creative",
-      "size": 1197483,
+      "size": 1224905,
       "files": 78,
       "popularity": 2
     },
@@ -1380,1300 +1409,6 @@ html[data-lang="zh"] .en { display: none; }
       "popularity": 1
     },
     {
-      "name": "ads-creative",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "ads-creative",
-      "description": "Audit paid-ad copy, images, video, hooks, concepts, format coverage, platform-native fit, message match, creative fatigue, accessibility, and policy across supported platforms. Use for creative audit, ad creative, creative fatigue, creative diversity, ad copy review, video review, image review, or production priorities.",
-      "enDescription": "Audit paid-ad copy, images, video, hooks, concepts, format coverage, platform-native fit, message match, creative fatigue, accessibility, and policy across supported platforms. Use for creative audit, ad creative, creative fatigue, creative diversity, ad copy review, video review, image review, or production priorities.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ads-creative",
-      "githubDir": "skills/ads-creative",
-      "size": 1672,
-      "files": 1,
-      "popularity": 1
-    },
-    {
-      "name": "bun",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Bun 运行时",
-      "description": "使用 Bun 替代 Node.js、npm、pnpm 或 vite。提供命令映射、Bun 特有 API 与开发模式。",
-      "enDescription": "Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bun",
-      "githubDir": "skills/bun",
-      "size": 2225,
-      "files": 1,
-      "popularity": 1
-    },
-    {
-      "name": "fastify-best-practices",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Fastify 最佳实践",
-      "description": "指导用 TypeScript 或 JavaScript 开发 Fastify Node.js 后端服务与 REST API。在构建、配置或调试 Fastify 应用时使用——包括定义路由、实现插件、配置 JSON Schema 校验、处理错误、优化性能、管理认证、配置 CORS 与安全头、集成数据库、使用 WebSocket 以及生产部署。覆盖完整 Fastify 请求生命周期（hooks、序列化、Pino 日志）与通过 strip types 的 TypeScript 集成。",
-      "enDescription": "Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, managing authentication, configuring CORS and security headers, integrating databases, working with WebSockets, and deploying to production. Covers the full Fastify request lifecycle (hooks, serialization, logging with Pino) and TypeScript integration via strip types. Trigger terms: Fastify, Node.js server, REST API, API routes, backend framework, fastify.config, server.ts, app.ts.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/fastify-best-practices",
-      "githubDir": "skills/fastify-best-practices",
-      "size": 199009,
-      "files": 21,
-      "popularity": 1
-    },
-    {
-      "name": "next-best-practices",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Next.js 最佳实践",
-      "description": "Next.js 开发最佳实践指南，涵盖文件约定、服务端组件（RSC）边界、数据模式、异步 API、\nmetadata、错误处理、路由处理器、图片/字体优化与打包策略。",
-      "enDescription": "Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/next-best-practices",
-      "githubDir": "skills/next-best-practices",
-      "size": 84285,
-      "files": 20,
-      "popularity": 1
-    },
-    {
-      "name": "nextjs-app-router-patterns",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Next.js 路由模式",
-      "description": "掌握 Next.js 14+ App Router，覆盖 Server Components、流式渲染、并行路由与高级数据获取。在构建 Next.js 应用、实现 SSR/SSG 或优化 React Server Components 时使用。",
-      "enDescription": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-app-router-patterns",
-      "githubDir": "skills/nextjs-app-router-patterns",
-      "size": 14498,
-      "files": 2,
-      "popularity": 0
-    },
-    {
-      "name": "nextjs-code-review",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Next.js 代码审查",
-      "description": "为 Next.js 应用提供全面的代码审查能力，校验 Server Components、Client Components、Server Actions、缓存策略、metadata、API 路由、middleware 与性能模式。\n在审查 Next.js App Router 代码改动、合并 PR 前、实现新功能后或进行架构校验时使用。",
-      "enDescription": "Provides comprehensive code review capability for Next.js applications, validates Server Components, Client Components, Server Actions, caching strategies, metadata, API routes, middleware, and performance patterns. Use when reviewing Next.js App Router code changes, before merging pull requests, after implementing new features, or for architecture validation. Triggers on \\\"review Next.js code\\\", \\\"Next.js code review\\\", \\\"check my Next.js app\\\".",
-      "homepage": "",
-      "allowedTools": [
-        "Read",
-        "Edit",
-        "Grep",
-        "Glob",
-        "Bash"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-code-review",
-      "githubDir": "skills/nextjs-code-review",
-      "size": 29686,
-      "files": 4,
-      "popularity": 0
-    },
-    {
-      "name": "nextjs-react-typescript",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Next.js TS 专家",
-      "description": "TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家，提供相关技术栈的深入指导与最佳实践。",
-      "enDescription": "Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-react-typescript",
-      "githubDir": "skills/nextjs-react-typescript",
-      "size": 2186,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "react-doctor",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "React 代码诊断",
-      "description": "诊断并修复 React 代码库健康问题。用于审查 React 代码、修复性能问题、审计安全或提升代码质量。",
-      "enDescription": "Diagnose and fix React codebase health issues. Use when reviewing React code, fixing performance problems, auditing security, or improving code quality.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "skillVersion": "1.0.0",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/react-doctor",
-      "githubDir": "skills/react-doctor",
-      "size": 1756,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "shadcn-ui",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "shadcn/ui",
-      "description": "集成与基于 shadcn/ui 组件构建应用的专家级指引——组件安装、主题、可访问性、组合与定制。当用户使用 shadcn/ui 搭建界面时使用。",
-      "enDescription": "Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/shadcn-ui",
-      "githubDir": "skills/shadcn-ui",
-      "size": 88774,
-      "files": 10,
-      "popularity": 0
-    },
-    {
-      "name": "uni-app",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "uni-app 跨端开发",
-      "description": "uni-app 跨平台开发框架的综合技能参考。在用 Vue 语法编写一次代码、发布到小程序/H5/App 多端，或配置条件编译、原生能力桥接时使用。",
-      "enDescription": "Comprehensive skill reference for uni-app cross-platform development framework",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/uni-app",
-      "githubDir": "skills/uni-app",
-      "size": 99796,
-      "files": 16,
-      "popularity": 1
-    },
-    {
-      "name": "vercel-composition-patterns",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "vercel-composition-patterns",
-      "description": "",
-      "enDescription": "React composition patterns that scale. Use when refactoring components with",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-composition-patterns",
-      "githubDir": "skills/vercel-composition-patterns",
-      "size": 52804,
-      "files": 14,
-      "popularity": 0
-    },
-    {
-      "name": "vercel-react-best-practices",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "vercel-react-best-practices",
-      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
-      "enDescription": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-react-best-practices",
-      "githubDir": "skills/vercel-react-best-practices",
-      "size": 238922,
-      "files": 76,
-      "popularity": 1
-    },
-    {
-      "name": "vue-best-practices",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Vue 最佳实践",
-      "description": "Vue.js 任务必须使用。强烈推荐 Composition API 与 <script setup>，覆盖组件设计、响应式、组合式函数与性能等最佳实践。",
-      "enDescription": "MUST be used for Vue.js tasks. Strongly recommends Composition API with `<script setup>` and TypeScript as the standard approach. Covers Vue 3, SSR, Volar, vue-tsc. Load for any Vue, .vue files, Vue Router, Pinia, or Vite with Vue work. ALWAYS use Composition API unless the project explicitly requires Options API.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-best-practices",
-      "githubDir": "skills/vue-best-practices",
-      "size": 115591,
-      "files": 23,
-      "popularity": 0
-    },
-    {
-      "name": "vue-debug-guides",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Vue 调试指南",
-      "description": "Vue 3 运行时错误、警告、异步与响应式问题的调试与错误处理指南。当用户遇到渲染异常、警告或难以定位的运行时故障时使用。",
-      "enDescription": "Vue 3 debugging and error handling for runtime errors, warnings, async failures, and SSR/hydration issues. Use when diagnosing or fixing Vue issues.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-debug-guides",
-      "githubDir": "skills/vue-debug-guides",
-      "size": 621666,
-      "files": 140,
-      "popularity": 0
-    },
-    {
-      "name": "vue-pinia-best-practices",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Vue Pinia 最佳实践",
-      "description": "Pinia 状态管理：store 设计、setup 风格定义、状态/ Getter/ Action 与响应式写法等最佳实践。当用户设计或重构 Vue 应用的全局状态时使用。",
-      "enDescription": "Pinia stores, state management patterns, store setup, and reactivity with stores.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "author": "github.com/vuejs-ai",
-      "license": "MIT",
-      "skillVersion": "1.0.0",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-pinia-best-practices",
-      "githubDir": "skills/vue-pinia-best-practices",
-      "size": 39294,
-      "files": 7,
-      "popularity": 0
-    },
-    {
-      "name": "vue-router-best-practices",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Vue Router 最佳实践",
-      "description": "Vue Router 4 模式：导航守卫、路由参数、路由组件与懒加载等最佳实践。当用户配置路由、处理跳转或权限守卫时使用。",
-      "enDescription": "Vue Router 4 patterns, navigation guards, route params, and route-component lifecycle interactions.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "author": "github.com/vuejs-ai",
-      "license": "MIT",
-      "skillVersion": "1.0.0",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-router-best-practices",
-      "githubDir": "skills/vue-router-best-practices",
-      "size": 44599,
-      "files": 9,
-      "popularity": 0
-    },
-    {
-      "name": "web-artifacts-builder",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Web 多组件构件构建",
-      "description": "使用现代前端 Web 技术（React、Tailwind CSS、shadcn/ui）创建复杂多组件的 claude.ai HTML 构件的工具套件。适用于需要状态管理、路由或 shadcn/ui 组件的复杂构件，而非简单的单文件 HTML/JSX 构件。",
-      "enDescription": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "Complete terms in LICENSE.txt",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-artifacts-builder",
-      "githubDir": "skills/web-artifacts-builder",
-      "size": 46847,
-      "files": 5,
-      "popularity": 0
-    },
-    {
-      "name": "winui-dev-workflow",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "WinUI 开发工作流",
-      "description": "WinUI 3 应用的构建与运行工作流——项目创建、BuildAndRun.ps1 脚本、winapp run、错误诊断与前置依赖。在构建、运行 WinUI 3 项目，或修复其构建错误时使用。",
-      "enDescription": "Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites. Use when building, running, or fixing build errors in a WinUI 3 project.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-dev-workflow",
-      "githubDir": "skills/winui-dev-workflow",
-      "size": 67294,
-      "files": 4,
-      "popularity": 1
-    },
-    {
-      "name": "cloudbase",
-      "category": "后端与平台",
-      "enCategory": "Backend & Platform",
-      "zh": "CloudBase 全栈开发",
-      "description": "腾讯云开发 CloudBase 全栈开发技能，覆盖 Web/小程序/uni-app 前端、云函数、云数据库、云存储与内置大模型能力，提供从接入到部署的全流程指导。",
-      "enDescription": "Use this skill when you develop, design, build, deploy, debug, migrate, or troubleshoot CloudBase (腾讯云开发, 云开发, TCB, 微信云开发) projects. Covers Web, 微信小程序, 小程序, uni-app, mobile (iOS, Android, Flutter, React Native). UI (页面, 界面, 表单, form, dashboard, prototype, 原型); auth (登录, 注册, OAuth, 微信登录, publishable key); databases (NoSQL 文档数据库, MySQL 关系型数据库, PostgreSQL/CloudBase PG, app.rdb(), queryPgDatabase/managePgDatabase, CRUD, 查询, security rules); 云函数/cloud functions (serverless, scf_bootstrap); CloudRun (云托管, Dockerfile); 云存储. Built-in AI (内置大模型, AI 对话, streaming, 流式输出, 图片生成, generateText, streamText, createModel, generateImage, TokenHub, Hunyuan, hunyuan-exp, DeepSeek, deepseek, GLM, Kimi, Token Credits 资源包, 小程序成长计划). 第三方大模型, 大模型接入, 大模型调用, LLM API, AI agent, 智能体, AI Agent, AG-UI, LangGraph. Ops (巡检, 诊断, health check, 日志, troubleshooting). Spec (需求文档, 技术方案, requirements, tasks.md). Do NOT use for non-CloudBase projects, pure frontend without CloudBase, or self-hosted backends without CloudBase.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "skillVersion": "2.30.0",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/cloudbase",
-      "githubDir": "skills/cloudbase",
-      "size": 1174204,
-      "files": 133,
-      "popularity": 3
-    },
-    {
-      "name": "nestjs-best-practices",
-      "category": "后端与平台",
-      "enCategory": "Backend & Platform",
-      "zh": "NestJS 最佳实践",
-      "description": "NestJS 生产级应用的最佳实践与架构模式。在编写、审查或重构 NestJS 代码，以确保模块、依赖注入、安全与性能的正确模式时使用。",
-      "enDescription": "NestJS best practices and architecture patterns for building production-ready applications. This skill should be used when writing, reviewing, or refactoring NestJS code to ensure proper patterns for modules, dependency injection, security, and performance.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nestjs-best-practices",
-      "githubDir": "skills/nestjs-best-practices",
-      "size": 175349,
-      "files": 43,
-      "popularity": 0
-    },
-    {
-      "name": "php-pro",
-      "category": "后端与平台",
-      "enCategory": "Backend & Platform",
-      "zh": "php-pro",
-      "description": "Use when building PHP applications with modern PHP 8.3+ features, Laravel, or Symfony frameworks. Invokes strict typing, PHPStan level 9, async patterns with Swoole, and PSR standards. Creates controllers, configures middleware, generates migrations, writes PHPUnit/Pest tests, defines typed DTOs and value objects, sets up dependency injection, and scaffolds REST/GraphQL APIs. Use when working with Eloquent, Doctrine, Composer, Psalm, ReactPHP, or any PHP API development.",
-      "enDescription": "Use when building PHP applications with modern PHP 8.3+ features, Laravel, or Symfony frameworks. Invokes strict typing, PHPStan level 9, async patterns with Swoole, and PSR standards. Creates controllers, configures middleware, generates migrations, writes PHPUnit/Pest tests, defines typed DTOs and value objects, sets up dependency injection, and scaffolds REST/GraphQL APIs. Use when working with Eloquent, Doctrine, Composer, Psalm, ReactPHP, or any PHP API development.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/php-pro",
-      "githubDir": "skills/php-pro",
-      "size": 56097,
-      "files": 6,
-      "popularity": 1
-    },
-    {
-      "name": "stripe-best-practices",
-      "category": "后端与平台",
-      "enCategory": "Backend & Platform",
-      "zh": "stripe-best-practices",
-      "description": "Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, restricted keys, webhooks, OAuth). Use when building, modifying, or reviewing any Stripe integration, including accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
-      "enDescription": "Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, restricted keys, webhooks, OAuth). Use when building, modifying, or reviewing any Stripe integration, including accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/stripe-best-practices",
-      "githubDir": "skills/stripe-best-practices",
-      "size": 62295,
-      "files": 7,
-      "popularity": 0
-    },
-    {
-      "name": "supabase",
-      "category": "后端与平台",
-      "enCategory": "Backend & Platform",
-      "zh": "Supabase 全栈开发",
-      "description": "Supabase 全栈开发技能，覆盖数据库、认证、实时、存储、Edge Functions 等能力的开发指导与最佳实践。",
-      "enDescription": "Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libraries and SSR integrations (supabase-js, @supabase/ssr) in Next.js, React, SvelteKit, Astro, Remix; auth issues (login, logout, sessions, JWT, cookies, getSession, getUser, getClaims, RLS); Supabase CLI or MCP server; schema changes, migrations, declarative schemas, security audits, Postgres extensions (pg_graphql, pg_cron, pg_vector); debugging and troubleshooting errors or unexpected behavior on Supabase projects (HTTP errors, Postgres errors, RLS surprises, permission denied, schema cache issues, timeouts, Edge Function crashes, Realtime drops, Storage failures) and reading or querying logs (Logs Explorer, ClickHouse).",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "author": "supabase",
-      "skillVersion": "0.1.2",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase",
-      "githubDir": "skills/supabase",
-      "size": 22181,
-      "files": 4,
-      "popularity": 0
-    },
-    {
-      "name": "supabase-postgres-best-practices",
-      "category": "后端与平台",
-      "enCategory": "Backend & Platform",
-      "zh": "Supabase Postgres 最佳实践",
-      "description": "由 Supabase 维护的 Postgres 最佳实践，适用于任意环境运行的 Postgres。在编写或修改任何 Postgres 数据库对象之前加载本技能：建表/改表与选列类型（含 schema 设计）、迁移与声明式 schema 文件、RLS 策略及其测试、索引、触发器、数据库函数、队列与定时任务（pg_cron、pgmq）、向量/语义搜索（pgvector）、恢复转储（pg_restore）或导入数据。诊断慢查询、高 CPU、超时、EXPLAIN 计划、连接耗尽、锁、膨胀，或租户/用户可见到错误数据时也加载。不仅是性能指南——schema、迁移、安全与 SQL 编写任务（哪怕只改一列或一条查询）都需遵循这些规则。",
-      "enDescription": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase-postgres-best-practices",
-      "githubDir": "skills/supabase-postgres-best-practices",
-      "size": 64293,
-      "files": 36,
-      "popularity": 2
-    },
-    {
-      "name": "dart-build-cli-app",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Dart 命令行应用构建",
-      "description": "用于构建 Dart 命令行应用的技能，覆盖 CLI 应用的参数解析、输入输出、错误处理与发布等最佳实践。",
-      "enDescription": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-build-cli-app",
-      "githubDir": "skills/dart-build-cli-app",
-      "size": 9369,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "dart-flutter-patterns",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Dart/Flutter 模式",
-      "description": "用于编写生产级 Dart/Flutter 代码的技能，涵盖面向 Flutter/Dart 的架构模式、代码组织与工程实践，帮助构建健壮、可维护的跨平台应用。",
-      "enDescription": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-flutter-patterns",
-      "githubDir": "skills/dart-flutter-patterns",
-      "size": 16878,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "flutter-apply-architecture-best-practices",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Flutter 架构最佳实践",
-      "description": "用推荐的分层方式（UI、Logic、Data）为 Flutter 应用做架构设计。在搭建新项目或为可扩展性重构时使用。",
-      "enDescription": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-apply-architecture-best-practices",
-      "githubDir": "skills/flutter-apply-architecture-best-practices",
-      "size": 6676,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "flutter-build-responsive-layout",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Flutter 响应式布局",
-      "description": "用于构建 Flutter 响应式布局的技能，覆盖自适应屏幕尺寸、断点处理与多设备适配的最佳实践。",
-      "enDescription": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-build-responsive-layout",
-      "githubDir": "skills/flutter-build-responsive-layout",
-      "size": 7179,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "flutter-dart-code-review",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Flutter 代码审查",
-      "description": "与框架无关的 Flutter/Dart 代码审查清单，覆盖 widget 最佳实践、状态管理模式（BLoC、Riverpod、Provider、GetX、MobX、Signals）、Dart 惯用法、性能、可访问性、安全与整洁架构。\n无论项目使用何种状态管理库，审查 Flutter/Dart 代码时使用。",
-      "enDescription": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-dart-code-review",
-      "githubDir": "skills/flutter-dart-code-review",
-      "size": 24048,
-      "files": 1,
-      "popularity": 1
-    },
-    {
-      "name": "flutter-setup-localization",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Flutter 本地化",
-      "description": "用于 Flutter 项目本地化配置的技能，覆盖多语言资源、国际化设置与语言切换的最佳实践。",
-      "enDescription": "Add `flutter_localizations` and `intl` dependencies, enable \\\"generate true\\\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-setup-localization",
-      "githubDir": "skills/flutter-setup-localization",
-      "size": 6357,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "limrun-android-emulator",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Limrun 安卓模拟器",
-      "description": "驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动/终止应用并输出崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制带宽，并通过 CLI 隧道使用 adb 读取 logcat、文件与 shell。",
-      "enDescription": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-android-emulator",
-      "githubDir": "skills/limrun-android-emulator",
-      "size": 15113,
-      "files": 1,
-      "popularity": 1
-    },
-    {
-      "name": "limrun-detox-testing",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Limrun Detox 测试",
-      "description": "在 Limrun iOS 模拟器上配置、运行或调试 Detox。用于为应用挂接 Limrun Detox 运行时、连接 Detox mediator 或经反向隧道校验应用/测试器连接。",
-      "enDescription": "Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over reverse tunnels.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-detox-testing",
-      "githubDir": "skills/limrun-detox-testing",
-      "size": 5715,
-      "files": 1,
-      "popularity": 1
-    },
-    {
-      "name": "limrun-ios-simulator",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Limrun iOS 模拟器",
-      "description": "驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、截图、录屏、以视频文件模拟摄像头、执行定时动作链。",
-      "enDescription": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-ios-simulator",
-      "githubDir": "skills/limrun-ios-simulator",
-      "size": 13228,
-      "files": 1,
-      "popularity": 1
-    },
-    {
-      "name": "limrun-xcode",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Limrun Xcode 构建",
-      "description": "在远程 Xcode 用 `lim xcode build` 构建 iOS/Apple 应用，替代本地 xcodebuild，适用任意环境（Linux/Windows/macOS/VM/容器）。用于非 Bazel 项目（.xcodeproj/.xcworkspace、XcodeGen project.yml、React Native/Expo 原生构建）。",
-      "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode",
-      "githubDir": "skills/limrun-xcode",
-      "size": 15138,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "limrun-xcode-bazel",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Limrun Xcode Bazel 构建",
-      "description": "在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用，替代本地 Mac，并安装到远程 iOS 模拟器。用于 Bazel workspace（MODULE.bazel/WORKSPACE）构建 rules_apple/rules_swift 目标。",
-      "enDescription": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode-bazel",
-      "githubDir": "skills/limrun-xcode-bazel",
-      "size": 15913,
-      "files": 3,
-      "popularity": 0
-    },
-    {
-      "name": "blueprint",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WordPress 沙箱蓝图",
-      "description": "当交付物是 WordPress Playground Blueprint JSON 或 Blueprint 包（含创建、编辑、审查、校验 schema 键、选择 steps/resources、调试 Blueprint 文件）时使用。若仅需运行或分享 Playground 环境，用 wp-playground。",
-      "enDescription": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/blueprint",
-      "githubDir": "skills/blueprint",
-      "size": 16989,
-      "files": 1,
-      "popularity": 2
-    },
-    {
-      "name": "chrome-webstore-release-blueprint",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "Chrome 应用商店发布蓝图",
-      "description": "端到端引导用户在任意仓库中搭建 Chrome Web Store API 发布自动化。用于 OAuth/CWS 凭证配置、刷新令牌创建、本地/CI 密钥设置、基于版本的发布自动化与提交状态检查。",
-      "enDescription": "Guide a user end-to-end through setting up Chrome Web Store API release automation in any repository. Use when asked to walk someone through OAuth/CWS credential setup, refresh token creation, local/CI secret setup, version-based publish automation, and submission status checks.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/chrome-webstore-release-blueprint",
-      "githubDir": "skills/chrome-webstore-release-blueprint",
-      "size": 9346,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "woocommerce-backend-dev",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "woocommerce-backend-dev",
-      "description": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
-      "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/woocommerce-backend-dev",
-      "githubDir": "skills/woocommerce-backend-dev",
-      "size": 41944,
-      "files": 9,
-      "popularity": 0
-    },
-    {
-      "name": "wordpress-router",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WordPress 路由",
-      "description": "当用户咨询 WordPress 代码库（插件、主题、块主题、Gutenberg 块、WP 核心检出）并需快速归类仓库、路由到正确工作流/技能（块、theme.json、REST API、WP-CLI、性能、安全、测试、发布打包）时使用。",
-      "enDescription": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wordpress-router",
-      "githubDir": "skills/wordpress-router",
-      "size": 5433,
-      "files": 2,
-      "popularity": 1
-    },
-    {
-      "name": "wp-abilities-audit",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WP 能力审计",
-      "description": "审计 WordPress 插件的 REST 接口面，产出标准化审计文档，提议 Abilities API 注册项。生成含 YAML schema 与散文段落的 markdown 文档，供人与 agent 在规划注册推广时共同消费。适用于任意 WP 插件。",
-      "enDescription": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-audit",
-      "githubDir": "skills/wp-abilities-audit",
-      "size": 42355,
-      "files": 4,
-      "popularity": 0
-    },
-    {
-      "name": "wp-abilities-verify",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WP 能力核验",
-      "description": "核验 WordPress 插件的 Abilities API 注册：枚举能力、检查回调行为是否与各注解声明一致（对抗式「只读却写入」检测）、校验权限与 schema，并校验 wp-abilities-audit 产出的审计文档。",
-      "enDescription": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-verify",
-      "githubDir": "skills/wp-abilities-verify",
-      "size": 57849,
-      "files": 7,
-      "popularity": 1
-    },
-    {
-      "name": "wp-block-themes",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WordPress 块主题",
-      "description": "开发 WordPress 块主题时使用：theme.json（全局设置/样式）、模板与模板部件、区块样式、样式变体，以及站点编辑器的样式层级、覆盖与缓存排障。",
-      "enDescription": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-block-themes",
-      "githubDir": "skills/wp-block-themes",
-      "size": 13200,
-      "files": 8,
-      "popularity": 1
-    },
-    {
-      "name": "wp-patterns",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WordPress 区块模式",
-      "description": "模式：创建或更新 WordPress 区块模式（起始页、模板、模板部件、Query Loop 布局），审查模式注册、区块标记、分类、可访问性或 i18n/转义，或提升模式设计质量。自定义区块路由到 wp-block-development；前端交互路由到 wp-interactivity-api。",
-      "enDescription": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-patterns",
-      "githubDir": "skills/wp-patterns",
-      "size": 45313,
-      "files": 8,
-      "popularity": 1
-    },
-    {
-      "name": "wp-performance",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WordPress 性能优化",
-      "description": "排查或提升 WordPress 性能（后端专用）：性能剖析与测量（WP-CLI profile/doctor、Server-Timing、通过 REST 响应头的 Query Monitor）、数据库/查询优化、自动加载选项、对象缓存、cron、HTTP API 调用与安全验证。",
-      "enDescription": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-performance",
-      "githubDir": "skills/wp-performance",
-      "size": 18021,
-      "files": 11,
-      "popularity": 0
-    },
-    {
-      "name": "wp-playground",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WordPress 沙箱",
-      "description": "作为 WordPress Playground 的路由包装，处理歧义 Playground 任务、本地 CLI 运行 @wp-playground/cli、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。若需编写或审查 Blueprint JSON，直接用 blueprint 技能。",
-      "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-playground",
-      "githubDir": "skills/wp-playground",
-      "size": 21624,
-      "files": 4,
-      "popularity": 1
-    },
-    {
-      "name": "wp-plugin-development",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WordPress 插件开发",
-      "description": "开发 WordPress 插件时使用：架构与钩子、启用/停用/卸载、管理界面与 Settings API、数据存储、cron 任务、安全（nonce/权限/净化/转义）与发布打包。",
-      "enDescription": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-development",
-      "githubDir": "skills/wp-plugin-development",
-      "size": 11376,
-      "files": 8,
-      "popularity": 1
-    },
-    {
-      "name": "wp-plugin-directory-guidelines",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WP 插件目录规范",
-      "description": "审查 WordPress 插件的 GPL 合规性、检查许可证头或兼容性、评估 upsell/免费增值/试用软件模式、校验插件命名或商标规则、检查插件 slug、理解插件为何被 WordPress.org 拒绝，或回答关于 18 条 WordPress.org 插件目录指南的任何问题——即使用户未明确提及「指南」。",
-      "enDescription": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-directory-guidelines",
-      "githubDir": "skills/wp-plugin-directory-guidelines",
-      "size": 50631,
-      "files": 4,
-      "popularity": 1
-    },
-    {
-      "name": "analyze-project",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "项目分析",
-      "description": "Rigor Analyze / Rigor Audit 只读技能，用于深度学习研究仓库的深入分析。当用户想阅读并理解仓库、检查模型结构与训练/推理入口、审阅配置与插入点，或在不动代码、不跑重任务的前提下标记可疑实现模式时使用。不适用于主动执行命令、大规模重构、推测性代码适配或自动修 bug。",
-      "enDescription": "Rigor Analyze / Rigor Audit read-only skill for deep learning research repositories. Use when the user wants to read and understand a repository, inspect model structure and training or inference entrypoints, review configs and insertion points, or flag suspicious implementation patterns without modifying code or running heavy jobs. Do not use for active command execution, broad refactoring, speculative code adaptation, or automatic bug fixing.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/analyze-project",
-      "githubDir": "skills/analyze-project",
-      "size": 30148,
-      "files": 4,
-      "popularity": 0
-    },
-    {
-      "name": "architecture-blueprint-generator",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "项目架构蓝图生成器",
-      "description": "综合分析代码库以生成详尽架构文档的蓝图生成器。自动识别技术栈与架构模式，\n生成可视化图表，记录实现模式，并提供可扩展的架构蓝图以维护架构一致性、指导新开发。",
-      "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/architecture-blueprint-generator",
-      "githubDir": "skills/architecture-blueprint-generator",
-      "size": 14058,
-      "files": 1,
-      "popularity": 3
-    },
-    {
-      "name": "code-review",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "代码评审",
-      "description": "从某个固定点（提交、分支、标签或合并基线）出发，沿两条轴线评审改动：标准（代码是否遵循本仓库文档化的编码规范？）与规格（代码是否匹配原始 issue/规格的要求？）。两个评审在并行子代理中运行并并排报告。当用户想评审分支、PR、进行中的改动，或要求「评审自 X 以来的改动」时使用。",
-      "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review",
-      "githubDir": "skills/code-review",
-      "size": 7302,
-      "files": 2,
-      "popularity": 0
-    },
-    {
-      "name": "code-review-and-quality",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "code-review-and-quality",
-      "description": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.",
-      "enDescription": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review-and-quality",
-      "githubDir": "skills/code-review-and-quality",
-      "size": 21325,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "codebase-design",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "代码库设计",
-      "description": "设计深层模块时的共享词汇表。当用户讨论模块边界、依赖方向、接口契约或整体架构取舍时使用。",
-      "enDescription": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/codebase-design",
-      "githubDir": "skills/codebase-design",
-      "size": 12224,
-      "files": 4,
-      "popularity": 0
-    },
-    {
-      "name": "debugging-and-error-recovery",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "debugging-and-error-recovery",
-      "description": "Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.",
-      "enDescription": "Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/debugging-and-error-recovery",
-      "githubDir": "skills/debugging-and-error-recovery",
-      "size": 11528,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "diagnosing-bugs",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "缺陷诊断",
-      "description": "针对疑难 bug 与性能回退的诊断循环。当用户遇到难以定位的失败、偶发故障或变慢问题，需要系统化排查根因时使用。",
-      "enDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/diagnosing-bugs",
-      "githubDir": "skills/diagnosing-bugs",
-      "size": 10417,
-      "files": 3,
-      "popularity": 0
-    },
-    {
-      "name": "eve",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "eve",
-      "description": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
-      "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/eve",
-      "githubDir": "skills/eve",
-      "size": 1392,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "executing-plans",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "执行计划",
-      "description": "当你有一份书面实现计划，需要在独立会话中执行并带评审检查点时使用",
-      "enDescription": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/executing-plans",
-      "githubDir": "skills/executing-plans",
-      "size": 2591,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "implement-spec",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "规格实现",
-      "description": "用代码实现一个规格说明。",
-      "enDescription": "Implement a specification in code.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/implement-spec",
-      "githubDir": "skills/implement-spec",
-      "size": 2390,
-      "files": 2,
-      "popularity": 0
-    },
-    {
-      "name": "improve-codebase-architecture",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "代码库架构深化报告",
-      "description": "扫描代码库寻找可深化的架构机会，生成可视化 HTML 报告，并就你选中的候选进行犀利追问式打磨。",
-      "enDescription": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/improve-codebase-architecture",
-      "githubDir": "skills/improve-codebase-architecture",
-      "size": 13272,
-      "files": 3,
-      "popularity": 1
-    },
-    {
-      "name": "insforge-cli",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "Insforge CLI",
-      "description": "当用户需要后端能力，或任务涉及 Insforge（即时后端/数据库服务）CLI 的初始化、数据建模、本地开发与部署时使用。",
-      "enDescription": ">- Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppressions, import/export, AI/OpenRouter setup and usage overview, Stripe/Razorpay payments, Apify web scraping / data sources, PostHog product analytics, backend branches, organization membership (invite, leave, delete), agent memory (remember/recall project facts and decisions), reporting InsForge-side bugs or doc discrepancies (feedback), or CLI docs. For app code with InsForge or @insforge/sdk, use the insforge app-integration skill instead.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "Apache-2.0",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-cli",
-      "githubDir": "skills/insforge-cli",
-      "size": 216681,
-      "files": 30,
-      "popularity": 1
-    },
-    {
-      "name": "insforge-debug",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "Insforge 调试",
-      "description": "Rigor Debug / Rigor Audit 技能，面向 Insforge（即时后端/数据库服务）的调试。当用户想排查 Insforge 数据模型、CLI、本地开发或部署问题时使用。",
-      "enDescription": ">- Use when diagnosing problems in an InsForge project — reactive failures (SDK error object, HTTP 4xx/5xx, gateway timeout 502/503/504, edge function failure or timeout, login/OAuth/auth errors, RLS denial, realtime channel issues, slow query on one endpoint, edge function or Vercel deploy failure), proactive audits (security/RLS review, performance/index review, system health check, pre-launch readiness), or when the user has an error but doesn't know where to start.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "Apache-2.0",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-debug",
-      "githubDir": "skills/insforge-debug",
-      "size": 53762,
-      "files": 11,
-      "popularity": 0
-    },
-    {
-      "name": "openspec-implementation",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "OpenSpec 实现",
-      "description": "按顺序推进已批准的规格提案，结合测试与校验完成实现。当实现变更、应用提案、执行规格任务或基于已批准计划构建时使用。触发词包括 \\\"openspec implement\\\"、\\\"implement\\\"、\\\"apply change\\\"、\\\"execute spec\\\"、\\\"work through tasks\\\"、\\\"build feature\\\"、\\\"start implementation\\\"。",
-      "enDescription": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/openspec-implementation",
-      "githubDir": "skills/openspec-implementation",
-      "size": 9254,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "orca-cli",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "orca-cli",
-      "description": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
-      "enDescription": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/orca-cli",
-      "githubDir": "skills/orca-cli",
-      "size": 4994,
-      "files": 1,
-      "popularity": 1
-    },
-    {
-      "name": "paper-context-resolver",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "论文上下文解析",
-      "description": "Rigor Paper Context 辅助工具，面向 README 优先的深度学习资料研读。当用户想为论文/仓库建立上下文索引、梳理阅读脉络或关联参考材料时使用。",
-      "enDescription": "Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a specific paper detail such as dataset split, preprocessing, evaluation protocol, checkpoint mapping, or runtime assumption from primary paper sources while recording conflicts. Do not use for general paper summary, repo scanning, environment setup, command execution, title-only paper lookup, or replacing README guidance by default.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/paper-context-resolver",
-      "githubDir": "skills/paper-context-resolver",
-      "size": 4186,
-      "files": 3,
-      "popularity": 0
-    },
-    {
-      "name": "planning-with-files",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "基于文件的规划",
-      "description": "Manus 式基于文件的持久化规划：在磁盘保留 task_plan.md、findings.md、progress.md，使工作可抵御上下文丢失与 /clear。当用户要求规划、拆分或组织多步项目、研究任务或任意需 5+ 工具调用的工作时使用，支持 /clear 后自动恢复会话。",
-      "enDescription": "Manus-style persistent file-based planning for AI coding agents: keeps task_plan.md, findings.md, and progress.md on disk so work survives context loss and /clear. Use when asked to plan out, break down, or organize a multi-step project, research task, or any work requiring 5+ tool calls. Supports automatic session recovery after /clear.",
-      "homepage": "",
-      "allowedTools": [
-        "Read Write Edit Bash Glob Grep"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
-      "githubDir": "skills/planning-with-files",
-      "size": 259279,
-      "files": 29,
-      "popularity": 0
-    },
-    {
-      "name": "playwright-best-practices",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "Playwright 测试最佳实践",
-      "description": "Use when writing Playwright tests, fixing flaky tests, debugging failures, implementing Page Object Model, configuring CI/CD, optimizing performance, mocking APIs, handling authentication or OAuth, testing accessibility (axe-core), file uploads/downloads, date/time mocking, WebSockets, geolocation, permissions, multi-tab/popup flows, mobile/responsive layouts, touch gestures, GraphQL, error handling, offline mode, multi-user collaboration, third-party services (payments, email verification), console error monitoring, global setup/teardown, test annotations (skip, fixme, slow), test tags (@smoke, @fast, @critical, filtering with --grep), project dependencies, security testing (XSS, CSRF, auth), performance budgets (Web Vitals, Lighthouse), iframes, component testing, canvas/WebGL, service workers/PWA, test coverage, i18n/localization, Electron apps, or browser extension testing. Covers E2E, component, API, visual, accessibility, security, Electron, and extension testing.",
-      "enDescription": "Use when writing Playwright tests, fixing flaky tests, debugging failures, implementing Page Object Model, configuring CI/CD, optimizing performance, mocking APIs, handling authentication or OAuth, testing accessibility (axe-core), file uploads/downloads, date/time mocking, WebSockets, geolocation, permissions, multi-tab/popup flows, mobile/responsive layouts, touch gestures, GraphQL, error handling, offline mode, multi-user collaboration, third-party services (payments, email verification), console error monitoring, global setup/teardown, test annotations (skip, fixme, slow), test tags (@smoke, @fast, @critical, filtering with --grep), project dependencies, security testing (XSS, CSRF, auth), performance budgets (Web Vitals, Lighthouse), iframes, component testing, canvas/WebGL, service workers/PWA, test coverage, i18n/localization, Electron apps, or browser extension testing. Covers E2E, component, API, visual, accessibility, security, Electron, and extension testing.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-best-practices",
-      "githubDir": "skills/playwright-best-practices",
-      "size": 789364,
-      "files": 59,
-      "popularity": 0
-    },
-    {
-      "name": "playwright-cli",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "Playwright 命令行自动化",
-      "description": "Automate browser interactions, test web pages and work with Playwright tests.",
-      "enDescription": "Automate browser interactions, test web pages and work with Playwright tests.",
-      "homepage": "",
-      "allowedTools": [
-        "Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
-      "githubDir": "skills/playwright-cli",
-      "size": 60397,
-      "files": 10,
-      "popularity": 0
-    },
-    {
-      "name": "playwright-explore-website",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "Playwright 网站探索测试",
-      "description": "Website exploration for testing using Playwright MCP",
-      "enDescription": "Website exploration for testing using Playwright MCP",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-explore-website",
-      "githubDir": "skills/playwright-explore-website",
-      "size": 874,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "prototype",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "原型构建",
-      "description": "构建一次性原型以回答某个设计问题。当用户想快速验证交互、界面或架构假设，且原型用完即弃时使用。",
-      "enDescription": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype",
-      "githubDir": "skills/prototype",
-      "size": 16455,
-      "files": 4,
-      "popularity": 0
-    },
-    {
-      "name": "receiving-code-review",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "接收代码评审",
-      "description": "在收到代码评审反馈、落实建议之前使用，尤其是面对多条或相互冲突的评审意见时。引导你分类、澄清并落地评审意见。",
-      "enDescription": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/receiving-code-review",
-      "githubDir": "skills/receiving-code-review",
-      "size": 6702,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "repo-intake-and-plan",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "仓库接入与规划",
-      "description": "Rigor Intake 辅助工具，面向 README 优先的深度学习仓库表征。当用户想接入新仓库、梳理目标与范围并制定初步计划时使用。",
-      "enDescription": "Rigor Intake helper for README-first deep learning repo reproduction. Use when the task is specifically to scan a repository, read the README and common project files, extract documented commands, classify inference, evaluation, and training candidates, and return the smallest trustworthy reproduction plan to the main orchestrator. Do not use for environment setup, asset download, command execution, final reporting, paper lookup, or end-to-end orchestration.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/repo-intake-and-plan",
-      "githubDir": "skills/repo-intake-and-plan",
-      "size": 17828,
-      "files": 5,
-      "popularity": 0
-    },
-    {
-      "name": "requesting-code-review",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "请求代码评审",
-      "description": "在完成任务、实现主要功能或合并到主分支之前请求代码评审时使用。引导你整理改动、撰写评审说明并选择合适的评审范围。",
-      "enDescription": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/requesting-code-review",
-      "githubDir": "skills/requesting-code-review",
-      "size": 9201,
-      "files": 2,
-      "popularity": 0
-    },
-    {
-      "name": "setup-matt-pocock-skills",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "工程技能仓库初始化",
-      "description": "为工程技能配置本仓库：设置问题跟踪器、分类标签词汇与域文档布局。在首次使用其他工程技能前运行一次。",
-      "enDescription": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/setup-matt-pocock-skills",
-      "githubDir": "skills/setup-matt-pocock-skills",
-      "size": 20017,
-      "files": 7,
-      "popularity": 0
-    },
-    {
-      "name": "simplify",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "代码简化重构",
-      "description": "简化与精炼近期修改的代码，提升清晰度与一致性。在编写代码后用于改善可读性，且不改变功能行为。",
-      "enDescription": "Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/simplify",
-      "githubDir": "skills/simplify",
-      "size": 3362,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "systematic-debugging",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "系统化调试",
-      "description": "遇到任何 bug、测试失败或意外行为时使用，先分析再动手。引导你复现、收集证据、提出假设并验证，避免盲目修改。",
-      "enDescription": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/systematic-debugging",
-      "githubDir": "skills/systematic-debugging",
-      "size": 42305,
-      "files": 11,
-      "popularity": 0
-    },
-    {
-      "name": "tdd",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "测试驱动开发",
-      "description": "测试驱动开发（TDD）。当用户想以测试优先方式构建功能或修复 bug、提及「红-绿-重构」，或需要集成测试时使用。",
-      "enDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tdd",
-      "githubDir": "skills/tdd",
-      "size": 7793,
-      "files": 4,
-      "popularity": 1
-    },
-    {
-      "name": "to-spec",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "转规格文档",
-      "description": "将当前对话整理为规格说明并发布。当用户想把讨论结论固化为可执行的规格、设计文档或任务清单时使用。",
-      "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/to-spec",
-      "githubDir": "skills/to-spec",
-      "size": 3530,
-      "files": 2,
-      "popularity": 0
-    },
-    {
-      "name": "traceknot",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "Traceknot QA",
-      "description": "将 Traceknot 符合 ISTQB、以证据为约束的 QA 流程应用于仓库。当用户想做系统化测试规划、用例设计、缺陷追踪或质量门禁评审时使用。",
-      "enDescription": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/traceknot",
-      "githubDir": "skills/traceknot",
-      "size": 692203,
-      "files": 51,
-      "popularity": 0
-    },
-    {
-      "name": "write-tech-spec",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "write-tech-spec",
-      "description": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
-      "enDescription": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/write-tech-spec",
-      "githubDir": "skills/write-tech-spec",
-      "size": 8331,
-      "files": 1,
-      "popularity": 0
-    },
-    {
-      "name": "writing-plans",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "编写计划",
-      "description": "当你有多步任务的规格或需求、在动手写代码之前使用",
-      "enDescription": "Use when you have a spec or requirements for a multi-step task, before touching code",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
-      "githubDir": "skills/writing-plans",
-      "size": 9135,
-      "files": 2,
-      "popularity": 0
-    },
-    {
       "name": "docx",
       "category": "文件与格式处理",
       "enCategory": "File & Format Handling",
@@ -2761,22 +1496,6 @@ html[data-lang="zh"] .en { display: none; }
       "popularity": 0
     },
     {
-      "name": "browser-automation",
-      "category": "自动化与集成",
-      "enCategory": "Automation & Integration",
-      "zh": "浏览器与桌面自动化",
-      "description": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
-      "enDescription": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/browser-automation",
-      "githubDir": "skills/browser-automation",
-      "size": 21950,
-      "files": 3,
-      "popularity": 2
-    },
-    {
       "name": "instagram-api",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
@@ -2791,6 +1510,22 @@ html[data-lang="zh"] .en { display: none; }
       "size": 25762,
       "files": 5,
       "popularity": 0
+    },
+    {
+      "name": "orca-cli",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "Orca CLI 工作树管理",
+      "description": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
+      "enDescription": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/orca-cli",
+      "githubDir": "skills/orca-cli",
+      "size": 4887,
+      "files": 1,
+      "popularity": 1
     },
     {
       "name": "playwriter",
@@ -2980,15 +1715,15 @@ html[data-lang="zh"] .en { display: none; }
       "enCategory": "AI & Agents",
       "zh": "百炼联网搜索",
       "description": "阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。 先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为 `token-plan.<region>.maas.aliyuncs.com`）→ 模型自带搜索 （`bl text chat --api responses --tool '{\"type\":\"web_search\"}'`）；其他 / 默认 → Bailian MCP（`bl search web`）；仅在 MCP 鉴权失败、未开通或传输失败时兜底一次到模型自带搜索。 Token Plan 联网搜索失败、两条路径鉴权混淆的排查也走本技能。 反触发：宿主可完成的 普通问答 / 编程 / 写作 → 不触发；知识库 RAG → bailian-cli （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune； agents.yaml → bailian-managed-agent。 共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。",
-      "enDescription": "",
+      "enDescription": "Aliyun Bailian web search entry: routes web / webpage search and latest-info lookup. Identify connection identity first: Token Plan (profile `token-plan` or base_url host `token-plan.<region>.maas.aliyuncs.com`) → model-native search (`bl text chat --api responses --tool '{\"type\":\"web_search\"}'`); others / default → Bailian MCP (`bl search web`); fall back once to model-native search only when MCP auth fails, not enabled, or transport fails. Also covers Token Plan auth-confusion troubleshooting. Anti-triggers: host-completable Q&A / coding / writing → do not trigger; knowledge-base RAG → bailian-cli (`bl knowledge`); image/video/voice gen → bailian-gen; fine-tune/training → bailian-finetune; agents.yaml → bailian-managed-agent. Shared protocol (consent / version precheck / auth / error reporting) lives in bailian-protocol; official install `bl skill init`.",
       "homepage": "",
       "allowedTools": [],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bailian-web-search",
       "githubDir": "skills/bailian-web-search",
-      "size": 7810,
+      "size": 8693,
       "files": 1,
-      "popularity": 0
+      "popularity": 1
     },
     {
       "name": "brainstorming",
@@ -3311,6 +2046,1316 @@ html[data-lang="zh"] .en { display: none; }
       "githubDir": "skills/safe-debug",
       "size": 10064,
       "files": 4,
+      "popularity": 0
+    },
+    {
+      "name": "ads-creative",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "ads-creative",
+      "description": "Audit paid-ad copy, images, video, hooks, concepts, format coverage, platform-native fit, message match, creative fatigue, accessibility, and policy across supported platforms. Use for creative audit, ad creative, creative fatigue, creative diversity, ad copy review, video review, image review, or production priorities.",
+      "enDescription": "Audit paid-ad copy, images, video, hooks, concepts, format coverage, platform-native fit, message match, creative fatigue, accessibility, and policy across supported platforms. Use for creative audit, ad creative, creative fatigue, creative diversity, ad copy review, video review, image review, or production priorities.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ads-creative",
+      "githubDir": "skills/ads-creative",
+      "size": 1692,
+      "files": 1,
+      "popularity": 1
+    },
+    {
+      "name": "analyze-project",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "项目分析",
+      "description": "Rigor Analyze / Rigor Audit 只读技能，用于深度学习研究仓库的深入分析。当用户想阅读并理解仓库、检查模型结构与训练/推理入口、审阅配置与插入点，或在不动代码、不跑重任务的前提下标记可疑实现模式时使用。不适用于主动执行命令、大规模重构、推测性代码适配或自动修 bug。",
+      "enDescription": "Rigor Analyze / Rigor Audit read-only skill for deep learning research repositories. Use when the user wants to read and understand a repository, inspect model structure and training or inference entrypoints, review configs and insertion points, or flag suspicious implementation patterns without modifying code or running heavy jobs. Do not use for active command execution, broad refactoring, speculative code adaptation, or automatic bug fixing.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/analyze-project",
+      "githubDir": "skills/analyze-project",
+      "size": 30141,
+      "files": 4,
+      "popularity": 0
+    },
+    {
+      "name": "architecture-blueprint-generator",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "项目架构蓝图生成器",
+      "description": "综合分析代码库以生成详尽架构文档的蓝图生成器。自动识别技术栈与架构模式，\n生成可视化图表，记录实现模式，并提供可扩展的架构蓝图以维护架构一致性、指导新开发。",
+      "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/architecture-blueprint-generator",
+      "githubDir": "skills/architecture-blueprint-generator",
+      "size": 14051,
+      "files": 1,
+      "popularity": 3
+    },
+    {
+      "name": "blueprint",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 沙箱蓝图",
+      "description": "当交付物是 WordPress Playground Blueprint JSON 或 Blueprint 包（含创建、编辑、审查、校验 schema 键、选择 steps/resources、调试 Blueprint 文件）时使用。若仅需运行或分享 Playground 环境，用 wp-playground。",
+      "enDescription": "Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/blueprint",
+      "githubDir": "skills/blueprint",
+      "size": 17001,
+      "files": 1,
+      "popularity": 2
+    },
+    {
+      "name": "browser-automation",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "浏览器与桌面自动化",
+      "description": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
+      "enDescription": "Unified automation entry point. Covers browser automation (Playwright) and Windows desktop app automation (OpenReverse). Browser scenarios: open pages, click, fill forms, scrape, screenshot, automated login, page interaction. Desktop scenarios: drive GUI tools like IDA/x64dbg, Windows UI Automation, vision-driven interaction, desktop app network capture. Trigger keywords: browser automation, desktop automation, open webpage, fill form, scrape, screenshot, automated login, Playwright, agent-browser, headless, OpenReverse, UIA, CUA, desktop operation, Windows automation.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/browser-automation",
+      "githubDir": "skills/browser-automation",
+      "size": 21957,
+      "files": 3,
+      "popularity": 2
+    },
+    {
+      "name": "bun",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Bun 运行时",
+      "description": "使用 Bun 替代 Node.js、npm、pnpm 或 vite。提供命令映射、Bun 特有 API 与开发模式。",
+      "enDescription": "Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bun",
+      "githubDir": "skills/bun",
+      "size": 2245,
+      "files": 1,
+      "popularity": 1
+    },
+    {
+      "name": "chrome-webstore-release-blueprint",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Chrome 应用商店发布蓝图",
+      "description": "端到端引导用户在任意仓库中搭建 Chrome Web Store API 发布自动化。用于 OAuth/CWS 凭证配置、刷新令牌创建、本地/CI 密钥设置、基于版本的发布自动化与提交状态检查。",
+      "enDescription": "Guide a user end-to-end through setting up Chrome Web Store API release automation in any repository. Use when asked to walk someone through OAuth/CWS credential setup, refresh token creation, local/CI secret setup, version-based publish automation, and submission status checks.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/chrome-webstore-release-blueprint",
+      "githubDir": "skills/chrome-webstore-release-blueprint",
+      "size": 9358,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "cloudbase",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "CloudBase 全栈开发",
+      "description": "腾讯云开发 CloudBase 全栈开发技能，覆盖 Web/小程序/uni-app 前端、云函数、云数据库、云存储与内置大模型能力，提供从接入到部署的全流程指导。",
+      "enDescription": "Use this skill when you develop, design, build, deploy, debug, migrate, or troubleshoot CloudBase (腾讯云开发, 云开发, TCB, 微信云开发) projects. Covers Web, 微信小程序, 小程序, uni-app, mobile (iOS, Android, Flutter, React Native). UI (页面, 界面, 表单, form, dashboard, prototype, 原型); auth (登录, 注册, OAuth, 微信登录, publishable key); databases (NoSQL 文档数据库, MySQL 关系型数据库, PostgreSQL/CloudBase PG, app.rdb(), queryPgDatabase/managePgDatabase, CRUD, 查询, security rules); 云函数/cloud functions (serverless, scf_bootstrap); CloudRun (云托管, Dockerfile); 云存储. Built-in AI (内置大模型, AI 对话, streaming, 流式输出, 图片生成, generateText, streamText, createModel, generateImage, TokenHub, Hunyuan, hunyuan-exp, DeepSeek, deepseek, GLM, Kimi, Token Credits 资源包, 小程序成长计划). 第三方大模型, 大模型接入, 大模型调用, LLM API, AI agent, 智能体, AI Agent, AG-UI, LangGraph. Ops (巡检, 诊断, health check, 日志, troubleshooting). Spec (需求文档, 技术方案, requirements, tasks.md). Do NOT use for non-CloudBase projects, pure frontend without CloudBase, or self-hosted backends without CloudBase.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "skillVersion": "2.30.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/cloudbase",
+      "githubDir": "skills/cloudbase",
+      "size": 1174215,
+      "files": 133,
+      "popularity": 3
+    },
+    {
+      "name": "code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "代码评审",
+      "description": "从某个固定点（提交、分支、标签或合并基线）出发，沿两条轴线评审改动：标准（代码是否遵循本仓库文档化的编码规范？）与规格（代码是否匹配原始 issue/规格的要求？）。两个评审在并行子代理中运行并并排报告。当用户想评审分支、PR、进行中的改动，或要求「评审自 X 以来的改动」时使用。",
+      "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review",
+      "githubDir": "skills/code-review",
+      "size": 7295,
+      "files": 2,
+      "popularity": 0
+    },
+    {
+      "name": "code-review-and-quality",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "code-review-and-quality",
+      "description": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.",
+      "enDescription": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/code-review-and-quality",
+      "githubDir": "skills/code-review-and-quality",
+      "size": 21318,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "codebase-design",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "代码库设计",
+      "description": "设计深层模块时的共享词汇表。当用户讨论模块边界、依赖方向、接口契约或整体架构取舍时使用。",
+      "enDescription": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/codebase-design",
+      "githubDir": "skills/codebase-design",
+      "size": 12217,
+      "files": 4,
+      "popularity": 0
+    },
+    {
+      "name": "dart-build-cli-app",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Dart 命令行应用构建",
+      "description": "用于构建 Dart 命令行应用的技能，覆盖 CLI 应用的参数解析、输入输出、错误处理与发布等最佳实践。",
+      "enDescription": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-build-cli-app",
+      "githubDir": "skills/dart-build-cli-app",
+      "size": 9388,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "dart-flutter-patterns",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Dart/Flutter 模式",
+      "description": "用于编写生产级 Dart/Flutter 代码的技能，涵盖面向 Flutter/Dart 的架构模式、代码组织与工程实践，帮助构建健壮、可维护的跨平台应用。",
+      "enDescription": "Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dart-flutter-patterns",
+      "githubDir": "skills/dart-flutter-patterns",
+      "size": 16897,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "debugging-and-error-recovery",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "debugging-and-error-recovery",
+      "description": "Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.",
+      "enDescription": "Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/debugging-and-error-recovery",
+      "githubDir": "skills/debugging-and-error-recovery",
+      "size": 11521,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "diagnosing-bugs",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "缺陷诊断",
+      "description": "针对疑难 bug 与性能回退的诊断循环。当用户遇到难以定位的失败、偶发故障或变慢问题，需要系统化排查根因时使用。",
+      "enDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/diagnosing-bugs",
+      "githubDir": "skills/diagnosing-bugs",
+      "size": 10410,
+      "files": 3,
+      "popularity": 0
+    },
+    {
+      "name": "eve",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "eve",
+      "description": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
+      "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/eve",
+      "githubDir": "skills/eve",
+      "size": 1385,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "executing-plans",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "执行计划",
+      "description": "当你有一份书面实现计划，需要在独立会话中执行并带评审检查点时使用",
+      "enDescription": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/executing-plans",
+      "githubDir": "skills/executing-plans",
+      "size": 2584,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "fastify-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Fastify 最佳实践",
+      "description": "指导用 TypeScript 或 JavaScript 开发 Fastify Node.js 后端服务与 REST API。在构建、配置或调试 Fastify 应用时使用——包括定义路由、实现插件、配置 JSON Schema 校验、处理错误、优化性能、管理认证、配置 CORS 与安全头、集成数据库、使用 WebSocket 以及生产部署。覆盖完整 Fastify 请求生命周期（hooks、序列化、Pino 日志）与通过 strip types 的 TypeScript 集成。",
+      "enDescription": "Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, managing authentication, configuring CORS and security headers, integrating databases, working with WebSockets, and deploying to production. Covers the full Fastify request lifecycle (hooks, serialization, logging with Pino) and TypeScript integration via strip types. Trigger terms: Fastify, Node.js server, REST API, API routes, backend framework, fastify.config, server.ts, app.ts.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/fastify-best-practices",
+      "githubDir": "skills/fastify-best-practices",
+      "size": 199029,
+      "files": 21,
+      "popularity": 1
+    },
+    {
+      "name": "flutter-apply-architecture-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Flutter 架构最佳实践",
+      "description": "用推荐的分层方式（UI、Logic、Data）为 Flutter 应用做架构设计。在搭建新项目或为可扩展性重构时使用。",
+      "enDescription": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-apply-architecture-best-practices",
+      "githubDir": "skills/flutter-apply-architecture-best-practices",
+      "size": 6695,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "flutter-build-responsive-layout",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Flutter 响应式布局",
+      "description": "用于构建 Flutter 响应式布局的技能，覆盖自适应屏幕尺寸、断点处理与多设备适配的最佳实践。",
+      "enDescription": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-build-responsive-layout",
+      "githubDir": "skills/flutter-build-responsive-layout",
+      "size": 7198,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "flutter-dart-code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Flutter 代码审查",
+      "description": "与框架无关的 Flutter/Dart 代码审查清单，覆盖 widget 最佳实践、状态管理模式（BLoC、Riverpod、Provider、GetX、MobX、Signals）、Dart 惯用法、性能、可访问性、安全与整洁架构。\n无论项目使用何种状态管理库，审查 Flutter/Dart 代码时使用。",
+      "enDescription": "Library-agnostic Flutter/Dart code review checklist covering widget best practices, state management patterns (BLoC, Riverpod, Provider, GetX, MobX, Signals), Dart idioms, performance, accessibility, security, and clean architecture. Use when reviewing Flutter or Dart code, whatever state management library the project uses.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-dart-code-review",
+      "githubDir": "skills/flutter-dart-code-review",
+      "size": 24067,
+      "files": 1,
+      "popularity": 1
+    },
+    {
+      "name": "flutter-setup-localization",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Flutter 本地化",
+      "description": "用于 Flutter 项目本地化配置的技能，覆盖多语言资源、国际化设置与语言切换的最佳实践。",
+      "enDescription": "Add `flutter_localizations` and `intl` dependencies, enable \\\"generate true\\\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-setup-localization",
+      "githubDir": "skills/flutter-setup-localization",
+      "size": 6376,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "hyperframes-core",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "HyperFrames 组合渲染合约",
+      "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
+      "enDescription": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-core",
+      "githubDir": "skills/hyperframes-core",
+      "size": 163472,
+      "files": 20,
+      "popularity": 0
+    },
+    {
+      "name": "implement-spec",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "规格实现",
+      "description": "用代码实现一个规格说明。",
+      "enDescription": "Implement a specification in code.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/implement-spec",
+      "githubDir": "skills/implement-spec",
+      "size": 2383,
+      "files": 2,
+      "popularity": 0
+    },
+    {
+      "name": "improve-codebase-architecture",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "代码库架构深化报告",
+      "description": "扫描代码库寻找可深化的架构机会，生成可视化 HTML 报告，并就你选中的候选进行犀利追问式打磨。",
+      "enDescription": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/improve-codebase-architecture",
+      "githubDir": "skills/improve-codebase-architecture",
+      "size": 13265,
+      "files": 3,
+      "popularity": 1
+    },
+    {
+      "name": "insforge-cli",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Insforge CLI",
+      "description": "当用户需要后端能力，或任务涉及 Insforge（即时后端/数据库服务）CLI 的初始化、数据建模、本地开发与部署时使用。",
+      "enDescription": ">- Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppressions, import/export, AI/OpenRouter setup and usage overview, Stripe/Razorpay payments, Apify web scraping / data sources, PostHog product analytics, backend branches, organization membership (invite, leave, delete), agent memory (remember/recall project facts and decisions), reporting InsForge-side bugs or doc discrepancies (feedback), or CLI docs. For app code with InsForge or @insforge/sdk, use the insforge app-integration skill instead.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "Apache-2.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-cli",
+      "githubDir": "skills/insforge-cli",
+      "size": 216674,
+      "files": 30,
+      "popularity": 1
+    },
+    {
+      "name": "insforge-debug",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Insforge 调试",
+      "description": "Rigor Debug / Rigor Audit 技能，面向 Insforge（即时后端/数据库服务）的调试。当用户想排查 Insforge 数据模型、CLI、本地开发或部署问题时使用。",
+      "enDescription": ">- Use when diagnosing problems in an InsForge project — reactive failures (SDK error object, HTTP 4xx/5xx, gateway timeout 502/503/504, edge function failure or timeout, login/OAuth/auth errors, RLS denial, realtime channel issues, slow query on one endpoint, edge function or Vercel deploy failure), proactive audits (security/RLS review, performance/index review, system health check, pre-launch readiness), or when the user has an error but doesn't know where to start.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "Apache-2.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/insforge-debug",
+      "githubDir": "skills/insforge-debug",
+      "size": 53755,
+      "files": 11,
+      "popularity": 0
+    },
+    {
+      "name": "limrun-android-emulator",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun 安卓模拟器",
+      "description": "驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动/终止应用并输出崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制带宽，并通过 CLI 隧道使用 adb 读取 logcat、文件与 shell。",
+      "enDescription": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-android-emulator",
+      "githubDir": "skills/limrun-android-emulator",
+      "size": 15132,
+      "files": 1,
+      "popularity": 1
+    },
+    {
+      "name": "limrun-detox-testing",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun Detox 测试",
+      "description": "在 Limrun iOS 模拟器上配置、运行或调试 Detox。用于为应用挂接 Limrun Detox 运行时、连接 Detox mediator 或经反向隧道校验应用/测试器连接。",
+      "enDescription": "Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over reverse tunnels.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-detox-testing",
+      "githubDir": "skills/limrun-detox-testing",
+      "size": 5734,
+      "files": 1,
+      "popularity": 1
+    },
+    {
+      "name": "limrun-ios-simulator",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun iOS 模拟器",
+      "description": "驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、截图、录屏、以视频文件模拟摄像头、执行定时动作链。",
+      "enDescription": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-ios-simulator",
+      "githubDir": "skills/limrun-ios-simulator",
+      "size": 13247,
+      "files": 1,
+      "popularity": 1
+    },
+    {
+      "name": "limrun-xcode",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun Xcode 构建",
+      "description": "在远程 Xcode 用 `lim xcode build` 构建 iOS/Apple 应用，替代本地 xcodebuild，适用任意环境（Linux/Windows/macOS/VM/容器）。用于非 Bazel 项目（.xcodeproj/.xcworkspace、XcodeGen project.yml、React Native/Expo 原生构建）。",
+      "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode",
+      "githubDir": "skills/limrun-xcode",
+      "size": 15157,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "limrun-xcode-bazel",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Limrun Xcode Bazel 构建",
+      "description": "在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用，替代本地 Mac，并安装到远程 iOS 模拟器。用于 Bazel workspace（MODULE.bazel/WORKSPACE）构建 rules_apple/rules_swift 目标。",
+      "enDescription": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode-bazel",
+      "githubDir": "skills/limrun-xcode-bazel",
+      "size": 15932,
+      "files": 3,
+      "popularity": 0
+    },
+    {
+      "name": "nestjs-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "NestJS 最佳实践",
+      "description": "NestJS 生产级应用的最佳实践与架构模式。在编写、审查或重构 NestJS 代码，以确保模块、依赖注入、安全与性能的正确模式时使用。",
+      "enDescription": "NestJS best practices and architecture patterns for building production-ready applications. This skill should be used when writing, reviewing, or refactoring NestJS code to ensure proper patterns for modules, dependency injection, security, and performance.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nestjs-best-practices",
+      "githubDir": "skills/nestjs-best-practices",
+      "size": 175360,
+      "files": 43,
+      "popularity": 0
+    },
+    {
+      "name": "next-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Next.js 最佳实践",
+      "description": "Next.js 开发最佳实践指南，涵盖文件约定、服务端组件（RSC）边界、数据模式、异步 API、\nmetadata、错误处理、路由处理器、图片/字体优化与打包策略。",
+      "enDescription": "Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/next-best-practices",
+      "githubDir": "skills/next-best-practices",
+      "size": 84305,
+      "files": 20,
+      "popularity": 1
+    },
+    {
+      "name": "nextjs-app-router-patterns",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Next.js 路由模式",
+      "description": "掌握 Next.js 14+ App Router，覆盖 Server Components、流式渲染、并行路由与高级数据获取。在构建 Next.js 应用、实现 SSR/SSG 或优化 React Server Components 时使用。",
+      "enDescription": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-app-router-patterns",
+      "githubDir": "skills/nextjs-app-router-patterns",
+      "size": 14518,
+      "files": 2,
+      "popularity": 0
+    },
+    {
+      "name": "nextjs-code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Next.js 代码审查",
+      "description": "为 Next.js 应用提供全面的代码审查能力，校验 Server Components、Client Components、Server Actions、缓存策略、metadata、API 路由、middleware 与性能模式。\n在审查 Next.js App Router 代码改动、合并 PR 前、实现新功能后或进行架构校验时使用。",
+      "enDescription": "Provides comprehensive code review capability for Next.js applications, validates Server Components, Client Components, Server Actions, caching strategies, metadata, API routes, middleware, and performance patterns. Use when reviewing Next.js App Router code changes, before merging pull requests, after implementing new features, or for architecture validation. Triggers on \\\"review Next.js code\\\", \\\"Next.js code review\\\", \\\"check my Next.js app\\\".",
+      "homepage": "",
+      "allowedTools": [
+        "Read",
+        "Edit",
+        "Grep",
+        "Glob",
+        "Bash"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-code-review",
+      "githubDir": "skills/nextjs-code-review",
+      "size": 29706,
+      "files": 4,
+      "popularity": 0
+    },
+    {
+      "name": "nextjs-react-typescript",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Next.js TS 专家",
+      "description": "TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家，提供相关技术栈的深入指导与最佳实践。",
+      "enDescription": "Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-react-typescript",
+      "githubDir": "skills/nextjs-react-typescript",
+      "size": 2206,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "openspec-implementation",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "OpenSpec 实现",
+      "description": "按顺序推进已批准的规格提案，结合测试与校验完成实现。当实现变更、应用提案、执行规格任务或基于已批准计划构建时使用。触发词包括 \\\"openspec implement\\\"、\\\"implement\\\"、\\\"apply change\\\"、\\\"execute spec\\\"、\\\"work through tasks\\\"、\\\"build feature\\\"、\\\"start implementation\\\"。",
+      "enDescription": "Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include \"openspec implement\", \"implement\", \"apply change\", \"execute spec\", \"work through tasks\", \"build feature\", \"start implementation\".",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/openspec-implementation",
+      "githubDir": "skills/openspec-implementation",
+      "size": 9247,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "paper-context-resolver",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "论文上下文解析",
+      "description": "Rigor Paper Context 辅助工具，面向 README 优先的深度学习资料研读。当用户想为论文/仓库建立上下文索引、梳理阅读脉络或关联参考材料时使用。",
+      "enDescription": "Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a specific paper detail such as dataset split, preprocessing, evaluation protocol, checkpoint mapping, or runtime assumption from primary paper sources while recording conflicts. Do not use for general paper summary, repo scanning, environment setup, command execution, title-only paper lookup, or replacing README guidance by default.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/paper-context-resolver",
+      "githubDir": "skills/paper-context-resolver",
+      "size": 4179,
+      "files": 3,
+      "popularity": 0
+    },
+    {
+      "name": "php-pro",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "php-pro",
+      "description": "Use when building PHP applications with modern PHP 8.3+ features, Laravel, or Symfony frameworks. Invokes strict typing, PHPStan level 9, async patterns with Swoole, and PSR standards. Creates controllers, configures middleware, generates migrations, writes PHPUnit/Pest tests, defines typed DTOs and value objects, sets up dependency injection, and scaffolds REST/GraphQL APIs. Use when working with Eloquent, Doctrine, Composer, Psalm, ReactPHP, or any PHP API development.",
+      "enDescription": "Use when building PHP applications with modern PHP 8.3+ features, Laravel, or Symfony frameworks. Invokes strict typing, PHPStan level 9, async patterns with Swoole, and PSR standards. Creates controllers, configures middleware, generates migrations, writes PHPUnit/Pest tests, defines typed DTOs and value objects, sets up dependency injection, and scaffolds REST/GraphQL APIs. Use when working with Eloquent, Doctrine, Composer, Psalm, ReactPHP, or any PHP API development.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/php-pro",
+      "githubDir": "skills/php-pro",
+      "size": 56108,
+      "files": 6,
+      "popularity": 1
+    },
+    {
+      "name": "planning-with-files",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "基于文件的规划",
+      "description": "Manus 式基于文件的持久化规划：在磁盘保留 task_plan.md、findings.md、progress.md，使工作可抵御上下文丢失与 /clear。当用户要求规划、拆分或组织多步项目、研究任务或任意需 5+ 工具调用的工作时使用，支持 /clear 后自动恢复会话。",
+      "enDescription": "Manus-style persistent file-based planning for AI coding agents: keeps task_plan.md, findings.md, and progress.md on disk so work survives context loss and /clear. Use when asked to plan out, break down, or organize a multi-step project, research task, or any work requiring 5+ tool calls. Supports automatic session recovery after /clear.",
+      "homepage": "",
+      "allowedTools": [
+        "Read Write Edit Bash Glob Grep"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
+      "githubDir": "skills/planning-with-files",
+      "size": 259272,
+      "files": 29,
+      "popularity": 0
+    },
+    {
+      "name": "playwright-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Playwright 测试最佳实践",
+      "description": "Use when writing Playwright tests, fixing flaky tests, debugging failures, implementing Page Object Model, configuring CI/CD, optimizing performance, mocking APIs, handling authentication or OAuth, testing accessibility (axe-core), file uploads/downloads, date/time mocking, WebSockets, geolocation, permissions, multi-tab/popup flows, mobile/responsive layouts, touch gestures, GraphQL, error handling, offline mode, multi-user collaboration, third-party services (payments, email verification), console error monitoring, global setup/teardown, test annotations (skip, fixme, slow), test tags (@smoke, @fast, @critical, filtering with --grep), project dependencies, security testing (XSS, CSRF, auth), performance budgets (Web Vitals, Lighthouse), iframes, component testing, canvas/WebGL, service workers/PWA, test coverage, i18n/localization, Electron apps, or browser extension testing. Covers E2E, component, API, visual, accessibility, security, Electron, and extension testing.",
+      "enDescription": "Use when writing Playwright tests, fixing flaky tests, debugging failures, implementing Page Object Model, configuring CI/CD, optimizing performance, mocking APIs, handling authentication or OAuth, testing accessibility (axe-core), file uploads/downloads, date/time mocking, WebSockets, geolocation, permissions, multi-tab/popup flows, mobile/responsive layouts, touch gestures, GraphQL, error handling, offline mode, multi-user collaboration, third-party services (payments, email verification), console error monitoring, global setup/teardown, test annotations (skip, fixme, slow), test tags (@smoke, @fast, @critical, filtering with --grep), project dependencies, security testing (XSS, CSRF, auth), performance budgets (Web Vitals, Lighthouse), iframes, component testing, canvas/WebGL, service workers/PWA, test coverage, i18n/localization, Electron apps, or browser extension testing. Covers E2E, component, API, visual, accessibility, security, Electron, and extension testing.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-best-practices",
+      "githubDir": "skills/playwright-best-practices",
+      "size": 789664,
+      "files": 59,
+      "popularity": 0
+    },
+    {
+      "name": "playwright-cli",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Playwright 命令行自动化",
+      "description": "Automate browser interactions, test web pages and work with Playwright tests.",
+      "enDescription": "Automate browser interactions, test web pages and work with Playwright tests.",
+      "homepage": "",
+      "allowedTools": [
+        "Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
+      "githubDir": "skills/playwright-cli",
+      "size": 60814,
+      "files": 10,
+      "popularity": 0
+    },
+    {
+      "name": "playwright-explore-website",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Playwright 网站探索测试",
+      "description": "Website exploration for testing using Playwright MCP",
+      "enDescription": "Website exploration for testing using Playwright MCP",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-explore-website",
+      "githubDir": "skills/playwright-explore-website",
+      "size": 888,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "prototype",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "原型构建",
+      "description": "构建一次性原型以回答某个设计问题。当用户想快速验证交互、界面或架构假设，且原型用完即弃时使用。",
+      "enDescription": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype",
+      "githubDir": "skills/prototype",
+      "size": 16448,
+      "files": 4,
+      "popularity": 0
+    },
+    {
+      "name": "react-doctor",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "React 代码诊断",
+      "description": "诊断并修复 React 代码库健康问题。用于审查 React 代码、修复性能问题、审计安全或提升代码质量。",
+      "enDescription": "Diagnose and fix React codebase health issues. Use when reviewing React code, fixing performance problems, auditing security, or improving code quality.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/react-doctor",
+      "githubDir": "skills/react-doctor",
+      "size": 1776,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "receiving-code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "接收代码评审",
+      "description": "在收到代码评审反馈、落实建议之前使用，尤其是面对多条或相互冲突的评审意见时。引导你分类、澄清并落地评审意见。",
+      "enDescription": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/receiving-code-review",
+      "githubDir": "skills/receiving-code-review",
+      "size": 6695,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "repo-intake-and-plan",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "仓库接入与规划",
+      "description": "Rigor Intake 辅助工具，面向 README 优先的深度学习仓库表征。当用户想接入新仓库、梳理目标与范围并制定初步计划时使用。",
+      "enDescription": "Rigor Intake helper for README-first deep learning repo reproduction. Use when the task is specifically to scan a repository, read the README and common project files, extract documented commands, classify inference, evaluation, and training candidates, and return the smallest trustworthy reproduction plan to the main orchestrator. Do not use for environment setup, asset download, command execution, final reporting, paper lookup, or end-to-end orchestration.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/repo-intake-and-plan",
+      "githubDir": "skills/repo-intake-and-plan",
+      "size": 17821,
+      "files": 5,
+      "popularity": 0
+    },
+    {
+      "name": "requesting-code-review",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "请求代码评审",
+      "description": "在完成任务、实现主要功能或合并到主分支之前请求代码评审时使用。引导你整理改动、撰写评审说明并选择合适的评审范围。",
+      "enDescription": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/requesting-code-review",
+      "githubDir": "skills/requesting-code-review",
+      "size": 9194,
+      "files": 2,
+      "popularity": 0
+    },
+    {
+      "name": "setup-matt-pocock-skills",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "工程技能仓库初始化",
+      "description": "为工程技能配置本仓库：设置问题跟踪器、分类标签词汇与域文档布局。在首次使用其他工程技能前运行一次。",
+      "enDescription": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/setup-matt-pocock-skills",
+      "githubDir": "skills/setup-matt-pocock-skills",
+      "size": 20010,
+      "files": 7,
+      "popularity": 0
+    },
+    {
+      "name": "shadcn-ui",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "shadcn/ui",
+      "description": "集成与基于 shadcn/ui 组件构建应用的专家级指引——组件安装、主题、可访问性、组合与定制。当用户使用 shadcn/ui 搭建界面时使用。",
+      "enDescription": "Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/shadcn-ui",
+      "githubDir": "skills/shadcn-ui",
+      "size": 88794,
+      "files": 10,
+      "popularity": 0
+    },
+    {
+      "name": "simplify",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "代码简化重构",
+      "description": "简化与精炼近期修改的代码，提升清晰度与一致性。在编写代码后用于改善可读性，且不改变功能行为。",
+      "enDescription": "Simplify and refine recently modified code for clarity and consistency. Use after writing code to improve readability without changing functionality.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/simplify",
+      "githubDir": "skills/simplify",
+      "size": 3355,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "stripe-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "stripe-best-practices",
+      "description": "Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, restricted keys, webhooks, OAuth). Use when building, modifying, or reviewing any Stripe integration, including accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
+      "enDescription": "Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, restricted keys, webhooks, OAuth). Use when building, modifying, or reviewing any Stripe integration, including accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/stripe-best-practices",
+      "githubDir": "skills/stripe-best-practices",
+      "size": 62306,
+      "files": 7,
+      "popularity": 0
+    },
+    {
+      "name": "supabase",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Supabase 全栈开发",
+      "description": "Supabase 全栈开发技能，覆盖数据库、认证、实时、存储、Edge Functions 等能力的开发指导与最佳实践。",
+      "enDescription": "Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libraries and SSR integrations (supabase-js, @supabase/ssr) in Next.js, React, SvelteKit, Astro, Remix; auth issues (login, logout, sessions, JWT, cookies, getSession, getUser, getClaims, RLS); Supabase CLI or MCP server; schema changes, migrations, declarative schemas, security audits, Postgres extensions (pg_graphql, pg_cron, pg_vector); debugging and troubleshooting errors or unexpected behavior on Supabase projects (HTTP errors, Postgres errors, RLS surprises, permission denied, schema cache issues, timeouts, Edge Function crashes, Realtime drops, Storage failures) and reading or querying logs (Logs Explorer, ClickHouse).",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "author": "supabase",
+      "skillVersion": "0.1.2",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase",
+      "githubDir": "skills/supabase",
+      "size": 22192,
+      "files": 4,
+      "popularity": 0
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Supabase Postgres 最佳实践",
+      "description": "由 Supabase 维护的 Postgres 最佳实践，适用于任意环境运行的 Postgres。在编写或修改任何 Postgres 数据库对象之前加载本技能：建表/改表与选列类型（含 schema 设计）、迁移与声明式 schema 文件、RLS 策略及其测试、索引、触发器、数据库函数、队列与定时任务（pg_cron、pgmq）、向量/语义搜索（pgvector）、恢复转储（pg_restore）或导入数据。诊断慢查询、高 CPU、超时、EXPLAIN 计划、连接耗尽、锁、膨胀，或租户/用户可见到错误数据时也加载。不仅是性能指南——schema、迁移、安全与 SQL 编写任务（哪怕只改一列或一条查询）都需遵循这些规则。",
+      "enDescription": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase-postgres-best-practices",
+      "githubDir": "skills/supabase-postgres-best-practices",
+      "size": 64304,
+      "files": 36,
+      "popularity": 2
+    },
+    {
+      "name": "systematic-debugging",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "系统化调试",
+      "description": "遇到任何 bug、测试失败或意外行为时使用，先分析再动手。引导你复现、收集证据、提出假设并验证，避免盲目修改。",
+      "enDescription": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/systematic-debugging",
+      "githubDir": "skills/systematic-debugging",
+      "size": 42298,
+      "files": 11,
+      "popularity": 0
+    },
+    {
+      "name": "tdd",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "测试驱动开发",
+      "description": "测试驱动开发（TDD）。当用户想以测试优先方式构建功能或修复 bug、提及「红-绿-重构」，或需要集成测试时使用。",
+      "enDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tdd",
+      "githubDir": "skills/tdd",
+      "size": 7786,
+      "files": 4,
+      "popularity": 1
+    },
+    {
+      "name": "to-spec",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "转规格文档",
+      "description": "将当前对话整理为规格说明并发布。当用户想把讨论结论固化为可执行的规格、设计文档或任务清单时使用。",
+      "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/to-spec",
+      "githubDir": "skills/to-spec",
+      "size": 3523,
+      "files": 2,
+      "popularity": 0
+    },
+    {
+      "name": "traceknot",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Traceknot QA",
+      "description": "将 Traceknot 符合 ISTQB、以证据为约束的 QA 流程应用于仓库。当用户想做系统化测试规划、用例设计、缺陷追踪或质量门禁评审时使用。",
+      "enDescription": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/traceknot",
+      "githubDir": "skills/traceknot",
+      "size": 692196,
+      "files": 51,
+      "popularity": 0
+    },
+    {
+      "name": "uni-app",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "uni-app 跨端开发",
+      "description": "uni-app 跨平台开发框架的综合技能参考。在用 Vue 语法编写一次代码、发布到小程序/H5/App 多端，或配置条件编译、原生能力桥接时使用。",
+      "enDescription": "Comprehensive skill reference for uni-app cross-platform development framework",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/uni-app",
+      "githubDir": "skills/uni-app",
+      "size": 99816,
+      "files": 16,
+      "popularity": 1
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "vercel-composition-patterns",
+      "description": "",
+      "enDescription": "React composition patterns that scale. Use when refactoring components with",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-composition-patterns",
+      "githubDir": "skills/vercel-composition-patterns",
+      "size": 52824,
+      "files": 14,
+      "popularity": 0
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "vercel-react-best-practices",
+      "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
+      "enDescription": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vercel-react-best-practices",
+      "githubDir": "skills/vercel-react-best-practices",
+      "size": 238942,
+      "files": 76,
+      "popularity": 1
+    },
+    {
+      "name": "vue-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vue 最佳实践",
+      "description": "Vue.js 任务必须使用。强烈推荐 Composition API 与 <script setup>，覆盖组件设计、响应式、组合式函数与性能等最佳实践。",
+      "enDescription": "MUST be used for Vue.js tasks. Strongly recommends Composition API with `<script setup>` and TypeScript as the standard approach. Covers Vue 3, SSR, Volar, vue-tsc. Load for any Vue, .vue files, Vue Router, Pinia, or Vite with Vue work. ALWAYS use Composition API unless the project explicitly requires Options API.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-best-practices",
+      "githubDir": "skills/vue-best-practices",
+      "size": 115611,
+      "files": 23,
+      "popularity": 0
+    },
+    {
+      "name": "vue-debug-guides",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vue 调试指南",
+      "description": "Vue 3 运行时错误、警告、异步与响应式问题的调试与错误处理指南。当用户遇到渲染异常、警告或难以定位的运行时故障时使用。",
+      "enDescription": "Vue 3 debugging and error handling for runtime errors, warnings, async failures, and SSR/hydration issues. Use when diagnosing or fixing Vue issues.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-debug-guides",
+      "githubDir": "skills/vue-debug-guides",
+      "size": 621686,
+      "files": 140,
+      "popularity": 0
+    },
+    {
+      "name": "vue-pinia-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vue Pinia 最佳实践",
+      "description": "Pinia 状态管理：store 设计、setup 风格定义、状态/ Getter/ Action 与响应式写法等最佳实践。当用户设计或重构 Vue 应用的全局状态时使用。",
+      "enDescription": "Pinia stores, state management patterns, store setup, and reactivity with stores.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "author": "github.com/vuejs-ai",
+      "license": "MIT",
+      "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-pinia-best-practices",
+      "githubDir": "skills/vue-pinia-best-practices",
+      "size": 39314,
+      "files": 7,
+      "popularity": 0
+    },
+    {
+      "name": "vue-router-best-practices",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Vue Router 最佳实践",
+      "description": "Vue Router 4 模式：导航守卫、路由参数、路由组件与懒加载等最佳实践。当用户配置路由、处理跳转或权限守卫时使用。",
+      "enDescription": "Vue Router 4 patterns, navigation guards, route params, and route-component lifecycle interactions.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "author": "github.com/vuejs-ai",
+      "license": "MIT",
+      "skillVersion": "1.0.0",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/vue-router-best-practices",
+      "githubDir": "skills/vue-router-best-practices",
+      "size": 44619,
+      "files": 9,
+      "popularity": 0
+    },
+    {
+      "name": "web-artifacts-builder",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "Web 多组件构件构建",
+      "description": "使用现代前端 Web 技术（React、Tailwind CSS、shadcn/ui）创建复杂多组件的 claude.ai HTML 构件的工具套件。适用于需要状态管理、路由或 shadcn/ui 组件的复杂构件，而非简单的单文件 HTML/JSX 构件。",
+      "enDescription": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "Complete terms in LICENSE.txt",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-artifacts-builder",
+      "githubDir": "skills/web-artifacts-builder",
+      "size": 46867,
+      "files": 5,
+      "popularity": 0
+    },
+    {
+      "name": "winui-dev-workflow",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WinUI 开发工作流",
+      "description": "WinUI 3 应用的构建与运行工作流——项目创建、BuildAndRun.ps1 脚本、winapp run、错误诊断与前置依赖。在构建、运行 WinUI 3 项目，或修复其构建错误时使用。",
+      "enDescription": "Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites. Use when building, running, or fixing build errors in a WinUI 3 project.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-dev-workflow",
+      "githubDir": "skills/winui-dev-workflow",
+      "size": 67314,
+      "files": 4,
+      "popularity": 1
+    },
+    {
+      "name": "woocommerce-backend-dev",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "woocommerce-backend-dev",
+      "description": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
+      "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/woocommerce-backend-dev",
+      "githubDir": "skills/woocommerce-backend-dev",
+      "size": 41956,
+      "files": 9,
+      "popularity": 0
+    },
+    {
+      "name": "wordpress-router",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 路由",
+      "description": "当用户咨询 WordPress 代码库（插件、主题、块主题、Gutenberg 块、WP 核心检出）并需快速归类仓库、路由到正确工作流/技能（块、theme.json、REST API、WP-CLI、性能、安全、测试、发布打包）时使用。",
+      "enDescription": "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging).",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wordpress-router",
+      "githubDir": "skills/wordpress-router",
+      "size": 5445,
+      "files": 2,
+      "popularity": 1
+    },
+    {
+      "name": "wp-abilities-audit",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WP 能力审计",
+      "description": "审计 WordPress 插件的 REST 接口面，产出标准化审计文档，提议 Abilities API 注册项。生成含 YAML schema 与散文段落的 markdown 文档，供人与 agent 在规划注册推广时共同消费。适用于任意 WP 插件。",
+      "enDescription": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-audit",
+      "githubDir": "skills/wp-abilities-audit",
+      "size": 42367,
+      "files": 4,
+      "popularity": 0
+    },
+    {
+      "name": "wp-abilities-verify",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WP 能力核验",
+      "description": "核验 WordPress 插件的 Abilities API 注册：枚举能力、检查回调行为是否与各注解声明一致（对抗式「只读却写入」检测）、校验权限与 schema，并校验 wp-abilities-audit 产出的审计文档。",
+      "enDescription": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-abilities-verify",
+      "githubDir": "skills/wp-abilities-verify",
+      "size": 57861,
+      "files": 7,
+      "popularity": 1
+    },
+    {
+      "name": "wp-block-themes",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 块主题",
+      "description": "开发 WordPress 块主题时使用：theme.json（全局设置/样式）、模板与模板部件、区块样式、样式变体，以及站点编辑器的样式层级、覆盖与缓存排障。",
+      "enDescription": "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching).",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-block-themes",
+      "githubDir": "skills/wp-block-themes",
+      "size": 13212,
+      "files": 8,
+      "popularity": 1
+    },
+    {
+      "name": "wp-patterns",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 区块模式",
+      "description": "模式：创建或更新 WordPress 区块模式（起始页、模板、模板部件、Query Loop 布局），审查模式注册、区块标记、分类、可访问性或 i18n/转义，或提升模式设计质量。自定义区块路由到 wp-block-development；前端交互路由到 wp-interactivity-api。",
+      "enDescription": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-patterns",
+      "githubDir": "skills/wp-patterns",
+      "size": 45325,
+      "files": 8,
+      "popularity": 1
+    },
+    {
+      "name": "wp-performance",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 性能优化",
+      "description": "排查或提升 WordPress 性能（后端专用）：性能剖析与测量（WP-CLI profile/doctor、Server-Timing、通过 REST 响应头的 Query Monitor）、数据库/查询优化、自动加载选项、对象缓存、cron、HTTP API 调用与安全验证。",
+      "enDescription": "Use when investigating or improving WordPress performance (backend-only agent): profiling and measurement (WP-CLI profile/doctor, Server-Timing, Query Monitor via REST headers), database/query optimization, autoloaded options, object caching, cron, HTTP API calls, and safe verification.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-performance",
+      "githubDir": "skills/wp-performance",
+      "size": 18033,
+      "files": 11,
+      "popularity": 0
+    },
+    {
+      "name": "wp-playground",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 沙箱",
+      "description": "作为 WordPress Playground 的路由包装，处理歧义 Playground 任务、本地 CLI 运行 @wp-playground/cli、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。若需编写或审查 Blueprint JSON，直接用 blueprint 技能。",
+      "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-playground",
+      "githubDir": "skills/wp-playground",
+      "size": 21636,
+      "files": 4,
+      "popularity": 1
+    },
+    {
+      "name": "wp-plugin-development",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WordPress 插件开发",
+      "description": "开发 WordPress 插件时使用：架构与钩子、启用/停用/卸载、管理界面与 Settings API、数据存储、cron 任务、安全（nonce/权限/净化/转义）与发布打包。",
+      "enDescription": "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-development",
+      "githubDir": "skills/wp-plugin-development",
+      "size": 11388,
+      "files": 8,
+      "popularity": 1
+    },
+    {
+      "name": "wp-plugin-directory-guidelines",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "WP 插件目录规范",
+      "description": "审查 WordPress 插件的 GPL 合规性、检查许可证头或兼容性、评估 upsell/免费增值/试用软件模式、校验插件命名或商标规则、检查插件 slug、理解插件为何被 WordPress.org 拒绝，或回答关于 18 条 WordPress.org 插件目录指南的任何问题——即使用户未明确提及「指南」。",
+      "enDescription": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-directory-guidelines",
+      "githubDir": "skills/wp-plugin-directory-guidelines",
+      "size": 50643,
+      "files": 4,
+      "popularity": 1
+    },
+    {
+      "name": "write-tech-spec",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "write-tech-spec",
+      "description": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
+      "enDescription": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/write-tech-spec",
+      "githubDir": "skills/write-tech-spec",
+      "size": 8324,
+      "files": 1,
+      "popularity": 0
+    },
+    {
+      "name": "writing-plans",
+      "category": "开发框架与平台",
+      "enCategory": "Dev Frameworks & Platforms",
+      "zh": "编写计划",
+      "description": "当你有多步任务的规格或需求、在动手写代码之前使用",
+      "enDescription": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
+      "githubDir": "skills/writing-plans",
+      "size": 9128,
+      "files": 2,
       "popularity": 0
     }
   ]
@@ -3803,6 +3848,17 @@ function cardHTML(s) {
 
 function emptyHTML() {
   return `<div id="emptyState" class="empty-state" aria-live="polite">
+    <svg class="empty-net" viewBox="0 0 160 100" aria-hidden="true">
+      <g class="en-line">
+        <line x1="40" y1="30" x2="80" y2="55" /><line x1="80" y1="55" x2="120" y2="35" />
+        <line x1="80" y1="55" x2="55" y2="82" /><line x1="80" y1="55" x2="110" y2="80" />
+        <line x1="40" y1="30" x2="55" y2="82" /><line x1="120" y1="35" x2="110" y2="80" />
+      </g>
+      <g class="en-node"><circle cx="40" cy="30" r="4" /><circle cx="120" cy="35" r="4" /><circle cx="55" cy="82" r="4" /><circle cx="110" cy="80" r="4" /></g>
+      <circle class="en-core" cx="80" cy="55" r="8" />
+      <circle class="en-glass" cx="100" cy="70" r="14" />
+      <line class="en-handle" x1="110" y1="80" x2="120" y2="90" />
+    </svg>
     <div class="empty-title">${I18N.t("empty.title")}</div>
     <div class="empty-desc">${I18N.t("empty.desc")}</div>
     <button id="clearFilters" class="btn btn-ghost">${I18N.t("empty.clear")}</button>
@@ -3987,11 +4043,11 @@ function detailHTML(skill) {
   // 名称显示策略（与卡片一致）
   let titleHTML = "";
   if (st.nameMode === "en") {
-    titleHTML = `<h2 class="d-title"><span class="en">${esc(titleEn)}</span></h2>`;
+    titleHTML = `<h2 class="d-title" id="d-title"><span class="en">${esc(titleEn)}</span></h2>`;
   } else if (st.nameMode === "zh") {
-    titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span></h2>`;
+    titleHTML = `<h2 class="d-title" id="d-title"><span class="zh">${esc(titleZh)}</span></h2>`;
   } else {
-    titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
+    titleHTML = `<h2 class="d-title" id="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
   }
 
   // 元信息区：原始名称 / 分类 / 作者 / STAR / 首次收录 / 协议 / 版本 / 主页 / GitHub 目录
@@ -4212,8 +4268,27 @@ function bind() {
     if (composing) return; // 输入法组合中，跳过
     clearTimeout(t);
     const v = e.target.value;
-    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
+    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); syncHeroSearch(v); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
+  // 方案 A：Hero 区搜索框前置，与顶部 #searchInput 共享同一 state.query
+  const hsi = $("#heroSearchInput");
+  const hsc = $("#heroSearchClear");
+  if (hsi) {
+    let ht;
+    let hc = false;
+    hsi.addEventListener("compositionstart", () => { hc = true; clearTimeout(ht); });
+    hsi.addEventListener("compositionend", (e) => {
+      hc = false;
+      ht = setTimeout(() => runSearch(e.target.value), DEBOUNCE_MS);
+    });
+    hsi.addEventListener("input", (e) => {
+      if (hc) return;
+      if (hsc) hsc.hidden = !e.target.value;
+      clearTimeout(ht);
+      ht = setTimeout(() => runSearch(e.target.value), DEBOUNCE_MS);
+    });
+  }
+  if (hsc) hsc.addEventListener("click", () => { if (hsi) hsi.value = ""; hsc.hidden = true; runSearch(""); hsi.focus(); });
   // 视图切换
   $$(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
@@ -4236,6 +4311,7 @@ function bind() {
     }
     track("filter_category", { categories: state.cats.slice() });
     state.page = 0; // 筛选变化回到第一页
+    updateHeroNet();
     renderGrid();
   });
   // 卡片点击打开详情（事件委托）
@@ -4256,7 +4332,7 @@ function bind() {
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; syncHeroSearch(""); updateHeroNet(); renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
@@ -4294,6 +4370,35 @@ function bind() {
     }, { passive: true });
     updateToTop();
   }
+}
+
+// 方案 A：Hero 搜索框驱动 state.query；与顶部搜索框共享同一状态，双向同步
+function runSearch(v) {
+  state.query = v;
+  state.page = 0;
+  const si = $("#searchInput");
+  if (si && si.value !== v) si.value = v;
+  updateHeroNet();
+  renderGrid();
+  if (v) track("search", { query: v });
+}
+
+// 顶部搜索框变化后同步回填 Hero 搜索框（避免两框状态不一致）
+function syncHeroSearch(v) {
+  const hsi = $("#heroSearchInput");
+  if (hsi && hsi.value !== v) hsi.value = v;
+  const hsc = $("#heroSearchClear");
+  if (hsc) hsc.hidden = !v;
+  updateHeroNet();
+}
+
+// 方案 A：搜索/筛选时点亮节点网核心，节点随查询激活（视觉联动反馈）
+function updateHeroNet() {
+  const net = $("#heroNet");
+  if (!net) return;
+  const active = Boolean(state.query) || (state.cats && state.cats.length > 0);
+  net.classList.toggle("filtering", active);
+  net.classList.toggle("searching", Boolean(state.query));
 }
 
 // prototype/src/parts/05-main.js v1.19.6 — 应用启动编排

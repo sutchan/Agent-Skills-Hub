@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.19.20 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.20.0 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
@@ -78,6 +78,17 @@ function cardHTML(s) {
 
 function emptyHTML() {
   return `<div id="emptyState" class="empty-state" aria-live="polite">
+    <svg class="empty-net" viewBox="0 0 160 100" aria-hidden="true">
+      <g class="en-line">
+        <line x1="40" y1="30" x2="80" y2="55" /><line x1="80" y1="55" x2="120" y2="35" />
+        <line x1="80" y1="55" x2="55" y2="82" /><line x1="80" y1="55" x2="110" y2="80" />
+        <line x1="40" y1="30" x2="55" y2="82" /><line x1="120" y1="35" x2="110" y2="80" />
+      </g>
+      <g class="en-node"><circle cx="40" cy="30" r="4" /><circle cx="120" cy="35" r="4" /><circle cx="55" cy="82" r="4" /><circle cx="110" cy="80" r="4" /></g>
+      <circle class="en-core" cx="80" cy="55" r="8" />
+      <circle class="en-glass" cx="100" cy="70" r="14" />
+      <line class="en-handle" x1="110" y1="80" x2="120" y2="90" />
+    </svg>
     <div class="empty-title">${I18N.t("empty.title")}</div>
     <div class="empty-desc">${I18N.t("empty.desc")}</div>
     <button id="clearFilters" class="btn btn-ghost">${I18N.t("empty.clear")}</button>

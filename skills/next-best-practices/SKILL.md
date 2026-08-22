@@ -5,8 +5,8 @@ description: |-
   metadata、错误处理、路由处理器、图片/字体优化与打包策略。
 en_description: Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling
 zh_displayName: Next.js 最佳实践
-category: 前端开发
-en_category: Frontend Dev
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 user-invocable: false
 ---
 # Next.js Best Practices

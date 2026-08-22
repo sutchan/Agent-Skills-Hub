@@ -3,8 +3,8 @@ name: wp-block-themes
 description: "开发 WordPress 块主题时使用：theme.json（全局设置/样式）、模板与模板部件、区块样式、样式变体，以及站点编辑器的样式层级、覆盖与缓存排障。"
 en_description: "Use when developing WordPress block themes: theme.json (global settings/styles), templates and template parts, patterns, style variations, and Site Editor troubleshooting (style hierarchy, overrides, caching)."
 zh_displayName: WordPress 块主题
-category: WordPress 与 CMS
-en_category: WordPress & CMS
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 compatibility: "Targets WordPress 6.9+ (PHP 7.2.24+). Filesystem-based agent with bash + node. Some workflows require WP-CLI."
 ---
 

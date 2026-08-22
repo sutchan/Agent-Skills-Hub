@@ -3,8 +3,8 @@ name: woocommerce-backend-dev
 description: Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**
 en_description: Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**
 zh_displayName: woocommerce-backend-dev
-category: WordPress 与 CMS
-en_category: WordPress & CMS
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # WooCommerce Backend Development

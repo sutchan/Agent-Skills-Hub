@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.19.20 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定
+// prototype/src/parts/04-interactions.js v1.20.0 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -92,8 +92,27 @@ function bind() {
     if (composing) return; // 输入法组合中，跳过
     clearTimeout(t);
     const v = e.target.value;
-    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
+    t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); syncHeroSearch(v); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
+  // 方案 A：Hero 区搜索框前置，与顶部 #searchInput 共享同一 state.query
+  const hsi = $("#heroSearchInput");
+  const hsc = $("#heroSearchClear");
+  if (hsi) {
+    let ht;
+    let hc = false;
+    hsi.addEventListener("compositionstart", () => { hc = true; clearTimeout(ht); });
+    hsi.addEventListener("compositionend", (e) => {
+      hc = false;
+      ht = setTimeout(() => runSearch(e.target.value), DEBOUNCE_MS);
+    });
+    hsi.addEventListener("input", (e) => {
+      if (hc) return;
+      if (hsc) hsc.hidden = !e.target.value;
+      clearTimeout(ht);
+      ht = setTimeout(() => runSearch(e.target.value), DEBOUNCE_MS);
+    });
+  }
+  if (hsc) hsc.addEventListener("click", () => { if (hsi) hsi.value = ""; hsc.hidden = true; runSearch(""); hsi.focus(); });
   // 视图切换
   $$(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
@@ -116,6 +135,7 @@ function bind() {
     }
     track("filter_category", { categories: state.cats.slice() });
     state.page = 0; // 筛选变化回到第一页
+    updateHeroNet();
     renderGrid();
   });
   // 卡片点击打开详情（事件委托）
@@ -136,7 +156,7 @@ function bind() {
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; syncHeroSearch(""); updateHeroNet(); renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
@@ -174,4 +194,33 @@ function bind() {
     }, { passive: true });
     updateToTop();
   }
+}
+
+// 方案 A：Hero 搜索框驱动 state.query；与顶部搜索框共享同一状态，双向同步
+function runSearch(v) {
+  state.query = v;
+  state.page = 0;
+  const si = $("#searchInput");
+  if (si && si.value !== v) si.value = v;
+  updateHeroNet();
+  renderGrid();
+  if (v) track("search", { query: v });
+}
+
+// 顶部搜索框变化后同步回填 Hero 搜索框（避免两框状态不一致）
+function syncHeroSearch(v) {
+  const hsi = $("#heroSearchInput");
+  if (hsi && hsi.value !== v) hsi.value = v;
+  const hsc = $("#heroSearchClear");
+  if (hsc) hsc.hidden = !v;
+  updateHeroNet();
+}
+
+// 方案 A：搜索/筛选时点亮节点网核心，节点随查询激活（视觉联动反馈）
+function updateHeroNet() {
+  const net = $("#heroNet");
+  if (!net) return;
+  const active = Boolean(state.query) || (state.cats && state.cats.length > 0);
+  net.classList.toggle("filtering", active);
+  net.classList.toggle("searching", Boolean(state.query));
 }

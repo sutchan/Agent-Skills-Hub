@@ -1,12 +1,5 @@
 ---
 name: bailian-web-search
-zh_displayName: 百炼联网搜索
-category: AI 与智能体
-en_category: AI & Agents
-metadata:
-  version: "1.17.1"
-  requires:
-    bins: ["bl"]
 description: >-
   阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。
   先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为
@@ -18,6 +11,15 @@ description: >-
   （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune；
   agents.yaml → bailian-managed-agent。
   共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。
+en_description: >-
+  Aliyun Bailian web search entry: routes web / webpage search and latest-info lookup. Identify connection identity first: Token Plan (profile `token-plan` or base_url host `token-plan.<region>.maas.aliyuncs.com`) → model-native search (`bl text chat --api responses --tool '{"type":"web_search"}'`); others / default → Bailian MCP (`bl search web`); fall back once to model-native search only when MCP auth fails, not enabled, or transport fails. Also covers Token Plan auth-confusion troubleshooting. Anti-triggers: host-completable Q&A / coding / writing → do not trigger; knowledge-base RAG → bailian-cli (`bl knowledge`); image/video/voice gen → bailian-gen; fine-tune/training → bailian-finetune; agents.yaml → bailian-managed-agent. Shared protocol (consent / version precheck / auth / error reporting) lives in bailian-protocol; official install `bl skill init`.
+zh_displayName: 百炼联网搜索
+category: AI 与智能体
+en_category: AI & Agents
+metadata:
+  version: "1.17.1"
+  requires:
+    bins: ["bl"]
 ---
 
 # Bailian web search routing (`bailian-web-search`)

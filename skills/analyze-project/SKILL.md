@@ -3,8 +3,8 @@ name: analyze-project
 description: Rigor Analyze / Rigor Audit 只读技能，用于深度学习研究仓库的深入分析。当用户想阅读并理解仓库、检查模型结构与训练/推理入口、审阅配置与插入点，或在不动代码、不跑重任务的前提下标记可疑实现模式时使用。不适用于主动执行命令、大规模重构、推测性代码适配或自动修 bug。
 en_description: Rigor Analyze / Rigor Audit read-only skill for deep learning research repositories. Use when the user wants to read and understand a repository, inspect model structure and training or inference entrypoints, review configs and insertion points, or flag suspicious implementation patterns without modifying code or running heavy jobs. Do not use for active command execution, broad refactoring, speculative code adaptation, or automatic bug fixing.
 zh_displayName: 项目分析
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # analyze-project

@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.19.20 — 详情弹窗：元信息区(作者/STAR/首次收录/协议/GitHub目录) + 安装命令 + 相关技能 + 复制
+// prototype/src/parts/03-detail.js v1.20.0 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）
@@ -103,11 +103,11 @@ function detailHTML(skill) {
   // 名称显示策略（与卡片一致）
   let titleHTML = "";
   if (st.nameMode === "en") {
-    titleHTML = `<h2 class="d-title"><span class="en">${esc(titleEn)}</span></h2>`;
+    titleHTML = `<h2 class="d-title" id="d-title"><span class="en">${esc(titleEn)}</span></h2>`;
   } else if (st.nameMode === "zh") {
-    titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span></h2>`;
+    titleHTML = `<h2 class="d-title" id="d-title"><span class="zh">${esc(titleZh)}</span></h2>`;
   } else {
-    titleHTML = `<h2 class="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
+    titleHTML = `<h2 class="d-title" id="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
   }
 
   // 元信息区：原始名称 / 分类 / 作者 / STAR / 首次收录 / 协议 / 版本 / 主页 / GitHub 目录
@@ -197,6 +197,12 @@ function openDetail(arg) {
   const dialog = document.getElementById("dialog");
   // 详情内容注入常驻 #dialog（保留元素，避免破坏设置弹窗等复用者）
   dialog.innerHTML = detailHTML(skill);
+  // 方案 C：移动端（≤640px）改为底部抽屉 Sheet，否则居中 Modal
+  const isSheet = window.matchMedia("(max-width: 640px)").matches;
+  dialog.classList.toggle("sheet", isSheet);
+  dialog.classList.toggle("modal", !isSheet);
+  // 无障碍：弹窗标题由详情动态渲染的 #d-title 提供（避免指向不存在的静态 id）
+  dialog.setAttribute("aria-labelledby", "d-title");
   overlay.classList.add("show");
   dialog.classList.add("show"); // #dialog 默认 display:none，需 .show 才可见
   document.body.classList.add("no-scroll");
@@ -221,6 +227,8 @@ function closeDetail() {
   overlay.classList.remove("show");
   if (dialog) {
     dialog.classList.remove("show"); // 还原 #dialog 隐藏态
+    dialog.classList.remove("sheet", "modal");
+    dialog.removeAttribute("aria-labelledby");
     dialog.innerHTML = ""; // 仅清空内容，保留 #dialog 容器
   }
   document.body.classList.remove("no-scroll");
