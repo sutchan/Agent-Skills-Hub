@@ -1,7 +1,7 @@
 ---
 name: descript
-description: >-
-  The Descript craft skill — edit talk content (podcasts, interviews, talking-head video) by editing the transcript instead of the timeline. Use when someone wants to edit in Descript, remove filler words/silences, clean up audio (Studio Sound), fix a flubbed word without re-recording (Overdub), auto-cut between speakers, or turn one recording into clips + show notes + chapters. Uses the WORDS framework.
+description: |-
+  Descript 剪辑工艺技能——通过编辑转录文稿而非时间轴来编辑谈话内容（播客、访谈、口播视频）。当用户想在 Descript 中剪辑、去除填充词/静音、清理音频（Studio Sound）、无需重录修复说错的词（Overdub）、自动切换说话人，或将一段录音转为切片+节目笔记+章节时使用。采用 WORDS 框架。
 en_description: >-
   The Descript craft skill — edit talk content (podcasts, interviews, talking-head video) by editing the transcript instead of the timeline. Use when someone wants to edit in Descript, remove filler words/silences, clean up audio (Studio Sound), fix a flubbed word without re-recording (Overdub), auto-cut between speakers, or turn one recording into clips + show notes + chapters. Uses the WORDS framework.
 zh_displayName: Descript 文稿剪辑

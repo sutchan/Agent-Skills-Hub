@@ -1,14 +1,7 @@
 ---
 name: instagram-api
-description: >-
-  fetcher.sh 上的 Instagram API 替代方案——通过 x402 以 USDC 按次付费，
-  或使用 Bearer Key 预付额度，无需登录、无需会话 Cookie。当用户希望通过
-  @handle 解析 Instagram 主页、按关键词搜索用户、拉取某主页的帖子、Reels、
-  快拍、被标记帖子、粉丝或关注列表，按短码查询单条帖子、读取帖子评论、
-  获取话题标签或仅 Reels 的话题流、按地点拉取帖子，或按特定音频/音乐
-  轨道拉取帖子时使用。同时涵盖 Instagram 粉丝导出、话题标签与地点监控、
-  达人发现、竞品内容追踪，以及无需官方 Graph API 企业认证或无头浏览器的
-  Instagram 数据管道。
+description: |-
+  fetcher.sh 上的 Instagram API 替代——以 USDC 按次付费（x402）或 Bearer 密钥预付费，无需登录与会话 Cookie。按 @handle 解析主页、按关键词搜用户、拉取帖子/Reels/快拍/标记帖/粉丝/关注、按短码查帖子、读评论、拉取话题或位置信息流、按音轨拉帖子，以及粉丝导出、监控、网红发现与竞品追踪，无需 Graph API 验证或无头浏览器。
 en_description: >-
   An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or
   prepaid credits with a Bearer key, no login and no session cookies. Resolve a

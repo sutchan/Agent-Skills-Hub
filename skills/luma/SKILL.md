@@ -1,7 +1,7 @@
 ---
 name: luma
-description: >-
-  The Luma AI craft skill — generate and edit video with Luma's AI models (Dream Machine / Ray / image-to-video). Use when someone wants AI-generated video, image-to-video, camera-motion control, or Luma's generation tiers and rights. The agent writes the brief and can drive the API where connected; the human judges the output. Disclose AI-generated footage.
+description: |-
+  Luma AI 工艺技能——用 Luma 的 AI 模型（Dream Machine / Ray / 图生视频）生成与编辑视频。当用户想要 AI 生成视频、图生视频、镜头运动控制，或了解 Luma 的生成档位与权利时使用。智能体撰写简报并在已连接时驱动 API；人工评判输出。须披露 AI 生成画面。
 en_description: >-
   The Luma AI craft skill — generate and edit video with Luma's AI models (Dream Machine / Ray / image-to-video). Use when someone wants AI-generated video, image-to-video, camera-motion control, or Luma's generation tiers and rights. The agent writes the brief and can drive the API where connected; the human judges the output. Disclose AI-generated footage.
 zh_displayName: Luma AI 视频生成

@@ -1,17 +1,17 @@
 {
   "ad-creative": {
     "popularity": 3,
-    "size": 162985,
+    "size": 162493,
     "files": 11
   },
   "ads-creative": {
     "popularity": 1,
-    "size": 1670,
+    "size": 1628,
     "files": 1
   },
   "agent-browser": {
     "popularity": 0,
-    "size": 3773,
+    "size": 3971,
     "files": 1
   },
   "agent-development": {
@@ -22,17 +22,17 @@
   },
   "ai-avatar-video": {
     "popularity": 2,
-    "size": 10356,
+    "size": 10092,
     "files": 1
   },
   "ai-image-generation": {
     "popularity": 1,
-    "size": 5788,
+    "size": 5687,
     "files": 1
   },
   "ai-music": {
     "popularity": 1,
-    "size": 15266,
+    "size": 15141,
     "files": 1
   },
   "ai-research-reproduction": {
@@ -42,7 +42,7 @@
   },
   "ai-video-generation": {
     "popularity": 2,
-    "size": 7935,
+    "size": 7825,
     "files": 1
   },
   "ai-video-generation-2": {
@@ -57,17 +57,17 @@
   },
   "architecture-blueprint-generator": {
     "popularity": 3,
-    "size": 13727,
+    "size": 13736,
     "files": 1
   },
   "bailian-web-search": {
     "popularity": 1,
-    "size": 8591,
+    "size": 8157,
     "files": 1
   },
   "banner-creator": {
     "popularity": 0,
-    "size": 5994306,
+    "size": 5994296,
     "files": 16
   },
   "banner-design": {
@@ -92,7 +92,7 @@
   },
   "brand-guidelines": {
     "popularity": 0,
-    "size": 13920,
+    "size": 13874,
     "files": 2
   },
   "brand-review": {
@@ -102,7 +102,7 @@
   },
   "browser-automation": {
     "popularity": 2,
-    "size": 21837,
+    "size": 21768,
     "files": 3
   },
   "bun": {
@@ -112,13 +112,13 @@
   },
   "capcut": {
     "popularity": 1,
-    "size": 28987,
+    "size": 28961,
     "files": 6,
     "skillVersion": "1.0.0"
   },
   "captions-and-clipping": {
     "popularity": 2,
-    "size": 22573,
+    "size": 22553,
     "files": 6,
     "skillVersion": "1.0.0"
   },
@@ -146,7 +146,7 @@
   },
   "code-review-and-quality": {
     "popularity": 0,
-    "size": 20921,
+    "size": 20879,
     "files": 1
   },
   "codebase-design": {
@@ -176,12 +176,12 @@
   },
   "debugging-and-error-recovery": {
     "popularity": 0,
-    "size": 11220,
+    "size": 11170,
     "files": 1
   },
   "descript": {
     "popularity": 1,
-    "size": 28345,
+    "size": 28319,
     "files": 6,
     "skillVersion": "1.0.0"
   },
@@ -212,7 +212,7 @@
   },
   "eve": {
     "popularity": 0,
-    "size": 1357,
+    "size": 1368,
     "files": 1
   },
   "executing-plans": {
@@ -232,22 +232,22 @@
   },
   "figma-code-connect": {
     "popularity": 0,
-    "size": 60477,
+    "size": 60473,
     "files": 3
   },
   "figma-design-to-code": {
     "popularity": 1,
-    "size": 5382,
+    "size": 5418,
     "files": 1
   },
   "figma-generate-design": {
     "popularity": 3,
-    "size": 40538,
+    "size": 40642,
     "files": 3
   },
   "figma-generate-library": {
     "popularity": 1,
-    "size": 222350,
+    "size": 222427,
     "files": 16
   },
   "find-skills": {
@@ -277,7 +277,7 @@
   },
   "flutter-dart-code-review": {
     "popularity": 1,
-    "size": 23629,
+    "size": 23630,
     "files": 1
   },
   "flutter-setup-localization": {
@@ -297,7 +297,7 @@
   },
   "frontend-design": {
     "popularity": 0,
-    "size": 18741,
+    "size": 18709,
     "files": 2
   },
   "google-agents-cli-adk-code": {
@@ -337,17 +337,17 @@
   },
   "hyperframes-core": {
     "popularity": 0,
-    "size": 163472,
+    "size": 163410,
     "files": 20
   },
   "hyperframes-creative": {
     "popularity": 2,
-    "size": 1306687,
+    "size": 1306651,
     "files": 78
   },
   "image-to-video": {
     "popularity": 2,
-    "size": 12256,
+    "size": 12247,
     "files": 1
   },
   "implement-spec": {
@@ -362,7 +362,7 @@
   },
   "insforge-cli": {
     "popularity": 1,
-    "size": 212581,
+    "size": 212923,
     "files": 30
   },
   "insforge-debug": {
@@ -372,7 +372,7 @@
   },
   "instagram-api": {
     "popularity": 0,
-    "size": 25087,
+    "size": 24801,
     "files": 5
   },
   "lark-meeting": {
@@ -414,7 +414,7 @@
   },
   "logo-creator": {
     "popularity": 1,
-    "size": 3713640,
+    "size": 3713630,
     "files": 25
   },
   "logo-designer": {
@@ -425,13 +425,13 @@
   },
   "luma": {
     "popularity": 2,
-    "size": 29292,
+    "size": 29266,
     "files": 6,
     "skillVersion": "1.0.0"
   },
   "marketing-plan": {
     "popularity": 1,
-    "size": 247243,
+    "size": 246824,
     "files": 15
   },
   "muapi-3d-logo-animation": {
@@ -453,7 +453,7 @@
   },
   "next-best-practices": {
     "popularity": 1,
-    "size": 80913,
+    "size": 80869,
     "files": 20
   },
   "nextjs-app-router-patterns": {
@@ -463,7 +463,7 @@
   },
   "nextjs-code-review": {
     "popularity": 0,
-    "size": 28765,
+    "size": 28748,
     "files": 4
   },
   "nextjs-react-typescript": {
@@ -478,13 +478,13 @@
   },
   "opus-clip": {
     "popularity": 3,
-    "size": 29513,
+    "size": 29486,
     "files": 6,
     "skillVersion": "1.0.0"
   },
   "orca-cli": {
     "popularity": 1,
-    "size": 3944,
+    "size": 4625,
     "files": 1
   },
   "paper-context-resolver": {
@@ -499,7 +499,7 @@
   },
   "php-pro": {
     "popularity": 1,
-    "size": 53855,
+    "size": 53813,
     "files": 6
   },
   "planning-with-files": {
@@ -509,17 +509,17 @@
   },
   "playwright-best-practices": {
     "popularity": 0,
-    "size": 763309,
+    "size": 763014,
     "files": 59
   },
   "playwright-cli": {
     "popularity": 0,
-    "size": 58788,
+    "size": 58785,
     "files": 10
   },
   "playwright-explore-website": {
     "popularity": 0,
-    "size": 870,
+    "size": 876,
     "files": 1
   },
   "playwriter": {
@@ -586,7 +586,7 @@
   },
   "scripting-and-storyboarding": {
     "popularity": 2,
-    "size": 29003,
+    "size": 28966,
     "files": 6,
     "skillVersion": "1.0.0"
   },
@@ -597,7 +597,7 @@
   },
   "shadcn-ui": {
     "popularity": 0,
-    "size": 85552,
+    "size": 85493,
     "files": 10
   },
   "simplify": {
@@ -617,12 +617,12 @@
   },
   "stripe-best-practices": {
     "popularity": 0,
-    "size": 61604,
+    "size": 61321,
     "files": 7
   },
   "suno": {
     "popularity": 1,
-    "size": 30561,
+    "size": 30544,
     "files": 6,
     "skillVersion": "1.0.0"
   },
@@ -649,7 +649,7 @@
   },
   "talking-head-and-piece-to-camera": {
     "popularity": 1,
-    "size": 33519,
+    "size": 33474,
     "files": 6,
     "skillVersion": "1.0.0"
   },
@@ -660,12 +660,12 @@
   },
   "theme-factory": {
     "popularity": 0,
-    "size": 229240,
+    "size": 229190,
     "files": 13
   },
   "tiktok-api": {
     "popularity": 0,
-    "size": 24268,
+    "size": 24502,
     "files": 5
   },
   "to-spec": {
@@ -675,7 +675,7 @@
   },
   "traceknot": {
     "popularity": 0,
-    "size": 683495,
+    "size": 683654,
     "files": 51
   },
   "twitter-api": {
@@ -700,22 +700,22 @@
   },
   "vercel-composition-patterns": {
     "popularity": 0,
-    "size": 50790,
+    "size": 50723,
     "files": 14
   },
   "vercel-react-best-practices": {
     "popularity": 1,
-    "size": 230845,
+    "size": 230774,
     "files": 76
   },
   "video": {
     "popularity": 3,
-    "size": 37712,
+    "size": 37552,
     "files": 4
   },
   "video-edit": {
     "popularity": 2,
-    "size": 11690,
+    "size": 11712,
     "files": 1
   },
   "video-editing": {
@@ -725,7 +725,7 @@
   },
   "video-storyboard": {
     "popularity": 3,
-    "size": 16098,
+    "size": 15990,
     "files": 1
   },
   "vue-best-practices": {
@@ -757,7 +757,7 @@
   },
   "web-design-guidelines": {
     "popularity": 0,
-    "size": 1524,
+    "size": 1526,
     "files": 1
   },
   "wechat-article-writer": {
@@ -782,7 +782,7 @@
   },
   "woocommerce-backend-dev": {
     "popularity": 0,
-    "size": 41907,
+    "size": 41890,
     "files": 9
   },
   "wordpress-router": {
@@ -837,7 +837,7 @@
   },
   "write-tech-spec": {
     "popularity": 0,
-    "size": 8228,
+    "size": 8190,
     "files": 1
   },
   "writing-plans": {
@@ -847,7 +847,7 @@
   },
   "xlsx": {
     "popularity": 1,
-    "size": 1103546,
+    "size": 1103712,
     "files": 53
   }
 }

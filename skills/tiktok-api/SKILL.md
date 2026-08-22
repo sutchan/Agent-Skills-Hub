@@ -1,8 +1,9 @@
 ---
 name: tiktok-api
-description: fetcher.sh 上的 TikTok API 替代方案——通过 x402 以 USDC 按次付费，或使用 Bearer Key 预付额度，无需登录、无需会话 Cookie。当用户想按用户名/视频 ID 获取 TikTok 资料、视频、点赞、粉丝、关注列表，或搜索视频/话题时使用。
+description: |-
+  fetcher.sh 上的 TikTok API 替代——以 USDC 按次付费（x402）或 Bearer 密钥预付费，无需登录与 app 审核。按关键词搜索 TikTok 帖子并按最赞/最新排序、按分享链接或 ID 查帖子、按 @username 爬取主页、拉取用户帖子/粉丝/关注、拉取话题帖子、按特定音乐拉帖子、按位置拉帖子、读评论与回复。也涵盖抖音趋势追踪、话题监控、网红发现、竞品内容分析与数据管道，无需官方 API 或爬取浏览器。
 en_description: >- A TikTok API alternative on fetcher.sh — pay-per-call in USDC via x402, or prepaid credits with a Bearer key, no login and no app review. Use when the user wants to search TikTok posts by keyword and sort by most-liked or most recent within a date range, look up a post by its share URL or ID, scrape a TikTok profile by @username, pull a user's posts, followers, or followings, fetch a hashtag's posts, pull posts using a specific sound/music track, get posts from a location, or read a post's comments and comment replies. Also covers TikTok trend tracking, hashtag monitoring, influencer discovery, competitor content analysis, and TikTok data pipelines without official TikTok API access or a scraping browser.
-zh_displayName: TikTok API
+zh_displayName: TikTok API 替代
 category: 自动化与集成
 en_category: Automation & Integration
 keywords:

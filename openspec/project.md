@@ -1,6 +1,6 @@
 # Project Specification — Agent Skills Hub
 
-> 路径：`openspec/project.md` · 版本：1.20.4
+> 路径：`openspec/project.md` · 版本：1.20.5
 > 本文件是 OpenSpec 的项目级规范（project spec），定义变更工作流、产物约定与本仓库结构对齐方式。
 > 已落地能力基线见 [`spec.md`](spec.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 > 配套技能：`skills/openspec-propose`、`skills/openspec-apply-change`、`skills/openspec-explore`、`skills/openspec-archive-change`。
@@ -17,10 +17,10 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 | `skills/<name>/SKILL.md` | 单个技能定义（正文 + frontmatter；`name`/`description`/`en_description`/`zh_displayName`/`category`/`en_category` 为必备字段，构建脚本以磁盘为准读取） | ✅ 高频 |
 | `skills/<name>/references/`、`scripts/`、`assets/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `README.md` | 技能清单（中文描述映射） | ✅ 中频 |
-| `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据；入口 `app/page.tsx`/`app/layout.tsx`/`app/globals.css`，共享逻辑在 `app/lib/`，资产在 `app/public/`，组件在 `app/components/`（含 `detail/` 子模块） | ✅ 中频 |
+| `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据；入口 `app/page.tsx`/`app/layout.tsx`/`app/globals.css`，共享逻辑在 `app/lib/`（`skills.ts` 数据读取与类型、`share.ts` 分享文案），资产在 `app/public/`，组件在 `app/components/`（含 `detail/` 子模块），主题令牌在 `app/tokens-shared.css`（由 `tools/sync-tokens.mjs` 从原型 `tokens.css` 同步） | ✅ 中频 |
 | `prototype/` | 预构建静态 HTML 高保真原型（打开 `prototype/index.html` 预览） | ✅ 中频 |
 | `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（源码 `prototype/src/` 随仓库分发，`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物） | ✅ 中频 |
-| `tools/` | 仓库级脚本（`coverage.py`、`skills_readme.py`） | ◻️ 低频 |
+| `tools/` | 仓库级脚本：`build-skills-data.mjs`（解析 SKILL.md 生成数据）、`build.mjs`（合并数据内联构建原型）、`sync-tokens.mjs`（令牌同步至 app）、`validate-skills.mjs`（frontmatter 契约校验）、`ensure-lf.mjs`（统一 LF 换行）、`_scan_fm_bug.mjs`（frontmatter 泄漏扫描）、`skills_readme.py`/`_skill_readme_lib.py`（README 领域表生成）、`coverage.py`（覆盖率） | ◻️ 低频 |
 | `openspec/` | OpenSpec 规范：`project.md`（约定）、`spec.md`（能力基线）、`changes/`（提案）、`archive/`（归档） | ✅ 本目录 |
 
 ## 3. 变更工作流（OpenSpec）
@@ -61,7 +61,7 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 }
 ```
 
-> 注：原型与 app 共用同一扁平结构；分类仅存中文名（string 数组），由 `skills[].category` 去重推导，不存 count / en_name / meta 嵌套。
+> 注：原型与 app 共用同一扁平结构；分类仅存中文名（string 数组），由 `skills[].category` 去重推导，不存 count / en_name / meta 嵌套。完整字段（含 `enCategory`/`homepage`/`source`/`installCommand`/`githubDir`/`hidden`）以 [`spec.md` §2.1](spec.md) 的 `SkillEntry` 为准；`tags` 为 app 侧预留、当前数据未生成。
 
 ### 4.5.2 原型形态与数据来源
 

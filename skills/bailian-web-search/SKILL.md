@@ -1,16 +1,7 @@
 ---
 name: bailian-web-search
-description: >-
-  阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。
-  先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为
-  `token-plan.<region>.maas.aliyuncs.com`）→ 模型自带搜索
-  （`bl text chat --api responses --tool '{"type":"web_search"}'`）；其他 / 默认 →
-  Bailian MCP（`bl search web`）；仅在 MCP 鉴权失败、未开通或传输失败时兜底一次到模型自带搜索。
-  Token Plan 联网搜索失败、两条路径鉴权混淆的排查也走本技能。
-  反触发：宿主可完成的 普通问答 / 编程 / 写作 → 不触发；知识库 RAG → bailian-cli
-  （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune；
-  agents.yaml → bailian-managed-agent。
-  共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。
+description: |-
+  阿里云百炼联网搜索入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。先识别当前连接身份：Token Plan 走模型自带搜索，其他默认走百炼 MCP，仅在 MCP 鉴权失败时兜底一次到模型自带搜索。涵盖 Token Plan 鉴权混淆排查。反触发：宿主可完成的普通问答 / 编程 / 写作用于不触发；知识库 RAG 走 bailian-cli；生图/生视频/语音走 bailian-gen；精调/训练走 bailian-finetune；agents.yaml 走 bailian-managed-agent。
 en_description: >-
   Aliyun Bailian web search entry: routes web / webpage search and latest-info lookup. Identify connection identity first: Token Plan (profile `token-plan` or base_url host `token-plan.<region>.maas.aliyuncs.com`) → model-native search (`bl text chat --api responses --tool '{"type":"web_search"}'`); others / default → Bailian MCP (`bl search web`); fall back once to model-native search only when MCP auth fails, not enabled, or transport fails. Also covers Token Plan auth-confusion troubleshooting. Anti-triggers: host-completable Q&A / coding / writing → do not trigger; knowledge-base RAG → bailian-cli (`bl knowledge`); image/video/voice gen → bailian-gen; fine-tune/training → bailian-finetune; agents.yaml → bailian-managed-agent. Shared protocol (consent / version precheck / auth / error reporting) lives in bailian-protocol; official install `bl skill init`.
 zh_displayName: 百炼联网搜索

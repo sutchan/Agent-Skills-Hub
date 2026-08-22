@@ -52,10 +52,15 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
         <button
           id="langBtn"
           className="icon-btn"
+          title="语言 / Language"
           aria-label={lang === "zh" ? "切换语言" : "Switch language"}
           onClick={() => setLang((l) => (l === "zh" ? "en" : "zh"))}
         >
-          {lang === "zh" ? "EN" : "中"}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M3 12h18" />
+            <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z" />
+          </svg>
         </button>
       </header>
 

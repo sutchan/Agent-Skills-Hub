@@ -1,7 +1,7 @@
 ---
 name: captions-and-clipping
-description: >-
-  The long-form-to-Shorts + sound-off captions mini-skill (Opus Clip / CapCut / Submagic). Use when someone wants to clip a podcast/webinar/long video into Shorts, make TikToks/Reels from a YouTube video, add captions/subtitles, repurpose long-form into short-form, or auto-generate clips. Tools clip and caption; a human reviews. Export clean (no watermark); disclose AI-edited video.
+description: |-
+  长视频转 Short + 静音字幕迷你技能（Opus Clip / CapCut / Submagic）。当用户想把播客/网络研讨会/长视频剪成 Short、从 YouTube 视频做 TikTok/Reels、添加字幕、将长视频改造为短内容或自动生成切片时使用。工具负责切片与字幕，人工复核。导出干净（无水印），并披露 AI 编辑视频。
 en_description: >-
   The long-form-to-Shorts + sound-off captions mini-skill (Opus Clip / CapCut / Submagic). Use when someone wants to clip a podcast/webinar/long video into Shorts, make TikToks/Reels from a YouTube video, add captions/subtitles, repurpose long-form into short-form, or auto-generate clips. Tools clip and caption; a human reviews. Export clean (no watermark); disclose AI-edited video.
 zh_displayName: 长视频切片与字幕

@@ -1,7 +1,7 @@
 ---
 name: capcut
-description: >-
-  The CapCut craft skill — edit short-form social video (TikTok, Reels, Shorts) fast and safely: retention-paced cuts, auto-captions, beat-synced sound, exports. Use when someone wants to edit in CapCut, cut a reel/short, set up auto-captions, use CapCut's AI tools, pick a plan, or asks whether CapCut music/assets or client work are safe commercially. Uses the EDITS framework. The agent plans the edit and flags licensing/ToS gates; the human executes in CapCut and approves.
+description: |-
+  CapCut 剪辑工艺技能——快速安全地剪辑短视频（TikTok、Reels、Shorts）：留存节奏剪辑、自动字幕、节拍同步音效、导出。当用户想在 CapCut 中剪辑、剪 Reel/Short、设置自动字幕、使用 CapCut AI 工具、选套餐，或询问 CapCut 音乐/素材或客户作品商用是否安全时使用。采用 EDITS 框架；智能体规划剪辑并标注授权/ToS 门槛，人工在 CapCut 执行并确认。
 en_description: >-
   The CapCut craft skill — edit short-form social video (TikTok, Reels, Shorts) fast and safely: retention-paced cuts, auto-captions, beat-synced sound, exports. Use when someone wants to edit in CapCut, cut a reel/short, set up auto-captions, use CapCut's AI tools, pick a plan, or asks whether CapCut music/assets or client work are safe commercially. Uses the EDITS framework. The agent plans the edit and flags licensing/ToS gates; the human executes in CapCut and approves.
 zh_displayName: CapCut 短视频剪辑

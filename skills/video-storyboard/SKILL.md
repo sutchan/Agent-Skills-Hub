@@ -1,8 +1,9 @@
 ---
 name: video-storyboard
-description: Generate storyboard image boards and matching video-generation prompt scripts for specific scenes in a short video plan. Use this skill whenever the user asks to create a storyboard, storyboard image, video prompt script, scene prompt, image-to-video prompt, shot board, or per-scene video-generation package, especially when they specify a scene number, duration, or an existing video plan. This skill saves outputs as storyboard/scene-XX.png and storyboard/scene-XX.md and enforces grid sizing, timing labels, and strict character, wardrobe, prop, and location continuity.
+description: |-
+  为短视频计划中的特定场景生成分镜图板与对应的视频生成提示词脚本。当用户要求创建故事板、分镜图、视频提示词脚本、场景提示、图生视频提示、镜头板或逐场景视频生成包（尤其指定场景编号、时长或已有视频计划）时使用。输出保存为 storyboard/scene-XX.png 与 storyboard/scene-XX.md，并强制网格尺寸、时间标签与严格的角色/服装/道具/地点连续性。
 en_description: Generate storyboard image boards and matching video-generation prompt scripts for specific scenes in a short video plan. Use this skill whenever the user asks to create a storyboard, storyboard image, video prompt script, scene prompt, image-to-video prompt, shot board, or per-scene video-generation package, especially when they specify a scene number, duration, or an existing video plan. This skill saves outputs as storyboard/scene-XX.png and storyboard/scene-XX.md and enforces grid sizing, timing labels, and strict character, wardrobe, prop, and location continuity.
-zh_displayName: video-storyboard
+zh_displayName: 视频分镜
 category: 音视频与多媒体
 en_category: Media & Multimedia
 ---

@@ -1,6 +1,7 @@
 ---
 name: hyperframes-core
-description: The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.
+description: |-
+  HyperFrames 组合合约——构建一个可渲染项目。用于组合结构、data-* 时间属性、class="clip"、轨道、子组合、变量、框架自有媒体播放、确定性渲染规则与校验。也涵盖 Tailwind 项目与 STORYBOARD.md / SCRIPT.md 规划格式。在编写组合 HTML 前阅读。
 en_description: >-
   The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.
 zh_displayName: HyperFrames 组合渲染合约

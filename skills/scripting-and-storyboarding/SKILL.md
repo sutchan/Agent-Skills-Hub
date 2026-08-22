@@ -1,7 +1,7 @@
 ---
 name: scripting-and-storyboarding
-description: >-
-  The scripting-and-storyboarding craft — plan a shoot as a words-only script plus a decision document (storyboard) and a setup-grouped shot list for batch filming. Use when someone wants a video script, storyboard, shot list, or shoot plan. The agent writes the plan; the human shoots/generates and judges. Never stages candid-as-real moments or lifts another creator's script.
+description: |-
+  脚本与分镜工艺——将拍摄规划为纯文字脚本、决策文档（故事板）与按 setup 分组的镜头清单以便批量拍摄。当用户想要视频脚本、故事板、镜头清单或拍摄计划时使用。智能体撰写计划，人工拍摄/生成并评判。绝不把偷拍伪装成真实，也不抄袭他人脚本。
 en_description: >-
   The scripting-and-storyboarding craft — plan a shoot as a words-only script plus a decision document (storyboard) and a setup-grouped shot list for batch filming. Use when someone wants a video script, storyboard, shot list, or shoot plan. The agent writes the plan; the human shoots/generates and judges. Never stages candid-as-real moments or lifts another creator's script.
 zh_displayName: 拍摄脚本与分镜

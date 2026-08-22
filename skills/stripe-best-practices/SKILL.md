@@ -1,17 +1,7 @@
 ---
 name: stripe-best-practices
-description: >-
-  Guides Stripe integration decisions across API selection (Checkout Sessions vs
-  PaymentIntents), Connect platform setup (Accounts v2, controller properties),
-  billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax,
-  product tax codes), Treasury financial accounts, integration options
-  (Checkout, Payment Element), migrating from deprecated Stripe APIs, and
-  security best practices (API key management, restricted keys, webhooks,
-  OAuth). Use when building, modifying, or reviewing any Stripe integration,
-  including accepting payments, building marketplaces, integrating Stripe,
-  processing payments, setting up subscriptions, collecting sales tax, VAT, or
-  GST, creating connected accounts, or implementing secure key handling.
-
+description: |-
+  指导 Stripe 集成决策：API 选择（Checkout Sessions 对比 PaymentIntents）、Connect 平台搭建（Accounts v2、controller 属性）、计费/订阅、税务与注册（Stripe Tax、automatic_tax、产品税码）、Treasury 金融账户、集成选项（Checkout、Payment Element）、从废弃 Stripe API 迁移，以及安全最佳实践（API 密钥管理、受限密钥、Webhook、OAuth）。在构建、修改或评审任意 Stripe 集成时使用。
 en_description: >-
   Guides Stripe integration decisions across API selection (Checkout Sessions vs
   PaymentIntents), Connect platform setup (Accounts v2, controller properties),
@@ -23,7 +13,7 @@ en_description: >-
   including accepting payments, building marketplaces, integrating Stripe,
   processing payments, setting up subscriptions, collecting sales tax, VAT, or
   GST, creating connected accounts, or implementing secure key handling.
-zh_displayName: stripe-best-practices
+zh_displayName: Stripe 集成最佳实践
 category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 ---

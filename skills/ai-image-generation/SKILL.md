@@ -1,8 +1,7 @@
 ---
 name: ai-image-generation
 description: |-
-  通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 及 50+ 模型生成 AI 图像。 支持文生图、图生图、inpainting、LoRA、图像编辑、放大、文字渲染。
-  适用于 AI 艺术、产品样机、概念图、社交媒体图、营销视觉与插画。 触发词包括 flux、image generation、ai image、text to image、midjourney alternative 等。
+  通过 inference.sh CLI 使用 GPT-Image-2、FLUX、Gemini、Grok、Seedream、Reve 等 50+ 模型生成 AI 图像。支持文生图、图生图、局部重绘、LoRA、图像编辑、放大、文字渲染。适用于 AI 艺术、产品样机、概念艺术、社媒图形、营销视觉、插画。
 en_description: "Generate AI images with GPT-Image-2, FLUX, Gemini, Grok, Seedream, Reve and 50+ models via inference.sh CLI. Models: GPT-Image-2, FLUX Dev LoRA, FLUX.2 Klein LoRA, Gemini 3 Pro Image, Grok Imagine, Seedream 4.5, Reve, ImagineArt. Capabilities: text-to-image, image-to-image, inpainting, LoRA, image editing, upscaling, text rendering. Use for: AI art, product mockups, concept art, social media graphics, marketing visuals, illustrations. Triggers: flux, image generation, ai image, text to image, stable diffusion, generate image, ai art, midjourney alternative, dall-e alternative, text2img, t2i, image generator, ai picture, create image with ai, generative ai, ai illustration, grok image, gemini image, gpt image, openai image, chatgpt image"
 zh_displayName: AI 图像生成
 category: AI 与智能体

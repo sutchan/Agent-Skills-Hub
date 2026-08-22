@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.5] - 2026-08-22
+
+### fix: 补全 57 个技能未翻译字段并统一 LF（契约合规）
+
+- 为纯英文 `description` 的 57 个技能补全中文完整描述（默认展示语言），采用 YAML `|-` 块标量
+- 为 `zh_displayName` 仍为目录名的 31 个技能补全中文一句话摘要
+- `orca-cli` 补齐缺失的 4 字段（`en_description`/`zh_displayName`/`category`/`en_category`）
+- `validate-skills.mjs` 校验 166 技能全部通过，0 头部泄漏、0 越界、0 其他类
+- 全部 `skills/` 文本资源经 `ensure-lf --check` 确认为 Unix(LF) 格式
+- 根 `package.json` version 升至 v1.20.5
+
+[1.20.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.5
+
 ## [1.20.4] - 2026-08-22
 
 ### docs: 修正文档事实错误与失效引用（规范/原型文档对齐最新架构）
@@ -11,6 +24,12 @@
 - **prototype/COMPONENTS.md**：第 9 行构建脚本路径补 `tools/` 前缀并补 metrics 双产物；头注释 1.20.3 → 1.20.4
 - **README.en.md**：第 63/111 行补 `skills-metrics.json` 独立存储与轻量化说明，与中文版对称；版本徽章升至 v1.20.4
 - 根 `package.json` version 升至 v1.20.4
+
+### docs: 收尾对齐 openspec 与代码/原型真实状态（同 v1.20.4）
+
+- **openspec/spec.md**：头注释 1.20.3 → 1.20.4（§1 版本号同步）；§2.1 `SkillEntry` 补 `tags?` 预留字段注释；§2.3 新增「标签对齐」条款（数据层未生成 tags、原型由 name 派生展示）
+- **openspec/AGENTS.md**：头注释 1.20.3 → 1.20.4
+- **openspec/project.md**：§2 目录表补全 `app/lib`（`skills.ts`/`share.ts`）与 `app/tokens-shared.css`、`tools/` 全量脚本清单（build*/sync-tokens/validate/ensure-lf/_scan_fm_bug 及 py 工具）；§4.5.1 补完整字段指向 spec §2.1
 
 [1.20.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.4
 

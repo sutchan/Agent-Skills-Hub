@@ -1,6 +1,7 @@
 ---
 name: playwright-explore-website
-description: 'Website exploration for testing using Playwright MCP'
+description: |-
+  使用 Playwright MCP 对网站进行探索性测试。
 en_description: 'Website exploration for testing using Playwright MCP'
 zh_displayName: Playwright 网站探索测试
 category: 开发框架与平台

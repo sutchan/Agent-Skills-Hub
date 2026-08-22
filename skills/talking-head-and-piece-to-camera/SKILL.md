@@ -1,7 +1,7 @@
 ---
 name: talking-head-and-piece-to-camera
-description: >-
-  The on-camera delivery craft — helping a real human film themselves talking to a lens and look like themselves doing it. Use when someone wants a talking-head video, piece-to-camera, teleprompter setup, framing/lighting/audio coaching, or batch-filming. Uses the TAKES framework. The agent coaches setup + delivery; the human films and picks the take. Camera-shy? Route honestly to heygen/synthesia.
+description: |-
+  面对镜头交付工艺——帮助真实人类拍摄自己对着镜头的视频并看起来像自己。当用户想要口播视频、面对镜头、提词器设置、构图/灯光/收音指导或批量拍摄时使用。采用 TAKES 框架。智能体指导设置与表达，人工拍摄并挑选镜头。镜头害羞则诚实路由到 heygen/synthesia。
 en_description: >-
   The on-camera delivery craft — helping a real human film themselves talking to a lens and look like themselves doing it. Use when someone wants a talking-head video, piece-to-camera, teleprompter setup, framing/lighting/audio coaching, or batch-filming. Uses the TAKES framework. The agent coaches setup + delivery; the human films and picks the take. Camera-shy? Route honestly to heygen/synthesia.
 zh_displayName: 口播与面对镜头拍摄

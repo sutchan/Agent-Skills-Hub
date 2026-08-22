@@ -1,7 +1,7 @@
 ---
 name: suno
-description: >-
-  The Suno craft skill — generate full songs, brand music, and audio (vocals, lyrics, stems) with the right tier, honest rights, and structure control. Use when someone wants to make music with Suno/AI, create a brand sound/theme/jingle, control song structure (meta-tags), split stems, or distribute AI music. Uses the TRACK framework. Never clone a real artist's voice.
+description: |-
+  Suno 工艺技能——用合适的档位、诚实的权利与结构控制生成完整歌曲、品牌音乐与音频（人声、歌词、分轨）。当用户想用 Suno/AI 做音乐、创建品牌音/主题/广告歌、控制歌曲结构（元标签）、分离分轨或分发 AI 音乐时使用。采用 TRACK 框架。绝不克隆真实艺人声音。
 en_description: >-
   The Suno craft skill — generate full songs, brand music, and audio (vocals, lyrics, stems) with the right tier, honest rights, and structure control. Use when someone wants to make music with Suno/AI, create a brand sound/theme/jingle, control song structure (meta-tags), split stems, or distribute AI music. Uses the TRACK framework. Never clone a real artist's voice.
 zh_displayName: Suno AI 音乐生成

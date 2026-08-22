@@ -1,8 +1,9 @@
 ---
 name: web-design-guidelines
-description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".
+description: |-
+  按 Web 界面指南评审 UI 代码。当被要求“评审我的 UI”“检查可访问性”“审计设计”“评审 UX”或“对照最佳实践检查我的站点”时使用。
 en_description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".
-zh_displayName: web-design-guidelines
+zh_displayName: Web 设计指南
 category: 品牌与设计
 en_category: Brand & Design
 metadata:

@@ -1,17 +1,12 @@
 ---
 name: orca-cli
-description: >-
-  Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts,
-  terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser
-  embedded inside the Orca app. Use when the user says "$orca-cli", "use orca cli",
-  "Orca worktree", "child worktree", "cardStatus", "spawn codex/claude in a worktree",
-  "read/wait/send Orca terminal", "terminal send", "full handoff", "handover",
-  "give this to another agent", "another worktree", "Orca browser", "orca artifacts",
-  "share HTML/Markdown", "public artifact link", "share skills", or "control the browser inside
-  Orca". Prefer this over raw `git worktree`, ad hoc
-  PTYs, Playwright, or Computer Use when the task touches Orca-managed state.
-  Use Computer Use for browser windows, webviews, or desktop UI outside Orca's
-  embedded browser.
+description: |-
+  使用公开 orca CLI 操作 Orca 管理的工作树、文件夹上下文、终端、仓库、自动化、产物、技能共享、工作树评论及 Orca 应用内嵌浏览器。当用户提及“$orca-cli”“使用 orca cli”“Orca 工作树”“子工作树”“cardStatus”“在工作树中生成 codex/claude”“读取/等待/发送 Orca 终端”“完整交接”“交给另一个智能体”“Orca 浏览器”“orca 产物”“分享 HTML/Markdown”“公开产物链接”“分享技能”或“控制 Orca 内浏览器”时使用。任务触及 Orca 托管状态时优先于原始 git worktree、临时 PTY、Playwright 或 Computer Use。
+en_description: |-
+  Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says "$orca-cli", "use orca cli", "Orca worktree", "child worktree", "cardStatus", "spawn codex/claude in a worktree", "read/wait/send Orca terminal", "terminal send", "full handoff", "handover", "give this to another agent", "another worktree", "Orca browser", "orca artifacts", "share HTML/Markdown", "public artifact link", "share skills", or "control the browser inside Orca". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state.
+zh_displayName: Orca CLI 工作树管理
+category: 自动化与集成
+en_category: Automation & Integration
 ---
 
 # Orca CLI

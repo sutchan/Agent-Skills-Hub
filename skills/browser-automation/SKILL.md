@@ -1,10 +1,7 @@
 ---
 name: browser-automation
-description: |
-  统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。
-  浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。
-  桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。
-  触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。
+description: |-
+  统一自动化入口，覆盖浏览器自动化（Playwright）与 Windows 桌面应用自动化（OpenReverse）。浏览器场景：打开页面、点击、填表、爬取、截图、自动登录、页面交互；桌面场景：驱动 IDA/x64dbg 等 GUI 工具、Windows UI 自动化、视觉驱动交互、桌面应用网络抓包。触发词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动登录、Playwright、OpenReverse、UIA、CUA、Windows 自动化。
 en_description: >-
   Unified automation entry point. Covers browser automation (Playwright) and Windows desktop app automation (OpenReverse). Browser scenarios: open pages, click, fill forms, scrape, screenshot, automated login, page interaction. Desktop scenarios: drive GUI tools like IDA/x64dbg, Windows UI Automation, vision-driven interaction, desktop app network capture. Trigger keywords: browser automation, desktop automation, open webpage, fill form, scrape, screenshot, automated login, Playwright, agent-browser, headless, OpenReverse, UIA, CUA, desktop operation, Windows automation.
 zh_displayName: 浏览器与桌面自动化

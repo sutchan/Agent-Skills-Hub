@@ -1,8 +1,9 @@
 ---
 name: video
-description: "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative."
+description: |-
+  当用户想用 AI 工具或编程框架创建、生成或制作视频内容时使用；也适用于提及“视频制作”“AI 视频”“Remotion”“Hyperframes”“HeyGen”“Synthesia”“Veo”“Sora”“Runway”“Kling”“Seedance”“Hailuo”“MiniMax”“Pika”“Hunyuan”“Wan”“视频生成”“AI 数字人”“口播视频”“编程视频”“视频模板”“解说视频”“产品演示视频”“视频流水线”等。用于视频创建、生成与生产工作流；视频内容策略见 social，付费视频广告创意见 ad-creative。
 en_description: "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative."
-zh_displayName: video
+zh_displayName: AI 视频创作
 category: 音视频与多媒体
 en_category: Media & Multimedia
 metadata:

@@ -1,8 +1,7 @@
 ---
 name: ai-music
 description: |-
-  通过 runcomfy CLI 智能路由生成 AI 音乐。 优先路由到 ElevenLabs AI Music Generation（高级 44.1kHz 立体声人声音轨）或 ACE Step / ACE Step 1.5（标签驱动作曲、多语言歌词、成本更低）。
-  还支持 ACE Step 音频 inpaint（重生成音轨内某段）与 outpaint（在音轨前后延长）。 适用场景包括高端人声片段、低价背景音乐库、多语言流行歌曲、修复糟糕的副歌、把 30 秒草稿延长成 2 分钟成品等。
+  通过 runcomfy CLI 在 RunComfy 上生成 AI 音乐——智能路由到合适的音乐模型目录。覆盖 ElevenLabs AI 音乐生成（ premium 人声轨）与 ACE Step 开源权重模型（标签驱动作曲、多语种歌词、低成本），以及音频内补绘与外补绘。按用户真实意图选模型，并附带各模型提示词范式与最小调用。
 en_description: "Generate AI music on RunComfy via the `runcomfy` CLI — a smart router across the music-model catalog. Routes to ElevenLabs AI Music Generation (premium 44.1 kHz stereo vocal tracks, 5 s–5 min, $0.0083/s) and ACE Step / ACE Step 1.5 (StepFun-AI open-weights, tag-driven composition, multilingual lyrics, $0.0002–0.0003/s, ~27× cheaper), plus ACE Step audio-inpaint (regenerate a time range inside an existing track) and ACE Step audio-outpaint (extend a track before or after). Picks the right model for the user's actual intent — premium vocal hook, cheap background music library, multilingual pop song, repair a bad chorus, lengthen a 30 s draft into a 2 min cut — and ships each model's documented prompting patterns plus the minimal `runcomfy run` invoke. Triggers on \"generate music\", \"make a song\", \"AI music\", \"background music\", \"instrumental track\", \"soundtrack\", \"jingle\", \"theme music\", \"royalty-free music\", \"compose\", \"music with lyrics\", \"extend music\", \"fix this song\", \"inpaint music\", or any explicit ask to generate or edit music."
 zh_displayName: AI 音乐生成
 category: 音视频与多媒体

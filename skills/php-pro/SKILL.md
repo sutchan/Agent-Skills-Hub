@@ -1,8 +1,9 @@
 ---
 name: php-pro
-description: Use when building PHP applications with modern PHP 8.3+ features, Laravel, or Symfony frameworks. Invokes strict typing, PHPStan level 9, async patterns with Swoole, and PSR standards. Creates controllers, configures middleware, generates migrations, writes PHPUnit/Pest tests, defines typed DTOs and value objects, sets up dependency injection, and scaffolds REST/GraphQL APIs. Use when working with Eloquent, Doctrine, Composer, Psalm, ReactPHP, or any PHP API development.
+description: |-
+  使用现代 PHP 8.3+ 特性、Laravel 或 Symfony 框架构建 PHP 应用时使用。启用严格类型、PHPStan level 9、Swoole 异步模式与 PSR 标准。创建控制器、配置中间件、生成迁移、编写 PHPUnit/Pest 测试、定义类型化 DTO 与值对象、设置依赖注入、脚手架 REST/GraphQL API。涉及 Eloquent、Doctrine、Composer、Psalm、ReactPHP 或任意 PHP API 开发时适用。
 en_description: Use when building PHP applications with modern PHP 8.3+ features, Laravel, or Symfony frameworks. Invokes strict typing, PHPStan level 9, async patterns with Swoole, and PSR standards. Creates controllers, configures middleware, generates migrations, writes PHPUnit/Pest tests, defines typed DTOs and value objects, sets up dependency injection, and scaffolds REST/GraphQL APIs. Use when working with Eloquent, Doctrine, Composer, Psalm, ReactPHP, or any PHP API development.
-zh_displayName: php-pro
+zh_displayName: PHP 专业开发
 category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 license: MIT

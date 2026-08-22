@@ -1,8 +1,7 @@
 ---
 name: figma-code-connect
 description: |-
-  创建并维护 Figma Code Connect 模板文件（`.figma.ts`），将 Figma 组件映射到代码片段。
-  当用户提及 Code Connect、Figma 组件映射、设计转代码，或要求创建/更新 `.figma.ts` 文件时触发。
+  创建并维护 Figma Code Connect 模板文件，将 Figma 组件映射到代码片段。当用户提到 Code Connect、Figma 组件映射、设计转代码转换，或要求创建/更新 .figma.ts / .figma.js 文件时使用。
 en_description: Creates and maintains Figma Code Connect template files that map Figma components to code snippets. Use when the user mentions Code Connect, Figma component mapping, design-to-code translation, or asks to create/update .figma.ts or .figma.js files.
 zh_displayName: Figma 代码连接
 category: 品牌与设计

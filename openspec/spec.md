@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`openspec/spec.md` · 版本：1.20.3
+> 路径：`openspec/spec.md` · 版本：1.20.5
 > 本文件固化**当前已落地能力**的基线规范，作为变更的起点与回退基准。
 > 详细数据契约、交互与分享规则见 [`project.md`](project.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 
@@ -10,7 +10,7 @@
 
 - **项目定位**：Agent 技能集合仓库，提供 `skills/`（原始技能）、`prototype/`（静态展示页）、`app/`（Next.js 应用工作区）三套资产。
 - **设计令牌权威源**：`prototype/src/styles/tokens.css`（单一来源，浅/深双主题）。主色绿：浅 `#2e9e6b`、深 `#5cc98c`。
-- **版本权威源**：仓库根 `package.json` 的 `version`（当前 1.20.3）。README 中英文徽章、CHANGELOG 顶部须与之保持一致。
+- **版本权威源**：仓库根 `package.json` 的 `version`（当前 1.20.4）。README 中英文徽章、CHANGELOG 顶部须与之保持一致。
 
 ---
 
@@ -33,6 +33,7 @@ type SkillEntry = {
   homepage?: string;       // 可选，来源网址（frontmatter homepage/source/url/website）
   installCommand: string;  // 恒定派生：npx skills add sutchan/Agent-Skills-Hub/skills/<name>
   githubDir: string;       // 恒定派生：skills/<name>
+  tags?: string[];         // 预留字段（当前数据未生成，仅 app 类型占位；原型侧标签由 name 派生展示，见 §2.3）
 };
 ```
 
@@ -61,7 +62,8 @@ type SkillsData = {
 ### 2.3 一致性规则（固化）
 - `category` 必须是 9 大稳定中文分类键之一（见 §1 / README 领域表格）；`en_category` 为对应英文名。`tools/build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，未知分类自动追加为末位「其他」类（属违规，须为零——当前有 1 个待修复）。
 - `zh`（来自 `zh_displayName`）为中文一句话简介；`description` 为中文完整描述（默认展示语言）；`en_description` 为英文原文描述。**处理技能时必须同时提供中文 `description` 与英文 `en_description`**，`enDescription` 由构建脚本从 frontmatter `en_description` 读取。
-- `data/skills-data.json` 与 `data/skills-metrics.json` 均为**构建产物，勿手改**，重跑 `npm run build` 再生；README 领域表格的计数须与构建后的 `data/skills-data.json` 一致，数量以 `total`（过滤 hidden 后的可见技能数）为准。频繁更新指标（popularity/stars/size）仅需重算 `skills-metrics.json`，主数据文件保持轻量。
+- `data/skills-data.json` 与 `data/skills-metrics.json` 均为**构建产物，勿手改**，重跑 `npm run build` 再生；README 领域表格的计数须与构建后的 `data/skills-data.json` 一致， 数量以 `total`（过滤 hidden 后的可见技能数）为准。频繁更新指标（popularity/stars/size）仅需重算 `skills-metrics.json`，主数据文件保持轻量。
+- **标签（tags）对齐**：`SkillEntry.tags` 在 `app/lib/skills.ts` 中为可选预留字段，当前 `build-skills-data.mjs` **不生成**该字段；原型卡片 `#tags`（如 `agent-browser` → `#agent #browser`）由 `name` 在渲染期派生（`prototype/src/parts/02-render.js` 的 `skillSlug` 思路相近，实际展示由 `cardHTML` 子串拆分），**不依赖数据 tags**。两层均不读取 `SkillEntry.tags`，避免未填充字段导致的空渲染；未来若启用标签维度过滤，须先在 `build-skills-data.mjs` 生成并在原型/app 同步消费。
 
 ---
 
