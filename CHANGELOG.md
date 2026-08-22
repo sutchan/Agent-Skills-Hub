@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.33] - 2026-08-22
+
+### refactor: 补齐组件头注释并抽离复制逻辑
+
+- **头注释对齐**：`skill-card.tsx`/`detail-modal.tsx` 头注释升至 v1.19.33（修复之前 bump 漏改导致的脱节）
+- **标题渲染合并**：`skill-card.tsx` 英文标题分支合并为单一 `showEn = nameMode==="both" || nameMode==="en"`，去除互斥重复渲染
+- **复制逻辑抽离**：`detail-modal.tsx` 抽离 `copyText(text, lang)` helper，替代 `copyName`/`copyCmd` 重复实现
+- 版本同步：根 `package.json`/README 中英文徽章升至 v1.19.33
+
 ## [1.19.32] - 2026-08-22
 
 ### perf: 应用性能优化（静态预渲染 + standalone + 翻页滚动）
@@ -1675,3 +1684,4 @@
 [1.19.30]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.30
 [1.19.31]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.31
 [1.19.32]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.32
+[1.19.33]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.33

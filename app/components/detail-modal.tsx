@@ -1,4 +1,4 @@
-// app/components/detail-modal.tsx v1.19.29 — 技能详情弹窗（元信息：作者/STAR/首次收录/协议/版本/GitHub目录 + 安装命令 + 相关技能）
+// app/components/detail-modal.tsx v1.19.33 — 技能详情弹窗（元信息：作者/STAR/首次收录/协议/版本/GitHub目录 + 安装命令 + 相关技能）
 "use client";
 import { useEffect } from "react";
 import type { Lang } from "../lib/share";
@@ -18,6 +18,20 @@ function formatSize(bytes?: number): string {
 
 function maxPopularity(skills: Skill[]): number {
   return skills.reduce((m, s) => Math.max(m, s.popularity || 0), 0);
+}
+
+// 复制文本到剪贴板并提示（detail-modal 内联轻量版）
+function copyText(text: string, lang: Lang): void {
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      const tip = document.getElementById("copyTip");
+      if (tip) {
+        tip.textContent = lang === "zh" ? "已复制" : "Copied";
+        tip.classList.add("show");
+        setTimeout(() => tip.classList.remove("show"), 1400);
+      }
+    });
+  }
 }
 
 export function DetailModal({
@@ -49,34 +63,10 @@ export function DetailModal({
   const desc = lang === "zh" ? skill.description : skill.enDescription || skill.description;
 
   // 复制技能名（头部按钮）
-  const copyName = () => {
-    const text = skill.name;
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        const tip = document.getElementById("copyTip");
-        if (tip) {
-          tip.textContent = lang === "zh" ? "已复制" : "Copied";
-          tip.classList.add("show");
-          setTimeout(() => tip.classList.remove("show"), 1400);
-        }
-      });
-    }
-  };
+  const copyName = () => copyText(skill.name, lang);
 
   // 复制安装命令（安装命令区按钮）
-  const copyCmd = () => {
-    const text = skill.installCommand;
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        const tip = document.getElementById("copyTip");
-        if (tip) {
-          tip.textContent = lang === "zh" ? "已复制" : "Copied";
-          tip.classList.add("show");
-          setTimeout(() => tip.classList.remove("show"), 1400);
-        }
-      });
-    }
-  };
+  const copyCmd = () => copyText(skill.installCommand, lang);
 
   return (
     <div

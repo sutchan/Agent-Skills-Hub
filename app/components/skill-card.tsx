@@ -1,4 +1,4 @@
-// app/components/skill-card.tsx v1.19.29 — 技能卡片（原生 button，含双语标题与 .card-body 列表布局修复）
+// app/components/skill-card.tsx v1.19.33 — 技能卡片（原生 button，含双语标题与 .card-body 列表布局修复）
 "use client";
 import { memo } from "react";
 import { catHue } from "../lib/catHue";
@@ -20,9 +20,9 @@ export const SkillCard = memo(function SkillCard({
   showBar?: boolean;
   nameMode?: "both" | "zh" | "en";
 }) {
-  // 标题双语显示：双显时中文名主 + 英文原名副（仅中文态，英文态由全局 data-lang 控制仅显英文名）
+  // 标题双语显示：中文态中文名主 + 英文原名副（双显/仅英文时显示英文原名）
   const showZh = nameMode === "both" || nameMode === "zh";
-  const showEnSub = nameMode === "both";
+  const showEn = nameMode === "both" || nameMode === "en";
   return (
     <button
       type="button"
@@ -41,8 +41,7 @@ export const SkillCard = memo(function SkillCard({
           <div className="avatar sm">{initials(skill.name)}</div>
           <div className="card-title">
             {showZh && <span className="zh">{skill.zh || skill.name}</span>}
-            {showEnSub && <span className="en">{skill.name}</span>}
-            {nameMode === "en" && <span className="en">{skill.name}</span>}
+            {showEn && <span className="en">{skill.name}</span>}
           </div>
         </div>
         {showDesc && (
