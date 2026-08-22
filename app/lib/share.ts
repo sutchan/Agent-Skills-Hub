@@ -1,4 +1,4 @@
-// app/lib/share.ts v1.19.29 — 分享逻辑与项目宣传文案
+// app/lib/share.ts v1.19.38 — 分享逻辑与项目宣传文案
 // 文案集合与 prototype/src/i18n.js 的 share.promos 保持逐字一致（openspec §4.5.4.3：
 // 两层复用同一文案集合，避免漂移）。原型 i18n.js 为权威来源，本文件与其同步。
 

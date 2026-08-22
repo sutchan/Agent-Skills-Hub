@@ -3,7 +3,7 @@ name: football-data
 
 description: 覆盖全球主要足球联赛的数据——积分榜、赛程、比赛统计、预期进球（xG）、转会、球员档案、历史交锋、球队实力（Elo）与比赛预测。零配置、无需 API Key。涵盖英超、西甲、德甲、意甲、法甲、美职联、欧冠、世界杯、英冠、荷甲、葡超、巴甲、俄超、苏超/比甲/土超顶级联赛、欧洲杯等（调用 get_competitions 获取实时列表）。
 en_description: | Football (soccer) data across the world's major leagues — standings, schedules, match stats, xG, transfers, player profiles, head-to-head history, team strength (Elo), and match forecasts. Zero config, no API keys. Covers Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, Champions League, World Cup, Championship, Eredivisie, Primeira Liga, Serie A Brazil, Russian Premier League, Scottish/Belgian/Turkish top flights, European Championship, and more (call get_competitions for the live list).
-zh: 足球数据
+zh_displayName: 足球数据
 category: 数据分析与可视化
 en_category: Data Analysis & Visualization
 license: MIT

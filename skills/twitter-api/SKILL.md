@@ -13,7 +13,7 @@ en_description: >-
   pipelines, competitor monitoring, hashtag tracking, sentiment analysis
   input, or follower export without the official X API's pricing tiers or
   app-review process.
-zh: Twitter/X API 替代
+zh_displayName: Twitter/X API 替代
 category: 自动化与集成
 en_category: Automation & Integration
 keywords:

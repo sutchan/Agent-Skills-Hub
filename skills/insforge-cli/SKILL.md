@@ -2,8 +2,8 @@
 name: insforge-cli
 description: 当用户需要后端能力，或任务涉及 Insforge（即时后端/数据库服务）CLI 的初始化、数据建模、本地开发与部署时使用。
 en_description: >- Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppressions, import/export, AI/OpenRouter setup and usage overview, Stripe/Razorpay payments, Apify web scraping / data sources, PostHog product analytics, backend branches, organization membership (invite, leave, delete), agent memory (remember/recall project facts and decisions), reporting InsForge-side bugs or doc discrepancies (feedback), or CLI docs. For app code with InsForge or @insforge/sdk, use the insforge app-integration skill instead.
-zh: Insforge CLI
-category: 工程实践与质量
+zh_displayName: Insforge CLI
+category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 license: Apache-2.0
 ---

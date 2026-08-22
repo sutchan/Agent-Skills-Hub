@@ -5,7 +5,7 @@ en_description: Design and iterate on logos using SVG. Use this skill when the u
   Design and iterate on logos using SVG. Use this skill when the user asks to
   "create a logo", "design a logo", "make me a logo", "iterate on this logo",
   "logo for my project", or discusses logo design, branding icons, or wordmarks.
-zh: SVG Logo 设计
+zh_displayName: SVG Logo 设计
 category: 品牌与设计
 en_category: Brand & Design
 license: MIT

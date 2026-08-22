@@ -2,7 +2,7 @@
 name: brainstorming
 description: 在任何创意工作（创建功能、构建组件、添加功能或修改行为）之前必须使用本技能，用于在实现前探索用户意图、需求与设计。
 en_description: You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.
-zh: 头脑风暴
+zh_displayName: 头脑风暴
 category: AI 与智能体
 en_category: AI & Agents
 ---

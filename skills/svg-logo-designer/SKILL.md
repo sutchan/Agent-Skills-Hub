@@ -2,7 +2,7 @@
 name: svg-logo-designer
 description: 根据描述与设计规格创建专业 SVG logo。生成多种不同布局、风格与概念的变体，产出可缩放矢量图形，可直接使用或导出 PNG。用于创建 logo、品牌标识、图标或视觉标记。
 en_description: Create professional SVG logos from descriptions and design specifications. Generates multiple logo variations with different layouts, styles, and concepts. Produces scalable vector graphics that can be used directly or exported to PNG. Use this skill when users ask to create logos, brand identities, icons, or visual marks for their designs.
-zh: SVG Logo 设计
+zh_displayName: SVG Logo 设计
 category: 品牌与设计
 en_category: Brand & Design
 ---

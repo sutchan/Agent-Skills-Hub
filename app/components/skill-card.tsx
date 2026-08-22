@@ -1,4 +1,4 @@
-// app/components/skill-card.tsx v1.19.33 — 技能卡片（原生 button，含双语标题与 .card-body 列表布局修复）
+// app/components/skill-card.tsx v1.19.38 — 技能卡片（原生 button，含双语标题与 .card-body 列表布局修复）
 "use client";
 import { memo } from "react";
 import { catHue } from "../lib/catHue";

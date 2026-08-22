@@ -1,6 +1,6 @@
-// build-skills-data.mjs v1.19.32 — 解析 skills/<name>/SKILL.md 顶层 frontmatter → data/skills-data.json
+// build-skills-data.mjs v1.19.39 — 解析 skills/<name>/SKILL.md 顶层 frontmatter → data/skills-data.json
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
-// 分类(category)、简短中文名称(zh)与 description 中文译文(zh-desc)均来自各 SKILL.md 的 frontmatter，不再依赖 README。
+// 分类(category)、简短中文名称(zh_displayName)与 description 中文译文均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 // 注意语义约定：zh 为「简短中文名称」（卡片标题），zh-desc 为「中文描述」（卡片描述区）；勿将描述句填入 zh。
 import { readFileSync, readdirSync, writeFileSync, existsSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -15,16 +15,12 @@ const OUT = join(ROOT, "data", "skills-data.json");
 // 非技能目录（仓库内其他子项目/资产），构建时跳过
 const EXCLUDE = new Set([".skills-manager", ".trae", "app", "brand", "data", "tools"]);
 
-// 分类展示固定顺序（v1.19.32 拆分为 13 类：原「开发框架与平台」拆为 5 个子类）
+// 分类展示固定顺序（v1.19.37 回退为标准 9 类；原 13 类子类非法，已重映射回开发框架与平台）
 const CATEGORY_ORDER = [
   "品牌与设计",
   "文档与内容",
   "数据分析与可视化",
-  "前端开发",
-  "后端与平台",
-  "移动端开发",
-  "WordPress 与 CMS",
-  "工程实践与质量",
+  "开发框架与平台",
   "文件与格式处理",
   "自动化与集成",
   "AI 与智能体",
@@ -37,15 +33,11 @@ const CATEGORY_EN = {
   "品牌与设计": "Brand & Design",
   "文档与内容": "Docs & Content",
   "数据分析与可视化": "Data Analysis & Visualization",
-  "前端开发": "Frontend Dev",
-  "后端与平台": "Backend & Platform",
-  "移动端开发": "Mobile Dev",
-  "WordPress 与 CMS": "WordPress & CMS",
-  "工程实践与质量": "Engineering & Quality",
+  "开发框架与平台": "Dev Frameworks & Platforms",
   "文件与格式处理": "File & Format Handling",
   "自动化与集成": "Automation & Integration",
   "AI 与智能体": "AI & Agents",
-  "音视频与多媒体": "Audio, Video & Media",
+  "音视频与多媒体": "Media & Multimedia",
   "安全": "Security",
 };
 
@@ -173,10 +165,13 @@ function main() {
       category,
       // 英文分类名：英文态展示（frontmatter en_category）
       enCategory: fm.en_category || CATEGORY_EN[category] || category,
-      zh: fm.zh || "",
+      // 中文显示名：优先 zh_displayName（磁盘实际字段），回退旧 zh / name
+      zh: fm.zh_displayName || fm.zh || "",
       // 默认展示语言为中文：description 存中文（由原 zh-desc 提升），enDescription 存英文（由原 description 迁移）
       description: fm.description || "",
       enDescription: fm.en_description || "",
+      // 来源网址：兼容 homepage / source / url / website 多键（详情弹窗外链展示）
+      homepage: fm.homepage || fm.source || fm.url || fm.website || "",
       allowedTools: normalizeTools(fm["allowed-tools"]),
       hidden: fm.hidden === true || fm.hidden === "true",
       // 详情元信息（可选，缺失则不展示）

@@ -2,7 +2,7 @@
 name: winui-design
 description: 在设计、评审或修复 WinUI 3 时使用：布局规划、控件选择、Fluent Design 对齐、浅色/深色/高对比度主题、排版、间距、画刷、可访问性，以及 XAML 数据绑定设计。在编写新 XAML、评审 UI PR、将桌面 UI 迁移到 WinUI，或在 WinUI 控件/模式间取舍前加载。
 en_description: Use when designing, reviewing, or fixing WinUI 3: layout planning, control choice, Fluent Design alignment, Light/Dark/High Contrast theming, typography, spacing, brushes, accessibility, and XAML data-binding design. Load before authoring new XAML, reviewing UI PRs, migrating desktop UI to WinUI, or choosing between WinUI controls/patterns.
-zh: WinUI 设计
+zh_displayName: WinUI 设计
 category: 品牌与设计
 en_category: Brand & Design
 ---

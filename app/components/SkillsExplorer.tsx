@@ -1,12 +1,14 @@
-// app/components/SkillsExplorer.tsx v1.19.32 — 技能浏览器（分类多选 + 搜索 + 排序 + 视图切换 + UI元素显隐 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
+// app/components/SkillsExplorer.tsx v1.19.38 — 技能浏览器（编排：分类多选 + 搜索 + 排序 + 视图切换 + 设置 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
 import type { SkillsData, Skill } from "../lib/skills";
 import { SkillCard } from "./skill-card";
 import { DetailModal } from "./detail-modal";
+import { SettingsPanel } from "./settings-panel";
+import { Pager } from "./pager";
 
-// 每页 100 条（用户需求，与 skills.sh 默认 per_page 一致）
+// 每页 100 条（与 skills.sh 默认 per_page 一致）
 const PAGE_SIZE = 100;
 
 export function SkillsExplorer({
@@ -16,19 +18,17 @@ export function SkillsExplorer({
   data: SkillsData;
   lang: Lang;
 }) {
-  const [cats, setCats] = useState<string[]>([]); // 多选 OR，空 = 全部（v1.19.8 由单选 cat 升级）
+  const [cats, setCats] = useState<string[]>([]); // 多选 OR，空 = 全部
   const [q, setQ] = useState("");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [sort, setSort] = useState<"name" | "name-desc" | "cat" | "zh">("name");
-  // UI 元素显隐设置：默认全部开启，独立持久化到 localStorage，并同步到 <html data-show-*> 供 CSS 隐藏
+  // UI 元素显隐设置（独立持久化到 localStorage + <html data-show-*>）
   const [showDesc, setShowDesc] = useState(true);
   const [showCat, setShowCat] = useState(true);
   const [showBar, setShowBar] = useState(true);
-  // 名称显示策略：默认双显（中文名 + 英文原名），可切仅中文 / 仅英文
   const [nameMode, setNameMode] = useState<"both" | "zh" | "en">("both");
   const [settingsOpen, setShowSettings] = useState(false);
   const [detail, setDetail] = useState<Skill | null>(null);
-  // 分页：每页 PAGE_SIZE，page 0 基；筛选/搜索/排序变化重置为首页
   const [page, setPage] = useState(0);
 
   // 恢复偏好（localStorage 不可用时回退默认）
@@ -51,11 +51,11 @@ export function SkillsExplorer({
     root.setAttribute("data-show-cat", showCat ? "on" : "off");
     root.setAttribute("data-show-bar", showBar ? "on" : "off");
     root.setAttribute("data-name-mode", nameMode);
-    const writeStr = (k: string, v: string) => {
-      try { localStorage.setItem(k, v); } catch { /* 隐私模式忽略 */ }
-    };
     const writeBool = (k: string, v: boolean) => {
       try { localStorage.setItem(k, v ? "true" : "false"); } catch { /* 隐私模式忽略 */ }
+    };
+    const writeStr = (k: string, v: string) => {
+      try { localStorage.setItem(k, v); } catch { /* 隐私模式忽略 */ }
     };
     writeBool("ash-show-desc", showDesc);
     writeBool("ash-show-cat", showCat);
@@ -82,7 +82,6 @@ export function SkillsExplorer({
     return [...list].sort(cmp[sort]);
   }, [data.skills, cats, q, sort]);
 
-  // 分页：总页数 + 当前页切片（筛选/搜索/排序变化时 page 重置为首页）
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages - 1);
   const pageItems = useMemo(
@@ -91,13 +90,12 @@ export function SkillsExplorer({
   );
   useEffect(() => { setPage(0); }, [q, cats, sort]);
 
-  // 翻页：更新页码并滚动回网格顶部，避免视口停留在底部（体感流畅度优化）
+  // 翻页：更新页码并滚动回网格顶部
   const goPage = (p: number) => {
     setPage(p);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // 分类 chip 点击：多选 toggle（"全部"清空）
   const toggleCat = (c: string) => {
     if (c === "all") { setCats([]); return; }
     setCats((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
@@ -177,56 +175,20 @@ export function SkillsExplorer({
           ⚙
         </button>
       </div>
+
       {settingsOpen && (
-        <div id="settingsPanel" className="settings-panel" role="dialog" aria-label={lang === "zh" ? "设置" : "Settings"}>
-          <div className="settings-section">
-            <h3>{lang === "zh" ? "界面元素" : "UI elements"}</h3>
-            <label className="settings-row">
-              <span>{lang === "zh" ? "显示技能描述" : "Show skill description"}</span>
-              <input type="checkbox" checked={showDesc} onChange={(e) => setShowDesc(e.target.checked)} />
-            </label>
-            <label className="settings-row">
-              <span>{lang === "zh" ? "显示分类标签" : "Show category label"}</span>
-              <input type="checkbox" checked={showCat} onChange={(e) => setShowCat(e.target.checked)} />
-            </label>
-            <label className="settings-row">
-              <span>{lang === "zh" ? "显示分类色条" : "Show category color bar"}</span>
-              <input type="checkbox" checked={showBar} onChange={(e) => setShowBar(e.target.checked)} />
-            </label>
-          </div>
-          <div className="settings-section">
-            <h3>{lang === "zh" ? "名称显示" : "Name display"}</h3>
-            <div className="seg" role="group" aria-label={lang === "zh" ? "名称显示" : "Name display"}>
-              <button
-                type="button"
-                className={`seg-btn${nameMode === "both" ? " active" : ""}`}
-                aria-pressed={nameMode === "both"}
-                onClick={() => setNameMode("both")}
-              >
-                {lang === "zh" ? "双显" : "Both"}
-              </button>
-              <button
-                type="button"
-                className={`seg-btn${nameMode === "zh" ? " active" : ""}`}
-                aria-pressed={nameMode === "zh"}
-                onClick={() => setNameMode("zh")}
-              >
-                {lang === "zh" ? "仅中文" : "Chinese"}
-              </button>
-              <button
-                type="button"
-                className={`seg-btn${nameMode === "en" ? " active" : ""}`}
-                aria-pressed={nameMode === "en"}
-                onClick={() => setNameMode("en")}
-              >
-                {lang === "zh" ? "仅英文" : "English"}
-              </button>
-            </div>
-          </div>
-          <button className="btn btn-primary" onClick={() => setShowSettings(false)}>
-            {lang === "zh" ? "完成" : "Done"}
-          </button>
-        </div>
+        <SettingsPanel
+          lang={lang}
+          showDesc={showDesc}
+          showCat={showCat}
+          showBar={showBar}
+          nameMode={nameMode}
+          onShowDesc={setShowDesc}
+          onShowCat={setShowCat}
+          onShowBar={setShowBar}
+          onNameMode={setNameMode}
+          onClose={() => setShowSettings(false)}
+        />
       )}
 
       <div id="resultCount" className="result-count" aria-live="polite">
@@ -247,52 +209,7 @@ export function SkillsExplorer({
         ))}
       </div>
 
-      {totalPages > 1 && (
-        <nav className="pager show" id="pager" aria-label={lang === "zh" ? "分页" : "Pagination"}>
-          <button
-            type="button"
-            className="pg-btn"
-            disabled={safePage <= 0}
-            aria-label={lang === "zh" ? "上一页" : "Previous"}
-            onClick={() => goPage(Math.max(0, safePage - 1))}
-          >
-            ‹
-          </button>
-          {Array.from({ length: totalPages }, (_, p) => {
-            const win = p === 0 || p === totalPages - 1 || Math.abs(p - safePage) <= 2;
-            if (!win && p > 0 && p < totalPages - 1 && Math.abs(p - safePage) > 2) {
-              // 仅显示省略号一次（相邻已显示则不重复）
-              if (p > 1 && p < totalPages - 2 && Math.abs(p - safePage) === 3) {
-                return <span key={p} className="pg-ellipsis">…</span>;
-              }
-              return null;
-            }
-            return (
-              <button
-                key={p}
-                type="button"
-                className={`pg-btn num${p === safePage ? " active" : ""}`}
-                aria-current={p === safePage ? "page" : "false"}
-                onClick={() => goPage(p)}
-              >
-                {p + 1}
-              </button>
-            );
-          })}
-          <button
-            type="button"
-            className="pg-btn"
-            disabled={safePage >= totalPages - 1}
-            aria-label={lang === "zh" ? "下一页" : "Next"}
-            onClick={() => goPage(Math.min(totalPages - 1, safePage + 1))}
-          >
-            ›
-          </button>
-          <span className="pg-info">
-            {lang === "zh" ? `第 ${safePage + 1} / ${totalPages} 页` : `Page ${safePage + 1} / ${totalPages}`}
-          </span>
-        </nav>
-      )}
+      <Pager lang={lang} totalPages={totalPages} safePage={safePage} goPage={goPage} />
 
       {detail && (
         <DetailModal

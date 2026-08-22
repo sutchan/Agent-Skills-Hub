@@ -1,7 +1,10 @@
 ---
-category: 音视频与多媒体
 name: video-storyboard
 description: Generate storyboard image boards and matching video-generation prompt scripts for specific scenes in a short video plan. Use this skill whenever the user asks to create a storyboard, storyboard image, video prompt script, scene prompt, image-to-video prompt, shot board, or per-scene video-generation package, especially when they specify a scene number, duration, or an existing video plan. This skill saves outputs as storyboard/scene-XX.png and storyboard/scene-XX.md and enforces grid sizing, timing labels, and strict character, wardrobe, prop, and location continuity.
+en_description: Generate storyboard image boards and matching video-generation prompt scripts for specific scenes in a short video plan. Use this skill whenever the user asks to create a storyboard, storyboard image, video prompt script, scene prompt, image-to-video prompt, shot board, or per-scene video-generation package, especially when they specify a scene number, duration, or an existing video plan. This skill saves outputs as storyboard/scene-XX.png and storyboard/scene-XX.md and enforces grid sizing, timing labels, and strict character, wardrobe, prop, and location continuity.
+zh_displayName: video-storyboard
+category: 音视频与多媒体
+en_category: Media & Multimedia
 ---
 
 # Video Storyboard

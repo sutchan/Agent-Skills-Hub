@@ -1,4 +1,4 @@
-// app/next.config.mjs v1.19.32 — Next.js 配置
+// app/next.config.mjs v1.19.38 — Next.js 配置
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // 生成精简 standalone server bundle，部署体积更小、冷启更快（Vercel 最佳实践）

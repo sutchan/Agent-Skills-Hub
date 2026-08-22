@@ -1,7 +1,10 @@
 ---
-category: 后端与平台
 name: eve
 description: Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.
+en_description: Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.
+zh_displayName: eve
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # eve

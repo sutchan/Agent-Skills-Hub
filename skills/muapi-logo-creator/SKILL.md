@@ -2,7 +2,7 @@
 name: muapi-logo-creator
 description: 使用几何基元与负空间设计专业级品牌 logo——经 muapi.ai 生成极简、可缩放的矢量风格标记。
 en_description: Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai
-zh: 几何 Logo 生成
+zh_displayName: 几何 Logo 生成
 category: 品牌与设计
 en_category: Brand & Design
 version: 0.1.0

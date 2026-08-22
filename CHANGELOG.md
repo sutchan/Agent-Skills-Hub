@@ -2,6 +2,51 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.39] - 2026-08-22
+
+### feat: 详情弹窗增强——必显原始名(slug) + 增加分类/网址等头部字段
+
+- **原始名称**：详情标题区双显中文名与英文 slug；元信息区新增明确的「原始名称 / Slug」行，确保任何名称模式下都可见技能原始目录名
+- **分类字段**：详情元信息新增「分类 / Category」行，展示中文分类 + 英文分类名（`category · enCategory`）
+- **网址字段**：`build-skills-data.mjs` 新增提取 `homepage`（兼容 `source`/`url`/`website` 多键），详情以可点击外链展示（仅当为合法 http(s) 时）
+- **其他头部字段**：作者 / 协议 / 版本 / 首次收录 / 星标 已在元信息区展示
+- **字段名修正**：`zh` 显示名优先取磁盘实际字段 `zh_displayName`（原 `fm.zh` 为空导致中文名丢失，如 wp-plugin-development 现正确显示「WordPress 插件开发」）
+- 原型端（`03-detail.js` + `i18n.js`）与 app 端（`DetailMeta.tsx` + `skills.ts`）同步增强
+- 版本同步：根 `package.json` 升至 v1.19.39，README 徽章对齐
+
+## [1.19.37] - 2026-08-22
+
+### refactor: 标准化 frontmatter 字段并回退 13 类为 9 类
+
+- **字段重命名**：133 个仍用旧 `zh:` 字段的技能统一改为契约字段 `zh_displayName:`（仅 frontmatter 顶层键，不影响正文）；同步更新 `tools/validate-skills.mjs` 必填/顺序契约（`zh` → `zh_displayName`）。
+- **分类回退**：5 个非法子类（工程实践与质量 / 后端与平台 / 移动端开发 / 前端开发 / WordPress 与 CMS，共 76 个技能）重映射回合法 9 类中的「开发框架与平台」；`tools/build-skills-data.mjs` 的 `CATEGORY_ORDER` / `CATEGORY_EN` 回退为标准 9 类。
+- **契约补全**：20 个缺失 `en_description` / `zh_displayName` / `en_category` 的技能（ad-creative、brand-guidelines、vercel-* 等）补全三字段并重排为契约顺序。
+- **校验**：`tools/validate-skills.mjs` 通过（153 个技能规范，0 越界）；`scripts/_scan_fm_bug.mjs` 头部泄漏扫描 0 问题。
+- README 中/英徽章升至 v1.19.37，领域表与计数同步为 9 类 / 152 个可见技能包。
+
+## [1.19.38] - 2026-08-22
+
+### fix: 对齐 Skill 类型与真实数据，清理详情弹窗死代码
+
+- **类型与数据对齐**：`app/lib/skills.ts` 的 `Skill` 移除数据集未生成的字段（author/license/skillVersion/stars/firstSeen），保留运行时真实存在的 size/files/popularity
+- **详情弹窗死代码修复**：原 `detail-modal.tsx` 引用的 `skill.author/githubStars/version/firstSeen/license/updatedAt` 在 `skills-data.json` 中均不存在，导致元信息/指标区块永远为空（真实 bug）。重写 `DetailMeta`/`DetailMetrics` 仅渲染真实字段（size/files/popularity 热度条）
+- **拆分超 200 行文件**：`detail-modal.tsx`(209)→`lib/detail-helpers.ts`+`components/detail/{Meta,Metrics,Install,Related}.tsx`；`SkillsExplorer.tsx`(286)→`components/settings-panel.tsx`+`components/pager.tsx`；主文件保留编排，导出契约不变
+- **语义化 id**：新增 `detailMeta/detailMetrics/detailInstall/detailTools/detailGithubLink/detailRelated/copyNameBtn/detailCloseBtn/detailDialog/detailBackdrop/copyCmdBtn/settingsPanel/pager` 等
+- **版本号统一**：所有 app 源文件、openspec 三文档、prototype 两规范文档头注释升至 v1.19.38；根 package.json/README 中英文徽章同步
+
+## [1.19.36] - 2026-08-22
+
+### refactor: 拆分超 200 行组件并对齐规范与版本号
+
+- **拆分超 200 行源文件**（单一职责）：
+  - `detail-modal.tsx`(209行) → 抽离 `lib/detail-helpers.ts`(formatSize/maxPopularity/copyText) + `components/detail/{DetailMeta,DetailMetrics,DetailInstall,DetailRelated}.tsx`
+  - `SkillsExplorer.tsx`(286行) → 抽离 `components/settings-panel.tsx` + `components/pager.tsx`
+  - 主文件保留编排逻辑，导出契约（SkillCard/DetailModal/SkillsExplorer）保持不变
+- **规范对齐**：`openspec/project.md` React 19 修正为 React 18（对齐 `app/package.json` 实际依赖）
+- **版本号统一**：11 个 app 源文件、3 个 openspec 文档、2 个 prototype 规范文档头注释统一升至 v1.19.36；根 package.json/README 中英文徽章同步
+- 语义化 id：新增 `detailMeta/detailMetrics/detailInstall/detailTools/detailGithubLink/detailRelated/copyNameBtn/detailCloseBtn/detailDialog/detailBackdrop/copyCmdBtn` 等
+- 鲁棒性：localStorage 读取包 try/catch 容错；Pager 页码窗口省略号逻辑收敛
+
 ## [1.19.35] - 2026-08-22
 
 ### chore: 迁移 scripts/_scan_fm_bug.mjs 至 tools/ 并删除 scripts 目录
@@ -1704,5 +1749,11 @@
 [1.19.30]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.30
 [1.19.31]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.31
 [1.19.32]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.32
-[1.19.34]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.34
 [1.19.33]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.33
+[1.19.34]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.34
+[1.19.35]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.35
+[1.19.36]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.36
+[1.19.38]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.38
+[1.19.37]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.37
+
+[1.19.39]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.39

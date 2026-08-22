@@ -2,7 +2,7 @@
 name: ai-video-generation-2
 description: 通过本地 RunComfy CLI 在 RunComfy 目录中智能路由生成 AI 视频，覆盖文生视频、图生视频、参考视频转视频以及 Veo 视频扩展。作为智能路由器，根据用户真实意图匹配最合适的视频生成模型，并附上对应模型的提示词写法。
 en_description: "Generate AI videos on RunComfy via the `runcomfy` CLI — a smart router across the full video-model catalog: HappyHorse 1.0 (Arena #1, native in-pass audio), Wan-AI Wan 2-7 (open weights, audio-driven lip-sync), ByteDance Seedance v2 / 1-5 / 1-0 (multi-modal cinematic), Kling 3.0 / 2-6, Google Veo 3-1, MiniMax Hailuo 2-3, ByteDance Dreamina 3-0. Covers text-to-video (t2v), image-to-video (i2v), and Veo's video-extend endpoint. The skill picks the right model for the user's intent (Arena-#1 quality, multi-shot character identity, in-pass audio, cinematic motion, fastest path, sub-15s clip, longest duration) and ships each model's documented prompting patterns plus the minimal `runcomfy run` invoke. Triggers on \"generate video\", \"make a video\", \"text to video\", \"t2v\", \"image to video\", \"i2v\", \"animate\", \"AI video\", \"make X move\", \"video from prompt\", \"video from image\", or any explicit ask to produce a video clip from prompt or still."
-zh: AI 视频生成（RunComfy）
+zh_displayName: AI 视频生成（RunComfy）
 category: 音视频与多媒体
 en_category: Media & Multimedia
 displayName: AI Video Generation (RunComfy)

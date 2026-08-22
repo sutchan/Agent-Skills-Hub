@@ -2,8 +2,8 @@
 name: react-doctor
 description: 诊断并修复 React 代码库健康问题。用于审查 React 代码、修复性能问题、审计安全或提升代码质量。
 en_description: Diagnose and fix React codebase health issues. Use when reviewing React code, fixing performance problems, auditing security, or improving code quality.
-zh: React 代码诊断
-category: 前端开发
+zh_displayName: React 代码诊断
+category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 version: 1.0.0
 ---

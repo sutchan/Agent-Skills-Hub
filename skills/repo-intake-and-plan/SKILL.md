@@ -2,8 +2,8 @@
 name: repo-intake-and-plan
 description: Rigor Intake 辅助工具，面向 README 优先的深度学习仓库表征。当用户想接入新仓库、梳理目标与范围并制定初步计划时使用。
 en_description: Rigor Intake helper for README-first deep learning repo reproduction. Use when the task is specifically to scan a repository, read the README and common project files, extract documented commands, classify inference, evaluation, and training candidates, and return the smallest trustworthy reproduction plan to the main orchestrator. Do not use for environment setup, asset download, command execution, final reporting, paper lookup, or end-to-end orchestration.
-zh: 仓库接入与规划
-category: 工程实践与质量
+zh_displayName: 仓库接入与规划
+category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 ---
 

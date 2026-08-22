@@ -2,8 +2,8 @@
 name: dart-flutter-patterns
 description: 用于编写生产级 Dart/Flutter 代码的技能，涵盖面向 Flutter/Dart 的架构模式、代码组织与工程实践，帮助构建健壮、可维护的跨平台应用。
 en_description: Production-ready Dart and Flutter patterns covering null safety, immutable state, async composition, widget architecture, popular state management frameworks (BLoC, Riverpod, Provider), GoRouter navigation, Dio networking, Freezed code generation, and clean architecture. Use when writing or reviewing Dart and Flutter code — state, widgets, navigation, networking, or architecture.
-zh: Dart/Flutter 模式
-category: 移动端开发
+zh_displayName: Dart/Flutter 模式
+category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 origin: ECC
 metadata:

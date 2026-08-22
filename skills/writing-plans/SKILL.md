@@ -2,8 +2,8 @@
 name: writing-plans
 description: 当你有多步任务的规格或需求、在动手写代码之前使用
 en_description: Use when you have a spec or requirements for a multi-step task, before touching code
-zh: 编写计划
-category: 工程实践与质量
+zh_displayName: 编写计划
+category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 ---
 

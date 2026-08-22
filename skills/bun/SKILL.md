@@ -2,8 +2,8 @@
 name: bun
 description: 使用 Bun 替代 Node.js、npm、pnpm 或 vite。提供命令映射、Bun 特有 API 与开发模式。
 en_description: Use Bun instead of Node.js, npm, pnpm, or vite. Provides command mappings, Bun-specific APIs, and development patterns.
-zh: Bun 运行时
-category: 后端与平台
+zh_displayName: Bun 运行时
+category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 ---
 # Bun Runtime

@@ -1,5 +1,4 @@
 ---
-category: 后端与平台
 name: stripe-best-practices
 description: >-
   Guides Stripe integration decisions across API selection (Checkout Sessions vs
@@ -13,6 +12,20 @@ description: >-
   processing payments, setting up subscriptions, collecting sales tax, VAT, or
   GST, creating connected accounts, or implementing secure key handling.
 
+en_description: >-
+  Guides Stripe integration decisions across API selection (Checkout Sessions vs
+  PaymentIntents), Connect platform setup (Accounts v2, controller properties),
+  billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax,
+  product tax codes), Treasury financial accounts, integration options
+  (Checkout, Payment Element), migrating from deprecated Stripe APIs, and
+  security best practices (API key management, restricted keys, webhooks,
+  OAuth). Use when building, modifying, or reviewing any Stripe integration,
+  including accepting payments, building marketplaces, integrating Stripe,
+  processing payments, setting up subscriptions, collecting sales tax, VAT, or
+  GST, creating connected accounts, or implementing secure key handling.
+zh_displayName: stripe-best-practices
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 Latest Stripe API version: **2026-07-29.dahlia**. Always use the latest API version and SDK unless the user specifies otherwise.

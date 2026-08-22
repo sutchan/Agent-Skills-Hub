@@ -14,7 +14,7 @@ en_description: >
   on "find reddit opportunities", "reddit marketing", "reddit automation", "reply
   on reddit for my product", "reddit community engagement", "reddit lead gen", or
   any ask to turn Reddit threads into genuine, disclosed marketing replies.
-zh: Reddit 自动化营销
+zh_displayName: Reddit 自动化营销
 category: 自动化与集成
 en_category: Automation & Integration
 displayName: "👽 Reddit Automation — find high-intent threads, reply with honest help"

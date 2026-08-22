@@ -1,5 +1,4 @@
 ---
-category: 前端开发
 name: vercel-composition-patterns
 description:
   React composition patterns that scale. Use when refactoring components with
@@ -7,6 +6,14 @@ description:
   designing reusable APIs. Triggers on tasks involving compound components,
   render props, context providers, or component architecture. Includes React 19
   API changes.
+en_description: React composition patterns that scale. Use when refactoring components with
+  boolean prop proliferation, building flexible component libraries, or
+  designing reusable APIs. Triggers on tasks involving compound components,
+  render props, context providers, or component architecture. Includes React 19
+  API changes.
+zh_displayName: vercel-composition-patterns
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 license: MIT
 metadata:
   author: vercel

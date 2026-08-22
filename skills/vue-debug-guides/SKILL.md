@@ -2,8 +2,8 @@
 name: vue-debug-guides
 description: Vue 3 运行时错误、警告、异步与响应式问题的调试与错误处理指南。当用户遇到渲染异常、警告或难以定位的运行时故障时使用。
 en_description: Vue 3 debugging and error handling for runtime errors, warnings, async failures, and SSR/hydration issues. Use when diagnosing or fixing Vue issues.
-zh: Vue 调试指南
-category: 前端开发
+zh_displayName: Vue 调试指南
+category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 ---
 

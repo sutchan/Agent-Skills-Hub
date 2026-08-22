@@ -1,10 +1,10 @@
-﻿// tools/validate-skills.mjs v1.19.29
+﻿// tools/validate-skills.mjs v1.19.37
 // 校验 skills/<name>/SKILL.md 的 frontmatter 规范性（CI 门禁）
 // 检查项：
-//   1. 必填展示字段齐全：name / description / en_description / zh / category / en_category
+//   1. 必填展示字段齐全：name / description / en_description / zh_displayName / category / en_category
 //   2. category / en_category 属于 9 类稳定键集合
 //   3. 无冲突键 description_zh / description_en
-//   4. 契约字段顺序规范：name → description → en_description → zh → category → en_category
+//   4. 契约字段顺序规范：name → description → en_description → zh_displayName → category → en_category
 //   5. 无重复顶层键
 //
 // 退出码：0 通过，1 存在错误
@@ -16,8 +16,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const SKILLS_DIR = path.join(ROOT, "skills");
 
-const REQUIRED = ["name", "description", "en_description", "zh", "category", "en_category"];
-const CONTRACT_ORDER = ["name", "description", "en_description", "zh", "category", "en_category"];
+const REQUIRED = ["name", "description", "en_description", "zh_displayName", "category", "en_category"];
+const CONTRACT_ORDER = ["name", "description", "en_description", "zh_displayName", "category", "en_category"];
 const VALID_CATEGORIES = new Set([
   "品牌与设计", "文档与内容", "数据分析与可视化", "开发框架与平台",
   "文件与格式处理", "自动化与集成", "AI 与智能体", "音视频与多媒体", "安全",

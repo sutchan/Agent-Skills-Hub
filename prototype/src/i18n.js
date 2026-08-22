@@ -25,6 +25,9 @@
       "detail.zhTitle": "中文描述",
       "detail.enTitle": "英文说明",
       "detail.catTitle": "分类 / Category", // 预留：详情弹窗分类标题
+      "detail.category": "分类 / Category",
+      "detail.homepage": "主页 / Homepage",
+      "detail.rawName": "原始名称 / Slug",
       "detail.toolsTitle": "授权工具 / Allowed tools",
       "detail.close": "关闭 / Close",
       "detail.open": "查看技能",
@@ -112,6 +115,9 @@
       "detail.zhTitle": "Description (zh)",
       "detail.enTitle": "Description (en)",
       "detail.catTitle": "Category / 分类", // 预留：详情弹窗分类标题
+      "detail.category": "Category",
+      "detail.homepage": "Homepage",
+      "detail.rawName": "Original name / Slug",
       "detail.toolsTitle": "Allowed tools / 授权工具",
       "detail.close": "Close / 关闭",
       "detail.open": "Open skill",

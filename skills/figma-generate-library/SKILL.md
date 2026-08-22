@@ -5,7 +5,7 @@ description: |-
   为单个组件建立正确的变体集与变量绑定、配置明暗主题、记录设计基础，并弥合代码与 Figma 的差距。
   说明「构建什么、按什么顺序构建」，与教授 API 调用方式的 figma-use 技能互补。
 en_description: Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together.
-zh: Figma 设计系统构建
+zh_displayName: Figma 设计系统构建
 category: 品牌与设计
 en_category: Brand & Design
 disable-model-invocation: false

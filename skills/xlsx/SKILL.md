@@ -4,7 +4,7 @@ description: |-
   任何以电子表格文件为主要输入或输出的任务都应使用本技能，包括打开/读取/编辑/修复现有 .xlsx、.xlsm、.xltx、.csv、.tsv 文件（加列、算公式、格式化、图表、清理脏数据）、从零或其他数据源新建表格、在表格文件格式间转换，以及清理/重组混乱的表格数据。
   产出物必须是电子表格文件。 当主要产出是 Word 文档、HTML 报告、独立 Python 脚本、数据库管线或 Google Sheets API 集成时不要触发。
 en_description: "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .xltx, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \\"the xlsx in my downloads\\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved."
-zh: 电子表格文件处理
+zh_displayName: 电子表格文件处理
 category: 文件与格式处理
 en_category: File & Format Handling
 license: Proprietary. LICENSE.txt has complete terms

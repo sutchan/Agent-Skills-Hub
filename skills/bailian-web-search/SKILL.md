@@ -13,7 +13,7 @@ description: >-
   共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。
 en_description: >-
   Alibaba Cloud Bailian web search entry: routes web/online search and latest-news queries. Detects connection identity first (Token Plan vs others), then dispatches to model-native web search or Bailian MCP, with fallback logic.
-zh: 百炼联网搜索路由
+zh_displayName: 百炼联网搜索路由
 category: AI 与智能体
 en_category: AI & Agents
 metadata:

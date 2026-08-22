@@ -2,7 +2,7 @@
 name: remotion-best-practices
 description: Remotion 全部技能的路由中枢
 en_description: Router for all Remotion skills
-zh: Remotion 最佳实践
+zh_displayName: Remotion 最佳实践
 category: 音视频与多媒体
 en_category: Media & Multimedia
 version: 4.0.515

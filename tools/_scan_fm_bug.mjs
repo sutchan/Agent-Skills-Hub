@@ -1,6 +1,4 @@
-// tools/_scan_fm_bug.mjs — 由 scripts/ 移入 tools/ 的长期 frontmatter 质检脚本
 // 扫描所有 SKILL.md，检查头部注释是否泄漏到正文（导致重复显示 bug）
-// 修复：统一用 CRLF 安全解析，frontmatter 块严格取首个 --- 起到首个独立 --- 行结束
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
@@ -14,71 +12,41 @@ const CONTRACT = new Set([
   "first_seen", "argument-hint", "last_modified",
 ]);
 
-// 解析 frontmatter：返回 { fm, body, fmBlock, ok, reason }
 function parseFm(text) {
   const norm = text.replace(/\r\n/g, "\n");
   const lines = norm.split("\n");
-  if (lines[0].trim() !== "---") return { ok: false, reason: "NO_OPEN", body: norm };
-  // 找第一个独立 --- 行作为结束（行内容为恰好 ---）
+  if (lines[0].trim() !== "---") return { ok: false, body: norm };
   let end = -1;
-  for (let i = 1; i < lines.length; i++) {
-    if (lines[i].trim() === "---") { end = i; break; }
-  }
-  if (end === -1) return { ok: false, reason: "NO_CLOSE", body: norm };
-  const fmBlock = lines.slice(1, end).join("\n");
-  const body = lines.slice(end + 1).join("\n");
-  return { ok: true, fmBlock, body };
+  for (let i = 1; i < lines.length; i++) if (lines[i].trim() === "---") { end = i; break; }
+  if (end === -1) return { ok: false, body: norm };
+  return { ok: true, fmBlock: lines.slice(1, end).join("\n"), body: lines.slice(end + 1).join("\n") };
 }
 
 const problems = [];
 let scanned = 0;
 for (const name of readdirSync(SK).sort()) {
   if (EX.has(name)) continue;
-  const sk = join(SK, name, "SKILL.md");
-  if (!existsSync(sk)) continue;
+  const p = join(SK, name, "SKILL.md");
+  if (!existsSync(p)) continue;
   scanned++;
-  const text = readFileSync(sk, "utf8");
-  const { fmBlock, body, ok, reason } = parseFm(text);
-  if (!ok) {
-    problems.push({ name, type: "NO_FM", detail: reason });
-    continue;
-  }
-  // 1. frontmatter 块内嵌套 ---（除首尾）
-  if (/^\s*---\s*$/m.test(fmBlock)) {
-    problems.push({ name, type: "NESTED_DASH", detail: "frontmatter 内出现多余 --- 行" });
-  }
-  // 2. frontmatter 结束后紧跟多余 --- 行（会被渲染为水平线）
+  const { fmBlock, body, ok } = parseFm(readFileSync(p, "utf8"));
+  if (!ok) { problems.push({ name, type: "NO_FM" }); continue; }
+  if (/^\s*---\s*$/m.test(fmBlock)) problems.push({ name, type: "NESTED_DASH" });
   const bodyLines = body.split("\n");
-  let firstNonEmpty = -1;
-  for (let i = 0; i < bodyLines.length; i++) {
-    if (bodyLines[i].trim() !== "") { firstNonEmpty = i; break; }
+  let f = -1;
+  for (let i = 0; i < bodyLines.length; i++) if (bodyLines[i].trim() !== "") { f = i; break; }
+  if (f !== -1 && bodyLines[f].trim() === "---") problems.push({ name, type: "EXTRA_DASH" });
+  if (f !== -1) {
+    const km = bodyLines[f].match(/^([\w-]+):/);
+    if (km && CONTRACT.has(km[1])) problems.push({ name, type: "LEAK_KEY", detail: km[1] });
   }
-  if (firstNonEmpty !== -1 && bodyLines[firstNonEmpty].trim() === "---") {
-    problems.push({ name, type: "EXTRA_DASH", detail: "frontmatter 结束后紧跟多余 ---" });
-  }
-  // 3. 正文首非空行是契约字段键（frontmatter 泄漏）
-  if (firstNonEmpty !== -1) {
-    const km = bodyLines[firstNonEmpty].match(/^([\w-]+):/);
-    if (km && CONTRACT.has(km[1])) {
-      problems.push({ name, type: "LEAK_KEY", detail: `正文首行是字段键: ${km[1]}` });
-    }
-  }
-  // 4. 正文前 5 行内出现 --- 后接字段（双 frontmatter 迹象）
-  const head5 = bodyLines.slice(0, 5).join("\n");
-  if (/---\s*\n[\w-]+:/.test(head5)) {
-    problems.push({ name, type: "DOUBLE_FM", detail: "正文前 5 行含 --- 后接字段" });
-  }
-  // 5. frontmatter 块内重复顶层键
-  const topKeys = fmBlock.split("\n")
-    .filter((l) => !l.startsWith(" ") && !l.startsWith("\t") && l.includes(":"))
+  if (/---\s*\n[\w-]+:/.test(bodyLines.slice(0, 5).join("\n"))) problems.push({ name, type: "DOUBLE_FM" });
+  const top = fmBlock.split("\n").filter((l) => !l.startsWith(" ") && !l.startsWith("\t") && l.includes(":"))
     .map((l) => l.slice(0, l.indexOf(":")).trim());
-  const seen = new Set();
-  const dup = new Set();
-  for (const k of topKeys) { if (seen.has(k)) dup.add(k); seen.add(k); }
-  if (dup.size) problems.push({ name, type: "DUP_KEY", detail: `重复顶层键: ${[...dup].join(",")}` });
+  const seen = new Set(), dup = new Set();
+  for (const k of top) { if (seen.has(k)) dup.add(k); seen.add(k); }
+  if (dup.size) problems.push({ name, type: "DUP_KEY", detail: [...dup].join(",") });
 }
-
-console.log("扫描技能目录数(含排除):", readdirSync(SK).length, " 实际扫描:", scanned);
-console.log("发现问题数:", problems.length);
-for (const p of problems) console.log(`[${p.type}] ${p.name} — ${p.detail}`);
+console.log("扫描:", scanned, " 发现问题:", problems.length);
+for (const p of problems) console.log(`[${p.type}] ${p.name}${p.detail ? " — " + p.detail : ""}`);
 if (!problems.length) console.log("✅ 无头部注释泄漏 bug");

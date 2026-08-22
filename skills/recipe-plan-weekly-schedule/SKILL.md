@@ -2,7 +2,7 @@
 name: recipe-plan-weekly-schedule
 description: "审视你的 Google Calendar 本周安排，识别空隙并补充事件填满。"
 en_description: "Review your Google Calendar week, identify gaps, and add events to fill them."
-zh: 周日程规划
+zh_displayName: 周日程规划
 category: 自动化与集成
 en_category: Automation & Integration
 metadata:

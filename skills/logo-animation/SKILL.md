@@ -2,7 +2,7 @@
 name: logo-animation
 description: 为品牌 logo 创建动画效果，提升视觉表现与动态识别度。
 en_description: Create animated effects for brand logos to enhance visual presentation and dynamic recognition.
-zh: Logo 动画
+zh_displayName: Logo 动画
 category: 品牌与设计
 en_category: Brand & Design
 version: 0.1.0

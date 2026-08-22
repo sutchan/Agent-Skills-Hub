@@ -2,7 +2,7 @@
 name: playwriter
 description: "Playwriter：通过 Playwriter CLI 控制用户当前已打开的 Chrome 标签页（不新开浏览器）。当你需要检查实时 UI 状态、运行脚本化浏览器操作、捕获控制台输出，或直接在用户标签页中复现前端问题时使用；支持创建会话、读取页面结构与日志、执行点击/输入/悬停/求值等操作，并以精确 ID、时间戳与状态变化总结结果。"
 en_description: "Playwriter: control the user's currently open Chrome tab through the Playwriter CLI (no new browser launch). Use when you need to inspect live UI state, run scripted browser actions, capture console output, or reproduce frontend issues directly in the user's tab; supports creating sessions, reading page structure and logs, executing click/type/hover/evaluate actions, and summarizing findings with exact IDs, timestamps, and observed state transitions."
-zh: Playwriter 浏览器控制
+zh_displayName: Playwriter 浏览器控制
 category: 自动化与集成
 en_category: Automation & Integration
 ---

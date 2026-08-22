@@ -2,8 +2,8 @@
 name: blueprint
 description: "当交付物是 WordPress Playground Blueprint JSON 或 Blueprint 包（含创建、编辑、审查、校验 schema 键、选择 steps/resources、调试 Blueprint 文件）时使用。若仅需运行或分享 Playground 环境，用 wp-playground。"
 en_description: Use when the deliverable is WordPress Playground Blueprint JSON or a Blueprint bundle, including creating, editing, reviewing, validating schema keys, choosing steps/resources, and debugging Blueprint files. For only running or sharing a Playground environment, use wp-playground.
-zh: WordPress 沙箱蓝图
-category: 工程实践与质量
+zh_displayName: WordPress 沙箱蓝图
+category: 开发框架与平台
 en_category: Dev Frameworks & Platforms
 compatibility: "WordPress 7.0+, PHP 7.4.0+. Optionally Playground CLI or a browser"
 ---

@@ -2,7 +2,7 @@
 name: grilling
 description: 就某个计划、决策或想法 relentlessly 质询用户。当用户想压力测试自己的思路，或使用了任何「grill」触发短语时使用。
 en_description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
-zh: 压力质询
+zh_displayName: 压力质询
 category: 文档与内容
 en_category: Docs & Content
 ---

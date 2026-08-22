@@ -1,4 +1,4 @@
-// app/lib/analytics.ts v1.19.29 — GA4 事件上报工具
+// app/lib/analytics.ts v1.19.38 — GA4 事件上报工具
 "use client";
 
 /**

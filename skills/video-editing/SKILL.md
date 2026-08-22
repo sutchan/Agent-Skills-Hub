@@ -2,7 +2,7 @@
 name: video-editing
 description: AI 辅助视频编辑工作流，用于剪辑、组织与增强真实素材，覆盖从原始拍摄到 FFmpeg、Remotion、ElevenLabs、fal.ai 再到 Descript 或 CapCut 最终润色的完整管线。当用户想要编辑视频、剪辑素材、创建 vlog 或构建视频内容时使用。
 en_description: AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.
-zh: AI 辅助视频剪辑工作流
+zh_displayName: AI 辅助视频剪辑工作流
 category: 音视频与多媒体
 en_category: Media & Multimedia
 origin: ECC

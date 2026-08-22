@@ -1,4 +1,4 @@
-// app/lib/skills.ts v1.19.29 — 技能数据读取与类型
+// app/lib/skills.ts v1.19.39 — 技能数据读取与类型
 // 数据源：仓库根 data/skills-data.json（由根 build 流程 build-skills-data.mjs 生成，单一来源）。
 // app 内不再保留数据拷贝；直接以 fs 读取仓库根文件，避免双源漂移。
 // 在 Next.js 服务端组件中以 fs 读取，避免客户端拉取大体积 JSON。
@@ -21,19 +21,20 @@ export interface Skill {
   tags?: string[];
   // 与 data/skills-data.json 一致：hidden 技能在展示页/索引中隐藏（build-skills-data.mjs 写入）
   hidden?: boolean;
-  // 详情元信息（build-skills-data.mjs 提取 / 派生）
-  author?: string; // 作者 / 来源（frontmatter metadata.author）
-  license?: string; // 协议（frontmatter metadata.license）
-  skillVersion?: string; // 技能版本（frontmatter metadata.version）
-  // 社区指标（用户决策：本地 frontmatter 维护；skills.sh 无 STAR/firstSeen 且 API 需认证）
-  stars?: number; // GitHub 星标数（frontmatter metadata.stars）
-  firstSeen?: string; // 首次发布/收录日期 YYYY-MM-DD（frontmatter metadata.firstSeen）
   installCommand: string; // 安装命令，恒定派生为 npx skills add sutchan/Agent-Skills-Hub/skills/<name>
   githubDir: string; // GitHub 源码目录，恒定派生为 skills/<name>
-  // 派生展示指标（build-skills-data.mjs 计算）
+  // 派生展示指标（build-skills-data.mjs 计算，数据集真实存在）
   size?: number; // 技能目录总字节数
   files?: number; // 文件数（递归）
   popularity?: number; // 被其他技能 description 提及次数（相关性热度代理）
+  // 元信息（build-skills-data.mjs 提取自 frontmatter，详情弹窗展示）
+  author?: string;
+  license?: string;
+  skillVersion?: string;
+  stars?: number;
+  firstSeen?: string;
+  // 来源网址（homepage / source / url / website 多键兼容）
+  homepage?: string;
 }
 
 export interface SkillsData {

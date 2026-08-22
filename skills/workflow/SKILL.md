@@ -2,7 +2,7 @@
 name: workflow
 description: "面向复杂编码任务的工作流编排。用于任何非平凡任务（3 步以上或架构决策），强制执行规划、子代理策略、自我改进、验证、优雅实现与自主修复 bug。触发场景：多步实现、bug 修复、重构、架构变更或任何需要结构化执行的任务。"
 en_description: "Workflow orchestration for complex coding tasks. Use for ANY non-trivial task (3+ steps or architectural decisions) to enforce planning, subagent strategy, self-improvement, verification, elegance, and autonomous bug fixing. Triggers: multi-step implementation, bug fixes, refactoring, architectural changes, or any task requiring structured execution."
-zh: 工作流编排
+zh_displayName: 工作流编排
 category: 自动化与集成
 en_category: Automation & Integration
 ---

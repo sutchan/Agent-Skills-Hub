@@ -17,7 +17,7 @@ en_description: >-
   hashtag or location feeds, pull posts by audio track, plus follower export,
   monitoring, influencer discovery, and competitor tracking without Graph API
   verification or a headless browser.
-zh: Instagram API 替代
+zh_displayName: Instagram API 替代
 category: 自动化与集成
 en_category: Automation & Integration
 keywords:

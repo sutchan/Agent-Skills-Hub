@@ -2,7 +2,7 @@
 name: skill-creator
 description: 用于创建有效技能的指南，当用户想要创建新技能（或更新现有技能）以扩展 CodeBuddy 的能力（借助专业知识、工作流或工具集成）时使用。
 en_description: "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy."
-zh: 技能创建与优化
+zh_displayName: 技能创建与优化
 category: 文档与内容
 en_category: Docs & Content
 ---
