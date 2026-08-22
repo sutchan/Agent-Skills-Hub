@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.6] - 2026-08-22
+
+### fix: 对齐 app 搜索行为与原型（防抖 + 组合拦截 + 检索字段补全）
+
+- `app/components/SkillsExplorer.tsx`：搜索框新增 120ms 防抖（对齐原型 `DEBOUNCE_MS`）+ 输入法 `compositionstart/end` 拦截（拼音组合期间不触发筛选）；过滤检索串补全 `enDescription`/`category`/`enCategory`（原仅 `name/zh/description`），与原型 `matches()` 的 hay 字段一致
+- `app/components/skill-card.tsx`：卡片根 `id` 由 `skill-${name}` 改为 `skill-${skillSlug(name)}`（新增 `app/lib/skillSlug.ts`，算法对齐原型 `01-state.js` `skillSlug`），统一两层卡片选择器与 E2E 锚点
+- 根 `package.json` version 升至 v1.20.6；`app/package.json` 升至 v1.1.16
+- **README 中/英领域表对齐真实数据**（v1.20.5 已清零「其他」类、orca-cli 归入 9 大领域）：自动化与集成 10 → 11，删除已不存在的「其他（待归类修正）1」行；开篇与亮点表移除「少数待归类」措辞，明确 166 含 1 hidden（公开可见 165）；贡献指南删除「当前有 1 个待修复」过时句
+
+[1.20.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.6
+
 ## [1.20.5] - 2026-08-22
 
 ### fix: 补全 57 个技能未翻译字段并统一 LF（契约合规）

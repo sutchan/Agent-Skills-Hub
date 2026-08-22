@@ -1,6 +1,6 @@
-// app/components/SkillsExplorer.tsx v1.19.38 — 技能浏览器（编排：分类多选 + 搜索 + 排序 + 视图切换 + 设置 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
+// app/components/SkillsExplorer.tsx v1.20.6 — 技能浏览器（编排：分类多选 + 搜索 + 排序 + 视图切换 + 设置 + 名称显示 + 卡片网格 + 详情弹窗 + 分页）
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
 import type { SkillsData, Skill } from "../lib/skills";
 import { SkillCard } from "./skill-card";
@@ -19,7 +19,9 @@ export function SkillsExplorer({
   lang: Lang;
 }) {
   const [cats, setCats] = useState<string[]>([]); // 多选 OR，空 = 全部
-  const [q, setQ] = useState("");
+  const [raw, setRaw] = useState(""); // 搜索框即时输入（受控）
+  const [q, setQ] = useState(""); // 防抖后的查询（实际用于过滤，对齐原型 DEBOUNCE_MS=120）
+  const composing = useRef(false); // 输入法组合中标志，避免拼音过程狂刷网格
   const [view, setView] = useState<"grid" | "list">("grid");
   const [sort, setSort] = useState<"name" | "name-desc" | "cat" | "zh">("name");
   // UI 元素显隐设置（独立持久化到 localStorage + <html data-show-*>）
@@ -43,6 +45,12 @@ export function SkillsExplorer({
     const nm = read("ash-name-mode");
     if (nm === "zh" || nm === "en") setNameMode(nm);
   }, []);
+
+  // 搜索防抖（对齐原型 DEBOUNCE_MS=120）：raw 停止输入 120ms 后写入 q 触发过滤
+  useEffect(() => {
+    const t = setTimeout(() => setQ(raw), 120);
+    return () => clearTimeout(t);
+  }, [raw]);
 
   // 偏好变化时同步到 <html data-show-*> / data-name-mode + 持久化
   useEffect(() => {
@@ -70,7 +78,7 @@ export function SkillsExplorer({
     const list = data.skills.filter((s) => {
       if (s.hidden) return false;
       if (cats.length && !cats.includes(s.category)) return false;
-      if (kw && !(`${s.name} ${s.zh || ""} ${s.description}`.toLowerCase().includes(kw))) return false;
+      if (kw && !(`${s.name} ${s.zh || ""} ${s.description} ${s.enDescription || ""} ${s.category} ${s.enCategory || ""}`.toLowerCase().includes(kw))) return false;
       return true;
     });
     const cmp: Record<typeof sort, (a: Skill, b: Skill) => number> = {
@@ -109,8 +117,10 @@ export function SkillsExplorer({
             id="search"
             type="search"
             placeholder={lang === "zh" ? "搜索技能名称或描述…" : "Search skills by name or description…"}
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
+            value={raw}
+            onChange={(e) => { if (composing.current) return; setRaw(e.target.value); }}
+            onCompositionStart={() => { composing.current = true; }}
+            onCompositionEnd={(e) => { composing.current = false; setRaw(e.target.value); }}
             aria-label={lang === "zh" ? "搜索技能" : "Search skills"}
           />
         </div>
