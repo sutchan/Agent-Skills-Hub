@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.19.20 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.20.13 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -36,6 +36,8 @@ const state = {
   query: "",
   // 分类筛选（多选 OR，空数组 = 全部）；v1.19.8 起由单选 cat 升级为多选 cats
   cats: [],
+  // 功能标签筛选（多选 OR，空数组 = 全部）；与 cats 以 AND 组合（v1.20.12）
+  tags: [],
   // 排序：name↑（默认，按 name）/ name↓ / cat（按分类）/ zh（按中文名）
   sort: "name",
   // 当前页码（0 基），切换筛选/搜索/排序时重置为 0
@@ -87,6 +89,16 @@ function catHue(c) {
 function catCounts() {
   const m = new Map();
   SKILLS_DATA.skills.forEach((s) => { if (!s.hidden) m.set(s.category, (m.get(s.category) || 0) + 1); });
+  return m;
+}
+
+// 预聚合功能标签计数（Map: tag slug -> count），renderTags 直接查表（v1.20.12）
+function tagCounts() {
+  const m = new Map();
+  SKILLS_DATA.skills.forEach((s) => {
+    if (s.hidden || !Array.isArray(s.tags)) return;
+    s.tags.forEach((t) => m.set(t, (m.get(t) || 0) + 1));
+  });
   return m;
 }
 

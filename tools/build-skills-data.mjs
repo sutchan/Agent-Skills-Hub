@@ -53,6 +53,39 @@ const CATEGORY_EN = {
   "安全": "Security",
 };
 
+// 功能标签（tags）词表：基于技能 description/enDescription/category 关键词自动派生（v1.20.12）
+// 每个标签含 slug（data 存储键）、中英显示名、命中正则。deriveTags 输出 slug 数组（每个技能 1-3 个）。
+// 作为分类（9 大领域）之下的细化主题，供原型/app 渲染第二组筛选 chip，扩充可筛选 tag 数量。
+const TAG_DEFS = [
+  { slug: "ai-agent", zh: "AI 与智能体", en: "AI & Agents", re: /ai|llm|agent|gpt|claude|gemini|prompt|rag|embedding|大模型|智能体|提示词|chatbot/i },
+  { slug: "cli", zh: "命令行", en: "CLI", re: /cli|command[\s-]?line|terminal|shell|命令行|终端|bash/i },
+  { slug: "web-frontend", zh: "Web 前端", en: "Web & Frontend", re: /web|html|css|react|next\.?js|vue|frontend|前端|网页|browser/i },
+  { slug: "doc-writing", zh: "文档写作", en: "Docs & Writing", re: /doc|document|markdown|writing|文档|写作|文章|report|README|文案/i },
+  { slug: "spreadsheet-data", zh: "表格数据", en: "Spreadsheet & Data", re: /spreadsheet|excel|xlsx|csv|tsv|表格|数据|data analysis|数据可视化/i },
+  { slug: "pdf", zh: "PDF", en: "PDF", re: /\bpdf\b/i },
+  { slug: "image-design", zh: "图片设计", en: "Image & Design", re: /image|svg|logo|icon|design|图片|设计|brand|品牌|海报|figma|ui\b/i },
+  { slug: "media", zh: "音视频", en: "Audio & Video", re: /audio|video|music|voice|语音|音频|视频|media|字幕|tts|语音合成/i },
+  { slug: "test-qa", zh: "测试质量", en: "Testing & QA", re: /test|testing|qa\b|quality|测试|质量|lint|审查|review/i },
+  { slug: "devops", zh: "部署运维", en: "DevOps", re: /deploy|ci\/cd|devops|docker|kubernetes|vercel|部署|运维|服务器|nginx/i },
+  { slug: "database", zh: "数据库", en: "Database", re: /database|sql|postgres|mysql|sqlite|mongo|数据库|supabase/i },
+  { slug: "security", zh: "安全", en: "Security", re: /security|secur|安全|vulnerab|漏洞|加密|加密|密钥|token/i },
+  { slug: "automation", zh: "自动化", en: "Automation", re: /automation|workflow|automate|自动化|流程|定时|schedule/i },
+  { slug: "wordpress", zh: "WordPress", en: "WordPress", re: /wordpress|\bwp\b|cms|插件|plugin/i },
+  { slug: "i18n", zh: "翻译多语", en: "i18n & Translate", re: /translate|translation|i18n|l10n|翻译|多语言|本地化|国际化/i },
+  { slug: "scraping", zh: "爬虫抓取", en: "Scraping", re: /scrap|scrape|crawl|爬虫|抓取|采集|spider/i },
+];
+
+// 由技能文本派生功能标签 slug 数组（1-3 个）：命中即收集，最多 3 个避免标签爆炸
+function deriveTags(fm, category) {
+  const text = `${fm.description || ""} ${fm.en_description || ""} ${category || ""}`;
+  const hits = [];
+  for (const t of TAG_DEFS) {
+    if (t.re.test(text)) hits.push(t.slug);
+    if (hits.length >= 3) break;
+  }
+  return hits;
+}
+
 // YAML 折叠/字面量块标量标志（行内为空值或仅折叠符）
 const BLOCK_SCALAR = /^(?:[>|])-?$/;
 // 行内值在保留时去除的 YAML 注释（仅当注释前为空格/行首）
@@ -198,6 +231,8 @@ function main() {
       // 来源网址：兼容 homepage / source / url / website 多键（详情弹窗外链展示）
       homepage: fm.homepage || fm.source || fm.url || fm.website || "",
       allowedTools: normalizeTools(fm["allowed-tools"]),
+      // 功能标签：基于描述/分类关键词自动派生（v1.20.12），供第二组筛选 chip 使用
+      tags: deriveTags(fm, category),
       hidden: fm.hidden === true || fm.hidden === "true",
       // 详情元信息（可选，缺失则不展示）
       author: author || undefined,

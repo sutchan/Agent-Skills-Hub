@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.20.0 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
+// prototype/src/parts/04-interactions.js v1.20.13 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -122,6 +122,20 @@ function bind() {
     updateHeroNet();
     renderGrid();
   });
+  // 功能标签导航（事件委托，v1.20.12 起多选 OR，与分类 AND 组合）
+  on("#tags", "click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    const val = chip.dataset.tag || "";
+    if (!val) { state.tags = []; }
+    else {
+      const i = state.tags.indexOf(val);
+      if (i === -1) state.tags.push(val); else state.tags.splice(i, 1);
+    }
+    track("filter_tag", { tags: state.tags.slice() });
+    state.page = 0;
+    renderGrid();
+  });
   // 卡片点击打开详情（事件委托）
   // 卡片为原生 <button>，Enter/Space 原生触发 click，此处仅需处理 click，避免 double-open
   on("#grid", "click", (e) => {
@@ -140,7 +154,7 @@ function bind() {
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; updateHeroNet(); renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.tags = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; updateHeroNet(); renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
@@ -156,6 +170,9 @@ function bind() {
   });
   // 设置按钮：打开设置弹窗（复用 dialog 框架）
   on("#settingsBtn", "click", () => openSettings());
+  // 分享按钮：随机文案 + 完整 GitHub URL，复制到剪贴板并 toast（v1.20.9）
+  const shareBtn = $("#shareBtn");
+  if (shareBtn) shareBtn.addEventListener("click", () => shareRepo());
   // 回到顶部：滚动超阈值后显示按钮（.show），并监听 scroll/resize 更新
   // 使用 passive 监听避免阻塞滚动（Vercel: client-passive-event-listeners）
   const toTop = document.getElementById("toTop");
@@ -356,4 +373,49 @@ function openSettings() {
   });
   const closeBtn = $("#settingsClose");
   if (closeBtn) closeBtn.addEventListener("click", closeDetail);
+}
+
+// 复制文本到剪贴板：优先 Clipboard API，失败降级 execCommand；返回是否成功
+function copyText(text) {
+  return new Promise((resolve) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => resolve(true)).catch(() => {
+        try { fallbackCopy(text, () => resolve(true)); } catch { resolve(false); }
+      });
+    } else {
+      try { fallbackCopy(text, () => resolve(true)); } catch { resolve(false); }
+    }
+  });
+}
+
+// 分享仓库：从 i18n 随机选一条文案（含 {n} 技能总数占位），补全完整 GitHub URL 后复制到剪贴板
+const REPO_URL = "https://github.com/sutchan/Agent-Skills-Hub";
+function shareRepo() {
+  const promos = I18N.t("share.promos");
+  const list = Array.isArray(promos) ? promos : [String(promos || "")];
+  const tpl = list.length ? list[Math.floor(Math.random() * list.length)] : "";
+  const total = (SKILLS_DATA && SKILLS_DATA.skills) ? SKILLS_DATA.skills.filter((s) => !s.hidden).length : 0;
+  const text = `${tpl.replace(/\{n\}/g, total)}\n${REPO_URL}`;
+  copyText(text).then((ok) => {
+    showToast(ok ? I18N.t("share.copied") : I18N.t("share.failed"));
+    if (ok) track("share_repo", { promoted: tpl });
+  });
+}
+
+// 轻量 toast：复用 .toast 节点，自动消失（v1.20.9）
+let _toastTimer = null;
+function showToast(msg) {
+  let el = $("#toast");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "toast";
+    el.className = "toast";
+    el.setAttribute("role", "status");
+    el.setAttribute("aria-live", "polite");
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => el.classList.remove("show"), 1800);
 }

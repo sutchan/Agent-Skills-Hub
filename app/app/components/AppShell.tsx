@@ -1,7 +1,8 @@
-// app/components/AppShell.tsx v1.20.7 — 应用外壳（顶栏品牌区 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.20.12 — 应用外壳（顶栏品牌区 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
+import { SHARE_FEEDBACK, REPO_URL, copyRepoShare } from "../lib/share";
 import type { SkillsData } from "../lib/skills";
 import { SkillsExplorer } from "./SkillsExplorer";
 
@@ -47,6 +48,15 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     };
   }, [data]);
 
+  // 页脚分享仓库：随机文案 + 完整 GitHub URL 复制到剪贴板（v1.20.9）
+  const [toast, setToast] = useState<string | null>(null);
+  const handleShareRepo = async () => {
+    const fb = SHARE_FEEDBACK[lang];
+    const ok = await copyRepoShare(lang, stats.total);
+    setToast(ok ? fb.ok : fb.fail);
+    window.setTimeout(() => setToast(null), 1800);
+  };
+
   return (
     <>
       <header className="topbar" id="appHeader">
@@ -90,6 +100,36 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
           <span>Agent Skills Hub</span>
           <span>{lang === "zh" ? "开源免费 · MIT 协议" : "Open source · MIT License"}</span>
           {version ? <span className="footer-version">v{version}</span> : null}
+          <div className="footer-cta" id="footerCta">
+            <a
+              className="star-btn"
+              id="starBtn"
+              href={REPO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={lang === "zh" ? "给仓库点 Star" : "Star this repo"}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9L12 2.5z" />
+              </svg>
+              <span>{lang === "zh" ? "给仓库点个 Star ⭐" : "Star this repo ⭐"}</span>
+            </a>
+            <button
+              className="share-btn"
+              id="shareBtn"
+              type="button"
+              aria-label={lang === "zh" ? "分享" : "Share"}
+              onClick={handleShareRepo}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="18" cy="5" r="3" />
+                <circle cx="6" cy="12" r="3" />
+                <circle cx="18" cy="19" r="3" />
+                <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" />
+              </svg>
+              <span>{lang === "zh" ? "分享" : "Share"}</span>
+            </button>
+          </div>
           <div className="footer-stats" id="footerStats" aria-live="polite">
             <div className="stat">
               <div className="num">{stats.total}</div>
@@ -109,6 +149,11 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
             </div>
           </div>
         </div>
+        {toast ? (
+          <div className="toast show" role="status" aria-live="polite">
+            {toast}
+          </div>
+        ) : null}
       </footer>
     </>
   );

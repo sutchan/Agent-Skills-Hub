@@ -2,6 +2,43 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.14] - 2026-08-22
+
+### chore: 完善 app 分享功能与标签筛选样式，同步 v1.20.14
+
+- `app/app/lib/share.ts` 补充分享按钮调用入口与仓库 URL 拼接逻辑
+- `app/app/components/AppShell.tsx`、`SkillsExplorer.tsx`、`detail/DetailInstall.tsx` 接入分享/标签筛选交互
+- 原型 `01-state.js`/`02-render.js`/`04-interactions.js`/`i18n.js`/`components.css`/`layout.css` 完善功能标签筛选与样式
+- 根 `package.json` version 升至 v1.20.14
+
+[1.20.14]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.14
+
+## [1.20.13] - 2026-08-22
+
+### feat: 根据 skills 数据自动派生功能标签，扩充筛选 chip 数量
+
+- `tools/build-skills-data.mjs` 新增 `TAG_DEFS` 词表 + `deriveTags()`，基于技能 description/enDescription/category 关键词自动派生 1-3 个功能标签 slug，写入 `data/skills-data.json` 的 `tags` 字段（173/178 技能命中，16 个标签维度）
+- 原型与 app 在分类筛选 chip 下方新增第二组「功能标签」筛选行（多选 OR，与分类以 AND 组合），标签中英显示名由 `TAG_LABELS` 提供
+- 原型：`01-state.js`（tags 状态 + `tagCounts`）、`02-render.js`（`renderTags` + 过滤）、`04-interactions.js`（标签点击委托）、`i18n.js`（`TAG_LABELS` + `tagLabel`）、`index.html`（`#tags` 容器）、`layout.css`（`.tags-nav` 样式）
+- app：`SkillsExplorer.tsx`（`tags` 状态 + `tagCounts` + `toggleTag` + 标签 chip 渲染）、`skills.ts`（`tags?` 字段已具备）、`globals.css`（`.chips.tags` 样式）
+- `npm run build` 重建 `prototype/index.html` 与 `prototype.html`
+- 根 `package.json` version 升至 v1.20.13
+
+[1.20.13]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.13
+
+## [1.20.12] - 2026-08-22
+
+### feat: 页脚 Star 引导 + 分享按钮、chip 灰彩色、安装命令补全完整仓库 URL
+
+- 原型与 app 页脚新增「给仓库点 Star ⭐」引导按钮（链接 `https://github.com/sutchan/Agent-Skills-Hub`）+「分享」按钮（随机宣传文案 + 完整仓库 URL，复制到剪贴板并 toast）
+- 分类 chip 改为默认中性灰、选中态才用 `--hue` 派生彩色（原型 `components.css`/`layout.css` 与 app `globals.css` 同源对齐）
+- 技能详情安装区补全完整 GitHub 仓库来源链接（`REPO_URL`）
+- i18n 补 `footer.star`；`app/lib/share.ts` 新增 `REPO_URL`/`buildRepoShareText`/`copyRepoShare` 复用 `SHARE_PROMOS`
+- `npm run build` 重建 `prototype/index.html` 与 `prototype.html`
+- 根 `package.json` version 升至 v1.20.12
+
+[1.20.12]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.12
+
 ## [1.20.11] - 2026-08-22
 
 ### refactor: 修复契约回归并接入重复导入技能（统一 LF）

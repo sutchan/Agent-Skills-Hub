@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.20.0 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.20.13 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -148,6 +148,10 @@
   </div>
 
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="cats-scroll" id="cats"></div></nav>
+  <nav class="tags-nav" id="tagsNav" aria-label="功能标签 / Tags">
+    <span class="tags-label"><span class="zh" data-i18n="filter.tags">标签</span><span class="en" data-i18n="filter.tags">Tags</span></span>
+    <div class="tags-scroll" id="tags"></div>
+  </nav>
 
   <main class="grid" id="grid" aria-label="技能列表" aria-live="off"></main>
   <!-- 分页器：每页 100 条，数字翻页 + 上下页（renderPager 注入；v1.19.18） -->
@@ -171,6 +175,18 @@
         <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener">GitHub</a>
         <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener">README</a>
       </nav>
+      <div class="footer-cta" id="footerCta">
+        <a class="star-btn" id="starBtn" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9L12 2.5z"/></svg>
+          <span class="zh" data-i18n="footer.star">给仓库点个 Star ⭐</span>
+          <span class="en" data-i18n="footer.star">Star this repo ⭐</span>
+        </a>
+        <button class="share-btn" id="shareBtn" type="button" aria-label="分享 / Share">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span class="zh" data-i18n="share.btn">分享</span>
+          <span class="en" data-i18n="share.btn">Share</span>
+        </button>
+      </div>
       <!-- 页脚统计区（自 v1.19.7 起由 hero 迁入并扩充）：技能总数 / 分类 / 英文覆盖 / 支持语言 -->
       <div class="footer-stats" id="footerStats" aria-live="polite">
         <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl zh" data-i18n="stat.total">技能总数</div><div class="lbl en" data-i18n="stat.total">Total skills</div></div>

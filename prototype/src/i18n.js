@@ -51,6 +51,7 @@
       "share.copied": "已复制到剪贴板",
       "share.failed": "复制失败，请手动复制",
       "filter.all": "全部",
+      "filter.tags": "标签",
       "dice.btn": "🎲 今天学点什么",
       "dice.title": "为你抽中的技能",
       "dice.hint": "不知道从哪开始？让骰子决定。",
@@ -98,7 +99,8 @@
         "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，{n} 技能即插即用，开源免费！"
       ],
       "footer.desc": "高质量 Agent 技能目录，按分类浏览、搜索、即取即用。",
-      "footer.copyright": "开源免费 · MIT 协议"
+      "footer.copyright": "开源免费 · MIT 协议",
+      "footer.star": "给仓库点个 Star ⭐"
     },
     en: {
       "brand.subtitle": "Curated agent skill library",
@@ -136,6 +138,7 @@
       "share.copied": "Copied to clipboard",
       "share.failed": "Copy failed, please copy manually",
       "filter.all": "All",
+      "filter.tags": "Tags",
       "dice.btn": "🎲 Learn something",
       "dice.title": "Your skill draw",
       "dice.hint": "Not sure where to start? Let the dice decide.",
@@ -183,7 +186,8 @@
         "💡 Want a stronger coding agent? Explore Agent Skills Hub: {n} plug-and-play skills, open source and free!"
       ],
       "footer.desc": "A curated directory of high-quality agent skills — browse, search, and reuse.",
-      "footer.copyright": "Open source · MIT License"
+      "footer.copyright": "Open source · MIT License",
+      "footer.star": "Star this repo ⭐"
     }
   };
 
@@ -280,6 +284,31 @@
   }
 
   // ---------- 6. 对外暴露 ----------
+  // 功能标签中英显示名（与 tools/build-skills-data.mjs TAG_DEFS 的 slug 对齐，v1.20.12）
+  var TAG_LABELS = {
+    "ai-agent": { zh: "AI 与智能体", en: "AI & Agents" },
+    "cli": { zh: "命令行", en: "CLI" },
+    "web-frontend": { zh: "Web 前端", en: "Web & Frontend" },
+    "doc-writing": { zh: "文档写作", en: "Docs & Writing" },
+    "spreadsheet-data": { zh: "表格数据", en: "Spreadsheet & Data" },
+    "pdf": { zh: "PDF", en: "PDF" },
+    "image-design": { zh: "图片设计", en: "Image & Design" },
+    "media": { zh: "音视频", en: "Audio & Video" },
+    "test-qa": { zh: "测试质量", en: "Testing & QA" },
+    "devops": { zh: "部署运维", en: "DevOps" },
+    "database": { zh: "数据库", en: "Database" },
+    "security": { zh: "安全", en: "Security" },
+    "automation": { zh: "自动化", en: "Automation" },
+    "wordpress": { zh: "WordPress", en: "WordPress" },
+    "i18n": { zh: "翻译多语", en: "i18n & Translate" },
+    "scraping": { zh: "爬虫抓取", en: "Scraping" }
+  };
+  function tagLabel(slug, lang) {
+    var m = TAG_LABELS[slug];
+    if (!m) return slug;
+    return lang === "en" ? m.en : m.zh;
+  }
+
   var api = {
     translations: translations,
     supported: SUPPORTED,
@@ -289,7 +318,9 @@
     setLang: setLang,
     toggleLang: toggleLang,
     onLangChange: onLangChange,
-    syncDOM: syncDOM
+    syncDOM: syncDOM,
+    tagLabel: tagLabel,
+    TAG_LABELS: TAG_LABELS
   };
 
   // 兼容全局与模块化两种引入方式

@@ -1,16 +1,16 @@
-/* prototype/src/styles/components.css v1.20.8 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.20.13 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
-/* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
+/* 分类 chip（筛选器）：默认中性灰，选中态才用 --hue 派生彩色（对齐 app，catHue 算法驱动） */
 .chip {
   --hue: 220;
   display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 999px;
-  background: color-mix(in srgb, hsl(var(--hue) 70% 50%) 14%, var(--surface));
-  border: 1px solid color-mix(in srgb, hsl(var(--hue) 70% 50%) 28%, var(--border));
-  color: color-mix(in srgb, hsl(var(--hue) 70% 42%) 65%, var(--text-2));
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-2);
   font-size: 13px; cursor: pointer; transition: background .15s, color .15s, border-color .15s, transform .15s ease, filter .15s ease;
 }
-/* 方案 C：hover 时 chip 轻弹 + 色相旋转 8°，像被点亮 */
-.chip:hover { border-color: hsl(var(--hue) 70% 50%); color: hsl(var(--hue) 75% 42%); transform: translateY(-2px) scale(1.04); filter: hue-rotate(8deg); }
+/* 默认态：hover 仅中性轻弹，不改变色相 */
+.chip:hover { border-color: var(--text-3); color: var(--text); transform: translateY(-2px) scale(1.04); }
 /* 选中态：保持各自分类色相（--hue），以「加深的彩色实心底 + 白字」强调，
    既满足彩色 tag 诉求，又保证对比度 ≥4.5:1（深色底托白字）；
    「全部」中性筛选器仍用主色绿（见 .chip-all.active），避免异色相混淆全量语义 */

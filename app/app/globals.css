@@ -1,4 +1,4 @@
-/* app/globals.css v1.19.29 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+/* app/globals.css v1.20.13 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 tools/sync-tokens.mjs 同步生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -141,6 +141,23 @@ html[data-lang="zh"] .en { display: none; }
 .footer-ver { font-weight: 600; color: var(--text); }
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
+/* 页脚 CTA：Star 引导 + 分享（v1.20.9，对齐 prototype .footer-cta） */
+.footer-cta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.star-btn {
+  display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 999px;
+  background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border: 1px solid hsl(var(--primary));
+  font-size: 13px; font-weight: 600; text-decoration: none; transition: filter .15s, transform .15s ease;
+}
+.star-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+/* 详情安装区：完整 GitHub 来源链接（v1.20.9） */
+.install-source { display: inline-block; margin-top: 8px; font-size: 12.5px; color: var(--text-2); text-decoration: none; word-break: break-all; }
+.install-source:hover { color: hsl(var(--primary)); text-decoration: underline; }
+.share-btn {
+  display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 999px;
+  background: var(--surface); color: var(--text); border: 1px solid var(--border);
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: border-color .15s, color .15s, transform .15s ease;
+}
+.share-btn:hover { border-color: var(--text-3); color: var(--text); transform: translateY(-1px); }
 /* 页脚统计区（v1.19.7 由 hero 迁入并扩充，对齐 prototype .footer-stats）：横向平铺 4 项 */
 .footer-stats { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 6px; padding-top: 16px; border-top: 1px dashed var(--border); }
 .footer-stats .stat { display: flex; flex-direction: column; gap: 2px; }
@@ -179,20 +196,22 @@ html[data-lang="zh"] .en { display: none; }
 
 /* prototype/src/styles/components.css v1.14.68 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
-/* 分类 chip（筛选器）：--hue 派生多色（对齐 app，catHue 算法驱动） */
+/* 分类 chip（筛选器）：默认中性灰，选中态才用 --hue 派生彩色（对齐 prototype，catHue 算法驱动） */
 .chip {
   --hue: 220;
   display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 999px;
-  background: color-mix(in srgb, hsl(var(--hue) 70% 50%) 14%, var(--surface));
-  border: 1px solid color-mix(in srgb, hsl(var(--hue) 70% 50%) 28%, var(--border));
-  color: color-mix(in srgb, hsl(var(--hue) 70% 42%) 65%, var(--text-2));
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-2);
   font-size: 13px; cursor: pointer; transition: background .15s, color .15s, border-color .15s;
 }
-.chip:hover { border-color: hsl(var(--hue) 70% 50%); color: hsl(var(--hue) 75% 42%); }
-/* 选中态以单一主色强调（DESIGN §8.3 禁用异色相于强调元素），保证对比度 ≥4.5:1 且任意分类统一 */
-.chip.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); }
+.chip:hover { border-color: var(--text-3); color: var(--text); }
+/* 选中态：保持各自分类色相（--hue），以「加深的彩色实心底 + 白字」强调（对齐 prototype） */
+.chip.active { background: hsl(var(--hue) 68% 42%); color: #fff; border-color: hsl(var(--hue) 68% 42%); }
 .chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
 .chip.active .chip-count { opacity: 1; }
+/* 功能标签筛选行（v1.20.12）：与分类 chip 同容器，置于其下方并弱化间距 */
+.chips.tags { margin-top: 8px; flex-wrap: wrap; }
 
 /* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + card-body[title-row + card-title/sub + card-desc + card-cat]） */
 .card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }

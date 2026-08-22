@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.20.0 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.20.13 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
@@ -24,6 +24,20 @@ function renderCats(counts) {
     items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}"><span class="zh">${esc(c)}</span><span class="en">${esc(en[c] || c)}</span> <span class="chip-count">${counts.get(c) || 0}</span></button>`);
   });
   $("#cats").innerHTML = items.join("");
+}
+
+// 功能标签 chips（v1.20.12 起）：state.tags 为空 = 全部；与分类以 AND 组合
+function renderTags(counts) {
+  const el = $("#tags");
+  if (!el) return;
+  // 仅展示在当前可见技能中出现的标签，按命中数降序，保证筛选有意义
+  const entries = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
+  const items = entries.map(([slug, n]) => {
+    const active = state.tags.indexOf(slug) !== -1;
+    // 标签 chip 用中性 hue（152 主色绿系），与分类彩色区分，弱化视觉权重
+    return `<button class="chip" data-tag="${esc(slug)}" style="--hue:152" aria-pressed="${active}"><span class="zh">${esc(I18N.tagLabel(slug, "zh"))}</span><span class="en">${esc(I18N.tagLabel(slug, "en"))}</span> <span class="chip-count">${n}</span></button>`;
+  });
+  el.innerHTML = items.join("");
 }
 
 // 排序比较器：name（英文原名 A-Z）/ name-desc（Z-A）/ cat（按分类字典序）/ zh（按中文名）
@@ -103,17 +117,20 @@ function queryTerms(q) {
 function renderGrid() {
   const q = state.query.trim();
   const terms = queryTerms(q);
-  // 过滤：可见 + 关键词匹配 + 分类多选 OR（cats 为空 = 全部）
+  // 过滤：可见 + 关键词匹配 + 分类多选 OR（cats 为空 = 全部）+ 标签多选 OR（tags 为空 = 全部，与 cats 以 AND 组合）
   let list = SKILLS_DATA.skills.filter((s) => {
     if (s.hidden) return false;
     if (!matches(s, terms)) return false;
     if (state.cats.length && state.cats.indexOf(s.category) === -1) return false;
+    if (state.tags.length && (!Array.isArray(s.tags) || state.tags.some((t) => s.tags.indexOf(t) === -1))) return false;
     return true;
   });
   list = sortSkills(list);
   const counts = catCounts();
+  const tagCnt = tagCounts();
   renderStats();
   renderCats(counts);
+  renderTags(tagCnt);
   // 分页：每页 PAGE_SIZE 条，page 为 0 基
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   if (state.page > totalPages - 1) state.page = totalPages - 1; // 筛选后页码越界回钳
