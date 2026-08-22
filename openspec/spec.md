@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`openspec/spec.md` · 版本：1.20.9
+> 路径：`openspec/spec.md` · 版本：1.20.11
 > 本文件固化**当前已落地能力**的基线规范，作为变更的起点与回退基准。
 > 详细数据契约、交互与分享规则见 [`project.md`](project.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 

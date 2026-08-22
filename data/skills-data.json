@@ -1,5 +1,5 @@
 {
-  "total": 176,
+  "total": 178,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -629,6 +629,33 @@
       "githubDir": "skills/travel-planner"
     },
     {
+      "name": "travel-planner-2",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "旅行规划助手（变体2）",
+      "description": "旅行目的地调研与每日行程制定，含物流规划、预算跟踪与体验优化。当用户规划行程、创建旅行 itinerary、对比目的地或组织旅行物流时使用。",
+      "enDescription": "Travel destination research and daily itinerary creation with logistics planning, budget tracking, and experience optimization. Use when planning trips, creating travel itineraries, comparing destinations, or organizing travel logistics.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-2",
+      "githubDir": "skills/travel-planner-2"
+    },
+    {
+      "name": "travel-planner-3",
+      "category": "文档与内容",
+      "enCategory": "Docs & Content",
+      "zh": "旅行行程规划（变体3）",
+      "description": "创建综合旅行行程，含目的地分析、预算规划、交通、住宿与本地洞察。当用户规划行程、组织旅行日程或寻求目的地推荐时使用。",
+      "enDescription": "Creates comprehensive travel itineraries with destination analysis, budget planning, transportation, accommodation, and local insights. Use when planning trips, organizing travel schedules, or seeking destination recommendations.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-3",
+      "githubDir": "skills/travel-planner-3"
+    },
+    {
       "name": "wechat-article-writer",
       "category": "文档与内容",
       "enCategory": "Docs & Content",
@@ -818,6 +845,19 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tiktok-api",
       "githubDir": "skills/tiktok-api"
+    },
+    {
+      "name": "traceknot",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "Traceknot QA 流程",
+      "description": "将 Traceknot 符合 ISTQB、以证据为约束的 QA 流程应用于跨 OMP、Codex、GajaeCode、Claude Code、OpenCode 的仓库改动，含会话级 QA 看板发布。用于实现验证、缺陷修复、发布检查、仓库审计、缺陷确认与残差风险决策，不把智能体自身的完成声明当作证明。",
+      "enDescription": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
+      "homepage": "",
+      "allowedTools": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/traceknot",
+      "githubDir": "skills/traceknot"
     },
     {
       "name": "twitter-api",
@@ -2102,19 +2142,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/to-spec",
       "githubDir": "skills/to-spec"
-    },
-    {
-      "name": "traceknot",
-      "category": "开发框架与平台",
-      "enCategory": "Dev Frameworks & Platforms",
-      "zh": "Traceknot QA 流程",
-      "description": "将 Traceknot 符合 ISTQB、以证据为约束的 QA 流程应用于跨 OMP、Codex、GajaeCode、Claude Code、OpenCode 的仓库改动，含会话级 QA 看板发布。用于实现验证、缺陷修复、发布检查、仓库审计、缺陷确认与残差风险决策，不把智能体自身的完成声明当作证明。",
-      "enDescription": "Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.",
-      "homepage": "",
-      "allowedTools": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/traceknot",
-      "githubDir": "skills/traceknot"
     },
     {
       "name": "uni-app",

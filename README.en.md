@@ -2,9 +2,9 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.20.10-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
+[![Version](https://img.shields.io/badge/version-v1.20.11-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
 
-A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security — 177 skill packs on GitHub (1 marked hidden, 176 publicly visible). Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
+A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security — 179 skill packs on GitHub (1 marked hidden, 178 publicly visible). Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
 
 ## Highlights
 
@@ -13,7 +13,7 @@ A centrally managed collection of AI skills covering Brand & Design, Docs & Cont
 | | Highlight | Description |
 |---|---|---|
 | ⚙️ | **Zero-maintenance listing** | Skill data and the showcase page are auto-generated from on-disk `skills/*/SKILL.md` by `npm run build` — no manual listing to maintain when adding or removing skills |
-| 🗂️ | **177 skills · 9 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Security |
+| 🗂️ | **179 skills · 9 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Dev Frameworks & Platforms, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Security |
 | 🌏 | **Chinese by default** | Chinese category (`category`) + English category (`en_category`) + one-line summary + full Chinese description (`description`, default display language), English original in `en_description` — ready for Chinese-speaking agent users |
 | 📦 | **One-click install** | Bulk install / update / remove via [skills-manager](https://github.com/xingkongliang/skills-manager) |
 | 🚀 | **Works offline** | Self-contained static showcase (`prototype/index.html`) inlines all data — double-click to browse every skill with no framework dependency |
@@ -46,7 +46,7 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 | Domain | Skills |
 |--------|--------|
 | Brand & Design | 27 |
-| Docs & Content | 19 |
+| Docs & Content | 21 |
 | Data Analysis & Visualization | 2 |
 | Dev Frameworks & Platforms | 78 |
 | File & Format Handling | 4 |

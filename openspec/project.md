@@ -1,6 +1,6 @@
 # Project Specification — Agent Skills Hub
 
-> 路径：`openspec/project.md` · 版本：1.20.9
+> 路径：`openspec/project.md` · 版本：1.20.11
 > 本文件是 OpenSpec 的项目级规范（project spec），定义变更工作流、产物约定与本仓库结构对齐方式。
 > 已落地能力基线见 [`spec.md`](spec.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
 > 配套技能：`skills/openspec-propose`、`skills/openspec-apply-change`、`skills/openspec-explore`、`skills/openspec-archive-change`。

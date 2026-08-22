@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.11] - 2026-08-22
+
+### refactor: 修复契约回归并接入重复导入技能（统一 LF）
+
+- `traceknot` 被上游改回英文 `description` 且丢失 4 个必填字段，重新补全中文 `description` + `en_description`/`zh_displayName`(Traceknot QA 流程)/`category`(自动化与集成)
+- 接入上游重复导入的两个技能 `travel-planner-2`、`travel-planner-3`：修正 `name` 等于目录名（避免 data 重复条目），补全 4 个必填字段并翻译中文 `description`
+- `validate-skills.mjs` 校验 179 技能全部通过，0 头部泄漏、0 越界、0 其他类、0 重复 name
+- `data/skills-data.json` 重建：179 技能 / 9 类 / 可见 178（含 1 hidden）
+- 根 `package.json` version 升至 v1.20.11
+
+[1.20.11]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.11
+
 ## [1.20.10] - 2026-08-22
 
 ### chore: 锁定 Node 引擎为 24.x 消除 Vercel 升级警告
