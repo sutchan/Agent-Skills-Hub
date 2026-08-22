@@ -1,5 +1,7 @@
 # AGENTS.md — OpenSpec 协作指引
 
+> 路径：`openspec/AGENTS.md` · 版本：1.20.14
+
 本文件供 AI 编码助手（如 CodeBuddy / Claude）在处理本仓库变更时遵循。
 
 > 路径：`openspec/AGENTS.md` · 版本：1.20.7

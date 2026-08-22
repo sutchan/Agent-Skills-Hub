@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.15] - 2026-08-22
+
+### chore: 恢复 edgeone.json 并显式声明 app/ 子项目构建（方案 B）
+
+- 仓库根新增 `edgeone.json`：`rootDir: "app"`、`framework: "next"`、`installCommand: "npm install"`、`buildCommand: "npm run build"`、`outputDirectory: ".next"`、`nodeVersion: "18"`，将应用构建设置固化在根目录，解决腾讯云 EO 默认构建设置因入口在 `app/` 子目录而不生效的问题
+- `app/next.config.mjs` 为 `output: "standalone"`（Node 运行时，产物 `app/.next/`），与 EO 输出目录一致
+- 根 `package.json` version 升至 v1.20.15
+
+[1.20.15]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.15
+
 ## [1.20.14] - 2026-08-22
 
 ### chore: 完善 app 分享功能与标签筛选样式，同步 v1.20.14

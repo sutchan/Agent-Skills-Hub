@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.20.13 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 标签筛选
+// app/components/SkillsExplorer.tsx v1.20.14 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 标签筛选
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";

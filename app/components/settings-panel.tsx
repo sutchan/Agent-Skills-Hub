@@ -1,4 +1,4 @@
-// app/components/settings-panel.tsx v1.20.7 — 设置面板（界面元素显隐 + 名称显示策略 + 显示密度）
+// app/components/settings-panel.tsx v1.20.14 — 设置面板（界面元素显隐 + 名称显示策略 + 显示密度）
 import type { Lang } from "../lib/share";
 
 /** 设置面板：受控展示组件，state 由父组件持有 */
