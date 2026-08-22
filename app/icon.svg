@@ -1,18 +1,31 @@
-<!-- Agent Skills Hub 应用图标 v1.14.38 — 纯主绿 #2e9e6b 无渐变（与 brand/hub.svg 同源 symbol），适配 16-32px -->
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
-  <defs>
-    <symbol id="ash-hub" viewBox="0 0 32 32">
-      <g fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
-        <line x1="16" y1="16" x2="16" y2="7.5" opacity=".55"/>
-        <line x1="16" y1="16" x2="24.5" y2="21" opacity=".55"/>
-        <line x1="16" y1="16" x2="7.5" y2="21" opacity=".55"/>
-        <circle cx="16" cy="16" r="3.4" fill="currentColor" stroke="none"/>
-        <circle cx="16" cy="7.5" r="2.3" stroke="none"/>
-        <circle cx="24.5" cy="21" r="2.3" stroke="none"/>
-        <circle cx="7.5" cy="21" r="2.3" stroke="none"/>
-      </g>
-    </symbol>
-  </defs>
-  <rect width="32" height="32" rx="8" fill="#2e9e6b"/>
-  <use href="#ash-hub" xlink:href="#ash-hub" width="32" height="32" color="#ffffff"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="8.5mm" height="8.5mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 850.02 850.02"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#FEFEFE;stroke-width:46.25;stroke-linecap:round;stroke-miterlimit:22.9256;stroke-opacity:0.549020}
+    .str1 {stroke:#FEFEFE;stroke-width:46.25;stroke-linecap:round;stroke-miterlimit:22.9256;stroke-opacity:0.549020}
+    .str2 {stroke:#FEFEFE;stroke-width:46.25;stroke-linecap:round;stroke-miterlimit:22.9256;stroke-opacity:0.549020}
+    .fil1 {fill:none;fill-rule:nonzero}
+    .fil2 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil0 {fill:#2E9E6B;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="圖層_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <path class="fil0" d="M212.49 0.02l425.01 0c117.34,-0.02 212.52,95.15 212.52,212.49l-0.02 425.01c0.02,117.33 -95.15,212.49 -212.49,212.49l-425.01 0c-117.33,0 -212.49,-95.16 -212.49,-212.51l0 -425c0,-117.34 95.16,-212.52 212.51,-212.52z"/>
+  <line class="fil1 str0" x1="425" y1="482.84" x2="425" y2= "201.98" />
+  <line class="fil1 str1" x1="399.79" y1="414.91" x2="680.65" y2= "580.11" />
+  <line class="fil1 str2" x1="414.98" y1="433.4" x2="225.23" y2= "698.29" />
+  <circle class="fil2" cx="425" cy="425.02" r="125"/>
+  <circle class="fil2" cx="425" cy="161.98" r="75.99"/>
+  <circle class="fil2" cx="649.66" cy="559.75" r="75.99"/>
+  <circle class="fil2" cx="234.12" cy="682.48" r="90"/>
+ </g>
 </svg>
