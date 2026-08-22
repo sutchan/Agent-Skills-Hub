@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.10] - 2026-08-22
+
+### chore: 锁定 Node 引擎为 24.x 消除 Vercel 升级警告
+
+- `package.json` `engines.node` 由 `>=24.11.0` 改为 `24.x`，避免 Vercel 在 Node 大版本发布时自动升级
+- 根 `package.json` version 升至 v1.20.10
+
+[1.20.10]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.10
+
 ## [1.20.9] - 2026-08-22
 
 ### refactor: 接入 11 个新技能并补全契约字段（统一 LF）
