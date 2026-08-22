@@ -84,7 +84,7 @@ en_category: <对应英文分类名，英文态展示>
 
 **禁止字段**：不得出现 `description_zh` / `description_en` 等冲突键，中文译文统一写入 `description`、英文原文写入 `en_description`。
 
-- `category` 取 9 大领域之一（中文，稳定键）：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`开发框架与平台`、`文件与格式处理`、`AI 与智能体`、`音视频与多媒体`、`自动化与集成`、`安全`；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`、`AI 与智能体` → `AI & Agents`）。
+- `category` 取 13 大领域之一（中文，稳定键）：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`前端开发`、`后端与平台`、`移动端开发`、`WordPress 与 CMS`、`工程实践与质量`、`文件与格式处理`、`自动化与集成`、`AI 与智能体`、`音视频与多媒体`、`安全`；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`、`前端开发` → `Frontend Dev`、`AI 与智能体` → `AI & Agents`）。
 - `description` 与 `zh` 的区别：`zh` 是一句话摘要，`description` 是完整中文描述；`en_description` 为英文原文描述（默认展示中文，英文态展示英文）。
 - `build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，`category` 与 README 分类名严格一致。
 

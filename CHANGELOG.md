@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.19.41] - 2026-08-22
+
+### fix: 分页每页显示数量由 100 调整为 48
+
+- prototype 端 `01-state.js` 的 `PAGE_SIZE` 由 100 改为 48（`02-render.js` 分页逻辑按 `PAGE_SIZE` 推算，自动适配）
+- app 端 `SkillsExplorer.tsx` 的 `PAGE_SIZE` 由 100 改为 48（分页器基于 `PAGE_SIZE` 推算总页数，无硬编码依赖）
+- `app/globals.css` 分页器注释同步「每页 48 条」
+- 版本同步：根 `package.json` 升至 v1.19.41，README 中/英文徽章对齐
+
+## [1.19.40] - 2026-08-22
+
+### feat: 分类体系恢复为 13 类 + 详情未知项不显示
+
+- **分类重构**：将单类「开发框架与平台」(76 个) 拆为 4 个子类——前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS，合计恢复 13 大分类
+- **磁盘同步**：76 个 SKILL.md 的 `category` 与 `en_category` 字段已重映射对齐新 13 类（前端开发 18 / 后端与平台 6 / 移动端开发 11 / WordPress 与 CMS 12 / 工程实践与质量 29），无「其他」类
+- **构建脚本**：`build-skills-data.mjs` 的 `CATEGORY_ORDER` 与 `CATEGORY_EN` 更新为 13 类；`build-skills-data.mjs` 头注释升至 v1.19.40
+- **详情未知项隐藏**：prototype 端 `03-detail.js` 对空值（`author`/`stars`/`firstSeen`/`license`/`version`/`category`）不再渲染「未知」占位符，改为直接不显示该行（`03-detail.js` 头注释升至 v1.19.40）；app 端 `DetailMeta.tsx` 此前已用守卫逻辑隐藏空值
+- README 中/英领域表与计数同步为 13 类；CONTRIBUTING 契约分类说明更新为 13 类
+- 版本同步：根 `package.json` 升至 v1.19.40，README 中/英文徽章对齐
+
 ## [1.19.39] - 2026-08-22
 
 ### feat: 详情弹窗增强——必显原始名(slug) + 增加分类/网址等头部字段
@@ -1756,4 +1776,5 @@
 [1.19.38]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.38
 [1.19.37]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.37
 
+[1.19.40]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.40
 [1.19.39]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.39

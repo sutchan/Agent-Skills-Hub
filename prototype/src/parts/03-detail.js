@@ -111,18 +111,19 @@ function detailHTML(skill) {
   }
 
   // 元信息区：原始名称 / 分类 / 作者 / STAR / 首次收录 / 协议 / 版本 / 主页 / GitHub 目录
-  const starsText = skill.stars != null ? String(skill.stars) : I18N.t("detail.unknown");
-  const catText = skill.enCategory ? `${skill.category} · ${skill.enCategory}` : (skill.category || I18N.t("detail.unknown"));
+  // 未知项（空值）直接不显示，不渲染占位符
+  const starsText = skill.stars != null ? String(skill.stars) : "";
+  const catText = skill.enCategory ? `${skill.category} · ${skill.enCategory}` : (skill.category || "");
   // 仅当 homepage 为合法 http(s) 链接时才作为外链展示
   const hp = /^https?:\/\//i.test(skill.homepage || "") ? skill.homepage : "";
   const metaRows = [
     metaRow(I18N.t("detail.rawName"), skill.name),
     metaRow(I18N.t("detail.category"), catText),
-    metaRow(I18N.t("detail.author"), skill.author || I18N.t("detail.unknown")),
+    metaRow(I18N.t("detail.author"), skill.author || ""),
     metaRow(I18N.t("detail.stars"), starsText),
-    metaRow(I18N.t("detail.firstSeen"), skill.firstSeen || I18N.t("detail.unknown")),
-    metaRow(I18N.t("detail.license"), skill.license || I18N.t("detail.unknown")),
-    metaRow(I18N.t("detail.version"), skill.skillVersion || "—"),
+    metaRow(I18N.t("detail.firstSeen"), skill.firstSeen || ""),
+    metaRow(I18N.t("detail.license"), skill.license || ""),
+    metaRow(I18N.t("detail.version"), skill.skillVersion || ""),
     metaRow(I18N.t("detail.homepage"), hp, true),
     metaRow(I18N.t("detail.githubDir"), githubUrl, true),
   ].join("");

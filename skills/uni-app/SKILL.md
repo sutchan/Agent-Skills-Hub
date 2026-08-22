@@ -3,8 +3,8 @@ name: uni-app
 description: uni-app 跨平台开发框架的综合技能参考。在用 Vue 语法编写一次代码、发布到小程序/H5/App 多端，或配置条件编译、原生能力桥接时使用。
 en_description: Comprehensive skill reference for uni-app cross-platform development framework
 zh_displayName: uni-app 跨端开发
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 前端开发
+en_category: Frontend Dev
 metadata:
 ---
 

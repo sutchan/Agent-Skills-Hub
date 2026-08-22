@@ -19,8 +19,8 @@ const NAME_MODE_BOTH = "both", NAME_MODE_ZH = "zh", NAME_MODE_EN = "en";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
 const DENSITY_COMFORT = "comfortable", DENSITY_COMPACT = "compact";
 const DEBOUNCE_MS = 120;
-// 分页：每页 100 条（用户需求），与 skills.sh 默认 per_page 一致
-const PAGE_SIZE = 100;
+// 分页：每页 48 条（用户需求）
+const PAGE_SIZE = 48;
 
 const state = {
   theme: "light",

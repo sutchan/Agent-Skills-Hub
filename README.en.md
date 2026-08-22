@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.19.39-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
+[![Version](https://img.shields.io/badge/version-v1.19.41-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
 
 > **Author**: Sut Chan ｜ **Repository**: https://github.com/sutchan/Agent-Skills-Hub
 
@@ -50,9 +50,13 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 | Brand & Design | 27 |
 | Docs & Content | 11 |
 | Data Analysis & Visualization | 2 |
-| Dev Frameworks & Platforms | 76 |
+| Frontend Dev | 18 |
+| Backend & Platform | 6 |
+| Mobile Dev | 11 |
+| WordPress & CMS | 12 |
+| Engineering Practice & Quality | 29 |
 | File & Format Handling | 4 |
-| Automation & Integration | 9 |
+| Automation & Integration | 10 |
 | AI & Agents | 8 |
 | Media & Multimedia | 11 |
 | Security | 4 |

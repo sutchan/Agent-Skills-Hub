@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.19.39-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.19.41-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
 
 > **作者**：Sut Chan ｜ **项目**：https://github.com/sutchan/Agent-Skills-Hub
 
@@ -50,9 +50,13 @@
 | 品牌与设计 | 27 |
 | 文档与内容 | 11 |
 | 数据分析与可视化 | 2 |
-| 开发框架与平台 | 76 |
+| 前端开发 | 18 |
+| 后端与平台 | 6 |
+| 移动端开发 | 11 |
+| WordPress 与 CMS | 12 |
+| 工程实践与质量 | 29 |
 | 文件与格式处理 | 4 |
-| 自动化与集成 | 9 |
+| 自动化与集成 | 10 |
 | AI 与智能体 | 8 |
 | 音视频与多媒体 | 11 |
 | 安全 | 4 |

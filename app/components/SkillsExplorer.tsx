@@ -8,8 +8,8 @@ import { DetailModal } from "./detail-modal";
 import { SettingsPanel } from "./settings-panel";
 import { Pager } from "./pager";
 
-// 每页 100 条（与 skills.sh 默认 per_page 一致）
-const PAGE_SIZE = 100;
+// 每页 48 条（用户需求）
+const PAGE_SIZE = 48;
 
 export function SkillsExplorer({
   data,

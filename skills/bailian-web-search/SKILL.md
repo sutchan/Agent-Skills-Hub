@@ -1,5 +1,12 @@
 ---
 name: bailian-web-search
+zh_displayName: 百炼联网搜索
+category: AI 与智能体
+en_category: AI & Agents
+metadata:
+  version: "1.17.1"
+  requires:
+    bins: ["bl"]
 description: >-
   阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。
   先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为
@@ -11,15 +18,6 @@ description: >-
   （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune；
   agents.yaml → bailian-managed-agent。
   共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。
-en_description: >-
-  Alibaba Cloud Bailian web search entry: routes web/online search and latest-news queries. Detects connection identity first (Token Plan vs others), then dispatches to model-native web search or Bailian MCP, with fallback logic.
-zh_displayName: 百炼联网搜索路由
-category: AI 与智能体
-en_category: AI & Agents
-metadata:
-  version: "1.17.0"
-  requires:
-    bins: ["bl"]
 ---
 
 # Bailian web search routing (`bailian-web-search`)

@@ -25,8 +25,8 @@ en_description: >-
   Use Computer Use for browser windows, webviews, or desktop UI outside Orca's
   embedded browser.
 zh_displayName: orca-cli
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
 
 # Orca CLI

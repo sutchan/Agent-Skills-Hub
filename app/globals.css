@@ -329,7 +329,7 @@ html[data-lang="zh"] .en { display: none; }
 .cmd-text { flex: 1; min-width: 0; font-family: var(--font-mono); font-size: 12.5px; padding: 9px 11px; border-radius: 8px; background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
 .d-install .btn.ghost { flex: none; }
 
-/* 分页器（v1.19.18）：每页 100 条，数字翻页 + 上下页 */
+/* 分页器（v1.19.18）：每页 48 条，数字翻页 + 上下页 */
 .pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin: 28px auto 8px; padding: 0 16px; }
 .pg-btn { min-width: 34px; height: 34px; padding: 0 9px; border-radius: 9px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; transition: border-color .15s, background .15s, color .15s; }
 .pg-btn:hover:not(:disabled) { border-color: hsl(var(--primary)); }

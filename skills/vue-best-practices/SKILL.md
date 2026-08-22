@@ -3,8 +3,8 @@ name: vue-best-practices
 description: Vue.js 任务必须使用。强烈推荐 Composition API 与 <script setup>，覆盖组件设计、响应式、组合式函数与性能等最佳实践。
 en_description: MUST be used for Vue.js tasks. Strongly recommends Composition API with `<script setup>` and TypeScript as the standard approach. Covers Vue 3, SSR, Volar, vue-tsc. Load for any Vue, .vue files, Vue Router, Pinia, or Vite with Vue work. ALWAYS use Composition API unless the project explicitly requires Options API.
 zh_displayName: Vue 最佳实践
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 前端开发
+en_category: Frontend Dev
 license: MIT
 metadata:
 ---

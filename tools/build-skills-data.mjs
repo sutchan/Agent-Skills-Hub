@@ -1,4 +1,4 @@
-// build-skills-data.mjs v1.19.39 — 解析 skills/<name>/SKILL.md 顶层 frontmatter → data/skills-data.json
+// build-skills-data.mjs v1.19.40 — 解析 skills/<name>/SKILL.md 顶层 frontmatter → data/skills-data.json
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
 // 分类(category)、简短中文名称(zh_displayName)与 description 中文译文均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 // 注意语义约定：zh 为「简短中文名称」（卡片标题），zh-desc 为「中文描述」（卡片描述区）；勿将描述句填入 zh。
@@ -15,12 +15,17 @@ const OUT = join(ROOT, "data", "skills-data.json");
 // 非技能目录（仓库内其他子项目/资产），构建时跳过
 const EXCLUDE = new Set([".skills-manager", ".trae", "app", "brand", "data", "tools"]);
 
-// 分类展示固定顺序（v1.19.37 回退为标准 9 类；原 13 类子类非法，已重映射回开发框架与平台）
+// 分类展示固定顺序（13 类：9 个稳定主类 + 将「开发框架与平台」拆为 4 个子类）
+// 用户决策（v1.19.x 起恢复 13 类，取代原单类「开发框架与平台」）
 const CATEGORY_ORDER = [
   "品牌与设计",
   "文档与内容",
   "数据分析与可视化",
-  "开发框架与平台",
+  "前端开发",
+  "后端与平台",
+  "移动端开发",
+  "WordPress 与 CMS",
+  "工程实践与质量",
   "文件与格式处理",
   "自动化与集成",
   "AI 与智能体",
@@ -33,7 +38,11 @@ const CATEGORY_EN = {
   "品牌与设计": "Brand & Design",
   "文档与内容": "Docs & Content",
   "数据分析与可视化": "Data Analysis & Visualization",
-  "开发框架与平台": "Dev Frameworks & Platforms",
+  "前端开发": "Frontend Dev",
+  "后端与平台": "Backend & Platform",
+  "移动端开发": "Mobile Dev",
+  "WordPress 与 CMS": "WordPress & CMS",
+  "工程实践与质量": "Engineering Practice & Quality",
   "文件与格式处理": "File & Format Handling",
   "自动化与集成": "Automation & Integration",
   "AI 与智能体": "AI & Agents",
