@@ -3,8 +3,8 @@ name: shadcn-ui
 description: 集成与基于 shadcn/ui 组件构建应用的专家级指引——组件安装、主题、可访问性、组合与定制。当用户使用 shadcn/ui 搭建界面时使用。
 en_description: Expert guidance for integrating and building applications with shadcn/ui components, including component discovery, installation, customization, and best practices.
 zh_displayName: shadcn/ui
-category: 前端开发
-en_category: Frontend Dev
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 allowed-tools:
 ---
 

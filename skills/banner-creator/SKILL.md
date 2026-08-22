@@ -1,9 +1,10 @@
 ---
 name: banner-creator
-description: "用 AI 图像生成创建横幅。讨论格式/风格、生成变体、根据反馈迭代、裁剪到目标比例。当用户想创建横幅、页眉、主视觉、封面图、GitHub 横幅、Twitter 页眉或 readme 横幅时使用。"
-en_description: Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.
-
-zh_displayName: AI 横幅广告创建
+description: >-
+  Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.
+en_description: >-
+  Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when the user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.
+zh_displayName: AI 横幅/封面生成
 category: 品牌与设计
 en_category: Brand & Design
 ---

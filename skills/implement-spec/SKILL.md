@@ -3,8 +3,8 @@ name: implement-spec
 description: "用代码实现一个规格说明。"
 en_description: "Implement a specification in code."
 zh_displayName: 规格实现
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 disable-model-invocation: true
 ---
 

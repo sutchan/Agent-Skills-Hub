@@ -3,8 +3,8 @@ name: planning-with-files
 description: "Manus 式基于文件的持久化规划：在磁盘保留 task_plan.md、findings.md、progress.md，使工作可抵御上下文丢失与 /clear。当用户要求规划、拆分或组织多步项目、研究任务或任意需 5+ 工具调用的工作时使用，支持 /clear 后自动恢复会话。"
 en_description: "Manus-style persistent file-based planning for AI coding agents: keeps task_plan.md, findings.md, and progress.md on disk so work survives context loss and /clear. Use when asked to plan out, break down, or organize a multi-step project, research task, or any work requiring 5+ tool calls. Supports automatic session recovery after /clear."
 zh_displayName: 基于文件的规划
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 user-invocable: true
 allowed-tools: "Read Write Edit Bash Glob Grep"
 hooks:

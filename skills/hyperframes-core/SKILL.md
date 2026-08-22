@@ -4,8 +4,8 @@ description: The HyperFrames composition contract — build one renderable proje
 en_description: >-
   The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.
 zh_displayName: HyperFrames 组合渲染合约
-category: 前端开发
-en_category: Frontend Dev
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # HyperFrames Core

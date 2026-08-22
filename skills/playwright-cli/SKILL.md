@@ -3,8 +3,8 @@ name: playwright-cli
 description: Automate browser interactions, test web pages and work with Playwright tests.
 en_description: Automate browser interactions, test web pages and work with Playwright tests.
 zh_displayName: Playwright 命令行自动化
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 allowed-tools: Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)
 ---
 

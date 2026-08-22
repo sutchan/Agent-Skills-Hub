@@ -1,16 +1,12 @@
 ---
 name: opus-clip
 description: >-
-  The OpusClip craft skill — turn long video (podcasts, webinars, interviews, streams) into publishable
-  short clips with AI candidate-finding, honest triage, and a human-reviewed pipeline. Use when someone
-  wants to use OpusClip, turn a podcast/webinar/VOD into shorts, understand the Virality Score, pick a
-  plan, pull a moment from a long recording (ClipAnything moment search), or automate a clipping
-  pipeline. Uses the CLIPS framework. Reads captions-and-clipping + the source skill + brand-profile
-  first. The agent plans the pipeline, credit math, and QA; the HUMAN reviews every clip and approves;
-  WoopSocial publishes the finished exports (it does not clip or edit video). Integrity spine: the
-  Virality Score is a PREDICTION for triage, never truth; 1 credit = 1 SOURCE minute; no unreviewed
-  auto-post pipelines; no out-of-context clips. Distinct from captions-and-clipping (general craft),
-  descript (long-form edit), capcut (short-form polish), and the platform publishing skills.
+  The Opus Clip pipeline skill — clip long-form video into viral shorts with Virality Score, auto-captions, and smart reframing. Use when someone wants Opus Clip-specific workflows: credits, tiers, batch clipping, or routing long video to short-form. A human reviews; export clean (no watermark). Distinct from general captions-and-clipping craft.
+en_description: >-
+  The Opus Clip pipeline skill — clip long-form video into viral shorts with Virality Score, auto-captions, and smart reframing. Use when someone wants Opus Clip-specific workflows: credits, tiers, batch clipping, or routing long video to short-form. A human reviews; export clean (no watermark). Distinct from general captions-and-clipping craft.
+zh_displayName: Opus Clip 智能切片
+category: 音视频与多媒体
+en_category: Media & Multimedia
 version: 1.0.0
 ---
 

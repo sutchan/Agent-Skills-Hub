@@ -8,8 +8,8 @@ description: |
 en_description: >-
   Unified automation entry point. Covers browser automation (Playwright) and Windows desktop app automation (OpenReverse). Browser scenarios: open pages, click, fill forms, scrape, screenshot, automated login, page interaction. Desktop scenarios: drive GUI tools like IDA/x64dbg, Windows UI Automation, vision-driven interaction, desktop app network capture. Trigger keywords: browser automation, desktop automation, open webpage, fill form, scrape, screenshot, automated login, Playwright, agent-browser, headless, OpenReverse, UIA, CUA, desktop operation, Windows automation.
 zh_displayName: 浏览器与桌面自动化
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # 自动化操作 (Desktop & Browser Automation)

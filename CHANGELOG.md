@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.2] - 2026-08-22
+
+### fix: 补全新加入技能契约并归并残留废弃子类
+
+- **新技能检查**：相对 HEAD 新增 8 个 skill（capcut / captions-and-clipping / descript / luma / opus-clip / scripting-and-storyboarding / suno / talking-head-and-piece-to-camera），原仅含 `name`+`description`+`version`，补齐缺失的 `en_description` / `zh_displayName` / `category` / `en_category` 四字段并按标准顺序重排（name → description → en_description → zh_displayName → category → en_category → version），全部归入「音视频与多媒体 / Media & Multimedia」
+- **残留废弃子类归并**：80 个 SKILL.md 的 `category`/`en_category` 仍停留在废除的 5 个子类（前端开发 / 工程实践与质量 / WordPress 与 CMS / 后端与平台 / 移动端开发），全部重映射回「开发框架与平台 / Dev Frameworks & Platforms」
+- **校验结果**：`tools/validate-skills.mjs` 168 → 0 问题（166 技能全部通过）；`tools/_scan_fm_bug.mjs` 头部泄漏 0；`build-skills-data.mjs` 输出 166 技能（含 1 hidden）/ 9 类 / 0 越界
+- README 中/英领域表与计数同步（音视频与多媒体 11 → 19，总数 157 → 165）；prototype/index.html 重建
+- 版本同步：根 `package.json` 升至 v1.20.2，README 中/英文徽章对齐
+
 ## [1.20.1] - 2026-08-22
 
 ### docs: 统一技能文件为 Unix(LF) 换行符规范
@@ -1809,3 +1819,5 @@
 [1.20.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.0
 [1.20.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.1
 [1.19.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.42
+
+[1.20.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.2

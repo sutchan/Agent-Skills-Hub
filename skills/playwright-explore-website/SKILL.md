@@ -3,8 +3,8 @@ name: playwright-explore-website
 description: 'Website exploration for testing using Playwright MCP'
 en_description: 'Website exploration for testing using Playwright MCP'
 zh_displayName: Playwright 网站探索测试
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # Website Exploration for Testing

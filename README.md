@@ -2,11 +2,11 @@
 
 ![Agent Skills Hub Banner](app/public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.20.1-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.20.2-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
 
 > **作者**：Sut Chan ｜ **项目**：https://github.com/sutchan/Agent-Skills-Hub
 
-一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、开发框架与平台、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全等 9 大领域，共 157 个技能包。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 CI 的 `tools/coverage.py` 统计。
+一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、开发框架与平台、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全等 9 大领域，共 165 个技能包。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 CI 的 `tools/coverage.py` 统计。
 
 ## 项目亮点
 
@@ -15,7 +15,7 @@
 | | 亮点 | 说明 |
 |---|---|---|
 | ⚙️ | **零维护清单** | 技能数据与展示页由 `npm run build` 从磁盘 `skills/*/SKILL.md` 自动生成，技能增删无需手工维护任何清单 |
-| 🗂️ | **157 技能 · 9 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、开发框架与平台、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 |
+| 🗂️ | **165 技能 · 9 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、开发框架与平台、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 |
 | 🌏 | **默认中文** | 中文目录 + 中文一句话简介 + 中文完整描述（`description`，默认展示语言），英文原文存 `en_description`，中文 Agent 用户开箱即用 |
 | 📦 | **一键安装** | 配合 [skills-manager](https://github.com/xingkongliang/skills-manager) 批量安装 / 更新 / 卸载 |
 | 🚀 | **离线可用** | 自包含静态展示页（`prototype/index.html`）内联全部数据，双击即可浏览全部技能，无框架依赖 |
@@ -54,7 +54,7 @@
 | 文件与格式处理 | 4 |
 | 自动化与集成 | 11 |
 | AI 与智能体 | 8 |
-| 音视频与多媒体 | 11 |
+| 音视频与多媒体 | 19 |
 | 安全 | 4 |
 
 > 浏览全部技能：

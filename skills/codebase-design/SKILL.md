@@ -3,8 +3,8 @@ name: codebase-design
 description: 设计深层模块时的共享词汇表。当用户讨论模块边界、依赖方向、接口契约或整体架构取舍时使用。
 en_description: Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.
 zh_displayName: 代码库设计
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 ---
 
 # Codebase Design

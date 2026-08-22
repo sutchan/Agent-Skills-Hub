@@ -1,16 +1,12 @@
 ---
 name: talking-head-and-piece-to-camera
 description: >-
-  The on-camera delivery craft — helping a real human film themselves talking to a lens and look like
-  themselves doing it. Use when someone wants a "talking head video" or "piece to camera," says "film
-  myself" or "I look stiff on camera," asks about a teleprompter, framing, lighting, audio, or retakes,
-  or wants to batch-film videos. Uses the TAKES framework. Phone-first: gear is almost never the
-  bottleneck. Reads brand-profile + voice-builder first; takes its script from short-form-video-script
-  (that writes it, this delivers it). The agent coaches setup + delivery, formats prompter/beat-map
-  scripts, and plans batch days; the HUMAN films and picks the take (the agent cannot see footage);
-  WoopSocial publishes the finished file. Camera-shy? Route honestly to heygen/synthesia or faceless
-  formats. Never fabricates "that take looks great." Distinct from scripting-and-storyboarding (the
-  shoot plan), heygen/synthesia (avatars), and captions-and-clipping/capcut/descript (the edit).
+  The on-camera delivery craft — helping a real human film themselves talking to a lens and look like themselves doing it. Use when someone wants a talking-head video, piece-to-camera, teleprompter setup, framing/lighting/audio coaching, or batch-filming. Uses the TAKES framework. The agent coaches setup + delivery; the human films and picks the take. Camera-shy? Route honestly to heygen/synthesia.
+en_description: >-
+  The on-camera delivery craft — helping a real human film themselves talking to a lens and look like themselves doing it. Use when someone wants a talking-head video, piece-to-camera, teleprompter setup, framing/lighting/audio coaching, or batch-filming. Uses the TAKES framework. The agent coaches setup + delivery; the human films and picks the take. Camera-shy? Route honestly to heygen/synthesia.
+zh_displayName: 口播与面对镜头拍摄
+category: 音视频与多媒体
+en_category: Media & Multimedia
 version: 1.0.0
 ---
 

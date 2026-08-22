@@ -1,14 +1,12 @@
 ---
 name: captions-and-clipping
 description: >-
-  The long-form-to-Shorts + sound-off captions mini-skill (Opus Clip / CapCut / Submagic). Use
-  when someone wants to "clip my podcast/webinar/long video into Shorts," "make TikToks/Reels from
-  a YouTube video," "add captions/subtitles to a video," "repurpose long-form into short-form," or
-  "auto-generate clips." Tools clip and caption; a human reviews; WoopSocial schedules/publishes.
-  Below the ai-video router; sibling to veo-3, heygen, ai-voiceover. This is the general craft:
-  route OpusClip-specific pipelines (credits, Virality Score, tiers) to opus-clip, hands-on
-  short-form editing to capcut, and the long-form talk edit itself to descript. Export clean (no
-  watermark); disclose AI-edited video.
+  The long-form-to-Shorts + sound-off captions mini-skill (Opus Clip / CapCut / Submagic). Use when someone wants to clip a podcast/webinar/long video into Shorts, make TikToks/Reels from a YouTube video, add captions/subtitles, repurpose long-form into short-form, or auto-generate clips. Tools clip and caption; a human reviews. Export clean (no watermark); disclose AI-edited video.
+en_description: >-
+  The long-form-to-Shorts + sound-off captions mini-skill (Opus Clip / CapCut / Submagic). Use when someone wants to clip a podcast/webinar/long video into Shorts, make TikToks/Reels from a YouTube video, add captions/subtitles, repurpose long-form into short-form, or auto-generate clips. Tools clip and caption; a human reviews. Export clean (no watermark); disclose AI-edited video.
+zh_displayName: 长视频切片与字幕
+category: 音视频与多媒体
+en_category: Media & Multimedia
 version: 1.0.0
 ---
 

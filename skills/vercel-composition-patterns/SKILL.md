@@ -12,8 +12,8 @@ en_description: React composition patterns that scale. Use when refactoring comp
   render props, context providers, or component architecture. Includes React 19
   API changes.
 zh_displayName: vercel-composition-patterns
-category: 前端开发
-en_category: Frontend Dev
+category: 开发框架与平台
+en_category: Dev Frameworks & Platforms
 license: MIT
 metadata:
   author: vercel
