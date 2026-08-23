@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.20.14 — 应用外壳（顶栏品牌区 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.20.33 — 应用外壳（顶栏品牌区 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -161,7 +161,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
           </div>
         </div>
         {toast ? (
-          <div className="toast show" role="status" aria-live="polite">
+          <div className="toast show" id="toast" role="status" aria-live="polite">
             {toast}
           </div>
         ) : null}

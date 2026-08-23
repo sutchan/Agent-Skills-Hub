@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.33] - 2026-08-23
+
+### style: 增强分类 chip 选中态的彩色显示
+
+- `prototype/src/styles/components.css`：`.chip.active` 背景由 `hsl(var(--hue) 78% 30%)` 提亮至 `hsl(var(--hue) 82% 46%)`，新增亮色边框 `hsl(var(--hue) 85% 60%)` 与内外双层光晕，让选中的分类直接以该分类的彩色实心底呈现，色相更醒目；白字对比度仍满足 ≥4.5:1。
+- 根 `package.json` version 升至 v1.20.33
+
+[1.20.33]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.33
+
+## [1.20.32] - 2026-08-23
+
+### style: 补全语义化 ID 并统一原型/应用命名
+
+- `app/components/AppShell.tsx`：分享反馈 toast 补充 `id="toast"`（此前仅 class，缺稳定定位点），与原型 `#toast` 对齐，便于调试与 e2e 定位。
+- `prototype/src/parts/03-detail.js`：详情弹窗根 `id` 由 `detailPanel` 统一为 `detailDialog`，与 app 端 `detail-modal.tsx` 的 `detailDialog` 命名对齐（事件委托基于 class，无引用破坏风险）。
+- 经完整核查，原型与 app 的主容器（header/main/footer）、搜索区、分类、网格、分页、弹窗（详情/设置）、卡片（`skill-{slug}`）、关键按钮（langBtn/themeBtn/settingsBtn/clearBtn 等）均已具备稳定可读的语义化 id，且两侧命名风格一致；其余主区域无需新增。
+- 根 `package.json` version 升至 v1.20.32（注：对话间隙 HEAD 已由外部 bump 至 v1.20.31）
+
+[1.20.32]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.32
+
 ## [1.20.31] - 2026-08-23
 
 ### feat: 落地 app 层技能详情分享按钮（spec §4.5.4 两层共通）

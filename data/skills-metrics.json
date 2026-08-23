@@ -416,7 +416,7 @@
   },
   "lark-meeting": {
     "popularity": 2,
-    "size": 148978,
+    "size": 148970,
     "files": 26,
     "skillVersion": "1.0.0"
   },
@@ -522,12 +522,12 @@
   },
   "nodejs-backend-patterns": {
     "popularity": 0,
-    "size": 26846,
+    "size": 26815,
     "files": 3
   },
   "opc-mvp-designer": {
     "popularity": 0,
-    "size": 5700,
+    "size": 5659,
     "files": 4
   },
   "openspec-implementation": {
@@ -779,7 +779,7 @@
   },
   "traceknot": {
     "popularity": 0,
-    "size": 761215,
+    "size": 771967,
     "files": 53
   },
   "travel-planner": {

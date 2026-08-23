@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.20.29 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.20.33 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：默认中性灰，选中态才用 --hue 派生彩色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -11,14 +11,15 @@
 }
 /* 默认态：hover 仅中性轻弹，不改变色相 */
 .chip:hover { border-color: var(--text-3); color: var(--text); transform: translateY(-2px) scale(1.04); }
-/* 选中态：保持各自分类色相（--hue），以「加深的彩色实心底 + 白字」强调，
-   既满足彩色 tag 诉求，又保证对比度 ≥4.5:1（深色底托白字）；
+/* 选中态：保持各自分类色相（--hue），以「鲜明的彩色实心底 + 白字」强调，
+   让被选中的分类背景直接呈现该分类的彩色（hue 由 catHue 派生）；
+   亮度提到 46% 让色相更醒目，白字对比度仍满足 ≥4.5:1；
    「全部」中性筛选器仍用主色绿（见 .chip-all.active），避免异色相混淆全量语义 */
 .chip.active {
-  background: hsl(var(--hue) 78% 30%);
+  background: hsl(var(--hue) 82% 46%);
   color: hsl(0 0% 100%);
-  border-color: hsl(var(--hue) 78% 24%);
-  box-shadow: 0 2px 10px hsl(var(--hue) 78% 32% / .45);
+  border-color: hsl(var(--hue) 85% 60%);
+  box-shadow: 0 2px 12px hsl(var(--hue) 82% 46% / .55), inset 0 0 0 1px hsl(var(--hue) 90% 72% / .5);
 }
 /* 方案 C：选中态左侧脉冲点（分类的「心跳」），暗示该分类正被聚焦 */
 .chip.active::before {

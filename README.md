@@ -6,6 +6,20 @@
 
 一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 13 大领域，共 189 个技能包（其中 1 个标记为隐藏，公开可见 188 个）。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述，含 frontmatter 前置元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 `tools/coverage.py` 统计。
 
+## 快速开始
+
+> 只想用技能？5 步搞定，无需碰构建脚本。
+
+1. **浏览技能**：直接双击打开 [`prototype/prototype.html`](prototype/prototype.html)（离线自包含，内联全部数据），或运行 `app/` 在线应用。
+2. **挑选技能**：按 13 大领域筛选，点开卡片查看 `SKILL.md` 说明与触发条件。
+3. **安装技能**：把 `skills/<name>/` 整个目录复制到你的 Agent 技能目录：
+   - Claude Code：`~/.claude/skills/`
+   - CodeBuddy：对应 skills 路径（参考客户端文档）
+4. **触发使用**：技能靠 `SKILL.md` 的 `description` 自动触发，也可在对话中显式 `@技能名` 调用。
+5. **查看依赖**：部分技能依赖 `scripts/` 脚本或外部工具，使用前先读对应 `SKILL.md` 的依赖说明。
+
+> 想批量安装 / 更新 / 卸载？见下方 [使用方式](#使用方式)。
+
 ## 项目亮点
 
 > 为什么选择 Agent Skills Hub？
@@ -70,7 +84,10 @@
 
 ### 方式 A：手动复制（快速上手）
 
-1. 将需要的技能目录复制到你的 Agent 技能目录下（如 Claude Code / CodeBuddy 的 skills 路径）。
+1. 将需要的技能目录 `skills/<name>/` 整个复制到你的 Agent 技能目录下：
+   - **Claude Code**：`~/.claude/skills/`（Windows：`%USERPROFILE%\.claude\skills\`）
+   - **CodeBuddy**：对应 skills 路径（参考客户端文档）
+   - 其他 Agent：参考其技能目录约定
 2. 技能通过 `SKILL.md` 的 `description` 字段自动触发，也可在对话中显式 `@技能名` 调用。
 3. 部分技能依赖 `scripts/` 脚本或外部工具，使用前请阅读对应 `SKILL.md` 的依赖说明。
 
@@ -80,7 +97,11 @@
 
 ```bash
 git clone https://github.com/sutchan/Agent-Skills-Hub.git
+cd Agent-Skills-Hub
 # 按 skills-manager 的用法将本项目 skills/ 目录中的技能导入/链接到你的 Agent
+# 示例（以 skills-manager 实际支持的命令为准）：
+#   skills-manager add ./skills/<name>      # 安装单个技能
+#   skills-manager sync ./skills            # 批量同步全部技能
 ```
 
 具体命令与配置请参考 [skills-manager 仓库文档](https://github.com/xingkongliang/skills-manager)。

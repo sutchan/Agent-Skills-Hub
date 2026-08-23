@@ -6,6 +6,20 @@
 
 A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Frontend Dev, Backend & Platform, Mobile Dev, WordPress & CMS, Engineering Practice & Quality, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security — 189 skill packs on GitHub (1 marked hidden, 188 publicly visible). Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
 
+## Quick Start
+
+> Just want to use a skill? 5 steps, no build scripts needed.
+
+1. **Browse skills**: open [`prototype/prototype.html`](prototype/prototype.html) directly (offline, self-contained) or run the `app/` web app.
+2. **Pick a skill**: filter by the 13 domains; open a card to read its `SKILL.md` and trigger conditions.
+3. **Install**: copy the whole `skills/<name>/` directory into your agent's skills path:
+   - **Claude Code**: `~/.claude/skills/` (Windows: `%USERPROFILE%\.claude\skills\`)
+   - **CodeBuddy**: your agent's skills path (see client docs)
+4. **Trigger**: skills auto-trigger via the `description` in `SKILL.md`, or invoke explicitly with `@skill-name`.
+5. **Check dependencies**: some skills need `scripts/` or external tools — read the skill's `SKILL.md` first.
+
+> For bulk install / update / uninstall, see [Usage](#usage) below.
+
 ## Highlights
 
 > Why choose Agent Skills Hub?
@@ -70,7 +84,10 @@ Browse the skills first in the [Online Showcase](#online-showcase) (or open [`pr
 
 ### Option A: Manual copy (quick start)
 
-1. Copy the needed skill directory into your agent's skills path (e.g. Claude Code / CodeBuddy `skills/`).
+1. Copy the whole `skills/<name>/` directory into your agent's skills path:
+   - **Claude Code**: `~/.claude/skills/` (Windows: `%USERPROFILE%\.claude\skills\`)
+   - **CodeBuddy**: your agent's skills path (see client docs)
+   - Other agents: refer to their skill-directory convention
 2. Skills auto-trigger via the `description` field in `SKILL.md`, or can be invoked explicitly with `@skill-name`.
 3. Some skills depend on `scripts/` or external tools — read the skill's `SKILL.md` before use.
 
@@ -80,7 +97,11 @@ We recommend [skills-manager](https://github.com/xingkongliang/skills-manager) f
 
 ```bash
 git clone https://github.com/sutchan/Agent-Skills-Hub.git
+cd Agent-Skills-Hub
 # import/link skills from skills/ into your agent via skills-manager
+# example (use commands actually supported by skills-manager):
+#   skills-manager add ./skills/<name>   # install a single skill
+#   skills-manager sync ./skills         # bulk-sync all skills
 ```
 
 See the [skills-manager docs](https://github.com/xingkongliang/skills-manager) for commands and configuration.
