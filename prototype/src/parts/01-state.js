@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.20.17 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.20.22 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -85,21 +85,17 @@ function catHue(c) {
   return h;
 }
 
-// 预聚合分类计数（Map: cat -> count），renderCats 直接查表
-function catCounts() {
-  const m = new Map();
-  SKILLS_DATA.skills.forEach((s) => { if (!s.hidden) m.set(s.category, (m.get(s.category) || 0) + 1); });
-  return m;
-}
-
-// 预聚合功能标签计数（Map: tag slug -> count），renderTags 直接查表（v1.20.12）
-function tagCounts() {
-  const m = new Map();
+// 单次遍历预聚合分类 + 功能标签计数（v1.20.21）：合并原 catCounts/tagCounts 两处重复遍历，
+// 返回 { cats: Map<cat,count>, tags: Map<tagSlug,count> }，供 renderCats/renderTags 共用
+function aggregateFilters() {
+  const cats = new Map();
+  const tags = new Map();
   SKILLS_DATA.skills.forEach((s) => {
-    if (s.hidden || !Array.isArray(s.tags)) return;
-    s.tags.forEach((t) => m.set(t, (m.get(t) || 0) + 1));
+    if (s.hidden) return;
+    cats.set(s.category, (cats.get(s.category) || 0) + 1);
+    if (Array.isArray(s.tags)) s.tags.forEach((t) => tags.set(t, (tags.get(t) || 0) + 1));
   });
-  return m;
+  return { cats, tags };
 }
 
 // 名称 -> 技能对象索引（01-state 共享作用域），避免每次卡片点击线性扫描全部技能

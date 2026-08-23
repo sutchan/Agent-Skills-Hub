@@ -2,6 +2,104 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.27] - 2026-08-23
+
+### fix: 去除 Hero 随机学习按钮重复 🎲 图标
+
+- `prototype/src/index.html` 的 `.zh`/`.en` 文本（`dice.btn`）原各自前缀 `🎲`，与相邻独立的 `<span class="dice-face">🎲</span>` 图标叠加成双图标；现移除文本内 `🎲`，图标统一由 `dice-face` 提供。
+- `prototype/src/i18n.js` 的 `dice.btn` 中英文同步去掉 `🎲` 前缀（数据整洁，避免未来复用重复）。
+- 验证：`node tools/build.mjs` 重建 269.0KB，产物中 `🎲 今天学点什么`/`🎲 Learn something` 均无残留，`dice-face` 保留单个 `🎲`。
+- 根 `package.json` version 升至 v1.20.27（i18n.js 头注释由 v1.20.17 滞后同步至 v1.20.27）
+
+[1.20.27]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.27
+
+## [1.20.26] - 2026-08-23
+
+### feat: 扩大 Hero 节点分布范围并强化连线可见度
+
+- `prototype/src/index.html`：`<svg id="heroNet">` 加 `overflow="visible"` 允许线条/节点渲染到 viewBox 外；`#netLines` 连线组 `stroke-width` 1→1.4、`opacity` .5→.6。
+- `prototype/src/parts/04-interactions.js`：随机撒点边界由局促的右侧区（x 470–790 / y 30–210）扩大为覆盖整个 viewBox 并可略溢出（x -30–830 / y -20–260），分布更开阔；最小间距 34→30；动态生成的连线 `stroke-width` 同步 1.4。
+- `prototype/src/styles/layout.css`：`netBreathe` 呼吸区间 .35→.62 提升至 .5→.85（线条常态更明显）；`searching` 态连线 `stroke-width:2`、opacity .8→.85 加亮。
+- 节点仍每次刷新随机分布；动效纯 CSS 合成 + `prefers-reduced-motion` 守卫不变；`.hero` 卡片保留 `overflow:hidden`，溢出仅在卡片内可见（不破坏圆角形状）。
+- 根 `package.json` version 升至 v1.20.26
+
+[1.20.26]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.26
+
+## [1.20.25] - 2026-08-23
+
+### feat: Hero 节点每次刷新随机分布
+
+- `prototype/src/parts/04-interactions.js` 的 `renderHeroNodes`：原固定角度环绕改为每次刷新在核心右侧"星座区"（x 470–790 / y 30–210）随机撒点，最小间距 34px 防重叠；节点半径仍随分类计数（4~10）。核心→节点连线由 index.html 静态 6 条改为 JS 动态生成（`#netLines`），终点跟随随机节点；连线错峰呼吸相位基于动态子节点重新计算。
+- `prototype/src/index.html`：移除静态 `<line>` 连线组，改为空 `<g id="netLines">` 容器交给 JS 填充。
+- 刷新即重新随机；动效仍为纯 CSS 合成（nodeFloat/coreGlow/netBreathe）无 JS 逐帧开销。`prefers-reduced-motion` 守卫不变。
+- 根 `package.json` version 升至 v1.20.25
+
+[1.20.25]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.25
+
+## [1.20.24] - 2026-08-23
+
+### perf: 微调 Hero 焦点图动效（核心光环 + 节点呼吸 + 连线信号流）
+
+- `prototype/src/index.html`：Hero SVG 新增 `hub-glow` 光环圆（核心外扩脉冲），核心 `hub-core` 保持右移
+- `prototype/src/styles/layout.css`：新增 `@keyframes coreGlow`（光环 scale 1→1.9 渐隐，3.4s）；`nodeFloat` 由 ±3px 改为 ±4px 并叠加 opacity 呼吸（.82→1）；`net-line` 新增常态 `@keyframes netBreathe`（opacity .35→.62，4.8s）模拟信号流动。`prefers-reduced-motion` 守卫覆盖新增 `hub-glow`/`net-line` 动画
+- `prototype/src/parts/04-interactions.js`：`renderHeroNodes` 节点浮动相位由随机改为按序号均分（刷新稳定不跳变）；并给静态 `net-line` 注入错峰相位（4.8s 周期均分）。全部动效仍为纯 CSS transform/opacity 合成，无 JS 逐帧开销
+- 根 `package.json` version 升至 v1.20.24
+
+[1.20.24]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.24
+
+## [1.20.23] - 2026-08-23
+
+### refactor: 合并分类与标签筛选（统一数据结构 + 渲染器）
+
+- `prototype/src/parts/02-render.js`：原 `renderCats` 依赖静态 `SKILLS_DATA.categories`、`renderTags` 依赖 `TAG_LABELS`，二者数据源分散。现新增 `buildFilterItems(agg)` 从同一 `aggregateFilters()` 实况派生分类项（固定分类序、过滤 0 计数）与标签项（计数降序、过滤 0 计数），统一为 `{key,zh,en,count,hue,attr}` 结构；新增通用 `renderFilterChips()` 渲染器供标签复用，分类用内联渲染保留"全部"按钮。分类数据不再依赖静态数组，与标签同源
+- `prototype/src/parts/01-state.js`：`aggregateFilters()` 同时产出 `cats`/`tags` 两个 Map，作为分类与标签唯一数据源
+- 根 `package.json` version 升至 v1.20.23
+
+[1.20.23]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.23
+
+## [1.20.22] - 2026-08-23
+
+### refactor: 合并 #categoryNav 与 #tagsNav 筛选计数数据（单次遍历）
+
+- `prototype/src/parts/01-state.js`：原 `catCounts()`/`tagCounts()` 各自遍历 `SKILLS_DATA.skills` 聚合分类/标签计数，存在重复遍历。合并为 `aggregateFilters()` 单次遍历返回 `{ cats, tags }` 两个 Map
+- `prototype/src/parts/02-render.js`：`renderGrid` 改为一次 `aggregateFilters()` 取两类计数，分别传给 `renderCats`/`renderTags`，消除重复扫描
+- 根 `package.json` version 升至 v1.20.22
+
+[1.20.22]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.22
+
+## [1.20.21] - 2026-08-23
+
+### perf: Hero 焦点图低开销动效（核心脉冲 + 节点错峰浮动）
+
+- `prototype/src/styles/layout.css`：新增 `@keyframes corePulse`（核心节点 scale 呼吸，2.6s）与 `@keyframes nodeFloat`（节点 ±3px 浮动，5.5s）；仅用 `transform`/`opacity`，由 GPU 合成线程执行，不触发逐帧 layout/paint。`.searching` 态暂停节点动画保留连线脉冲。`prefers-reduced-motion` 下全部关闭
+- `prototype/src/parts/04-interactions.js`：`renderHeroNodes` 为每个动态节点注入一次性随机 `animation-delay`（5.5s 周期内均匀分布），实现错峰浮动，无 JS rAF 逐帧开销
+- 根 `package.json` version 升至 v1.20.21
+
+[1.20.21]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.21
+
+## [1.20.20] - 2026-08-23
+
+### fix: Hero 焦点图重心右移，避免与文案重叠影响可读性
+
+- `prototype/src/index.html`：Hero 节点网核心 `hub-core` 与连线端点整体右移（核心 `cx` 400→600，连线端点同步平移），焦点图重心偏右，文字留左侧
+- `prototype/src/parts/04-interactions.js`：`renderHeroNodes` 环绕中心 `cx` 由 400 改为 600（与核心同步），动态分类节点网整体右移，不再压在标题/副标题上
+- 节点范围 530–670 仍在 viewBox(800) 内，移动端 slice 裁切无害
+- 根 `package.json` version 升至 v1.20.20
+
+[1.20.20]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.20
+
+## [1.20.19] - 2026-08-23
+
+### fix: 合并 .categoryNav 与 .tags-nav 筛选条重复样式，整理 tag 数据
+
+- `prototype/src/styles/layout.css`：将重复的 `.cats-scroll` 与 `.tags-scroll` 合并为统一基类 `.filter-scroll`（v1.20.18），消除两行垂直间距不一致（4px vs 0）导致的粘连/断裂冲突；移动端横向滚动规则统一
+- `prototype/src/index.html`：分类/标签容器加 `filter-scroll` 类（保留原 id 供 JS 选择）
+- `prototype/src/parts/02-render.js`：`renderTags` 过滤计数为 0 的标签，避免筛选后残留空标签占位（tag 数据合并整理）
+- `app/components/SkillsExplorer.tsx`：对齐 `tagCounts`，过滤空计数标签，保持原型与 app 数据一致
+- 根 `package.json` version 升至 v1.20.19
+
+[1.20.19]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.19
+
 ## [1.20.18] - 2026-08-23
 
 ### refactor: 静态原型产物统一为 prototype.html，不再生成 index.html

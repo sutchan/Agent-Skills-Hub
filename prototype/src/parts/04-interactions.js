@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.20.17 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
+// prototype/src/parts/04-interactions.js v1.20.26 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -220,14 +220,37 @@ function renderHeroNodes() {
   const cats = SKILLS_DATA.categories;
   const vals = cats.map((c) => counts.get(c) || 0);
   const min = Math.min(...vals), max = Math.max(...vals);
-  const cx = 400, cy = 120, R = 70; // 环绕半径（核心居中）
+  const cx = 600, cy = 120; // 核心坐标（右移，避开左侧文字）
   const n = cats.length;
   g.innerHTML = "";
-  cats.forEach((c, i) => {
-    const ang = (-90 + (360 / n) * i) * Math.PI / 180; // 从顶部顺时针
-    const x = cx + R * Math.cos(ang), y = cy + R * Math.sin(ang);
+  // 动态生成核心→节点连线（随随机分布变化，替代 index.html 静态 line）
+  const lineG = document.getElementById("netLines");
+  if (lineG) {
+    lineG.innerHTML = "";
+    cats.forEach(() => {
+      const ln = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      ln.setAttribute("class", "net-line");
+      ln.setAttribute("x1", cx); ln.setAttribute("y1", cy);
+      ln.setAttribute("stroke", "hsl(var(--line))");
+      ln.setAttribute("stroke-width", "1.4");
+      lineG.appendChild(ln);
+    });
+  }
+  // 每次刷新随机分布：覆盖整个 viewBox 并允许略溢出（约 -30~830 / -20~260），分布更开阔、线条更明显
+  const x0 = -30, x1 = 830, y0 = -20, y1 = 260; // 随机撒点边界（viewBox 800x240，允许适当溢出）
+  const placed = [];
+  const minDist = 30; // 节点最小间距，防止重叠（范围更大可适当减小）
+  cats.forEach((c, idx) => {
+    let x, y, ok = false, tries = 0;
+    do {
+      x = x0 + Math.random() * (x1 - x0);
+      y = y0 + Math.random() * (y1 - y0);
+      ok = placed.every((p) => Math.hypot(p.x - x, p.y - y) >= minDist);
+      tries++;
+    } while (!ok && tries < 40);
+    placed.push({ x, y });
     const t = max > min ? ((counts.get(c) || 0) - min) / (max - min) : .5;
-    const r = 4 + t * 6; // 半径 4~10 随计数
+    const r = 3 + Math.pow(t, 1.4) * 13; // 半径 ~3~16 随计数，非线性放大大小差异（大分类更突出）
     const node = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     node.setAttribute("class", "hub-node");
     node.setAttribute("cx", x.toFixed(1));
@@ -238,12 +261,24 @@ function renderHeroNodes() {
     node.setAttribute("role", "button");
     node.setAttribute("tabindex", "0");
     node.setAttribute("aria-label", `${c} ${counts.get(c) || 0}`);
+    // 同步对应连线终点
+    if (lineG && lineG.children[idx]) {
+      lineG.children[idx].setAttribute("x2", x.toFixed(1));
+      lineG.children[idx].setAttribute("y2", y.toFixed(1));
+    }
+    // 错峰浮动：按节点序号注入固定相位偏移（5.5s 周期内均分），刷新稳定不跳变，纯 CSS 合成不逐帧
+    node.style.animationDelay = (-(5.5 * idx / n)).toFixed(2) + "s";
     node.addEventListener("mouseenter", () => highlightCatCards(c, true));
     node.addEventListener("mouseleave", () => highlightCatCards(c, false));
     node.addEventListener("click", () => toggleHeroCat(c));
     node.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleHeroCat(c); } });
     g.appendChild(node);
   });
+  // 连线常态错峰呼吸：注入相位偏移（4.8s 周期均分），强化节点网"信号流动"观感
+  if (lineG) {
+    const lines = lineG.querySelectorAll(".net-line");
+    lines.forEach((ln, i) => { ln.style.animationDelay = (-(4.8 * i / lines.length)).toFixed(2) + "s"; });
+  }
 }
 
 // 方案 A：节点 hover → 对应分类卡片脉冲高亮

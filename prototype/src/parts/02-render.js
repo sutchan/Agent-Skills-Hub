@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.20.17 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.20.23 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
@@ -11,33 +11,50 @@ function renderStats() {
 }
 // 历史函数移除：hero 标题已改为静态 thesis 文案（含 accent 强调），不再需要动态 {n} 注入
 
-// 分类 chips（v1.19.8 起多选 OR）：state.cats 为空 = 全部；点击由 04-interactions 负责 toggle
-function renderCats(counts) {
-  const cats = SKILLS_DATA.categories;
+// 分类与标签统一为单一筛选项结构，数据源合并自 aggregateFilters()（实况派生，不再依赖静态 categories 数组）。
+// 分类项：key=分类名，hue=catHue 彩色；标签项：key=slug，hue=152 主色绿，弱化视觉权重。
+function buildFilterItems(agg) {
   const en = SKILLS_DATA.categoryEn || {};
-  const allActive = state.cats.length === 0;
-  // "全部"chip 用中性 hue，分类 chip 用 catHue 派生色相（对齐 app：--hue 驱动多色）
-  const items = [`<button class="chip chip-all${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`];
-  cats.forEach((c) => {
-    const active = state.cats.indexOf(c) !== -1;
-    // chip 分类名中英互斥：中文态显示 category，英文态显示 categoryEn[c]
-    items.push(`<button class="chip" data-cat="${esc(c)}" style="--hue:${catHue(c)}" aria-pressed="${active}"><span class="zh">${esc(c)}</span><span class="en">${esc(en[c] || c)}</span> <span class="chip-count">${counts.get(c) || 0}</span></button>`);
-  });
-  $("#cats").innerHTML = items.join("");
+  // 分类项保持与 app 一致的固定分类序（SKILLS_DATA.categories），仅过滤计数 0 项；标签项按计数降序
+  const catOrder = SKILLS_DATA.categories || [];
+  const catItems = catOrder
+    .filter((c) => (agg.cats.get(c) || 0) > 0)
+    .map((c) => ({ key: c, zh: c, en: en[c] || c, count: agg.cats.get(c) || 0, hue: catHue(c), attr: "data-cat" }));
+  const tagItems = Array.from(agg.tags.entries())
+    .filter(([, n]) => n > 0)
+    .sort((a, b) => b[1] - a[1])
+    .map(([slug, n]) => ({ key: slug, zh: I18N.tagLabel(slug, "zh"), en: I18N.tagLabel(slug, "en"), count: n, hue: 152, attr: "data-tag" }));
+  return { catItems, tagItems };
 }
 
-// 功能标签 chips（v1.20.12 起）：state.tags 为空 = 全部；与分类以 AND 组合
-function renderTags(counts) {
-  const el = $("#tags");
-  if (!el) return;
-  // 仅展示在当前可见技能中出现的标签，按命中数降序，保证筛选有意义
-  const entries = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
-  const items = entries.map(([slug, n]) => {
-    const active = state.tags.indexOf(slug) !== -1;
-    // 标签 chip 用中性 hue（152 主色绿系），与分类彩色区分，弱化视觉权重
-    return `<button class="chip" data-tag="${esc(slug)}" style="--hue:152" aria-pressed="${active}"><span class="zh">${esc(I18N.tagLabel(slug, "zh"))}</span><span class="en">${esc(I18N.tagLabel(slug, "en"))}</span> <span class="chip-count">${n}</span></button>`;
+// 通用筛选 chip 渲染器（分类/标签共用，v1.20.22 合并渲染逻辑）
+function renderFilterChips(container, items, activeSet, allActive) {
+  if (!container) return;
+  const html = items.map((it) => {
+    const active = activeSet.indexOf(it.key) !== -1;
+    return `<button class="chip" ${it.attr}="${esc(it.key)}" style="--hue:${it.hue}" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
   });
-  el.innerHTML = items.join("");
+  container.innerHTML = html.join("");
+}
+
+// 分类 chips（v1.19.8 起多选 OR）：state.cats 为空 = 全部；数据来自 aggregateFilters 实况（v1.20.22 合并）
+function renderCats(agg) {
+  const allActive = state.cats.length === 0;
+  const items = buildFilterItems(agg).catItems;
+  // "全部"chip 用中性 hue，置于分类项之前
+  const allBtn = `<button class="chip chip-all${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`;
+  const container = $("#cats");
+  if (!container) return;
+  container.innerHTML = allBtn + items.map((it) => {
+    const active = state.cats.indexOf(it.key) !== -1;
+    return `<button class="chip" data-cat="${esc(it.key)}" style="--hue:${it.hue}" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
+  }).join("");
+}
+
+// 功能标签 chips（v1.20.12 起）：state.tags 为空 = 全部；与分类以 AND 组合（v1.20.22 合并数据来源）
+function renderTags(agg) {
+  const items = buildFilterItems(agg).tagItems;
+  renderFilterChips($("#tags"), items, state.tags, state.tags.length === 0);
 }
 
 // 排序比较器：name（英文原名 A-Z）/ name-desc（Z-A）/ cat（按分类字典序）/ zh（按中文名）
@@ -126,11 +143,10 @@ function renderGrid() {
     return true;
   });
   list = sortSkills(list);
-  const counts = catCounts();
-  const tagCnt = tagCounts();
+  const agg = aggregateFilters(); // 单次遍历聚合分类 + 标签计数（分类/标签共用同一数据源）
   renderStats();
-  renderCats(counts);
-  renderTags(tagCnt);
+  renderCats(agg);
+  renderTags(agg);
   // 分页：每页 PAGE_SIZE 条，page 为 0 基
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   if (state.page > totalPages - 1) state.page = totalPages - 1; // 筛选后页码越界回钳

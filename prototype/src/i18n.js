@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.20.17 — 独立国际化模块
+// prototype/src/i18n.js v1.20.27 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -52,7 +52,7 @@
       "share.failed": "复制失败，请手动复制",
       "filter.all": "全部",
       "filter.tags": "标签",
-      "dice.btn": "🎲 今天学点什么",
+      "dice.btn": "今天学点什么",
       "dice.title": "为你抽中的技能",
       "dice.hint": "不知道从哪开始？让骰子决定。",
       "sort.name": "名称 A-Z",
@@ -139,7 +139,7 @@
       "share.failed": "Copy failed, please copy manually",
       "filter.all": "All",
       "filter.tags": "Tags",
-      "dice.btn": "🎲 Learn something",
+      "dice.btn": "Learn something",
       "dice.title": "Your skill draw",
       "dice.hint": "Not sure where to start? Let the dice decide.",
       "sort.name": "Name A-Z",

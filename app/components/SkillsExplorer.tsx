@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.20.14 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 标签筛选
+// app/components/SkillsExplorer.tsx v1.20.19 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 标签筛选
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -169,7 +169,7 @@ export function SkillsExplorer({
       const st = (s.tags as string[] | undefined) ?? [];
       st.forEach((t) => m.set(t, (m.get(t) || 0) + 1));
     });
-    return Array.from(m.entries()).sort((a, b) => b[1] - a[1]);
+    return Array.from(m.entries()).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
   }, [data.skills]);
 
   return (

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.20.18 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.20.27 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -84,15 +84,12 @@
   </header>
 
   <section class="hero" id="hero" aria-labelledby="heroTitle">
-    <svg class="hero-net" id="heroNet" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <g stroke="hsl(var(--line))" stroke-width="1" opacity=".5">
-        <line class="net-line" x1="120" y1="60" x2="400" y2="120" /><line class="net-line" x1="400" y1="120" x2="680" y2="70" />
-        <line class="net-line" x1="400" y1="120" x2="220" y2="200" /><line class="net-line" x1="400" y1="120" x2="600" y2="190" />
-        <line class="net-line" x1="120" y1="60" x2="220" y2="200" /><line class="net-line" x1="680" y1="70" x2="600" y2="190" />
-      </g>
-      <!-- 方案 A：节点由 JS 按分类计数动态生成（半径随技能数变化），中心 core 固定 -->
+    <svg class="hero-net" id="heroNet" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" overflow="visible" aria-hidden="true">
+      <g id="netLines" stroke="hsl(var(--line))" stroke-width="1.4" opacity=".6"></g>
+      <!-- 方案 A：节点由 JS 按分类计数动态生成（半径随技能数变化），核心右移避免与左侧文字重叠 -->
       <g id="netNodes" fill="hsl(var(--node))"></g>
-      <circle class="hub-node hub-core" cx="400" cy="120" r="11" fill="hsl(var(--primary))" />
+      <circle class="hub-glow" cx="600" cy="120" r="13" fill="hsl(var(--primary))" opacity="0" />
+      <circle class="hub-node hub-core" cx="600" cy="120" r="16" fill="hsl(var(--primary))" />
     </svg>
     <div class="hero-inner">
       <span class="hero-eyebrow zh" data-i18n="hero.eyebrow">Agent 技能枢纽</span>
@@ -110,8 +107,8 @@
       <div class="hero-dice">
         <button type="button" id="diceBtn" class="btn-dice" aria-label="随机抽一个技能">
           <span class="dice-face" aria-hidden="true">🎲</span>
-          <span class="zh" data-i18n="dice.btn">🎲 今天学点什么</span>
-          <span class="en" data-i18n="dice.btn">🎲 Learn something</span>
+          <span class="zh" data-i18n="dice.btn">今天学点什么</span>
+          <span class="en" data-i18n="dice.btn">Learn something</span>
         </button>
         <span class="dice-hint zh" data-i18n="dice.hint">不知道从哪开始？让骰子决定。</span>
         <span class="dice-hint en" data-i18n="dice.hint">Not sure where to start? Let the dice decide.</span>
@@ -147,10 +144,10 @@
     </div>
   </div>
 
-  <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="cats-scroll" id="cats"></div></nav>
+  <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="filter-scroll" id="cats"></div></nav>
   <nav class="tags-nav" id="tagsNav" aria-label="功能标签 / Tags">
     <span class="tags-label"><span class="zh" data-i18n="filter.tags">标签</span><span class="en" data-i18n="filter.tags">Tags</span></span>
-    <div class="tags-scroll" id="tags"></div>
+    <div class="tags-scroll filter-scroll" id="tags"></div>
   </nav>
 
   <main class="grid" id="grid" aria-label="技能列表" aria-live="off"></main>

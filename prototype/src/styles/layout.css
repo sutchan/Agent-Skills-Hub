@@ -1,4 +1,4 @@
-/* prototype/src/styles/layout.css v1.20.17 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.20.26 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -16,17 +16,37 @@
 .hero { position: relative; overflow: hidden; width: 100%; max-width: var(--maxw); margin: 8px auto 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); border-radius: 18px; }
 .hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; transition: opacity .3s ease; }
 .hero:hover .hero-net { opacity: .9; }
-.hero-net .hub-node { transform-box: fill-box; transform-origin: center; transition: fill .3s ease, r .3s ease, opacity .3s ease; cursor: pointer; }
+.hero-net .hub-node { transform-box: fill-box; transform-origin: center; transition: fill .3s ease, r .3s ease, opacity .3s ease; cursor: pointer; animation: nodeFloat 5.5s ease-in-out infinite; }
 /* 方案 A：节点 hover 放大 + 发光，作为可交互技能星座 */
-.hero-net .hub-node:hover { r: 9; filter: drop-shadow(0 0 6px hsl(var(--node) / .9)); }
-.hero-net .hub-node.active { r: 10; fill: hsl(var(--primary)); filter: drop-shadow(0 0 8px hsl(var(--primary) / .9)); }
-.hero-net .hub-core { transition: r .3s ease, fill .3s ease; }
+.hero-net .hub-node:hover { r: 14; filter: drop-shadow(0 0 6px hsl(var(--node) / .9)); }
+.hero-net .hub-node.active { r: 16; fill: hsl(var(--primary)); filter: drop-shadow(0 0 8px hsl(var(--primary) / .9)); }
+.hero-net .hub-core { transform-box: fill-box; transform-origin: center; transition: r .3s ease, fill .3s ease; animation: corePulse 2.6s ease-in-out infinite; }
+/* 低开销动效：纯 transform/opacity（GPU 合成），不触发逐帧重排；节点错峰浮动由内联 --i 相位控制（renderHeroNodes 注入，仅一次） */
+.hub-core { animation: corePulse 2.6s ease-in-out infinite; }
+.hero-net .hub-core::after { content: ""; } /* 兼容占位，真实光环由 .hub-glow 实现 */
+.hub-glow { transform-box: fill-box; transform-origin: center; animation: coreGlow 3.4s ease-in-out infinite; }
+@keyframes corePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+@keyframes coreGlow { 0% { transform: scale(1); opacity: .35; } 50% { transform: scale(1.9); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
+@keyframes nodeFloat { 0%, 100% { transform: translateY(0); opacity: .82; } 50% { transform: translateY(-4px); opacity: 1; } }
+/* 连线常态极慢信号起伏，hover 时增强（不逐帧重排） */
+.hero-net .net-line { animation: netBreathe 4.8s ease-in-out infinite; }
+@keyframes netBreathe { 0%, 100% { opacity: .5; } 50% { opacity: .85; } }
+/* 搜索激活态：节点浮动暂停，保留连线脉冲（netPulse），突出"正在检索"语义 */
+.hero-net.searching .hub-node { animation: none; }
+.hero-net.searching .hub-core { animation: none; }
+.hero-net.searching .hub-glow { animation: none; }
 /* 方案 A：筛选/搜索激活时节点网点亮联动 */
 .hero-net.filtering .hub-node { fill: hsl(var(--primary)); }
-.hero-net.filtering .hub-core { r: 13; }
-.hero-net.searching .net-line { stroke: hsl(var(--primary) / .8); animation: netPulse 1.6s ease-in-out infinite; }
+.hero-net.filtering .hub-core { r: 20; }
+.hero-net.searching .net-line { stroke: hsl(var(--primary) / .85); stroke-width: 2; animation: netPulse 1.6s ease-in-out infinite; }
 @keyframes netPulse { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .hero-net.searching .net-line { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-net .hub-core { animation: none; }
+  .hero-net .hub-glow { animation: none; }
+  .hero-net .hub-node { animation: none; }
+  .hero-net .net-line { animation: none; }
+  .hero-net.searching .net-line { animation: none; }
+}
 .hero-inner { position: relative; z-index: 1; max-width: 720px; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: hsl(var(--primary)); margin-bottom: 12px; }
 .hero-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--node); box-shadow: 0 0 0 4px hsl(var(--node) / .25); }
@@ -57,20 +77,19 @@
 .search .icon { opacity: .6; }
 /* 结果计数（搜索/筛选后的条数播报与展示，aria-live 提供读屏反馈） */
 .result-count { margin-left: auto; font-size: 12.5px; color: var(--text-2); white-space: nowrap; }
-/* 分类筛选条：桌面换行，移动端横向可滚动（DESIGN §5）；内容限宽居中与网格对齐 */
+/* 筛选条（分类 + 标签）共用布局：桌面换行，移动端横向可滚动（DESIGN §5）；
+   内容限宽居中与网格对齐；统一垂直节奏避免两行粘连/断裂。
+   注：.cats-scroll 与 .tags-scroll 样式此前重复定义且垂直间距不一致（4px vs 0），
+   现合并为统一基类 .filter-scroll（v1.20.18），消除重复冲突。 */
+.filter-scroll { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 6px 24px; }
 .cats { width: 100%; overflow: hidden; }
-.cats-scroll { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 4px 24px; }
-@media (max-width: 640px) {
-  .cats-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
-  .cats-scroll::-webkit-scrollbar { display: none; }
-}
-/* 功能标签筛选行（v1.20.12）：弱化视觉权重，置于分类条下方 */
-.tags-nav { display: flex; align-items: flex-start; gap: 10px; width: 100%; max-width: var(--maxw); margin: 2px auto 0; padding: 0 24px; }
+.tags-nav { display: flex; align-items: flex-start; gap: 10px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 .tags-label { flex: 0 0 auto; font-size: 12px; font-weight: 600; color: var(--text-3); line-height: 30px; white-space: nowrap; }
-.tags-scroll { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 auto; }
+.tags-scroll { flex: 1 1 auto; }
+/* 移动端：两行筛选条统一改为横向可滚动，隐藏滚动条 */
 @media (max-width: 640px) {
-  .tags-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .tags-scroll::-webkit-scrollbar { display: none; }
+  .filter-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
+  .filter-scroll::-webkit-scrollbar { display: none; }
 }
 
 /* 网格与卡片容器 */
