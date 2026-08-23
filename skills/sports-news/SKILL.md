@@ -4,8 +4,8 @@ name: sports-news
 description: 通过 RSS/Atom 订阅源与 Google News 获取体育新闻。抓取头条、按关键词搜索、按日期筛选。涵盖足球新闻、转会传闻、比赛战报，以及通过 Google News 覆盖任意体育项目。
 en_description: | Sports news via RSS/Atom feeds and Google News. Fetch headlines, search by query, filter by date. Covers football news, transfer rumors, match reports, and any sport via Google News.
 zh_displayName: 体育新闻
-category: 文档与内容
-en_category: Docs & Content
+category: 品牌与设计
+en_category: Brand & Design
 license: MIT
 metadata:
 ---

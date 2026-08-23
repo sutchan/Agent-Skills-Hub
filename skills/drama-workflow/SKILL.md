@@ -5,8 +5,8 @@ description: |-
 en_description: |-
   Orchestrate the plot-point and dramatic-function analysis workflow: manage text preprocessing, parallel analysis, and result consolidation. Use for long-text plot-point and dramatic-function analysis and structured analysis reports.
 zh_displayName: 剧本分析工作流
-category: 文档与内容
-en_category: Docs & Content
+category: 品牌与设计
+en_category: Brand & Design
 version: 2.1.0
 last_updated: 2026-01-11
 license: MIT

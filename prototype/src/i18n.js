@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.20.28 — 独立国际化模块
+// prototype/src/i18n.js v1.20.34 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -42,6 +42,8 @@
       "detail.size": "大小 / Size",
       "detail.files": "文件数 / Files",
       "detail.filesUnit": "个",
+      "detail.importWithManager": "用 Skills Manager 导入",
+      "detail.importWithManagerHint": "在 Skills Manager 桌面应用中导入此技能",
       "detail.popularity": "热度 / Popularity",
       "detail.popRefs": "次被引用",
       "detail.popStandalone": "独立（无引用）",
@@ -128,6 +130,8 @@
       "detail.size": "Size",
       "detail.files": "Files",
       "detail.filesUnit": "",
+      "detail.importWithManager": "Import with Skills Manager",
+      "detail.importWithManagerHint": "Import this skill in the Skills Manager desktop app",
       "detail.popularity": "Popularity",
       "detail.popRefs": "refs",
       "detail.popStandalone": "Standalone",

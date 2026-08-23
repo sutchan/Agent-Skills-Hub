@@ -5,8 +5,8 @@ description: |-
 en_description: |-
   Write vertical short-drama screenplays, covering macro structuring, scriptwriting, precise optimization, and idea generation. Use to create short dramas from scratch, refine existing scripts, design story outlines, and craft suspense hooks.
 zh_displayName: 短剧剧本创作
-category: 文档与内容
-en_category: Docs & Content
+category: 品牌与设计
+en_category: Brand & Design
 version: 2.2.0
 last_updated: 2026-01-11
 license: MIT

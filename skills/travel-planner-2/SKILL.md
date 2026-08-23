@@ -5,8 +5,8 @@ description: |-
 en_description: |-
   Travel destination research and daily itinerary creation with logistics planning, budget tracking, and experience optimization. Use when planning trips, creating travel itineraries, comparing destinations, or organizing travel logistics.
 zh_displayName: 旅行规划助手（变体2）
-category: 文档与内容
-en_category: Docs & Content
+category: 品牌与设计
+en_category: Brand & Design
 ---
 
 # Travel Planner

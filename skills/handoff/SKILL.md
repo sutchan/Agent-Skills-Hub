@@ -3,8 +3,8 @@ name: handoff
 description: 将当前对话压缩成一份交接文档，供另一个 agent 接手继续工作。
 en_description: Compact the current conversation into a handoff document for another agent to pick up.
 zh_displayName: 会话交接文档
-category: 文档与内容
-en_category: Docs & Content
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 argument-hint: "What will the next session be used for?"
 disable-model-invocation: true
 ---

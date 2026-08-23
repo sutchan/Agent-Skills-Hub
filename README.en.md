@@ -59,14 +59,14 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 
 | Domain | Skills |
 |--------|--------|
-| Brand & Design | 27 |
-| Docs & Content | 20 |
+| Brand & Design | 38 |
+| Docs & Content | 2 |
 | Data Analysis & Visualization | 2 |
 | Frontend Dev | 25 |
 | Backend & Platform | 10 |
 | Mobile Dev | 13 |
 | WordPress & CMS | 11 |
-| Engineering Practice & Quality | 25 |
+| Engineering Practice & Quality | 33 |
 | File & Format Handling | 4 |
 | Automation & Integration | 15 |
 | AI & Agents | 8 |

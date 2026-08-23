@@ -286,12 +286,12 @@
   },
   "find-skills": {
     "popularity": 0,
-    "size": 5843,
+    "size": 5865,
     "files": 1
   },
   "find-skills-2": {
     "popularity": 0,
-    "size": 4895,
+    "size": 4917,
     "files": 1
   },
   "fix-sentry-issues": {
@@ -351,22 +351,22 @@
   },
   "grill-me": {
     "popularity": 0,
-    "size": 526,
+    "size": 548,
     "files": 2
   },
   "grill-with-docs": {
     "popularity": 0,
-    "size": 679,
+    "size": 701,
     "files": 2
   },
   "grilling": {
     "popularity": 0,
-    "size": 2357,
+    "size": 2379,
     "files": 2
   },
   "handoff": {
     "popularity": 0,
-    "size": 1226,
+    "size": 1248,
     "files": 2
   },
   "html-design-prototypes": {
@@ -568,7 +568,7 @@
   },
   "planning-with-files": {
     "popularity": 0,
-    "size": 257614,
+    "size": 257636,
     "files": 29
   },
   "playwright-best-practices": {
@@ -700,8 +700,8 @@
     "files": 22
   },
   "short-drama-write": {
-    "popularity": 0,
-    "size": 211516,
+    "popularity": 1,
+    "size": 214018,
     "files": 19
   },
   "simplify": {
@@ -711,7 +711,7 @@
   },
   "skill-creator": {
     "popularity": 1,
-    "size": 225287,
+    "size": 225309,
     "files": 18
   },
   "sports-news": {
@@ -779,7 +779,7 @@
   },
   "traceknot": {
     "popularity": 0,
-    "size": 771967,
+    "size": 763690,
     "files": 53
   },
   "travel-planner": {

@@ -2,6 +2,27 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.35] - 2026-08-23
+
+### refactor: 校正技能分类并补全 traceknot 契约字段
+
+- 重分类 18 个技能：内容创作类（`ads-creative`、`drama-*`、`sports-news`、`travel-planner*`、`wechat-article-writer`）由「文档与内容」改归「品牌与设计」；元技能/技能工程类（`find-skills*`、`grill-*`、`skill-creator`、`handoff`、`planning-with-files`）改归「工程实践与质量」。「文档与内容」回归技术文档本义（仅剩 `coding-standards`、`documentation`），13 类契约保持不变、无「其他」类。
+- 补全缺失契约字段的技能：`skills/traceknot/SKILL.md`（归「工程实践与质量」）、`skills/short-drama-write/SKILL.md`（归「品牌与设计」）各补全 4 个必填 frontmatter 字段（`en_description`/`zh_displayName`/`category`/`en_category`）；`tools/validate-skills.mjs` 校验通过（189 技能 frontmatter 规范）。
+- 同步 `data/skills-data.json` 与 `data/skills-metrics.json`（重新 build）；README 中/英领域表计数同步（品牌与设计 27→38、工程实践与质量 25→33、文档与内容 20→2）。
+- 根 `package.json` version 升至 v1.20.35。
+
+[1.20.35]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.35
+
+## [1.20.34] - 2026-08-23
+
+### feat: 详情卡片新增「用 Skills Manager 导入」入口
+
+- 在技能详情安装区新增一键跳转按钮 `#skillManagerBtn`，链接至 Skills Manager 桌面应用项目（https://github.com/xingkongliang/skills-manager）。经核实该应用为 Tauri 桌面端、不支持 URL 深链接导入，故按钮以「跳转项目页 → 桌面端 + Add Skills 导入」方式实现，并带 hover 提示说明。
+- 改动文件：`prototype/src/parts/03-detail.js`（安装区加链接 + i18n 文案 `detail.importWithManager` / `detail.importWithManagerHint`）、`prototype/src/i18n.js`（中英双语文案）、`app/components/detail/DetailInstall.tsx`（Next 端同位置同步）。
+- 根 `package.json` version 升至 v1.20.34。
+
+[1.20.34]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.34
+
 ## [1.20.33] - 2026-08-23
 
 ### style: 增强分类 chip 选中态的彩色显示

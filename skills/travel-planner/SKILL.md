@@ -5,8 +5,8 @@ description: |-
 en_description: |-
   Use whenever users need help planning trips, creating travel itineraries, managing travel budgets, or seeking destination advice. On first use, collects comprehensive travel preferences including budget level, travel style, interests, and dietary restrictions. Generates detailed plans with day-by-day itineraries, budget breakdowns, packing checklists, cultural do's and don'ts, and region-specific schedules. Maintains a database of preferences and past trips for personalized recommendations.
 zh_displayName: 旅行规划助手
-category: 文档与内容
-en_category: Docs & Content
+category: 品牌与设计
+en_category: Brand & Design
 ---
 
 # Travel Planner

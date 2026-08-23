@@ -5,8 +5,8 @@ description: |-
 en_description: |-
   Creates comprehensive travel itineraries with destination analysis, budget planning, transportation, accommodation, and local insights. Use when planning trips, organizing travel schedules, or seeking destination recommendations.
 zh_displayName: 旅行行程规划（变体3）
-category: 文档与内容
-en_category: Docs & Content
+category: 品牌与设计
+en_category: Brand & Design
 license: MIT
 allowed-tools:
   - Bash

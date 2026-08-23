@@ -50,6 +50,24 @@
       "githubDir": "skills/ad-creative"
     },
     {
+      "name": "ads-creative",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "付费广告创意审计",
+      "description": "审计付费广告的文案、图片、视频、钩子、概念、格式覆盖、平台原生契合度、信息匹配、创意疲劳、可访问性与政策合规。适用于创意审计、广告文案评审、视频评审、图片评审或生产优先级排定。",
+      "enDescription": "Audit paid-ad copy, images, video, hooks, concepts, format coverage, platform-native fit, message match, creative fatigue, accessibility, and policy across supported platforms. Use for creative audit, ad creative, creative fatigue, creative diversity, ad copy review, video review, image review, or production priorities.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ads-creative",
+      "githubDir": "skills/ads-creative"
+    },
+    {
       "name": "banner-creator",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -137,6 +155,81 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/discover-brand",
       "githubDir": "skills/discover-brand"
+    },
+    {
+      "name": "drama-analyzer",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "剧本故事分析",
+      "description": "分析故事文本，提炼主要情节点并分析戏剧功能。适用于分析小说、剧本大纲、故事梗概等文本，识别关键转折点和情感节点。",
+      "enDescription": "Analyze story texts, extract key plot points and analyze dramatic functions. Use for analyzing novels, screenplay outlines, story synopses, and similar texts; identify turning points and emotional beats.",
+      "homepage": "",
+      "allowedTools": [
+        "[]"
+      ],
+      "tags": [
+        "design-media"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-analyzer",
+      "githubDir": "skills/drama-analyzer"
+    },
+    {
+      "name": "drama-creator",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "短剧剧本创作",
+      "description": "创作竖屏短剧剧本，包括宏观建构、剧本创作、精准优化、创意发想。适用于从零开始创作短剧、优化现有剧本、设计故事大纲和悬念钩子。",
+      "enDescription": "Write vertical short-drama screenplays, covering macro structuring, scriptwriting, precise optimization, and idea generation. Use to create short dramas from scratch, refine existing scripts, design story outlines, and craft suspense hooks.",
+      "homepage": "",
+      "allowedTools": [
+        "[]"
+      ],
+      "tags": [
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-creator",
+      "githubDir": "skills/drama-creator"
+    },
+    {
+      "name": "drama-planner",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "短剧策划方案",
+      "description": "制定竖屏短剧专业策划方案，含情绪价值分析、黄金三秒钩子设计、三幕式结构规划等。适用于短剧项目前期策划、商业化方案设计、创作指导。",
+      "enDescription": "Produce professional vertical short-drama planning packages: emotional-value analysis, golden-three-seconds hook design, three-act structure planning. Use for early-stage short-drama project planning, commercialization design, and creative direction.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-planner",
+      "githubDir": "skills/drama-planner"
+    },
+    {
+      "name": "drama-workflow",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "剧本分析工作流",
+      "description": "协调情节点戏剧功能分析流程，管理文本预处理、并行分析、结果整合。适用于长文本的情节点和戏剧功能分析、需要结构化分析报告的场景。",
+      "enDescription": "Orchestrate the plot-point and dramatic-function analysis workflow: manage text preprocessing, parallel analysis, and result consolidation. Use for long-text plot-point and dramatic-function analysis and structured analysis reports.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "doc-writing",
+        "design-media",
+        "automation"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-workflow",
+      "githubDir": "skills/drama-workflow"
     },
     {
       "name": "dramatic",
@@ -417,6 +510,44 @@
       "githubDir": "skills/review-animations"
     },
     {
+      "name": "short-drama-write",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "短剧剧本写作",
+      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文地规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。",
+      "enDescription": "Write or revise shootable Chinese short-drama / manga-drama single-episode Markdown scripts, and normalize existing scripts while preserving the author's original voice. Use when the user asks to \"write/revise an episode\", \"turn an outline into a script\", \"polish scenes/dialogue\", \"remove template feel\", \"de-AI the prose\", or \"continue the next episode\"; does not handle assets, storyboards, media prompts, or final review.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-write",
+      "githubDir": "skills/short-drama-write"
+    },
+    {
+      "name": "sports-news",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "体育新闻",
+      "description": "通过 RSS/Atom 订阅源与 Google News 获取体育新闻。抓取头条、按关键词搜索、按日期筛选。涵盖足球新闻、转会传闻、比赛战报，以及通过 Google News 覆盖任意体育项目。",
+      "enDescription": "| Sports news via RSS/Atom feeds and Google News. Fetch headlines, search by query, filter by date. Covers football news, transfer rumors, match reports, and any sport via Google News.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "doc-writing",
+        "design-media",
+        "scraping"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/sports-news",
+      "githubDir": "skills/sports-news"
+    },
+    {
       "name": "svg-logo-designer",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -450,6 +581,59 @@
       "license": "Complete terms in LICENSE.txt",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/theme-factory",
       "githubDir": "skills/theme-factory"
+    },
+    {
+      "name": "travel-planner",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "旅行规划助手",
+      "description": "当用户需要规划行程、创建旅行 itinerary、管理旅行预算或寻求目的地建议时使用。首次使用时收集预算水平、旅行风格、兴趣与饮食限制等偏好，生成逐日行程、预算拆分、打包清单、文化注意事项与区域专属时间表，并维护偏好与历史行程库以做个性化推荐。",
+      "enDescription": "Use whenever users need help planning trips, creating travel itineraries, managing travel budgets, or seeking destination advice. On first use, collects comprehensive travel preferences including budget level, travel style, interests, and dietary restrictions. Generates detailed plans with day-by-day itineraries, budget breakdowns, packing checklists, cultural do's and don'ts, and region-specific schedules. Maintains a database of preferences and past trips for personalized recommendations.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "data",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner",
+      "githubDir": "skills/travel-planner"
+    },
+    {
+      "name": "travel-planner-2",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "旅行规划助手（变体2）",
+      "description": "旅行目的地调研与每日行程制定，含物流规划、预算跟踪与体验优化。当用户规划行程、创建旅行 itinerary、对比目的地或组织旅行物流时使用。",
+      "enDescription": "Travel destination research and daily itinerary creation with logistics planning, budget tracking, and experience optimization. Use when planning trips, creating travel itineraries, comparing destinations, or organizing travel logistics.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-2",
+      "githubDir": "skills/travel-planner-2"
+    },
+    {
+      "name": "travel-planner-3",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "旅行行程规划（变体3）",
+      "description": "创建综合旅行行程，含目的地分析、预算规划、交通、住宿与本地洞察。当用户规划行程、组织旅行日程或寻求目的地推荐时使用。",
+      "enDescription": "Creates comprehensive travel itineraries with destination analysis, budget planning, transportation, accommodation, and local insights. Use when planning trips, organizing travel schedules, or seeking destination recommendations.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media",
+        "automation"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-3",
+      "githubDir": "skills/travel-planner-3"
     },
     {
       "name": "ui-ux-pro-max",
@@ -488,6 +672,24 @@
       "githubDir": "skills/web-design-guidelines"
     },
     {
+      "name": "wechat-article-writer",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "公众号文章写作",
+      "description": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
+      "enDescription": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "doc-writing",
+        "design-media",
+        "automation"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wechat-article-writer",
+      "githubDir": "skills/wechat-article-writer"
+    },
+    {
       "name": "winui-design",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -504,24 +706,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-design",
       "githubDir": "skills/winui-design"
-    },
-    {
-      "name": "ads-creative",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "付费广告创意审计",
-      "description": "审计付费广告的文案、图片、视频、钩子、概念、格式覆盖、平台原生契合度、信息匹配、创意疲劳、可访问性与政策合规。适用于创意审计、广告文案评审、视频评审、图片评审或生产优先级排定。",
-      "enDescription": "Audit paid-ad copy, images, video, hooks, concepts, format coverage, platform-native fit, message match, creative fatigue, accessibility, and policy across supported platforms. Use for creative audit, ad creative, creative fatigue, creative diversity, ad copy review, video review, image review, or production priorities.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ads-creative",
-      "githubDir": "skills/ads-creative"
     },
     {
       "name": "coding-standards",
@@ -558,308 +742,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/documentation",
       "githubDir": "skills/documentation"
-    },
-    {
-      "name": "drama-analyzer",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "剧本故事分析",
-      "description": "分析故事文本，提炼主要情节点并分析戏剧功能。适用于分析小说、剧本大纲、故事梗概等文本，识别关键转折点和情感节点。",
-      "enDescription": "Analyze story texts, extract key plot points and analyze dramatic functions. Use for analyzing novels, screenplay outlines, story synopses, and similar texts; identify turning points and emotional beats.",
-      "homepage": "",
-      "allowedTools": [
-        "[]"
-      ],
-      "tags": [
-        "doc-writing"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-analyzer",
-      "githubDir": "skills/drama-analyzer"
-    },
-    {
-      "name": "drama-creator",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "短剧剧本创作",
-      "description": "创作竖屏短剧剧本，包括宏观建构、剧本创作、精准优化、创意发想。适用于从零开始创作短剧、优化现有剧本、设计故事大纲和悬念钩子。",
-      "enDescription": "Write vertical short-drama screenplays, covering macro structuring, scriptwriting, precise optimization, and idea generation. Use to create short dramas from scratch, refine existing scripts, design story outlines, and craft suspense hooks.",
-      "homepage": "",
-      "allowedTools": [
-        "[]"
-      ],
-      "tags": [
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-creator",
-      "githubDir": "skills/drama-creator"
-    },
-    {
-      "name": "drama-planner",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "短剧策划方案",
-      "description": "制定竖屏短剧专业策划方案，含情绪价值分析、黄金三秒钩子设计、三幕式结构规划等。适用于短剧项目前期策划、商业化方案设计、创作指导。",
-      "enDescription": "Produce professional vertical short-drama planning packages: emotional-value analysis, golden-three-seconds hook design, three-act structure planning. Use for early-stage short-drama project planning, commercialization design, and creative direction.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-planner",
-      "githubDir": "skills/drama-planner"
-    },
-    {
-      "name": "drama-workflow",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "剧本分析工作流",
-      "description": "协调情节点戏剧功能分析流程，管理文本预处理、并行分析、结果整合。适用于长文本的情节点和戏剧功能分析、需要结构化分析报告的场景。",
-      "enDescription": "Orchestrate the plot-point and dramatic-function analysis workflow: manage text preprocessing, parallel analysis, and result consolidation. Use for long-text plot-point and dramatic-function analysis and structured analysis reports.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "automation"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/drama-workflow",
-      "githubDir": "skills/drama-workflow"
-    },
-    {
-      "name": "find-skills",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "技能发现与安装",
-      "description": "帮助用户发现并安装可用的 agent 技能。当用户问“我该怎么做 X”“找一个做 X 的技能”“有没有能做…的技能”或表达想要扩展能力时，使用本技能来寻找可能以可安装技能形式存在的功能。",
-      "enDescription": "Helps users discover and install agent skills when they ask questions like \\\"how do I do X\\\", \\\"find a skill for X\\\", \\\"is there a skill that can...\\\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/find-skills",
-      "githubDir": "skills/find-skills"
-    },
-    {
-      "name": "find-skills-2",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "技能发现与安装",
-      "description": "当用户询问「怎么做 X」「找 X 的技能」「有没有能…的技能」或想扩展能力时，帮助用户发现并安装 agent 技能。",
-      "enDescription": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/find-skills-2",
-      "githubDir": "skills/find-skills-2"
-    },
-    {
-      "name": "grill-me",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "深度质询",
-      "description": "一场毫不留情的访谈，用于打磨计划或设计。当用户想深入推敲方案、暴露漏洞或强化论证时使用。",
-      "enDescription": "A relentless interview to sharpen a plan or design.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "design-media",
-        "security"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-me",
-      "githubDir": "skills/grill-me"
-    },
-    {
-      "name": "grill-with-docs",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "质询并产出文档",
-      "description": "一场毫不留情的访谈，用于打磨计划或设计，同时在过程中生成文档（ADR 与术语表）。当用户想边讨论边沉淀决策记录与术语时使用。",
-      "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-with-docs",
-      "githubDir": "skills/grill-with-docs"
-    },
-    {
-      "name": "grilling",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "压力质询",
-      "description": "就某个计划、决策或想法 relentlessly 质询用户。当用户想压力测试自己的思路，或使用了任何「grill」触发短语时使用。",
-      "enDescription": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grilling",
-      "githubDir": "skills/grilling"
-    },
-    {
-      "name": "handoff",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "会话交接文档",
-      "description": "将当前对话压缩成一份交接文档，供另一个 agent 接手继续工作。",
-      "enDescription": "Compact the current conversation into a handoff document for another agent to pick up.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/handoff",
-      "githubDir": "skills/handoff"
-    },
-    {
-      "name": "planning-with-files",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "文件规划助手",
-      "description": "Manus 式持久化基于文件的规划，为 AI 编码智能体在磁盘保留 task_plan.md、findings.md、progress.md，使工作在上下文丢失与 /clear 后仍能存活。当用户要求规划、拆分或组织多步骤项目、研究任务或任何需要 5+ 工具调用的工作时使用。支持 /clear 后自动会话恢复。",
-      "enDescription": "Manus-style persistent file-based planning for AI coding agents: keeps task_plan.md, findings.md, and progress.md on disk so work survives context loss and /clear. Use when asked to plan, break down, or organize a multi-step project, research task, or any work requiring 5+ tool calls. Supports automatic session recovery after /clear.",
-      "homepage": "",
-      "allowedTools": [
-        "Read Write Edit Bash Glob Grep"
-      ],
-      "tags": [
-        "ai-agent",
-        "doc-writing"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
-      "githubDir": "skills/planning-with-files"
-    },
-    {
-      "name": "skill-creator",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "技能创建与优化",
-      "description": "用于创建有效技能的指南，当用户想要创建新技能（或更新现有技能）以扩展 CodeBuddy 的能力（借助专业知识、工作流或工具集成）时使用。",
-      "enDescription": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/skill-creator",
-      "githubDir": "skills/skill-creator"
-    },
-    {
-      "name": "sports-news",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "体育新闻",
-      "description": "通过 RSS/Atom 订阅源与 Google News 获取体育新闻。抓取头条、按关键词搜索、按日期筛选。涵盖足球新闻、转会传闻、比赛战报，以及通过 Google News 覆盖任意体育项目。",
-      "enDescription": "| Sports news via RSS/Atom feeds and Google News. Fetch headlines, search by query, filter by date. Covers football news, transfer rumors, match reports, and any sport via Google News.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "scraping"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/sports-news",
-      "githubDir": "skills/sports-news"
-    },
-    {
-      "name": "travel-planner",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "旅行规划助手",
-      "description": "当用户需要规划行程、创建旅行 itinerary、管理旅行预算或寻求目的地建议时使用。首次使用时收集预算水平、旅行风格、兴趣与饮食限制等偏好，生成逐日行程、预算拆分、打包清单、文化注意事项与区域专属时间表，并维护偏好与历史行程库以做个性化推荐。",
-      "enDescription": "Use whenever users need help planning trips, creating travel itineraries, managing travel budgets, or seeking destination advice. On first use, collects comprehensive travel preferences including budget level, travel style, interests, and dietary restrictions. Generates detailed plans with day-by-day itineraries, budget breakdowns, packing checklists, cultural do's and don'ts, and region-specific schedules. Maintains a database of preferences and past trips for personalized recommendations.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing",
-        "data"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner",
-      "githubDir": "skills/travel-planner"
-    },
-    {
-      "name": "travel-planner-2",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "旅行规划助手（变体2）",
-      "description": "旅行目的地调研与每日行程制定，含物流规划、预算跟踪与体验优化。当用户规划行程、创建旅行 itinerary、对比目的地或组织旅行物流时使用。",
-      "enDescription": "Travel destination research and daily itinerary creation with logistics planning, budget tracking, and experience optimization. Use when planning trips, creating travel itineraries, comparing destinations, or organizing travel logistics.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-2",
-      "githubDir": "skills/travel-planner-2"
-    },
-    {
-      "name": "travel-planner-3",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "旅行行程规划（变体3）",
-      "description": "创建综合旅行行程，含目的地分析、预算规划、交通、住宿与本地洞察。当用户规划行程、组织旅行日程或寻求目的地推荐时使用。",
-      "enDescription": "Creates comprehensive travel itineraries with destination analysis, budget planning, transportation, accommodation, and local insights. Use when planning trips, organizing travel schedules, or seeking destination recommendations.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "automation"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-3",
-      "githubDir": "skills/travel-planner-3"
-    },
-    {
-      "name": "wechat-article-writer",
-      "category": "文档与内容",
-      "enCategory": "Docs & Content",
-      "zh": "公众号文章写作",
-      "description": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
-      "enDescription": "公众号文章自动化写作流程。支持资料搜索、文章撰写、爆款标题生成、排版优化。当用户提到写公众号、微信文章、自媒体写作、爆款文章、内容创作时使用此 skill。",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "automation"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wechat-article-writer",
-      "githubDir": "skills/wechat-article-writer"
     },
     {
       "name": "data-visualization",
@@ -2072,6 +1954,110 @@
       "githubDir": "skills/executing-plans"
     },
     {
+      "name": "find-skills",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "技能发现与安装",
+      "description": "帮助用户发现并安装可用的 agent 技能。当用户问“我该怎么做 X”“找一个做 X 的技能”“有没有能做…的技能”或表达想要扩展能力时，使用本技能来寻找可能以可安装技能形式存在的功能。",
+      "enDescription": "Helps users discover and install agent skills when they ask questions like \\\"how do I do X\\\", \\\"find a skill for X\\\", \\\"is there a skill that can...\\\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/find-skills",
+      "githubDir": "skills/find-skills"
+    },
+    {
+      "name": "find-skills-2",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "技能发现与安装",
+      "description": "当用户询问「怎么做 X」「找 X 的技能」「有没有能…的技能」或想扩展能力时，帮助用户发现并安装 agent 技能。",
+      "enDescription": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/find-skills-2",
+      "githubDir": "skills/find-skills-2"
+    },
+    {
+      "name": "grill-me",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "深度质询",
+      "description": "一场毫不留情的访谈，用于打磨计划或设计。当用户想深入推敲方案、暴露漏洞或强化论证时使用。",
+      "enDescription": "A relentless interview to sharpen a plan or design.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media",
+        "test-qa",
+        "security"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-me",
+      "githubDir": "skills/grill-me"
+    },
+    {
+      "name": "grill-with-docs",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "质询并产出文档",
+      "description": "一场毫不留情的访谈，用于打磨计划或设计，同时在过程中生成文档（ADR 与术语表）。当用户想边讨论边沉淀决策记录与术语时使用。",
+      "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "doc-writing",
+        "design-media",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-with-docs",
+      "githubDir": "skills/grill-with-docs"
+    },
+    {
+      "name": "grilling",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "压力质询",
+      "description": "就某个计划、决策或想法 relentlessly 质询用户。当用户想压力测试自己的思路，或使用了任何「grill」触发短语时使用。",
+      "enDescription": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grilling",
+      "githubDir": "skills/grilling"
+    },
+    {
+      "name": "handoff",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "会话交接文档",
+      "description": "将当前对话压缩成一份交接文档，供另一个 agent 接手继续工作。",
+      "enDescription": "Compact the current conversation into a handoff document for another agent to pick up.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "doc-writing",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/handoff",
+      "githubDir": "skills/handoff"
+    },
+    {
       "name": "implement-spec",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -2156,6 +2142,25 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/paper-context-resolver",
       "githubDir": "skills/paper-context-resolver"
+    },
+    {
+      "name": "planning-with-files",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "文件规划助手",
+      "description": "Manus 式持久化基于文件的规划，为 AI 编码智能体在磁盘保留 task_plan.md、findings.md、progress.md，使工作在上下文丢失与 /clear 后仍能存活。当用户要求规划、拆分或组织多步骤项目、研究任务或任何需要 5+ 工具调用的工作时使用。支持 /clear 后自动会话恢复。",
+      "enDescription": "Manus-style persistent file-based planning for AI coding agents: keeps task_plan.md, findings.md, and progress.md on disk so work survives context loss and /clear. Use when asked to plan, break down, or organize a multi-step project, research task, or any work requiring 5+ tool calls. Supports automatic session recovery after /clear.",
+      "homepage": "",
+      "allowedTools": [
+        "Read Write Edit Bash Glob Grep"
+      ],
+      "tags": [
+        "ai-agent",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
+      "githubDir": "skills/planning-with-files"
     },
     {
       "name": "project-workflow-analysis-blueprint-generator",
@@ -2259,6 +2264,22 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/simplify",
       "githubDir": "skills/simplify"
+    },
+    {
+      "name": "skill-creator",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "技能创建与优化",
+      "description": "用于创建有效技能的指南，当用户想要创建新技能（或更新现有技能）以扩展 CodeBuddy 的能力（借助专业知识、工作流或工具集成）时使用。",
+      "enDescription": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/skill-creator",
+      "githubDir": "skills/skill-creator"
     },
     {
       "name": "systematic-debugging",
@@ -3176,25 +3197,6 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-video-prompts",
       "githubDir": "skills/short-drama-video-prompts"
-    },
-    {
-      "name": "short-drama-write",
-      "category": "音视频与多媒体",
-      "enCategory": "Media & Multimedia",
-      "zh": "短剧剧本编写",
-      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文地规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。",
-      "enDescription": "Write or revise shootable Chinese short-drama / comic episode scripts, and normalize provided scripts while preserving the author's original wording.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-write",
-      "githubDir": "skills/short-drama-write"
     },
     {
       "name": "suno",

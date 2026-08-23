@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.20.32 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
+// prototype/src/parts/03-detail.js v1.20.34 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）
@@ -125,6 +125,8 @@ function detailHTML(skill) {
 
   // 安装命令区（复制即用）
   const cmd = skill.installCommand || `npx skills add sutchan/Agent-Skills-Hub/skills/${skill.name}`;
+  // Skills Manager 桌面应用：不支持深链接导入，按钮跳转到项目页，由用户在桌面端用「+ Add Skills」导入
+  const SKILLS_MANAGER_URL = "https://github.com/xingkongliang/skills-manager";
   const installHTML = `
     <div class="d-install">
       <h4>${I18N.t("detail.install")}</h4>
@@ -133,6 +135,9 @@ function detailHTML(skill) {
         <button id="copyCmdBtn" class="btn ghost" data-cmd="${esc(cmd)}" aria-label="${I18N.t("detail.copyCmd")}">${I18N.t("detail.copyCmd")}</button>
       </div>
       <span id="copyCmdTip" class="copy-tip"></span>
+      <a id="skillManagerBtn" class="btn primary open-ext" href="${SKILLS_MANAGER_URL}" target="_blank" rel="noopener noreferrer" title="${I18N.t("detail.importWithManagerHint")}">
+        ${I18N.t("detail.importWithManager")}
+      </a>
     </div>`;
 
   // 派生指标：大小 / 文件数 / 热度

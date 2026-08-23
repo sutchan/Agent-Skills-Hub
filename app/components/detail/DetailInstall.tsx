@@ -1,10 +1,13 @@
-// app/components/detail/DetailInstall.tsx v1.20.12 — 技能详情弹窗：安装命令与复制
+// app/components/detail/DetailInstall.tsx v1.20.34 — 技能详情弹窗：安装命令与复制
 import type { Lang } from "../../lib/share";
 import { REPO_URL } from "../../lib/share";
 import type { Skill } from "../../lib/skills";
 import { copyText } from "../../lib/detail-helpers";
 
-/** 安装命令：展示 installCommand（含完整仓库路径）+ 复制按钮 + 完整 GitHub 来源链接（v1.20.9） */
+// Skills Manager 桌面应用（不支持深链接导入，按钮跳转到项目页由用户在桌面端「+ Add Skills」导入）
+const SKILLS_MANAGER_URL = "https://github.com/xingkongliang/skills-manager";
+
+/** 安装命令：展示 installCommand（含完整仓库路径）+ 复制按钮 + 完整 GitHub 来源链接 + Skills Manager 导入入口（v1.20.33） */
 export function DetailInstall({ skill, lang }: { skill: Skill; lang: Lang }) {
   if (!skill.installCommand) return null;
   return (
@@ -29,6 +32,16 @@ export function DetailInstall({ skill, lang }: { skill: Skill; lang: Lang }) {
       >
         {lang === "zh" ? "完整仓库地址：" : "Full repository: "}
         {REPO_URL}
+      </a>
+      <a
+        className="btn primary open-ext"
+        id="skillManagerBtn"
+        href={SKILLS_MANAGER_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={lang === "zh" ? "在 Skills Manager 桌面应用中导入此技能" : "Import this skill in the Skills Manager desktop app"}
+      >
+        {lang === "zh" ? "用 Skills Manager 导入" : "Import with Skills Manager"}
       </a>
     </div>
   );

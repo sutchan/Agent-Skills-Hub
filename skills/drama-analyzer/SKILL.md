@@ -5,8 +5,8 @@ description: |-
 en_description: |-
   Analyze story texts, extract key plot points and analyze dramatic functions. Use for analyzing novels, screenplay outlines, story synopses, and similar texts; identify turning points and emotional beats.
 zh_displayName: 剧本故事分析
-category: 文档与内容
-en_category: Docs & Content
+category: 品牌与设计
+en_category: Brand & Design
 version: 2.1.0
 last_updated: 2026-01-11
 license: MIT

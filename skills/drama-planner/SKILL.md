@@ -5,8 +5,8 @@ description: |-
 en_description: |-
   Produce professional vertical short-drama planning packages: emotional-value analysis, golden-three-seconds hook design, three-act structure planning. Use for early-stage short-drama project planning, commercialization design, and creative direction.
 zh_displayName: 短剧策划方案
-category: 文档与内容
-en_category: Docs & Content
+category: 品牌与设计
+en_category: Brand & Design
 version: 2.1.0
 last_updated: 2026-01-11
 license: MIT
