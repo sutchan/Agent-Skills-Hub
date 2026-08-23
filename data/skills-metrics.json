@@ -195,6 +195,11 @@
     "size": 25585,
     "files": 3
   },
+  "disk-cleaner": {
+    "popularity": 0,
+    "size": 160419,
+    "files": 6
+  },
   "documentation": {
     "popularity": 0,
     "size": 1874,
@@ -411,7 +416,7 @@
   },
   "lark-meeting": {
     "popularity": 2,
-    "size": 149102,
+    "size": 148978,
     "files": 26,
     "skillVersion": "1.0.0"
   },
@@ -514,6 +519,16 @@
     "popularity": 0,
     "size": 2131,
     "files": 1
+  },
+  "nodejs-backend-patterns": {
+    "popularity": 0,
+    "size": 26846,
+    "files": 3
+  },
+  "opc-mvp-designer": {
+    "popularity": 0,
+    "size": 5700,
+    "files": 4
   },
   "openspec-implementation": {
     "popularity": 0,

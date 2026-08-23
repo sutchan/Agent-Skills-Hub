@@ -1,8 +1,12 @@
 ---
 name: disk-cleaner
 description: Mac 智能磁盘清理助手，基于 Mole (https://github.com/tw93/Mole) 的用户友好包装器
+en_description: |-
+  Mac intelligent disk cleanup assistant — a user-friendly wrapper around Mole (https://github.com/tw93/Mole) for safe, guided removal of large and stale files.
+zh_displayName: Mac 磁盘清理助手
+category: 自动化与集成
+en_category: Automation & Integration
 ---
-
 # Disk Cleaner - Mac 智能磁盘清理助手
 
 基于 Mole (https://github.com/tw93/Mole) 的用户友好包装器，负责「安装 + 执行 + 解释 + 把关 + 指路 + 统计 + 分享」。

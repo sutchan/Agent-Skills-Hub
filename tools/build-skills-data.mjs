@@ -1,4 +1,4 @@
-// build-skills-data.mjs v1.19.40 — 解析 skills/<name>/SKILL.md 顶层 frontmatter → data/skills-data.json
+// build-skills-data.mjs v1.20.28 — 解析 skills/<name>/SKILL.md 顶层 frontmatter → data/skills-data.json
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
 // 分类(category)、简短中文名称(zh_displayName)与 description 中文译文均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 // 注意语义约定：zh 为「简短中文名称」（卡片标题），zh-desc 为「中文描述」（卡片描述区）；勿将描述句填入 zh。
@@ -61,13 +61,11 @@ const TAG_DEFS = [
   { slug: "cli", zh: "命令行", en: "CLI", re: /cli|command[\s-]?line|terminal|shell|命令行|终端|bash/i },
   { slug: "web-frontend", zh: "Web 前端", en: "Web & Frontend", re: /web|html|css|react|next\.?js|vue|frontend|前端|网页|browser/i },
   { slug: "doc-writing", zh: "文档写作", en: "Docs & Writing", re: /doc|document|markdown|writing|文档|写作|文章|report|README|文案/i },
-  { slug: "spreadsheet-data", zh: "表格数据", en: "Spreadsheet & Data", re: /spreadsheet|excel|xlsx|csv|tsv|表格|数据|data analysis|数据可视化/i },
+  { slug: "data", zh: "数据", en: "Data", re: /spreadsheet|excel|xlsx|csv|tsv|表格|数据|data analysis|数据可视化|database|sql|postgres|mysql|sqlite|mongo|supabase/i },
   { slug: "pdf", zh: "PDF", en: "PDF", re: /\bpdf\b/i },
-  { slug: "image-design", zh: "图片设计", en: "Image & Design", re: /image|svg|logo|icon|design|图片|设计|brand|品牌|海报|figma|ui\b/i },
-  { slug: "media", zh: "音视频", en: "Audio & Video", re: /audio|video|music|voice|语音|音频|视频|media|字幕|tts|语音合成/i },
+  { slug: "design-media", zh: "设计 & 媒体", en: "Design & Media", re: /image|svg|logo|icon|海报|figma|设计|图片|audio|video|music|voice|语音|音频|视频|media|字幕|tts|语音合成|animation|动画/i },
   { slug: "test-qa", zh: "测试质量", en: "Testing & QA", re: /test|testing|qa\b|quality|测试|质量|lint|审查|review/i },
   { slug: "devops", zh: "部署运维", en: "DevOps", re: /deploy|ci\/cd|devops|docker|kubernetes|vercel|部署|运维|服务器|nginx/i },
-  { slug: "database", zh: "数据库", en: "Database", re: /database|sql|postgres|mysql|sqlite|mongo|数据库|supabase/i },
   { slug: "security", zh: "安全", en: "Security", re: /security|secur|安全|vulnerab|漏洞|加密|加密|密钥|token/i },
   { slug: "automation", zh: "自动化", en: "Automation", re: /automation|workflow|automate|自动化|流程|定时|schedule/i },
   { slug: "wordpress", zh: "WordPress", en: "WordPress", re: /wordpress|\bwp\b|cms|插件|plugin/i },

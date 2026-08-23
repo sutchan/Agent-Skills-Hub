@@ -2,9 +2,9 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.20.17-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/prototype.html)
+[![Version](https://img.shields.io/badge/version-v1.20.28-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/prototype.html)
 
-A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Frontend Dev, Backend & Platform, Mobile Dev, WordPress & CMS, Engineering Practice & Quality, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security — 186 skill packs on GitHub (1 marked hidden, 185 publicly visible). Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
+A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Frontend Dev, Backend & Platform, Mobile Dev, WordPress & CMS, Engineering Practice & Quality, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security — 189 skill packs on GitHub (1 marked hidden, 188 publicly visible). Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
 
 ## Highlights
 
@@ -13,7 +13,7 @@ A centrally managed collection of AI skills covering Brand & Design, Docs & Cont
 | | Highlight | Description |
 |---|---|---|
 | ⚙️ | **Zero-maintenance listing** | Skill data and the showcase page are auto-generated from on-disk `skills/*/SKILL.md` by `npm run build` — no manual listing to maintain when adding or removing skills |
-| 🗂️ | **186 skills · 13 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Frontend Dev, Backend & Platform, Mobile Dev, WordPress & CMS, Engineering Practice & Quality, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Security |
+| 🗂️ | **189 skills · 13 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Frontend Dev, Backend & Platform, Mobile Dev, WordPress & CMS, Engineering Practice & Quality, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Security |
 | 🌏 | **Chinese by default** | Chinese category (`category`) + English category (`en_category`) + one-line summary + full Chinese description (`description`, default display language), English original in `en_description` — ready for Chinese-speaking agent users |
 | 📦 | **One-click install** | Bulk install / update / remove via [skills-manager](https://github.com/xingkongliang/skills-manager) |
 | 🚀 | **Works offline** | Self-contained static showcase (`prototype/prototype.html`) inlines all data — double-click to browse every skill with no framework dependency |
@@ -49,14 +49,14 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 | Docs & Content | 20 |
 | Data Analysis & Visualization | 2 |
 | Frontend Dev | 25 |
-| Backend & Platform | 9 |
+| Backend & Platform | 10 |
 | Mobile Dev | 13 |
 | WordPress & CMS | 11 |
-| Engineering Practice & Quality | 24 |
+| Engineering Practice & Quality | 25 |
 | File & Format Handling | 4 |
-| Automation & Integration | 13 |
+| Automation & Integration | 15 |
 | AI & Agents | 8 |
-| Media & Multimedia | 26 |
+| Media & Multimedia | 25 |
 | Security | 4 |
 
 > Browse all skills:

@@ -1,5 +1,5 @@
 {
-  "total": 185,
+  "total": 188,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -43,7 +43,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ad-creative",
@@ -61,7 +61,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/banner-creator",
@@ -79,7 +79,7 @@
       "tags": [
         "ai-agent",
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -96,7 +96,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
@@ -115,7 +115,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/brand-review",
@@ -132,8 +132,7 @@
       "allowedTools": [],
       "tags": [
         "doc-writing",
-        "image-design",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/discover-brand",
@@ -149,7 +148,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -167,7 +166,7 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/favicon",
@@ -184,7 +183,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design",
+        "design-media",
         "i18n"
       ],
       "hidden": false,
@@ -202,7 +201,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/figma-design-to-code",
@@ -218,7 +217,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design",
+        "design-media",
         "security",
         "automation"
       ],
@@ -237,7 +236,7 @@
       "allowedTools": [],
       "tags": [
         "doc-writing",
-        "image-design",
+        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -273,7 +272,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
@@ -290,7 +289,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/logo-animation",
@@ -307,7 +306,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/logo-creator",
@@ -323,7 +322,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -358,7 +357,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/muapi-3d-logo-animation",
@@ -375,7 +374,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/muapi-logo-creator",
@@ -393,7 +392,7 @@
       "tags": [
         "ai-agent",
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/redesign-existing-projects",
@@ -410,7 +409,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design",
+        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -427,7 +426,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/svg-logo-designer",
@@ -445,7 +444,7 @@
       "tags": [
         "web-frontend",
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
@@ -464,7 +463,7 @@
       "tags": [
         "ai-agent",
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ui-ux-pro-max",
@@ -482,7 +481,7 @@
       "tags": [
         "ai-agent",
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-design-guidelines",
@@ -498,8 +497,8 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "spreadsheet-data",
-        "image-design",
+        "data",
+        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -518,7 +517,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ads-creative",
@@ -592,7 +591,7 @@
       ],
       "tags": [
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -610,7 +609,7 @@
       "allowedTools": [],
       "tags": [
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -680,7 +679,7 @@
       "allowedTools": [],
       "tags": [
         "doc-writing",
-        "image-design",
+        "design-media",
         "security"
       ],
       "hidden": false,
@@ -698,7 +697,7 @@
       "allowedTools": [],
       "tags": [
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-with-docs",
@@ -804,7 +803,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "database"
+        "data"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner",
@@ -872,8 +871,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "spreadsheet-data",
-        "image-design",
+        "data",
         "test-qa"
       ],
       "hidden": false,
@@ -890,7 +888,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "spreadsheet-data",
+        "data",
         "automation"
       ],
       "hidden": false,
@@ -928,7 +926,7 @@
       "tags": [
         "ai-agent",
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/html-design-prototypes",
@@ -983,8 +981,8 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "spreadsheet-data",
-        "image-design"
+        "data",
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/next-best-practices",
@@ -1041,8 +1039,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "web-frontend",
-        "image-design"
+        "web-frontend"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-react-typescript",
@@ -1115,7 +1112,7 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype",
@@ -1132,7 +1129,7 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-design-explore",
@@ -1150,7 +1147,7 @@
       "tags": [
         "ai-agent",
         "web-frontend",
-        "image-design"
+        "test-qa"
       ],
       "hidden": false,
       "license": "Apache-2.0",
@@ -1167,8 +1164,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "web-frontend",
-        "image-design"
+        "web-frontend"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-ui-variants",
@@ -1202,8 +1198,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "web-frontend",
-        "image-design"
+        "web-frontend"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/shadcn-ui",
@@ -1220,7 +1215,7 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -1239,7 +1234,7 @@
       "tags": [
         "web-frontend",
         "doc-writing",
-        "spreadsheet-data"
+        "data"
       ],
       "hidden": false,
       "license": "MIT",
@@ -1257,7 +1252,7 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -1292,7 +1287,7 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "author": "github.com/vuejs-ai",
@@ -1329,8 +1324,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "web-frontend",
-        "image-design"
+        "web-frontend"
       ],
       "hidden": false,
       "license": "Complete terms in LICENSE.txt",
@@ -1348,7 +1342,6 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "image-design",
         "automation"
       ],
       "hidden": false,
@@ -1415,7 +1408,7 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "spreadsheet-data",
+        "data",
         "devops"
       ],
       "hidden": false,
@@ -1440,6 +1433,22 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nestjs-best-practices",
       "githubDir": "skills/nestjs-best-practices"
+    },
+    {
+      "name": "nodejs-backend-patterns",
+      "category": "后端与平台",
+      "enCategory": "Backend & Platform",
+      "zh": "Node.js 后端模式",
+      "description": "Build production-ready Node.js backend services with Express/Fastify, implementing middleware patterns, error handling, authentication, database integration, and API design best practices. Use when creating Node.js servers, REST APIs, GraphQL backends, or microservices architectures.",
+      "enDescription": "Build production-ready Node.js backend services with Express/Fastify, implementing middleware patterns, error handling, authentication, database integration, and API design best practices. Use when creating Node.js servers, REST APIs, GraphQL backends, or microservices architectures.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "data"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nodejs-backend-patterns",
+      "githubDir": "skills/nodejs-backend-patterns"
     },
     {
       "name": "php-pro",
@@ -1509,7 +1518,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "spreadsheet-data"
+        "data"
       ],
       "hidden": false,
       "license": "MIT",
@@ -1559,7 +1568,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-apply-architecture-best-practices",
@@ -1575,8 +1584,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/flutter-build-responsive-layout",
@@ -1641,7 +1649,7 @@
       "tags": [
         "cli",
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-android-emulator",
@@ -1657,7 +1665,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "media",
+        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -1675,7 +1683,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "media",
+        "design-media",
         "automation"
       ],
       "hidden": false,
@@ -1845,7 +1853,7 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "image-design",
+        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -1899,8 +1907,8 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "spreadsheet-data",
-        "image-design"
+        "data",
+        "security"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wp-plugin-development",
@@ -2004,7 +2012,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design",
+        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -2095,6 +2103,24 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/improve-codebase-architecture",
       "githubDir": "skills/improve-codebase-architecture"
+    },
+    {
+      "name": "opc-mvp-designer",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "一人公司 MVP 设计",
+      "description": "Define the smallest viable experiment and MVP for a selected one-person company opportunity. Use when Codex needs to explain what MVP means when needed, verify prerequisites, ask one question at a time, present multiple MVP options, and write user-confirmed outputs into `opc-doc/`.",
+      "enDescription": "Define the smallest viable experiment and MVP for a selected one-person company opportunity. Use when Codex needs to explain what MVP means when needed, verify prerequisites, ask one question at a time, present multiple MVP options, and write user-confirmed outputs into opc-doc/.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "doc-writing",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/opc-mvp-designer",
+      "githubDir": "skills/opc-mvp-designer"
     },
     {
       "name": "openspec-implementation",
@@ -2277,7 +2303,7 @@
       "allowedTools": [],
       "tags": [
         "doc-writing",
-        "image-design",
+        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -2346,8 +2372,8 @@
       "allowedTools": [],
       "tags": [
         "doc-writing",
-        "spreadsheet-data",
-        "image-design"
+        "data",
+        "design-media"
       ],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
@@ -2364,9 +2390,9 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "spreadsheet-data",
+        "data",
         "pdf",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
@@ -2402,7 +2428,7 @@
       "tags": [
         "web-frontend",
         "doc-writing",
-        "spreadsheet-data"
+        "data"
       ],
       "hidden": false,
       "license": "Proprietary. LICENSE.txt has complete terms",
@@ -2449,6 +2475,22 @@
       "githubDir": "skills/browser-automation"
     },
     {
+      "name": "disk-cleaner",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "Mac 磁盘清理助手",
+      "description": "Mac 智能磁盘清理助手，基于 Mole (https://github.com/tw93/Mole) 的用户友好包装器",
+      "enDescription": "Mac intelligent disk cleanup assistant — a user-friendly wrapper around Mole (https://github.com/tw93/Mole) for safe, guided removal of large and stale files.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "automation"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/disk-cleaner",
+      "githubDir": "skills/disk-cleaner"
+    },
+    {
       "name": "instagram-api",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
@@ -2460,11 +2502,29 @@
       "tags": [
         "ai-agent",
         "web-frontend",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/instagram-api",
       "githubDir": "skills/instagram-api"
+    },
+    {
+      "name": "lark-meeting",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "飞书视频会议",
+      "description": "飞书视频会议：查询会议记录与会议产物(纪要/逐字稿/妙记)、妙记搜索/上传/下载/编辑、机器人参与会议；查询进行中的会议、实时会议内容(发言/聊天/共享文档)问答(会上/会里)、发送会中聊天/表情；基于 meeting_id、meeting_no、event_id、note_id、minute_token、vc-node-id 或妙记 URL 查询相关信息。预约会议、忙闲和会议室管理走 lark-calendar。",
+      "enDescription": "Feishu (Lark) video meetings: query meeting records and artifacts (minutes / transcripts / smart notes), search / upload / download / edit smart notes, invite bots to meetings; query in-progress meetings and answer questions about live meeting content (speech / chat / shared docs) via meeting_id, meeting_no, event_id, note_id, minute_token, vc-node-id or smart-note URL. Scheduling, free-busy and room management go to lark-calendar.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "doc-writing",
+        "design-media",
+        "security"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/lark-meeting",
+      "githubDir": "skills/lark-meeting"
     },
     {
       "name": "orca-cli",
@@ -2513,7 +2573,7 @@
       "tags": [
         "cli",
         "web-frontend",
-        "image-design"
+        "automation"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwriter",
@@ -2567,7 +2627,7 @@
       "tags": [
         "ai-agent",
         "web-frontend",
-        "spreadsheet-data"
+        "data"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tiktok-api",
@@ -2584,7 +2644,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "spreadsheet-data",
+        "data",
         "test-qa"
       ],
       "hidden": false,
@@ -2604,7 +2664,7 @@
       ],
       "tags": [
         "cli",
-        "media",
+        "design-media",
         "automation"
       ],
       "hidden": false,
@@ -2621,7 +2681,6 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design",
         "security",
         "automation"
       ],
@@ -2677,7 +2736,7 @@
       "tags": [
         "ai-agent",
         "cli",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-image-generation",
@@ -2729,7 +2788,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/brainstorming",
@@ -2802,7 +2861,7 @@
       "tags": [
         "ai-agent",
         "cli",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-avatar-video",
@@ -2843,7 +2902,7 @@
       "tags": [
         "ai-agent",
         "cli",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-video-generation",
@@ -2882,7 +2941,7 @@
       "tags": [
         "ai-agent",
         "cli",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/capcut",
@@ -2917,7 +2976,7 @@
       "allowedTools": [],
       "tags": [
         "cli",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/descript",
@@ -2934,7 +2993,7 @@
       "allowedTools": [],
       "tags": [
         "cli",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-core",
@@ -2951,8 +3010,7 @@
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "image-design",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-creative",
@@ -2978,24 +3036,6 @@
       "githubDir": "skills/image-to-video"
     },
     {
-      "name": "lark-meeting",
-      "category": "音视频与多媒体",
-      "enCategory": "Media & Multimedia",
-      "zh": "飞书视频会议",
-      "description": "飞书视频会议：查询会议记录与会议产物(纪要/逐字稿/妙记)、妙记搜索/上传/下载/编辑、机器人参与会议；查询进行中的会议、实时会议内容(发言/聊天/共享文档)问答(会上/会里)、发送会中聊天/表情；基于 meeting_id、meeting_no、event_id、note_id、minute_token、vc-node-id 或妙记 URL 查询相关信息。预约会议、忙闲和会议室管理走 lark-calendar。",
-      "enDescription": "Lark video meetings: query meeting records and meeting artifacts (minutes/transcripts/notes), search/upload/download/edit notes, bot participation in meetings; query ongoing meetings, ask questions over real-time meeting content (speech/chat/shared docs), send in-meeting chat/emojis; query by meeting_id, meeting_no, event_id, note_id, minute_token, vc-node-id or note URL. Meeting scheduling, availability and room management go through lark-calendar.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing",
-        "media"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/lark-meeting",
-      "githubDir": "skills/lark-meeting"
-    },
-    {
       "name": "luma",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
@@ -3006,8 +3046,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/luma",
@@ -3023,8 +3062,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "image-design",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/manga-drama",
@@ -3041,7 +3079,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/mcp-vods",
@@ -3058,7 +3096,7 @@
       "allowedTools": [],
       "tags": [
         "cli",
-        "media",
+        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -3075,7 +3113,7 @@
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/remotion-best-practices",
@@ -3093,7 +3131,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/scripting-and-storyboarding",
@@ -3111,7 +3149,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -3130,7 +3168,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "image-design"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -3149,7 +3187,7 @@
       "tags": [
         "ai-agent",
         "doc-writing",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "license": "MIT",
@@ -3167,8 +3205,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/suno",
@@ -3185,7 +3222,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/talking-head-and-piece-to-camera",
@@ -3202,7 +3239,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "media",
+        "design-media",
         "automation"
       ],
       "hidden": false,
@@ -3239,7 +3276,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "media",
+        "design-media",
         "automation"
       ],
       "hidden": false,
@@ -3257,8 +3294,7 @@
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "image-design",
-        "media"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/video-storyboard",
@@ -3276,7 +3312,7 @@
       "tags": [
         "ai-agent",
         "cli",
-        "spreadsheet-data"
+        "data"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/better-auth-best-practices",

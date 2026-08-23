@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.28] - 2026-08-23
+
+### chore: 合并标签体系并补全新增技能契约字段
+
+- 标签合并（tools/build-skills-data.mjs TAG_DEFS + app SkillsExplorer.tsx + prototype i18n.js 三处同步）：`database` 并入 `data`（数据维度统一）；`image-design` 与 `media` 合并为 `design-media`（设计 & 媒体，并收窄正则去掉 brand/ui 泛匹配，避免与「品牌与设计」分类冲突）。标签数 16→14。
+- 补全会话间新增的 4 个缺字段技能（disk-cleaner / lark-meeting / nodejs-backend-patterns / opc-mvp-designer）的 `zh_displayName / category / en_category / en_description`，归到正确 13 类，消除 build 游离「其他」类（14→13 类，「其他」归零）。
+- 全链路验证：validate 189 技能规范、build 13 类、LF 完好。
+- 同步 README 中/英（徽章 + 概述 + 统计卡 + 分类计数表：189 技能 / 13 类）。根 `package.json` version 升至 v1.20.28。
+
+[1.20.28]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.28
+
 ## [1.20.27] - 2026-08-23
 
 ### fix: 去除 Hero 随机学习按钮重复 🎲 图标
