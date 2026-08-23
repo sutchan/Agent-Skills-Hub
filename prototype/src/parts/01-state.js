@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.20.22 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.20.28 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -36,8 +36,6 @@ const state = {
   query: "",
   // 分类筛选（多选 OR，空数组 = 全部）；v1.19.8 起由单选 cat 升级为多选 cats
   cats: [],
-  // 功能标签筛选（多选 OR，空数组 = 全部）；与 cats 以 AND 组合（v1.20.12）
-  tags: [],
   // 排序：name↑（默认，按 name）/ name↓ / cat（按分类）/ zh（按中文名）
   sort: "name",
   // 当前页码（0 基），切换筛选/搜索/排序时重置为 0
@@ -85,17 +83,14 @@ function catHue(c) {
   return h;
 }
 
-// 单次遍历预聚合分类 + 功能标签计数（v1.20.21）：合并原 catCounts/tagCounts 两处重复遍历，
-// 返回 { cats: Map<cat,count>, tags: Map<tagSlug,count> }，供 renderCats/renderTags 共用
+// 单次遍历预聚合分类计数（v1.20.21 起合并原 catCounts 遍历），供 renderCats 使用
 function aggregateFilters() {
   const cats = new Map();
-  const tags = new Map();
   SKILLS_DATA.skills.forEach((s) => {
     if (s.hidden) return;
     cats.set(s.category, (cats.get(s.category) || 0) + 1);
-    if (Array.isArray(s.tags)) s.tags.forEach((t) => tags.set(t, (tags.get(t) || 0) + 1));
   });
-  return { cats, tags };
+  return { cats };
 }
 
 // 名称 -> 技能对象索引（01-state 共享作用域），避免每次卡片点击线性扫描全部技能

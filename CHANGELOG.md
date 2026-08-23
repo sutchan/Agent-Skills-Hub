@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.30] - 2026-08-23
+
+### fix: 修复 code-review 发现的标准与规格偏差
+
+- **Standards**：`lark-meeting` SKILL.md `description` 改 `|-` 块标量（去除双引号单行）+ 删除冗余空 `metadata` 块；`nodejs-backend-patterns` 与 `opc-mvp-designer` SKILL.md `description` 补中文译文（原仅英文，违反 frontmatter 契约）；`disk-cleaner` 经核已合规无需改。
+- **Spec**：`openspec/spec.md` §2.3 分类口径同步为 13 类、明确 `description` 须 `|-` 块标量、修正 tags 已生成并消费的事实；`openspec/project.md` §4.5.3 分类筛选同步为「多选 OR」、标签维度已落地为第二组筛选；`app/lib/share.ts` 的 `buildShareText` 优先基于部署站点 `origin` 构造展示页链接（openspec §4.5.4.4），回退 GitHub；`prototype/src/parts/04-interactions.js` 分享仓库链接改 `location.origin` 动态。
+- 根 `package.json` version 升至 v1.20.30
+
+[1.20.30]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.30
+
 ## [1.20.28] - 2026-08-23
 
 ### chore: 合并标签体系并补全新增技能契约字段
@@ -12,6 +22,31 @@
 - 同步 README 中/英（徽章 + 概述 + 统计卡 + 分类计数表：189 技能 / 13 类）。根 `package.json` version 升至 v1.20.28。
 
 [1.20.28]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.28
+
+## [1.20.28] - 2026-08-23
+
+### refactor: 移除原型标签导航（.tags-nav）及整套标签筛选链路
+
+- `prototype/src/index.html`：删除 `<nav class="tags-nav">`（含 `tags-label`/`#tags` 容器）。
+- `prototype/src/parts/02-render.js`：移除 `renderTags` 函数；`buildFilterItems` 仅返回 `catItems`（去 `tagItems`）；`renderGrid` 删除 `renderTags(agg)` 调用与标签过滤条件（`state.tags` AND 组合分支）。
+- `prototype/src/parts/01-state.js`：移除 `state.tags`；`aggregateFilters` 不再遍历 `s.tags`，仅聚合分类计数。
+- `prototype/src/parts/04-interactions.js`：移除 `#tags` 点击事件委托；`clearFilters` 去掉 `state.tags = []` 复位。
+- `prototype/src/i18n.js`：移除 `TAG_LABELS` / `tagLabel` 及 `api.tagLabel`/`api.TAG_LABELS` 暴露，删除无用 `filter.tags` 文案（zh/en）。
+- `prototype/src/styles/layout.css`：移除 `.tags-nav`/`.tags-label`/`.tags-scroll` 规则，`.filter-scroll` 仍供分类复用；`.cats` 保留。
+- 筛选现仅保留分类多维（多选 OR）+ 关键词 + 排序；动效/搜索/Hero 不受影响。无 lint 错误。
+- 根 `package.json` version 升至 v1.20.28（01-state.js/04-interactions.js 头注释由滞后 v1.20.22/v1.20.26 同步至 v1.20.28）
+
+[1.20.28]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.28
+
+## [1.20.29] - 2026-08-23
+
+### style: 减淡卡片分类色条 .cat-bar 颜色
+
+- `prototype/src/styles/components.css`：`.card .cat-bar` 背景由 `hsl(var(--hue) 65% 38%)`（高饱和深彩）调整为 `hsl(var(--hue) 50% 52%)`（降饱和 65→50、提亮度 38→52），色条更柔和、降低视觉重量；hover 的 `saturate/brightness` 滤镜保持。
+- 仅一处定义即全局生效（list 视图 `.cat-bar` 仍继承该色）。
+- 根 `package.json` version 升至 v1.20.29（components.css 头注释由滞后 v1.20.17 同步至 v1.20.29）
+
+[1.20.29]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.29
 
 ## [1.20.27] - 2026-08-23
 

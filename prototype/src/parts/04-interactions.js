@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.20.26 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
+// prototype/src/parts/04-interactions.js v1.20.28 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -122,20 +122,6 @@ function bind() {
     updateHeroNet();
     renderGrid();
   });
-  // 功能标签导航（事件委托，v1.20.12 起多选 OR，与分类 AND 组合）
-  on("#tags", "click", (e) => {
-    const chip = e.target.closest(".chip");
-    if (!chip) return;
-    const val = chip.dataset.tag || "";
-    if (!val) { state.tags = []; }
-    else {
-      const i = state.tags.indexOf(val);
-      if (i === -1) state.tags.push(val); else state.tags.splice(i, 1);
-    }
-    track("filter_tag", { tags: state.tags.slice() });
-    state.page = 0;
-    renderGrid();
-  });
   // 卡片点击打开详情（事件委托）
   // 卡片为原生 <button>，Enter/Space 原生触发 click，此处仅需处理 click，避免 double-open
   on("#grid", "click", (e) => {
@@ -154,7 +140,7 @@ function bind() {
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.tags = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; updateHeroNet(); renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; updateHeroNet(); renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
@@ -423,8 +409,10 @@ function copyText(text) {
   });
 }
 
-// 分享仓库：从 i18n 随机选一条文案（含 {n} 技能总数占位），补全完整 GitHub URL 后复制到剪贴板
-const REPO_URL = "https://github.com/sutchan/Agent-Skills-Hub";
+// 分享仓库：基于部署站点 origin 构造（openspec §4.5.4.4 优先 location.origin），回退 GitHub
+const REPO_URL = (typeof location !== "undefined" && location.origin)
+  ? location.origin
+  : "https://github.com/sutchan/Agent-Skills-Hub";
 function shareRepo() {
   const promos = I18N.t("share.promos");
   const list = Array.isArray(promos) ? promos : [String(promos || "")];

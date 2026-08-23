@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.20.27 — 独立国际化模块
+// prototype/src/i18n.js v1.20.28 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -51,7 +51,6 @@
       "share.copied": "已复制到剪贴板",
       "share.failed": "复制失败，请手动复制",
       "filter.all": "全部",
-      "filter.tags": "标签",
       "dice.btn": "今天学点什么",
       "dice.title": "为你抽中的技能",
       "dice.hint": "不知道从哪开始？让骰子决定。",
@@ -138,7 +137,6 @@
       "share.copied": "Copied to clipboard",
       "share.failed": "Copy failed, please copy manually",
       "filter.all": "All",
-      "filter.tags": "Tags",
       "dice.btn": "Learn something",
       "dice.title": "Your skill draw",
       "dice.hint": "Not sure where to start? Let the dice decide.",
@@ -284,29 +282,6 @@
   }
 
   // ---------- 6. 对外暴露 ----------
-  // 功能标签中英显示名（与 tools/build-skills-data.mjs TAG_DEFS 的 slug 对齐，v1.20.12）
-  var TAG_LABELS = {
-    "ai-agent": { zh: "AI 与智能体", en: "AI & Agents" },
-    "cli": { zh: "命令行", en: "CLI" },
-    "web-frontend": { zh: "Web 前端", en: "Web & Frontend" },
-    "doc-writing": { zh: "文档写作", en: "Docs & Writing" },
-    "data": { zh: "数据", en: "Data" },
-    "pdf": { zh: "PDF", en: "PDF" },
-    "design-media": { zh: "设计 & 媒体", en: "Design & Media" },
-    "test-qa": { zh: "测试质量", en: "Testing & QA" },
-    "devops": { zh: "部署运维", en: "DevOps" },
-    "security": { zh: "安全", en: "Security" },
-    "automation": { zh: "自动化", en: "Automation" },
-    "wordpress": { zh: "WordPress", en: "WordPress" },
-    "i18n": { zh: "翻译多语", en: "i18n & Translate" },
-    "scraping": { zh: "爬虫抓取", en: "Scraping" }
-  };
-  function tagLabel(slug, lang) {
-    var m = TAG_LABELS[slug];
-    if (!m) return slug;
-    return lang === "en" ? m.en : m.zh;
-  }
-
   var api = {
     translations: translations,
     supported: SUPPORTED,
@@ -316,9 +291,7 @@
     setLang: setLang,
     toggleLang: toggleLang,
     onLangChange: onLangChange,
-    syncDOM: syncDOM,
-    tagLabel: tagLabel,
-    TAG_LABELS: TAG_LABELS
+    syncDOM: syncDOM
   };
 
   // 兼容全局与模块化两种引入方式

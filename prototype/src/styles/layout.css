@@ -1,4 +1,4 @@
-/* prototype/src/styles/layout.css v1.20.26 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.20.28 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -77,16 +77,11 @@
 .search .icon { opacity: .6; }
 /* 结果计数（搜索/筛选后的条数播报与展示，aria-live 提供读屏反馈） */
 .result-count { margin-left: auto; font-size: 12.5px; color: var(--text-2); white-space: nowrap; }
-/* 筛选条（分类 + 标签）共用布局：桌面换行，移动端横向可滚动（DESIGN §5）；
-   内容限宽居中与网格对齐；统一垂直节奏避免两行粘连/断裂。
-   注：.cats-scroll 与 .tags-scroll 样式此前重复定义且垂直间距不一致（4px vs 0），
-   现合并为统一基类 .filter-scroll（v1.20.18），消除重复冲突。 */
+/* 筛选条（分类）布局：桌面换行，移动端横向可滚动（DESIGN §5）；
+   内容限宽居中与网格对齐；统一垂直节奏。基类 .filter-scroll 由分类复用（v1.20.18 合并）。 */
 .filter-scroll { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 6px 24px; }
 .cats { width: 100%; overflow: hidden; }
-.tags-nav { display: flex; align-items: flex-start; gap: 10px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-.tags-label { flex: 0 0 auto; font-size: 12px; font-weight: 600; color: var(--text-3); line-height: 30px; white-space: nowrap; }
-.tags-scroll { flex: 1 1 auto; }
-/* 移动端：两行筛选条统一改为横向可滚动，隐藏滚动条 */
+/* 移动端：筛选条改为横向可滚动，隐藏滚动条 */
 @media (max-width: 640px) {
   .filter-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
   .filter-scroll::-webkit-scrollbar { display: none; }

@@ -1,6 +1,7 @@
 ---
 name: opc-mvp-designer
-description: Define the smallest viable experiment and MVP for a selected one-person company opportunity. Use when Codex needs to explain what MVP means when needed, verify prerequisites, ask one question at a time, present multiple MVP options, and write user-confirmed outputs into `opc-doc/`.
+description: |-
+  为选定的一人公司机会界定最小可行实验与 MVP。当 Codex 需要解释 MVP 含义时按需说明、校验前置条件、一次只问一个问题、呈现多种 MVP 选项，并将用户确认的输出写入 `opc-doc/`。
 en_description: |-
   Define the smallest viable experiment and MVP for a selected one-person company opportunity. Use when Codex needs to explain what MVP means when needed, verify prerequisites, ask one question at a time, present multiple MVP options, and write user-confirmed outputs into opc-doc/.
 zh_displayName: 一人公司 MVP 设计

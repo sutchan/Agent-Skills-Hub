@@ -75,8 +75,8 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 
 ### 4.5.3 展示页交互规则（已固化进静态产物）
 
-1. **过滤维度两项**：① 关键词搜索（`name`/`zh`/`description`/`category` 不敏感匹配）；② 分类单选（chip 切换，「全部」复位）。二者取交集。
-2. **标签展示**：卡片与详情页展示由目录名派生的关键词 `#tags`（如 `agent-browser` → `#agent #browser`），仅作展示，不提供标签维度过滤。
+1. **过滤维度三项**：① 关键词搜索（`name`/`zh`/`description`/`category` 不敏感匹配）；② 分类多选（chip 可多选，OR 组合，「全部」复位）；③ 功能标签多选（第二组 chip，由 `SkillEntry.tags` 派生，OR 组合）。分类与标签取交集（AND），再与搜索取交集。
+2. **标签展示与过滤**：卡片与详情页展示由 `SkillEntry.tags` 派生的关键词 `#tags`（如 `agent-browser` → `#agent #browser`）；`tags` 同时作为第二组筛选维度（多选 OR），与分类以 AND 组合。
 3. **视图切换**：`grid`（多列卡片）/ `list`（单列横向）仅改变布局，不影响过滤结果。
 4. **中文别名展示**：卡片主标题显示英文名 `name`，中文描述在 `.desc.zh` 行展示，不另渲染英文别名。
 

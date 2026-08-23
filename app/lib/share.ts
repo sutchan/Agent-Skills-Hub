@@ -27,8 +27,9 @@ export const SHARE_FEEDBACK: Record<Lang, { ok: string; fail: string; btn: strin
 };
 
 /**
- * 构造分享文本：技能 GitHub 链接 + 随机宣传文案（二者以空行分隔）。
- * 链接对齐 prototype 03-detail.js 的 REPO_SKILLS_TREE + 技能名（站点无关，跨部署稳定）。
+ * 构造分享文本：技能展示页链接 + 随机宣传文案（二者以空行分隔）。
+ * 链接优先基于部署站点 origin（openspec §4.5.4.4：优先 location.origin + 仓库根 path），
+ * 仅当无 origin（SSR/非浏览器）时回退 GitHub 源码 tree，保证跨部署稳定。
  */
 export function buildShareText(
   name: string,
@@ -37,7 +38,10 @@ export function buildShareText(
   origin?: string,
   basePath?: string
 ): string {
-  const link = `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/${encodeURIComponent(name)}/`;
+  const slug = encodeURIComponent(name);
+  const link = origin
+    ? `${origin}${basePath || ""}/skills/${slug}/`
+    : `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/${slug}/`;
   const promos = SHARE_PROMOS[lang] ?? SHARE_PROMOS.zh;
   const promo = promos.length
     ? promos[Math.floor(Math.random() * promos.length)].replace("{n}", String(total))
