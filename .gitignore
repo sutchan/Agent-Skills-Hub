@@ -42,6 +42,8 @@ prototype/node_modules/
 # app/ 子项目（独立 Next.js 应用）：依赖与构建产物均不入库
 app/node_modules/
 app/.next/
+# EO 以根目录(./)部署时复制出的根 .next（Next 构建产物，不入库）
+.next/
 # 注意：prototype/out/ 为预构建 HTML 高保真原型，属交付物，已入库（不忽略）
 # 但 out/_next/ 是 Next.js 瞬时构建产物（哈希化 JS/CSS），每次 build 都会变更，应忽略
 prototype/out/_next/
@@ -65,4 +67,5 @@ prototype/out/_next/
 !prototype/build-skills-data.mjs
 !tools/validate-skills.mjs
 !tools/_scan_fm_bug.mjs
+!tools/copy-next.mjs
 *.log

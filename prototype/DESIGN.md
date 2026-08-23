@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.20.32
+> 路径：`prototype/DESIGN.md` · 版本：1.20.45
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -185,7 +185,7 @@
 - 原型为只读展示，无表单提交错误。
 - 边界情况：技能 `zh`/`description` 缺失时由 `esc()` 安全降级为空串，i18n 缺失 key 时由 `I18N.t()` 回退 zh / key 原文，均不崩溃。
 - 仓库内 Markdown 文档（README / CONTRIBUTING 等）的技能链接使用相对路径 `skills/<name>/`，由 GitHub 自动解析，避免硬编码用户名。
-- 原型站点详情弹窗的"查看技能"使用绝对 GitHub 链接 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>/`，由 `prototype/src/parts/03-detail.js` 的 `REPO_SKILLS_TREE` 常量维护；app 层 `SkillDialog.tsx` 同样硬编码该常量，两层保持一致。
+- 原型站点详情弹窗的"查看技能"使用绝对 GitHub 链接 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>/`，由 `prototype/src/parts/03-detail.js` 的 `REPO_SKILLS_TREE` 常量维护；app 层 `app/components/detail-modal.tsx` 同样硬编码 `githubDir`（`app/lib/skills.ts`）指向该常量，两层保持一致。
 
 ### 4.4 空状态（Empty）
 
@@ -199,7 +199,7 @@
 - 分类 chip 用 `aria-pressed` 反映选中态。
 - 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
 - 顶部栏图标按钮统一 `.icon-btn`（34px、flex 居中、`aria-pressed`/`aria-label`），`#settingsBtn` 带 `aria-label`（v1.17.2 补齐样式，修复按钮参差对齐）。
-- **app 层对齐（v1.20.6）**：`app/components/skill-card.tsx` 卡片根已改为原生 `<button>`（依赖原生 Enter/Space）；`app/components/detail-modal.tsx` 自带 Esc 关闭 + 焦点陷阱（`keydown` 监听，无独立 `ui/dialog.tsx`）；顶栏（`AppShell.tsx`）已含 `#langBtn` 语言切换与 `#themeBtn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`）；`SkillsExplorer.tsx` 顶栏含网格/列表视图切换（`#viewBtn`）与 `#settingsBtn` 齿轮按钮，打开 `app/components/settings-panel.tsx` 设置弹窗（聚合「界面元素 / 名称显示 / 显示密度」三组，无独立 `ui/settings-dialog.tsx`）；视图（`ash-view`）、密度（`ash-density`，写 `data-density` + globals.css `:root[data-density="compact"]` 生效）、界面元素、名称显示均持久化；搜索框新增 120ms 防抖 + 输入法 composition 拦截（对齐原型 `DEBOUNCE_MS`）；结果计数 `#resultCount`（aria-live）；滚动超 300px 显示回到顶部 `#toTop`（`.to-top.show` 样式）。
+- **app 层对齐（v1.20.6）**：`app/components/skill-card.tsx` 卡片根已改为原生 `<button>`（依赖原生 Enter/Space）；`app/components/detail-modal.tsx` 自带 Esc 关闭 + 焦点陷阱（`keydown` 监听，无独立 `ui/dialog.tsx`）；顶栏（`AppShell.tsx`）已含 `#langBtn` 语言切换与 `#themeBtn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`）；`SkillsExplorer.tsx` 顶栏含网格/列表视图切换（`#viewBtn`）与 `#settingsBtn` 齿轮按钮，打开 `app/components/settings-panel.tsx` 设置弹窗（聚合「界面元素 / 名称显示 / 显示密度」三组，无独立 `ui/settings-dialog.tsx`）；视图（`ash-view`）、密度（`ash-density`，写 `data-density` + globals.css `:root[data-density="compact"]` 生效）、界面元素、名称显示均持久化；搜索框新增 120ms 防抖 + 输入法 composition 拦截（对齐原型 `DEBOUNCE_MS`）；结果计数 `#resultCount`（aria-live）；滚动超 300px 显示回到顶部 `#toTop`（`.to-top.show` 样式）；`AppShell.tsx` 渲染 `<section class="hero" id="hero">` 节点网 Hero（按分类计数动态生成 `#netNodes`，双语标题/副标题/特性标签 + 方案 B 随机骰子 `#diceBtn`，点击派发 `ash:open-skill` 由 `SkillsExplorer.tsx` 打开 `detail-modal.tsx`，样式同源 `app/globals.css`）。
 
 ### 4.6 页脚区（Footer）
 

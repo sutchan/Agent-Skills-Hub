@@ -2,6 +2,131 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.48] - 2026-08-23
+
+### chore: 调整 EO 部署配置以匹配 Next.js 根目录部署
+
+- 根 `package.json` 的 `build` 改为：先构建数据/原型（供 app 读），再进入 `app/` 安装并 `next build`，最后用 `tools/copy-next.mjs` 将 `app/.next` 复制到根 `.next`
+- 新增 `tools/copy-next.mjs`（跨平台复制，规避 PowerShell 无 `cp`），并放行入库（`.gitignore`）
+- `edgeone.json` 去掉 `rootDir`（默认根 `./`）与 `nodeVersion`（用 EO 默认 LTS），保留 framework/build/install/outputDirectory 对齐后台 Next 部署配置
+- `.gitignore` 忽略根 `.next/`（Next 构建产物）
+- 根 `package.json` version 升至 v1.20.48
+
+[1.20.48]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.48
+
+## [1.20.47] - 2026-08-23
+
+### chore: 更新技能数据并补全新增技能契约至 v1.20.47
+
+- 会话间新增 10 个技能（brand-operation / clean-architecture / clean-code / compliance / douyin-video / douyin-video-summary / figma-implement-design / figma-use / git-cleanup / store-operations），原 frontmatter 仅含英文 `description`，缺本仓库 4 个必填字段。已补全 `en_description`/`zh_displayName`/`category`/`en_category`，并将 `description` 改写为中文译文（默认展示语言为中文）。
+- 补全后重新归类：品牌与设计 +8（含 figma-*、小红书运营类）、工程实践与质量 +3（clean-architecture / clean-code / git-cleanup）、音视频与多媒体 +1（douyin-video-summary）；「其他」类归零，回到 13 类契约。
+- 重新生成 `data/skills-data.json`（199 技能、公开 198）与 `data/skills-metrics.json`；`tools/build.mjs` 重新打包 `prototype/prototype.html`（自包含，版本占位注入 1.20.47）；`tools/validate-skills.mjs` 校验通过（199 技能 frontmatter 规范）。
+- README 中/英领域表计数同步（品牌与设计 38→43、工程实践与质量 33→36、音视频与多媒体 25→26、总数 189→199），根 `package.json` version 升至 v1.20.47。
+
+[1.20.47]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.47
+
+## [1.20.46] - 2026-08-23
+
+### fix: 原型健壮性增强与窄屏体验优化
+
+- 需求：分析原型可改进点（P0+P1，P2 跳过）。
+- **P0-1 URL 深链**：`prototype/src/parts/05-main.js` 新增 `writeHash()` / `parseHash()`，将分类多选、搜索词、排序、页码序列化到 `location.hash`（`#cat=..&q=..&sort=..&page=..`），刷新/分享可还原；`renderGrid()` 末尾调用 `writeHash()`，`hashchange` 事件还原并刷新。
+- **P0-2 hero 兜底**：`init()` 中 `renderHeroNodes()` 后校验 `netNodes` 为空则 `requestAnimationFrame` 重建，防御数据迟渲染。
+- **P1-3 chip 一致性**：经复核 `.chip.active`（分类色）与 `.chip-all.active`（主色绿）视觉规则已对称，无代码改动。
+- **P1-4 窄屏 hero**：`04-interactions.js` 按 `window.innerWidth<640` 收敛节点撒点边界与最小间距；`layout.css` 窄屏收敛 `.hero` 内边距并降低 `.hero-net` 透明度，避免节点网过高挤压文案。
+- **P1-5 紧凑态描述行数**：`components.css` 在 `[data-density="compact"]` 下 `.card-desc` 由 3 行回退为 2 行。
+- 改动文件头注释同步至 v1.20.46；根 `package.json` version 升至 v1.20.46。
+
+[1.20.46]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.46
+
+## [1.20.45] - 2026-08-23
+
+### style: 加粗 hero 连线让线条更明显
+
+- `prototype/src/parts/04-interactions.js`：连线 `<line>` 默认 `stroke-width` 由 1.4 加到 **2.4**。
+- `prototype/src/styles/layout.css`：`.hero-net.searching .net-line` 的 `stroke-width` 由 2 提到 **3**，与常态加粗一致。
+- 两文件头注释同步至 v1.20.45；根 `package.json` version 升至 v1.20.45。
+
+[1.20.45]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.45
+
+## [1.20.44] - 2026-08-23
+
+### feat: 连线上加入缓慢移动的圆点
+
+- 需求："#netLines 里的圆点加入缓慢移动的效果"。`#netLines` 装的是核心→节点连线（line），本身无圆点；本次为每条连线生成一个沿路径缓慢移动的 `.net-dot` 圆点。
+- 实现：`prototype/src/parts/04-interactions.js` 的 `renderHeroNodes()` 在同步连线终点处，额外创建 `<circle class="net-dot">` 并用 SVG `animateMotion`（`path="M{cx} {cy} L{x} {y}"`）沿 core→节点路径流动；时长 `4 + (idx%5)*0.7`s 错峰，纯 SMIL 合成不逐帧。
+- `prototype/src/styles/layout.css` 加 `.net-dot { fill: hsl(var(--primary)); opacity:.85; pointer-events:none }`；`@media (prefers-reduced-motion: reduce)` 新增 `.net-dot { display:none }` 关闭动效。
+- 两文件头注释同步至 v1.20.44；根 `package.json` version 升至 v1.20.44。
+
+[1.20.44]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.44
+
+## [1.20.43] - 2026-08-23
+
+### feat: 选中分类后核心节点同步分类色
+
+- 需求：选中分类后，`.hub-node.hub-core` 也改成所选分类的颜色。
+- 实现：`prototype/src/styles/layout.css` 的 `.hub-core` / `.hub-glow` 的 `fill` 改为由 CSS 变量 `--core-hue` 驱动（默认回落主色绿 152 色相）；`prototype/src/parts/04-interactions.js` 的 `updateHeroNet()` 中，当 `state.cats` 选中**单个**分类时用 `catHue()` 设 `--core-hue`，多选/清空时移除变量回落绿。`.hub-core` 用 `!important` 确保不被 `.filtering .hub-node` 的绿色覆盖。
+- 改动文件头注释同步至 v1.20.43；根 `package.json` version 升至 v1.20.43。
+
+[1.20.43]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.43
+
+## [1.20.42] - 2026-08-23
+
+### style: 去除 .chip 阴影效果
+
+- `prototype/src/styles/components.css`：移除 `.chip.active` 与 `.chip-all.active` 的 `box-shadow`（含顶部高光 inset 层），选中态改为纯彩色实心底 + 上浮，无任何阴影。
+- `prototype/src/styles/components.css` 头注释同步至 v1.20.42；根 `package.json` version 升至 v1.20.42。
+
+[1.20.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.42
+
+## [1.20.41] - 2026-08-23
+
+### style: 去除 .chip 模糊效果
+
+- `prototype/src/styles/components.css`：去掉造成柔化观感的模糊来源——① 选中态 `.chip.active` / `.chip-all.active` 的 `box-shadow` 外发光层（仅保留 `inset` 顶部高光，实体实心底不模糊）；② 默认态 hover 的 `scale(1.04)` 缩放（亚像素模糊），改为仅 `translateY` 上浮。
+- `prototype/src/styles/components.css` 头注释同步至 v1.20.41；根 `package.json` version 升至 v1.20.41。
+
+[1.20.41]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.41
+
+## [1.20.40] - 2026-08-23
+
+### fix: 修复分类 chip 点击后背景不变分类色
+
+- 根因：`renderCats`（02-render.js）仅为「全部」chip 拼 `active` 类，普通分类项虽在第 45 行算了 `const active`，但第 46 行生成按钮时**漏拼 `active` 类**，导致普通分类 chip 永远无 `active` 类，`.chip.active` 的分类彩色背景（`hsl(var(--hue) 82% 46%)`）永不触发。
+- 修复：第 46 行按钮 class 补 `${active ? " active" : ""}`，与 `aria-pressed` 一致；配合 v1.20.36 已补的点击重渲 `renderCats`，点击分类即以该分类色相显示彩色背景。
+- `prototype/src/parts/02-render.js` 头注释同步至 v1.20.40；根 `package.json` version 升至 v1.20.40。
+
+[1.20.40]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.40
+
+## [1.20.39] - 2026-08-23
+
+### style: 卡片英文名字号升至 16px
+
+- `prototype/src/styles/components.css`：`.card-title .en` 的 `font-size` 由 12px 调整为 16px（与中文名主标题同字号）；字重/颜色仍保持弱化为副标题样式。英文态（`data-lang="en"` / `nameMode="en"`）本就 `font-size: inherit` 跟随 `.card-title` 的 16px，现两态一致。
+- `prototype/src/styles/components.css` 头注释同步至 v1.20.39；根 `package.json` version 升至 v1.20.39。
+
+[1.20.39]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.39
+
+## [1.20.38] - 2026-08-23
+
+### style: 卡片描述显示三行
+
+- `prototype/src/styles/components.css`：`.card-desc` 的 `-webkit-line-clamp` / `line-clamp` 由 2 改为 3（网格态最多显示 3 行截断）；列表态（`.grid.list .card-desc`）保持 1 行不变。
+- `prototype/src/styles/components.css` 头注释同步至 v1.20.38；根 `package.json` version 升至 v1.20.38。
+
+[1.20.38]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.38
+
+## [1.20.37] - 2026-08-23
+
+### style: 网格固定三列、每页 36 个
+
+- `prototype/src/styles/layout.css`：`.grid` 网格态由 `repeat(auto-fill, minmax(260px,1fr))` 改为 **`repeat(3, 1fr)`**（桌面固定三列卡片），列表态仍单列。
+- `prototype/src/styles/responsive.css`：平板断点（≤1024px）降级为 `repeat(2, 1fr)`，移动端（≤640px）保持单列，避免三列在小屏挤压。
+- `prototype/src/parts/01-state.js`：`PAGE_SIZE` 由 48 改为 **36**（每页显示 36 个）。
+- 改动文件头注释同步至 v1.20.37；根 `package.json` version 升至 v1.20.37。
+
+[1.20.37]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.37
+
 ## [1.20.36] - 2026-08-23
 
 ### fix: 修复选中分类不显示彩色背景

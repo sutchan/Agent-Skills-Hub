@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.20.35 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.20.46 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：默认中性灰，选中态才用 --hue 派生彩色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -9,22 +9,16 @@
   color: var(--text-2);
   font-size: 13px; cursor: pointer; transition: background .15s, color .15s, border-color .15s, transform .15s ease, filter .15s ease;
 }
-/* 默认态：hover 仅中性轻弹，不改变色相 */
-.chip:hover { border-color: var(--text-3); color: var(--text); transform: translateY(-2px) scale(1.04); }
-/* 选中态：保持各自分类色相（--hue），以「彩色实心底 + 顶部高光 + 双层 ring + 上浮」强调，
+/* 默认态：hover 仅中性轻弹，不改变色相（不缩放，避免亚像素模糊） */
+.chip:hover { border-color: var(--text-3); color: var(--text); transform: translateY(-2px); }
+/* 选中态：保持各自分类色相（--hue），以「彩色实心底 + 上浮」强调，
    让被选中的分类背景直接呈现该分类的彩色（hue 由 catHue 派生）；
-   亮度 46% 让色相醒目，白字对比度仍满足 ≥4.5:1；
-   用静态质感（高光 + ring + 外发光 + 轻微上浮）替代脉冲动画，更克制、与全站专业调性一致；
+   亮度 46% 让色相醒目，白字对比度仍满足 ≥4.5:1；无阴影；
    「全部」中性筛选器仍用主色绿（见 .chip-all.active），避免异色相混淆全量语义 */
 .chip.active {
   background: hsl(var(--hue) 82% 46%);
   color: hsl(0 0% 100%);
   border-color: hsl(var(--hue) 90% 66%);
-  /* 外发光（同色）+ 内描边 ring（浅色）+ 顶部高光，营造「被抬起、被聚焦」的实体感 */
-  box-shadow:
-    0 4px 14px hsl(var(--hue) 82% 46% / .5),
-    0 0 0 1px hsl(var(--hue) 90% 72% / .55),
-    inset 0 1px 0 hsl(0 0% 100% / .35);
   transform: translateY(-1px);
 }
 .chip.active:hover { color: hsl(0 0% 100%); transform: translateY(-2px); }
@@ -35,15 +29,11 @@
   .chip { padding: 6px 10px; max-width: 132px; }
   .chip > span:not(.chip-count) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
-/* 「全部」chip：选中态回落到单一主色绿（中性全量筛选器语义），并复用同款聚焦质感保持视觉权重一致 */
+/* 「全部」chip：选中态回落到单一主色绿（中性全量筛选器语义），无阴影保持视觉权重一致 */
 .chip-all.active {
   background: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
   border-color: hsl(var(--primary));
-  box-shadow:
-    0 4px 14px hsl(var(--primary) / .45),
-    0 0 0 1px hsl(var(--primary) / .55),
-    inset 0 1px 0 hsl(0 0% 100% / .35);
   transform: translateY(-1px);
 }
 .chip-all.active:hover { color: hsl(var(--primary-foreground)); transform: translateY(-2px); }
@@ -83,7 +73,7 @@
      zh：两态都仅中文名
      en：两态都仅英文原名 */
 .card-title .zh { display: block; }
-.card-title .en { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
+.card-title .en { display: block; font-size: 16px; font-weight: 400; color: var(--text-2); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
 /* 双显 + 中文态：强制显示英文原名副标题（特异性高于 base 的 html[data-lang=zh] .en 隐藏） */
 :root[data-name-mode="both"][data-lang="zh"] .card-title .en { display: block; }
 :root[data-lang="en"] .card-title .en { font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
@@ -96,15 +86,15 @@
 /* 详情弹窗标题下方英文原名：中文态弱化为副标题，英文态隐藏（避免英文名重复） */
 :root[data-lang="zh"] #dialog .sub.en { display: block; font-size: 12px; color: var(--text-2); font-weight: 400; margin-top: 2px; }
 :root[data-lang="en"] #dialog .sub.en { display: none; }
-/* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 2 行截断 */
-.card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 3 行截断 */
+.card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .card-desc > span { display: block; }
 .card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
 
 /* 紧凑密度（设置项切换）：缩小卡片内边距与色条外边距，缩短行高，提升单位屏信息量 */
 :root[data-density="compact"] .card { padding: 11px; gap: 6px; }
 :root[data-density="compact"] .card .cat-bar { margin: -11px -11px 0; }
-:root[data-density="compact"] .card .card-desc { font-size: 11px; line-height: 1.4; }
+:root[data-density="compact"] .card .card-desc { font-size: 11px; line-height: 1.4; -webkit-line-clamp: 2; line-clamp: 2; }
 :root[data-density="compact"] .grid { gap: 10px; }
 
 /* UI 元素显隐（设置项切换）：关闭时按范围隐藏描述 / 分类标签 / 分类色条

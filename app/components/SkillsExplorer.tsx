@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.20.19 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 标签筛选
+// app/components/SkillsExplorer.tsx v1.20.45 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 标签筛选 / 骰子拉起详情
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -60,6 +60,18 @@ export function SkillsExplorer({
   const [settingsOpen, setShowSettings] = useState(false);
   const [detail, setDetail] = useState<Skill | null>(null);
   const [page, setPage] = useState(0);
+
+  // 接收 Hero 骰子派发的随机技能打开详情（对齐 prototype 03-detail.js shareSkill/openDetail）
+  useEffect(() => {
+    const onPick = (e: Event) => {
+      const name = (e as CustomEvent<{ name?: string }>).detail?.name;
+      if (!name) return;
+      const sk = data.skills.find((s) => s.name === name && !s.hidden);
+      if (sk) setDetail(sk);
+    };
+    window.addEventListener("ash:open-skill", onPick as EventListener);
+    return () => window.removeEventListener("ash:open-skill", onPick as EventListener);
+  }, [data.skills]);
 
   // 恢复偏好（localStorage 不可用时回退默认）
   useEffect(() => {

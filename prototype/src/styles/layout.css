@@ -1,4 +1,4 @@
-/* prototype/src/styles/layout.css v1.20.28 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.20.46 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -20,17 +20,24 @@
 /* 方案 A：节点 hover 放大 + 发光，作为可交互技能星座 */
 .hero-net .hub-node:hover { r: 14; filter: drop-shadow(0 0 6px hsl(var(--node) / .9)); }
 .hero-net .hub-node.active { r: 16; fill: hsl(var(--primary)); filter: drop-shadow(0 0 8px hsl(var(--primary) / .9)); }
-.hero-net .hub-core { transform-box: fill-box; transform-origin: center; transition: r .3s ease, fill .3s ease; animation: corePulse 2.6s ease-in-out infinite; }
+.hero-net .hub-core { transform-box: fill-box; transform-origin: center; transition: r .3s ease, fill .3s ease; animation: corePulse 2.6s ease-in-out infinite; fill: hsl(var(--core-hue, 152) 65% 38%) !important; }
 /* 低开销动效：纯 transform/opacity（GPU 合成），不触发逐帧重排；节点错峰浮动由内联 --i 相位控制（renderHeroNodes 注入，仅一次） */
 .hub-core { animation: corePulse 2.6s ease-in-out infinite; }
 .hero-net .hub-core::after { content: ""; } /* 兼容占位，真实光环由 .hub-glow 实现 */
-.hub-glow { transform-box: fill-box; transform-origin: center; animation: coreGlow 3.4s ease-in-out infinite; }
+.hub-glow { transform-box: fill-box; transform-origin: center; animation: coreGlow 3.4s ease-in-out infinite; fill: hsl(var(--core-hue, 152) 65% 38%); }
 @keyframes corePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
 @keyframes coreGlow { 0% { transform: scale(1); opacity: .35; } 50% { transform: scale(1.9); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
 @keyframes nodeFloat { 0%, 100% { transform: translateY(0); opacity: .82; } 50% { transform: translateY(-4px); opacity: 1; } }
 /* 连线常态极慢信号起伏，hover 时增强（不逐帧重排） */
 .hero-net .net-line { animation: netBreathe 4.8s ease-in-out infinite; }
 @keyframes netBreathe { 0%, 100% { opacity: .5; } 50% { opacity: .85; } }
+/* 连线上缓慢移动的圆点（SMIL animateMotion 驱动，沿 core→节点路径流动） */
+.hero-net .net-dot { fill: hsl(var(--primary)); opacity: .85; pointer-events: none; }
+/* 窄屏：收敛 hero 内边距，避免节点网过高挤压文案（P1-4） */
+@media (max-width: 640px) {
+  .hero { padding: 28px 18px; margin: 4px auto 20px; }
+  .hero-net { opacity: .5; }
+}
 /* 搜索激活态：节点浮动暂停，保留连线脉冲（netPulse），突出"正在检索"语义 */
 .hero-net.searching .hub-node { animation: none; }
 .hero-net.searching .hub-core { animation: none; }
@@ -38,11 +45,12 @@
 /* 方案 A：筛选/搜索激活时节点网点亮联动 */
 .hero-net.filtering .hub-node { fill: hsl(var(--primary)); }
 .hero-net.filtering .hub-core { r: 20; }
-.hero-net.searching .net-line { stroke: hsl(var(--primary) / .85); stroke-width: 2; animation: netPulse 1.6s ease-in-out infinite; }
+.hero-net.searching .net-line { stroke: hsl(var(--primary) / .85); stroke-width: 3; animation: netPulse 1.6s ease-in-out infinite; }
 @keyframes netPulse { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   .hero-net .hub-core { animation: none; }
   .hero-net .hub-glow { animation: none; }
+  .hero-net .net-dot { display: none; }
   .hero-net .hub-node { animation: none; }
   .hero-net .net-line { animation: none; }
   .hero-net.searching .net-line { animation: none; }
@@ -87,8 +95,8 @@
   .filter-scroll::-webkit-scrollbar { display: none; }
 }
 
-/* 网格与卡片容器 */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 24px; max-width: 1200px; margin: 0 auto; }
+/* 网格与卡片容器：桌面固定三列（需求：页面显示三列卡片） */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 24px; max-width: 1200px; margin: 0 auto; }
 /* 列表视图：单列，卡片横向排布（对齐 view-toggle 的 list 态） */
 .grid.list { grid-template-columns: 1fr; max-width: 860px; }
 .grid.list .card { flex-direction: row; align-items: center; gap: 14px; }

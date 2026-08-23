@@ -63,7 +63,7 @@ html[data-lang="zh"] .en { display: none; }
 .icon-btn:hover { color: hsl(var(--primary)); border-color: hsl(var(--primary) / .5); }
 
 /* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1） */
-.hero { position: relative; overflow: hidden; border-radius: 18px; margin: 8px 0 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); }
+.hero { position: relative; overflow: hidden; border-radius: 18px; margin: 8px 0 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node, 152 50% 60%) / .14)); border: 1px solid var(--border); --node: 152 50% 60%; --line: 152 20% 70%; }
 .hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; }
 .hero:hover .hero-net { opacity: .9; }
 .hero-inner { position: relative; z-index: 1; max-width: 720px; }
@@ -77,6 +77,13 @@ html[data-lang="zh"] .en { display: none; }
 .hero-stat .lbl { font-size: 12px; color: var(--text-2); }
 .hero-features { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
 .hero-features li { font-size: 12.5px; line-height: 1.5; color: var(--text-2); background: hsl(var(--secondary)); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
+/* 方案 B：随机骰子（对齐 prototype .hero-dice / .btn-dice / .dice-hint） */
+.hero-dice { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 20px; }
+.btn-dice { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 12px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-weight: 600; font-size: 14px; border: 1px solid transparent; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+.btn-dice:hover { transform: translateY(-1px); box-shadow: 0 6px 16px -6px hsl(var(--primary) / .5); }
+.btn-dice:active { transform: scale(.98); }
+.btn-dice .dice-face { font-size: 18px; }
+.dice-hint { font-size: 12.5px; color: var(--text-2); }
 
 /* 控制区（搜索 + 排序 + 分类） */
 .controls { position: sticky; top: 52px; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); }

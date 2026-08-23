@@ -1,5 +1,5 @@
 {
-  "total": 188,
+  "total": 198,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -122,6 +122,22 @@
       "githubDir": "skills/brand-guidelines"
     },
     {
+      "name": "brand-operation",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "品牌号运营",
+      "description": "在小红书运营品牌号：建立官方品牌阵地、培育品牌社群、提升互动与增长。当用户要做品牌账号定位、内容规划、社群运营或账号涨粉时触发。",
+      "enDescription": "Operate a brand account on Xiaohongshu: build official presence, grow community, scale engagement.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/brand-operation",
+      "githubDir": "skills/brand-operation"
+    },
+    {
       "name": "brand-review",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -138,6 +154,23 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/brand-review",
       "githubDir": "skills/brand-review"
+    },
+    {
+      "name": "compliance",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "平台合规运营",
+      "description": "理解并遵守小红书平台规则，规避违规，维护账号健康与安全。当用户需要排查限流、违规风险、社区规范解读或账号安全运营时触发。",
+      "enDescription": "Understand and comply with Xiaohongshu platform rules; avoid violations, keep account health.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media",
+        "security"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/compliance",
+      "githubDir": "skills/compliance"
     },
     {
       "name": "discover-brand",
@@ -335,6 +368,41 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/figma-generate-library",
       "githubDir": "skills/figma-generate-library"
+    },
+    {
+      "name": "figma-implement-design",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Figma 转生产代码",
+      "description": "将 Figma 设计稿转换为可交付的生产级应用代码，保持 1:1 视觉还原。当用户要做设计到代码的实现、提到「实现设计」「生成代码」「实现组件」、提供 Figma 链接或要求按 Figma 规范构建组件时触发；Figma 画布写操作请用 figma-use。",
+      "enDescription": "Translate Figma designs into production-ready app code with 1:1 visual fidelity.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media",
+        "i18n"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/figma-implement-design",
+      "githubDir": "skills/figma-implement-design"
+    },
+    {
+      "name": "figma-use",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Figma 插件 API 调用",
+      "description": "每次调用 use_figma 工具前的必读前置技能：Figma 插件 API 调用规则与工作流。每当用户要在 Figma 文件上下文执行需要 JavaScript 的写操作或独特读操作（创建/编辑/删除节点、变量与令牌、自动布局与填充、属性绑定、结构检视）时触发。",
+      "enDescription": "MANDATORY prerequisite before every use_figma call: Figma Plugin API rules and workflows.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media",
+        "automation",
+        "wordpress"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/figma-use",
+      "githubDir": "skills/figma-use"
     },
     {
       "name": "flux-kontext",
@@ -546,6 +614,23 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/sports-news",
       "githubDir": "skills/sports-news"
+    },
+    {
+      "name": "store-operations",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "店铺运营",
+      "description": "在小红书运营店铺日常：管理库存与订单、处理客户购买、协调发货履约、规划店铺促销与活动。当用户要做店铺日常运营、商品上架、订单处理或活动策划时触发。",
+      "enDescription": "Manage Xiaohongshu shop daily ops: inventory, orders, fulfillment, promotions.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/store-operations",
+      "githubDir": "skills/store-operations"
     },
     {
       "name": "svg-logo-designer",
@@ -1850,6 +1935,42 @@
       "githubDir": "skills/architecture-blueprint-generator"
     },
     {
+      "name": "clean-architecture",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "整洁架构",
+      "description": "以依赖规则组织软件：源码依赖由外层框架指向内层用例与实体。当用户提到分层架构、依赖倒置、端口适配器（六边形）、洋葱架构、业务逻辑归属、与数据库解耦、无重写替换框架时使用。覆盖组件原则、边界与 SOLID；代码级质量见 clean-code。",
+      "enDescription": "Structure software around the Dependency Rule; ports & adapters, onion, SOLID, module boundaries.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "data",
+        "test-qa"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/clean-architecture",
+      "githubDir": "skills/clean-architecture"
+    },
+    {
+      "name": "clean-code",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "整洁代码",
+      "description": "通过规范的命名、小函数与干净的错误处理编写可读、可维护的代码。当用户提到清理代码、函数过长、代码异味、命名规范、童子军法则、单一职责或单元测试质量时触发；亦用于 PR 可读性审查、理顺混乱函数、改进错误处理。覆盖 SRP、注释纪律、格式化与单元测试。",
+      "enDescription": "Write readable, maintainable code: disciplined naming, small functions, clean error handling, unit tests.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "test-qa"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/clean-code",
+      "githubDir": "skills/clean-code"
+    },
+    {
       "name": "code-review",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -1986,6 +2107,25 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/find-skills-2",
       "githubDir": "skills/find-skills-2"
+    },
+    {
+      "name": "git-cleanup",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "Git 分支清理",
+      "description": "安全地分析与清理本地 Git 分支与工作树，按已合并、squash 合并、已被取代、仍活跃等状态分类处置。当用户要清理本地冗余分支、回收工作树或排查分支堆积时使用。",
+      "enDescription": "Safely analyze and clean up local git branches and worktrees by merged/squash/active status.",
+      "homepage": "",
+      "allowedTools": [
+        "Bash Read Grep AskUserQuestion"
+      ],
+      "tags": [
+        "test-qa",
+        "security"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/git-cleanup",
+      "githubDir": "skills/git-cleanup"
     },
     {
       "name": "grill-me",
@@ -3004,6 +3144,40 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/descript",
       "githubDir": "skills/descript"
+    },
+    {
+      "name": "douyin-video",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "抖音视频下载与文案提取",
+      "description": "抖音无水印视频下载与文案提取工具：从抖音分享链接获取无水印视频下载地址、下载视频，并通过语音识别提取视频中的口播文案自动保存。当用户需要处理抖音视频链接或提取视频内容时触发。",
+      "enDescription": "Download watermark-free Douyin videos and extract spoken copy from shared links.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/douyin-video",
+      "githubDir": "skills/douyin-video"
+    },
+    {
+      "name": "douyin-video-summary",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "抖音视频摘要",
+      "description": "抖音视频摘要：提取音频→本地 whisper.cpp 转写→生成结构化摘要，可选同步到飞书文档。当用户分享抖音链接并希望获得视频内容的文字摘要时触发。",
+      "enDescription": "Summarize Douyin videos: extract audio, transcribe locally with whisper.cpp, structured summary, optional Feishu sync.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/douyin-video-summary",
+      "githubDir": "skills/douyin-video-summary"
     },
     {
       "name": "hyperframes-core",

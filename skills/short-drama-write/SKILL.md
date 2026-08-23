@@ -1,11 +1,6 @@
 ---
 name: short-drama-write
-description: |-
-  编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文地规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。
-en_description: Write or revise shootable Chinese short-drama / manga-drama single-episode Markdown scripts, and normalize existing scripts while preserving the author's original voice. Use when the user asks to "write/revise an episode", "turn an outline into a script", "polish scenes/dialogue", "remove template feel", "de-AI the prose", or "continue the next episode"; does not handle assets, storyboards, media prompts, or final review.
-zh_displayName: 短剧剧本写作
-category: 品牌与设计
-en_category: Brand & Design
+description: 编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文地规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。
 license: MIT
 ---
 
@@ -70,14 +65,15 @@ license: MIT
 
 ## 时长估算（按需）
 
-用户问时长时才把索引写入临时目录。`--speaker` 必须替换为本集实际说话者；只有存在项目配置时才
-添加 `--project short-drama.json`：
+用户问时长时才把索引写入系统临时目录。先用 Python 查询跨平台临时目录，把第一条命令打印的完整
+路径原样替换进后两条命令的引号内。以下每条都是一行完整命令，不依赖 shell 变量或续行符；Windows
+没有 `python3` 命令时使用 `py -3`。`--speaker` 的示例值必须替换为本集实际说话者；只有存在项目
+配置时才添加 `--project short-drama.json`：
 
-```bash
-TMP_DIR=$(mktemp -d)
-python3 "{技能目录}/scripts/screenplay_index.py" 剧集/EP001/剧本.md --output "$TMP_DIR/index.jsonl" \
-  --speaker <本集角色一> --speaker <本集角色二>
-python3 "{技能目录}/scripts/duration_estimate.py" 剧集/EP001/剧本.md --index "$TMP_DIR/index.jsonl"
+```text
+python3 -c "from pathlib import Path; import tempfile, uuid; print(Path(tempfile.gettempdir()) / ('short-drama-' + uuid.uuid4().hex + '.jsonl'))"
+python3 "{技能目录}/scripts/screenplay_index.py" "剧集/EP001/剧本.md" --output "粘贴第一条命令输出的完整路径" --speaker "本集角色一" --speaker "本集角色二"
+python3 "{技能目录}/scripts/duration_estimate.py" "剧集/EP001/剧本.md" --index "粘贴第一条命令输出的完整路径"
 ```
 
 估算是参考，不是门禁；没有语速或动作段速率时只报告可数事实，不猜秒数。但任务已给目标时长时，

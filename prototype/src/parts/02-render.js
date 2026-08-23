@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.20.28 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.20.46 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
@@ -43,7 +43,7 @@ function renderCats(agg) {
   if (!container) return;
   container.innerHTML = allBtn + items.map((it) => {
     const active = state.cats.indexOf(it.key) !== -1;
-    return `<button class="chip" data-cat="${esc(it.key)}" style="--hue:${it.hue}" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
+    return `<button class="chip${active ? " active" : ""}" data-cat="${esc(it.key)}" style="--hue:${it.hue}" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
   }).join("");
 }
 
@@ -154,6 +154,8 @@ function renderGrid() {
   if (rc) rc.textContent = list.length
     ? I18N.t("result.count").replace("{n}", list.length)
     : I18N.t("result.empty");
+  // 同步深链（刷新/分享可还原当前筛选+搜索+排序+页码）
+  writeHash();
 }
 
 // 分页器：渲染「上一页 / 数字页码 / 下一页」+ 当前区间提示

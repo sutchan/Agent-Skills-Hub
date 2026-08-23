@@ -1,10 +1,13 @@
-// app/components/AppShell.tsx v1.20.33 — 应用外壳（顶栏品牌区 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.20.45 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
 import { SHARE_FEEDBACK, REPO_URL, copyRepoShare } from "../lib/share";
 import type { SkillsData } from "../lib/skills";
 import { SkillsExplorer } from "./SkillsExplorer";
+
+const HERO_W = 800;
+const HERO_H = 240;
 
 function BrandMark() {
   return (
@@ -47,6 +50,62 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
       langs: 2,
     };
   }, [data]);
+
+  // Hero 节点网：按分类计数生成动态节点（对齐 prototype 03-detail.js genNodes）
+  const heroNetRef = useRef<SVGSVGElement | null>(null);
+  useEffect(() => {
+    const svg = heroNetRef.current;
+    if (!svg) return;
+    const nodesLayer = svg.querySelector("#netNodes");
+    const linesLayer = svg.querySelector("#netLines");
+    if (!nodesLayer || !linesLayer) return;
+    const total = (data.skills || []).filter((s) => !s.hidden).length || 1;
+    const counts = new Map<string, number>();
+    for (const s of data.skills || []) {
+      if (s.hidden) continue;
+      counts.set(s.category, (counts.get(s.category) || 0) + 1);
+    }
+    const cats = Array.from(counts.entries());
+    const n = cats.length;
+    const coreX = HERO_W * 0.75;
+    const coreY = HERO_H / 2;
+    const nodes: { x: number; y: number; r: number }[] = cats.map(([, c], i) => {
+      const ang = (i / Math.max(1, n)) * Math.PI * 2;
+      const rad = 110 + (i % 3) * 18;
+      return {
+        x: coreX + Math.cos(ang) * rad,
+        y: coreY + Math.sin(ang) * rad,
+        r: 6 + Math.min(14, (c / total) * 90),
+      };
+    });
+    nodesLayer.innerHTML = "";
+    linesLayer.innerHTML = "";
+    for (const p of nodes) {
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", String(coreX));
+      line.setAttribute("y1", String(coreY));
+      line.setAttribute("x2", String(p.x));
+      line.setAttribute("y2", String(p.y));
+      line.setAttribute("class", "net-line");
+      linesLayer.appendChild(line);
+    }
+    for (const p of nodes) {
+      const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      c.setAttribute("cx", String(p.x));
+      c.setAttribute("cy", String(p.y));
+      c.setAttribute("r", String(p.r));
+      c.setAttribute("class", "hub-node");
+      nodesLayer.appendChild(c);
+    }
+  }, [data]);
+
+  // 方案 B：随机抽一个技能，派发 ash:open-skill 由 SkillsExplorer 打开详情弹窗
+  const handleDice = () => {
+    const visible = (data.skills || []).filter((s) => !s.hidden);
+    if (!visible.length) return;
+    const pick = visible[Math.floor(Math.random() * visible.length)];
+    window.dispatchEvent(new CustomEvent("ash:open-skill", { detail: { name: pick.name } }));
+  };
 
   // 页脚分享仓库：随机文案 + 完整 GitHub URL 复制到剪贴板（v1.20.9）
   const [toast, setToast] = useState<string | null>(null);
@@ -101,6 +160,39 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
           {theme === "dark" ? "☀" : "🌙"}
         </button>
       </header>
+
+      <section className="hero" id="hero" aria-labelledby={lang === "en" ? "heroTitleEn" : "heroTitle"}>
+        <svg className="hero-net" id="heroNet" ref={heroNetRef} viewBox={`0 0 ${HERO_W} ${HERO_H}`} preserveAspectRatio="xMidYMid slice" overflow="visible" aria-hidden="true">
+          <g id="netLines" stroke="hsl(var(--line))" strokeWidth={1.4} opacity={0.6}></g>
+          <g id="netNodes" fill="hsl(var(--node))"></g>
+          <circle className="hub-glow" cx={HERO_W * 0.75} cy={HERO_H / 2} r={13} fill="hsl(var(--primary))" opacity={0} />
+          <circle className="hub-node hub-core" cx={HERO_W * 0.75} cy={HERO_H / 2} r={16} fill="hsl(var(--primary))" />
+        </svg>
+        <div className="hero-inner">
+          <span className="hero-eyebrow">{lang === "zh" ? "Agent 技能枢纽" : "Agent Skills Hub"}</span>
+          <h1 className="zh" id="heroTitle">零散的 agent 技能，<br /><span className="accent">汇聚</span>成一处可检索的枢纽</h1>
+          <h1 className="en" id="heroTitleEn" aria-hidden="true">Scattered agent skills,<br /> <span className="accent">unified</span> into one searchable hub</h1>
+          <p className="zh">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
+          <p className="en">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
+          <ul className="hero-features" aria-label="Highlights">
+            <li className="zh">⚙️ 零维护清单 · 构建自动生成</li>
+            <li className="en">⚙️ Zero-maintenance, auto-generated</li>
+            <li className="zh">🌏 中文本地化 · 开箱即用</li>
+            <li className="en">🌏 Chinese-localized, ready to use</li>
+            <li className="zh">🚀 离线可用 · 无框架依赖</li>
+            <li className="en">🚀 Works offline, framework-free</li>
+          </ul>
+          <div className="hero-dice">
+            <button type="button" id="diceBtn" className="btn-dice" aria-label="随机抽一个技能" onClick={handleDice}>
+              <span className="dice-face" aria-hidden="true">🎲</span>
+              <span className="zh">今天学点什么</span>
+              <span className="en">Learn something</span>
+            </button>
+            <span className="dice-hint zh">不知道从哪开始？让骰子决定。</span>
+            <span className="dice-hint en">Not sure where to start? Let the dice decide.</span>
+          </div>
+        </div>
+      </section>
 
       <main id="mainContent">
         <SkillsExplorer data={data} lang={lang} />

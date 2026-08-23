@@ -95,6 +95,11 @@
     "size": 13874,
     "files": 2
   },
+  "brand-operation": {
+    "popularity": 0,
+    "size": 43373,
+    "files": 1
+  },
   "brand-review": {
     "popularity": 1,
     "size": 13333,
@@ -127,6 +132,16 @@
     "size": 9072,
     "files": 1
   },
+  "clean-architecture": {
+    "popularity": 1,
+    "size": 110487,
+    "files": 7
+  },
+  "clean-code": {
+    "popularity": 0,
+    "size": 95759,
+    "files": 7
+  },
   "clerk-nextjs-patterns": {
     "popularity": 0,
     "size": 25769,
@@ -157,6 +172,11 @@
   "coding-standards": {
     "popularity": 0,
     "size": 13161,
+    "files": 1
+  },
+  "compliance": {
+    "popularity": 0,
+    "size": 13748,
     "files": 1
   },
   "dart-build-cli-app": {
@@ -213,6 +233,16 @@
   "domain-modeling": {
     "popularity": 0,
     "size": 8678,
+    "files": 4
+  },
+  "douyin-video": {
+    "popularity": 1,
+    "size": 22647,
+    "files": 2
+  },
+  "douyin-video-summary": {
+    "popularity": 1,
+    "size": 7001,
     "files": 4
   },
   "drama-analyzer": {
@@ -275,14 +305,24 @@
     "files": 1
   },
   "figma-generate-design": {
-    "popularity": 3,
+    "popularity": 4,
     "size": 40642,
     "files": 3
   },
   "figma-generate-library": {
-    "popularity": 1,
+    "popularity": 2,
     "size": 222427,
     "files": 16
+  },
+  "figma-implement-design": {
+    "popularity": 1,
+    "size": 16172,
+    "files": 6
+  },
+  "figma-use": {
+    "popularity": 2,
+    "size": 717687,
+    "files": 21
   },
   "find-skills": {
     "popularity": 0,
@@ -333,6 +373,11 @@
     "popularity": 0,
     "size": 18709,
     "files": 2
+  },
+  "git-cleanup": {
+    "popularity": 0,
+    "size": 15838,
+    "files": 3
   },
   "google-agents-cli-adk-code": {
     "popularity": 1,
@@ -719,6 +764,11 @@
     "size": 7280,
     "files": 4
   },
+  "store-operations": {
+    "popularity": 0,
+    "size": 18720,
+    "files": 1
+  },
   "stripe-best-practices": {
     "popularity": 0,
     "size": 61328,
@@ -875,7 +925,7 @@
     "files": 5
   },
   "web-design-guidelines": {
-    "popularity": 0,
+    "popularity": 1,
     "size": 1526,
     "files": 1
   },
@@ -950,7 +1000,7 @@
     "files": 8
   },
   "wp-plugin-directory-guidelines": {
-    "popularity": 1,
+    "popularity": 2,
     "size": 49564,
     "files": 4
   },

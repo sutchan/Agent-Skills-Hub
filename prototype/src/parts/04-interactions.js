@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.20.36 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
+// prototype/src/parts/04-interactions.js v1.20.46 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -195,6 +195,15 @@ function updateHeroNet() {
   net.querySelectorAll(".hub-node[data-cat]").forEach((n) => {
     n.classList.toggle("active", state.cats.includes(n.getAttribute("data-cat")));
   });
+  // 选中单个分类时，核心节点（.hub-core / .hub-glow）同步为该分类色；多选/清空回落主色绿（CSS 默认 --core-hue 未定义）
+  const core = net.querySelector(".hub-core");
+  const glow = net.querySelector(".hub-glow");
+  if (state.cats.length === 1) {
+    const hue = catHue(state.cats[0]);
+    [core, glow].forEach((el) => { if (el) el.style.setProperty("--core-hue", String(hue)); });
+  } else {
+    [core, glow].forEach((el) => { if (el) el.style.removeProperty("--core-hue"); });
+  }
 }
 
 // 方案 A：按分类动态生成节点（半径随技能数变化），环绕核心排布，可交互
@@ -219,14 +228,17 @@ function renderHeroNodes() {
       ln.setAttribute("class", "net-line");
       ln.setAttribute("x1", cx); ln.setAttribute("y1", cy);
       ln.setAttribute("stroke", "hsl(var(--line))");
-      ln.setAttribute("stroke-width", "1.4");
+      ln.setAttribute("stroke-width", "2.4");
       lineG.appendChild(ln);
     });
   }
   // 每次刷新随机分布：覆盖整个 viewBox 并允许略溢出（约 -30~830 / -20~260），分布更开阔、线条更明显
-  const x0 = -30, x1 = 830, y0 = -20, y1 = 260; // 随机撒点边界（viewBox 800x240，允许适当溢出）
+  // 窄屏收敛边界，避免 slice 裁切掉过多节点（P1-4）
+  const narrow = window.innerWidth < 640;
+  const x0 = narrow ? 40 : -30, x1 = narrow ? 760 : 830;
+  const y0 = narrow ? 10 : -20, y1 = narrow ? 230 : 260;
   const placed = [];
-  const minDist = 30; // 节点最小间距，防止重叠（范围更大可适当减小）
+  const minDist = narrow ? 24 : 30; // 节点最小间距，防止重叠（窄屏更密可适当减小）
   cats.forEach((c, idx) => {
     let x, y, ok = false, tries = 0;
     do {
@@ -252,6 +264,16 @@ function renderHeroNodes() {
     if (lineG && lineG.children[idx]) {
       lineG.children[idx].setAttribute("x2", x.toFixed(1));
       lineG.children[idx].setAttribute("y2", y.toFixed(1));
+      // 连线上的缓慢移动圆点：用 SVG animateMotion 沿 core→节点路径流动（错峰时长，纯 SMIL 合成不逐帧）
+      const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      dot.setAttribute("class", "net-dot");
+      dot.setAttribute("r", "2.2");
+      const motion = document.createElementNS("http://www.w3.org/2000/svg", "animateMotion");
+      motion.setAttribute("dur", (4 + (idx % 5) * 0.7).toFixed(1) + "s");
+      motion.setAttribute("repeatCount", "indefinite");
+      motion.setAttribute("path", `M${cx} ${cy} L${x.toFixed(1)} ${y.toFixed(1)}`);
+      dot.appendChild(motion);
+      lineG.appendChild(dot);
     }
     // 错峰浮动：按节点序号注入固定相位偏移（5.5s 周期内均分），刷新稳定不跳变，纯 CSS 合成不逐帧
     node.style.animationDelay = (-(5.5 * idx / n)).toFixed(2) + "s";
