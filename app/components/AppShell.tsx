@@ -56,6 +56,17 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     setToast(ok ? fb.ok : fb.fail);
     window.setTimeout(() => setToast(null), 1800);
   };
+  // 详情弹窗分享技能反馈（detail-modal 派发 skill-share-feedback 事件）
+  useEffect(() => {
+    const onShare = (e: Event) => {
+      const ok = (e as CustomEvent<{ ok: boolean }>).detail?.ok;
+      const fb = SHARE_FEEDBACK[lang];
+      setToast(ok ? fb.ok : fb.fail);
+      window.setTimeout(() => setToast(null), 1800);
+    };
+    window.addEventListener("skill-share-feedback", onShare as EventListener);
+    return () => window.removeEventListener("skill-share-feedback", onShare as EventListener);
+  }, [lang]);
 
   return (
     <>

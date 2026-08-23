@@ -50,9 +50,16 @@ export function buildShareText(
 }
 
 /** 复制技能分享文案到剪贴板：组合链接 + 宣传文案后复制，返回是否成功。
- *  供 SkillDetail 直接调用，文案与 prototype 03-detail.js 的 share 逻辑一致。 */
-export async function copySkillShare(skill: { name: string }, lang: Lang, total = 0): Promise<boolean> {
-  const text = buildShareText(skill.name, lang, total);
+ *  供 SkillDetail 直接调用，文案与 prototype 03-detail.js 的 share 逻辑一致。
+ *  origin 优先传 window.location.origin，使分享链接基于部署站点（openspec §4.5.4.4）。 */
+export async function copySkillShare(
+  skill: { name: string },
+  lang: Lang,
+  total = 0,
+  origin?: string,
+  basePath?: string
+): Promise<boolean> {
+  const text = buildShareText(skill.name, lang, total, origin, basePath);
   return copyShareText(text);
 }
 

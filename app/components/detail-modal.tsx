@@ -6,6 +6,7 @@ import type { Skill } from "../lib/skills";
 import { catHue } from "../lib/catHue";
 import { initials } from "../lib/initials";
 import { copyText } from "../lib/detail-helpers";
+import { copySkillShare, SHARE_FEEDBACK } from "../lib/share";
 import { DetailMeta } from "./detail/DetailMeta";
 import { DetailMetrics } from "./detail/DetailMetrics";
 import { DetailInstall } from "./detail/DetailInstall";
@@ -56,6 +57,20 @@ export function DetailModal({
             onClick={() => copyText(skill.name, lang)}
           >
             {lang === "zh" ? "复制名" : "Copy"}
+          </button>
+          <button
+            id="shareSkillBtn"
+            className="mini-btn"
+            aria-label={SHARE_FEEDBACK[lang].btn}
+            onClick={async () => {
+              const origin = typeof window !== "undefined" ? window.location.origin : undefined;
+              const ok = await copySkillShare(skill, lang, allSkills.length, origin);
+              if (typeof window !== "undefined") {
+                window.dispatchEvent(new CustomEvent("skill-share-feedback", { detail: { ok } }));
+              }
+            }}
+          >
+            {SHARE_FEEDBACK[lang].btn}
           </button>
           <button
             id="detailCloseBtn"

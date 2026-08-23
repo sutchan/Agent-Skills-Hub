@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.31] - 2026-08-23
+
+### feat: 落地 app 层技能详情分享按钮（spec §4.5.4 两层共通）
+
+- `app/components/detail-modal.tsx` 头部新增「分享技能」按钮（`#shareSkillBtn`），调用 `copySkillShare` 并传入 `window.location.origin`，分享链接基于部署站点（openspec §4.5.4.4）
+- `app/lib/share.ts` 的 `copySkillShare` 透传 `origin`/`basePath` 给 `buildShareText`，使其真正动态构造展示页链接
+- `app/components/AppShell.tsx` 新增 `skill-share-feedback` 事件监听，复用 toast 显示复制成功/失败反馈
+- 根 `package.json` version 升至 v1.20.31
+
+[1.20.31]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.31
+
 ## [1.20.30] - 2026-08-23
 
 ### fix: 修复 code-review 发现的标准与规格偏差
