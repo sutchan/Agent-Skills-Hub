@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.20.28 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
+// prototype/src/parts/04-interactions.js v1.20.36 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -119,6 +119,7 @@ function bind() {
     }
     track("filter_category", { categories: state.cats.slice() });
     state.page = 0; // 筛选变化回到第一页
+    renderCats(aggregateFilters()); // 重渲分类 chips，刷新 active 态（彩色选中背景依赖此）
     updateHeroNet();
     renderGrid();
   });
@@ -279,7 +280,7 @@ function toggleHeroCat(cat) {
   const i = state.cats.indexOf(cat);
   if (i >= 0) state.cats.splice(i, 1); else state.cats.push(cat);
   state.page = 0;
-  renderCats();
+  renderCats(aggregateFilters());
   updateHeroNet();
   renderGrid();
   track("hero_node_filter", { cat, active: state.cats.includes(cat) });

@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.36] - 2026-08-23
+
+### fix: 修复选中分类不显示彩色背景
+
+- 根因：`.cats` 分类点击处理器（04-interactions.js）只更新 `state.cats` 并调用 `renderGrid()`，**未重新渲染分类 chips**，导致 `active` 类停留在初始态，`.chip.active` 的彩色背景（`hsl(var(--hue) 82% 46%)`）永不生效。
+- 修复：分类点击处补 `renderCats(aggregateFilters())` 重渲 chips 以刷新 active 态；同时修正 hero 节点点击 `toggleHeroCat` 中 `renderCats()` 缺参（应为 `renderCats(aggregateFilters())`，否则 `buildFilterItems(undefined)` 崩溃）。
+- 改动文件：`prototype/src/parts/04-interactions.js`（头注释同步至 v1.20.36）。
+- 根 `package.json` version 升至 v1.20.36。
+
+[1.20.36]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.36
+
 ## [1.20.35] - 2026-08-23
 
 ### refactor: 校正技能分类并补全 traceknot 契约字段
@@ -9,6 +20,7 @@
 - 重分类 18 个技能：内容创作类（`ads-creative`、`drama-*`、`sports-news`、`travel-planner*`、`wechat-article-writer`）由「文档与内容」改归「品牌与设计」；元技能/技能工程类（`find-skills*`、`grill-*`、`skill-creator`、`handoff`、`planning-with-files`）改归「工程实践与质量」。「文档与内容」回归技术文档本义（仅剩 `coding-standards`、`documentation`），13 类契约保持不变、无「其他」类。
 - 补全缺失契约字段的技能：`skills/traceknot/SKILL.md`（归「工程实践与质量」）、`skills/short-drama-write/SKILL.md`（归「品牌与设计」）各补全 4 个必填 frontmatter 字段（`en_description`/`zh_displayName`/`category`/`en_category`）；`tools/validate-skills.mjs` 校验通过（189 技能 frontmatter 规范）。
 - 同步 `data/skills-data.json` 与 `data/skills-metrics.json`（重新 build）；README 中/英领域表计数同步（品牌与设计 27→38、工程实践与质量 25→33、文档与内容 20→2）。
+- 优化 `.cats` 选中分类显示效果（`prototype/src/styles/components.css`）：去掉脉冲点动画，选中态改为「彩色实心底 + 顶部高光 + 双层 ring（内浅色描边 + 外同色发光）+ 轻微上浮 1px」，hover 加深上浮；`.chip-all` 选中态复用同款聚焦质感，统一视觉权重。`prototype/src/styles/components.css` 头注释同步至 v1.20.35。
 - 根 `package.json` version 升至 v1.20.35。
 
 [1.20.35]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.35

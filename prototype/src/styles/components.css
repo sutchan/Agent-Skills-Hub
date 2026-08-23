@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.20.33 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.20.35 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：默认中性灰，选中态才用 --hue 派生彩色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -11,38 +11,42 @@
 }
 /* 默认态：hover 仅中性轻弹，不改变色相 */
 .chip:hover { border-color: var(--text-3); color: var(--text); transform: translateY(-2px) scale(1.04); }
-/* 选中态：保持各自分类色相（--hue），以「鲜明的彩色实心底 + 白字」强调，
+/* 选中态：保持各自分类色相（--hue），以「彩色实心底 + 顶部高光 + 双层 ring + 上浮」强调，
    让被选中的分类背景直接呈现该分类的彩色（hue 由 catHue 派生）；
-   亮度提到 46% 让色相更醒目，白字对比度仍满足 ≥4.5:1；
+   亮度 46% 让色相醒目，白字对比度仍满足 ≥4.5:1；
+   用静态质感（高光 + ring + 外发光 + 轻微上浮）替代脉冲动画，更克制、与全站专业调性一致；
    「全部」中性筛选器仍用主色绿（见 .chip-all.active），避免异色相混淆全量语义 */
 .chip.active {
   background: hsl(var(--hue) 82% 46%);
   color: hsl(0 0% 100%);
-  border-color: hsl(var(--hue) 85% 60%);
-  box-shadow: 0 2px 12px hsl(var(--hue) 82% 46% / .55), inset 0 0 0 1px hsl(var(--hue) 90% 72% / .5);
+  border-color: hsl(var(--hue) 90% 66%);
+  /* 外发光（同色）+ 内描边 ring（浅色）+ 顶部高光，营造「被抬起、被聚焦」的实体感 */
+  box-shadow:
+    0 4px 14px hsl(var(--hue) 82% 46% / .5),
+    0 0 0 1px hsl(var(--hue) 90% 72% / .55),
+    inset 0 1px 0 hsl(0 0% 100% / .35);
+  transform: translateY(-1px);
 }
-/* 方案 C：选中态左侧脉冲点（分类的「心跳」），暗示该分类正被聚焦 */
-.chip.active::before {
-  content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; margin-right: 2px;
-  box-shadow: 0 0 0 0 hsl(0 0% 100% / .9); animation: chipPulse 1.8s ease-out infinite;
-}
-@keyframes chipPulse {
-  0% { box-shadow: 0 0 0 0 hsl(0 0% 100% / .9); }
-  70% { box-shadow: 0 0 0 6px hsl(0 0% 100% / 0); }
-  100% { box-shadow: 0 0 0 0 hsl(0 0% 100% / 0); }
-}
-.chip.active:hover { color: hsl(0 0% 100%); transform: none; filter: none; }
+.chip.active:hover { color: hsl(0 0% 100%); transform: translateY(-2px); }
 .chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
 .chip.active .chip-count { opacity: 1; }
-/* 方案 C：窄屏长分类名省略为色点 + 计数（保留色相辨识） */
+/* 窄屏长分类名省略为色点 + 计数（保留色相辨识） */
 @media (max-width: 640px) {
   .chip { padding: 6px 10px; max-width: 132px; }
   .chip > span:not(.chip-count) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
-@media (prefers-reduced-motion: reduce) { .chip:hover { transform: none; filter: none; } .chip.active::before { animation: none; } }
-/* 「全部」chip：选中态回落到单一主色绿（中性全量筛选器语义） */
-.chip-all.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); box-shadow: var(--shadow-pop); }
-.chip-all.active::before { display: none; }
+/* 「全部」chip：选中态回落到单一主色绿（中性全量筛选器语义），并复用同款聚焦质感保持视觉权重一致 */
+.chip-all.active {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+  box-shadow:
+    0 4px 14px hsl(var(--primary) / .45),
+    0 0 0 1px hsl(var(--primary) / .55),
+    inset 0 1px 0 hsl(0 0% 100% / .35);
+  transform: translateY(-1px);
+}
+.chip-all.active:hover { color: hsl(var(--primary-foreground)); transform: translateY(-2px); }
 
 /* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + title-row + card-title/sub/cat）
    渲染为原生 <button>（a11y 语义），需重置 button 默认样式 */
