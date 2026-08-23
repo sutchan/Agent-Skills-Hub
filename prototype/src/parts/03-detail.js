@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.20.0 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
+// prototype/src/parts/03-detail.js v1.20.17 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）

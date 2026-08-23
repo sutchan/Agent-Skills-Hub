@@ -1,13 +1,16 @@
 ---
 name: google-mobile-ads-banner
-description: >-
-  Provides instructions to implement, integrate, or configure Google Mobile
-  Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use
-  when the task involves setting up banner ads in a mobile application. Don't
-  use for other ad formats like interstitial or rewarded ads.
-metadata:
-  version: 1.1.0
-  category: GoogleAds
+description: |-
+    Provides instructions to implement, integrate, or configure Google Mobile
+    Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use
+    when the task involves setting up banner ads in a mobile application. Don't
+    use for other ad formats like interstitial or rewarded ads.
+en_description: |-
+  Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications.
+zh_displayName: Google 移动广告横幅
+category: 移动端开发
+en_category: Mobile Dev
+metadata: 
 ---
 # Google Mobile Ads SDK - Banner Ads
 

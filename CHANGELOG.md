@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.17] - 2026-08-23
+
+### chore: 整理技能去重、补全契约字段并迁移旧分类至 13 类体系
+
+- 去重：`prototype` 系列上游重复导入（prototype-2/3/4 目录同名 `prototype`）拆为唯一 `name`（prototype-ui-variants / prototype-design-explore / prototype-stardust），并重命名目录对齐，`build` 数据 `name` 不再撞键
+- 翻译头部注释：补全 16 个缺契约字段的技能（zh_displayName / category / en_category / en_description），并按契约顺序重排 frontmatter
+- 迁移：将 74 个沿用旧「开发框架与平台」键的技能对照 13 类体系重新归类到前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS / 工程实践与质量，消除游离分类（build 分类数 14→13）
+- 修复 `tools/validate-skills.mjs` 分类集合（9 类→13 类），与 `build-skills-data.mjs` 对齐；`npm run build` + validate 全链路通过（186 技能 / 13 类）
+- 根 `package.json` version 升至 v1.20.17
+
+[1.20.17]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.17
+
 ## [1.20.16] - 2026-08-22
 
 ### refactor: 扁平化 app/ 目录结构并提升静态资源层级

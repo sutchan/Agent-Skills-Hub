@@ -3,10 +3,9 @@ name: prototype
 description: 构建一次性原型以回答某个设计问题。当用户想快速验证交互、界面或架构假设，且原型用完即弃时使用。
 en_description: Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.
 zh_displayName: 原型构建
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 前端开发
+en_category: Frontend Dev
 ---
-
 # Prototype
 
 A prototype is **throwaway code that answers a question**. The question decides the shape.

@@ -1,8 +1,12 @@
 ---
 name: traceknot
 description: Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes across OMP, Codex, GajaeCode, Claude Code, and OpenCode, including session-scoped QA Board publication. Use for implementation verification, bug fixes, release checks, repository audits, defect confirmation, and residual-risk decisions without treating an agent's own completion claim as proof.
+en_description: |-
+  Apply Traceknot's ISTQB-aligned, evidence-bound QA process to repository changes, including session-scoped QA Board publication for implementation verification and release checks.
+zh_displayName: Traceknot QA 流程
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 # Traceknot
 
 **Evidence-bound QA for coding agents.**

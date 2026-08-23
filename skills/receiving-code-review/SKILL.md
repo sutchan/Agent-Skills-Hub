@@ -3,10 +3,9 @@ name: receiving-code-review
 description: 在收到代码评审反馈、落实建议之前使用，尤其是面对多条或相互冲突的评审意见时。引导你分类、澄清并落地评审意见。
 en_description: Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
 zh_displayName: 接收代码评审
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 # Code Review Reception
 
 ## Overview

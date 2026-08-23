@@ -1,4 +1,4 @@
-/* prototype/src/styles/components.css v1.20.13 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.20.17 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：默认中性灰，选中态才用 --hue 派生彩色（对齐 app，catHue 算法驱动） */
 .chip {

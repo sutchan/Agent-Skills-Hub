@@ -1,9 +1,13 @@
 ---
 name: short-drama-storyboard
 description: 把中文短剧剧本和视觉设定写成有戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown。用户提出“拆分镜/设计镜头/做镜头表”“场次视觉计划/调度故事板”“比较导演方案”“写首帧/关键帧提示词”或检查轴线、站位、视线、持物连续性时使用；不生成媒体。
+en_description: |-
+  Write storyboard Markdown for Chinese short dramas with dramatic roles, continuity boundaries, and frozen keyframe prompts. Use for shot breakdowns, camera blocking, or keyframe prompts.
+zh_displayName: 短剧分镜设计
+category: 音视频与多媒体
+en_category: Media & Multimedia
 license: MIT
 ---
-
 # 短剧分镜与冻结关键帧
 
 把剧本和视觉事实转成有镜头职责、空间连续性和可冻结起点的 `剧集/<EP>/分镜.md`。

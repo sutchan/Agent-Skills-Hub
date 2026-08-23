@@ -1,11 +1,14 @@
 ---
 name: html-design-prototypes
-description: >-
-  **TRIGGER: about to populate `AskUserQuestion` options with `preview:` content for any visual UI / screen / layout / component / animation comparison.** STOP and ask first: *"Quick inline chip comparison, or a full HTML prototype you can open in the browser?"* Chips flatten color, type, spacing, and motion into monospace; HTML prototypes are real. **No carve-out for "simulate", "demo", "mock up", "quick decision" — those name the surface, not an exception.** When user picks HTML, this skill creates prototypes for visual design, component playgrounds, animation tuning, and design system exploration — even when the final target is React, Swift, SwiftUI, Android, or another framework. Use whenever the user wants to mock, prototype, sketch, tune, or explore any UI element before production code. HTML is the fastest design-thinking surface; reach for it even for non-web targets. For N alternatives use html-brainstorm-grid; for a single tunable component use this skill.
-metadata:
-  version: "1.2.1"
+description: |-
+    **TRIGGER: about to populate `AskUserQuestion` options with `preview:` content for any visual UI / screen / layout / component / animation comparison.** STOP and ask first: *"Quick inline chip comparison, or a full HTML prototype you can open in the browser?"* Chips flatten color, type, spacing, and motion into monospace; HTML prototypes are real. **No carve-out for "simulate", "demo", "mock up", "quick decision" — those name the surface, not an exception.** When user picks HTML, this skill creates prototypes for visual design, component playgrounds, animation tuning, and design system exploration — even when the final target is React, Swift, SwiftUI, Android, or another framework. Use whenever the user wants to mock, prototype, sketch, tune, or explore any UI element before production code. HTML is the fastest design-thinking surface; reach for it even for non-web targets. For N alternatives use html-brainstorm-grid; for a single tunable component use this skill.
+en_description: |-
+  Create real HTML prototypes for visual design, component playgrounds, animation tuning, and design system exploration when comparing UI variants, before production code.
+zh_displayName: HTML 设计原型
+category: 前端开发
+en_category: Frontend Dev
+metadata: 
 ---
-
 # HTML Design & Prototypes
 
 HTML is the fastest design surface available — instant feedback loop, real layout engine, real typography, real interaction. Use it to sketch designs even when the production target is React Native, Swift, or anything else. The translation from HTML+CSS to the final framework is mechanical; the design exploration is what's hard.

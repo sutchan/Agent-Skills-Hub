@@ -3,11 +3,10 @@ name: wordpress-router
 description: "当用户咨询 WordPress 代码库（插件、主题、块主题、Gutenberg 块、WP 核心检出）并需快速归类仓库、路由到正确工作流/技能（块、theme.json、REST API、WP-CLI、性能、安全、测试、发布打包）时使用。"
 en_description: "Use when the user asks about WordPress codebases (plugins, themes, block themes, Gutenberg blocks, WP core checkouts) and you need to quickly classify the repo and route to the correct workflow/skill (blocks, theme.json, REST API, WP-CLI, performance, security, testing, release packaging)."
 zh_displayName: WordPress 路由
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: WordPress 与 CMS
+en_category: WordPress & CMS
 compatibility: "Targets WordPress 6.9+ (PHP 7.2.24+). Filesystem-based agent with bash + node. Some workflows require WP-CLI."
 ---
-
 # WordPress Router
 
 ## When to use

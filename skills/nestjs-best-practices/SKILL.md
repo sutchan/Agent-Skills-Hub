@@ -3,12 +3,11 @@ name: nestjs-best-practices
 description: NestJS 生产级应用的最佳实践与架构模式。在编写、审查或重构 NestJS 代码，以确保模块、依赖注入、安全与性能的正确模式时使用。
 en_description: NestJS best practices and architecture patterns for building production-ready applications. This skill should be used when writing, reviewing, or refactoring NestJS code to ensure proper patterns for modules, dependency injection, security, and performance.
 zh_displayName: NestJS 最佳实践
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 后端与平台
+en_category: Backend & Platform
 license: MIT
-metadata:
+metadata: 
 ---
-
 # NestJS Best Practices
 
 Comprehensive best practices guide for NestJS applications. Contains 40 rules across 10 categories, prioritized by impact to guide automated refactoring and code generation.

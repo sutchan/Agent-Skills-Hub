@@ -3,11 +3,10 @@ name: insforge-debug
 description: Rigor Debug / Rigor Audit 技能，面向 Insforge（即时后端/数据库服务）的调试。当用户想排查 Insforge 数据模型、CLI、本地开发或部署问题时使用。
 en_description: >- Use when diagnosing problems in an InsForge project — reactive failures (SDK error object, HTTP 4xx/5xx, gateway timeout 502/503/504, edge function failure or timeout, login/OAuth/auth errors, RLS denial, realtime channel issues, slow query on one endpoint, edge function or Vercel deploy failure), proactive audits (security/RLS review, performance/index review, system health check, pre-launch readiness), or when the user has an error but doesn't know where to start.
 zh_displayName: Insforge 调试
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 前端开发
+en_category: Frontend Dev
 license: Apache-2.0
 ---
-
 # InsForge Debug
 
 Diagnose problems in InsForge projects by combining the backend's observability primitives — logs, metrics, db-health, advisor, policies, metadata, error objects, deploy state, and AI assist. This skill provides:

@@ -1,21 +1,13 @@
 ---
 name: persona-project-manager
 description: "Coordinate projects — track tasks, schedule meetings, and share docs."
-metadata:
-  version: 0.22.5
-  openclaw:
-    category: "persona"
-    requires:
-      bins:
-        - gws
-      skills:
-        - gws-drive
-        - gws-sheets
-        - gws-calendar
-        - gws-gmail
-        - gws-chat
+en_description: |-
+  Coordinate projects — track tasks, schedule meetings, and share docs across Google Workspace integrations.
+zh_displayName: 人格化项目管理
+category: 自动化与集成
+en_category: Automation & Integration
+metadata: 
 ---
-
 # Project Manager
 
 > **PREREQUISITE:** Load the following utility skills to operate as this persona: `gws-drive`, `gws-sheets`, `gws-calendar`, `gws-gmail`, `gws-chat`

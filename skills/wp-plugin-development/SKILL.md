@@ -3,10 +3,9 @@ name: wp-plugin-development
 description: "开发 WordPress 插件时使用：架构与钩子、启用/停用/卸载、管理界面与 Settings API、数据存储、cron 任务、安全（nonce/权限/净化/转义）与发布打包。"
 en_description: "Use when developing WordPress plugins: architecture and hooks, activation/deactivation/uninstall, admin UI and Settings API, data storage, cron/tasks, security (nonces/capabilities/sanitization/escaping), and release packaging."
 zh_displayName: WordPress 插件开发
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: WordPress 与 CMS
+en_category: WordPress & CMS
 ---
-
 # WP Plugin Development
 
 ## When to use

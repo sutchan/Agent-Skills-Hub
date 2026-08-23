@@ -1,8 +1,12 @@
 ---
-name: prototype
+name: prototype-design-explore
 description: 构建一次性原型来回答一个设计问题。适用于用户想验证某个 state model 或 logic 是否感觉对，或探索 UI 应该长什么样时。
+en_description: |-
+  Build a one-off prototype to answer a design question — verify whether a state model or logic feels right, or explore what the UI should look like.
+zh_displayName: 设计探索原型
+category: 前端开发
+en_category: Frontend Dev
 ---
-
 # Prototype
 
 Prototype 是**用来回答一个问题的 throwaway code**。问题决定形状。

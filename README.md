@@ -2,9 +2,9 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.20.14-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.20.17-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
 
-一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、开发框架与平台、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 9 大稳定领域，共 179 个技能包（其中 1 个标记为隐藏，公开可见 178 个）。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述，含 frontmatter 前置元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 `tools/coverage.py` 统计。
+一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 13 大领域，共 186 个技能包（其中 1 个标记为隐藏，公开可见 185 个）。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述，含 frontmatter 前置元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 `tools/coverage.py` 统计。
 
 ## 项目亮点
 
@@ -13,7 +13,7 @@
 | | 亮点 | 说明 |
 |---|---|---|
 | ⚙️ | **零维护清单** | 技能数据与展示页由 `npm run build` 从磁盘 `skills/*/SKILL.md` 自动生成，技能增删无需手工维护任何清单 |
-| 🗂️ | **179 技能 · 9 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、开发框架与平台、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 |
+| 🗂️ | **186 技能 · 13 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 |
 | 🌏 | **默认中文** | 中文目录 + 中文一句话简介 + 中文完整描述（`description`，默认展示语言），英文原文存 `en_description`，中文 Agent 用户开箱即用 |
 | 📦 | **一键安装** | 配合 [skills-manager](https://github.com/xingkongliang/skills-manager) 批量安装 / 更新 / 卸载 |
 | 🚀 | **离线可用** | 自包含静态展示页（`prototype/index.html`）内联全部数据，双击即可浏览全部技能，无框架依赖 |
@@ -46,13 +46,17 @@
 | 领域 | 技能数 |
 |------|--------|
 | 品牌与设计 | 27 |
-| 文档与内容 | 21 |
+| 文档与内容 | 20 |
 | 数据分析与可视化 | 2 |
-| 开发框架与平台 | 78 |
+| 前端开发 | 25 |
+| 后端与平台 | 9 |
+| 移动端开发 | 13 |
+| WordPress 与 CMS | 11 |
+| 工程实践与质量 | 24 |
 | 文件与格式处理 | 4 |
-| 自动化与集成 | 10 |
+| 自动化与集成 | 13 |
 | AI 与智能体 | 8 |
-| 音视频与多媒体 | 24 |
+| 音视频与多媒体 | 26 |
 | 安全 | 4 |
 
 > 浏览全部技能：
@@ -104,7 +108,7 @@ npm run start    # 启动生产服务
 
 - 新增技能：使用 [`skill-creator`](skills/skill-creator/) 技能按规范创建与评估。
 - 技能目录命名使用小写中划线（`kebab-case`），如 `python-testing/`，目录名须与 frontmatter `name` 字段保持一致。
-- `SKILL.md` 必须包含 `name`、`description`、`en_description`、`zh_displayName`、`category` 与 `en_category` 前置元数据：`category` 取 9 大稳定领域之一（中文，稳定键：品牌与设计 / 文档与内容 / 数据分析与可视化 / 开发框架与平台 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 安全），`en_category` 为对应英文分类名；`zh_displayName` 为中文一句话简介；**`description` 为中文完整描述（默认展示语言），`en_description` 为英文原文描述**。`tools/build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，未知分类自动追加为末位「其他」类（属违规，须为零）。
+- `SKILL.md` 必须包含 `name`、`description`、`en_description`、`zh_displayName`、`category` 与 `en_category` 前置元数据：`category` 取 13 大领域之一（中文，稳定键：品牌与设计 / 文档与内容 / 数据分析与可视化 / 前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS / 工程实践与质量 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 安全），`en_category` 为对应英文分类名；`zh_displayName` 为中文一句话简介；**`description` 为中文完整描述（默认展示语言），`en_description` 为英文原文描述**。`tools/build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，未知分类自动追加为末位「其他」类（属违规，须为零）。
 - 技能变更后运行 `npm run build` 重新生成 `data/skills-data.json` + `data/skills-metrics.json` 与展示页。频繁更新的指标（popularity/stars/size/files）仅需重算 `skills-metrics.json`，主数据文件保持轻量。
 
 ## 许可证

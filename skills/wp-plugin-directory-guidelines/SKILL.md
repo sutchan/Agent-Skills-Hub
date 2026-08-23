@@ -3,11 +3,10 @@ name: wp-plugin-directory-guidelines
 description: "审查 WordPress 插件的 GPL 合规性、检查许可证头或兼容性、评估 upsell/免费增值/试用软件模式、校验插件命名或商标规则、检查插件 slug、理解插件为何被 WordPress.org 拒绝，或回答关于 18 条 WordPress.org 插件目录指南的任何问题——即使用户未明确提及「指南」。"
 en_description: "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, understanding why a plugin was rejected from WordPress.org, or answering any question about the 18 WordPress.org Plugin Directory guidelines — even if the user doesn't mention 'guidelines' explicitly."
 zh_displayName: WP 插件目录规范
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: WordPress 与 CMS
+en_category: WordPress & CMS
 compatibility: "Targets WordPress 7.0+ (PHP 7.4.0+)."
 ---
-
 ## Overview
 
 Authoritative reference for the 18 WordPress.org Plugin Directory guidelines. Covers GPL licensing, plugin naming/trademark rules, trialware restrictions, and all other submission requirements.

@@ -3,11 +3,11 @@ name: flutter-setup-localization
 description: 用于 Flutter 项目本地化配置的技能，覆盖多语言资源、国际化设置与语言切换的最佳实践。
 en_description: "Add `flutter_localizations` and `intl` dependencies, enable \"generate true\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project."
 zh_displayName: Flutter 本地化
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 移动端开发
+en_category: Mobile Dev
 last_modified: "Tue, 21 Apr 2026 21:27:35 GMT"
 model: models/gemini-3.1-pro-preview
-metadata:
+metadata: 
 ---
 # Internationalizing Flutter Applications
 

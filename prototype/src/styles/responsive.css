@@ -1,4 +1,4 @@
-/* prototype/src/styles/responsive.css v1.17.1 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
+/* prototype/src/styles/responsive.css v1.20.17 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则） */
 
 /* 平板断点（P2-2）：压缩 hero 字号与顶栏间距，避免 641–1024 区间拥挤 */
 @media (max-width: 1024px) {

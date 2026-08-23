@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.20.13 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.20.17 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);

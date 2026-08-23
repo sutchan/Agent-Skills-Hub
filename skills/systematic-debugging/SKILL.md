@@ -3,10 +3,9 @@ name: systematic-debugging
 description: 遇到任何 bug、测试失败或意外行为时使用，先分析再动手。引导你复现、收集证据、提出假设并验证，避免盲目修改。
 en_description: Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes
 zh_displayName: 系统化调试
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 # Systematic Debugging
 
 ## Overview

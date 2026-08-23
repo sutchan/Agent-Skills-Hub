@@ -3,11 +3,10 @@ name: improve-codebase-architecture
 description: 扫描代码库寻找可深化的架构机会，生成可视化 HTML 报告，并就你选中的候选进行犀利追问式打磨。
 en_description: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
 zh_displayName: 代码库架构深化报告
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 disable-model-invocation: true
 ---
-
 # Improve Codebase Architecture
 
 Surface architectural friction and propose **deepening opportunities**: refactors that turn shallow modules into deep ones. The aim is testability and AI-navigability.

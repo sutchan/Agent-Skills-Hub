@@ -1,8 +1,8 @@
-﻿// tools/validate-skills.mjs v1.19.37
+﻿// tools/validate-skills.mjs v1.20.17
 // 校验 skills/<name>/SKILL.md 的 frontmatter 规范性（CI 门禁）
 // 检查项：
 //   1. 必填展示字段齐全：name / description / en_description / zh_displayName / category / en_category
-//   2. category / en_category 属于 9 类稳定键集合
+//   2. category / en_category 属于 13 类稳定键集合（v1.19.x 起由 9 类演进）
 //   3. 无冲突键 description_zh / description_en
 //   4. 契约字段顺序规范：name → description → en_description → zh_displayName → category → en_category
 //   5. 无重复顶层键
@@ -18,13 +18,16 @@ const SKILLS_DIR = path.join(ROOT, "skills");
 
 const REQUIRED = ["name", "description", "en_description", "zh_displayName", "category", "en_category"];
 const CONTRACT_ORDER = ["name", "description", "en_description", "zh_displayName", "category", "en_category"];
+// 13 类合法键集合（与 build-skills-data.mjs 的 CATEGORY_ORDER / CATEGORY_EN 对齐，v1.19.x 起）
 const VALID_CATEGORIES = new Set([
-  "品牌与设计", "文档与内容", "数据分析与可视化", "开发框架与平台",
-  "文件与格式处理", "自动化与集成", "AI 与智能体", "音视频与多媒体", "安全",
+  "品牌与设计", "文档与内容", "数据分析与可视化", "前端开发", "后端与平台",
+  "移动端开发", "WordPress 与 CMS", "工程实践与质量", "文件与格式处理",
+  "自动化与集成", "AI 与智能体", "音视频与多媒体", "安全",
 ]);
 const VALID_EN_CATEGORIES = new Set([
-  "Brand & Design", "Docs & Content", "Data Analysis & Visualization", "Dev Frameworks & Platforms",
-  "File & Format Handling", "Automation & Integration", "AI & Agents", "Media & Multimedia", "Security",
+  "Brand & Design", "Docs & Content", "Data Analysis & Visualization", "Frontend Dev", "Backend & Platform",
+  "Mobile Dev", "WordPress & CMS", "Engineering Practice & Quality", "File & Format Handling",
+  "Automation & Integration", "AI & Agents", "Media & Multimedia", "Security",
 ]);
 const CONFLICT_KEYS = ["description_zh", "description_en"];
 

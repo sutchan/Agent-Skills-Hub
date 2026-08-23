@@ -1,9 +1,13 @@
 ---
-name: prototype
+name: prototype-stardust
 description: Render a proposed redesign of a page on the current website as a self-contained static HTML file, then iterate via the impeccable craft loop. Per-page, idempotent, stale-aware. Use when the user asks for a redesign prototype, a before/after comparison, a design preview, a page mockup, a visual diff of the redesign, or invokes /stardust:prototype.
+en_description: |-
+  Render a proposed redesign of a page as a self-contained static HTML file, then iterate via the craft loop. Use for redesign previews, before/after comparisons, or /stardust:prototype.
+zh_displayName: Stardust 页面重构原型
+category: 前端开发
+en_category: Frontend Dev
 license: Apache-2.0
 ---
-
 # stardust:prototype
 
 For each `directed` page, render a **proposed redesign** as a

@@ -1,13 +1,12 @@
 ---
 name: code-review-and-quality
 description: |-
-  执行多维度代码评审。在合并任何改动前使用；适用于评审自己、其他智能体或人类编写的代码。在代码进入主分支前从多个维度评估代码质量。
+    执行多维度代码评审。在合并任何改动前使用；适用于评审自己、其他智能体或人类编写的代码。在代码进入主分支前从多个维度评估代码质量。
 en_description: Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.
 zh_displayName: 代码评审与质量
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 # Code Review and Quality
 
 ## Overview

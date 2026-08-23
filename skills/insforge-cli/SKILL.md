@@ -1,14 +1,13 @@
 ---
 name: insforge-cli
 description: |-
-  当用户需要后端，或任务通过 InsForge CLI 触及 InsForge 后端或云基础设施时使用：项目、SQL、迁移、RLS 策略、函数、存储、备份、部署、计算、密钥、配置、调度、日志、诊断、顾问扫描与抑制、导入/导出、AI/OpenRouter 设置、Stripe/Razorpay 支付、Apify 爬取、PostHog 分析、后端分支、组织成员、智能体记忆、反馈上报或 CLI 文档。应用代码集成见 insforge app-integration 技能。
+    当用户需要后端，或任务通过 InsForge CLI 触及 InsForge 后端或云基础设施时使用：项目、SQL、迁移、RLS 策略、函数、存储、备份、部署、计算、密钥、配置、调度、日志、诊断、顾问扫描与抑制、导入/导出、AI/OpenRouter 设置、Stripe/Razorpay 支付、Apify 爬取、PostHog 分析、后端分支、组织成员、智能体记忆、反馈上报或 CLI 文档。应用代码集成见 insforge app-integration 技能。
 en_description: >- Use this skill whenever someone needs a backend, or a task touches InsForge backend or cloud infrastructure through the InsForge CLI: projects, SQL, migrations, RLS policies, functions, storage, backups, deployments, compute, secrets, config, schedules, logs, diagnostics, advisor scans and suppressions, import/export, AI/OpenRouter setup and usage overview, Stripe/Razorpay payments, Apify web scraping / data sources, PostHog product analytics, backend branches, organization membership (invite, leave, delete), agent memory (remember/recall project facts and decisions), reporting InsForge-side bugs or doc discrepancies (feedback), or CLI docs. For app code with InsForge or @insforge/sdk, use the insforge app-integration skill instead.
 zh_displayName: Insforge 后端 CLI
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 前端开发
+en_category: Frontend Dev
 license: Apache-2.0
 ---
-
 # InsForge CLI
 
 Use this skill whenever someone needs a backend, or when managing InsForge backend and cloud infrastructure with the InsForge CLI. For application code that calls InsForge from a frontend, backend, or edge function, use the `insforge` app-integration skill instead.

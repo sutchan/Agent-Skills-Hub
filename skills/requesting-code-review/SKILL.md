@@ -3,10 +3,9 @@ name: requesting-code-review
 description: 在完成任务、实现主要功能或合并到主分支之前请求代码评审时使用。引导你整理改动、撰写评审说明并选择合适的评审范围。
 en_description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements
 zh_displayName: 请求代码评审
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 # Requesting Code Review
 
 Dispatch a code reviewer subagent to catch issues before they cascade. The reviewer gets precisely crafted context for evaluation — never your session's history.

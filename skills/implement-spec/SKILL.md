@@ -3,11 +3,10 @@ name: implement-spec
 description: "用代码实现一个规格说明。"
 en_description: "Implement a specification in code."
 zh_displayName: 规格实现
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 disable-model-invocation: true
 ---
-
 You have been provided a spec. This spec should have tickets associated with it, describing how to implement the spec.
 
 The goal is a PR which implements the entire spec on a single branch.

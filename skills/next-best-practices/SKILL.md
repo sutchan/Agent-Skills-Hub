@@ -1,11 +1,11 @@
 ---
 name: next-best-practices
 description: |-
-  Next.js 最佳实践——文件约定、RSC 边界、数据模式、异步 API、metadata、错误处理、路由处理器、图片/字体优化、打包。
+    Next.js 最佳实践——文件约定、RSC 边界、数据模式、异步 API、metadata、错误处理、路由处理器、图片/字体优化、打包。
 en_description: Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling
 zh_displayName: Next.js 最佳实践
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 前端开发
+en_category: Frontend Dev
 user-invocable: false
 ---
 # Next.js Best Practices

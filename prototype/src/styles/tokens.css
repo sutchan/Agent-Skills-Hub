@@ -1,4 +1,4 @@
-/* prototype/src/styles/tokens.css v1.20.0 — 设计令牌 + reset（DESIGN.md §2 事实来源）
+/* prototype/src/styles/tokens.css v1.20.17 — 设计令牌 + reset（DESIGN.md §2 事实来源）
  *
  * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
  * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）为历史兼容保留，供 base/layout/components 模块消费，

@@ -2,12 +2,10 @@
 name: openspec-implementation
 description: "按顺序推进已批准的规格提案，结合测试与校验完成实现。当实现变更、应用提案、执行规格任务或基于已批准计划构建时使用。触发词包括 \"openspec implement\"、\"implement\"、\"apply change\"、\"execute spec\"、\"work through tasks\"、\"build feature\"、\"start implementation\"。"
 en_description: Implements approved specification proposals by working through tasks sequentially with testing and validation. Use when implementing changes, applying proposals, executing spec tasks, or building from approved plans. Triggers include "openspec implement", "implement", "apply change", "execute spec", "work through tasks", "build feature", "start implementation".
-
 zh_displayName: OpenSpec 实现
-category: 开发框架与平台
-en_category: Dev Frameworks & Platforms
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 # Specification Implementation
 
 Systematically implements approved spec proposals by executing tasks sequentially with proper testing and validation.
