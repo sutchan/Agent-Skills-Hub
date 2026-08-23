@@ -1,4 +1,4 @@
-// app/lib/skills.ts v1.20.3 — 技能数据读取与类型
+// app/lib/skills.ts v1.20.49 — 技能数据读取与类型
 // 数据源：仓库根 data/skills-data.json（稳定元数据，由 build-skills-data.mjs 生成）
 // + data/skills-metrics.json（频繁更新的派生指标：popularity/size/files/stars/firstSeen/skillVersion）。
 // 两文件合并后提供给渲染层，指标独立存储避免每次重算重写大文件。
@@ -57,12 +57,12 @@ export interface SkillsData {
   skills: Skill[];
 }
 
-// 仓库根 data/：数据为仓库根目录的静态产物，位于 app 项目根的上层。
+// 仓库根 data/：数据为仓库根目录的静态产物。
 // @note 修复：Next.js 会把服务端模块打包（webpack node target），__dirname 指向 .next 输出目录而非源码，
-// 无法用于定位源码旁的 data/。构建期静态页从 app 目录执行（README: cd app && npm run build），
-// 故以 process.cwd()（=app/）锚定仓库根 data/ 最可靠。
-const DATA_PATH = path.resolve(process.cwd(), "..", "data", "skills-data.json");
-const METRICS_PATH = path.resolve(process.cwd(), "..", "data", "skills-metrics.json");
+// 无法用于定位源码旁的 data/。配置文件已提升至仓库根，构建期静态页从仓库根执行（next build），
+// 故以 process.cwd()（=仓库根）直接锚定 data/ 最可靠。
+const DATA_PATH = path.resolve(process.cwd(), "data", "skills-data.json");
+const METRICS_PATH = path.resolve(process.cwd(), "data", "skills-metrics.json");
 
 // 模块级缓存：数据文件为构建期静态文件，运行期不变。
 // 避免每个请求重复 readFileSync + JSON.parse（Vercel server-hoist-static-io）。

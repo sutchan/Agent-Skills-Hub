@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.49] - 2026-08-23
+
+### chore: 将 Next 配置提升至仓库根并简化构建链
+
+- 将 `app/` 下的 `package.json`、`next.config.mjs`、`tsconfig.json`、`next-env.d.ts`、`package-lock.json` 移至仓库根，使仓库根成为 Next 项目根（App Router 位于根目录 `app/` 下，符合标准布局）
+- 根 `package.json` 合并 `next`/`react`/`react-dom` 依赖与 `@types/*`/`typescript` devDependencies，并新增 `next build` 脚本
+- 根 `build` 脚本简化为：`build-skills-data` + `build`(原型) + `npm install` + `next build`（去掉 `cd app` 与 `copy-next` 步骤）
+- 删除 `tools/copy-next.mjs`（Next 直接在根构建，`.next` 已在根，无需复制）
+- `app/lib/skills.ts`、`app/page.tsx` 的数据/版本读取路径由 `process.cwd()/..` 改为 `process.cwd()`（cwd 现为仓库根）
+- `tsconfig.json` 的 `paths`（`@/*`→`./app/*`）与 `include`（限定 `app/**`）适配根项目，避免扫到仓库其他 ts
+- 根 `package.json` version 升至 v1.20.49
+
+[1.20.49]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.49
+
 ## [1.20.48] - 2026-08-23
 
 ### chore: 调整 EO 部署配置以匹配 Next.js 根目录部署

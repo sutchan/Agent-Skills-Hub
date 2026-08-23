@@ -67,5 +67,4 @@ prototype/out/_next/
 !prototype/build-skills-data.mjs
 !tools/validate-skills.mjs
 !tools/_scan_fm_bug.mjs
-!tools/copy-next.mjs
 *.log

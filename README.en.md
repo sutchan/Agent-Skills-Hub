@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.20.48-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/prototype.html)
+[![Version](https://img.shields.io/badge/version-v1.20.49-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/prototype.html)
 
 A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Frontend Dev, Backend & Platform, Mobile Dev, WordPress & CMS, Engineering Practice & Quality, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security — 189 skill packs on GitHub (1 marked hidden, 188 publicly visible). Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
 
@@ -115,13 +115,12 @@ The repo provides two showcase options, both auto-generated from `skills/<name>/
 | `prototype/prototype.html` | Static single-file showcase | Self-contained skill data inlined at build time; opens offline |
 | `app/` | Runnable web app (source) | Next.js app generating data from `skills/` |
 
-`app/` is the web app source workspace; tech stack and commands per `app/package.json` and source under `app/`:
+`app/` is the web app source workspace (Next.js App Router lives under the repo-root `app/` directory); tech stack and commands per the repo-root `package.json`:
 
 ```bash
-cd app
 npm install
-npm run dev      # local dev server
-npm run build    # production build
+npm run dev      # local dev server (next dev)
+npm run build    # production build (data/prototype + next build)
 npm run start    # start production server
 ```
 
