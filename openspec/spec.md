@@ -122,14 +122,14 @@ type SkillsData = {
 - **分类（Topics）**：React、Next.js、Design & UI、Mobile、Agent workflows、Databases、Testing、Marketing 等。
 - **主流技能示例**：`find-skills`（vercel-labs/skills）、`agent-browser`（vercel-labs/agent-browser）、`frontend-design`（anthropics/skills）、`grill-me` / `tdd` / `prototype`（mattpocock/skills）、`vercel-react-best-practices`（vercel-labs/agent-skills）等。
 
-### 8.2 程序化访问（API）
-- 基址：`https://skills.sh/api/v1/`，HTTPS + JSON；认证用 Vercel OIDC Token（`Authorization: Bearer` 或 `x-vercel-oidc-token`），否则 401；限流 600 请求/分钟。
-- 端点：
-  - `GET /skills`：排行榜，`view=all-time|trending|hot`，`page`(0起)、`per_page`(1-500)
-  - `GET /skills/search`：语义搜索，`q`(≥2字符)、`limit`(1-200)、可选 `owner`
-  - `GET /skills/curated`：官方精选集（含独立 `owner` 字段与 `totalSkills`）
-  - `GET /skills/{source}/{skill}`：单个技能详情，`files[]` 含 `SKILL.md` 原文（description 需解析 frontmatter）
-- 说明：列表/搜索返回 `V1Skill` 形状（`id/slug/name/source/installs/installUrl/url`），API 不直接暴露 `category`/`description` 独立字段，主题分类仅见于网页 Topics 导航。
+### 8.2 程序化访问（API 与数据源）
+- **skills.sh 橱窗 API**（仅选品/发现用）：基址 `https://skills.sh/api/v1/`，HTTPS + JSON；需 Vercel OIDC Token（`Authorization: Bearer` 或 `x-vercel-oidc-token`），否则 401；限流 600 请求/分钟。端点 `GET /skills`(排行榜 view=all-time|trending|hot)、`/skills/search`(q/limit/owner)、`/skills/curated`(官方精选)、`/skills/{source}/{skill}`(详情 files[] 含 SKILL.md 原文)。列表/搜索返回 `V1Skill`(`id/slug/name/source/installs/installUrl/url`)，**不直接暴露 `category`/`description`**，主题分类仅见于网页 Topics 导航。
+- **真实数据源是 GitHub 仓库**（skills.sh 仅为展示橱窗，其 API 不给 SKILL.md 内容）。`npx skills` CLI（vercel-labs/skills v1.5.23）完全**不依赖 skills.sh API**，公开仓库免 token 直连 GitHub。
+- **免 token 批量导入链路**（已落地 `tools/import-from-github.mjs`，2026-08-23 实测跑通）：
+  1. `GET api.github.com/repos/{owner}/{repo}/git/trees/{branch}?recursive=1` 递归列出所有 `SKILL.md`（匿名限流 60/小时）；
+  2. `GET raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}` 拉取文件（自带 302 重定向跟随）；
+  3. 解析 frontmatter → 去重（本地 `skills/<name>/` 已存在则 SKIP）→ 13 类分类映射（关键词粗匹配，人工复核）→ 补 4 必备字段（`zh_displayName`/`category`/`en_category`/`en_description`）+ `source:<owner/repo>` 溯源。
+- 上游 `SKILL.md` 通常仅含 `name`/`description`(英文)/`license`/`metadata`，**全缺本仓库 4 必备字段**，`description` 需译为中文（默认展示语言）。导入工具默认 `--dry-run` 仅打印计划，加 `--write` 才落盘。
 
 ### 8.3 与本仓库的关系
 - **选品/对标**：新增本地技能前，可先在 skills.sh 检索同类能力，避免重复造轮子、借鉴其 frontmatter 结构。
