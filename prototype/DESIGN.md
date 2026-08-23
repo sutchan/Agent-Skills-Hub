@@ -1,10 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.20.17
+> 路径：`prototype/DESIGN.md` · 版本：1.20.18
 > 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts，v1.14.42 样式拆分为 tokens/base/layout/components/responsive，v1.17.x 交互/布局/可访问性系列改进）**：`prototype/index.html` 为纯 HTML 自包含单文件——由根目录 `npm run build`（=`node tools/build-skills-data.mjs && node tools/build.mjs`）将 `src/index.html` 模板内联 `src/styles/tokens.css` 及按序拼接的 `src/styles/base.css` + `src/styles/layout.css` + `src/styles/components.css` + `src/styles/responsive.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据（合并 `data/skills-data.json` + `data/skills-metrics.json` 后注入）生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物（构建脚本 `tools/build.mjs`/`tools/build-skills-data.mjs` 置于仓库根 `tools/`，不混入原型目录）。
+> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts，v1.14.42 样式拆分为 tokens/base/layout/components/responsive，v1.17.x 交互/布局/可访问性系列改进）**：`prototype/prototype.html` 为纯 HTML 自包含单文件——由根目录 `npm run build`（=`node tools/build-skills-data.mjs && node tools/build.mjs`）将 `src/index.html` 模板内联 `src/styles/tokens.css` 及按序拼接的 `src/styles/base.css` + `src/styles/layout.css` + `src/styles/components.css` + `src/styles/responsive.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据（合并 `data/skills-data.json` + `data/skills-metrics.json` 后注入）生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物（构建脚本 `tools/build.mjs`/`tools/build-skills-data.mjs` 置于仓库根 `tools/`，不混入原型目录）。
 
 ---
 
@@ -123,7 +123,7 @@
 
 ### 3.1 基础组件（Base）— `components/ui/*`（构建期源码映射）
 
-> 以下组件为**原型源码结构映射**（源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/index.html`）；此处列出供理解静态产物的实现结构与评审对齐。注：当前实现为原生 HTML/CSS/JS（非 React 组件文件），交互脚本已按职责拆分到 `src/parts/`（01-state / 02-render / 03-detail / 04-interactions / 05-main），以下按职责对应到对应 parts 模块的渲染/交互函数。
+> 以下组件为**原型源码结构映射**（源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/prototype.html`）；此处列出供理解静态产物的实现结构与评审对齐。注：当前实现为原生 HTML/CSS/JS（非 React 组件文件），交互脚本已按职责拆分到 `src/parts/`（01-state / 02-render / 03-detail / 04-interactions / 05-main），以下按职责对应到对应 parts 模块的渲染/交互函数。
 
 | 组件 | 文件 | 变体/状态 |
 |------|------|-----------|
@@ -230,7 +230,7 @@
 
 ## 6. 数据架构（Data Contract）
 
-- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `data/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/index.html` 静态产物（仓库已入库 `prototype/`，如需更新数据重跑两脚本即可）。
+- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `data/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/prototype.html` 静态产物（仓库已入库 `prototype/`，如需更新数据重跑两脚本即可）。
 - 数据 Schema（实际为扁平结构）：`{ total:number, categories: string[], categoryEn: Record<string,string>, skills: Skill[] }`，其中 `Skill{ name, category, enCategory, zh, description, enDescription, allowedTools, hidden }`：
   - `name`：技能唯一标识（英文 slug）。
   - `category`：中文分类名；`enCategory`：该分类的英文名。
@@ -247,10 +247,10 @@
 ## 7. 技术栈（构建期，产物已预渲染）
 
 - 原型为**纯静态原生实现**：`src/index.html`（HTML 模板）+ `src/styles/tokens.css` + `src/styles/base.css`/`layout.css`/`components.css`/`responsive.css`（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind/HSL）+ `src/i18n.js`（独立国际化模块）+ `src/parts/*.js`（原生 JS 渲染与交互，按职责拆分 01-state / 02-render / 03-detail / 04-interactions / 05-main，无 React/Next.js/Radix）。
-- 构建：根目录 `build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/index.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
-- 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/index.html`。
-- 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/index.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
-- 部署：静态托管（以 `prototype/` 为站点根目录，`buildCommand` 执行 `npm run build` 重新生成产物；无运行时依赖，直接托管 `prototype/index.html` 即可）。
+- 构建：根目录 `build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/prototype.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
+- 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/prototype.html`。
+- 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/prototype.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
+- 部署：静态托管（以 `prototype/` 为站点根目录，`buildCommand` 执行 `npm run build` 重新生成产物；无运行时依赖，直接托管 `prototype/prototype.html` 即可）。
 
 ---
 

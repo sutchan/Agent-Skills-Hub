@@ -16,7 +16,7 @@
 
 ## 2. 数据契约（已落地）
 
-展示页与任何消费方共享的数据结构，由 `tools/build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 解析生成。**数据拆分为两份产物**（v1.20.3 起）：`data/skills-data.json`（稳定元数据）+ `data/skills-metrics.json`（频繁更新的派生指标，以 `name` 为 key 的 map），合并后由 `tools/build.mjs` 内联进 `prototype/index.html`，`app/lib/skills.ts` 的 `loadSkills()` 亦读取并合并二者。
+展示页与任何消费方共享的数据结构，由 `tools/build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 解析生成。**数据拆分为两份产物**（v1.20.3 起）：`data/skills-data.json`（稳定元数据）+ `data/skills-metrics.json`（频繁更新的派生指标，以 `name` 为 key 的 map），合并后由 `tools/build.mjs` 内联进 `prototype/prototype.html`，`app/lib/skills.ts` 的 `loadSkills()` 亦读取并合并二者。
 
 ### 2.1 技能条目（SkillEntry，来自 skills-data.json）
 ```ts
@@ -69,7 +69,7 @@ type SkillsData = {
 
 ## 3. 展示页交互（已落地）
 
-`prototype/index.html` 为自包含静态页（无 React/Next 运行时）：
+`prototype/prototype.html` 为自包含静态页（无 React/Next 运行时）：
 
 - **搜索**：前端关键词匹配 `name` / `zh` / `description`，输入即时过滤。
 - **分类筛选**：点击分类标签过滤；"全部"重置。
@@ -90,7 +90,7 @@ type SkillsData = {
 
 ## 5. 构建与发版（已落地）
 
-- **构建**：根 `package.json` 的 `npm run build` = `node tools/build-skills-data.mjs && node tools/build.mjs`，产物 `data/skills-data.json` + `data/skills-metrics.json` + `prototype/index.html`。
+- **构建**：根 `package.json` 的 `npm run build` = `node tools/build-skills-data.mjs && node tools/build.mjs`，产物 `data/skills-data.json` + `data/skills-metrics.json` + `prototype/prototype.html`。
 - **发版步骤**：bump `package.json` version → 重跑 build → 同步 README 徽章/CHANGELOG → 打 tag `vX.Y.Z` 推送。
 - **CI**：`.github/workflows/` 校验仓库根 `data/skills-data.json`。
 

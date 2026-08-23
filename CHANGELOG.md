@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.18] - 2026-08-23
+
+### refactor: 静态原型产物统一为 prototype.html，不再生成 index.html
+
+- `tools/build.mjs` 仅生成 `prototype/prototype.html`（删除同源平行产物 `prototype/index.html` 的写入），消除 315KB 重复副本
+- 删除仓库内 `prototype/index.html` 产物；所有文档指向由 `prototype/index.html` 改为 `prototype/prototype.html`（README 中/英、DESIGN.md、COMPONENTS.md、IMPROVEMENT-SPEC.md、states.html、openspec 三文档）
+- 部署适配：静态托管默认需 `index.html` 入口，故 `vercel.json` 增 `rewrites` 将首页 `/` 重写到 `/prototype.html`；`package.json` 的 `serve` 脚本指定 `-i prototype.html` 入口
+- CHANGELOG 历史小节中 `prototype/index.html` 为当时事实，按规范保留不篡改
+- 根 `package.json` version 升至 v1.20.18
+
+[1.20.18]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.18
+
 ## [1.20.17] - 2026-08-23
 
 ### chore: 整理技能去重、补全契约字段并迁移旧分类至 13 类体系
@@ -55,7 +67,7 @@
 - 原型与 app 在分类筛选 chip 下方新增第二组「功能标签」筛选行（多选 OR，与分类以 AND 组合），标签中英显示名由 `TAG_LABELS` 提供
 - 原型：`01-state.js`（tags 状态 + `tagCounts`）、`02-render.js`（`renderTags` + 过滤）、`04-interactions.js`（标签点击委托）、`i18n.js`（`TAG_LABELS` + `tagLabel`）、`index.html`（`#tags` 容器）、`layout.css`（`.tags-nav` 样式）
 - app：`SkillsExplorer.tsx`（`tags` 状态 + `tagCounts` + `toggleTag` + 标签 chip 渲染）、`skills.ts`（`tags?` 字段已具备）、`globals.css`（`.chips.tags` 样式）
-- `npm run build` 重建 `prototype/index.html` 与 `prototype.html`
+- `npm run build` 重建 `prototype/prototype.html`
 - 根 `package.json` version 升至 v1.20.13
 
 [1.20.13]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.13
@@ -68,7 +80,7 @@
 - 分类 chip 改为默认中性灰、选中态才用 `--hue` 派生彩色（原型 `components.css`/`layout.css` 与 app `globals.css` 同源对齐）
 - 技能详情安装区补全完整 GitHub 仓库来源链接（`REPO_URL`）
 - i18n 补 `footer.star`；`app/lib/share.ts` 新增 `REPO_URL`/`buildRepoShareText`/`copyRepoShare` 复用 `SHARE_PROMOS`
-- `npm run build` 重建 `prototype/index.html` 与 `prototype.html`
+- `npm run build` 重建 `prototype/prototype.html`
 - 根 `package.json` version 升至 v1.20.12
 
 [1.20.12]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.12

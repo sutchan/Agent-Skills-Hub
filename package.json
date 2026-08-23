@@ -1,11 +1,11 @@
 {
   "name": "agent-skills-hub",
-  "version": "1.20.17",
+  "version": "1.20.18",
   "private": true,
   "description": "Agent Skills Hub — 高质量 agent 技能目录与高保真原型（纯静态站点）",
   "scripts": {
     "build": "node tools/build-skills-data.mjs && node tools/build.mjs",
-    "serve": "node tools/build.mjs && npx --yes serve prototype"
+    "serve": "node tools/build.mjs && npx --yes serve prototype -i prototype.html"
   },
   "license": "MIT",
   "engines": {

@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.20.17-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/index.html)
+[![版本](https://img.shields.io/badge/version-v1.20.17-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/prototype.html)
 
 一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 13 大领域，共 186 个技能包（其中 1 个标记为隐藏，公开可见 185 个）。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述，含 frontmatter 前置元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 `tools/coverage.py` 统计。
 
@@ -16,7 +16,7 @@
 | 🗂️ | **186 技能 · 13 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 |
 | 🌏 | **默认中文** | 中文目录 + 中文一句话简介 + 中文完整描述（`description`，默认展示语言），英文原文存 `en_description`，中文 Agent 用户开箱即用 |
 | 📦 | **一键安装** | 配合 [skills-manager](https://github.com/xingkongliang/skills-manager) 批量安装 / 更新 / 卸载 |
-| 🚀 | **离线可用** | 自包含静态展示页（`prototype/index.html`）内联全部数据，双击即可浏览全部技能，无框架依赖 |
+| 🚀 | **离线可用** | 自包含静态展示页（`prototype/prototype.html`）内联全部数据，双击即可浏览全部技能，无框架依赖 |
 
 ## 目录
 
@@ -60,13 +60,13 @@
 | 安全 | 4 |
 
 > 浏览全部技能：
-> - 静态展示页：[`prototype/index.html`](prototype/index.html)
+> - 静态展示页：[`prototype/prototype.html`](prototype/prototype.html)
 > - 数据文件：[`data/skills-data.json`](data/skills-data.json)（稳定元数据，由 `npm run build` 从 `skills/` 自动生成）+ [`data/skills-metrics.json`](data/skills-metrics.json)（频繁更新的派生指标，独立存储）
 > - 在线应用：见下方 [在线展示页面](#在线展示页面)
 
 ## 使用方式
 
-先到 [在线展示页面](#在线展示页面)（或直接打开 [`prototype/index.html`](prototype/index.html)）浏览全部技能，挑出需要的，再按下面任一方式安装到你的 Agent。
+先到 [在线展示页面](#在线展示页面)（或直接打开 [`prototype/prototype.html`](prototype/prototype.html)）浏览全部技能，挑出需要的，再按下面任一方式安装到你的 Agent。
 
 ### 方式 A：手动复制（快速上手）
 
@@ -91,7 +91,7 @@ git clone https://github.com/sutchan/Agent-Skills-Hub.git
 
 | 目录 | 类型 | 用途 |
 |------|------|------|
-| `prototype/index.html` | 静态单文件展示页 | 自包含全部技能数据，构建时内联，可离线打开 |
+| `prototype/prototype.html` | 静态单文件展示页 | 自包含全部技能数据，构建时内联，可离线打开 |
 | `app/` | 可运行 Web 应用（源码） | 基于 Next.js，从 `skills/` 实时生成数据 |
 
 `app/` 是应用源码工作区，技术栈与命令见 `app/package.json` 与 `app/` 下源码：

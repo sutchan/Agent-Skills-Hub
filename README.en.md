@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.20.17-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/index.html)
+[![Version](https://img.shields.io/badge/version-v1.20.17-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/prototype.html)
 
 A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Frontend Dev, Backend & Platform, Mobile Dev, WordPress & CMS, Engineering Practice & Quality, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, and Security — 186 skill packs on GitHub (1 marked hidden, 185 publicly visible). Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
 
@@ -16,7 +16,7 @@ A centrally managed collection of AI skills covering Brand & Design, Docs & Cont
 | 🗂️ | **186 skills · 13 domains** | Covers Brand & Design, Docs & Content, Data Analysis & Visualization, Frontend Dev, Backend & Platform, Mobile Dev, WordPress & CMS, Engineering Practice & Quality, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Security |
 | 🌏 | **Chinese by default** | Chinese category (`category`) + English category (`en_category`) + one-line summary + full Chinese description (`description`, default display language), English original in `en_description` — ready for Chinese-speaking agent users |
 | 📦 | **One-click install** | Bulk install / update / remove via [skills-manager](https://github.com/xingkongliang/skills-manager) |
-| 🚀 | **Works offline** | Self-contained static showcase (`prototype/index.html`) inlines all data — double-click to browse every skill with no framework dependency |
+| 🚀 | **Works offline** | Self-contained static showcase (`prototype/prototype.html`) inlines all data — double-click to browse every skill with no framework dependency |
 
 ## Table of Contents
 
@@ -60,13 +60,13 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 | Security | 4 |
 
 > Browse all skills:
-> - Static showcase: [`prototype/index.html`](prototype/index.html)
+> - Static showcase: [`prototype/prototype.html`](prototype/prototype.html)
 > - Data files: [`data/skills-data.json`](data/skills-data.json) (stable metadata, auto-generated from `skills/` via `npm run build`) + [`data/skills-metrics.json`](data/skills-metrics.json) (frequently-updated derived metrics, stored separately)
 > - Web app: see [Online Showcase](#online-showcase) below
 
 ## Usage
 
-Browse the skills first in the [Online Showcase](#online-showcase) (or open [`prototype/index.html`](prototype/index.html) directly), pick what you need, then install into your agent via either approach below.
+Browse the skills first in the [Online Showcase](#online-showcase) (or open [`prototype/prototype.html`](prototype/prototype.html) directly), pick what you need, then install into your agent via either approach below.
 
 ### Option A: Manual copy (quick start)
 
@@ -91,7 +91,7 @@ The repo provides two showcase options, both auto-generated from `skills/<name>/
 
 | Directory | Type | Purpose |
 |-----------|------|---------|
-| `prototype/index.html` | Static single-file showcase | Self-contained skill data inlined at build time; opens offline |
+| `prototype/prototype.html` | Static single-file showcase | Self-contained skill data inlined at build time; opens offline |
 | `app/` | Runnable web app (source) | Next.js app generating data from `skills/` |
 
 `app/` is the web app source workspace; tech stack and commands per `app/package.json` and source under `app/`:

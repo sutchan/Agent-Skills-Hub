@@ -2,7 +2,7 @@
 
 > 版本基线：`package.json` v1.17.3（权威单一来源）
 > **执行状态：v1.15.0–v1.17.2 全部 P0–P3 项已落地**（含二/三轮补充修复），本 spec 转为「已实现清单」存档
-> 适用范围：仅 `prototype/src/` 源码；产物 `prototype/index.html` 由 `npm run build` 重建，**禁止手改**
+> 适用范围：仅 `prototype/src/` 源码；产物 `prototype/prototype.html` 由 `npm run build` 重建，**禁止手改**
 > 调研依据：`grill-me` 对 prototype 的代码审查（2026-08-21）
 > 落地记录见 `.codebuddy/memory/2026-08-21.md`
 
@@ -12,7 +12,7 @@
 
 | 项 | 现状（v1.17.2 实测） | 真相 |
 |----|------|------|
-| 数据源 | `prototype/index.html` 内联 `const SKILLS_DATA` | 由 `build.mjs` 注入根 `data/skills-data.json`，**非运行时 fetch** |
+| 数据源 | `prototype/prototype.html` 内联 `const SKILLS_DATA` | 由 `build.mjs` 注入根 `data/skills-data.json`，**非运行时 fetch** |
 | 技能总数 | 产物 `total` 与 `data` 一致 | 权威 = `data/skills-data.json` 的 `total`（当前 60，含真实分类 + `hidden` 过滤） |
 | 主色 | `--primary: 152 56% 40%` = `#2e9e6b`；深 `#5cc98c` | 与全局品牌记忆一致 ✅ |
 | `catCounts()` | 已预聚合为 `Map` | 子代理误报"每次重算"，**无需改** ✅ |

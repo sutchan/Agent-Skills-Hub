@@ -1,4 +1,4 @@
-// build.mjs v1.19.16 — 将 src 模板 + 真实数据内联为自包含 prototype/index.html（产物直出 prototype/ 根）
+// build.mjs v1.20.18 — 将 src 模板 + 真实数据内联为自包含 prototype/prototype.html（产物直出 prototype/ 根）
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,8 +9,8 @@ const ROOT = dirname(__dirname);
 // 原型源位于仓库根 prototype/
 const PROTO = join(ROOT, "prototype");
 const SRC = join(PROTO, "src");
-// 产物直接输出到 prototype/ 根目录（index.html + favicon.svg），不再嵌套 out/ 子目录，
-// 使 prototype/index.html 即部署入口，edgeone.json 的 outputDirectory 指向 ./prototype。
+// 产物直接输出到 prototype/ 根目录（prototype.html + favicon.svg），不再嵌套 out/ 子目录，
+// 使 prototype/prototype.html 即部署入口（静态托管以 prototype.html 为站点首页）。
 const OUT_DIR = PROTO;
 
 const htmlTpl = readFileSync(join(SRC, "index.html"), "utf8");
@@ -79,8 +79,7 @@ const out = htmlTpl
   .replace(/\{SKILLS_TOTAL\}/g, () => String(SKILLS_TOTAL));
 
 mkdirSync(OUT_DIR, { recursive: true });
-writeFileSync(join(OUT_DIR, "index.html"), out, "utf8");
-// 同源平行产物：prototype.html 与 index.html 内容完全一致，仅为命名入口（部分部署/评审场景期望 prototype.html）
+// 唯一产物：prototype.html（部署入口 / 评审分享入口，内容自包含，不再生成 index.html）
 writeFileSync(join(OUT_DIR, "prototype.html"), out, "utf8");
 console.log(`Built self-contained prototype -> ${join(OUT_DIR, "prototype.html")} (${(out.length / 1024).toFixed(1)} KB)`);
 
@@ -91,14 +90,12 @@ if (existsSync(favSrc)) {
   copyFileSync(favSrc, join(OUT_DIR, "favicon.svg"));
   console.log("Copied favicon.svg -> prototype/favicon.svg");
 }
-// 复制社交分享横幅（Open Graph / Twitter Card），供 index.html 的 og:image 引用
+// 复制社交分享横幅（Open Graph / Twitter Card），供 prototype.html 的 og:image 引用
 const ogSrc = join(ROOT, "app", "public", "banner-og.svg");
 if (existsSync(ogSrc)) {
   copyFileSync(ogSrc, join(OUT_DIR, "banner-og.svg"));
   console.log("Copied banner-og.svg -> prototype/banner-og.svg");
 }
-
-console.log(`Built self-contained prototype -> ${join(OUT_DIR, "index.html")} (${(out.length / 1024).toFixed(1)} KB)`);
 
 // 注：app/tokens-shared.css 不再由本脚本生成。令牌单一来源同步已拆出为
 // tools/sync-tokens.mjs（事实源 prototype/src/styles/tokens.css），视觉变更后手动运行。
