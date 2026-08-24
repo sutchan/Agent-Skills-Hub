@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.52] - 2026-08-24
+
+### docs: update ad-creative/marketing-plan/video skill references and evals
+
+- 更新 `skills/ad-creative` 参考文档与评估集（creative-review/roadmap/generative-tools/hook-system/iMessage 视频广告/meta 创意格式/短视频规格/静态广告模板等）
+- 更新 `skills/marketing-plan` 参考文档与评估集（aarrr 框架/预算规划/客户类型/现状评分/融资阶段解锁/增长模式/方法论/团队与代理模型等）
+- 更新 `skills/video` 参考文档与评估集（ai-video-prompting/edit-anatomy）
+
+[1.20.52]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.52
+
 ## [1.20.51] - 2026-08-24
 
 ### fix: align topbar/hero/controls to grid width
