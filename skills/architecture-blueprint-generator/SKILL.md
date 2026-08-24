@@ -1,12 +1,13 @@
 ---
 name: architecture-blueprint-generator
 description: |-
-    全面的项目架构蓝图生成器，分析代码库以产出详细的架构文档。自动识别技术栈与架构模式，生成可视化图表，记录实现模式，并提供可扩展的蓝图以维护架构一致性与指导新开发。
-en_description: Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.
-zh_displayName: 项目架构蓝图生成器
+  综合项目架构蓝图生成器：分析代码库以生成详细架构文档。自动识别技术栈与架构模式，生成可视化图表，记录实现模式，并提供可扩展的蓝图以维护架构一致性、指导新开发。当用户要生成项目架构文档、技术栈检测、架构图或实现模式说明时触发。
+en_description: 'Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.'
+zh_displayName: 架构蓝图生成器
 category: 工程实践与质量
 en_category: Engineering Practice & Quality
 ---
+
 # Comprehensive Project Architecture Blueprint Generator
 
 ## Configuration Variables

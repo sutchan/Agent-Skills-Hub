@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.50] - 2026-08-24
+
+### fix: 补全 7 个技能缺失契约字段并修复第 14 类污染至 v1.20.50
+
+- 磁盘 `ad-creative` / `architecture-blueprint-generator` / `browser-automation` / `marketing-plan` / `playwright-explore-website` / `short-drama-write` / `video` 共 7 个技能的 frontmatter 被外部改写/回退，丢失本仓库 4 个必填字段（`en_description`/`zh_displayName`/`category`/`en_category`），导致 build 出现「其他」类（第 14 类）违规。
+- 已重新补全 4 字段并正确归类：品牌与设计（ad-creative、marketing-plan、short-drama-write）、工程实践与质量（architecture-blueprint-generator）、自动化与集成（browser-automation、playwright-explore-website）、音视频与多媒体（video）；英文 description 技能保留原英文作 `en_description` 并新增中文 `description`（默认展示语言），中文 description 技能新增 `en_description`。
+- 重新生成 `data/skills-data.json`（199 技能 / 13 类、「其他」类归零）与 `data/skills-metrics.json`；`tools/build.mjs` 重新打包 `prototype/prototype.html`（版本占位注入 1.20.50）；`tools/validate-skills.mjs` 校验通过（199 技能 frontmatter 规范）。README 领域表计数本次无变化（分布与 v1.20.47 一致）。
+
+[1.20.50]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.50
+
 ## [1.20.49] - 2026-08-23
 
 ### chore: 将 Next 配置提升至仓库根并简化构建链

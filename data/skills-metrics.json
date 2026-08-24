@@ -1,8 +1,8 @@
 {
   "ad-creative": {
     "popularity": 3,
-    "size": 162493,
-    "files": 11
+    "size": 217980,
+    "files": 13
   },
   "ads-creative": {
     "popularity": 1,
@@ -57,7 +57,7 @@
   },
   "architecture-blueprint-generator": {
     "popularity": 3,
-    "size": 13742,
+    "size": 13830,
     "files": 1
   },
   "bailian-web-search": {
@@ -107,7 +107,7 @@
   },
   "browser-automation": {
     "popularity": 2,
-    "size": 21766,
+    "size": 21709,
     "files": 3
   },
   "bun": {
@@ -134,12 +134,12 @@
   },
   "clean-architecture": {
     "popularity": 1,
-    "size": 110487,
+    "size": 108447,
     "files": 7
   },
   "clean-code": {
     "popularity": 0,
-    "size": 95759,
+    "size": 93497,
     "files": 7
   },
   "clerk-nextjs-patterns": {
@@ -237,12 +237,12 @@
   },
   "douyin-video": {
     "popularity": 1,
-    "size": 22647,
+    "size": 22156,
     "files": 2
   },
   "douyin-video-summary": {
     "popularity": 1,
-    "size": 7001,
+    "size": 6934,
     "files": 4
   },
   "drama-analyzer": {
@@ -316,12 +316,12 @@
   },
   "figma-implement-design": {
     "popularity": 1,
-    "size": 16172,
+    "size": 16158,
     "files": 6
   },
   "figma-use": {
     "popularity": 2,
-    "size": 717687,
+    "size": 701765,
     "files": 21
   },
   "find-skills": {
@@ -376,7 +376,7 @@
   },
   "git-cleanup": {
     "popularity": 0,
-    "size": 15838,
+    "size": 15834,
     "files": 3
   },
   "google-agents-cli-adk-code": {
@@ -520,7 +520,7 @@
   },
   "marketing-plan": {
     "popularity": 1,
-    "size": 246824,
+    "size": 260429,
     "files": 15
   },
   "mcp-vods": {
@@ -628,7 +628,7 @@
   },
   "playwright-explore-website": {
     "popularity": 0,
-    "size": 854,
+    "size": 1142,
     "files": 1
   },
   "playwriter": {
@@ -746,7 +746,7 @@
   },
   "short-drama-write": {
     "popularity": 1,
-    "size": 214018,
+    "size": 214456,
     "files": 19
   },
   "simplify": {
@@ -879,7 +879,7 @@
   },
   "video": {
     "popularity": 3,
-    "size": 37552,
+    "size": 38046,
     "files": 4
   },
   "video-edit": {

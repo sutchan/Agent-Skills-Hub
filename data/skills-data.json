@@ -35,9 +35,9 @@
       "name": "ad-creative",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "付费广告创意生成",
-      "description": "当用户需要为任意付费广告平台生成、迭代或规模化广告创意（标题、描述、主文案或完整广告变体）时使用。涵盖 RSA 标题、批量广告文案、创意测试、创意策略、创意复盘、钩子撰写、创意评审页、动态视频广告、无脸视频广告、动画解说广告、动态拼贴广告等场景。需要规模化产出广告文案或对现有广告迭代时使用；投放策略与定向见 ads 技能，落地页文案见 copywriting 技能。",
-      "enDescription": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'ad performance optimization,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'static ad concepts,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'fake DM ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'animated explainer ad,' 'motion collage ad,' or 'I need more ad variations.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+      "zh": "广告创意生产",
+      "description": "当用户要为任意付费广告平台生成、迭代或规模化广告创意（标题、描述、主文案或完整广告变体）时触发。涵盖「广告文案变体」「广告创意」「生成标题」「RSA 标题」「批量广告文案」「创意测试」「写广告」「Facebook/Google/LinkedIn 广告文案」「静态广告」「广告模板」「iMessage 广告」「ChatGPT 广告」「Apple Notes 广告」「AirDrop 广告」「创意策略」「创意路线图」「创意回顾」「Hook 写作」「创意评审页」「动态视频广告」「无脸视频广告」「UGC 广告」「绿幕广告」「TikTok/Reels 广告」「Meta 广告格式分级」等场景。用于大规模产出或迭代广告文案。广告投放策略与定向见 ads，落地页文案见 copywriting。",
+      "enDescription": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'UGC ad,' 'greenscreen ad,' 'TikTok/Reels ad format,' 'which ad format to make,' 'Meta ad format tier list,' or 'creative format taxonomy.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -494,8 +494,8 @@
       "name": "marketing-plan",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "营销计划制定",
-      "description": "当用户需要为客户、所顾问公司或自有产品制定全面营销计划时使用；也适用于提及“营销计划”“增长计划”“GTM 计划”“AARRR 计划”“90 天营销计划”“12 个月营销路线图”“fCMO 计划”等。生成按 AARRR（获取、激活、留存、推荐、营收）结构化的 13 节详尽计划，按客户预算/团队/阶段定制，关联融资里程碑，交叉引用 139 条营销创意库与 17 节现状审计，输出可直接粘贴 Notion 的 markdown。",
+      "zh": "营销计划",
+      "description": "当用户需要为客户、所顾问公司或自有产品制定全面营销计划时触发。涵盖「营销计划」「增长计划」「GTM 计划」「上市计划」「AARRR 计划」「90 天营销计划」「12 个月营销路线图」「fractional CMO 计划」「fCMO 计划」。按 AARRR（获客、激活、留存、推荐、营收）生成 13 段式详尽计划，按客户预算/团队/阶段定制，映射到后续融资里程碑，交叉引用 139 条营销创意库与 17 段现状审计 rubric，并附完整营销运营栈（指明各模块由哪些 skill 与 MCP/API 执行）。输出可直接粘贴 Notion 的 markdown 文档。规划前的定位与 ICP 上下文见 product-marketing，阶段专项深做见 onboarding/signup/emails/referrals/pricing。",
       "enDescription": "When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions \"marketing plan,\" \"growth plan,\" \"GTM plan,\" \"go-to-market plan,\" \"AARRR plan,\" \"90-day marketing plan,\" \"12-month marketing roadmap,\" \"fractional CMO plan,\" or \"fCMO plan.\" Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.",
       "homepage": "",
       "allowedTools": [],
@@ -1050,23 +1050,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
       "githubDir": "skills/playwright-cli"
-    },
-    {
-      "name": "playwright-explore-website",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Playwright 网站探索测试",
-      "description": "使用 Playwright MCP 对网站进行探索性测试。",
-      "enDescription": "Website exploration for testing using Playwright MCP",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "web-frontend",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-explore-website",
-      "githubDir": "skills/playwright-explore-website"
     },
     {
       "name": "prototype",
@@ -1920,8 +1903,8 @@
       "name": "architecture-blueprint-generator",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "项目架构蓝图生成器",
-      "description": "全面的项目架构蓝图生成器，分析代码库以产出详细的架构文档。自动识别技术栈与架构模式，生成可视化图表，记录实现模式，并提供可扩展的蓝图以维护架构一致性与指导新开发。",
+      "zh": "架构蓝图生成器",
+      "description": "综合项目架构蓝图生成器：分析代码库以生成详细架构文档。自动识别技术栈与架构模式，生成可视化图表，记录实现模式，并提供可扩展的蓝图以维护架构一致性、指导新开发。当用户要生成项目架构文档、技术栈检测、架构图或实现模式说明时触发。",
       "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
       "homepage": "",
       "allowedTools": [],
@@ -2624,8 +2607,8 @@
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
       "zh": "浏览器与桌面自动化",
-      "description": "统一自动化入口，覆盖浏览器自动化（Playwright）与 Windows 桌面应用自动化（OpenReverse）。浏览器场景：打开页面、点击、填表、爬取、截图、自动登录、页面交互；桌面场景：驱动 IDA/x64dbg 等 GUI 工具、Windows UI 自动化、视觉驱动交互、桌面应用网络抓包。触发词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动登录、Playwright、OpenReverse、UIA、CUA、Windows 自动化。",
-      "enDescription": "Unified automation entry point. Covers browser automation (Playwright) and Windows desktop app automation (OpenReverse). Browser scenarios: open pages, click, fill forms, scrape, screenshot, automated login, page interaction. Desktop scenarios: drive GUI tools like IDA/x64dbg, Windows UI Automation, vision-driven interaction, desktop app network capture. Trigger keywords: browser automation, desktop automation, open webpage, fill form, scrape, screenshot, automated login, Playwright, agent-browser, headless, OpenReverse, UIA, CUA, desktop operation, Windows automation.",
+      "description": "undefined\n统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
+      "enDescription": "Unified automation entry point covering browser automation (Playwright) and Windows desktop automation (OpenReverse): open pages, click, fill forms, scrape, screenshot, login automation, penetration page interaction, GUI tool operation (IDA/x64dbg), Windows UI Automation, vision-driven interaction, desktop network capture.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -2723,6 +2706,24 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/persona-project-manager",
       "githubDir": "skills/persona-project-manager"
+    },
+    {
+      "name": "playwright-explore-website",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "Playwright 网站探索测试",
+      "description": "使用 Playwright MCP 对网站进行探索性测试：导航至目标 URL，识别并交互 3-5 个核心功能或用户流，记录用户交互、相关 UI 元素（及其定位器）与预期结果，完成后关闭浏览器上下文。当用户要做网页功能探索、UI 自动化测试或站点结构梳理时触发。",
+      "enDescription": "Website exploration for testing using Playwright MCP",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "web-frontend",
+        "test-qa",
+        "automation"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-explore-website",
+      "githubDir": "skills/playwright-explore-website"
     },
     {
       "name": "playwriter",
@@ -3410,8 +3411,8 @@
       "name": "video",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
-      "zh": "AI 视频创作",
-      "description": "当用户想用 AI 工具或编程框架创建、生成或制作视频内容时使用；也适用于提及“视频制作”“AI 视频”“Remotion”“Hyperframes”“HeyGen”“Synthesia”“Veo”“Sora”“Runway”“Kling”“Seedance”“Hailuo”“MiniMax”“Pika”“Hunyuan”“Wan”“视频生成”“AI 数字人”“口播视频”“编程视频”“视频模板”“解说视频”“产品演示视频”“视频流水线”等。用于视频创建、生成与生产工作流；视频内容策略见 social，付费视频广告创意见 ad-creative。",
+      "zh": "AI 视频生产",
+      "description": "当用户要用 AI 工具或程序化框架创建、生成或制作视频内容时触发。涵盖「视频制作」「AI 视频」「Remotion」「Hyperframes」「HeyGen」「Synthesia」「Veo」「Sora」「Runway」「Kling」「Seedance」「Hailuo」「MiniMax」「Pika」「Hunyuan」「Wan」「视频生成」「AI 数字人」「口播视频」「程序化视频」「视频模板」「讲解视频」「产品演示视频」「视频流水线」「复制这个剪辑」「匹配这种视频风格」「逆向这个视频」「像参考片那样剪辑」「给我做个视频」。用于视频创作、生成与生产工作流。视频内容策略与选题见 social，付费视频广告创意见 ad-creative。",
       "enDescription": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
       "homepage": "",
       "allowedTools": [],
