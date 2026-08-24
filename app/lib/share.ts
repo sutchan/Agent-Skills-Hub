@@ -1,4 +1,4 @@
-// app/lib/share.ts v1.20.12 — 分享逻辑与项目宣传文案
+// app/lib/share.ts v1.20.54 — 分享逻辑与项目宣传文案
 // 文案集合与 prototype/src/i18n.js 的 share.promos 保持逐字一致（openspec §4.5.4.3：
 // 两层复用同一文案集合，避免漂移）。原型 i18n.js 为权威来源，本文件与其同步。
 
@@ -28,19 +28,18 @@ export const SHARE_FEEDBACK: Record<Lang, { ok: string; fail: string; btn: strin
 
 /**
  * 构造分享文本：技能展示页链接 + 随机宣传文案（二者以空行分隔）。
- * 链接优先基于部署站点 origin（openspec §4.5.4.4：优先 location.origin + 仓库根 path），
+ * 链接优先基于部署站点 origin（openspec §4.5.4.4：优先 location.origin），
  * 仅当无 origin（SSR/非浏览器）时回退 GitHub 源码 tree，保证跨部署稳定。
  */
 export function buildShareText(
   name: string,
   lang: Lang,
   total = 0,
-  origin?: string,
-  basePath?: string
+  origin?: string
 ): string {
   const slug = encodeURIComponent(name);
   const link = origin
-    ? `${origin}${basePath || ""}/skills/${slug}/`
+    ? `${origin}/skills/${slug}/`
     : `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/${slug}/`;
   const promos = SHARE_PROMOS[lang] ?? SHARE_PROMOS.zh;
   const promo = promos.length
@@ -56,10 +55,9 @@ export async function copySkillShare(
   skill: { name: string },
   lang: Lang,
   total = 0,
-  origin?: string,
-  basePath?: string
+  origin?: string
 ): Promise<boolean> {
-  const text = buildShareText(skill.name, lang, total, origin, basePath);
+  const text = buildShareText(skill.name, lang, total, origin);
   return copyShareText(text);
 }
 

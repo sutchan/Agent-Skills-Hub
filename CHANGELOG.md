@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.54] - 2026-08-24
+
+### refactor: address code-review findings on app/ source
+
+- `AppShell.tsx`：补缺失的版本头注释；移除 `opacity:0` 且未被脚本引用的 `hub-glow` 死 DOM；为顶栏/Hero/控制区/页脚主要容器补语义化 `id`（`#topbar`/`#hero`/`#controls`/`#site-footer`）
+- `skills.ts`：补 v1.20.49 改动（路径 `../data`→`data`）漏 bump 的头注释至 v1.20.54
+- 删除 `analytics.ts` 死模块（`track()` 零调用，无事件上报逻辑）
+- `detail/DetailRelated.tsx`：改用 `initials()` 统一首字母派生，消除与 `skill-card`/`detail-modal` 重复的 `slice(0,2)` 逻辑
+- `SkillsExplorer.tsx`：移除直接返回依赖的无意义 `useMemo`（catsAll）
+- `share.ts`：移除从未被调用链传入的 `basePath` 参数（消除 Speculative Generality），分享短链统一为 `/skills/<slug>`
+
+[1.20.54]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.54
+
 ## [1.20.53] - 2026-08-24
 
 ### fix: align app UI to prototype (hero/brand/grid/controls)

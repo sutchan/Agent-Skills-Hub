@@ -1,6 +1,7 @@
-// app/components/detail/DetailRelated.tsx v1.19.38 — 技能详情弹窗：相关技能（同分类）
+// app/components/detail/DetailRelated.tsx v1.20.54 — 技能详情弹窗：相关技能（同分类）
 import type { Lang } from "../../lib/share";
 import type { Skill } from "../../lib/skills";
+import { initials } from "../../lib/initials";
 
 /** 相关技能：同分类、最多 4 个、点击跳转（onOpenSkill） */
 export function DetailRelated({
@@ -30,7 +31,7 @@ export function DetailRelated({
             onClick={() => onOpenSkill(r)}
             aria-label={r.zh || r.name}
           >
-            <span className="avatar sm">{r.name.slice(0, 2).toUpperCase()}</span>
+            <span className="avatar sm">{initials(r.name)}</span>
             <span className="related-name">
               <span className="zh">{r.zh || r.name}</span>
               <span className="en">{r.name}</span>
