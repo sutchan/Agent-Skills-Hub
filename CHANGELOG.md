@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.51] - 2026-08-24
+
+### fix: align topbar/hero/controls to grid width
+
+- 将「全宽背景 + 内容居中」统一模式应用到顶栏、Hero、控制区：`.topbar`/`.hero-outer`/`.controls` 外层全宽（sticky/分区背景贯通整屏），内层 `.topbar-inner`/`.hero`/`.controls-inner` 约束 `max-width: 1200px; margin: 0 auto`，与 `#grid` 严格对齐
+- `app/components/AppShell.tsx`：`<header className="topbar">` 内包裹 `.topbar-inner`，`<section className="hero">` 外包 `.hero-outer`
+- `app/components/SkillsExplorer.tsx`：`<div className="controls">` 内包裹 `.controls-inner`
+- `app/globals.css`：新增 `.topbar-inner`/`.hero-outer`/`.controls-inner` 规则，`.hero` 背景由渐变改为卡片表面色（`--surface`），渐变背景上移至 `.hero-outer` 全宽区段
+- 修复部署后 `.topbar`/`.hero` 在宽屏下比 `#grid` 更宽的对齐问题
+
+[1.20.51]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.51
+
 ## [1.20.50] - 2026-08-24
 
 ### fix: 补全 7 个技能缺失契约字段并修复第 14 类污染至 v1.20.50
