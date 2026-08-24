@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.20.51 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.20.53 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -163,7 +163,6 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
         </div>
       </header>
 
-      <div className="hero-outer">
       <section className="hero" id="hero" aria-labelledby={lang === "en" ? "heroTitleEn" : "heroTitle"}>
         <svg className="hero-net" id="heroNet" ref={heroNetRef} viewBox={`0 0 ${HERO_W} ${HERO_H}`} preserveAspectRatio="xMidYMid slice" overflow="visible" aria-hidden="true">
           <g id="netLines" stroke="hsl(var(--line))" strokeWidth={1.4} opacity={0.6}></g>
@@ -196,7 +195,6 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
           </div>
         </div>
       </section>
-      </div>
 
       <main id="mainContent">
         <SkillsExplorer data={data} lang={lang} />

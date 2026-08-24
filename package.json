@@ -1,6 +1,6 @@
 {
   "name": "agent-skills-hub",
-  "version": "1.20.52",
+  "version": "1.20.53",
   "private": true,
   "description": "Agent Skills Hub — 高质量 agent 技能目录与高保真原型（纯静态站点）",
   "scripts": {

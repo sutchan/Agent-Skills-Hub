@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.53] - 2026-08-24
+
+### fix: align app UI to prototype (hero/brand/grid/controls)
+
+- 以 `prototype/src/styles/layout.css` 为权威源，回填此前偏离的布局细节：
+  - `.hero` 恢复为原型式渐变圆角卡片（`background: linear-gradient(...)` 直接作用），移除误加的 `.hero-outer` 全宽背景层（原型无此结构），`AppShell.tsx` 同步移除包裹层
+  - `.brand-name` 字号 `17px` → `24px`（对齐原型 display 字体标题）
+  - `.grid` 桌面列布局 `auto-fill minmax(260px,1fr)` → `repeat(3, 1fr)`（对齐原型固定三列）
+  - `.topbar-inner`/`.controls-inner` 宽度 `1200px` 硬编码 → `var(--maxw)`（与 `--maxw:1200px` 令牌同源）
+  - `.controls` sticky `top: 52px` 硬编码 → `top: var(--topbar-h, 52px)`（由 JS 量取顶栏高度注入，避免换行错位）
+  - 移动端 media：外层 `.topbar`/`.controls` 残留 padding 改为由 `.topbar-inner`/`.controls-inner` 承载（对齐原型，外层仅保留 `top` 偏移）
+
+[1.20.53]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.53
+
 ## [1.20.52] - 2026-08-24
 
 ### docs: update ad-creative/marketing-plan/video skill references and evals
