@@ -1,4 +1,4 @@
-// prototype/src/parts/01-state.js v1.20.37 — 常量、偏好状态与纯工具函数
+// prototype/src/parts/01-state.js v1.20.47 — 常量、偏好状态与纯工具函数
 // 轻量 DOM 选择器：所有 parts 共享同一作用域，统一在此定义一次
 const $ = (sel, root) => (root || document).querySelector(sel);
 const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -19,6 +19,8 @@ const NAME_MODE_BOTH = "both", NAME_MODE_ZH = "zh", NAME_MODE_EN = "en";
 const VIEW_GRID = "grid", VIEW_LIST = "list";
 const DENSITY_COMFORT = "comfortable", DENSITY_COMPACT = "compact";
 const DEBOUNCE_MS = 120;
+// 原型支持语言（数据驱动统计，避免 statLangs 硬编码；新增语言只需改此处）
+const SUPPORTED_LANGS = ["zh", "en"];
 // 分页：每页 36 条（用户需求：每页显示 36 个）
 const PAGE_SIZE = 36;
 

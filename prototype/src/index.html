@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.20.33 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.20.56 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -169,7 +169,7 @@
         <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener">README</a>
       </nav>
       <div class="footer-cta" id="footerCta">
-        <a class="star-btn" id="starBtn" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
+        <a class="star-btn" id="starBtn" href="https://github.com/sutchan/Agent-Skills-Hub/stargazers" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9L12 2.5z"/></svg>
           <span class="zh" data-i18n="footer.star">给仓库点个 Star ⭐</span>
           <span class="en" data-i18n="footer.star">Star this repo ⭐</span>
@@ -181,7 +181,10 @@
         </button>
       </div>
       <!-- 页脚统计区（自 v1.19.7 起由 hero 迁入并扩充）：技能总数 / 分类 / 英文覆盖 / 支持语言 -->
-      <div class="footer-stats" id="footerStats" aria-live="polite">
+      <!-- 明确标注为「全库统计」：数字始终反映仓库全量，不随筛选变化（与 resultCount 的实时匹配数区分） -->
+      <div class="footer-stats" id="footerStats">
+        <span class="stats-scope zh">全库统计</span>
+        <span class="stats-scope en">Full catalog</span>
         <div class="stat"><div class="num" id="statTotal">0</div><div class="lbl zh" data-i18n="stat.total">技能总数</div><div class="lbl en" data-i18n="stat.total">Total skills</div></div>
         <div class="stat"><div class="num" id="statCats">0</div><div class="lbl zh" data-i18n="stat.cats">分类</div><div class="lbl en" data-i18n="stat.cats">Categories</div></div>
         <div class="stat"><div class="num" id="statEnCov">0</div><div class="lbl zh" data-i18n="stat.enCov">英文描述</div><div class="lbl en" data-i18n="stat.enCov">EN described</div></div>

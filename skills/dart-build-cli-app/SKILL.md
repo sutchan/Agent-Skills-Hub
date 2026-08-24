@@ -1,13 +1,13 @@
 ---
 name: dart-build-cli-app
-description: 用于构建 Dart 命令行应用的技能，覆盖 CLI 应用的参数解析、输入输出、错误处理与发布等最佳实践。
+description: Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.
+metadata:
+  model: models/gemini-3.1-pro-preview
+  last_modified: Fri, 04 May 2026 17:41:00 GMT
 en_description: Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.
-zh_displayName: Dart 命令行应用构建
+zh_displayName: Dart CLI 应用构建
 category: 移动端开发
 en_category: Mobile Dev
-last_modified: "Fri, 04 May 2026 17:41:00 GMT"
-model: models/gemini-3.1-pro-preview
-metadata: 
 ---
 # Building Dart CLI Applications
 

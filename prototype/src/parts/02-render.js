@@ -1,4 +1,4 @@
-// prototype/src/parts/02-render.js v1.20.46 — 列表/网格渲染与统计
+// prototype/src/parts/02-render.js v1.20.56 — 列表/网格渲染与统计
 function renderStats() {
   // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
   const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
@@ -7,7 +7,7 @@ function renderStats() {
   $("#statTotal").textContent = total;
   $("#statCats").textContent = SKILLS_DATA.categories.length;
   $("#statEnCov").textContent = enCov;
-  $("#statLangs").textContent = 2; // zh / en 双语支持
+  $("#statLangs").textContent = SUPPORTED_LANGS.length; // 数据驱动：zh / en 双语支持
 }
 // 历史函数移除：hero 标题已改为静态 thesis 文案（含 accent 强调），不再需要动态 {n} 注入
 

@@ -1,10 +1,8 @@
 ---
 name: logo-creator
-description: |-
-  使用 AI 图像生成创建 Logo。沟通风格/比例，生成变体，结合用户反馈迭代，裁剪、去背景并导出为 SVG。当用户想创建 Logo、图标、favicon、品牌标识、吉祥物、徽章或设计 Logo 时使用。
-en_description: >-
-  Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when the user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.
-zh_displayName: AI Logo 生成
+description: Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.
+en_description: Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.
+zh_displayName: Logo 创作
 category: 品牌与设计
 en_category: Brand & Design
 ---

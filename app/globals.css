@@ -1,4 +1,4 @@
-/* app/globals.css v1.20.53 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+/* app/globals.css v1.20.55 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 tools/sync-tokens.mjs 同步生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -221,7 +221,7 @@ html[data-lang="zh"] .en { display: none; }
 .chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
 .chip.active .chip-count { opacity: 1; }
 /* 功能标签筛选行（v1.20.12）：与分类 chip 同容器，置于其下方并弱化间距 */
-.chips.tags { margin-top: 8px; flex-wrap: wrap; }
+
 
 /* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + card-body[title-row + card-title/sub + card-desc + card-cat]） */
 .card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }

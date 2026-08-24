@@ -1,10 +1,9 @@
 ---
 name: git-cleanup
-description: |-
-  安全地分析与清理本地 Git 分支与工作树，按已合并、squash 合并、已被取代、仍活跃等状态分类处置。当用户要清理本地冗余分支、回收工作树或排查分支堆积时使用。
+description: "Safely analyzes and cleans up local git branches and worktrees by categorizing them as merged, squash-merged, superseded, or active work."
 disable-model-invocation: true
 allowed-tools: Bash Read Grep AskUserQuestion
-en_description: Safely analyze and clean up local git branches and worktrees by merged/squash/active status.
+en_description: Safely analyzes and cleans up local git branches and worktrees by categorizing them as merged, squash-merged, superseded, or active work.
 zh_displayName: Git 分支清理
 category: 工程实践与质量
 en_category: Engineering Practice & Quality

@@ -2,6 +2,43 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.56] - 2026-08-24
+
+### fix: 页脚区改进（统计标注/埋点/分享深链/版本兜底）
+
+- 需求：grill-me 审查页脚区，提出改进并落地（用户确认：统计区「明确标注全库」+ 原型埋点）。
+- **A 全库标注**：`index.html` 统计区加 `.stats-scope`「全库统计 / Full catalog」标注（CSS 在 `layout.css`），明确数字不随筛选变化，与 `resultCount` 实时匹配数区分。
+- **B 数据驱动语言数**：`01-state.js` 新增 `SUPPORTED_LANGS = ["zh","en"]`；`renderStats()` 的 `statLangs` 由硬编码 `2` 改为 `SUPPORTED_LANGS.length`。
+- **C 去除多余 aria-live**：`footerStats` 去掉 `aria-live="polite"`（数字仅加载时算一次，live 槽无意义）。
+- **D Star 埋点**：`starBtn` 链接指向 `/stargazers`；`04-interactions.js` 绑定 `track("star_click", {repo})`，补齐原型埋点（此前仅 share 有）。
+- **E 分享含深链**：`shareRepo()` 优先分享 `location.href`（含 P0-1 的 hash 筛选深链），回退 `/stargazers` 上级 origin→GitHub。
+- **F 版本号兜底**：`05-main.js` init 检测 `footerVer` 仍含 `{{VERSION}}` 字面量时回退 `v1.20.56`，防 build 未替换泄漏。
+- 改动文件头注释同步至 v1.20.56；根 `package.json` version 升至 v1.20.56。
+
+[1.20.56]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.56
+
+## [1.20.55] - 2026-08-24
+
+### chore: 全量补全技能契约字段并归正分类至 v1.20.55
+
+- 磁盘技能由 199 增至 215（会话间外部新增 16 个），其中 36 个技能（agent-browser / agent-development / banner-creator / banner-design / browser-automation / dart-*（8）/ eve / flutter-*（11）/ git-cleanup / hyperframes-core / hyperframes-creative / lark-meeting / logo-creator / muapi-3d-logo-animation / muapi-logo-creator / orca-cli / remotion-best-practices / test-driven-development / ui-ux-pro-max / woocommerce-backend-dev）frontmatter 被回退/重写，丢失 en_description / zh_displayName / category / en_category 四个必填字段，导致 build 出现「其他」类（第 14 类）违规。
+- 已批量补全 4 字段并正确归类：移动端开发（+28，dart/flutter 系列）、工程实践与质量（+3，agent-development / eve / test-driven-development，叠加 git-cleanup 等）、品牌与设计（banner/logo/ui-ux/muapi）、音视频与多媒体（hyperframes/remotion）、自动化与集成（agent-browser / browser-automation / lark-meeting / orca-cli）、WordPress 与 CMS（woocommerce-backend-dev）。en_description 镜像原英文 description，zh_displayName 为中文摘要，category 用 13 类中文稳定键，en_category 对齐 build 的 CATEGORY_EN（移动端开发 = "Mobile Dev"）。
+- 重新生成 `data/skills-data.json`（215 技能 / 13 类、「其他」类归零、公开 214）与 `data/skills-metrics.json`；`tools/build.mjs` 重新打包 `prototype/prototype.html`（版本占位注入 1.20.55）；`tools/validate-skills.mjs` 校验通过（215 技能 frontmatter 规范）。
+- README 中/英领域表计数同步（移动端开发 0/13→28、工程实践与质量 36→39、总数 199→215 / 公开 198→214）。
+
+[1.20.55]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.55
+
+## [1.20.55] - 2026-08-24
+
+### refactor: remove #tagChips tag-filter feature from app (align prototype)
+
+- `SkillsExplorer.tsx`：删除功能标签筛选全部相关代码——`TAG_LABELS` 常量、`tags` 状态、`filtered` 内的 tags AND 分支、`tagCounts` useMemo、`toggleTag` 处理器、`#tagChips` 渲染块及其事件委托；同步移除相关依赖项。
+- `globals.css`：删除 `.chips.tags` 样式规则。
+- 对齐 prototype：原型已于 v1.20.28 完整移除标签筛选 UI 与过滤逻辑，app 侧此前滞后未删，本次补齐删除。
+- 数据契约 `skills.ts` 的 `tags?` 字段保留（build-skills-data.mjs 仍生成，原型数据层亦保留，非 UI 功能本身）。
+
+[1.20.55]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.55
+
 ## [1.20.54] - 2026-08-24
 
 ### refactor: address code-review findings on app/ source

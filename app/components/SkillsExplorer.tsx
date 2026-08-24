@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.20.54 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 标签筛选 / 骰子拉起详情
+// app/components/SkillsExplorer.tsx v1.20.55 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 骰子拉起详情
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -11,25 +11,6 @@ import { Pager } from "./pager";
 // 每页 48 条（用户需求）
 const PAGE_SIZE = 48;
 
-// 功能标签中英显示名（slug 与 tools/build-skills-data.mjs TAG_DEFS 对齐，v1.20.12）
-// slider 派生自技能 description/enDescription/category，作为分类之下的细化主题筛选维度
-const TAG_LABELS: Record<string, { zh: string; en: string }> = {
-  "ai-agent": { zh: "AI 与智能体", en: "AI & Agents" },
-  "cli": { zh: "命令行", en: "CLI" },
-  "web-frontend": { zh: "Web 前端", en: "Web & Frontend" },
-  "doc-writing": { zh: "文档写作", en: "Docs & Writing" },
-  "data": { zh: "数据", en: "Data" },
-  "pdf": { zh: "PDF", en: "PDF" },
-  "design-media": { zh: "设计 & 媒体", en: "Design & Media" },
-  "test-qa": { zh: "测试质量", en: "Testing & QA" },
-  "devops": { zh: "部署运维", en: "DevOps" },
-  "security": { zh: "安全", en: "Security" },
-  "automation": { zh: "自动化", en: "Automation" },
-  "wordpress": { zh: "WordPress", en: "WordPress" },
-  "i18n": { zh: "翻译多语", en: "i18n & Translate" },
-  "scraping": { zh: "爬虫抓取", en: "Scraping" },
-};
-
 export function SkillsExplorer({
   data,
   lang,
@@ -38,7 +19,6 @@ export function SkillsExplorer({
   lang: Lang;
 }) {
   const [cats, setCats] = useState<string[]>([]); // 多选 OR，空 = 全部
-  const [tags, setTags] = useState<string[]>([]); // 功能标签多选 OR，空 = 全部（与 cats AND 组合）
   const [raw, setRaw] = useState(""); // 搜索框即时输入（受控）
   const [q, setQ] = useState(""); // 防抖后的查询（实际用于过滤，对齐原型 DEBOUNCE_MS=120）
   const composing = useRef(false); // 输入法组合中标志，避免拼音过程狂刷网格
@@ -134,10 +114,6 @@ export function SkillsExplorer({
     const list = data.skills.filter((s) => {
       if (s.hidden) return false;
       if (cats.length && !cats.includes(s.category)) return false;
-      if (tags.length) {
-        const st = (s.tags as string[] | undefined) ?? [];
-        if (!tags.every((t) => st.includes(t))) return false;
-      }
       if (kw && !(`${s.name} ${s.zh || ""} ${s.description} ${s.enDescription || ""} ${s.category} ${s.enCategory || ""}`.toLowerCase().includes(kw))) return false;
       return true;
     });
@@ -148,7 +124,7 @@ export function SkillsExplorer({
       zh: (a, b) => String(a.zh || a.name).localeCompare(String(b.zh || b.name), "zh"),
     };
     return [...list].sort(cmp[sort]);
-  }, [data.skills, cats, tags, q, sort]);
+  }, [data.skills, cats, q, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages - 1);
@@ -156,7 +132,7 @@ export function SkillsExplorer({
     () => filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE),
     [filtered, safePage]
   );
-  useEffect(() => { setPage(0); }, [q, cats, tags, sort]);
+  useEffect(() => { setPage(0); }, [q, cats, sort]);
 
   // 翻页：更新页码并滚动回网格顶部
   const goPage = (p: number) => {
@@ -168,19 +144,6 @@ export function SkillsExplorer({
     if (c === "all") { setCats([]); return; }
     setCats((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
   };
-  const toggleTag = (t: string) => {
-    setTags((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
-  };
-  // 标签计数：仅统计当前可见（已通过分类/关键词过滤前的全量）技能中出现过的标签，按命中数降序
-  const tagCounts = useMemo(() => {
-    const m = new Map<string, number>();
-    data.skills.forEach((s) => {
-      if (s.hidden) return;
-      const st = (s.tags as string[] | undefined) ?? [];
-      st.forEach((t) => m.set(t, (m.get(t) || 0) + 1));
-    });
-    return Array.from(m.entries()).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
-  }, [data.skills]);
 
   return (
     <section id="skillsExplorer" className="explorer">
@@ -215,19 +178,6 @@ export function SkillsExplorer({
               onClick={() => toggleCat(c)}
             >
               {c}
-            </button>
-          ))}
-        </div>
-        <div className="chips tags" id="tagChips" role="group" aria-label={lang === "zh" ? "功能标签（可多选）" : "Tags (multi-select)"}>
-          {tagCounts.map(([slug, n]) => (
-            <button
-              key={slug}
-              className={`chip${tags.includes(slug) ? " active" : ""}`}
-              aria-pressed={tags.includes(slug)}
-              onClick={() => toggleTag(slug)}
-            >
-              {TAG_LABELS[slug] ? (lang === "zh" ? TAG_LABELS[slug].zh : TAG_LABELS[slug].en) : slug}{" "}
-              <span className="chip-count">{n}</span>
             </button>
           ))}
         </div>

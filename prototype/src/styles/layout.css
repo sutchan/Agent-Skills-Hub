@@ -1,4 +1,4 @@
-/* prototype/src/styles/layout.css v1.20.46 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.20.56 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -166,7 +166,9 @@
 .footer-sep { opacity: .5; }
 .footer-copy { margin-left: auto; }
 /* 页脚统计区（v1.19.7 由 hero 迁入并扩充）：横向平铺 4 项，计算中英双语显隐与 hero 统计一致 */
-.footer-stats { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 6px; padding-top: 16px; border-top: 1px dashed var(--border); }
+.footer-stats { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px 28px; margin-top: 6px; padding-top: 16px; border-top: 1px dashed var(--border); }
+/* 全库统计标注：与实时 resultCount 区分，避免用户误以为随筛选变化 */
+.footer-stats .stats-scope { flex-basis: 100%; font-size: 11px; letter-spacing: .04em; color: var(--text-2); text-transform: uppercase; opacity: .8; }
 .footer-stats .stat { display: flex; flex-direction: column; gap: 2px; }
 .footer-stats .num { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; line-height: 1.1; }
 .footer-stats .lbl { font-size: 11.5px; color: var(--text-2); }

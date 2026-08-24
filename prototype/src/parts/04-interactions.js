@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.20.46 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
+// prototype/src/parts/04-interactions.js v1.20.56 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -160,6 +160,9 @@ function bind() {
   // 分享按钮：随机文案 + 完整 GitHub URL，复制到剪贴板并 toast（v1.20.9）
   const shareBtn = $("#shareBtn");
   if (shareBtn) shareBtn.addEventListener("click", () => shareRepo());
+  // Star 按钮：外链跳转前记录意图埋点（D 改进：指向 /stargazers 并上报）
+  const starBtn = $("#starBtn");
+  if (starBtn) starBtn.addEventListener("click", () => track("star_click", { repo: "Agent-Skills-Hub" }));
   // 回到顶部：滚动超阈值后显示按钮（.show），并监听 scroll/resize 更新
   // 使用 passive 监听避免阻塞滚动（Vercel: client-passive-event-listeners）
   const toTop = document.getElementById("toTop");
@@ -432,16 +435,15 @@ function copyText(text) {
   });
 }
 
-// 分享仓库：基于部署站点 origin 构造（openspec §4.5.4.4 优先 location.origin），回退 GitHub
-const REPO_URL = (typeof location !== "undefined" && location.origin)
-  ? location.origin
-  : "https://github.com/sutchan/Agent-Skills-Hub";
+// 分享仓库：优先分享当前页面 URL（含 P0-1 的 hash 深链，如 #cat=docs&q=xxx），回退 origin，再回退 GitHub
+const REPO_FALLBACK = "https://github.com/sutchan/Agent-Skills-Hub";
 function shareRepo() {
   const promos = I18N.t("share.promos");
   const list = Array.isArray(promos) ? promos : [String(promos || "")];
   const tpl = list.length ? list[Math.floor(Math.random() * list.length)] : "";
   const total = (SKILLS_DATA && SKILLS_DATA.skills) ? SKILLS_DATA.skills.filter((s) => !s.hidden).length : 0;
-  const text = `${tpl.replace(/\{n\}/g, total)}\n${REPO_URL}`;
+  const shareUrl = (typeof location !== "undefined" && location.href) ? location.href : REPO_FALLBACK;
+  const text = `${tpl.replace(/\{n\}/g, total)}\n${shareUrl}`;
   copyText(text).then((ok) => {
     showToast(ok ? I18N.t("share.copied") : I18N.t("share.failed"));
     if (ok) track("share_repo", { promoted: tpl });
