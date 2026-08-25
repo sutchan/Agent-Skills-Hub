@@ -13,16 +13,16 @@ triggers: |-
   - "single page"
   - "marketing page"
   - "homepage"
-od: |-
+od:
   mode: prototype
   platform: desktop
   scenario: design
   preview:
-  type: html
-  entry: index.html
+    type: html
+    entry: index.html
   design_system:
-  requires: true
-  sections: [color, typography, layout, components]
+    requires: true
+    sections: [color, typography, layout, components]
 ---
 # Web Prototype Skill
 
