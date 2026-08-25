@@ -10,6 +10,12 @@
 - globals.css 移除写死的 .controls top:48px，改由 --topbar-h 动态注入接管，与原型一致。
 - 头注释与全局展示位同步至 v1.20.62。
 
+### fix: 修复详情弹窗 GitHub 链接 404（对齐 prototype）
+
+- `app/components/detail-modal.tsx` 详情链接由 `encodeURIComponent(githubDir)` 改为直接拼接路径；
+  `githubDir` 为 `skills/<name>` 内部已知路径，编码斜杠会生成 `skills%2Fxxx` 致 GitHub 404。
+- 对齐 `prototype/src/parts/03-detail.js:96` 直接拼接行为；头注释同步至 v1.20.62。
+
 ## [1.20.61] - 2026-08-25
 
 ### refactor: app 应用界面进一步对齐 prototype 原型

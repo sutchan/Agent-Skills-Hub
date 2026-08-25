@@ -1,4 +1,4 @@
-// app/components/detail-modal.tsx v1.20.61 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
+// app/components/detail-modal.tsx v1.20.62 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
 "use client";
 import { useEffect, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -39,7 +39,9 @@ export function DetailModal({
   const [flip, setFlip] = useState(false);
   useEffect(() => { setFlip(false); const id = requestAnimationFrame(() => setFlip(true)); return () => cancelAnimationFrame(id); }, []);
 
-  const githubUrl = `${GITHUB_TREE}/${encodeURIComponent(skill.githubDir)}`;
+  // githubDir 为仓库内部已知路径（skills/<name>），按原型直接拼接，
+  // 不编码斜杠，否则 skills%2Fxxx 导致 GitHub 链接 404（对齐 03-detail.js:96）
+  const githubUrl = `${GITHUB_TREE}/${skill.githubDir}`;
   const tools = (skill.allowedTools || []).filter(Boolean);
   const desc = lang === "zh" ? skill.description : skill.enDescription || skill.description;
 
