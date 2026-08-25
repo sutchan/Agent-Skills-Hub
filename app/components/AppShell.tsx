@@ -1,9 +1,10 @@
-// app/components/AppShell.tsx v1.20.57 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.20.61 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
 import { SHARE_FEEDBACK, REPO_URL, copyRepoShare } from "../lib/share";
 import type { SkillsData } from "../lib/skills";
+import { catHue } from "../lib/catHue";
 import { SkillsExplorer } from "./SkillsExplorer";
 
 // 统计事件上报：对齐 prototype 01-state.js track —— 仅当 GA(gtag) 注入时上报，否则静默
@@ -60,7 +61,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     };
   }, [data]);
 
-  // Hero 节点网：按分类计数生成动态节点（对齐 prototype 03-detail.js genNodes）
+  // Hero 节点网：按分类计数生成动态节点（对齐 prototype 03-detail.js genNodes + 04-interactions 交互）
   const heroNetRef = useRef<SVGSVGElement | null>(null);
   useEffect(() => {
     const svg = heroNetRef.current;
@@ -68,20 +69,20 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     const nodesLayer = svg.querySelector("#netNodes");
     const linesLayer = svg.querySelector("#netLines");
     if (!nodesLayer || !linesLayer) return;
-    const total = (data.skills || []).filter((s) => !s.hidden).length || 1;
+    const visible = (data.skills || []).filter((s) => !s.hidden);
+    const total = visible.length || 1;
     const counts = new Map<string, number>();
-    for (const s of data.skills || []) {
-      if (s.hidden) continue;
-      counts.set(s.category, (counts.get(s.category) || 0) + 1);
-    }
+    for (const s of visible) counts.set(s.category, (counts.get(s.category) || 0) + 1);
     const cats = Array.from(counts.entries());
     const n = cats.length;
     const coreX = HERO_W * 0.75;
     const coreY = HERO_H / 2;
-    const nodes: { x: number; y: number; r: number }[] = cats.map(([, c], i) => {
+    const nodes: { cat: string; count: number; x: number; y: number; r: number }[] = cats.map(([cat, c], i) => {
       const ang = (i / Math.max(1, n)) * Math.PI * 2;
       const rad = 110 + (i % 3) * 18;
       return {
+        cat,
+        count: c,
         x: coreX + Math.cos(ang) * rad,
         y: coreY + Math.sin(ang) * rad,
         r: 6 + Math.min(14, (c / total) * 90),
@@ -89,7 +90,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     });
     nodesLayer.innerHTML = "";
     linesLayer.innerHTML = "";
-    for (const p of nodes) {
+    nodes.forEach((p, i) => {
       const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
       line.setAttribute("x1", String(coreX));
       line.setAttribute("y1", String(coreY));
@@ -97,16 +98,64 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
       line.setAttribute("y2", String(p.y));
       line.setAttribute("class", "net-line");
       linesLayer.appendChild(line);
-    }
-    for (const p of nodes) {
+      // 连线流动点（对齐 prototype 连线动画）
+      const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      dot.setAttribute("class", "net-dot");
+      dot.setAttribute("r", "2.2");
+      const motion = document.createElementNS("http://www.w3.org/2000/svg", "animateMotion");
+      motion.setAttribute("dur", (4 + (i % 5) * 0.7).toFixed(1) + "s");
+      motion.setAttribute("repeatCount", "indefinite");
+      motion.setAttribute("path", `M${coreX} ${coreY} L${p.x.toFixed(1)} ${p.y.toFixed(1)}`);
+      dot.appendChild(motion);
+      linesLayer.appendChild(dot);
+    });
+    nodes.forEach((p) => {
       const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       c.setAttribute("cx", String(p.x));
       c.setAttribute("cy", String(p.y));
       c.setAttribute("r", String(p.r));
       c.setAttribute("class", "hub-node");
+      c.setAttribute("data-cat", p.cat);
+      c.setAttribute("role", "button");
+      c.setAttribute("tabindex", "0");
+      c.setAttribute("aria-label", `${p.cat} ${p.count}`);
+      (c as SVGElement).style.animationDelay = (-(5.5 * nodes.indexOf(p) / Math.max(1, n))).toFixed(2) + "s";
+      const enter = () => document.querySelectorAll<HTMLElement>("#grid .card").forEach((card) => { if (card.dataset.cat === p.cat) card.classList.add("pulse"); });
+      const leave = () => document.querySelectorAll<HTMLElement>("#grid .card").forEach((card) => { if (card.dataset.cat === p.cat) card.classList.remove("pulse"); });
+      c.addEventListener("mouseenter", enter);
+      c.addEventListener("mouseleave", leave);
+      const fire = () => window.dispatchEvent(new CustomEvent("ash:cat-toggle", { detail: { cat: p.cat } }));
+      c.addEventListener("click", fire);
+      c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fire(); } });
       nodesLayer.appendChild(c);
-    }
+    });
   }, [data]);
+
+  // 搜索/筛选时点亮 Hero 核心（对齐 prototype updateHeroNet）：监听 SkillsExplorer 派发的筛选状态
+  useEffect(() => {
+    const apply = (e: Event) => {
+      const svg = heroNetRef.current;
+      if (!svg) return;
+      const detail = (e as CustomEvent<{ cats?: string[]; query?: string }>).detail || {};
+      const isFiltered = Boolean(detail.query) || (detail.cats?.length ?? 0) > 0;
+      svg.classList.toggle("filtering", isFiltered);
+      svg.classList.toggle("searching", Boolean(detail.query));
+      const active = new Set(detail.cats || []);
+      svg.querySelectorAll<SVGCircleElement>(".hub-node[data-cat]").forEach((nd) => nd.classList.toggle("active", active.has(nd.getAttribute("data-cat") || "")));
+      const core = svg.querySelector<SVGCircleElement>(".hub-core");
+      const glow = svg.querySelector<SVGCircleElement>(".hub-glow");
+      if ((detail.cats || []).length === 1) {
+        const hue = catHue(detail.cats![0]);
+        core?.style.setProperty("--core-hue", String(hue));
+        glow?.style.setProperty("--core-hue", String(hue));
+      } else {
+        core?.style.removeProperty("--core-hue");
+        glow?.style.removeProperty("--core-hue");
+      }
+    };
+    window.addEventListener("ash:filter-state", apply as EventListener);
+    return () => window.removeEventListener("ash:filter-state", apply as EventListener);
+  }, []);
 
   // 方案 B：随机抽一个技能，派发 ash:open-skill 由 SkillsExplorer 打开详情弹窗
   const handleDice = () => {
@@ -175,6 +224,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
       <section className="hero" id="hero" aria-labelledby={lang === "en" ? "heroTitleEn" : "heroTitle"}>
         <svg className="hero-net" id="heroNet" ref={heroNetRef} viewBox={`0 0 ${HERO_W} ${HERO_H}`} preserveAspectRatio="xMidYMid slice" overflow="visible" aria-hidden="true">
           <g id="netLines" stroke="hsl(var(--line))" strokeWidth={1.4} opacity={0.6}></g>
+          <circle className="hub-glow" cx={HERO_W * 0.75} cy={HERO_H / 2} r={42} fill="hsl(var(--node) / .18)" />
           <g id="netNodes" fill="hsl(var(--node))"></g>
           <circle className="hub-node hub-core" cx={HERO_W * 0.75} cy={HERO_H / 2} r={16} fill="hsl(var(--primary))" />
         </svg>
@@ -244,6 +294,10 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
               <span>{lang === "zh" ? "分享" : "Share"}</span>
             </button>
           </div>
+          <nav className="footer-links" id="footerLinks" aria-label={lang === "zh" ? "页脚导航" : "Footer navigation"}>
+            <a href={REPO_URL} target="_blank" rel="noopener noreferrer">{lang === "zh" ? "GitHub" : "GitHub"}</a>
+            <a href={`${REPO_URL}#readme`} target="_blank" rel="noopener noreferrer">{lang === "zh" ? "README" : "README"}</a>
+          </nav>
           <div className="footer-stats" id="footerStats">
             <div className="stat">
               <div className="num">{stats.total}</div>

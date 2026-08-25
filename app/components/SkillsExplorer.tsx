@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.20.57 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 骰子拉起详情
+// app/components/SkillsExplorer.tsx v1.20.61 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 骰子拉起详情
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -214,6 +214,11 @@ export function SkillsExplorer({
     if (c === "all") { setCats([]); return; }
     setCats((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
   };
+
+  // 分类点击联动 Hero 节点网：派发当前筛选状态供 AppShell 点亮核心（对齐 prototype updateHeroNet）
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("ash:filter-state", { detail: { cats, query: q } }));
+  }, [cats, q]);
 
   return (
     <section id="skillsExplorer" className="explorer">

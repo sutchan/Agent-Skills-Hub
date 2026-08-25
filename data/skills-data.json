@@ -1,5 +1,5 @@
 {
-  "total": 222,
+  "total": 221,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -2502,23 +2502,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-me",
       "githubDir": "skills/grill-me"
-    },
-    {
-      "name": "grill-with-docs",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "带文档的方案访谈",
-      "description": "在 relentless 访谈打磨方案的同时产出文档（ADR 与全局规范）。",
-      "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADRs and global conventions).",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-with-docs",
-      "githubDir": "skills/grill-with-docs"
     },
     {
       "name": "grilling",

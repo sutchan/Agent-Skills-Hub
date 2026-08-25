@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.61] - 2026-08-25
+
+### refactor: app 应用界面进一步对齐 prototype 原型
+
+- **AppShell.tsx（Hero 节点网）**：节点加 `data-cat` + 可点击/键盘筛选分类，hover 联动 `#grid .card.pulse`；新增连线流动点 `.net-dot` 与 `.hub-glow`；监听 `ash:filter-state` 在搜索/筛选时点亮核心（`--core-hue` + `.filtering/.searching`）。
+- **页脚**：新增独立 GitHub/README 导航链接（对齐 prototype footer-links）。
+- **SkillsExplorer.tsx**：`toggleCat` 派发 `ash:filter-state` 通知 Hero 点亮核心。
+- **detail-modal.tsx**：详情弹窗挂载时触发 `.flip` 翻牌入场动画（对齐 prototype .dialog.flip）。
+- **globals.css**：补 `.card.pulse`、`.footer-links` 样式；`.net-dot`/`.hub-glow`/节点 active/搜索联动动画已齐备。
+
 ## [1.20.56] - 2026-08-24
 
 ### fix: 页脚区改进（统计标注/埋点/分享深链/版本兜底）
