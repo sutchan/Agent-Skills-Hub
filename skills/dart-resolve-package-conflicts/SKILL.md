@@ -1,13 +1,13 @@
 ---
 name: dart-resolve-package-conflicts
-description: Workflow for fixing package version conflicts. Use this when `pub get` fails due to incompatible package versions.
-metadata:
-  model: models/gemini-3.1-pro-preview
-  last_modified: Fri, 24 Apr 2026 15:11:14 GMT
+description: 修复 pub get 因版本不兼容而失败的包冲突处理流程。
 en_description: Workflow for fixing package version conflicts. Use this when `pub get` fails due to incompatible package versions.
 zh_displayName: Dart 包冲突解决
 category: 移动端开发
 en_category: Mobile Dev
+metadata: |-
+  model: models/gemini-3.1-pro-preview
+  last_modified: Fri, 24 Apr 2026 15:11:14 GMT
 ---
 # Managing Dart Dependencies
 

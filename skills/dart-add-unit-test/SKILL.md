@@ -1,13 +1,13 @@
 ---
 name: dart-add-unit-test
-description: Write and organize unit tests for functions, methods, and classes using `package:test`. Use when creating new logic or fixing bugs to ensure code remains correct and regression-free.
-metadata:
-  model: models/gemini-3.1-pro-preview
-  last_modified: Mon, 03 Aug 2026 21:51:24 GMT
-en_description: Write and organize unit tests for functions, methods, and classes using `package:test`. Use when creating new logic or fixing bugs to ensure code remains correct and regression-free.
+description: "为函数、方法、类编写并组织单元测试（使用 package:test）。"
+en_description: "Write and organize unit tests for functions, methods, and classes using `package:test`. Use when creating new logic or fixing bugs to ensure code remains correct and regression-free."
 zh_displayName: Dart 单元测试编写
 category: 移动端开发
 en_category: Mobile Dev
+metadata: |-
+  model: models/gemini-3.1-pro-preview
+  last_modified: Mon, 03 Aug 2026 21:51:24 GMT
 ---
 # Testing Dart and Flutter Applications
 

@@ -1,18 +1,12 @@
 ---
 name: bailian-web-search
-description: |-
-  阿里云百炼联网搜索入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。先识别当前连接身份：Token Plan 走模型自带搜索，其他默认走百炼 MCP，仅在 MCP 鉴权失败时兜底一次到模型自带搜索。涵盖 Token Plan 鉴权混淆排查。反触发：宿主可完成的普通问答 / 编程 / 写作用于不触发；知识库 RAG 走 bailian-cli；生图/生视频/语音走 bailian-gen；精调/训练走 bailian-finetune；agents.yaml 走 bailian-managed-agent。
-en_description: >-
-  Aliyun Bailian web search entry: routes web / webpage search and latest-info lookup. Identify connection identity first: Token Plan (profile `token-plan` or base_url host `token-plan.<region>.maas.aliyuncs.com`) → model-native search (`bl text chat --api responses --tool '{"type":"web_search"}'`); others / default → Bailian MCP (`bl search web`); fall back once to model-native search only when MCP auth fails, not enabled, or transport fails. Also covers Token Plan auth-confusion troubleshooting. Anti-triggers: host-completable Q&A / coding / writing → do not trigger; knowledge-base RAG → bailian-cli (`bl knowledge`); image/video/voice gen → bailian-gen; fine-tune/training → bailian-finetune; agents.yaml → bailian-managed-agent. Shared protocol (consent / version precheck / auth / error reporting) lives in bailian-protocol; official install `bl skill init`.
+description: 阿里云百炼联网搜索入口，为联网搜索、网页搜索与查最新资讯做路径分发。
+en_description: Alibaba Bailian web search entry point that routes internet search, web search, and latest-information lookup requests.
 zh_displayName: 百炼联网搜索
-category: AI 与智能体
-en_category: AI & Agents
+category: 自动化与集成
+en_category: Automation & Integration
 metadata:
-  version: "1.17.1"
-  requires:
-    bins: ["bl"]
 ---
-
 # Bailian web search routing (`bailian-web-search`)
 
 **CRITICAL — Before executing, MUST read the shared protocol in [`../bailian-protocol/SKILL.md`](../bailian-protocol/SKILL.md): Provider selection and consent, Version & updates (pre-flight checklist), Setup & auth, and CLI errors: report an issue. If that protocol file is missing, stop and run `bl skill init`; do not guess auth/consent.**

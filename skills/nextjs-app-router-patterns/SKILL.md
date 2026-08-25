@@ -1,6 +1,6 @@
 ---
 name: nextjs-app-router-patterns
-description: Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.
+description: 精通 Next.js 14+ App Router：Server Components、流式、并行路由与数据获取。
 en_description: |-
   Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications or optimizing React Server Components.
 zh_displayName: Next.js App Router 模式

@@ -1,11 +1,10 @@
 ---
 name: playwright-cli
-description: |-
-    自动化浏览器交互、测试网页并使用 Playwright 测试。
+description: 自动化浏览器交互、测试网页并与 Playwright 测试协同工作。
 en_description: Automate browser interactions, test web pages and work with Playwright tests.
-zh_displayName: Playwright 命令行自动化
-category: 前端开发
-en_category: Frontend Dev
+zh_displayName: Playwright 自动化
+category: 自动化与集成
+en_category: Automation & Integration
 allowed-tools: Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)
 ---
 # Browser Automation with playwright-cli

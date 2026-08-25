@@ -53,8 +53,8 @@ const PROJECT_VERSION = (() => {
   catch (e) { return ""; }
 })();
 
-// 统计代码注入：GA4 Measurement ID 优先取环境变量，缺省回退到仓库配置值。
-// 本地构建无需设环境变量即可生成空占位，避免把 ID 硬编码进仓库（部署时由 CI 注入更合规）。
+// 统计代码注入：GA4 Measurement ID 优先取环境变量，缺省回退到仓库硬编码的公开兜底值。
+// GA4 测量 ID 为公开值；本地预览可无环境变量（兜底 ID 注入），CI 部署通过 GA_MEASUREMENT_ID 环境变量覆盖。
 const GA_ID = process.env.GA_MEASUREMENT_ID || "G-WQDDVB14PF";
 const analytics = GA_ID
   ? `<!-- Google Analytics (GA4) -->

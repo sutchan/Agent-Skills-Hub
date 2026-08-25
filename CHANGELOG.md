@@ -17,6 +17,46 @@
 
 [1.20.56]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.56
 
+## [1.20.59] - 2026-08-25
+
+### fix: 翻译 43 个技能未中译的 frontmatter 字段
+
+- 问题：扫描 223 个 SKILL.md 发现 43 个 `description` 仍为英文、1 个 `orca-cli.zh_displayName` 为英文，违反「description=中文、zh_displayName=中文」契约。
+- 修复：将 43 个 `description` 翻译为中文（agent-development、banner-creator/design、dart-*/flutter-*/eve、git-cleanup、html-design-prototypes、html-prototype、hyperframes-creative、logo-creator、muapi-*、nextjs-app-router-patterns、orca-cli、persona-project-manager、prototype-*/remotion-best-practices、test-driven-development、ui-ux-pro-max、web-prototype 等），并将 `orca-cli.zh_displayName` 改为「Orca 命令行工具」。
+- 复检：脚本复扫 223 个技能，中英文问题数归零；`node tools/validate-skills.mjs` 通过；数据链路重建（223 技能 / 13 类）。
+- 根 `package.json` version 升至 v1.20.59；README 中/英版本徽章同步。
+
+[1.20.59]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.59
+
+## [1.20.58] - 2026-08-25
+
+### chore: 补全 40 个技能缺失的 frontmatter 契约字段
+
+- 需求：新加入/上游导入的 40 个 `skills/<name>/SKILL.md` 缺规范 6 字段（name/description/en_description/zh_displayName/category/en_category）。
+- 补全范围：ad-creative、agent-browser、architecture-blueprint-generator、bailian-web-search、code-review、codebase-design、dev-builder、diagnosing-bugs、domain-modeling、flutter-apply-architecture-best-practices、google-agents-cli-adk-code、google-agents-cli-workflow、google-mobile-ads-banner、grill-me、grill-with-docs、grilling、handoff、hyperframes-core、implement-spec、improve-codebase-architecture、limrun-android-emulator、limrun-detox-testing、limrun-ios-simulator、limrun-xcode、limrun-xcode-bazel、marketing-plan、playwright-cli、playwright-explore-website、project-workflow-analysis-blueprint-generator、prototype、redesign-existing-projects、setup-matt-pocock-skills、short-drama-storyboard、short-drama-video-prompts、short-drama-write、tdd、to-spec、video、woocommerce-backend-dev、write-tech-spec。
+- 按 13 类分类法归正（品牌与设计/工程实践与质量/移动端开发/自动化与集成/AI 与智能体/前端开发/后端与平台/音视频与多媒体），保留原 license/hidden/allowed-tools 等合法键；`node tools/validate-skills.mjs` 通过（223 技能）。
+- 根 `package.json` version 升至 v1.20.58；README 中/英版本徽章同步。
+
+[1.20.58]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.58
+
+## [1.20.57] - 2026-08-25
+
+### fix: app 与原型对齐（深链/分享/埋点/分页/视觉令牌）
+
+- 需求：code-review 技能审查 `app/`（Next.js）与 `prototype/`（静态原型）对齐度，修复全部未对齐项。
+- **P0-1 URL 深链**：`SkillsExplorer.tsx` 新增 `writeHash()`/`parseHash()`（格式 `#cat=a,b&q=x&sort=name&page=2`，与原型 05-main.js 一致，深链互认）；挂载时解析 hash 还原筛选/搜索/排序/页码，`hashchange` 事件还原，`[cats,q,sort,page]` 变化后写 hash。补齐原型 P0-1 能力。
+- **P0-2 spec 脱节**：`openspec/spec.md` 头注释 v1.20.33 → v1.20.57（滞后 23 版，违反版本单一来源铁律）。
+- **P1-3 分享深链**：`share.ts` 的 `buildRepoShareText` 优先 `location.href`（含 hash 深链），回退 `REPO_URL`，对齐原型 `shareRepo()`。
+- **P1-4 Star 埋点**：`AppShell.tsx` 新增 `track()`（对齐原型 01-state.js，GA 注入才上报，否则静默）；`starBtn` href 改 `/stargazers` + `onClick` 上报 `star_click`；同步去掉 `footerStats` 多余 `aria-live`。
+- **P1-5 分页统一**：`SkillsExplorer.tsx` `PAGE_SIZE` 48 → 36，对齐原型 `01-state.js`（`PAGE_SIZE=36`，原型为设计权威源）。
+- **P2-6 card-desc 行数**：`globals.css` 默认 `-webkit-line-clamp` 2 → 3，并补 `[data-density="compact"]` 紧凑态 2 行，对齐原型 `components.css`。
+- **P2-8 chip active 亮度**：`globals.css` `.chip.active` 由 `hsl(var(--hue) 68% 42%)` → `82% 46%`，对齐原型 `components.css`。
+- **P2-7 reduced-motion 关 net-dot**：原型 `.hero-net .net-dot{display:none}` 对应动画点；app 的 hero 节点网为静态（无 net-dot 流动点，该动画原型 v1.20.44 新增未同步 app），全局 reduced-motion 兜底已覆盖，无需改动。
+- 改动文件头注释同步至 v1.20.57；根 `package.json` version 升至 v1.20.57。
+- 注：`app/` lint 报"找不到模块 react"为环境性缺依赖（根 node_modules 未装 react 类型），非本次改动引入；Next 构建需 `app/` 依赖安装后验证。
+
+[1.20.57]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.57
+
 ## [1.20.55] - 2026-08-24
 
 ### chore: 全量补全技能契约字段并归正分类至 v1.20.55

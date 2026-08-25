@@ -1,13 +1,12 @@
 ---
 name: short-drama-write
-description: 编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文地规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。
-license: MIT
-en_description: Write or revise shootable Chinese short-drama / manga-drama single-episode Markdown scripts, and normalize existing scripts while preserving the author's original voice. Use when the user asks to "write/revise an episode", "turn an outline into a script", "polish scenes/dialogue", "remove template feel", "de-AI the prose", or "continue the next episode"; does not handle assets, storyboards, media prompts, or final review.
-zh_displayName: 短剧剧本写作
+description: 编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，并负责规范化现成剧本。
+en_description: Write or revise shootable Chinese short-drama / motion-comic episode scripts in Markdown, and normalize existing scripts.
+zh_displayName: 短剧编剧
 category: 品牌与设计
 en_category: Brand & Design
+license: MIT
 ---
-
 # 短剧写作
 
 把单集意图写成可表演、可拍摄、会改变故事状态的 `剧集/<EP>/剧本.md`。

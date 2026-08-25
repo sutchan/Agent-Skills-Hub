@@ -1,18 +1,21 @@
 ---
 name: prototype-pattern
-description: Teaches the prototype pattern for property sharing via the prototype chain. Use when creating many objects of the same type that should share methods or properties efficiently.
-paths:
+description: 讲解通过 prototype 实现属性共享的原型模式。
+en_description: Teaches the prototype pattern for property sharing via the prototype chain. Use when creating many objects of the same type that should share methods or properties efficiently.
+zh_displayName: 原型模式
+category: 后端与平台
+en_category: Backend & Platform
+paths: |-
   - "**/*.js"
   - "**/*.ts"
 license: MIT
-metadata:
+metadata: |-
   author: patterns.dev
   version: "1.1"
-related_skills:
+related_skills: |-
   - "module-pattern"
   - "singleton-pattern"
 ---
-
 # Prototype Pattern
 
 The prototype pattern is a useful way to share properties among many objects of the same type. The prototype is an object that's native to JavaScript, and can be accessed by objects through the prototype chain.

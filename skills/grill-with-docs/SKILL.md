@@ -1,11 +1,10 @@
 ---
 name: grill-with-docs
-description: 一场毫不留情的访谈，用于打磨计划或设计，同时在过程中生成文档（ADR 与术语表）。当用户想边讨论边沉淀决策记录与术语时使用。
-en_description: A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.
-zh_displayName: 质询并产出文档
+description: 在 relentless 访谈打磨方案的同时产出文档（ADR 与全局规范）。
+en_description: A relentless interview to sharpen a plan or design, which also creates docs (ADRs and global conventions).
+zh_displayName: 带文档的方案访谈
 category: 工程实践与质量
 en_category: Engineering Practice & Quality
 disable-model-invocation: true
 ---
-
 Call the Skill tool twice, for "grilling" and "domain-modeling".

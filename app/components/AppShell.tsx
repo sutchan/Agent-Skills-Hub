@@ -1,10 +1,19 @@
-// app/components/AppShell.tsx v1.20.54 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.20.57 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
 import { SHARE_FEEDBACK, REPO_URL, copyRepoShare } from "../lib/share";
 import type { SkillsData } from "../lib/skills";
 import { SkillsExplorer } from "./SkillsExplorer";
+
+// 统计事件上报：对齐 prototype 01-state.js track —— 仅当 GA(gtag) 注入时上报，否则静默
+function track(event: string, params?: Record<string, unknown>) {
+  try {
+    if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: (e: string, n: string, p?: object) => void }).gtag === "function") {
+      (window as unknown as { gtag: (e: string, n: string, p?: object) => void }).gtag("event", event, params || {});
+    }
+  } catch { /* 统计失败不影响主流程 */ }
+}
 
 const HERO_W = 800;
 const HERO_H = 240;
@@ -208,10 +217,11 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
             <a
               className="star-btn"
               id="starBtn"
-              href={REPO_URL}
+              href={`${REPO_URL}/stargazers`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={lang === "zh" ? "给仓库点 Star" : "Star this repo"}
+              onClick={() => track("star_click", { repo: "Agent-Skills-Hub" })}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9L12 2.5z" />
@@ -234,7 +244,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
               <span>{lang === "zh" ? "分享" : "Share"}</span>
             </button>
           </div>
-          <div className="footer-stats" id="footerStats" aria-live="polite">
+          <div className="footer-stats" id="footerStats">
             <div className="stat">
               <div className="num">{stats.total}</div>
               <div className="lbl">{lang === "zh" ? "技能总数" : "Total skills"}</div>

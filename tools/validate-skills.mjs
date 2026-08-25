@@ -11,26 +11,21 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+// 共享分类法与契约定义（单一权威源，与 build-skills-data.mjs 等对齐，消除漂移）
+import {
+  REQUIRED,
+  CONTRACT_ORDER,
+  VALID_CATEGORIES,
+  VALID_EN_CATEGORIES,
+  CONFLICT_KEYS,
+} from "./lib/taxonomy.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const SKILLS_DIR = path.join(ROOT, "skills");
 
-const REQUIRED = ["name", "description", "en_description", "zh_displayName", "category", "en_category"];
-const CONTRACT_ORDER = ["name", "description", "en_description", "zh_displayName", "category", "en_category"];
-// 13 类合法键集合（与 build-skills-data.mjs 的 CATEGORY_ORDER / CATEGORY_EN 对齐，v1.19.x 起）
-const VALID_CATEGORIES = new Set([
-  "品牌与设计", "文档与内容", "数据分析与可视化", "前端开发", "后端与平台",
-  "移动端开发", "WordPress 与 CMS", "工程实践与质量", "文件与格式处理",
-  "自动化与集成", "AI 与智能体", "音视频与多媒体", "安全",
-]);
-const VALID_EN_CATEGORIES = new Set([
-  "Brand & Design", "Docs & Content", "Data Analysis & Visualization", "Frontend Dev", "Backend & Platform",
-  "Mobile Dev", "WordPress & CMS", "Engineering Practice & Quality", "File & Format Handling",
-  "Automation & Integration", "AI & Agents", "Media & Multimedia", "Security",
-]);
-const CONFLICT_KEYS = ["description_zh", "description_en"];
-
+// 解析顶层键序列（含行号区间），用于顺序/重复校验。
+// 注意：此解析依赖行号区间（用于按原始行号取分类值），与 build 的 parseFrontmatter 行为不同，故保留在 validate 内。
 function parseTopLevelKeys(fmText) {
   const lines = fmText.split("\n");
   const entries = []; // { key, start, end }

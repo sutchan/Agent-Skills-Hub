@@ -1,12 +1,12 @@
 ---
 name: prototype-pollution
-description: >-
-  Prototype pollution testing for JavaScript stacks. Use when user input is
-  merged into objects (query parsers, JSON bodies, deep assign), when
-  configuring libraries via untrusted keys, or when hunting RCE gadgets via
-  polluted Object.prototype in Node or the browser.
+description: |-
+  针对 JavaScript 技术栈的原型污染安全测试。
+en_description: Prototype pollution testing for JavaScript stacks. Use when user input is merged into objects (query parsers, JSON bodies, deep assign), when configuring libraries via untrusted keys, or when hunting RCE gadgets via polluted Object.prototype in Node or the browser.
+zh_displayName: 原型污染测试
+category: 安全
+en_category: Security
 ---
-
 # SKILL: Prototype Pollution — Expert Attack Playbook
 
 > **AI LOAD INSTRUCTION**: Expert prototype pollution for client and server JS. Covers `__proto__` vs `constructor.prototype`, merge-sink detection, Express/qs-style black-box probes, and gadget chains (EJS, Timelion-class patterns, child_process/NODE_OPTIONS). Assumes you know object spread and prototype inheritance — focus is on **parser behavior** and **post-pollution sinks**.

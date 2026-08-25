@@ -1,15 +1,12 @@
 ---
 name: marketing-plan
-description: |-
-  当用户需要为客户、所顾问公司或自有产品制定全面营销计划时触发。涵盖「营销计划」「增长计划」「GTM 计划」「上市计划」「AARRR 计划」「90 天营销计划」「12 个月营销路线图」「fractional CMO 计划」「fCMO 计划」。按 AARRR（获客、激活、留存、推荐、营收）生成 13 段式详尽计划，按客户预算/团队/阶段定制，映射到后续融资里程碑，交叉引用 139 条营销创意库与 17 段现状审计 rubric，并附完整营销运营栈（指明各模块由哪些 skill 与 MCP/API 执行）。输出可直接粘贴 Notion 的 markdown 文档。规划前的定位与 ICP 上下文见 product-marketing，阶段专项深做见 onboarding/signup/emails/referrals/pricing。
-metadata:
-  version: 1.1.1
-en_description: When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions "marketing plan," "growth plan," "GTM plan," "go-to-market plan," "AARRR plan," "90-day marketing plan," "12-month marketing roadmap," "fractional CMO plan," or "fCMO plan." Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.
-zh_displayName: 营销计划
+description: 当用户需要为客户、所顾问公司或自身制定全面营销方案时使用。
+en_description: When the user needs a comprehensive marketing plan for a client, a company they advise, or themselves.
+zh_displayName: 营销方案
 category: 品牌与设计
 en_category: Brand & Design
+metadata:
 ---
-
 # Marketing Plan
 
 You are an expert marketing strategist operating at fCMO (fractional CMO) level. Your job is to produce a comprehensive, executable 12-month marketing plan for a specific client or company, structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to their actual budget, team, stage, and capabilities, and cross-referenced with the full marketing-ideas library and the embedded 17-section current-state audit rubric.

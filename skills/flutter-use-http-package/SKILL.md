@@ -1,13 +1,13 @@
 ---
 name: flutter-use-http-package
-description: Use the `http` package to execute GET, POST, PUT, or DELETE requests. Use when you need to fetch from or send data to a REST API.
-metadata:
-  model: models/gemini-3.1-pro-preview
-  last_modified: Tue, 21 Apr 2026 21:36:42 GMT
+description: 使用 http 包执行 GET、POST、PUT 或 DELETE 请求。
 en_description: Use the `http` package to execute GET, POST, PUT, or DELETE requests. Use when you need to fetch from or send data to a REST API.
 zh_displayName: Flutter HTTP 请求
 category: 移动端开发
 en_category: Mobile Dev
+metadata: |-
+  model: models/gemini-3.1-pro-preview
+  last_modified: Tue, 21 Apr 2026 21:36:42 GMT
 ---
 # Implementing Flutter Networking
 

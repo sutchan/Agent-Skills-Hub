@@ -1,13 +1,13 @@
 ---
 name: flutter-add-widget-preview
-description: Adds interactive widget previews to the project using the previews.dart system. Use when creating new UI components or updating existing screens to ensure consistent design and interactive testing.
-metadata:
-  model: models/gemini-3.1-pro-preview
-  last_modified: Tue, 21 Apr 2026 20:05:23 GMT
+description: 使用 previews.dart 系统为项目添加交互式 widget 预览。
 en_description: Adds interactive widget previews to the project using the previews.dart system. Use when creating new UI components or updating existing screens to ensure consistent design and interactive testing.
 zh_displayName: Flutter 组件预览
 category: 移动端开发
 en_category: Mobile Dev
+metadata: |-
+  model: models/gemini-3.1-pro-preview
+  last_modified: Tue, 21 Apr 2026 20:05:23 GMT
 ---
 # Previewing Flutter Widgets
 

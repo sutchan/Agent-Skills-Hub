@@ -5,6 +5,10 @@
 import { readFileSync, readdirSync, writeFileSync, existsSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+// 共享分类法与契约定义（单一权威源，消除契约漂移）
+import { CATEGORY_ORDER, CATEGORY_EN } from "./lib/taxonomy.mjs";
+// 共享手写 frontmatter 解析（与 validate-skills.mjs 等统一，消除解析漂移）
+import { parseFrontmatter, stripInlineComment, BLOCK_SCALAR } from "./lib/frontmatter.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // 脚本位于 tools/ 子目录；ROOT 上提一级为仓库根
@@ -17,41 +21,6 @@ const METRICS_OUT = join(ROOT, "data", "skills-metrics.json");
 
 // 非技能目录（仓库内其他子项目/资产），构建时跳过
 const EXCLUDE = new Set([".skills-manager", ".trae", "app", "brand", "data", "tools"]);
-
-// 分类展示固定顺序（13 类：9 个稳定主类 + 将「开发框架与平台」拆为 4 个子类）
-// 用户决策（v1.19.x 起恢复 13 类，取代原单类「开发框架与平台」）
-const CATEGORY_ORDER = [
-  "品牌与设计",
-  "文档与内容",
-  "数据分析与可视化",
-  "前端开发",
-  "后端与平台",
-  "移动端开发",
-  "WordPress 与 CMS",
-  "工程实践与质量",
-  "文件与格式处理",
-  "自动化与集成",
-  "AI 与智能体",
-  "音视频与多媒体",
-  "安全",
-];
-
-// 中文分类稳定键 -> 英文名（英文态 chip/筛选展示用；frontmatter en_category 优先）
-const CATEGORY_EN = {
-  "品牌与设计": "Brand & Design",
-  "文档与内容": "Docs & Content",
-  "数据分析与可视化": "Data Analysis & Visualization",
-  "前端开发": "Frontend Dev",
-  "后端与平台": "Backend & Platform",
-  "移动端开发": "Mobile Dev",
-  "WordPress 与 CMS": "WordPress & CMS",
-  "工程实践与质量": "Engineering Practice & Quality",
-  "文件与格式处理": "File & Format Handling",
-  "自动化与集成": "Automation & Integration",
-  "AI 与智能体": "AI & Agents",
-  "音视频与多媒体": "Media & Multimedia",
-  "安全": "Security",
-};
 
 // 功能标签（tags）词表：基于技能 description/enDescription/category 关键词自动派生（v1.20.12）
 // 每个标签含 slug（data 存储键）、中英显示名、命中正则。deriveTags 输出 slug 数组（每个技能 1-3 个）。
@@ -82,80 +51,6 @@ function deriveTags(fm, category) {
     if (hits.length >= 3) break;
   }
   return hits;
-}
-
-// YAML 折叠/字面量块标量标志（行内为空值或仅折叠符）
-const BLOCK_SCALAR = /^(?:[>|])-?$/;
-// 行内值在保留时去除的 YAML 注释（仅当注释前为空格/行首）
-function stripInlineComment(v) {
-  // 去掉行内 YAML 注释：` # ...`，但忽略引号内的井号
-  const out = [];
-  let inS = false;
-  let inD = false;
-  for (let i = 0; i < v.length; i++) {
-    const c = v[i];
-    if (c === "'" && !inD) inS = !inS;
-    else if (c === '"' && !inS) inD = !inD;
-    else if (c === "#" && !inS && !inD && (i === 0 || v[i - 1] === " ")) break;
-    out.push(c);
-  }
-  return out.join("").trim();
-}
-
-// 解析 frontmatter：支持纯量、引号、以及折叠（> / >-）与字面量（| / |-）块标量。
-// 块标量内容取后续缩进行；折叠标量段内换行折叠为空格、空行分隔的段落保留换行，
-// 字面量标量保留所有换行——便于多段中文描述（zh-desc）在产物/展示中正确换行。
-function parseFrontmatter(text) {
-  const m = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
-  const fm = {};
-  if (!m) return fm;
-  const lines = m[1].split("\n");
-  let i = 0;
-  while (i < lines.length) {
-    const line = lines[i];
-    const idx = line.indexOf(":");
-    // 仅处理顶层键（行首无缩进）；嵌套块（有缩进）整体跳过
-    if (idx === -1 || line.startsWith(" ")) {
-      i++;
-      continue;
-    }
-    const key = line.slice(0, idx).trim();
-    let val = line.slice(idx + 1).trim();
-    // 若是块标量标志，读取后续缩进行
-    if (BLOCK_SCALAR.test(val)) {
-      const literal = val.startsWith("|"); // | 字面量保留换行；> 折叠按空行分段
-      i++;
-      const block = [];
-      while (i < lines.length && (lines[i].trim() === "" || lines[i].startsWith(" "))) {
-        block.push(lines[i]);
-        i++;
-      }
-      // 行内首尾空格归一，过滤头部连续空行
-      const norm = block
-        .map((l) => l.replace(/^\s+/, "").replace(/\s+$/, ""))
-        .filter((l, j, arr) => !(l === "" && (j === 0 || arr[j - 1] === "")));
-      if (literal) {
-        // 字面量：保留换行，折叠连续空行
-        fm[key] = norm.filter((l, j, arr) => !(l === "" && arr[j + 1] === "")).join("\n").trim();
-      } else {
-        // 折叠标量：段内（连续非空行）以空格连接；空行视为段落分隔 → 换行
-        const paras = [];
-        let cur = [];
-        for (const l of norm) {
-          if (l === "") { if (cur.length) { paras.push(cur.join(" ")); cur = []; } }
-          else cur.push(l);
-        }
-        if (cur.length) paras.push(cur.join(" "));
-        fm[key] = paras.join("\n").trim();
-      }
-      continue;
-    }
-    // 普通纯量 / 引号（顶层键，无后续缩进子块）
-    val = stripInlineComment(val).replace(/^["']|["']$/g, "");
-    fm[key] = val;
-    i++;
-  }
-  return fm;
 }
 
 // 将 allowed-tools 规范为字符串数组：YAML 列表已为数组则清洗，逗号分隔字符串则 split

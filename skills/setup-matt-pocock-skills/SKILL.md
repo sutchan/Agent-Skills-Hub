@@ -1,8 +1,8 @@
 ---
 name: setup-matt-pocock-skills
-description: 为工程技能配置本仓库：设置问题跟踪器、分类标签词汇与域文档布局。在首次使用其他工程技能前运行一次。
-en_description: "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills."
-zh_displayName: 工程技能仓库初始化
+description: 为工程技能配置仓库：搭建问题追踪器、分类标签词表与相关工作流。
+en_description: Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and related workflows.
+zh_displayName: Matt Pocock 技能配置
 category: 工程实践与质量
 en_category: Engineering Practice & Quality
 disable-model-invocation: true

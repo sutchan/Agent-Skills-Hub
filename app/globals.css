@@ -1,4 +1,4 @@
-/* app/globals.css v1.20.55 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+/* app/globals.css v1.20.57 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 tools/sync-tokens.mjs 同步生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -185,6 +185,7 @@ html[data-lang="zh"] .en { display: none; }
 :root[data-density="compact"] .card { padding: 11px; gap: 6px; }
 :root[data-density="compact"] .card .cat-bar { margin: -11px -11px 0; }
 :root[data-density="compact"] .grid { gap: 10px; }
+:root[data-density="compact"] .card-desc { -webkit-line-clamp: 2; line-clamp: 2; } /* 对齐原型：紧凑态回退 2 行 */
 
 /* UI 元素显隐（设置项切换）：关闭时按范围隐藏描述 / 分类标签 / 分类色条（对齐 prototype :root[data-show-*]） */
 :root[data-show-desc="off"] .card-desc { display: none; }
@@ -216,8 +217,8 @@ html[data-lang="zh"] .en { display: none; }
   font-size: 13px; cursor: pointer; transition: background .15s, color .15s, border-color .15s;
 }
 .chip:hover { border-color: var(--text-3); color: var(--text); }
-/* 选中态：保持各自分类色相（--hue），以「加深的彩色实心底 + 白字」强调（对齐 prototype） */
-.chip.active { background: hsl(var(--hue) 68% 42%); color: #fff; border-color: hsl(var(--hue) 68% 42%); }
+/* 选中态：保持各自分类色相（--hue），以「加深的彩色实心底 + 白字」强调（对齐 prototype components.css .chip.active hsl(var(--hue) 82% 46%)） */
+.chip.active { background: hsl(var(--hue) 82% 46%); color: #fff; border-color: hsl(var(--hue) 82% 46%); }
 .chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
 .chip.active .chip-count { opacity: 1; }
 /* 功能标签筛选行（v1.20.12）：与分类 chip 同容器，置于其下方并弱化间距 */
@@ -249,8 +250,8 @@ html[data-lang="zh"] .en { display: none; }
 /* 详情弹窗标题下方英文原名：中文态弱化为副标题，英文态隐藏（避免英文名重复） */
 :root[data-lang="zh"] .dialog .sub.en { display: block; font-size: 12px; color: hsl(var(--text-2)); font-weight: 400; margin-top: 2px; }
 :root[data-lang="en"] .dialog .sub.en { display: none; }
-/* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 2 行截断 */
-.card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 3 行截断（对齐原型 components.css .card-desc） */
+.card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .card-desc > span { display: block; }
 .card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
 

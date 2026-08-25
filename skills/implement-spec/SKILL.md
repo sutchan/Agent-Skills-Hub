@@ -1,7 +1,7 @@
 ---
 name: implement-spec
-description: "用代码实现一个规格说明。"
-en_description: "Implement a specification in code."
+description: 将规格说明实现为代码，在用户要求按规范落地功能时使用。
+en_description: Implement a specification in code.
 zh_displayName: 规格实现
 category: 工程实践与质量
 en_category: Engineering Practice & Quality

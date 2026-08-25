@@ -1,7 +1,7 @@
 {
   "ad-creative": {
-    "popularity": 3,
-    "size": 215212,
+    "popularity": 1,
+    "size": 216452,
     "files": 13
   },
   "ads-creative": {
@@ -11,12 +11,12 @@
   },
   "agent-browser": {
     "popularity": 0,
-    "size": 4507,
+    "size": 3049,
     "files": 1
   },
   "Agent Development": {
     "popularity": 2,
-    "size": 70705,
+    "size": 70434,
     "files": 7,
     "skillVersion": "0.1.0"
   },
@@ -56,23 +56,23 @@
     "files": 4
   },
   "architecture-blueprint-generator": {
-    "popularity": 3,
-    "size": 13830,
+    "popularity": 1,
+    "size": 13335,
     "files": 1
   },
   "bailian-web-search": {
-    "popularity": 1,
-    "size": 8157,
+    "popularity": 0,
+    "size": 6929,
     "files": 1
   },
   "banner-creator": {
     "popularity": 0,
-    "size": 5994773,
+    "size": 5994129,
     "files": 16
   },
   "banner-design": {
     "popularity": 2,
-    "size": 14033,
+    "size": 13495,
     "files": 2
   },
   "better-auth-best-practices": {
@@ -155,8 +155,8 @@
     "skillVersion": "2.30.0"
   },
   "code-review": {
-    "popularity": 0,
-    "size": 7207,
+    "popularity": 1,
+    "size": 6628,
     "files": 2
   },
   "code-review-and-quality": {
@@ -166,7 +166,7 @@
   },
   "codebase-design": {
     "popularity": 0,
-    "size": 12021,
+    "size": 11946,
     "files": 4
   },
   "coding-standards": {
@@ -181,22 +181,22 @@
   },
   "dart-add-unit-test": {
     "popularity": 0,
-    "size": 4998,
+    "size": 4902,
     "files": 1
   },
   "dart-build-cli-app": {
     "popularity": 0,
-    "size": 9168,
+    "size": 9121,
     "files": 1
   },
   "dart-collect-coverage": {
     "popularity": 0,
-    "size": 5065,
+    "size": 5058,
     "files": 1
   },
   "dart-fix-runtime-errors": {
     "popularity": 0,
-    "size": 6506,
+    "size": 6458,
     "files": 1
   },
   "dart-flutter-patterns": {
@@ -206,27 +206,27 @@
   },
   "dart-generate-test-mocks": {
     "popularity": 0,
-    "size": 6640,
+    "size": 6535,
     "files": 1
   },
   "dart-migrate-to-checks-package": {
     "popularity": 0,
-    "size": 19547,
+    "size": 19521,
     "files": 1
   },
   "dart-resolve-package-conflicts": {
     "popularity": 1,
-    "size": 5485,
+    "size": 5443,
     "files": 1
   },
   "dart-run-static-analysis": {
     "popularity": 1,
-    "size": 5342,
+    "size": 5235,
     "files": 1
   },
   "dart-use-pattern-matching": {
     "popularity": 0,
-    "size": 6257,
+    "size": 6252,
     "files": 1
   },
   "data-visualization": {
@@ -245,9 +245,14 @@
     "files": 6,
     "skillVersion": "1.0.0"
   },
+  "dev-builder": {
+    "popularity": 2,
+    "size": 9084,
+    "files": 1
+  },
   "diagnosing-bugs": {
     "popularity": 0,
-    "size": 10227,
+    "size": 10205,
     "files": 3
   },
   "discover-brand": {
@@ -272,7 +277,7 @@
   },
   "domain-modeling": {
     "popularity": 0,
-    "size": 8678,
+    "size": 8773,
     "files": 4
   },
   "douyin-video": {
@@ -316,7 +321,7 @@
   },
   "eve": {
     "popularity": 0,
-    "size": 1374,
+    "size": 1211,
     "files": 1
   },
   "executing-plans": {
@@ -381,27 +386,27 @@
   },
   "flutter-add-integration-test": {
     "popularity": 0,
-    "size": 7693,
+    "size": 7539,
     "files": 1
   },
   "flutter-add-widget-preview": {
     "popularity": 0,
-    "size": 6547,
+    "size": 6421,
     "files": 1
   },
   "flutter-add-widget-test": {
     "popularity": 1,
-    "size": 6721,
+    "size": 6566,
     "files": 1
   },
   "flutter-apply-architecture-best-practices": {
     "popularity": 0,
-    "size": 6513,
+    "size": 6397,
     "files": 1
   },
   "flutter-build-responsive-layout": {
     "popularity": 0,
-    "size": 7113,
+    "size": 7001,
     "files": 1
   },
   "flutter-dart-code-review": {
@@ -411,27 +416,27 @@
   },
   "flutter-fix-layout-issues": {
     "popularity": 0,
-    "size": 5651,
+    "size": 5499,
     "files": 1
   },
   "flutter-implement-json-serialization": {
     "popularity": 0,
-    "size": 5919,
+    "size": 5824,
     "files": 1
   },
   "flutter-setup-declarative-routing": {
     "popularity": 1,
-    "size": 8525,
+    "size": 8383,
     "files": 1
   },
   "flutter-setup-localization": {
     "popularity": 0,
-    "size": 6231,
+    "size": 6112,
     "files": 1
   },
   "flutter-use-http-package": {
     "popularity": 0,
-    "size": 6688,
+    "size": 6621,
     "files": 1
   },
   "flux-kontext": {
@@ -451,57 +456,62 @@
   },
   "git-cleanup": {
     "popularity": 0,
-    "size": 15795,
+    "size": 15704,
     "files": 3
   },
   "google-agents-cli-adk-code": {
     "popularity": 1,
-    "size": 67156,
+    "size": 68192,
     "files": 4
   },
   "google-agents-cli-workflow": {
-    "popularity": 2,
-    "size": 32050,
+    "popularity": 3,
+    "size": 31711,
     "files": 6
   },
   "google-mobile-ads-banner": {
     "popularity": 0,
-    "size": 10058,
+    "size": 10002,
     "files": 4
   },
   "grill-me": {
     "popularity": 0,
-    "size": 548,
+    "size": 507,
     "files": 2
   },
   "grill-with-docs": {
     "popularity": 0,
-    "size": 701,
+    "size": 612,
     "files": 2
   },
   "grilling": {
     "popularity": 0,
-    "size": 2379,
+    "size": 2298,
     "files": 2
   },
   "handoff": {
     "popularity": 0,
-    "size": 1248,
+    "size": 1233,
     "files": 2
   },
   "html-design-prototypes": {
-    "popularity": 2,
-    "size": 20682,
+    "popularity": 1,
+    "size": 19783,
     "files": 1
+  },
+  "html-prototype": {
+    "popularity": 1,
+    "size": 6507,
+    "files": 2
   },
   "hyperframes-core": {
     "popularity": 0,
-    "size": 163453,
+    "size": 171789,
     "files": 20
   },
   "hyperframes-creative": {
     "popularity": 2,
-    "size": 1197422,
+    "size": 1197162,
     "files": 78
   },
   "image-to-video": {
@@ -511,12 +521,12 @@
   },
   "implement-spec": {
     "popularity": 0,
-    "size": 2345,
+    "size": 2391,
     "files": 2
   },
   "improve-codebase-architecture": {
-    "popularity": 1,
-    "size": 13068,
+    "popularity": 0,
+    "size": 13168,
     "files": 3
   },
   "insforge-cli": {
@@ -536,33 +546,33 @@
   },
   "lark-meeting": {
     "popularity": 1,
-    "size": 166531,
+    "size": 163768,
     "files": 30,
     "skillVersion": "1.0.0"
   },
   "limrun-android-emulator": {
-    "popularity": 1,
-    "size": 14770,
+    "popularity": 0,
+    "size": 14424,
     "files": 1
   },
   "limrun-detox-testing": {
-    "popularity": 1,
-    "size": 5607,
+    "popularity": 0,
+    "size": 5990,
     "files": 1
   },
   "limrun-ios-simulator": {
-    "popularity": 1,
-    "size": 12911,
+    "popularity": 0,
+    "size": 13890,
     "files": 1
   },
   "limrun-xcode": {
     "popularity": 0,
-    "size": 14803,
+    "size": 14560,
     "files": 1
   },
   "limrun-xcode-bazel": {
     "popularity": 0,
-    "size": 15627,
+    "size": 15545,
     "files": 3
   },
   "logo-animation": {
@@ -573,7 +583,7 @@
   },
   "logo-creator": {
     "popularity": 1,
-    "size": 3714621,
+    "size": 3713487,
     "files": 25
   },
   "logo-designer": {
@@ -594,8 +604,8 @@
     "files": 3
   },
   "marketing-plan": {
-    "popularity": 1,
-    "size": 256139,
+    "popularity": 0,
+    "size": 258870,
     "files": 15
   },
   "mcp-vods": {
@@ -605,13 +615,13 @@
   },
   "muapi-3d-logo-animation": {
     "popularity": 0,
-    "size": 2879,
+    "size": 2830,
     "files": 1,
     "skillVersion": "1.0.0"
   },
   "muapi-logo-creator": {
     "popularity": 0,
-    "size": 3693,
+    "size": 3596,
     "files": 1,
     "skillVersion": "0.1.0"
   },
@@ -627,7 +637,7 @@
   },
   "nextjs-app-router-patterns": {
     "popularity": 0,
-    "size": 13952,
+    "size": 13833,
     "files": 2
   },
   "nextjs-code-review": {
@@ -663,7 +673,7 @@
   },
   "orca-cli": {
     "popularity": 1,
-    "size": 4891,
+    "size": 4136,
     "files": 1
   },
   "paper-context-resolver": {
@@ -678,7 +688,7 @@
   },
   "persona-project-manager": {
     "popularity": 0,
-    "size": 1481,
+    "size": 1473,
     "files": 1
   },
   "php-pro": {
@@ -698,12 +708,12 @@
   },
   "playwright-cli": {
     "popularity": 0,
-    "size": 58763,
+    "size": 60379,
     "files": 10
   },
   "playwright-explore-website": {
     "popularity": 0,
-    "size": 1142,
+    "size": 858,
     "files": 1
   },
   "playwriter": {
@@ -718,12 +728,22 @@
   },
   "project-workflow-analysis-blueprint-generator": {
     "popularity": 2,
-    "size": 11195,
+    "size": 10814,
     "files": 1
   },
   "prototype": {
     "popularity": 0,
-    "size": 16215,
+    "size": 16311,
+    "files": 4
+  },
+  "prototype-2": {
+    "popularity": 0,
+    "size": 15199,
+    "files": 2
+  },
+  "prototype-3": {
+    "popularity": 1,
+    "size": 15754,
     "files": 4
   },
   "prototype-design-explore": {
@@ -731,14 +751,30 @@
     "size": 15771,
     "files": 4
   },
+  "Prototype Designer": {
+    "popularity": 3,
+    "size": 15770,
+    "files": 2,
+    "skillVersion": "1.0.0"
+  },
+  "prototype-pattern": {
+    "popularity": 1,
+    "size": 5583,
+    "files": 1
+  },
+  "prototype-pollution": {
+    "popularity": 1,
+    "size": 9135,
+    "files": 1
+  },
   "prototype-stardust": {
     "popularity": 1,
-    "size": 290269,
+    "size": 289975,
     "files": 22
   },
   "prototype-ui-variants": {
     "popularity": 0,
-    "size": 15337,
+    "size": 15156,
     "files": 2
   },
   "react-doctor": {
@@ -764,12 +800,12 @@
   },
   "redesign-existing-projects": {
     "popularity": 0,
-    "size": 15356,
+    "size": 15179,
     "files": 1
   },
   "remotion-best-practices": {
     "popularity": 0,
-    "size": 1159801,
+    "size": 1131635,
     "files": 137,
     "skillVersion": "4.0.516"
   },
@@ -800,8 +836,8 @@
     "skillVersion": "1.0.0"
   },
   "setup-matt-pocock-skills": {
-    "popularity": 0,
-    "size": 19704,
+    "popularity": 1,
+    "size": 19778,
     "files": 7
   },
   "shadcn-ui": {
@@ -811,17 +847,17 @@
   },
   "short-drama-storyboard": {
     "popularity": 1,
-    "size": 142025,
+    "size": 141720,
     "files": 22
   },
   "short-drama-video-prompts": {
-    "popularity": 2,
-    "size": 178598,
+    "popularity": 1,
+    "size": 178298,
     "files": 22
   },
   "short-drama-write": {
-    "popularity": 1,
-    "size": 214456,
+    "popularity": 0,
+    "size": 213869,
     "files": 19
   },
   "simplify": {
@@ -884,12 +920,12 @@
   },
   "tdd": {
     "popularity": 1,
-    "size": 7611,
+    "size": 7634,
     "files": 4
   },
   "test-driven-development": {
     "popularity": 0,
-    "size": 17490,
+    "size": 17488,
     "files": 2
   },
   "theme-factory": {
@@ -904,7 +940,7 @@
   },
   "to-spec": {
     "popularity": 0,
-    "size": 3445,
+    "size": 3368,
     "files": 2
   },
   "traceknot": {
@@ -939,7 +975,7 @@
   },
   "ui-ux-pro-max": {
     "popularity": 0,
-    "size": 3626762,
+    "size": 3561820,
     "files": 60
   },
   "uni-app": {
@@ -958,8 +994,8 @@
     "files": 76
   },
   "video": {
-    "popularity": 3,
-    "size": 37684,
+    "popularity": 0,
+    "size": 36735,
     "files": 4
   },
   "video-edit": {
@@ -1009,6 +1045,11 @@
     "size": 1526,
     "files": 1
   },
+  "web-prototype": {
+    "popularity": 1,
+    "size": 39543,
+    "files": 5
+  },
   "wechat-article-writer": {
     "popularity": 0,
     "size": 2351,
@@ -1031,7 +1072,7 @@
   },
   "woocommerce-backend-dev": {
     "popularity": 0,
-    "size": 41893,
+    "size": 43183,
     "files": 9
   },
   "wordpress-router": {
@@ -1086,7 +1127,7 @@
   },
   "write-tech-spec": {
     "popularity": 0,
-    "size": 8195,
+    "size": 7983,
     "files": 1
   },
   "writing-plans": {

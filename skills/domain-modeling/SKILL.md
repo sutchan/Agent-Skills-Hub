@@ -1,12 +1,11 @@
 ---
 name: domain-modeling
-description: 构建并打磨项目的领域模型。当用户讨论业务概念、实体关系、边界上下文或模型演进时使用。
-en_description: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.
+description: 构建并打磨项目领域模型，在讨论代码库术语、撰写领域逻辑或统一概念时使用。
+en_description: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing domain logic, or unifying concepts.
 zh_displayName: 领域建模
-category: AI 与智能体
-en_category: AI & Agents
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 # Domain Modeling
 
 Actively build and sharpen the project's domain model as you design. This is the *active* discipline: challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely *reading* `CONTEXT.md` for vocabulary is not this skill: that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)

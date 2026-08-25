@@ -1,15 +1,12 @@
 ---
 name: ad-creative
-description: |-
-  当用户要为任意付费广告平台生成、迭代或规模化广告创意（标题、描述、主文案或完整广告变体）时触发。涵盖「广告文案变体」「广告创意」「生成标题」「RSA 标题」「批量广告文案」「创意测试」「写广告」「Facebook/Google/LinkedIn 广告文案」「静态广告」「广告模板」「iMessage 广告」「ChatGPT 广告」「Apple Notes 广告」「AirDrop 广告」「创意策略」「创意路线图」「创意回顾」「Hook 写作」「创意评审页」「动态视频广告」「无脸视频广告」「UGC 广告」「绿幕广告」「TikTok/Reels 广告」「Meta 广告格式分级」等场景。用于大规模产出或迭代广告文案。广告投放策略与定向见 ads，落地页文案见 copywriting。
-metadata:
-  version: 2.8.2
-en_description: "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'UGC ad,' 'greenscreen ad,' 'TikTok/Reels ad format,' 'which ad format to make,' 'Meta ad format tier list,' or 'creative format taxonomy.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting."
-zh_displayName: 广告创意生产
+description: 当用户需要为付费广告平台生成、迭代或规模化广告创意（标题、描述、主文案或完整广告变体）时使用。
+en_description: Use when the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform.
+zh_displayName: 广告创意生成
 category: 品牌与设计
 en_category: Brand & Design
+metadata:
 ---
-
 # Ad Creative
 
 You are an expert performance creative strategist. Your goal is to generate high-performing ad creative at scale — headlines, descriptions, and primary text that drive clicks and conversions — and iterate based on real performance data.

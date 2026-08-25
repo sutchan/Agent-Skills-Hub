@@ -1,5 +1,5 @@
 {
-  "total": 214,
+  "total": 222,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -35,9 +35,9 @@
       "name": "ad-creative",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "广告创意生产",
-      "description": "当用户要为任意付费广告平台生成、迭代或规模化广告创意（标题、描述、主文案或完整广告变体）时触发。涵盖「广告文案变体」「广告创意」「生成标题」「RSA 标题」「批量广告文案」「创意测试」「写广告」「Facebook/Google/LinkedIn 广告文案」「静态广告」「广告模板」「iMessage 广告」「ChatGPT 广告」「Apple Notes 广告」「AirDrop 广告」「创意策略」「创意路线图」「创意回顾」「Hook 写作」「创意评审页」「动态视频广告」「无脸视频广告」「UGC 广告」「绿幕广告」「TikTok/Reels 广告」「Meta 广告格式分级」等场景。用于大规模产出或迭代广告文案。广告投放策略与定向见 ads，落地页文案见 copywriting。",
-      "enDescription": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'UGC ad,' 'greenscreen ad,' 'TikTok/Reels ad format,' 'which ad format to make,' 'Meta ad format tier list,' or 'creative format taxonomy.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
+      "zh": "广告创意生成",
+      "description": "当用户需要为付费广告平台生成、迭代或规模化广告创意（标题、描述、主文案或完整广告变体）时使用。",
+      "enDescription": "Use when the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -72,7 +72,7 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "Banner 横幅创作",
-      "description": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
+      "description": "使用 AI 图像生成创建横幅。先讨论格式、风格、尺寸与品牌约束再生成。",
       "enDescription": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
       "homepage": "",
       "allowedTools": [],
@@ -90,7 +90,7 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "Banner 设计",
-      "description": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
+      "description": "为社交媒体、广告、网站主视觉与创意素材等设计横幅。",
       "enDescription": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
       "homepage": "",
       "allowedTools": [],
@@ -461,7 +461,7 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "Logo 创作",
-      "description": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.",
+      "description": "使用 AI 图像生成创建 logo，讨论风格、比例与品牌约束。",
       "enDescription": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.",
       "homepage": "",
       "allowedTools": [],
@@ -494,15 +494,14 @@
       "name": "marketing-plan",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "营销计划",
-      "description": "当用户需要为客户、所顾问公司或自有产品制定全面营销计划时触发。涵盖「营销计划」「增长计划」「GTM 计划」「上市计划」「AARRR 计划」「90 天营销计划」「12 个月营销路线图」「fractional CMO 计划」「fCMO 计划」。按 AARRR（获客、激活、留存、推荐、营收）生成 13 段式详尽计划，按客户预算/团队/阶段定制，映射到后续融资里程碑，交叉引用 139 条营销创意库与 17 段现状审计 rubric，并附完整营销运营栈（指明各模块由哪些 skill 与 MCP/API 执行）。输出可直接粘贴 Notion 的 markdown 文档。规划前的定位与 ICP 上下文见 product-marketing，阶段专项深做见 onboarding/signup/emails/referrals/pricing。",
-      "enDescription": "When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions \"marketing plan,\" \"growth plan,\" \"GTM plan,\" \"go-to-market plan,\" \"AARRR plan,\" \"90-day marketing plan,\" \"12-month marketing roadmap,\" \"fractional CMO plan,\" or \"fCMO plan.\" Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.",
+      "zh": "营销方案",
+      "description": "当用户需要为客户、所顾问公司或自身制定全面营销方案时使用。",
+      "enDescription": "When the user needs a comprehensive marketing plan for a client, a company they advise, or themselves.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "ai-agent",
         "cli",
-        "doc-writing"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/marketing-plan",
@@ -513,7 +512,7 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "3D Logo 动画",
-      "description": "Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects.",
+      "description": "将 2D logo 转为高级 3D 版本并制作动画。",
       "enDescription": "Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects.",
       "homepage": "",
       "allowedTools": [],
@@ -529,7 +528,7 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "Logo 创作(MUAPI)",
-      "description": "Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai",
+      "description": "使用几何基元工程化生成专业级品牌 logo。",
       "enDescription": "Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai",
       "homepage": "",
       "allowedTools": [],
@@ -545,15 +544,15 @@
       "name": "redesign-existing-projects",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "网站应用重构升级",
-      "description": "Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.",
-      "enDescription": "Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality.",
+      "zh": "现有项目重设计",
+      "description": "将现有网站与应用升级至高级品质，审计当前设计、识别问题并交付改进方案。",
+      "enDescription": "Upgrades existing websites and apps to premium quality. Audits current design, identifies issues, and delivers an improvement plan.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "ai-agent",
         "web-frontend",
-        "design-media"
+        "design-media",
+        "test-qa"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/redesign-existing-projects",
@@ -578,16 +577,53 @@
       "githubDir": "skills/review-animations"
     },
     {
-      "name": "short-drama-write",
+      "name": "short-drama-storyboard",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "短剧剧本写作",
-      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文地规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。",
-      "enDescription": "Write or revise shootable Chinese short-drama / manga-drama single-episode Markdown scripts, and normalize existing scripts while preserving the author's original voice. Use when the user asks to \"write/revise an episode\", \"turn an outline into a script\", \"polish scenes/dialogue\", \"remove template feel\", \"de-AI the prose\", or \"continue the next episode\"; does not handle assets, storyboards, media prompts, or final review.",
+      "zh": "短剧分镜",
+      "description": "将中文短剧剧本与视觉设定写成带戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown。",
+      "enDescription": "Write storyboard Markdown for Chinese short dramas with dramatic responsibilities, continuity boundaries, and frozen-keyframe prompts.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-storyboard",
+      "githubDir": "skills/short-drama-storyboard"
+    },
+    {
+      "name": "short-drama-video-prompts",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "短剧视频提示词",
+      "description": "将短剧分镜与冻结关键帧写成可直接复制的视频提示词 Markdown，亦可按需求撰写时间线配乐/主题曲意图。",
+      "enDescription": "Write copy-paste video prompt Markdown from short-drama storyboards and frozen keyframes; optionally write timeline score/theme intent.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-video-prompts",
+      "githubDir": "skills/short-drama-video-prompts"
+    },
+    {
+      "name": "short-drama-write",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "短剧编剧",
+      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，并负责规范化现成剧本。",
+      "enDescription": "Write or revise shootable Chinese short-drama / motion-comic episode scripts in Markdown, and normalize existing scripts.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
         "doc-writing",
         "design-media"
       ],
@@ -725,7 +761,7 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "UI/UX 设计",
-      "description": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
+      "description": "面向 Web、移动与桌面的 UI/UX 设计智能。",
       "enDescription": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
       "homepage": "",
       "allowedTools": [],
@@ -886,18 +922,34 @@
       "category": "前端开发",
       "enCategory": "Frontend Dev",
       "zh": "HTML 设计原型",
-      "description": "**TRIGGER: about to populate `AskUserQuestion` options with `preview:` content for any visual UI / screen / layout / component / animation comparison.** STOP and ask first: *\"Quick inline chip comparison, or a full HTML prototype you can open in the browser?\"* Chips flatten color, type, spacing, and motion into monospace; HTML prototypes are real. **No carve-out for \"simulate\", \"demo\", \"mock up\", \"quick decision\" — those name the surface, not an exception.** When user picks HTML, this skill creates prototypes for visual design, component playgrounds, animation tuning, and design system exploration — even when the final target is React, Swift, SwiftUI, Android, or another framework. Use whenever the user wants to mock, prototype, sketch, tune, or explore any UI element before production code. HTML is the fastest design-thinking surface; reach for it even for non-web targets. For N alternatives use html-brainstorm-grid; for a single tunable component use this skill.",
+      "description": "触发条件：在向 AskUserQuestion 选项填充前，构建 HTML 设计原型。",
       "enDescription": "Create real HTML prototypes for visual design, component playgrounds, animation tuning, and design system exploration when comparing UI variants, before production code.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "ai-agent",
         "web-frontend",
         "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/html-design-prototypes",
       "githubDir": "skills/html-design-prototypes"
+    },
+    {
+      "name": "html-prototype",
+      "category": "前端开发",
+      "enCategory": "Frontend Dev",
+      "zh": "HTML 原型",
+      "description": "直接调用的专家技能，产出精致、响应式、自包含的 HTML 原型。",
+      "enDescription": "Direct-invocation specialist for polished, responsive, self-contained HTML mockups and interactive prototypes grounded in the user's conversation, product context, and design language. Use when the user explicitly invokes html-prototype or the broad html skill routes a mockup or prototype request here. Do not activate independently from a general request. Treat a mockup as a noninteractive fidelity mode within this skill, not as a separate skill.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "web-frontend"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/html-prototype",
+      "githubDir": "skills/html-prototype"
     },
     {
       "name": "insforge-cli",
@@ -960,12 +1012,13 @@
       "category": "前端开发",
       "enCategory": "Frontend Dev",
       "zh": "Next.js App Router 模式",
-      "description": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
+      "description": "精通 Next.js 14+ App Router：Server Components、流式、并行路由与数据获取。",
       "enDescription": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications or optimizing React Server Components.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "web-frontend"
+        "web-frontend",
+        "data"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-app-router-patterns",
@@ -1032,32 +1085,12 @@
       "githubDir": "skills/playwright-best-practices"
     },
     {
-      "name": "playwright-cli",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "Playwright 命令行自动化",
-      "description": "自动化浏览器交互、测试网页并使用 Playwright 测试。",
-      "enDescription": "Automate browser interactions, test web pages and work with Playwright tests.",
-      "homepage": "",
-      "allowedTools": [
-        "Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)"
-      ],
-      "tags": [
-        "web-frontend",
-        "test-qa",
-        "automation"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
-      "githubDir": "skills/playwright-cli"
-    },
-    {
       "name": "prototype",
       "category": "前端开发",
       "enCategory": "Frontend Dev",
       "zh": "原型构建",
-      "description": "构建一次性原型以回答某个设计问题。当用户想快速验证交互、界面或架构假设，且原型用完即弃时使用。",
-      "enDescription": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.",
+      "description": "构建一次性原型以验证设计问题，在用户希望快速验证状态模型或界面形态时使用。",
+      "enDescription": "Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check a state model or UI shape.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -1067,6 +1100,39 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype",
       "githubDir": "skills/prototype"
+    },
+    {
+      "name": "prototype-2",
+      "category": "前端开发",
+      "enCategory": "Frontend Dev",
+      "zh": "UI 多版本原型",
+      "description": "为某 UI 片段构建多个真正不同的版本供对比。",
+      "enDescription": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "web-frontend"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-2",
+      "githubDir": "skills/prototype-2"
+    },
+    {
+      "name": "prototype-3",
+      "category": "前端开发",
+      "enCategory": "Frontend Dev",
+      "zh": "设计探索原型",
+      "description": "构建一次性原型来回答一个设计问题。适用于用户想验证某个 state model 或 logic 是否感觉对，或探索 UI 应该长什么样时。",
+      "enDescription": "Build a one-off prototype to answer a design question — verify whether a state model or logic feels right, or explore what the UI should look like.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "web-frontend",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-3",
+      "githubDir": "skills/prototype-3"
     },
     {
       "name": "prototype-design-explore",
@@ -1086,18 +1152,36 @@
       "githubDir": "skills/prototype-design-explore"
     },
     {
+      "name": "Prototype Designer",
+      "category": "前端开发",
+      "enCategory": "Frontend Dev",
+      "zh": "原型设计器",
+      "description": "创建交互式原型、设计用户流程并实现高保真界面。",
+      "enDescription": "Create interactive prototypes, design user flows, implement prototype testing strategies, and manage handoff to development. Validate ideas before building.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "web-frontend",
+        "design-media",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-designer",
+      "githubDir": "skills/prototype-designer"
+    },
+    {
       "name": "prototype-stardust",
       "category": "前端开发",
       "enCategory": "Frontend Dev",
       "zh": "Stardust 页面重构原型",
-      "description": "Render a proposed redesign of a page on the current website as a self-contained static HTML file, then iterate via the impeccable craft loop. Per-page, idempotent, stale-aware. Use when the user asks for a redesign prototype, a before/after comparison, a design preview, a page mockup, a visual diff of the redesign, or invokes /stardust:prototype.",
+      "description": "在当前网站上渲染某页面的重设计方案。",
       "enDescription": "Render a proposed redesign of a page as a self-contained static HTML file, then iterate via the craft loop. Use for redesign previews, before/after comparisons, or /stardust:prototype.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
         "web-frontend",
-        "test-qa"
+        "design-media"
       ],
       "hidden": false,
       "license": "Apache-2.0",
@@ -1109,7 +1193,7 @@
       "category": "前端开发",
       "enCategory": "Frontend Dev",
       "zh": "UI 多版本原型选择器",
-      "description": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.",
+      "description": "为某 UI 片段构建多个真正不同的版本供对比。",
       "enDescription": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right.",
       "homepage": "",
       "allowedTools": [],
@@ -1282,6 +1366,24 @@
       "githubDir": "skills/web-artifacts-builder"
     },
     {
+      "name": "web-prototype",
+      "category": "前端开发",
+      "enCategory": "Frontend Dev",
+      "zh": "网页原型",
+      "description": "通用桌面 Web 原型，单一自包含页面。",
+      "enDescription": "General-purpose desktop web prototype. Single self-contained HTML file built by copying the seed assets/template.html and pasting section layouts from references/layouts.md. Default for any landing / marketing / docs / SaaS page when no more specific skill matches.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "web-frontend",
+        "doc-writing"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-prototype",
+      "githubDir": "skills/web-prototype"
+    },
+    {
       "name": "winui-dev-workflow",
       "category": "前端开发",
       "enCategory": "Frontend Dev",
@@ -1404,6 +1506,23 @@
       "githubDir": "skills/php-pro"
     },
     {
+      "name": "prototype-pattern",
+      "category": "后端与平台",
+      "enCategory": "Backend & Platform",
+      "zh": "原型模式",
+      "description": "讲解通过 prototype 实现属性共享的原型模式。",
+      "enDescription": "Teaches the prototype pattern for property sharing via the prototype chain. Use when creating many objects of the same type that should share methods or properties efficiently.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-pattern",
+      "githubDir": "skills/prototype-pattern"
+    },
+    {
       "name": "stripe-best-practices",
       "category": "后端与平台",
       "enCategory": "Backend & Platform",
@@ -1460,11 +1579,28 @@
       "githubDir": "skills/supabase-postgres-best-practices"
     },
     {
+      "name": "woocommerce-backend-dev",
+      "category": "后端与平台",
+      "enCategory": "Backend & Platform",
+      "zh": "WooCommerce 后端开发",
+      "description": "按项目约定新增或修改 WooCommerce 后端 PHP 代码（类、方法、钩子），在编写 PHP 单元测试前必须调用。",
+      "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Must be invoked before writing any PHP unit tests.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "doc-writing",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/woocommerce-backend-dev",
+      "githubDir": "skills/woocommerce-backend-dev"
+    },
+    {
       "name": "dart-add-unit-test",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Dart 单元测试编写",
-      "description": "Write and organize unit tests for functions, methods, and classes using `package:test`. Use when creating new logic or fixing bugs to ensure code remains correct and regression-free.",
+      "description": "为函数、方法、类编写并组织单元测试（使用 package:test）。",
       "enDescription": "Write and organize unit tests for functions, methods, and classes using `package:test`. Use when creating new logic or fixing bugs to ensure code remains correct and regression-free.",
       "homepage": "",
       "allowedTools": [],
@@ -1481,7 +1617,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Dart CLI 应用构建",
-      "description": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
+      "description": "命令行工具的入口结构、退出码与跨平台脚本编写规范。",
       "enDescription": "Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.",
       "homepage": "",
       "allowedTools": [],
@@ -1497,7 +1633,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Dart 覆盖率收集",
-      "description": "Collect coverage using the coverage packge and create an LCOV report",
+      "description": "使用 coverage 包收集覆盖率并生成 LCOV 报告。",
       "enDescription": "Collect coverage using the coverage packge and create an LCOV report",
       "homepage": "",
       "allowedTools": [],
@@ -1514,7 +1650,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Dart 运行时错误修复",
-      "description": "Uses get_runtime_errors and lsp to fetch an active stack trace, locate the failing line, apply a fix, and verify resolution via hot_reload.",
+      "description": "用 get_runtime_errors 与 lsp 获取活动堆栈、定位报错行并热重载修复。",
       "enDescription": "Uses get_runtime_errors and lsp to fetch an active stack trace, locate the failing line, apply a fix, and verify resolution via hot_reload.",
       "homepage": "",
       "allowedTools": [],
@@ -1547,7 +1683,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Dart 测试桩生成",
-      "description": "Define and generate mock objects for external dependencies using `package:mockito` and `build_runner`. Use when unit testing classes that depend on complex external services like APIs or databases.",
+      "description": "使用 package:mockito 与 build_runner 为外部依赖定义并生成 mock 对象。",
       "enDescription": "Define and generate mock objects for external dependencies using `package:mockito` and `build_runner`. Use when unit testing classes that depend on complex external services like APIs or databases.",
       "homepage": "",
       "allowedTools": [],
@@ -1564,7 +1700,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Dart 迁移至 checks 包",
-      "description": "Replace the usage of `expect` and similar functions from `package:matcher`\nto `package:checks` equivalents.",
+      "description": "将 package:matcher 的 expect 等用法替换为 package:checks 等价写法。",
       "enDescription": "Replace the usage of `expect` and similar functions from `package:matcher`\nto `package:checks` equivalents.",
       "homepage": "",
       "allowedTools": [],
@@ -1578,7 +1714,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Dart 包冲突解决",
-      "description": "Workflow for fixing package version conflicts. Use this when `pub get` fails due to incompatible package versions.",
+      "description": "修复 pub get 因版本不兼容而失败的包冲突处理流程。",
       "enDescription": "Workflow for fixing package version conflicts. Use this when `pub get` fails due to incompatible package versions.",
       "homepage": "",
       "allowedTools": [],
@@ -1595,7 +1731,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Dart 静态分析",
-      "description": "Execute `dart analyze` to identify warnings and errors, and use `dart fix --apply` to automatically resolve mechanical lint issues. Use during development to ensure code quality and before committing changes.",
+      "description": "执行 dart analyze 识别警告与错误，并用 dart fix --apply 自动修复机械性问题。",
       "enDescription": "Execute `dart analyze` to identify warnings and errors, and use `dart fix --apply` to automatically resolve mechanical lint issues. Use during development to ensure code quality and before committing changes.",
       "homepage": "",
       "allowedTools": [],
@@ -1611,7 +1747,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Dart 模式匹配",
-      "description": "Use switch expressions and pattern matching where appropriate",
+      "description": "在合适处使用 switch 表达式与模式匹配。",
       "enDescription": "Use switch expressions and pattern matching where appropriate",
       "homepage": "",
       "allowedTools": [],
@@ -1625,7 +1761,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter 集成测试",
-      "description": "Configures Flutter Driver for app interaction and converts MCP actions into permanent integration tests. Use when adding integration testing to a project, exploring UI components via MCP, or automating user flows with the integration_test package.",
+      "description": "配置 Flutter Driver 进行应用交互，并将 MCP 动作转为持久化集成测试。",
       "enDescription": "Configures Flutter Driver for app interaction and converts MCP actions into permanent integration tests. Use when adding integration testing to a project, exploring UI components via MCP, or automating user flows with the integration_test package.",
       "homepage": "",
       "allowedTools": [],
@@ -1641,7 +1777,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter 组件预览",
-      "description": "Adds interactive widget previews to the project using the previews.dart system. Use when creating new UI components or updating existing screens to ensure consistent design and interactive testing.",
+      "description": "使用 previews.dart 系统为项目添加交互式 widget 预览。",
       "enDescription": "Adds interactive widget previews to the project using the previews.dart system. Use when creating new UI components or updating existing screens to ensure consistent design and interactive testing.",
       "homepage": "",
       "allowedTools": [],
@@ -1657,7 +1793,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter 组件测试",
-      "description": "Implement a component-level test using `WidgetTester` to verify UI rendering and user interactions (tapping, scrolling, entering text). Use when validating that a specific widget displays correct data and responds to events as expected.",
+      "description": "使用 WidgetTester 实现组件级测试，校验 UI 渲染与用户交互。",
       "enDescription": "Implement a component-level test using `WidgetTester` to verify UI rendering and user interactions (tapping, scrolling, entering text). Use when validating that a specific widget displays correct data and responds to events as expected.",
       "homepage": "",
       "allowedTools": [],
@@ -1673,11 +1809,12 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter 架构最佳实践",
-      "description": "用推荐的分层方式（UI、Logic、Data）为 Flutter 应用做架构设计。在搭建新项目或为可扩展性重构时使用。",
-      "enDescription": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data). Use when structuring a new project or refactoring for scalability.",
+      "description": "采用推荐的层式架构（UI、逻辑、数据）为 Flutter 应用做架构设计。",
+      "enDescription": "Architects a Flutter application using the recommended layered approach (UI, Logic, Data).",
       "homepage": "",
       "allowedTools": [],
       "tags": [
+        "data",
         "design-media"
       ],
       "hidden": false,
@@ -1689,7 +1826,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter 响应式布局",
-      "description": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
+      "description": "使用 LayoutBuilder、MediaQuery 或 Expanded/Flexible 构建自适应多屏布局。",
       "enDescription": "Use `LayoutBuilder`, `MediaQuery`, or `Expanded/Flexible` to create a layout that adapts to different screen sizes. Use when you need the UI to look good on both mobile and tablet/desktop form factors.",
       "homepage": "",
       "allowedTools": [],
@@ -1722,7 +1859,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter 布局问题修复",
-      "description": "Fixes Flutter layout errors (overflows, unbounded constraints) using Dart and Flutter MCP tools. Use when addressing \"RenderFlex overflowed\", \"Vertical viewport was given unbounded height\", or similar layout issues.",
+      "description": "修复 Flutter 布局错误（溢出、无界约束等）。",
       "enDescription": "Fixes Flutter layout errors (overflows, unbounded constraints) using Dart and Flutter MCP tools. Use when addressing \"RenderFlex overflowed\", \"Vertical viewport was given unbounded height\", or similar layout issues.",
       "homepage": "",
       "allowedTools": [],
@@ -1738,7 +1875,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter JSON 序列化",
-      "description": "Create model classes with `fromJson` and `toJson` methods using `dart:convert`. Use when manually mapping JSON keys to class properties for simple data structures.",
+      "description": "使用 dart:convert 创建含 fromJson/toJson 的模型类。",
       "enDescription": "Create model classes with `fromJson` and `toJson` methods using `dart:convert`. Use when manually mapping JSON keys to class properties for simple data structures.",
       "homepage": "",
       "allowedTools": [],
@@ -1752,7 +1889,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter 声明式路由",
-      "description": "Configure `MaterialApp.router` using a package like `go_router` for advanced URL-based navigation. Use when developing web applications or mobile apps that require specific deep linking and browser history support.",
+      "description": "使用 go_router 等包配置 MaterialApp.router 实现 URL 路由。",
       "enDescription": "Configure `MaterialApp.router` using a package like `go_router` for advanced URL-based navigation. Use when developing web applications or mobile apps that require specific deep linking and browser history support.",
       "homepage": "",
       "allowedTools": [],
@@ -1768,7 +1905,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter 本地化",
-      "description": "Add `flutter_localizations` and `intl` dependencies, enable \"generate true\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
+      "description": "添加 flutter_localizations 与 intl 依赖，启用生成并创建 l10n.yaml 配置。",
       "enDescription": "Add `flutter_localizations` and `intl` dependencies, enable \"generate true\" in `pubspec.yaml`, and create an `l10n.yaml` configuration file. Use when initializing localization support for a new Flutter project.",
       "homepage": "",
       "allowedTools": [],
@@ -1784,7 +1921,7 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Flutter HTTP 请求",
-      "description": "Use the `http` package to execute GET, POST, PUT, or DELETE requests. Use when you need to fetch from or send data to a REST API.",
+      "description": "使用 http 包执行 GET、POST、PUT 或 DELETE 请求。",
       "enDescription": "Use the `http` package to execute GET, POST, PUT, or DELETE requests. Use when you need to fetch from or send data to a REST API.",
       "homepage": "",
       "allowedTools": [],
@@ -1798,11 +1935,13 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Google 移动广告横幅",
-      "description": "Provides instructions to implement, integrate, or configure Google Mobile\nAds (GMA) banner ads in Android, iOS, or Unity mobile applications. Use\nwhen the task involves setting up banner ads in a mobile application. Don't\nuse for other ad formats like interstitial or rewarded ads.",
-      "enDescription": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications.",
+      "description": "生成 Google 移动广告横幅素材与规范，用于移动端广告投放。",
+      "enDescription": "Generate Google mobile ad banner assets and specs for mobile advertising campaigns.",
       "homepage": "",
       "allowedTools": [],
-      "tags": [],
+      "tags": [
+        "ai-agent"
+      ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-mobile-ads-banner",
       "githubDir": "skills/google-mobile-ads-banner"
@@ -1811,16 +1950,12 @@
       "name": "limrun-android-emulator",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
-      "zh": "Limrun 安卓模拟器",
-      "description": "驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动/终止应用并输出崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制带宽，并通过 CLI 隧道使用 adb 读取 logcat、文件与 shell。",
-      "enDescription": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell.",
+      "zh": "Limrun Android 模拟器",
+      "description": "驱动运行在 Limrun 云端 Android 模拟器上的应用：安装 APK、启动与终止、交互操作。",
+      "enDescription": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate, interact with the UI.",
       "homepage": "",
       "allowedTools": [],
-      "tags": [
-        "cli",
-        "doc-writing",
-        "design-media"
-      ],
+      "tags": [],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-android-emulator",
       "githubDir": "skills/limrun-android-emulator"
@@ -1830,12 +1965,11 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Limrun Detox 测试",
-      "description": "在 Limrun iOS 模拟器上配置、运行或调试 Detox。用于为应用挂接 Limrun Detox 运行时、连接 Detox mediator 或经反向隧道校验应用/测试器连接。",
-      "enDescription": "Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over reverse tunnels.",
+      "description": "在 Limrun iOS 模拟器上配置、运行或调试 Detox 端到端测试。",
+      "enDescription": "Configure, run, or debug Detox on Limrun iOS simulators.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -1847,15 +1981,11 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Limrun iOS 模拟器",
-      "description": "驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、截图、录屏、以视频文件模拟摄像头、执行定时动作链。",
-      "enDescription": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, play a video file as the camera, and run timed action chains.",
+      "description": "驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍树。",
+      "enDescription": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility tree.",
       "homepage": "",
       "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "design-media",
-        "automation"
-      ],
+      "tags": [],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-ios-simulator",
       "githubDir": "skills/limrun-ios-simulator"
@@ -1865,14 +1995,11 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Limrun Xcode 构建",
-      "description": "在远程 Xcode 用 `lim xcode build` 构建 iOS/Apple 应用，替代本地 xcodebuild，适用任意环境（Linux/Windows/macOS/VM/容器）。用于非 Bazel 项目（.xcodeproj/.xcworkspace、XcodeGen project.yml、React Native/Expo 原生构建）。",
-      "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects.",
+      "description": "使用 lim xcode build 在 Limrun 远程 Xcode 上构建 iOS/Apple 应用，替代本地 xcodebuild。",
+      "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild.",
       "homepage": "",
       "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "web-frontend"
-      ],
+      "tags": [],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode",
       "githubDir": "skills/limrun-xcode"
@@ -1882,8 +2009,8 @@
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
       "zh": "Limrun Xcode Bazel 构建",
-      "description": "在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用，替代本地 Mac，并安装到远程 iOS 模拟器。用于 Bazel workspace（MODULE.bazel/WORKSPACE）构建 rules_apple/rules_swift 目标。",
-      "enDescription": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace.",
+      "description": "在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用。",
+      "enDescription": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of local tooling.",
       "homepage": "",
       "allowedTools": [],
       "tags": [],
@@ -1923,24 +2050,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/blueprint",
       "githubDir": "skills/blueprint"
-    },
-    {
-      "name": "woocommerce-backend-dev",
-      "category": "WordPress 与 CMS",
-      "enCategory": "WordPress & CMS",
-      "zh": "WooCommerce 后端开发",
-      "description": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
-      "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, hooks, or modifying existing backend code. **MUST be invoked before writing any PHP unit tests.**",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "test-qa",
-        "wordpress"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/woocommerce-backend-dev",
-      "githubDir": "skills/woocommerce-backend-dev"
     },
     {
       "name": "wordpress-router",
@@ -2106,14 +2215,14 @@
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "智能体开发",
-      "description": "This skill should be used when the user asks to \"create an agent\", \"add an agent\", \"write a subagent\", \"agent frontmatter\", \"when to use description\", \"agent examples\", \"agent tools\", \"agent colors\", \"autonomous agent\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
+      "description": "当用户要求“创建或改进技能”、或涉及技能设计与结构时使用。",
       "enDescription": "This skill should be used when the user asks to \"create an agent\", \"add an agent\", \"write a subagent\", \"agent frontmatter\", \"when to use description\", \"agent examples\", \"agent tools\", \"agent colors\", \"autonomous agent\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "test-qa",
-        "wordpress"
+        "design-media",
+        "test-qa"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/agent-development",
@@ -2141,12 +2250,11 @@
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "架构蓝图生成器",
-      "description": "综合项目架构蓝图生成器：分析代码库以生成详细架构文档。自动识别技术栈与架构模式，生成可视化图表，记录实现模式，并提供可扩展的蓝图以维护架构一致性、指导新开发。当用户要生成项目架构文档、技术栈检测、架构图或实现模式说明时触发。",
-      "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
+      "description": "分析代码库并生成全面的项目架构蓝图，输出文档化的架构方案。",
+      "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create documented architecture blueprints.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "ai-agent",
         "doc-writing",
         "test-qa"
       ],
@@ -2194,14 +2302,12 @@
       "name": "code-review",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "代码评审",
-      "description": "从某个固定点（提交、分支、标签或合并基线）出发，沿两条轴线评审改动：标准（代码是否遵循本仓库文档化的编码规范？）与规格（代码是否匹配原始 issue/规格的要求？）。两个评审在并行子代理中运行并并排报告。当用户想评审分支、PR、进行中的改动，或要求「评审自 X 以来的改动」时使用。",
-      "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\"review since X\\\".",
+      "zh": "代码审查",
+      "description": "围绕既定基准（提交、分支、标签或合并基点）从规范与规格两个维度审查代码改动。",
+      "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: standards and spec compliance.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "ai-agent",
-        "doc-writing",
         "test-qa"
       ],
       "hidden": false,
@@ -2230,12 +2336,11 @@
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "代码库设计",
-      "description": "设计深层模块时的共享词汇表。当用户讨论模块边界、依赖方向、接口契约或整体架构取舍时使用。",
-      "enDescription": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
+      "description": "用于设计或改进深层模块设计的共享词汇与方法，帮助构建高内聚、可维护的代码结构。",
+      "enDescription": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a codebase's module structure.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "ai-agent",
         "design-media",
         "test-qa"
       ],
@@ -2265,8 +2370,24 @@
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "缺陷诊断",
-      "description": "针对疑难 bug 与性能回退的诊断循环。当用户遇到难以定位的失败、偶发故障或变慢问题，需要系统化排查根因时使用。",
-      "enDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose\"/\"debug this\", or reports something broken/throwing/failing/slow.",
+      "description": "针对疑难缺陷与性能回退的诊断循环，在用户要求排查复杂问题或诊断 bug 时使用。",
+      "enDescription": "Diagnosis loop for hard bugs and performance regressions. Use when the user says \"diagnose this bug\" or needs to debug a complex issue.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/diagnosing-bugs",
+      "githubDir": "skills/diagnosing-bugs"
+    },
+    {
+      "name": "domain-modeling",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "领域建模",
+      "description": "构建并打磨项目领域模型，在讨论代码库术语、撰写领域逻辑或统一概念时使用。",
+      "enDescription": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing domain logic, or unifying concepts.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -2275,15 +2396,15 @@
         "test-qa"
       ],
       "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/diagnosing-bugs",
-      "githubDir": "skills/diagnosing-bugs"
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/domain-modeling",
+      "githubDir": "skills/domain-modeling"
     },
     {
       "name": "eve",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "Eve 代理编排",
-      "description": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
+      "description": "使用 eve 框架构建持久化后端 AI 智能体。",
       "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
       "homepage": "",
       "allowedTools": [],
@@ -2351,14 +2472,15 @@
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "Git 分支清理",
-      "description": "Safely analyzes and cleans up local git branches and worktrees by categorizing them as merged, squash-merged, superseded, or active work.",
+      "description": "安全分析与清理本地 git 分支与工作树。",
       "enDescription": "Safely analyzes and cleans up local git branches and worktrees by categorizing them as merged, squash-merged, superseded, or active work.",
       "homepage": "",
       "allowedTools": [
         "Bash Read Grep AskUserQuestion"
       ],
       "tags": [
-        "test-qa"
+        "test-qa",
+        "security"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/git-cleanup",
@@ -2368,15 +2490,14 @@
       "name": "grill-me",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "深度质询",
-      "description": "一场毫不留情的访谈，用于打磨计划或设计。当用户想深入推敲方案、暴露漏洞或强化论证时使用。",
+      "zh": "方案压力访谈",
+      "description": "对用户进行 relentless 访谈，以打磨计划或设计方案的合理性。",
       "enDescription": "A relentless interview to sharpen a plan or design.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "design-media",
-        "test-qa",
-        "security"
+        "test-qa"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/grill-me",
@@ -2386,14 +2507,13 @@
       "name": "grill-with-docs",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "质询并产出文档",
-      "description": "一场毫不留情的访谈，用于打磨计划或设计，同时在过程中生成文档（ADR 与术语表）。当用户想边讨论边沉淀决策记录与术语时使用。",
-      "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADR's and glossary) as we go.",
+      "zh": "带文档的方案访谈",
+      "description": "在 relentless 访谈打磨方案的同时产出文档（ADR 与全局规范）。",
+      "enDescription": "A relentless interview to sharpen a plan or design, which also creates docs (ADRs and global conventions).",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "doc-writing",
-        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -2404,9 +2524,9 @@
       "name": "grilling",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "压力质询",
-      "description": "就某个计划、决策或想法 relentlessly 质询用户。当用户想压力测试自己的思路，或使用了任何「grill」触发短语时使用。",
-      "enDescription": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.",
+      "zh": "方案拷问",
+      "description": "就计划、决策或创意对用户进行 relentless 追问，在用户希望压力测试其思路时使用。",
+      "enDescription": "Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -2420,8 +2540,8 @@
       "name": "handoff",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "会话交接文档",
-      "description": "将当前对话压缩成一份交接文档，供另一个 agent 接手继续工作。",
+      "zh": "对话交接",
+      "description": "将当前对话压缩为交接文档，供其他智能体接续处理。",
       "enDescription": "Compact the current conversation into a handoff document for another agent to pick up.",
       "homepage": "",
       "allowedTools": [],
@@ -2439,7 +2559,7 @@
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "规格实现",
-      "description": "用代码实现一个规格说明。",
+      "description": "将规格说明实现为代码，在用户要求按规范落地功能时使用。",
       "enDescription": "Implement a specification in code.",
       "homepage": "",
       "allowedTools": [],
@@ -2454,9 +2574,9 @@
       "name": "improve-codebase-architecture",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "代码库架构深化报告",
-      "description": "扫描代码库寻找可深化的架构机会，生成可视化 HTML 报告，并就你选中的候选进行犀利追问式打磨。",
-      "enDescription": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.",
+      "zh": "代码库架构优化",
+      "description": "扫描代码库寻找深化机会，以可视化 HTML 报告呈现，并经访谈推动架构改进。",
+      "enDescription": "Scan a codebase for deepening opportunities, present them as a visual HTML report, then drive architecture improvement via interview.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -2543,15 +2663,15 @@
       "name": "project-workflow-analysis-blueprint-generator",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "项目工作流蓝图生成",
-      "description": "Comprehensive technology-agnostic prompt generator for documenting end-to-end application workflows. Automatically detects project architecture patterns, technology stacks, and data flow patterns to generate detailed implementation blueprints covering entry points, service layers, data access, error handling, and testing approaches across multiple technologies including .NET, Java/Spring, React, and microservices architectures.",
-      "enDescription": "Technology-agnostic prompt generator for documenting end-to-end application workflows, auto-detecting architecture, stacks, and data flow to produce implementation blueprints.",
+      "zh": "项目工作流蓝图生成器",
+      "description": "与技术栈无关的全面提示词生成器，用于记录端到端应用的工作流与分析蓝图。",
+      "enDescription": "Comprehensive technology-agnostic prompt generator for documenting end-to-end application workflows and analysis blueprints.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "web-frontend",
-        "doc-writing"
+        "doc-writing",
+        "test-qa"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/project-workflow-analysis-blueprint-generator",
@@ -2611,15 +2731,14 @@
       "name": "setup-matt-pocock-skills",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "工程技能仓库初始化",
-      "description": "为工程技能配置本仓库：设置问题跟踪器、分类标签词汇与域文档布局。在首次使用其他工程技能前运行一次。",
-      "enDescription": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.",
+      "zh": "Matt Pocock 技能配置",
+      "description": "为工程技能配置仓库：搭建问题追踪器、分类标签词表与相关工作流。",
+      "enDescription": "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, and related workflows.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "ai-agent",
-        "doc-writing",
-        "test-qa"
+        "test-qa",
+        "automation"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/setup-matt-pocock-skills",
@@ -2680,8 +2799,8 @@
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "测试驱动开发",
-      "description": "测试驱动开发（TDD）。当用户想以测试优先方式构建功能或修复 bug、提及「红-绿-重构」，或需要集成测试时使用。",
-      "enDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
+      "description": "测试驱动开发，在用户希望以测试优先方式构建功能或修复缺陷时使用。",
+      "enDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -2696,7 +2815,7 @@
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "测试驱动开发",
-      "description": "Use when implementing any feature or bugfix, before writing implementation code",
+      "description": "实现任何功能或修复缺陷前，先写测试（测试驱动开发）。",
       "enDescription": "Use when implementing any feature or bugfix, before writing implementation code",
       "homepage": "",
       "allowedTools": [],
@@ -2712,14 +2831,12 @@
       "name": "to-spec",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "转规格文档",
-      "description": "将当前对话整理为规格说明并发布。当用户想把讨论结论固化为可执行的规格、设计文档或任务清单时使用。",
-      "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
+      "zh": "对话转规格",
+      "description": "将当前对话转化为规格并发布到项目问题追踪器，无需手动搬移上下文。",
+      "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker without manual context moving.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "doc-writing",
-        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -2748,9 +2865,9 @@
       "name": "write-tech-spec",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "编写技术规格",
-      "description": "在研究当前代码库与实现约束后，为重要的 Warp 功能编写 TECH.md 规格。当用户要求技术规格、实现计划或与产品规格绑定的架构文档时使用。",
-      "enDescription": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
+      "zh": "技术规格撰写",
+      "description": "在研究当前代码库与实现约束后，为重要功能撰写 TECH.md 技术规格文档。",
+      "enDescription": "Write a TECH.md spec for a significant feature after researching the current codebase and implementation constraints.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -2857,8 +2974,8 @@
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
       "zh": "智能体浏览器操控",
-      "description": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
-      "enDescription": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
+      "description": "面向 AI 智能体的浏览器自动化 CLI，用于导航网页、填表、点击、截图、抓取数据、测试 Web 应用或自动化浏览器任务。",
+      "enDescription": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task.",
       "homepage": "",
       "allowedTools": [
         "Bash(agent-browser:*)",
@@ -2872,6 +2989,24 @@
       "hidden": true,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/agent-browser",
       "githubDir": "skills/agent-browser"
+    },
+    {
+      "name": "bailian-web-search",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "百炼联网搜索",
+      "description": "阿里云百炼联网搜索入口，为联网搜索、网页搜索与查最新资讯做路径分发。",
+      "enDescription": "Alibaba Bailian web search entry point that routes internet search, web search, and latest-information lookup requests.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "web-frontend",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bailian-web-search",
+      "githubDir": "skills/bailian-web-search"
     },
     {
       "name": "browser-automation",
@@ -2947,8 +3082,8 @@
       "name": "orca-cli",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
-      "zh": "Orca CLI",
-      "description": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
+      "zh": "Orca 命令行工具",
+      "description": "使用公开 orca CLI 操作 Orca 管理工作树与开发流程。",
       "enDescription": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts,\nterminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser\nembedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\",\n\"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\",\n\"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\",\n\"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\",\n\"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside\nOrca\". Prefer this over raw `git worktree`, ad hoc\nPTYs, Playwright, or Computer Use when the task touches Orca-managed state.\nUse Computer Use for browser windows, webviews, or desktop UI outside Orca's\nembedded browser.",
       "homepage": "",
       "allowedTools": [],
@@ -2966,7 +3101,7 @@
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
       "zh": "人格化项目管理",
-      "description": "Coordinate projects — track tasks, schedule meetings, and share docs.",
+      "description": "协调项目——追踪任务、安排会议、共享状态。",
       "enDescription": "Coordinate projects — track tasks, schedule meetings, and share docs across Google Workspace integrations.",
       "homepage": "",
       "allowedTools": [],
@@ -2979,12 +3114,32 @@
       "githubDir": "skills/persona-project-manager"
     },
     {
+      "name": "playwright-cli",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "Playwright 自动化",
+      "description": "自动化浏览器交互、测试网页并与 Playwright 测试协同工作。",
+      "enDescription": "Automate browser interactions, test web pages and work with Playwright tests.",
+      "homepage": "",
+      "allowedTools": [
+        "Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)"
+      ],
+      "tags": [
+        "web-frontend",
+        "test-qa",
+        "automation"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
+      "githubDir": "skills/playwright-cli"
+    },
+    {
       "name": "playwright-explore-website",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
-      "zh": "Playwright 网站探索测试",
-      "description": "使用 Playwright MCP 对网站进行探索性测试：导航至目标 URL，识别并交互 3-5 个核心功能或用户流，记录用户交互、相关 UI 元素（及其定位器）与预期结果，完成后关闭浏览器上下文。当用户要做网页功能探索、UI 自动化测试或站点结构梳理时触发。",
-      "enDescription": "Website exploration for testing using Playwright MCP",
+      "zh": "Playwright 网站探索",
+      "description": "使用 Playwright MCP 对网站进行探索性测试。",
+      "enDescription": "Website exploration for testing using Playwright MCP.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -3178,24 +3333,6 @@
       "githubDir": "skills/ai-research-reproduction"
     },
     {
-      "name": "bailian-web-search",
-      "category": "AI 与智能体",
-      "enCategory": "AI & Agents",
-      "zh": "百炼联网搜索",
-      "description": "阿里云百炼联网搜索入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。先识别当前连接身份：Token Plan 走模型自带搜索，其他默认走百炼 MCP，仅在 MCP 鉴权失败时兜底一次到模型自带搜索。涵盖 Token Plan 鉴权混淆排查。反触发：宿主可完成的普通问答 / 编程 / 写作用于不触发；知识库 RAG 走 bailian-cli；生图/生视频/语音走 bailian-gen；精调/训练走 bailian-finetune；agents.yaml 走 bailian-managed-agent。",
-      "enDescription": "Aliyun Bailian web search entry: routes web / webpage search and latest-info lookup. Identify connection identity first: Token Plan (profile `token-plan` or base_url host `token-plan.<region>.maas.aliyuncs.com`) → model-native search (`bl text chat --api responses --tool '{\"type\":\"web_search\"}'`); others / default → Bailian MCP (`bl search web`); fall back once to model-native search only when MCP auth fails, not enabled, or transport fails. Also covers Token Plan auth-confusion troubleshooting. Anti-triggers: host-completable Q&A / coding / writing → do not trigger; knowledge-base RAG → bailian-cli (`bl knowledge`); image/video/voice gen → bailian-gen; fine-tune/training → bailian-finetune; agents.yaml → bailian-managed-agent. Shared protocol (consent / version precheck / auth / error reporting) lives in bailian-protocol; official install `bl skill init`.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "cli",
-        "web-frontend"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bailian-web-search",
-      "githubDir": "skills/bailian-web-search"
-    },
-    {
       "name": "brainstorming",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
@@ -3213,12 +3350,12 @@
       "githubDir": "skills/brainstorming"
     },
     {
-      "name": "domain-modeling",
+      "name": "dev-builder",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
-      "zh": "领域建模",
-      "description": "构建并打磨项目的领域模型。当用户讨论业务概念、实体关系、边界上下文或模型演进时使用。",
-      "enDescription": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.",
+      "zh": "全栈开发工程师",
+      "description": "全栈开发工程师技能包，依据产品需求文档与原型图实现功能代码，涵盖技术栈选择、项目初始化、功能实现与验证。",
+      "enDescription": "Full-stack developer skill kit that implements feature code from a product spec and prototypes, covering tech-stack selection, project scaffolding, implementation, and verification.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -3226,22 +3363,22 @@
         "doc-writing"
       ],
       "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/domain-modeling",
-      "githubDir": "skills/domain-modeling"
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dev-builder",
+      "githubDir": "skills/dev-builder"
     },
     {
       "name": "google-agents-cli-adk-code",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
-      "zh": "Google ADK 代码技能",
-      "description": "google-agents-cli 的 ADK 代码技能，指导用 Agent Development Kit 构建智能体代码——agent 定义、工具、会话与部署。当用户开发 Google ADK 智能体、编写 agent/tools 代码或接入 Google Agents CLI 时使用。",
-      "enDescription": "> This skill should be used when the user wants to \"write agent code\", \"build an agent with ADK\", \"add a tool\", \"create a callback\", \"define an agent\", \"use state management\", or needs ADK (Agent Development Kit) Python API patterns and code examples. Part of the Google ADK skills suite. It provides a quick reference for agent types, tool definitions, orchestration patterns, callbacks, state management, and reference recipes to study. Do NOT use for scaffolding (use google-agents-cli-scaffold) or deployment (use google-agents-cli-deploy).",
+      "zh": "Google 智能体 ADK 编码",
+      "description": "Google Agents CLI（ADK）代码生成与开发指南，基于 Agent Development Kit 编写智能体代码。",
+      "enDescription": "Google Agents CLI (ADK) code generation and development guide for writing agent code with the Agent Development Kit.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
         "cli",
-        "devops"
+        "doc-writing"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-agents-cli-adk-code",
@@ -3251,19 +3388,35 @@
       "name": "google-agents-cli-workflow",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
-      "zh": "Google Agents CLI 工作流",
-      "description": "google-agents-cli 的工作流技能，覆盖智能体项目的脚手架、运行、评估与 CI 集成。当用户搭建 Google Agents CLI 项目、跑工作流或接入流水线时使用。",
-      "enDescription": "> This skill should be used when the user wants to \"develop an agent\", \"build an agent using ADK\", \"run the agent locally\", \"debug agent code\", \"test an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\", or needs the ADK (Agent Development Kit) development lifecycle and coding guidelines. Entrypoint for building ADK agents. Always active — provides the full workflow (scaffold, build, evaluate, deploy, publish, observe), code preservation rules, model selection guidance, and troubleshooting steps for ADK or any agent development.",
+      "zh": "Google 智能体 CLI 工作流",
+      "description": "Google Agents CLI 工作流指南，覆盖头脑风暴、命令与内部机制的智能体开发流程。",
+      "enDescription": "Google Agents CLI workflow guide covering brainstorming, commands, and internals for agent development.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
         "cli",
-        "test-qa"
+        "automation"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-agents-cli-workflow",
       "githubDir": "skills/google-agents-cli-workflow"
+    },
+    {
+      "name": "hyperframes-core",
+      "category": "AI 与智能体",
+      "enCategory": "AI & Agents",
+      "zh": "HyperFrames 合成核心",
+      "description": "HyperFrames 合成合约——构建单一可渲染项目，用于组合式内容生成。",
+      "enDescription": "The HyperFrames composition contract — build one renderable project for compositional content generation.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-core",
+      "githubDir": "skills/hyperframes-core"
     },
     {
       "name": "ai-avatar-video",
@@ -3435,29 +3588,11 @@
       "githubDir": "skills/douyin-video-summary"
     },
     {
-      "name": "hyperframes-core",
-      "category": "音视频与多媒体",
-      "enCategory": "Media & Multimedia",
-      "zh": "HyperFrames 合成核心",
-      "description": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
-      "enDescription": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "cli",
-        "web-frontend"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-core",
-      "githubDir": "skills/hyperframes-core"
-    },
-    {
       "name": "hyperframes-creative",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
       "zh": "HyperFrames 创意指导",
-      "description": "Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns, and brand / style decisions. For atomic motion patterns and scene blueprints, use `hyperframes-animation`.",
+      "description": "HyperFrames 视频的非动画创意方向指导。",
       "enDescription": "Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns, and brand / style decisions. For atomic motion patterns and scene blueprints, use `hyperframes-animation`.",
       "homepage": "",
       "allowedTools": [],
@@ -3561,7 +3696,7 @@
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
       "zh": "Remotion 最佳实践",
-      "description": "Router for all Remotion skills",
+      "description": "所有 Remotion 技能的路由入口。",
       "enDescription": "Router for all Remotion skills",
       "homepage": "",
       "allowedTools": [],
@@ -3589,44 +3724,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/scripting-and-storyboarding",
       "githubDir": "skills/scripting-and-storyboarding"
-    },
-    {
-      "name": "short-drama-storyboard",
-      "category": "音视频与多媒体",
-      "enCategory": "Media & Multimedia",
-      "zh": "短剧分镜设计",
-      "description": "把中文短剧剧本和视觉设定写成有戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown。用户提出“拆分镜/设计镜头/做镜头表”“场次视觉计划/调度故事板”“比较导演方案”“写首帧/关键帧提示词”或检查轴线、站位、视线、持物连续性时使用；不生成媒体。",
-      "enDescription": "Write storyboard Markdown for Chinese short dramas with dramatic roles, continuity boundaries, and frozen keyframe prompts. Use for shot breakdowns, camera blocking, or keyframe prompts.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-storyboard",
-      "githubDir": "skills/short-drama-storyboard"
-    },
-    {
-      "name": "short-drama-video-prompts",
-      "category": "音视频与多媒体",
-      "enCategory": "Media & Multimedia",
-      "zh": "短剧视频提示词",
-      "description": "把短剧分镜和冻结关键帧写成可直接复制的视频提示词 Markdown，也可按用户要求写时间线配乐/主题曲意图。用户提到文生/图生视频动作、人物表演、运镜、口型、环境运动、镜头时长、起止状态、把分镜转成视频提示词或写配乐提示词时使用；不生成媒体、不创作歌词、不改分镜边界。",
-      "enDescription": "Convert short-drama storyboards and frozen keyframes into copy-ready video generation prompts, plus optional scoring/theme intent. Use for text-to-video or image-to-video prompts.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-video-prompts",
-      "githubDir": "skills/short-drama-video-prompts"
     },
     {
       "name": "suno",
@@ -3666,15 +3763,14 @@
       "name": "video",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
-      "zh": "AI 视频生产",
-      "description": "当用户要用 AI 工具或程序化框架创建、生成或制作视频内容时触发。涵盖「视频制作」「AI 视频」「Remotion」「Hyperframes」「HeyGen」「Synthesia」「Veo」「Sora」「Runway」「Kling」「Seedance」「Hailuo」「MiniMax」「Pika」「Hunyuan」「Wan」「视频生成」「AI 数字人」「口播视频」「程序化视频」「视频模板」「讲解视频」「产品演示视频」「视频流水线」「复制这个剪辑」「匹配这种视频风格」「逆向这个视频」「像参考片那样剪辑」「给我做个视频」。用于视频创作、生成与生产工作流。视频内容策略与选题见 social，付费视频广告创意见 ad-creative。",
-      "enDescription": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
+      "zh": "视频创作",
+      "description": "当用户希望使用 AI 工具或程序化方式创作、生成或制作视频内容时使用。",
+      "enDescription": "When the user wants to create, generate, or produce video content using AI tools or programmatic methods.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "design-media",
-        "automation"
+        "design-media"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/video",
@@ -3788,6 +3884,24 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/fix-sentry-issues",
       "githubDir": "skills/fix-sentry-issues"
+    },
+    {
+      "name": "prototype-pollution",
+      "category": "安全",
+      "enCategory": "Security",
+      "zh": "原型污染测试",
+      "description": "针对 JavaScript 技术栈的原型污染安全测试。",
+      "enDescription": "Prototype pollution testing for JavaScript stacks. Use when user input is merged into objects (query parsers, JSON bodies, deep assign), when configuring libraries via untrusted keys, or when hunting RCE gadgets via polluted Object.prototype in Node or the browser.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "web-frontend",
+        "test-qa",
+        "security"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-pollution",
+      "githubDir": "skills/prototype-pollution"
     },
     {
       "name": "safe-debug",

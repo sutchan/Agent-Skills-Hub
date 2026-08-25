@@ -1,13 +1,13 @@
 ---
 name: dart-fix-runtime-errors
-description: Uses get_runtime_errors and lsp to fetch an active stack trace, locate the failing line, apply a fix, and verify resolution via hot_reload.
-metadata:
-  model: models/gemini-3.1-pro-preview
-  last_modified: Fri, 24 Apr 2026 15:13:22 GMT
+description: 用 get_runtime_errors 与 lsp 获取活动堆栈、定位报错行并热重载修复。
 en_description: Uses get_runtime_errors and lsp to fetch an active stack trace, locate the failing line, apply a fix, and verify resolution via hot_reload.
 zh_displayName: Dart 运行时错误修复
 category: 移动端开发
 en_category: Mobile Dev
+metadata: |-
+  model: models/gemini-3.1-pro-preview
+  last_modified: Fri, 24 Apr 2026 15:13:22 GMT
 ---
 # Resolving Dart Static Analysis Errors
 

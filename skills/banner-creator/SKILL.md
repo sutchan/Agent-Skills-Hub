@@ -1,12 +1,11 @@
 ---
 name: banner-creator
-description: Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.
+description: 使用 AI 图像生成创建横幅。先讨论格式、风格、尺寸与品牌约束再生成。
 en_description: Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.
 zh_displayName: Banner 横幅创作
 category: 品牌与设计
 en_category: Brand & Design
 ---
-
 # Banner Creator Skill
 
 Create professional banners through AI image generation with an iterative design process.

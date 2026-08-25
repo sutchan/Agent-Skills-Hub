@@ -1,12 +1,11 @@
 ---
 name: test-driven-development
-description: Use when implementing any feature or bugfix, before writing implementation code
+description: 实现任何功能或修复缺陷前，先写测试（测试驱动开发）。
 en_description: Use when implementing any feature or bugfix, before writing implementation code
 zh_displayName: 测试驱动开发
 category: 工程实践与质量
 en_category: Engineering Practice & Quality
 ---
-
 # Test-Driven Development (TDD)
 
 ## Overview

@@ -1,12 +1,12 @@
 ---
 name: persona-project-manager
-description: "Coordinate projects — track tasks, schedule meetings, and share docs."
+description: 协调项目——追踪任务、安排会议、共享状态。
 en_description: |-
   Coordinate projects — track tasks, schedule meetings, and share docs across Google Workspace integrations.
 zh_displayName: 人格化项目管理
 category: 自动化与集成
 en_category: Automation & Integration
-metadata: 
+metadata: |-
 ---
 # Project Manager
 

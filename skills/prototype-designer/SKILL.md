@@ -1,10 +1,13 @@
 ---
 name: Prototype Designer
-description: Create interactive prototypes, design user flows, implement prototype testing strategies, and manage handoff to development. Validate ideas before building.
+description: 创建交互式原型、设计用户流程并实现高保真界面。
+en_description: Create interactive prototypes, design user flows, implement prototype testing strategies, and manage handoff to development. Validate ideas before building.
+zh_displayName: 原型设计器
+category: 前端开发
+en_category: Frontend Dev
 version: 1.0.0
 tags: [prototyping, user-flows, interaction-design, testing]
 ---
-
 # Prototype Designer
 
 Validate ideas through interactive prototypes before writing code.

@@ -1,10 +1,13 @@
 {
   "name": "agent-skills-hub",
-  "version": "1.20.56",
+  "version": "1.20.59",
   "private": true,
   "description": "Agent Skills Hub — 高质量 agent 技能目录与高保真原型（纯静态站点）",
   "scripts": {
-    "build": "node tools/build-skills-data.mjs && node tools/build.mjs && npm install && next build",
+    "predev": "node tools/build-skills-data.mjs && node tools/build.mjs",
+    "dev": "next dev",
+    "build": "node tools/build-skills-data.mjs && node tools/build.mjs && next build",
+    "start": "next start",
     "serve": "node tools/build.mjs && npx --yes serve prototype -i prototype.html"
   },
   "dependencies": {
@@ -20,6 +23,6 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "24.x"
+    "node": "22.x"
   }
 }

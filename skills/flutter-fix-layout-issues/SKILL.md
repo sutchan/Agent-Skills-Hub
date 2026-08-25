@@ -1,13 +1,13 @@
 ---
 name: flutter-fix-layout-issues
-description: Fixes Flutter layout errors (overflows, unbounded constraints) using Dart and Flutter MCP tools. Use when addressing "RenderFlex overflowed", "Vertical viewport was given unbounded height", or similar layout issues.
-metadata:
-  model: models/gemini-3.1-pro-preview
-  last_modified: Tue, 21 Apr 2026 19:45:59 GMT
+description: 修复 Flutter 布局错误（溢出、无界约束等）。
 en_description: Fixes Flutter layout errors (overflows, unbounded constraints) using Dart and Flutter MCP tools. Use when addressing "RenderFlex overflowed", "Vertical viewport was given unbounded height", or similar layout issues.
 zh_displayName: Flutter 布局问题修复
 category: 移动端开发
 en_category: Mobile Dev
+metadata: |-
+  model: models/gemini-3.1-pro-preview
+  last_modified: Tue, 21 Apr 2026 19:45:59 GMT
 ---
 # Resolving Flutter Layout Errors
 

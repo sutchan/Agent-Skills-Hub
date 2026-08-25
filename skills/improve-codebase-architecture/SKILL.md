@@ -1,8 +1,8 @@
 ---
 name: improve-codebase-architecture
-description: 扫描代码库寻找可深化的架构机会，生成可视化 HTML 报告，并就你选中的候选进行犀利追问式打磨。
-en_description: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
-zh_displayName: 代码库架构深化报告
+description: 扫描代码库寻找深化机会，以可视化 HTML 报告呈现，并经访谈推动架构改进。
+en_description: Scan a codebase for deepening opportunities, present them as a visual HTML report, then drive architecture improvement via interview.
+zh_displayName: 代码库架构优化
 category: 工程实践与质量
 en_category: Engineering Practice & Quality
 disable-model-invocation: true

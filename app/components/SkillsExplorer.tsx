@@ -1,4 +1,4 @@
-// app/components/SkillsExplorer.tsx v1.20.55 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 骰子拉起详情
+// app/components/SkillsExplorer.tsx v1.20.57 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 骰子拉起详情
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -8,8 +8,48 @@ import { DetailModal } from "./detail-modal";
 import { SettingsPanel } from "./settings-panel";
 import { Pager } from "./pager";
 
-// 每页 48 条（用户需求）
-const PAGE_SIZE = 48;
+// 每页 36 条 —— 对齐原型 prototype/src/parts/01-state.js PAGE_SIZE=36（原型为设计权威源）
+const PAGE_SIZE = 36;
+
+// URL hash 深链：与原型 05-main.js 的 writeHash/parseHash 对齐（相同序列格式 #cat=a,b&q=x&sort=name&page=2）
+// 使 app 筛选/搜索/排序/页码可分享、刷新可还原，且与原型深链链接互认。
+type HashState = { cats: string[]; q: string; sort: typeof SORTS[number]; page: number };
+const SORTS = ["name", "name-desc", "cat", "zh"] as const;
+
+function writeHash(s: HashState) {
+  if (typeof window === "undefined") return;
+  const parts: string[] = [];
+  if (s.cats.length) parts.push("cat=" + encodeURIComponent(s.cats.join(",")));
+  if (s.q.trim()) parts.push("q=" + encodeURIComponent(s.q.trim()));
+  if (s.sort !== "name") parts.push("sort=" + encodeURIComponent(s.sort));
+  if (s.page > 0) parts.push("page=" + s.page);
+  const h = parts.length ? "#" + parts.join("&") : "";
+  if (window.location.hash !== h) {
+    history.replaceState(null, "", h || window.location.pathname + window.location.search);
+  }
+}
+
+function parseHash(): Partial<HashState> {
+  if (typeof window === "undefined") return {};
+  const raw = window.location.hash.replace(/^#/, "");
+  if (!raw) return {};
+  const p = new URLSearchParams(raw);
+  const out: Partial<HashState> = {};
+  if (p.has("cat")) {
+    const cats = p.get("cat")!.split(",").map((c) => decodeURIComponent(c)).filter(Boolean);
+    if (cats.length) out.cats = cats;
+  }
+  if (p.has("q")) out.q = decodeURIComponent(p.get("q")!);
+  if (p.has("sort")) {
+    const sort = p.get("sort")!;
+    if ((SORTS as readonly string[]).includes(sort)) out.sort = sort as typeof SORTS[number];
+  }
+  if (p.has("page")) {
+    const pg = parseInt(p.get("page")!, 10);
+    if (!Number.isNaN(pg) && pg > 0) out.page = pg;
+  }
+  return out;
+}
 
 export function SkillsExplorer({
   data,
@@ -70,11 +110,41 @@ export function SkillsExplorer({
     if (v === "grid" || v === "list") setView(v);
   }, []);
 
+  // URL 深链初始化：挂载时解析 hash 还原筛选/搜索/排序/页码（晚于偏好恢复，浏览器端生效）
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const h = parseHash();
+    if (h.cats) setCats(h.cats);
+    if (typeof h.q === "string") { setRaw(h.q); setQ(h.q); }
+    if (h.sort) setSort(h.sort);
+    if (typeof h.page === "number") setPage(h.page);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // 浏览器前进/后退或外部改 hash 时还原深链
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onHash = () => {
+      const h = parseHash();
+      if (h.cats) setCats(h.cats);
+      if (typeof h.q === "string") { setRaw(h.q); setQ(h.q); }
+      if (h.sort) setSort(h.sort);
+      if (typeof h.page === "number") setPage(h.page);
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
   // 搜索防抖（对齐原型 DEBOUNCE_MS=120）：raw 停止输入 120ms 后写入 q 触发过滤
   useEffect(() => {
     const t = setTimeout(() => setQ(raw), 120);
     return () => clearTimeout(t);
   }, [raw]);
+
+  // 深链写入：筛选/搜索/排序/页码变化后同步到 location.hash（刷新/分享可还原，对齐原型 P0-1）
+  useEffect(() => {
+    writeHash({ cats, q, sort, page });
+  }, [cats, q, sort, page]);
 
   // 回到顶部（对齐原型 toTop：滚动超 300px 显隐）
   const [showToTop, setShowToTop] = useState(false);

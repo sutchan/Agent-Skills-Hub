@@ -1,7 +1,7 @@
 ---
 name: prototype
-description: 构建一次性原型以回答某个设计问题。当用户想快速验证交互、界面或架构假设，且原型用完即弃时使用。
-en_description: Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check whether a state model or logic feels right, or explore what a UI should look like.
+description: 构建一次性原型以验证设计问题，在用户希望快速验证状态模型或界面形态时使用。
+en_description: Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check a state model or UI shape.
 zh_displayName: 原型构建
 category: 前端开发
 en_category: Frontend Dev
