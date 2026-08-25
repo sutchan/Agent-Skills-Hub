@@ -277,6 +277,7 @@
         "design-media"
       ],
       "hidden": false,
+      "author": "typeui.sh",
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/dramatic",
       "githubDir": "skills/dramatic"
@@ -789,6 +790,7 @@
         "design-media"
       ],
       "hidden": false,
+      "author": "vercel",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-design-guidelines",
       "githubDir": "skills/web-design-guidelines"
     },
@@ -2276,6 +2278,7 @@
         "test-qa"
       ],
       "hidden": false,
+      "author": "wondelai",
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/clean-architecture",
       "githubDir": "skills/clean-architecture"
@@ -2294,6 +2297,7 @@
         "test-qa"
       ],
       "hidden": false,
+      "author": "wondelai",
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/clean-code",
       "githubDir": "skills/clean-code"
