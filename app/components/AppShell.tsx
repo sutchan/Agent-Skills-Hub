@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.20.61 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.20.62 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -49,6 +49,17 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     document.documentElement.setAttribute("data-theme", theme);
     if (typeof localStorage !== "undefined") localStorage.setItem("ash-theme", theme);
   }, [theme]);
+
+  // 量取顶栏高度注入 --topbar-h，供 .controls sticky 偏移（对齐 prototype 05-main.js setTopbarH，P2-1）
+  useEffect(() => {
+    const setTopbarH = () => {
+      const h = document.getElementById("appHeader");
+      if (h) document.documentElement.style.setProperty("--topbar-h", h.offsetHeight + "px");
+    };
+    setTopbarH();
+    window.addEventListener("resize", setTopbarH);
+    return () => window.removeEventListener("resize", setTopbarH);
+  }, []);
 
   // 页脚统计（v1.19.7 由 hero 迁入并扩充）：可见技能总数、分类数、英文描述覆盖数、支持语言数
   const stats = useMemo(() => {

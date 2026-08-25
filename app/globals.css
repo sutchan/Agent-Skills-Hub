@@ -1,4 +1,4 @@
-/* app/globals.css v1.20.57 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
+/* app/globals.css v1.20.62 — 应用全局样式（由 prototype 同步生成，勿手改源片段）
  * 设计令牌通过 @import "./tokens-shared.css" 消费 tools/sync-tokens.mjs 同步生成的共享令牌
  * （事实源 = prototype/src/styles，DESIGN §2），确保 app 与原型视觉同源、单一事实来源。
  */
@@ -415,7 +415,6 @@ html[data-lang="zh"] .en { display: none; }
 @media (max-width: 640px) {
   .topbar-inner { padding: 10px 16px; }
   .hero { padding: 36px 16px 22px; }
-  .controls { top: 48px; }
   .controls-inner { padding: 12px 16px; }
   .search { flex: 1 1 100%; }
   /* 移动端 grid 与 list 视觉相同（都单列），隐藏无效的视图切换控件 */

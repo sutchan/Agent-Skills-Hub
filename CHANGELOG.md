@@ -2,6 +2,14 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.62] - 2026-08-25
+
+### fix: 对齐 prototype 的 appHeader/controls 布局
+
+- AppShell.tsx 注入 --topbar-h（量取 #appHeader 高度），供 .controls sticky 偏移，避免顶栏换行错位（对齐 prototype 05-main.js setTopbarH）。
+- globals.css 移除写死的 .controls top:48px，改由 --topbar-h 动态注入接管，与原型一致。
+- 头注释与全局展示位同步至 v1.20.62。
+
 ## [1.20.61] - 2026-08-25
 
 ### refactor: app 应用界面进一步对齐 prototype 原型
@@ -2531,3 +2539,5 @@
 [1.19.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.19.42
 
 [1.20.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.2
+[1.20.61]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.61
+[1.20.62]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.62
