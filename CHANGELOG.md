@@ -17,6 +17,20 @@
 
 [1.20.56]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.56
 
+## [1.20.60] - 2026-08-25
+
+### fix: CI 脚本修正与数据/原型/工具同步
+
+- `.github/workflows/ci.yml`：修正 CI 构建与校验脚本。
+- `tools/build-skills-data.mjs` / `tools/validate-skills.mjs`：修复构建与校验逻辑。
+- `data/skills-data.json` / `data/skills-metrics.json`：按最新磁盘技能重建。
+- `prototype/prototype.html`：同步原型展示改进。
+- `skills/agent-development/SKILL.md` / `skills/prototype-designer/SKILL.md`：文档完善。
+- 删除 `deliverables/` 下两个临时评审文档。
+- 根 `package.json` version 升至 v1.20.60。
+
+[1.20.60]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.60
+
 ## [1.20.59] - 2026-08-25
 
 ### fix: 翻译 43 个技能未中译的 frontmatter 字段

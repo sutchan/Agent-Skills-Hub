@@ -27,3 +27,6 @@ jobs:
 
       - name: Build skills data (smoke)
         run: node tools/build-skills-data.mjs
+
+      - name: Run unit tests (tools/lib)
+        run: node --test "tools/lib/*.test.mjs"

@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 import { CATEGORY_ORDER, CATEGORY_EN } from "./lib/taxonomy.mjs";
 // 共享手写 frontmatter 解析（与 validate-skills.mjs 等统一，消除解析漂移）
 import { parseFrontmatter, stripInlineComment, BLOCK_SCALAR } from "./lib/frontmatter.mjs";
+import { computePopularity } from "./lib/popularity.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // 脚本位于 tools/ 子目录；ROOT 上提一级为仓库根
@@ -134,18 +135,12 @@ function main() {
       githubDir,
     });
   }
-  // 热度（popularity）：被其他技能在 description 中提及本技能名的次数（相关性代理）
-  const allNames = skills.map((s) => s.name);
-  // 频繁更新指标独立存储：以 name 为 key 的 map（已在 main 开头声明）
+  // 热度（popularity）：本技能 description 中提及的其他技能名数量（相关性代理）。
+  // 使用词边界匹配（tools/lib/popularity.mjs），避免子串假阳性（如 "api" 误命中 "graphql-api"）。
+  const popularity = computePopularity(skills);
   for (const s of skills) {
-    const hay = (s.description + " " + s.enDescription).toLowerCase();
-    let pop = 0;
-    for (const n of allNames) {
-      if (n === s.name) continue;
-      if (hay.includes(n)) pop++;
-    }
     // 指标只写入 metrics 文件，主数据不含频繁更新字段（减少大文件重写）
-    metrics[s.name] = { ...(metrics[s.name] || {}), popularity: pop };
+    metrics[s.name] = { ...(metrics[s.name] || {}), popularity: popularity[s.name] || 0 };
   }
   // 分类顺序：固定顺序在前，其余按出现顺序补在末尾
   const order = CATEGORY_ORDER.filter((c) => skills.some((s) => s.category === c));

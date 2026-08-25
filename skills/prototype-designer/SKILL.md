@@ -1,5 +1,5 @@
 ---
-name: Prototype Designer
+name: prototype-designer
 description: 创建交互式原型、设计用户流程并实现高保真界面。
 en_description: Create interactive prototypes, design user flows, implement prototype testing strategies, and manage handoff to development. Validate ideas before building.
 zh_displayName: 原型设计器

@@ -1,8 +1,9 @@
 ﻿// tools/validate-skills.mjs v1.20.17
 // 校验 skills/<name>/SKILL.md 的 frontmatter 规范性（CI 门禁）
 // 检查项：
+//   0. name 与目录名一致（README 约定：目录名须与 frontmatter name 字段保持一致）
 //   1. 必填展示字段齐全：name / description / en_description / zh_displayName / category / en_category
-//   2. category / en_category 属于 13 类稳定键集合（v1.19.x 起由 9 类演进）
+//   2. category / en_category 属于 13 类稳定键集合（v1.19.x 起由 13 类演进）
 //   3. 无冲突键 description_zh / description_en
 //   4. 契约字段顺序规范：name → description → en_description → zh_displayName → category → en_category
 //   5. 无重复顶层键
@@ -19,6 +20,7 @@ import {
   VALID_EN_CATEGORIES,
   CONFLICT_KEYS,
 } from "./lib/taxonomy.mjs";
+import { parseFrontmatter } from "./lib/frontmatter.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -55,6 +57,11 @@ function validateOne(dir) {
   const keys = entries.map((e) => e.key);
   const errors = [];
   const rel = `skills/${dir}/SKILL.md`;
+  // 0. name 与目录名一致（README 约定：目录名须与 frontmatter name 字段保持一致）
+  const parsed = parseFrontmatter(txt);
+  if (parsed.name !== undefined && parsed.name !== dir) {
+    errors.push(`${rel}: name "${parsed.name}" 与目录名 "${dir}" 不一致（须保持一致）`);
+  }
 
   // 1. 必填字段
   for (const r of REQUIRED) {
@@ -64,12 +71,12 @@ function validateOne(dir) {
   const ci = keys.indexOf("category");
   if (ci !== -1) {
     const val = lines[entries[ci].start].split(":").slice(1).join(":").trim();
-    if (!VALID_CATEGORIES.has(val)) errors.push(`${rel}: category "${val}" 不在 9 类合法集合中`);
+    if (!VALID_CATEGORIES.has(val)) errors.push(`${rel}: category "${val}" 不在 13 类合法集合中`);
   }
   const eni = keys.indexOf("en_category");
   if (eni !== -1) {
     const val = lines[entries[eni].start].split(":").slice(1).join(":").trim();
-    if (!VALID_EN_CATEGORIES.has(val)) errors.push(`${rel}: en_category "${val}" 不在 9 类合法集合中`);
+    if (!VALID_EN_CATEGORIES.has(val)) errors.push(`${rel}: en_category "${val}" 不在 13 类合法集合中`);
   }
   // 3. 冲突键
   for (const ck of CONFLICT_KEYS) {

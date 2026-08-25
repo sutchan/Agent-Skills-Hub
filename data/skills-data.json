@@ -1152,7 +1152,7 @@
       "githubDir": "skills/prototype-design-explore"
     },
     {
-      "name": "Prototype Designer",
+      "name": "prototype-designer",
       "category": "前端开发",
       "enCategory": "Frontend Dev",
       "zh": "原型设计器",
@@ -2211,7 +2211,7 @@
       "githubDir": "skills/wp-plugin-directory-guidelines"
     },
     {
-      "name": "Agent Development",
+      "name": "agent-development",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
       "zh": "智能体开发",
