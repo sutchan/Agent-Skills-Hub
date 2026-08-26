@@ -36,10 +36,11 @@ function parseHash(): Partial<HashState> {
   const p = new URLSearchParams(raw);
   const out: Partial<HashState> = {};
   if (p.has("cat")) {
-    const cats = p.get("cat")!.split(",").map((c) => decodeURIComponent(c)).filter(Boolean);
+    // URLSearchParams.get 已做一次百分号解码，此处直接取，避免二次 decode 把含 % 的分类名破坏
+    const cats = p.get("cat")!.split(",").filter(Boolean);
     if (cats.length) out.cats = cats;
   }
-  if (p.has("q")) out.q = decodeURIComponent(p.get("q")!);
+  if (p.has("q")) out.q = p.get("q")!;
   if (p.has("sort")) {
     const sort = p.get("sort")!;
     if ((SORTS as readonly string[]).includes(sort)) out.sort = sort as typeof SORTS[number];
