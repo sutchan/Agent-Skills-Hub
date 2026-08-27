@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.65] - 2026-08-27
+
+### chore: 同步 README 版本徽章并补充本地 test 脚本
+
+- README.md / README.en.md 版本徽章 v1.20.62 → v1.20.64（消除与 HEAD 的脱节）
+- package.json 新增 `test` 脚本（`node --test tools/lib/*.test.mjs`），与既有
+  `.github/workflows/ci.yml` 的测试步骤保持一致，便于本地跑回归
+- 版本号升至 v1.20.65
+
 ## [1.20.64] - 2026-08-27
 
 ### style: 归一化技能文件行尾为 LF
