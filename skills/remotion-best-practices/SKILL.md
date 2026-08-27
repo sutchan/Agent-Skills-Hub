@@ -1,12 +1,9 @@
 ---
 name: remotion-best-practices
-description: 所有 Remotion 技能的路由入口。
-en_description: Router for all Remotion skills
-zh_displayName: Remotion 最佳实践
-category: 音视频与多媒体
-en_category: Media & Multimedia
-version: 4.0.516
+description: Router for all Remotion skills
+version: 4.0.517
 ---
+
 ## Preserve user changes
 
 Users may make edits in the code outside of the conversation.

@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.63] - 2026-08-27
+
+### chore: 同步多个技能内容与新增 netease-music-cli
+
+- 更新 lark-meeting / remotion-best-practices / short-drama-* / stripe-best-practices /
+  ui-ux-pro-max / web-prototype / winui-* / woocommerce-backend-dev 等技能的内容
+  （SKILL.md 与 references/scripts/scenes 微调，frontmatter 未变）。
+- 新增技能 netease-music-cli（未跟踪目录纳入版本控制）。
+- 版本号升至 v1.20.63。
+
 ## [1.20.62] - 2026-08-25
 
 ### fix: 对齐 prototype 的 appHeader/controls 布局
