@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.66] - 2026-08-27
+
+### chore: 忽略本地协作状态目录并同步版本展示位
+
+- `.gitignore` 新增 `.workbuddy/`（本地 WorkBuddy 协作状态目录），与既有
+  `.codebuddy/` 忽略策略保持一致，避免本地状态文件误入库
+- `git rm --cached` 取消跟踪误入库的 `.workbuddy/memory/2026-08-25.md`（磁盘保留）
+- README.md / README.en.md 版本徽章同步至 v1.20.66
+- 版本号升至 v1.20.66
+
 ## [1.20.65] - 2026-08-27
 
 ### chore: 同步 README 版本徽章并补充本地 test 脚本
@@ -2574,3 +2584,7 @@
 [1.20.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.2
 [1.20.61]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.61
 [1.20.62]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.62
+[1.20.63]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.63
+[1.20.64]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.64
+[1.20.65]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.65
+[1.20.66]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.66

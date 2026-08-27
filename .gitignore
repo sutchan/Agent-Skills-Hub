@@ -22,6 +22,8 @@ skills/skills/
 
 # 本地 Agent 记忆
 .codebuddy/
+# 本地 WorkBuddy 协作状态目录（类比 .codebuddy，非源码禁止入库）
+.workbuddy/
 
 # 本地脚本（不属于技能内容）
 tools/*.ps1
