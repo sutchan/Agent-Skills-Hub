@@ -60,7 +60,7 @@ type SkillsData = {
 ```
 
 ### 2.3 一致性规则（固化）
-- `category` 必须是 **13 大稳定中文分类键之一**（品牌与设计 / 文档与内容 / 数据分析与可视化 / 前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS / 工程实践与质量 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 安全，见 README 领域表格）；`en_category` 为对应英文名。`tools/build-skills-data.mjs` 的 `CATEGORY_ORDER` 固化这 13 类，以磁盘 `skills/` 为唯一权威源读取这些字段；未知分类自动追加为末位「其他」类（属违规，须为零）。
+- `category` 必须是 **14 大稳定中文分类键之一**（品牌与设计 / 文档与内容 / 数据分析与可视化 / 前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS / 工程实践与质量 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 桌面与客户端 / 安全，见 README 领域表格）；`en_category` 为对应英文名。`tools/lib/taxonomy.mjs` 的 `CATEGORY_ORDER` 固化这 14 类（v1.20.67 起新增「桌面与客户端」类，原 13 类全部保留），以磁盘 `skills/` 为唯一权威源读取这些字段；未知分类自动追加为末位「其他」类（属违规，须为零）。
 - `zh`（来自 `zh_displayName`）为中文一句话简介；`description` 为中文完整描述（默认展示语言，frontmatter `description` 须为中文，使用 `|-` 块标量）；`en_description` 为英文原文描述。**处理技能时必须同时提供中文 `description` 与英文 `en_description`**，`enDescription` 由构建脚本从 frontmatter `en_description` 读取。
 - `data/skills-data.json` 与 `data/skills-metrics.json` 均为**构建产物，勿手改**，重跑 `npm run build` 再生；README 领域表格的计数须与构建后的 `data/skills-data.json` 一致， 数量以 `total`（过滤 hidden 后的可见技能数）为准。频繁更新指标（popularity/stars/size）仅需重算 `skills-metrics.json`，主数据文件保持轻量。
 - **标签（tags）对齐**：`SkillEntry.tags` 由 `tools/build-skills-data.mjs` 的 `deriveTags()` 基于技能 description/enDescription/category 关键词自动派生（v1.20.13 起已生成并写入 `data/skills-data.json`），原型（`02-render.js` 的 `renderTags`）与 app（`SkillsExplorer.tsx` 的标签 chip）均消费该字段做第二组「功能标签」筛选（多选 OR，与分类以 AND 组合）；`SkillEntry.tags` 为可选数组，未命中的技能不渲染标签 chip。
@@ -134,4 +134,4 @@ type SkillsData = {
 ### 8.3 与本仓库的关系
 - **选品/对标**：新增本地技能前，可先在 skills.sh 检索同类能力，避免重复造轮子、借鉴其 frontmatter 结构。
 - **溯源标注**：凡本地技能源自 skills.sh 生态上游，建议在 `SKILL.md` frontmatter 标注 `source: <owner/repo>`，由 `build-skills-data.mjs` 读取写入 `SkillEntry.source`，便于外部溯源（见 §2.1）。
-- **不强制同步**：本仓库自有 13 大稳定分类体系（见 §2.3，外加须清零的「其他」违规类），不照搬 skills.sh 的 Topics 分类；两者分类维度不同，仅作参考。
+- **不强制同步**：本仓库自有 14 大稳定分类体系（见 §2.3，外加须清零的「其他」违规类），不照搬 skills.sh 的 Topics 分类；两者分类维度不同，仅作参考。

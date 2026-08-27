@@ -1,6 +1,12 @@
 ---
 name: winui-design
-description: "Use when designing, reviewing, or fixing WinUI 3: layout planning, control choice, Fluent Design alignment, Light/Dark/High Contrast theming, typography, spacing, brushes, accessibility, and XAML data-binding design. Load before authoring new XAML, reviewing UI PRs, migrating desktop UI to WinUI, or choosing between WinUI controls/patterns."
+description: |-
+  设计、评审或修复 WinUI 3：布局规划、控件选择、Fluent Design 对齐与明暗/高对比主题。
+en_description: |-
+  Use when designing, reviewing, or fixing WinUI 3: layout planning, control choice, Fluent Design alignment, and Light/Dark/High-Contrast theming.
+zh_displayName: WinUI 设计
+category: 桌面与客户端
+en_category: Desktop & Client
 ---
 
 

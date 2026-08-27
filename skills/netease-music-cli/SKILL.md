@@ -1,6 +1,12 @@
 ---
 name: netease-music-cli
-description: 使用 ncm-cli 操作网易云音乐。当用户想播放歌曲、搜索歌曲、控制播放（暂停、下一首、上一首、调音量）、管理播放队列、查看播放状态、播放歌单时，使用此 skill。
+description: |-
+  使用 ncm-cli 操作网易云音乐。当用户想播放、搜索歌曲，控制播放（暂停、上一首/下一首、调音量），管理播放队列、查看播放状态或播放歌单时使用。
+en_description: |-
+  Operate NetEase Cloud Music via ncm-cli. Use when the user wants to play or search songs, control playback (pause, prev/next, volume), manage the queue, check status, or play playlists.
+zh_displayName: 网易云音乐 CLI
+category: 音视频与多媒体
+en_category: Media & Multimedia
 ---
 
 # 网易云音乐 CLI（ncm-cli）

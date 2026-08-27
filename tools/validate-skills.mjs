@@ -3,7 +3,7 @@
 // 检查项：
 //   0. name 与目录名一致（README 约定：目录名须与 frontmatter name 字段保持一致）
 //   1. 必填展示字段齐全：name / description / en_description / zh_displayName / category / en_category
-//   2. category / en_category 属于 13 类稳定键集合（v1.19.x 起由 13 类演进）
+//   2. category / en_category 属于 14 类稳定键集合（v1.20.67 起由 13 类演进：新增「桌面与客户端」类）
 //   3. 无冲突键 description_zh / description_en
 //   4. 契约字段顺序规范：name → description → en_description → zh_displayName → category → en_category
 //   5. 无重复顶层键

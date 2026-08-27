@@ -540,10 +540,9 @@
     "files": 5
   },
   "lark-meeting": {
-    "popularity": 0,
-    "size": 163768,
-    "files": 30,
-    "skillVersion": "1.0.0"
+    "popularity": 1,
+    "size": 169299,
+    "files": 30
   },
   "limrun-android-emulator": {
     "popularity": 0,
@@ -562,7 +561,7 @@
   },
   "limrun-xcode": {
     "popularity": 0,
-    "size": 14560,
+    "size": 16140,
     "files": 1
   },
   "limrun-xcode-bazel": {
@@ -583,9 +582,8 @@
   },
   "logo-designer": {
     "popularity": 0,
-    "size": 18644,
-    "files": 2,
-    "skillVersion": "1.0.0"
+    "size": 43939,
+    "files": 3
   },
   "luma": {
     "popularity": 2,
@@ -624,6 +622,11 @@
     "popularity": 0,
     "size": 169220,
     "files": 43
+  },
+  "netease-music-cli": {
+    "popularity": 0,
+    "size": 17099,
+    "files": 2
   },
   "next-best-practices": {
     "popularity": 0,
@@ -799,10 +802,9 @@
     "files": 1
   },
   "remotion-best-practices": {
-    "popularity": 0,
-    "size": 1131635,
-    "files": 137,
-    "skillVersion": "4.0.516"
+    "popularity": 1,
+    "size": 1131746,
+    "files": 137
   },
   "repo-intake-and-plan": {
     "popularity": 0,
@@ -842,17 +844,17 @@
   },
   "short-drama-storyboard": {
     "popularity": 1,
-    "size": 141720,
+    "size": 145127,
     "files": 22
   },
   "short-drama-video-prompts": {
     "popularity": 1,
-    "size": 178298,
+    "size": 180195,
     "files": 22
   },
   "short-drama-write": {
     "popularity": 0,
-    "size": 213869,
+    "size": 214415,
     "files": 19
   },
   "simplify": {
@@ -877,7 +879,7 @@
   },
   "stripe-best-practices": {
     "popularity": 0,
-    "size": 61328,
+    "size": 60318,
     "files": 7
   },
   "suno": {
@@ -970,7 +972,7 @@
   },
   "ui-ux-pro-max": {
     "popularity": 0,
-    "size": 3561820,
+    "size": 3561533,
     "files": 60
   },
   "uni-app": {
@@ -1042,7 +1044,7 @@
   },
   "web-prototype": {
     "popularity": 1,
-    "size": 39548,
+    "size": 39215,
     "files": 5
   },
   "wechat-article-writer": {
@@ -1057,17 +1059,17 @@
   },
   "winui-design": {
     "popularity": 0,
-    "size": 12220668,
+    "size": 7940803,
     "files": 5
   },
   "winui-dev-workflow": {
     "popularity": 1,
-    "size": 72067,
+    "size": 66776,
     "files": 4
   },
   "woocommerce-backend-dev": {
     "popularity": 0,
-    "size": 43183,
+    "size": 46361,
     "files": 9
   },
   "wordpress-router": {

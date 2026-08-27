@@ -1,27 +1,12 @@
 ---
 name: web-prototype
-description: |
-  General-purpose desktop web prototype. Single self-contained HTML file built
-  by copying the seed `assets/template.html` and pasting section layouts from
-  `references/layouts.md`. Default for any landing / marketing / docs / SaaS
-  page when no more specific skill matches.
-triggers:
-  - "prototype"
-  - "mockup"
-  - "landing"
-  - "single page"
-  - "marketing page"
-  - "homepage"
-od:
-  mode: prototype
-  platform: desktop
-  scenario: design
-  preview:
-    type: html
-    entry: index.html
-  design_system:
-    requires: true
-    sections: [color, typography, layout, components]
+description: |-
+  通用桌面网页原型：通过复制种子模板生成单一自包含 HTML 文件。在快速搭建可交互网页原型时使用。
+en_description: |-
+  General-purpose desktop web prototype: a single self-contained HTML file built by copying the seed template. Use for quick interactive web prototypes.
+zh_displayName: 网页原型
+category: 前端开发
+en_category: Frontend Dev
 ---
 
 # Web Prototype Skill

@@ -1,7 +1,12 @@
 ---
 name: remotion-best-practices
-description: Router for all Remotion skills
-version: 4.0.517
+description: |-
+  Remotion 技能的总入口与最佳实践路由。在创建程序化视频、React 视频动画时使用。
+en_description: |-
+  Router for all Remotion skills and best practices for programmatic React video.
+zh_displayName: Remotion 最佳实践
+category: 音视频与多媒体
+en_category: Media & Multimedia
 ---
 
 ## Preserve user changes

@@ -71,3 +71,4 @@ prototype/out/_next/
 !tools/lib/
 !tools/lib/*.mjs
 *.log
+*.mjs

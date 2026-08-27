@@ -1,5 +1,5 @@
 {
-  "total": 221,
+  "total": 222,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -13,6 +13,7 @@
     "自动化与集成",
     "AI 与智能体",
     "音视频与多媒体",
+    "桌面与客户端",
     "安全"
   ],
   "categoryEn": {
@@ -28,6 +29,7 @@
     "自动化与集成": "Automation & Integration",
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
+    "桌面与客户端": "Desktop & Client",
     "安全": "Security"
   },
   "skills": [
@@ -477,16 +479,15 @@
       "name": "logo-designer",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "SVG Logo 设计",
-      "description": "使用 SVG 设计并迭代 logo。当用户要求「创建 logo」「设计 logo」「为我的项目做 logo」或讨论 logo 设计、品牌图标与字体标时使用。",
-      "enDescription": "Design and iterate on logos using SVG. Use this skill when the user asks to create a logo, design a logo, make a logo, iterate on a logo, or discusses logo design, branding icons, or wordmarks.",
+      "zh": "Logo 设计",
+      "description": "使用 SVG 设计并迭代 Logo。当用户要求创建、设计、制作 Logo，或为项目构思 Logo、品牌图标与字标时，使用此技能。",
+      "enDescription": "Design and iterate on logos using SVG. Use this skill when the user asks to create, design, make a logo, or discusses logo design, branding icons, or wordmarks.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "design-media"
       ],
       "hidden": false,
-      "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/logo-designer",
       "githubDir": "skills/logo-designer"
     },
@@ -575,62 +576,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/review-animations",
       "githubDir": "skills/review-animations"
-    },
-    {
-      "name": "short-drama-storyboard",
-      "category": "品牌与设计",
-      "enCategory": "Brand & Design",
-      "zh": "短剧分镜",
-      "description": "将中文短剧剧本与视觉设定写成带戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown。",
-      "enDescription": "Write storyboard Markdown for Chinese short dramas with dramatic responsibilities, continuity boundaries, and frozen-keyframe prompts.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-storyboard",
-      "githubDir": "skills/short-drama-storyboard"
-    },
-    {
-      "name": "short-drama-video-prompts",
-      "category": "品牌与设计",
-      "enCategory": "Brand & Design",
-      "zh": "短剧视频提示词",
-      "description": "将短剧分镜与冻结关键帧写成可直接复制的视频提示词 Markdown，亦可按需求撰写时间线配乐/主题曲意图。",
-      "enDescription": "Write copy-paste video prompt Markdown from short-drama storyboards and frozen keyframes; optionally write timeline score/theme intent.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-video-prompts",
-      "githubDir": "skills/short-drama-video-prompts"
-    },
-    {
-      "name": "short-drama-write",
-      "category": "品牌与设计",
-      "enCategory": "Brand & Design",
-      "zh": "短剧编剧",
-      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，并负责规范化现成剧本。",
-      "enDescription": "Write or revise shootable Chinese short-drama / motion-comic episode scripts in Markdown, and normalize existing scripts.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "design-media"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-write",
-      "githubDir": "skills/short-drama-write"
     },
     {
       "name": "sports-news",
@@ -760,15 +705,15 @@
       "name": "ui-ux-pro-max",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "UI/UX 设计",
-      "description": "面向 Web、移动与桌面的 UI/UX 设计智能。",
-      "enDescription": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
+      "zh": "UI/UX 设计智能",
+      "description": "面向 Web、移动端与桌面的 UI/UX 设计智能。在构建设计、评审、优化界面体验时使用。",
+      "enDescription": "UI/UX design intelligence for web, mobile, and desktop. Use when designing, building, reviewing, or optimizing interface experiences.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "ai-agent",
         "web-frontend",
-        "design-media"
+        "design-media",
+        "test-qa"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ui-ux-pro-max",
@@ -809,24 +754,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wechat-article-writer",
       "githubDir": "skills/wechat-article-writer"
-    },
-    {
-      "name": "winui-design",
-      "category": "品牌与设计",
-      "enCategory": "Brand & Design",
-      "zh": "WinUI 设计",
-      "description": "在设计、评审或修复 WinUI 3 时使用：布局规划、控件选择、Fluent Design 对齐、浅色/深色/高对比度主题、排版、间距、画刷、可访问性，以及 XAML 数据绑定设计。在编写新 XAML、评审 UI PR、将桌面 UI 迁移到 WinUI，或在 WinUI 控件/模式间取舍前加载。",
-      "enDescription": "Use when designing, reviewing, or fixing WinUI 3: layout planning, control choice, Fluent Design alignment, Light/Dark/High Contrast theming, typography, spacing, brushes, accessibility, and XAML data-binding design. Load before authoring new XAML, reviewing UI PRs, migrating desktop UI to WinUI, or choosing between WinUI controls/patterns.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "data",
-        "design-media",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-design",
-      "githubDir": "skills/winui-design"
     },
     {
       "name": "coding-standards",
@@ -1370,35 +1297,17 @@
       "category": "前端开发",
       "enCategory": "Frontend Dev",
       "zh": "网页原型",
-      "description": "通用桌面 Web 原型，单一自包含页面。",
-      "enDescription": "General-purpose desktop web prototype. Single self-contained HTML file built by copying the seed assets/template.html and pasting section layouts from references/layouts.md. Default for any landing / marketing / docs / SaaS page when no more specific skill matches.",
+      "description": "通用桌面网页原型：通过复制种子模板生成单一自包含 HTML 文件。在快速搭建可交互网页原型时使用。",
+      "enDescription": "General-purpose desktop web prototype: a single self-contained HTML file built by copying the seed template. Use for quick interactive web prototypes.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "web-frontend",
-        "doc-writing"
+        "web-frontend"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/web-prototype",
       "githubDir": "skills/web-prototype"
-    },
-    {
-      "name": "winui-dev-workflow",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "WinUI 开发工作流",
-      "description": "WinUI 3 应用的构建与运行工作流——项目创建、BuildAndRun.ps1 脚本、winapp run、错误诊断与前置依赖。在构建、运行 WinUI 3 项目，或修复其构建错误时使用。",
-      "enDescription": "Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites. Use when building, running, or fixing build errors in a WinUI 3 project.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "web-frontend",
-        "automation"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-dev-workflow",
-      "githubDir": "skills/winui-dev-workflow"
     },
     {
       "name": "bun",
@@ -1526,16 +1435,12 @@
       "name": "stripe-best-practices",
       "category": "后端与平台",
       "enCategory": "Backend & Platform",
-      "zh": "Stripe 集成最佳实践",
-      "description": "指导 Stripe 集成决策：API 选择（Checkout Sessions 对比 PaymentIntents）、Connect 平台搭建（Accounts v2、controller 属性）、计费/订阅、税务与注册（Stripe Tax、automatic_tax、产品税码）、Treasury 金融账户、集成选项（Checkout、Payment Element）、从废弃 Stripe API 迁移，以及安全最佳实践（API 密钥管理、受限密钥、Webhook、OAuth）。在构建、修改或评审任意 Stripe 集成时使用。",
-      "enDescription": "Guides Stripe integration decisions across API selection (Checkout Sessions vs\nPaymentIntents), Connect platform setup (Accounts v2, controller properties),\nbilling/subscriptions, tax and registrations (Stripe Tax, automatic_tax,\nproduct tax codes), Treasury financial accounts, integration options\n(Checkout, Payment Element), migrating from deprecated Stripe APIs, and\nsecurity best practices (API key management, restricted keys, webhooks,\nOAuth). Use when building, modifying, or reviewing any Stripe integration,\nincluding accepting payments, building marketplaces, integrating Stripe,\nprocessing payments, setting up subscriptions, collecting sales tax, VAT, or\nGST, creating connected accounts, or implementing secure key handling.",
+      "zh": "Stripe 最佳实践",
+      "description": "在 Stripe 集成决策上提供指引：API 选型（Checkout Sessions vs PaymentIntents）、Connect 平台搭建等。",
+      "enDescription": "Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents) and Connect platform setup.",
       "homepage": "",
       "allowedTools": [],
-      "tags": [
-        "web-frontend",
-        "test-qa",
-        "security"
-      ],
+      "tags": [],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/stripe-best-practices",
       "githubDir": "skills/stripe-best-practices"
@@ -1577,23 +1482,6 @@
       "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/supabase-postgres-best-practices",
       "githubDir": "skills/supabase-postgres-best-practices"
-    },
-    {
-      "name": "woocommerce-backend-dev",
-      "category": "后端与平台",
-      "enCategory": "Backend & Platform",
-      "zh": "WooCommerce 后端开发",
-      "description": "按项目约定新增或修改 WooCommerce 后端 PHP 代码（类、方法、钩子），在编写 PHP 单元测试前必须调用。",
-      "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Must be invoked before writing any PHP unit tests.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "doc-writing",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/woocommerce-backend-dev",
-      "githubDir": "skills/woocommerce-backend-dev"
     },
     {
       "name": "dart-add-unit-test",
@@ -1994,12 +1882,14 @@
       "name": "limrun-xcode",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
-      "zh": "Limrun Xcode 构建",
-      "description": "使用 lim xcode build 在 Limrun 远程 Xcode 上构建 iOS/Apple 应用，替代本地 xcodebuild。",
-      "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild.",
+      "zh": "远程 Xcode 构建",
+      "description": "用 `lim xcode build` 在远程 Xcode 构建 iOS / Apple 应用，或运行其 XCTest 测试套件，替代本地 xcodebuild。",
+      "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, or run its XCTest suites.",
       "homepage": "",
       "allowedTools": [],
-      "tags": [],
+      "tags": [
+        "test-qa"
+      ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode",
       "githubDir": "skills/limrun-xcode"
@@ -2050,6 +1940,22 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/blueprint",
       "githubDir": "skills/blueprint"
+    },
+    {
+      "name": "woocommerce-backend-dev",
+      "category": "WordPress 与 CMS",
+      "enCategory": "WordPress & CMS",
+      "zh": "WooCommerce 后端开发",
+      "description": "遵循项目约定新增或修改 WooCommerce 后端 PHP 代码。在创建类、方法、钩子时使用。",
+      "enDescription": "Add or modify WooCommerce backend PHP code following project conventions. Use when creating new classes, methods, or hooks.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "wordpress"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/woocommerce-backend-dev",
+      "githubDir": "skills/woocommerce-backend-dev"
     },
     {
       "name": "wordpress-router",
@@ -3048,14 +2954,13 @@
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
       "zh": "飞书会议",
-      "description": "飞书视频会议：查询会议记录与会议产物(纪要/逐字稿/妙记)、妙记搜索/上传/下载/编辑、机器人参与会议；查询进行中的会议、实时会议内容(发言/聊天/共享文档)问答(会上/会里)、发送会中聊天/表情；基于 meeting_id、meeting_no、event_id、note_id、minute_token、vc-node-id 或妙记 URL 查询相关信息。预约会议、忙闲和会议室管理走 lark-calendar。",
-      "enDescription": "飞书视频会议：查询会议记录与会议产物(纪要/逐字稿/妙记)、妙记搜索/上传/下载/编辑、机器人参与会议；查询进行中的会议、实时会议内容(发言/聊天/共享文档)问答(会上/会里)、发送会中聊天/表情；基于 meeting_id、meeting_no、event_id、note_id、minute_token、vc-node-id 或妙记 URL 查询相关信息。预约会议、忙闲和会议室管理走 lark-calendar。",
+      "description": "飞书视频会议：查询会议记录与产物（纪要/逐字稿/妙记）、妙记搜索上传下载、机器人参会、实时会议内容问答与会中互动。",
+      "enDescription": "Feishu video meetings: query records and artifacts (minutes/transcripts/smart notes), search/upload/download notes, bot participation, live meeting Q&A and in-meeting interactions.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "doc-writing",
         "design-media",
-        "security"
+        "automation"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/lark-meeting",
@@ -3657,6 +3562,23 @@
       "githubDir": "skills/mcp-vods"
     },
     {
+      "name": "netease-music-cli",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "网易云音乐 CLI",
+      "description": "使用 ncm-cli 操作网易云音乐。当用户想播放、搜索歌曲，控制播放（暂停、上一首/下一首、调音量），管理播放队列、查看播放状态或播放歌单时使用。",
+      "enDescription": "Operate NetEase Cloud Music via ncm-cli. Use when the user wants to play or search songs, control playback (pause, prev/next, volume), manage the queue, check status, or play playlists.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "cli",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/netease-music-cli",
+      "githubDir": "skills/netease-music-cli"
+    },
+    {
       "name": "opus-clip",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
@@ -3679,11 +3601,12 @@
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
       "zh": "Remotion 最佳实践",
-      "description": "所有 Remotion 技能的路由入口。",
-      "enDescription": "Router for all Remotion skills",
+      "description": "Remotion 技能的总入口与最佳实践路由。在创建程序化视频、React 视频动画时使用。",
+      "enDescription": "Router for all Remotion skills and best practices for programmatic React video.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
+        "web-frontend",
         "design-media"
       ],
       "hidden": false,
@@ -3707,6 +3630,59 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/scripting-and-storyboarding",
       "githubDir": "skills/scripting-and-storyboarding"
+    },
+    {
+      "name": "short-drama-storyboard",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "短剧分镜",
+      "description": "把中文短剧剧本与视觉设定写成含戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown。",
+      "enDescription": "Turn Chinese short-drama scripts and visual settings into storyboard Markdown with dramatic roles, continuity boundaries, and frozen keyframe prompts.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-storyboard",
+      "githubDir": "skills/short-drama-storyboard"
+    },
+    {
+      "name": "short-drama-video-prompts",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "短剧视频提示词",
+      "description": "把短剧分镜与冻结关键帧写成可直接复制的视频提示词 Markdown，也可按需求写时间线配乐/主题曲意图。",
+      "enDescription": "Convert short-drama storyboards and frozen keyframes into copy-paste video prompts, and optionally write timeline scoring/theme intent.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-video-prompts",
+      "githubDir": "skills/short-drama-video-prompts"
+    },
+    {
+      "name": "short-drama-write",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "短剧编剧",
+      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，并规范化现成剧本。",
+      "enDescription": "Write or revise shootable Chinese short-drama / comic-drama episode scripts in Markdown, and normalize existing scripts.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "doc-writing",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-write",
+      "githubDir": "skills/short-drama-write"
     },
     {
       "name": "suno",
@@ -3812,6 +3788,39 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/video-storyboard",
       "githubDir": "skills/video-storyboard"
+    },
+    {
+      "name": "winui-design",
+      "category": "桌面与客户端",
+      "enCategory": "Desktop & Client",
+      "zh": "WinUI 设计",
+      "description": "设计、评审或修复 WinUI 3：布局规划、控件选择、Fluent Design 对齐与明暗/高对比主题。",
+      "enDescription": "Use when designing, reviewing, or fixing WinUI 3: layout planning, control choice, Fluent Design alignment, and Light/Dark/High-Contrast theming.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-design",
+      "githubDir": "skills/winui-design"
+    },
+    {
+      "name": "winui-dev-workflow",
+      "category": "桌面与客户端",
+      "enCategory": "Desktop & Client",
+      "zh": "WinUI 开发工作流",
+      "description": "WinUI 3 应用的构建与运行工作流：项目创建、BuildAndRun.ps1 脚本、winapp run、错误诊断与前置准备。",
+      "enDescription": "Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "automation"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/winui-dev-workflow",
+      "githubDir": "skills/winui-dev-workflow"
     },
     {
       "name": "better-auth-best-practices",

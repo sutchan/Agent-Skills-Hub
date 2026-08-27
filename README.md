@@ -2,16 +2,16 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.20.66-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/prototype.html)
+[![版本](https://img.shields.io/badge/version-v1.20.67-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/prototype.html)
 
-一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 13 大领域，共 222 个技能包（其中 1 个标记为隐藏，公开可见 221 个）。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述，含 frontmatter 前置元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 `tools/coverage.py` 统计。
+一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、桌面与客户端、安全 14 大领域，共 223 个技能包（其中 1 个标记为隐藏，公开可见 222 个）。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述，含 frontmatter 前置元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 `tools/coverage.py` 统计。
 
 ## 快速开始
 
 > 只想用技能？5 步搞定，无需碰构建脚本。
 
 1. **浏览技能**：直接双击打开 [`prototype/prototype.html`](prototype/prototype.html)（离线自包含，内联全部数据），或运行 `app/` 在线应用。
-2. **挑选技能**：按 13 大领域筛选，点开卡片查看 `SKILL.md` 说明与触发条件。
+2. **挑选技能**：按 14 大领域筛选，点开卡片查看 `SKILL.md` 说明与触发条件。
 3. **安装技能**：把 `skills/<name>/` 整个目录复制到你的 Agent 技能目录：
    - Claude Code：`~/.claude/skills/`
    - CodeBuddy：对应 skills 路径（参考客户端文档）
@@ -27,7 +27,7 @@
 | | 亮点 | 说明 |
 |---|---|---|
 | ⚙️ | **零维护清单** | 技能数据与展示页由 `npm run build` 从磁盘 `skills/*/SKILL.md` 自动生成，技能增删无需手工维护任何清单 |
-| 🗂️ | **222 技能 · 13 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、安全 |
+| 🗂️ | **223 技能 · 14 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、桌面与客户端、安全 |
 | 🌏 | **默认中文** | 中文目录 + 中文一句话简介 + 中文完整描述（`description`，默认展示语言），英文原文存 `en_description`，中文 Agent 用户开箱即用 |
 | 📦 | **一键安装** | 配合 [skills-manager](https://github.com/xingkongliang/skills-manager) 批量安装 / 更新 / 卸载 |
 | 🚀 | **离线可用** | 自包含静态展示页（`prototype/prototype.html`）内联全部数据，双击即可浏览全部技能，无框架依赖 |
@@ -59,18 +59,19 @@
 
 | 领域 | 技能数 |
 |------|--------|
-| 品牌与设计 | 45 |
+| 品牌与设计 | 41 |
 | 文档与内容 | 2 |
 | 数据分析与可视化 | 2 |
-| 前端开发 | 28 |
-| 后端与平台 | 11 |
+| 前端开发 | 27 |
+| 后端与平台 | 10 |
 | 移动端开发 | 28 |
-| WordPress 与 CMS | 10 |
+| WordPress 与 CMS | 11 |
 | 工程实践与质量 | 39 |
 | 文件与格式处理 | 4 |
 | 自动化与集成 | 18 |
 | AI 与智能体 | 7 |
-| 音视频与多媒体 | 23 |
+| 音视频与多媒体 | 27 |
+| 桌面与客户端 | 2 |
 | 安全 | 5 |
 
 > 浏览全部技能：

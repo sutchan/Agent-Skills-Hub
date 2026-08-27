@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.20.67] - 2026-08-27
+
+### refactor: 分类体系升级为 14 类，消灭「其他」违规类
+
+- `tools/lib/taxonomy.mjs` 分类法由 13 类演进为 14 类：新增「桌面与客户端」
+  （Desktop & Client）承载 WinUI/Windows 桌面开发；保留原 13 类键不变
+- 补全 14 个缺失必备字段（category/en_category/zh_displayName/description）的
+  上游导入技能 frontmatter，按语义归入 14 类，彻底消除「其他」类（构建实算为 0）
+- 同步 `tools/validate-skills.mjs` 注释、`openspec/spec.md` 分类清单叙事、
+  README.md / README.en.md 领域表与计数（223 技能 · 14 大领域）
+- `npm run build` 重算 `data/skills-data.json` 并重生成 `prototype/prototype.html`
+- 版本号升至 v1.20.67
+
 ## [1.20.66] - 2026-08-27
 
 ### chore: 忽略本地协作状态目录并同步版本展示位
@@ -2588,3 +2601,4 @@
 [1.20.64]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.64
 [1.20.65]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.65
 [1.20.66]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.66
+[1.20.67]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.67
