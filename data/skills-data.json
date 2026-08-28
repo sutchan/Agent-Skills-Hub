@@ -1,5 +1,5 @@
 {
-  "total": 222,
+  "total": 223,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -38,8 +38,8 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "广告创意生成",
-      "description": "当用户需要为付费广告平台生成、迭代或规模化广告创意（标题、描述、主文案或完整广告变体）时使用。",
-      "enDescription": "Use when the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform.",
+      "description": "规模化生成与迭代广告创意文案、标题与变体",
+      "enDescription": "When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad variations — for any paid advertising platform. Also use when the user mentions 'ad copy variations,' 'ad creative,' 'generate headlines,' 'RSA headlines,' 'bulk ad copy,' 'ad iterations,' 'creative testing,' 'write me some ads,' 'Facebook ad copy,' 'Google ad headlines,' 'LinkedIn ad text,' 'static ads,' 'ad templates,' 'iMessage ad,' 'chat reveal ad,' 'ChatGPT ad,' 'Apple Notes ad,' 'AirDrop ad,' 'creative strategy,' 'creative roadmap,' 'creative retro,' 'hook writing,' 'creative review page,' 'present ad creative for approval,' 'motion video ad,' 'faceless video ad,' 'UGC ad,' 'greenscreen ad,' 'TikTok/Reels ad format,' 'which ad format to make,' 'Meta ad format tier list,' or 'creative format taxonomy.' Use this whenever someone needs to produce ad copy at scale or iterate on existing ads. For campaign strategy and targeting, see ads. For landing page copy, see copywriting.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -73,8 +73,8 @@
       "name": "banner-creator",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "Banner 横幅创作",
-      "description": "使用 AI 图像生成创建横幅。先讨论格式、风格、尺寸与品牌约束再生成。",
+      "zh": "横幅广告生成",
+      "description": "用 AI 图像生成创建横幅广告素材",
       "enDescription": "Create banners using AI image generation. Discuss format/style, generate variations, iterate with user feedback, crop to target ratio. Use when user wants to create a banner, header, hero image, cover image, GitHub banner, Twitter header, or readme banner.",
       "homepage": "",
       "allowedTools": [],
@@ -91,8 +91,8 @@
       "name": "banner-design",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "Banner 设计",
-      "description": "为社交媒体、广告、网站主视觉与创意素材等设计横幅。",
+      "zh": "横幅广告设计",
+      "description": "为社媒、广告与网页设计横幅素材",
       "enDescription": "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.",
       "homepage": "",
       "allowedTools": [],
@@ -443,6 +443,22 @@
       "githubDir": "skills/frontend-design"
     },
     {
+      "name": "google-mobile-ads-banner",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "Google 移动广告横幅",
+      "description": "实现与配置 Google 移动广告横幅",
+      "enDescription": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-mobile-ads-banner",
+      "githubDir": "skills/google-mobile-ads-banner"
+    },
+    {
       "name": "logo-animation",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -462,8 +478,8 @@
       "name": "logo-creator",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "Logo 创作",
-      "description": "使用 AI 图像生成创建 logo，讨论风格、比例与品牌约束。",
+      "zh": "Logo 生成",
+      "description": "用 AI 图像生成创建 Logo",
       "enDescription": "Create logos using AI image generation. Discuss style/ratio, generate variations, iterate with user feedback, crop, remove background, and export as SVG. Use when user wants to create a logo, icon, favicon, brand mark, mascot, emblem, or design a logo.",
       "homepage": "",
       "allowedTools": [],
@@ -496,13 +512,14 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "营销方案",
-      "description": "当用户需要为客户、所顾问公司或自身制定全面营销方案时使用。",
-      "enDescription": "When the user needs a comprehensive marketing plan for a client, a company they advise, or themselves.",
+      "description": "为客户或产品制定全面营销方案",
+      "enDescription": "When the user needs a comprehensive marketing plan for a client, a company they advise, or their own product. Also use when the user mentions \\\"marketing plan,\\\" \\\"growth plan,\\\" \\\"GTM plan,\\\" \\\"go-to-market plan,\\\" \\\"AARRR plan,\\\" \\\"90-day marketing plan,\\\" \\\"12-month marketing roadmap,\\\" \\\"fractional CMO plan,\\\" or \\\"fCMO plan.\\\" Generates an exhaustive 13-section plan structured by AARRR (Acquisition, Activation, Retention, Referral, Revenue), customized to the client's current budget, team, and stage, mapped to future funding milestones, cross-referenced with the 139-idea marketing-ideas library and an embedded 17-section current-state audit rubric, with a full marketing operations stack showing which skills and MCP/API integrations execute each part. Outputs a Notion-paste-ready markdown document. For positioning and ICP context before planning, see product-marketing. For stage-specific deep work, see onboarding, signup, emails, referrals, pricing.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
+        "ai-agent",
         "cli",
-        "design-media"
+        "doc-writing"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/marketing-plan",
@@ -724,8 +741,8 @@
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
       "zh": "Web 设计指南",
-      "description": "按 Web 界面指南评审 UI 代码。当被要求“评审我的 UI”“检查可访问性”“审计设计”“评审 UX”或“对照最佳实践检查我的站点”时使用。",
-      "enDescription": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
+      "description": "审查 UI 代码符合 Web 界面指南",
+      "enDescription": "Review UI code for Web Interface Guidelines compliance. Use when asked to \\\"review my UI\\\", \\\"check accessibility\\\", \\\"audit design\\\", \\\"review UX\\\", or \\\"check my site against best practices\\\".",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -939,13 +956,12 @@
       "category": "前端开发",
       "enCategory": "Frontend Dev",
       "zh": "Next.js App Router 模式",
-      "description": "精通 Next.js 14+ App Router：Server Components、流式、并行路由与数据获取。",
-      "enDescription": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications or optimizing React Server Components.",
+      "description": "掌握 Next.js 14+ App Router 高级模式",
+      "enDescription": "Master Next.js 14+ App Router with Server Components, streaming, parallel routes, and advanced data fetching. Use when building Next.js applications, implementing SSR/SSG, or optimizing React Server Components.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "web-frontend",
-        "data"
+        "web-frontend"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nextjs-app-router-patterns",
@@ -1166,17 +1182,35 @@
       "githubDir": "skills/shadcn-ui"
     },
     {
+      "name": "ui-animation",
+      "category": "前端开发",
+      "enCategory": "Frontend Dev",
+      "zh": "UI 动效",
+      "description": "设计、实现、审查与逆向 UI 动效",
+      "enDescription": "Designs, implements, reviews, debugs, and reverse-engineers UI motion, and finds where an interface is missing it: CSS transitions, keyframes, springs, gestures, drag, easing, timing, framer-motion, and animation curves from screen recordings. Use when asked to \\\"add animations\\\", \\\"make this feel smooth\\\", \\\"review my animations\\\", \\\"add a swipe gesture\\\", \\\"match this easing\\\", \\\"reverse engineer this animation\\\", \\\"extract the animation curve\\\", \\\"where should this animate\\\", \\\"find animation opportunities\\\", or \\\"what's it called when...\\\" to name a motion effect from a vague description. Owns the passage between two states. For what a state looks like once built use ui-design; for which states exist and whether an action is reversible use product-design, including when a gesture replaces a control.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "web-frontend",
+        "design-media"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ui-animation",
+      "githubDir": "skills/ui-animation"
+    },
+    {
       "name": "vercel-composition-patterns",
       "category": "前端开发",
       "enCategory": "Frontend Dev",
-      "zh": "Vercel React 组合模式",
-      "description": "可扩展的 React 组合模式。在重构存在布尔 prop 泛滥的组件、构建灵活组件库或设计可复用 API 时使用。涉及复合组件、render props、context provider 或组件架构的任务触发。包含 React 19 API 变更。",
-      "enDescription": "React composition patterns that scale. Use when refactoring components with",
+      "zh": "Vercel 组合模式",
+      "description": "Vercel 组合与架构模式",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "web-frontend",
-        "design-media"
+        "devops"
       ],
       "hidden": false,
       "license": "MIT",
@@ -1188,14 +1222,14 @@
       "category": "前端开发",
       "enCategory": "Frontend Dev",
       "zh": "Vercel React 最佳实践",
-      "description": "来自 Vercel Engineering 的 React 与 Next.js 性能优化指南。在编写、评审或重构 React/Next.js 代码以确保最佳性能模式时使用。涉及 React 组件、Next.js 页面、数据获取、打包优化或性能提升的任务触发。",
+      "description": "Vercel React 性能优化指南",
       "enDescription": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js code to ensure optimal performance patterns. Triggers on tasks involving React components, Next.js pages, data fetching, bundle optimization, or performance improvements.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "web-frontend",
         "doc-writing",
-        "data"
+        "test-qa"
       ],
       "hidden": false,
       "license": "MIT",
@@ -1342,6 +1376,23 @@
       "githubDir": "skills/cloudbase"
     },
     {
+      "name": "eve",
+      "category": "后端与平台",
+      "enCategory": "Backend & Platform",
+      "zh": "Eve 后端智能体",
+      "description": "用 eve 框架构建持久后端 AI 智能体",
+      "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "automation"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/eve",
+      "githubDir": "skills/eve"
+    },
+    {
       "name": "fastify-best-practices",
       "category": "后端与平台",
       "enCategory": "Backend & Platform",
@@ -1383,13 +1434,12 @@
       "category": "后端与平台",
       "enCategory": "Backend & Platform",
       "zh": "Node.js 后端模式",
-      "description": "使用 Express/Fastify 构建可用于生产的 Node.js 后端服务，落地中间件模式、错误处理、身份认证、数据库集成与 API 设计最佳实践。适用于创建 Node.js 服务、REST API、GraphQL 后端或微服务架构。",
+      "description": "构建生产级 Node.js 后端服务",
       "enDescription": "Build production-ready Node.js backend services with Express/Fastify, implementing middleware patterns, error handling, authentication, database integration, and API design best practices. Use when creating Node.js servers, REST APIs, GraphQL backends, or microservices architectures.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
-        "data",
-        "design-media"
+        "data"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/nodejs-backend-patterns",
@@ -1819,22 +1869,6 @@
       "githubDir": "skills/flutter-use-http-package"
     },
     {
-      "name": "google-mobile-ads-banner",
-      "category": "移动端开发",
-      "enCategory": "Mobile Dev",
-      "zh": "Google 移动广告横幅",
-      "description": "生成 Google 移动广告横幅素材与规范，用于移动端广告投放。",
-      "enDescription": "Generate Google mobile ad banner assets and specs for mobile advertising campaigns.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-mobile-ads-banner",
-      "githubDir": "skills/google-mobile-ads-banner"
-    },
-    {
       "name": "limrun-android-emulator",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
@@ -2117,24 +2151,6 @@
       "githubDir": "skills/wp-plugin-directory-guidelines"
     },
     {
-      "name": "agent-development",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "智能体开发",
-      "description": "当用户要求“创建或改进技能”、或涉及技能设计与结构时使用。",
-      "enDescription": "This skill should be used when the user asks to \"create an agent\", \"add an agent\", \"write a subagent\", \"agent frontmatter\", \"when to use description\", \"agent examples\", \"agent tools\", \"agent colors\", \"autonomous agent\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "design-media",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/agent-development",
-      "githubDir": "skills/agent-development"
-    },
-    {
       "name": "analyze-project",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -2155,12 +2171,13 @@
       "name": "architecture-blueprint-generator",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "架构蓝图生成器",
-      "description": "分析代码库并生成全面的项目架构蓝图，输出文档化的架构方案。",
-      "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create documented architecture blueprints.",
+      "zh": "架构蓝图生成",
+      "description": "分析代码库生成项目架构蓝图文档",
+      "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
+        "ai-agent",
         "doc-writing",
         "test-qa"
       ],
@@ -2224,8 +2241,8 @@
       "name": "code-review-and-quality",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "代码评审与质量",
-      "description": "执行多维度代码评审。在合并任何改动前使用；适用于评审自己、其他智能体或人类编写的代码。在代码进入主分支前从多个维度评估代码质量。",
+      "zh": "代码审查与质量",
+      "description": "多维度代码审查保障合并质量",
       "enDescription": "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.",
       "homepage": "",
       "allowedTools": [],
@@ -2258,8 +2275,8 @@
       "name": "debugging-and-error-recovery",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "系统化调试与错误恢复",
-      "description": "引导系统化的根因调试。当测试失败、构建中断、行为与预期不符或遇到任何意外错误时使用。采用系统化方法定位并修复根因，而非盲目猜测。",
+      "zh": "调试与错误恢复",
+      "description": "系统化根因调试与错误恢复",
       "enDescription": "Guides systematic root-cause debugging. Use when tests fail, builds break, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need a systematic approach to finding and fixing the root cause rather than guessing.",
       "homepage": "",
       "allowedTools": [],
@@ -2304,24 +2321,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/domain-modeling",
       "githubDir": "skills/domain-modeling"
-    },
-    {
-      "name": "eve",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "Eve 代理编排",
-      "description": "使用 eve 框架构建持久化后端 AI 智能体。",
-      "enDescription": "Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "test-qa",
-        "automation"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/eve",
-      "githubDir": "skills/eve"
     },
     {
       "name": "executing-plans",
@@ -2512,6 +2511,24 @@
       "githubDir": "skills/openspec-implementation"
     },
     {
+      "name": "orca-cli",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "Orca CLI",
+      "description": "用 orca CLI 管理工作树与文件夹",
+      "enDescription": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \\\"$orca-cli\\\", \\\"use orca cli\\\", \\\"Orca worktree\\\", \\\"child worktree\\\", \\\"cardStatus\\\", \\\"spawn codex/claude in a worktree\\\", \\\"read/wait/send Orca terminal\\\", \\\"terminal send\\\", \\\"full handoff\\\", \\\"handover\\\", \\\"give this to another agent\\\", \\\"another worktree\\\", \\\"Orca browser\\\", \\\"orca artifacts\\\", \\\"share HTML/Markdown\\\", \\\"public artifact link\\\", \\\"share skills\\\", or \\\"control the browser inside Orca\\\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "cli",
+        "web-frontend"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/orca-cli",
+      "githubDir": "skills/orca-cli"
+    },
+    {
       "name": "paper-context-resolver",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -2549,18 +2566,35 @@
       "githubDir": "skills/planning-with-files"
     },
     {
+      "name": "playwright-explore-website",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "Playwright 网站探索",
+      "description": "用 Playwright 探索测试网站",
+      "enDescription": "Website exploration for testing using Playwright MCP",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "web-frontend",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-explore-website",
+      "githubDir": "skills/playwright-explore-website"
+    },
+    {
       "name": "project-workflow-analysis-blueprint-generator",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "项目工作流蓝图生成器",
-      "description": "与技术栈无关的全面提示词生成器，用于记录端到端应用的工作流与分析蓝图。",
-      "enDescription": "Comprehensive technology-agnostic prompt generator for documenting end-to-end application workflows and analysis blueprints.",
+      "zh": "项目工作流蓝图",
+      "description": "生成端到端项目工作流技术蓝图",
+      "enDescription": "Comprehensive technology-agnostic prompt generator for documenting end-to-end application workflows. Automatically detects project architecture patterns, technology stacks, and data flow patterns to generate detailed implementation blueprints covering entry points, service layers, data access, error handling, and testing approaches across multiple technologies including .NET, Java/Spring, React, and microservices architectures.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "doc-writing",
-        "test-qa"
+        "web-frontend",
+        "doc-writing"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/project-workflow-analysis-blueprint-generator",
@@ -2754,9 +2788,9 @@
       "name": "write-tech-spec",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
-      "zh": "技术规格撰写",
-      "description": "在研究当前代码库与实现约束后，为重要功能撰写 TECH.md 技术规格文档。",
-      "enDescription": "Write a TECH.md spec for a significant feature after researching the current codebase and implementation constraints.",
+      "zh": "技术规格编写",
+      "description": "研究后编写 TECH.md 技术规格",
+      "enDescription": "Write a TECH.md spec for a significant Warp feature after researching the current codebase and implementation constraints. Use when the user asks for a technical spec, implementation plan, or architecture doc tied to a product spec.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -2862,9 +2896,9 @@
       "name": "agent-browser",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
-      "zh": "智能体浏览器操控",
-      "description": "面向 AI 智能体的浏览器自动化 CLI，用于导航网页、填表、点击、截图、抓取数据、测试 Web 应用或自动化浏览器任务。",
-      "enDescription": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task.",
+      "zh": "浏览器自动化",
+      "description": "为 AI 智能体提供浏览器自动化操作能力",
+      "enDescription": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \\\"open a website\\\", \\\"fill out a form\\\", \\\"click a button\\\", \\\"take a screenshot\\\", \\\"scrape data from a page\\\", \\\"test this web app\\\", \\\"login to a site\\\", \\\"automate browser actions\\\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
       "homepage": "",
       "allowedTools": [
         "Bash(agent-browser:*)",
@@ -2880,30 +2914,12 @@
       "githubDir": "skills/agent-browser"
     },
     {
-      "name": "bailian-web-search",
-      "category": "自动化与集成",
-      "enCategory": "Automation & Integration",
-      "zh": "百炼联网搜索",
-      "description": "阿里云百炼联网搜索入口，为联网搜索、网页搜索与查最新资讯做路径分发。",
-      "enDescription": "Alibaba Bailian web search entry point that routes internet search, web search, and latest-information lookup requests.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "web-frontend",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bailian-web-search",
-      "githubDir": "skills/bailian-web-search"
-    },
-    {
       "name": "browser-automation",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
       "zh": "浏览器与桌面自动化",
-      "description": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
-      "enDescription": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
+      "description": "统一浏览器与桌面应用自动化入口",
+      "enDescription": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -2967,24 +2983,6 @@
       "githubDir": "skills/lark-meeting"
     },
     {
-      "name": "orca-cli",
-      "category": "自动化与集成",
-      "enCategory": "Automation & Integration",
-      "zh": "Orca 命令行工具",
-      "description": "使用公开 orca CLI 操作 Orca 管理工作树与开发流程。",
-      "enDescription": "Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts,\nterminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser\nembedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\",\n\"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\",\n\"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\",\n\"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\",\n\"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside\nOrca\". Prefer this over raw `git worktree`, ad hoc\nPTYs, Playwright, or Computer Use when the task touches Orca-managed state.\nUse Computer Use for browser windows, webviews, or desktop UI outside Orca's\nembedded browser.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "cli",
-        "web-frontend"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/orca-cli",
-      "githubDir": "skills/orca-cli"
-    },
-    {
       "name": "persona-project-manager",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
@@ -3020,24 +3018,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
       "githubDir": "skills/playwright-cli"
-    },
-    {
-      "name": "playwright-explore-website",
-      "category": "自动化与集成",
-      "enCategory": "Automation & Integration",
-      "zh": "Playwright 网站探索",
-      "description": "使用 Playwright MCP 对网站进行探索性测试。",
-      "enDescription": "Website exploration for testing using Playwright MCP.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "web-frontend",
-        "test-qa",
-        "automation"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-explore-website",
-      "githubDir": "skills/playwright-explore-website"
     },
     {
       "name": "playwriter",
@@ -3184,6 +3164,23 @@
       "githubDir": "skills/workflow"
     },
     {
+      "name": "agent-development",
+      "category": "AI 与智能体",
+      "enCategory": "AI & Agents",
+      "zh": "智能体开发",
+      "description": "构建与开发 AI 智能体的方法与最佳实践",
+      "enDescription": "This skill should be used when the user asks to \\\"create an agent\\\", \\\"add an agent\\\", \\\"write a subagent\\\", \\\"agent frontmatter\\\", \\\"when to use description\\\", \\\"agent examples\\\", \\\"agent tools\\\", \\\"agent colors\\\", \\\"autonomous agent\\\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "wordpress"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/agent-development",
+      "githubDir": "skills/agent-development"
+    },
+    {
       "name": "ai-image-generation",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
@@ -3219,6 +3216,24 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-research-reproduction",
       "githubDir": "skills/ai-research-reproduction"
+    },
+    {
+      "name": "bailian-web-search",
+      "category": "AI 与智能体",
+      "enCategory": "AI & Agents",
+      "zh": "百炼联网搜索",
+      "description": "阿里云百炼联网搜索与网页检索路径分发",
+      "enDescription": "阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。 先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为 `token-plan.<region>.maas.aliyuncs.com`）→ 模型自带搜索 （`bl text chat --api responses --tool '{\\\"type\\\":\\\"web_search\\\"}'`）；其他 / 默认 → Bailian MCP（`bl search web`）；仅在 MCP 鉴权失败、未开通或传输失败时兜底一次到模型自带搜索。 Token Plan 联网搜索失败、两条路径鉴权混淆的排查也走本技能。 反触发：宿主可完成的 普通问答 / 编程 / 写作 → 不触发；知识库 RAG → bailian-cli （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune； agents.yaml → bailian-managed-agent。 共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "cli",
+        "web-frontend"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/bailian-web-search",
+      "githubDir": "skills/bailian-web-search"
     },
     {
       "name": "brainstorming",
@@ -3289,22 +3304,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-agents-cli-workflow",
       "githubDir": "skills/google-agents-cli-workflow"
-    },
-    {
-      "name": "hyperframes-core",
-      "category": "AI 与智能体",
-      "enCategory": "AI & Agents",
-      "zh": "HyperFrames 合成核心",
-      "description": "HyperFrames 合成合约——构建单一可渲染项目，用于组合式内容生成。",
-      "enDescription": "The HyperFrames composition contract — build one renderable project for compositional content generation.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-core",
-      "githubDir": "skills/hyperframes-core"
     },
     {
       "name": "ai-avatar-video",
@@ -3476,11 +3475,29 @@
       "githubDir": "skills/douyin-video-summary"
     },
     {
+      "name": "hyperframes-core",
+      "category": "音视频与多媒体",
+      "enCategory": "Media & Multimedia",
+      "zh": "HyperFrames 合成核心",
+      "description": "HyperFrames 合成契约构建可渲染项目",
+      "enDescription": "The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\\\"clip\\\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "cli",
+        "web-frontend"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes-core",
+      "githubDir": "skills/hyperframes-core"
+    },
+    {
       "name": "hyperframes-creative",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
       "zh": "HyperFrames 创意指导",
-      "description": "HyperFrames 视频的非动画创意方向指导。",
+      "description": "HyperFrames 视频非动画创意方向",
       "enDescription": "Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns, and brand / style decisions. For atomic motion patterns and scene blueprints, use `hyperframes-animation`.",
       "homepage": "",
       "allowedTools": [],
@@ -3722,14 +3739,15 @@
       "name": "video",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
-      "zh": "视频创作",
-      "description": "当用户希望使用 AI 工具或程序化方式创作、生成或制作视频内容时使用。",
-      "enDescription": "When the user wants to create, generate, or produce video content using AI tools or programmatic methods.",
+      "zh": "视频生成",
+      "description": "用 AI 创建与生成视频内容",
+      "enDescription": "When the user wants to create, generate, or produce video content using AI tools or programmatic frameworks. Also use when the user mentions 'video production,' 'AI video,' 'Remotion,' 'Hyperframes,' 'HeyGen,' 'Synthesia,' 'Veo,' 'Sora,' 'Runway,' 'Kling,' 'Seedance,' 'Hailuo,' 'MiniMax,' 'Pika,' 'Hunyuan,' 'Wan,' 'video generation,' 'AI avatar,' 'talking head video,' 'programmatic video,' 'video template,' 'explainer video,' 'product demo video,' 'video pipeline,' 'copy this edit,' 'match this video style,' 'reverse-engineer this video,' 'edit like this reference,' or 'make me a video.' Use this for video creation, generation, and production workflows. For video content strategy and what to post, see social. For paid video ad creative, see ad-creative.",
       "homepage": "",
       "allowedTools": [],
       "tags": [
         "ai-agent",
-        "design-media"
+        "design-media",
+        "automation"
       ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/video",

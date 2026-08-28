@@ -1,7 +1,7 @@
 {
   "ad-creative": {
-    "popularity": 0,
-    "size": 213684,
+    "popularity": 1,
+    "size": 214467,
     "files": 13
   },
   "ads-creative": {
@@ -11,12 +11,12 @@
   },
   "agent-browser": {
     "popularity": 0,
-    "size": 3049,
+    "size": 3651,
     "files": 1
   },
   "agent-development": {
     "popularity": 0,
-    "size": 70434,
+    "size": 70400,
     "files": 7,
     "skillVersion": "0.1.0"
   },
@@ -56,23 +56,23 @@
     "files": 4
   },
   "architecture-blueprint-generator": {
-    "popularity": 1,
-    "size": 13335,
+    "popularity": 2,
+    "size": 13536,
     "files": 1
   },
   "bailian-web-search": {
     "popularity": 0,
-    "size": 6929,
+    "size": 8706,
     "files": 1
   },
   "banner-creator": {
     "popularity": 0,
-    "size": 5994129,
+    "size": 5994082,
     "files": 16
   },
   "banner-design": {
     "popularity": 2,
-    "size": 13495,
+    "size": 13475,
     "files": 2
   },
   "better-auth-best-practices": {
@@ -107,7 +107,7 @@
   },
   "browser-automation": {
     "popularity": 1,
-    "size": 21951,
+    "size": 21994,
     "files": 3
   },
   "bun": {
@@ -161,7 +161,7 @@
   },
   "code-review-and-quality": {
     "popularity": 0,
-    "size": 20884,
+    "size": 20732,
     "files": 1
   },
   "codebase-design": {
@@ -236,7 +236,7 @@
   },
   "debugging-and-error-recovery": {
     "popularity": 0,
-    "size": 11175,
+    "size": 11011,
     "files": 1
   },
   "descript": {
@@ -321,7 +321,7 @@
   },
   "eve": {
     "popularity": 0,
-    "size": 1211,
+    "size": 1195,
     "files": 1
   },
   "executing-plans": {
@@ -471,7 +471,7 @@
   },
   "google-mobile-ads-banner": {
     "popularity": 0,
-    "size": 9774,
+    "size": 10273,
     "files": 4
   },
   "grill-me": {
@@ -501,12 +501,12 @@
   },
   "hyperframes-core": {
     "popularity": 0,
-    "size": 171789,
+    "size": 172038,
     "files": 20
   },
   "hyperframes-creative": {
     "popularity": 0,
-    "size": 1197162,
+    "size": 1197158,
     "files": 78
   },
   "image-to-video": {
@@ -577,12 +577,12 @@
   },
   "logo-creator": {
     "popularity": 1,
-    "size": 3713487,
+    "size": 3713450,
     "files": 25
   },
   "logo-designer": {
     "popularity": 0,
-    "size": 43939,
+    "size": 44782,
     "files": 3
   },
   "luma": {
@@ -598,7 +598,7 @@
   },
   "marketing-plan": {
     "popularity": 0,
-    "size": 254580,
+    "size": 255425,
     "files": 15
   },
   "mcp-vods": {
@@ -635,7 +635,7 @@
   },
   "nextjs-app-router-patterns": {
     "popularity": 0,
-    "size": 13833,
+    "size": 13810,
     "files": 2
   },
   "nextjs-code-review": {
@@ -650,7 +650,7 @@
   },
   "nodejs-backend-patterns": {
     "popularity": 0,
-    "size": 26815,
+    "size": 26601,
     "files": 3
   },
   "opc-mvp-designer": {
@@ -671,7 +671,7 @@
   },
   "orca-cli": {
     "popularity": 1,
-    "size": 4136,
+    "size": 4956,
     "files": 1
   },
   "paper-context-resolver": {
@@ -711,7 +711,7 @@
   },
   "playwright-explore-website": {
     "popularity": 0,
-    "size": 858,
+    "size": 852,
     "files": 1
   },
   "playwriter": {
@@ -726,7 +726,7 @@
   },
   "project-workflow-analysis-blueprint-generator": {
     "popularity": 0,
-    "size": 10814,
+    "size": 11057,
     "files": 1
   },
   "prototype": {
@@ -803,7 +803,7 @@
   },
   "remotion-best-practices": {
     "popularity": 1,
-    "size": 1131746,
+    "size": 1131802,
     "files": 137
   },
   "repo-intake-and-plan": {
@@ -970,6 +970,11 @@
     "size": 4709,
     "files": 1
   },
+  "ui-animation": {
+    "popularity": 0,
+    "size": 155007,
+    "files": 20
+  },
   "ui-ux-pro-max": {
     "popularity": 0,
     "size": 3561533,
@@ -982,17 +987,17 @@
   },
   "vercel-composition-patterns": {
     "popularity": 0,
-    "size": 50423,
+    "size": 50477,
     "files": 14
   },
   "vercel-react-best-practices": {
     "popularity": 0,
-    "size": 230717,
+    "size": 230529,
     "files": 76
   },
   "video": {
-    "popularity": 0,
-    "size": 36373,
+    "popularity": 1,
+    "size": 36993,
     "files": 4
   },
   "video-edit": {
@@ -1039,12 +1044,12 @@
   },
   "web-design-guidelines": {
     "popularity": 1,
-    "size": 1526,
+    "size": 1391,
     "files": 1
   },
   "web-prototype": {
     "popularity": 1,
-    "size": 39215,
+    "size": 40704,
     "files": 5
   },
   "wechat-article-writer": {
@@ -1064,12 +1069,12 @@
   },
   "winui-dev-workflow": {
     "popularity": 1,
-    "size": 66776,
+    "size": 62684,
     "files": 4
   },
   "woocommerce-backend-dev": {
     "popularity": 0,
-    "size": 46361,
+    "size": 49151,
     "files": 9
   },
   "wordpress-router": {
@@ -1124,7 +1129,7 @@
   },
   "write-tech-spec": {
     "popularity": 0,
-    "size": 7983,
+    "size": 8046,
     "files": 1
   },
   "writing-plans": {
