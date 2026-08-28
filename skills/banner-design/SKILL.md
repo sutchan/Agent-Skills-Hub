@@ -1,16 +1,13 @@
 ---
 name: banner-design
-description: 为社交媒体、广告、网站主视觉与创意素材等设计横幅。
-en_description: "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills."
-zh_displayName: Banner 设计
-category: 品牌与设计
-en_category: Brand & Design
-argument-hint: [platform] [style] [dimensions]
+description: "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills."
+argument-hint: "[platform] [style] [dimensions]"
 license: MIT
-metadata: |-
+metadata:
   author: claudekit
   version: "1.0.0"
 ---
+
 # Banner Design - Multi-Format Creative Banner System
 
 Design banners across social, ads, web, and print formats. Generates multiple art direction options per request with AI-powered visual elements. This skill handles banner design only. Does NOT handle video editing, full website design, or print production.

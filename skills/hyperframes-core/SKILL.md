@@ -1,11 +1,8 @@
 ---
 name: hyperframes-core
-description: HyperFrames 合成合约——构建单一可渲染项目，用于组合式内容生成。
-en_description: The HyperFrames composition contract — build one renderable project for compositional content generation.
-zh_displayName: HyperFrames 合成核心
-category: AI 与智能体
-en_category: AI & Agents
+description: The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.
 ---
+
 # HyperFrames Core
 
 HyperFrames renders video from HTML. A composition is an HTML file whose DOM declares timing with `data-*` attributes, whose animation runtime is seekable, and whose media playback is owned by the framework.

@@ -1,8 +1,6 @@
 ---
 name: orca-cli
-description: |-
-  使用公开 orca CLI 操作 Orca 管理工作树与开发流程。
-en_description: |-
+description: >-
   Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts,
   terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser
   embedded inside the Orca app. Use when the user says "$orca-cli", "use orca cli",
@@ -14,10 +12,8 @@ en_description: |-
   PTYs, Playwright, or Computer Use when the task touches Orca-managed state.
   Use Computer Use for browser windows, webviews, or desktop UI outside Orca's
   embedded browser.
-zh_displayName: Orca 命令行工具
-category: 自动化与集成
-en_category: Automation & Integration
 ---
+
 # Orca CLI
 
 This file is a discovery stub, not the usage guide. The full, version-matched Orca CLI

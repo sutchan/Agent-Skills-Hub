@@ -1,12 +1,22 @@
 ---
 name: bailian-web-search
-description: 阿里云百炼联网搜索入口，为联网搜索、网页搜索与查最新资讯做路径分发。
-en_description: Alibaba Bailian web search entry point that routes internet search, web search, and latest-information lookup requests.
-zh_displayName: 百炼联网搜索
-category: 自动化与集成
-en_category: Automation & Integration
 metadata:
+  version: "1.18.0"
+  requires:
+    bins: ["bl"]
+description: >-
+  阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。
+  先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为
+  `token-plan.<region>.maas.aliyuncs.com`）→ 模型自带搜索
+  （`bl text chat --api responses --tool '{"type":"web_search"}'`）；其他 / 默认 →
+  Bailian MCP（`bl search web`）；仅在 MCP 鉴权失败、未开通或传输失败时兜底一次到模型自带搜索。
+  Token Plan 联网搜索失败、两条路径鉴权混淆的排查也走本技能。
+  反触发：宿主可完成的 普通问答 / 编程 / 写作 → 不触发；知识库 RAG → bailian-cli
+  （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune；
+  agents.yaml → bailian-managed-agent。
+  共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。
 ---
+
 # Bailian web search routing (`bailian-web-search`)
 
 **CRITICAL — Before executing, MUST read the shared protocol in [`../bailian-protocol/SKILL.md`](../bailian-protocol/SKILL.md): Provider selection and consent, Version & updates (pre-flight checklist), Setup & auth, and CLI errors: report an issue. If that protocol file is missing, stop and run `bl skill init`; do not guess auth/consent.**

@@ -1,11 +1,8 @@
 ---
 name: hyperframes-creative
-description: HyperFrames 视频的非动画创意方向指导。
-en_description: Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns, and brand / style decisions. For atomic motion patterns and scene blueprints, use `hyperframes-animation`.
-zh_displayName: HyperFrames 创意指导
-category: 音视频与多媒体
-en_category: Media & Multimedia
+description: Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns, and brand / style decisions. For atomic motion patterns and scene blueprints, use `hyperframes-animation`.
 ---
+
 # HyperFrames Creative
 
 Brand, pacing, style, narration, and composition direction. Use after the technical contract from `hyperframes-core` is in place.

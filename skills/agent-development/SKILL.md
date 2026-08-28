@@ -1,12 +1,9 @@
 ---
-name: agent-development
-description: 当用户要求“创建或改进技能”、或涉及技能设计与结构时使用。
-en_description: This skill should be used when the user asks to "create an agent", "add an agent", "write a subagent", "agent frontmatter", "when to use description", "agent examples", "agent tools", "agent colors", "autonomous agent", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.
-zh_displayName: 智能体开发
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+name: Agent Development
+description: This skill should be used when the user asks to "create an agent", "add an agent", "write a subagent", "agent frontmatter", "when to use description", "agent examples", "agent tools", "agent colors", "autonomous agent", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.
 version: 0.1.0
 ---
+
 # Agent Development for Claude Code Plugins
 
 ## Overview

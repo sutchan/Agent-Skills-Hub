@@ -1,11 +1,8 @@
 ---
 name: eve
-description: 使用 eve 框架构建持久化后端 AI 智能体。
-en_description: Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.
-zh_displayName: Eve 代理编排
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: Build durable backend AI agents with the eve framework. Use when creating, editing, or debugging an eve project — agent instructions, skills, tools, connections, channels, sandboxes, subagents, schedules, or evals.
 ---
+
 # eve
 
 eve is a filesystem-first framework for durable backend AI agents. An agent is
