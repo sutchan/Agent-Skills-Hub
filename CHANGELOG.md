@@ -2,6 +2,32 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.42] - 2026-08-28
+
+### perf: 消除水合闪烁并修复卡片 memo 失效（React/Next 性能治理）
+
+- **P4 消除水合闪烁（FOUC）**：`layout.tsx` 在 `<head>` 注入同步内联脚本，于 HTML
+  解析阶段即应用 `data-theme` / `data-lang` / `data-name-mode`，早于 React 水合与首屏绘制。
+  此前 theme/lang 初值硬编码、`useEffect` 后置应用，深色偏好用户首屏会闪一下浅色。
+  已验证产物：`.next/server/app/index.html` 的 `<head>` 内正确内联该脚本。
+  ⚠ 键名须用项目实际的连字符格式（`ash-theme` / `ash-lang` / `ash-name-mode`），
+  与 AppShell、SkillsExplorer 一致，勿误用点号格式。
+- **P2 修复 `SkillCard` memo 失效**：`SkillsExplorer` 传给卡片的 `onOpen`/`onClose`/
+  `onOpenSkill` 原为内联箭头函数，每次渲染新引用使 `memo` 完全失效，本页最多 36 张卡片
+  在数据未变时全部重渲染。已改为 `useCallback` 稳定引用（`openSkill` / `closeDetail`）。
+- **P5 消除二次渲染与 SSR 风险**：`view` 状态原先在 `useState` 初始化函数内读
+  `localStorage`（SSR 首屏可能执行），且 `useEffect` 又重复读取一次 → 双重读取 + 二次渲染。
+  已改为初值用默认值、偏好统一由 `useEffect` 一次性恢复（恢复逻辑保留，无偏好丢失）。
+- 重新构建 `data/skills-data.json`（224 技能 / 14 类）与 `prototype/prototype.html`。
+
+### 附注：RSC payload 实测结论（未改动，供后续决策）
+
+实测 `data/skills-data.json` 原始 191KB / gzip 58KB / **brotli 46KB**（非此前估算的 239KB）。
+`enDescription` 占原始体积 45.7%，但为英文态卡片与详情弹窗所必需，且语言由客户端
+`localStorage` 决定、服务端无法预知 → 服务端剥离会导致英文态缺数据，**不可行**。
+`installCommand` + `githubDir` 占 16.9% 且实测 224 个全部可由 `name` 严格派生，
+但压缩后实际收益约 8KB，剥离需改动 `Skill` 类型契约与多个组件，风险收益比不佳，暂不实施。
+
 ## [1.14.41] - 2026-08-28
 
 ### fix: 修复 gitignore 误伤交付文件与 OG 图路径错误

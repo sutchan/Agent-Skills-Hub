@@ -1,6 +1,6 @@
-// app/components/SkillsExplorer.tsx v1.20.61 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 骰子拉起详情
+// app/components/SkillsExplorer.tsx v1.14.42 — 应用主面板：搜索 / 分类 / 排序 / 视图 / 分页 / 网格渲染 / 骰子拉起详情
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
 import type { SkillsData, Skill } from "../lib/skills";
 import { SkillCard } from "./skill-card";
@@ -62,14 +62,9 @@ export function SkillsExplorer({
   const [raw, setRaw] = useState(""); // 搜索框即时输入（受控）
   const [q, setQ] = useState(""); // 防抖后的查询（实际用于过滤，对齐原型 DEBOUNCE_MS=120）
   const composing = useRef(false); // 输入法组合中标志，避免拼音过程狂刷网格
-  const [view, setView] = useState<"grid" | "list">(() => {
-    try {
-      const v = localStorage.getItem("ash-view");
-      return v === "list" ? "list" : "grid";
-    } catch {
-      return "grid";
-    }
-  });
+  // v1.14.42：初值统一用默认值，偏好在下方 useEffect 中一次性恢复。
+  // 此前在 useState 初始化函数里读 localStorage：① SSR 首屏可能执行 ② 与 useEffect 重复读取导致二次渲染。
+  const [view, setView] = useState<"grid" | "list">("grid");
   const [sort, setSort] = useState<"name" | "name-desc" | "cat" | "zh">("name");
   // UI 元素显隐设置（独立持久化到 localStorage + <html data-show-*>）
   const [showDesc, setShowDesc] = useState(true);
@@ -80,6 +75,11 @@ export function SkillsExplorer({
   const [settingsOpen, setShowSettings] = useState(false);
   const [detail, setDetail] = useState<Skill | null>(null);
   const [page, setPage] = useState(0);
+
+  // 稳定回调（v1.14.42）：内联箭头函数每次渲染都是新引用，会使 SkillCard 的 memo 失效，
+  // 导致本页最多 36 张卡片在数据未变时全部重渲染。此处以 useCallback 固定引用（rerender-memo）。
+  const openSkill = useCallback((sk: Skill) => setDetail(sk), []);
+  const closeDetail = useCallback(() => setDetail(null), []);
 
   // 接收 Hero 骰子派发的随机技能打开详情（对齐 prototype 03-detail.js shareSkill/openDetail）
   useEffect(() => {
@@ -325,7 +325,7 @@ export function SkillsExplorer({
           <SkillCard
             key={s.name}
             skill={s}
-            onOpen={(sk) => setDetail(sk)}
+            onOpen={openSkill}
             showDesc={showDesc}
             showCat={showCat}
             showBar={showBar}
@@ -341,8 +341,8 @@ export function SkillsExplorer({
           skill={detail}
           lang={lang}
           allSkills={data.skills}
-          onClose={() => setDetail(null)}
-          onOpenSkill={(sk) => setDetail(sk)}
+          onClose={closeDetail}
+          onOpenSkill={openSkill}
         />
       )}
 
