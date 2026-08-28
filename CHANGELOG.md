@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.48] - 2026-08-28
+
+### fix: 修复顶部栏右侧按钮组布局错散
+
+- **根因**：`AppShell.tsx` 的两个操作按钮（`langBtn`/`themeBtn`）作为 `.topbar-inner`
+  的直接子项，而 `.topbar-inner` 使用 `justify-content: space-between`，导致品牌、
+  语言、主题三个元素被分散到左/中/右三处，按钮组不聚拢在右侧。
+- **修复**：用 `.topbar-actions` 容器包裹右侧按钮组（对齐 prototype 结构：
+  `.topbar-inner` 仅含 `.brand` 与 `.topbar-actions` 两项，`space-between` 自动把
+  操作组推到最右），按钮组恢复聚拢、中间留白由布局自动填充。
+
 ## [1.14.47] - 2026-08-28
 
 ### fix: 修复技能详情弹窗的 UI 错位与样式失效

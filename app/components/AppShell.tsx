@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.20.62 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.14.48 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -207,28 +207,30 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
               <small className="brand-sub">{lang === "zh" ? "高质量 Agent 技能库" : "Curated agent skill library"}</small>
             </span>
           </div>
-          <button
-            id="langBtn"
-            className="icon-btn"
-            title="语言 / Language"
-            aria-label={lang === "zh" ? "切换语言" : "Switch language"}
-            onClick={() => setLang((l) => (l === "zh" ? "en" : "zh"))}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M3 12h18" />
-              <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z" />
-            </svg>
-          </button>
-          <button
-            id="themeBtn"
-            className="icon-btn"
-            title="主题 / Theme"
-            aria-label={theme === "dark" ? "切换到浅色" : "切换到深色"}
-            onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
-          >
-            {theme === "dark" ? "☀" : "🌙"}
-          </button>
+          <div className="topbar-actions" id="topbarActions">
+            <button
+              id="langBtn"
+              className="icon-btn"
+              title="语言 / Language"
+              aria-label={lang === "zh" ? "切换语言" : "Switch language"}
+              onClick={() => setLang((l) => (l === "zh" ? "en" : "zh"))}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18" />
+                <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z" />
+              </svg>
+            </button>
+            <button
+              id="themeBtn"
+              className="icon-btn"
+              title="主题 / Theme"
+              aria-label={theme === "dark" ? "切换到浅色" : "切换到深色"}
+              onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+            >
+              {theme === "dark" ? "☀" : "🌙"}
+            </button>
+          </div>
         </div>
       </header>
 
