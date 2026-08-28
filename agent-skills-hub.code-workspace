@@ -1,3 +1,10 @@
 {
-	"folders": []
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"vercelVSCode.accessToken": "vcp_75Hcn0nf608mAb5dSbqO4bB7exuucG6BGjiMcTeiIVYoLEZaS12GfEEP"
+	}
 }

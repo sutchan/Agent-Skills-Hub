@@ -1,4 +1,4 @@
-// app/components/detail-modal.tsx v1.20.62 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
+// app/components/detail-modal.tsx v1.20.68 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
 "use client";
 import { useEffect, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -47,7 +47,7 @@ export function DetailModal({
 
   return (
     <div className="detail-overlay" id="detailOverlay" role="dialog" aria-modal="true" aria-label={skill.zh || skill.name}>
-      <div className={`detail dialog${flip ? " flip" : ""}`} id="detailDialog" onClick={(e) => e.stopPropagation()}>
+      <div className={`detail dialog show${flip ? " flip" : ""}`} id="detailDialog" onClick={(e) => e.stopPropagation()}>
         <div className="detail-head" id="detailHead">
           <span className="avatar" style={{ ["--hue" as string]: catHue(skill.category) }} aria-hidden="true">
             {initials(skill.name)}

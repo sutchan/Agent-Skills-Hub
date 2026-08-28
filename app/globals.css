@@ -357,6 +357,9 @@ html[data-lang="zh"] .en { display: none; }
 
 /* 详情弹窗（v1.19.14 重构：复用 .dialog 框架，含元信息区 / 相关技能 / 复制名称）
    与原型 .detail 体系对齐，但外层为 .dialog 居中面板 */
+/* 全屏遮罩容器 + 背景层（原缺失导致无遮罩；.detail.dialog 由 .dialog.show 控制可见） */
+.detail-overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; }
+.detail-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 22, .5); backdrop-filter: blur(2px); z-index: 50; }
 /* 详情弹窗：整卡由外层 .dialog 统一滚动，头部不固定（v1.19.30） */
 .detail .dialog-head.detail-head { display: flex; align-items: flex-start; gap: 12px; flex: none; }
 /* 详情弹窗各区块不被 flex 压缩：内容超出时由外层 .dialog 统一滚动（v1.19.21） */

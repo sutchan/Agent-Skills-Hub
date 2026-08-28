@@ -2,6 +2,25 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.39] - 2026-08-28
+
+### chore: 锁定 pnpm 包管理器并规范化技能文档换行符
+
+- `package.json`：新增 `packageManager: pnpm@9.15.0` 与 `preinstall: only-allow pnpm`，
+  强制使用 pnpm；`engines` 放宽 node 至 `22.x || 26.x`、新增 `pnpm: >=9`；版本升至 v1.14.39
+- `skills/**` 全量文档按 `.gitattributes` 强制 LF 换行符规范化（CRLF→LF），消除跨平台差异
+- 同步补充技能 frontmatter 审查修正（ad-creative / banner-creator / vercel-* 等 50 个技能文件）
+- `app/components/detail-modal.tsx` + `app/globals.css`：修复详情弹窗遮罩与显隐
+- `agent-skills-hub.code-workspace`：更新工作区配置
+
+## [1.20.68] - 2026-08-27
+
+### fix: 修复技能详情弹窗无法打开
+
+- **根因**：详情弹窗根节点 `.detail.dialog` 继承 `.dialog { display: none }` 基础样式，但从未加 `.show` 类，导致弹窗始终 `display:none` 不可见；卡片点击/骰子均触发了 `setDetail` 但 DOM 渲染后被 CSS 隐藏。
+- **detail-modal.tsx**：弹窗根节点补 `show` 类（`detail dialog show`），覆盖 `.dialog` 的 `display:none`。
+- **globals.css**：补齐缺失的 `.detail-overlay`（全屏遮罩容器）与 `.detail-backdrop`（半透明背景层）样式，原仅有 `.detail.dialog` 定义，无遮罩背景。
+
 ## [1.20.67] - 2026-08-27
 
 ### refactor: 分类体系升级为 14 类，消灭「其他」违规类
