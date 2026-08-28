@@ -1,4 +1,4 @@
-// app/components/detail-modal.tsx v1.14.43 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
+// app/components/detail-modal.tsx v1.14.46 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
 "use client";
 import { useEffect, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -60,44 +60,46 @@ export function DetailModal({
           <span className="avatar" style={{ ["--hue" as string]: catHue(skill.category) }} aria-hidden="true">
             {initials(skill.name)}
           </span>
-          <div className="detail-titles">
+          <div className="d-title">
             <span className="zh">{skill.zh || skill.name}</span>
             <span className="en">{skill.name}</span>
           </div>
-          <button
-            id="copyNameBtn"
-            className="mini-btn"
-            aria-label={lang === "zh" ? "复制技能名" : "Copy skill name"}
-            onClick={() => copyText(skill.name, lang)}
-          >
-            {lang === "zh" ? "复制名" : "Copy"}
-          </button>
-          <button
-            id="shareSkillBtn"
-            className="mini-btn"
-            aria-label={SHARE_FEEDBACK[lang].btn}
-            onClick={async () => {
-              const origin = typeof window !== "undefined" ? window.location.origin : undefined;
-              const ok = await copySkillShare(skill, lang, allSkills.length, origin);
-              if (typeof window !== "undefined") {
-                window.dispatchEvent(new CustomEvent("skill-share-feedback", { detail: { ok } }));
-              }
-            }}
-          >
-            {SHARE_FEEDBACK[lang].btn}
-          </button>
-          <button
-            id="detailCloseBtn"
-            className="icon-btn"
-            aria-label={lang === "zh" ? "关闭" : "Close"}
-            onClick={onClose}
-          >
-            ✕
-          </button>
+          <div className="d-actions">
+            <button
+              id="copyNameBtn"
+              className="btn ghost"
+              aria-label={lang === "zh" ? "复制技能名" : "Copy skill name"}
+              onClick={() => copyText(skill.name, lang)}
+            >
+              {lang === "zh" ? "复制名" : "Copy"}
+            </button>
+            <button
+              id="shareSkillBtn"
+              className="btn ghost"
+              aria-label={SHARE_FEEDBACK[lang].btn}
+              onClick={async () => {
+                const origin = typeof window !== "undefined" ? window.location.origin : undefined;
+                const ok = await copySkillShare(skill, lang, allSkills.length, origin);
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("skill-share-feedback", { detail: { ok } }));
+                }
+              }}
+            >
+              {SHARE_FEEDBACK[lang].btn}
+            </button>
+            <button
+              id="detailCloseBtn"
+              className="detail-close"
+              aria-label={lang === "zh" ? "关闭" : "Close"}
+              onClick={onClose}
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         <div className="detail-body" id="detailBody">
-          {desc && <p className="detail-desc" id="detailDesc">{desc}</p>}
+          {desc && <p className="d-desc" id="detailDesc">{desc}</p>}
 
           <DetailMeta skill={skill} lang={lang} />
           <DetailMetrics skill={skill} allSkills={allSkills} lang={lang} />
@@ -106,16 +108,16 @@ export function DetailModal({
           {tools.length > 0 && (
             <div className="d-tools" id="detailTools">
               <h4>{lang === "zh" ? "允许的工具" : "Allowed tools"}</h4>
-              <div className="tool-tags">
+              <div className="tool-chips">
                 {tools.map((t) => (
-                  <span className="tool-tag" key={t}>{t}</span>
+                  <span className="tool-chip" key={t}>{t}</span>
                 ))}
               </div>
             </div>
           )}
 
           {githubUrl && (
-            <a className="d-link" id="detailGithubLink" href={githubUrl} target="_blank" rel="noreferrer">
+            <a className="meta-v link" id="detailGithubLink" href={githubUrl} target="_blank" rel="noreferrer">
               {lang === "zh" ? "在 GitHub 查看" : "View on GitHub"} ↗
             </a>
           )}
@@ -123,7 +125,6 @@ export function DetailModal({
           <DetailRelated skill={skill} allSkills={allSkills} lang={lang} onOpenSkill={onOpenSkill} />
         </div>
       </div>
-      <div className="detail-backdrop" id="detailBackdrop" onClick={onClose} aria-hidden="true" />
     </div>
   );
 }

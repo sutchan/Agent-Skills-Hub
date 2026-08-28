@@ -2,6 +2,30 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.47] - 2026-08-28
+
+### fix: 修复技能详情弹窗的 UI 错位与样式失效
+
+- **对齐组件 class 名到 CSS 已定义体系**（components-shared 同源规则）：
+  `detail-modal` 的 `.detail-titles`→`.d-title`、`.detail-desc`→`.d-desc`、
+  复制名/分享按钮 `.mini-btn`→`.d-actions` 内的 `.btn.ghost`、`.d-link`→
+  `.meta-v.link`、`.d-tools`/`.tool-tags`/`.tool-tag`→`.tool-chips`/`.tool-chip`；
+  `DetailInstall` 的 `.install`→`.d-install`、`.install-cmd`→`.cmd-row`、
+  `.mini-btn`→`.btn.ghost`、`.install-source`→`.meta-v.link`；
+  `DetailRelated` 的 `.related`→`.d-related`、`.related-item`→`.related-card`、
+  `.related-name`→`.rc-name`。
+- **修复滚动容器矛盾**：`.detail.dialog` 明确为 `position:relative; overflow-y:auto`
+  的居中滚动面板，覆盖 layout/components-shared 中 `.detail`(absolute) 与
+  `.dialog`(fixed overflow:hidden) 的冲突，内容超高时不再被裁切。
+- **修复遮罩层叠遮挡**：移除冗余的 `.detail-backdrop` 兄弟节点，改由
+  `.detail-overlay` 自身承载半透明背景，消除 backdrop 覆盖 dialog 导致点击关闭失效。
+- **修复 CSS 语法污染**：重建 hero 动画（coreGlow/hubPulse/netFloat/netBreathe/netDot）
+  与 `.dialog.flip`(`flipIn`)/`.card.pulse`(`cardPulse`) 的 `@keyframes` 包裹，
+  消除 sync 过程遗留的游离百分比块导致的解析错误。
+- **删除失效/重复规则**：移除不命中的 `.detail .dialog-head.detail-head` 选择器，
+  清理 globals.css 中与 components-shared 重复的 `.detail-meta`/`.detail-metrics`/
+  `.detail-body`/`.d-install` 全局定义，统一由 sync 管线（components-shared）为权威源。
+
 ## [1.14.46] - 2026-08-28
 
 ### chore: 审查并修正 223 个技能的元数据与分类

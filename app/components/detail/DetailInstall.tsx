@@ -1,4 +1,4 @@
-// app/components/detail/DetailInstall.tsx v1.20.34 — 技能详情弹窗：安装命令与复制
+// app/components/detail/DetailInstall.tsx v1.14.47 — 技能详情弹窗：安装命令与复制
 import type { Lang } from "../../lib/share";
 import { REPO_URL } from "../../lib/share";
 import type { Skill } from "../../lib/skills";
@@ -11,11 +11,12 @@ const SKILLS_MANAGER_URL = "https://github.com/xingkongliang/skills-manager";
 export function DetailInstall({ skill, lang }: { skill: Skill; lang: Lang }) {
   if (!skill.installCommand) return null;
   return (
-    <div className="install" id="detailInstall">
-      <div className="install-cmd">
-        <code>{skill.installCommand}</code>
+    <div className="d-install" id="detailInstall">
+      <h4>{lang === "zh" ? "安装命令" : "Install"}</h4>
+      <div className="cmd-row">
+        <code className="cmd-text">{skill.installCommand}</code>
         <button
-          className="mini-btn"
+          className="btn ghost"
           id="copyCmdBtn"
           aria-label={lang === "zh" ? "复制安装命令" : "Copy install command"}
           onClick={() => copyText(skill.installCommand, lang)}
@@ -24,7 +25,7 @@ export function DetailInstall({ skill, lang }: { skill: Skill; lang: Lang }) {
         </button>
       </div>
       <a
-        className="install-source"
+        className="meta-v link"
         id="installSource"
         href={REPO_URL}
         target="_blank"
@@ -34,7 +35,7 @@ export function DetailInstall({ skill, lang }: { skill: Skill; lang: Lang }) {
         {REPO_URL}
       </a>
       <a
-        className="btn primary open-ext"
+        className="btn primary"
         id="skillManagerBtn"
         href={SKILLS_MANAGER_URL}
         target="_blank"
