@@ -1,0 +1,27 @@
+/* responsive-shared.css — 由 prototype/src/styles/responsive.css v1.20.37 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
+/* 平板断点（P2-2）：压缩 hero 字号与顶栏间距，避免 641–1024 区间拥挤 */
+@media (max-width: 1024px) {
+  .hero { padding: 36px 24px; margin: 8px auto 22px; }
+  .hero h1 { font-size: clamp(26px, 3.6vw, 38px); }
+  .topbar-inner { padding: 10px 18px; }
+  .grid { padding: 20px; gap: 14px; grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .topbar-inner { padding: 10px 16px; }
+  .hero { padding: 36px 16px 22px; }
+  .controls-inner { padding: 12px 16px; }
+  .search { flex: 1 1 100%; }
+  /* 移动端 grid 与 list 视觉相同（都单列），隐藏无效的视图切换控件 */
+  .view-toggle { display: none; }
+  .grid { padding: 16px; gap: 12px; grid-template-columns: 1fr; }
+  .dialog { width: 96vw; height: 90vh; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-copy { margin-left: 0; }
+}
+
+@media (max-width: 640px) {
+  /* 移动端卡片：标题可换行，避免长技能名截断 */
+  .card-title { white-space: normal; }
+}
+

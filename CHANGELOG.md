@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.45] - 2026-08-28
+
+### chore: 建立 app CSS 与 prototype 的自动同步流水线
+
+- **新增 `tools/sync-css.mjs`**：将 `prototype/src/styles` 的 base/layout/components/responsive
+  四模块同步为 `app/{base,layout,components,responsive}-shared.css`（头部标注 prototype 事实源版本，勿手改）。
+- **重构 `app/globals.css` 为两层结构**：① `@import` 引入 tokens-shared + 四个 shared（prototype 同源规则）；
+  ② 下方「APP 扩展区」仅保留 app 独有/改写原型的规则，优先于 shared 生效。
+  策略保证 prototype 演进后重跑脚本即消除版本漂移，且不破坏 app 既有适配（19 处 app 改写规则全部保留）。
+- **接入 `package.json` build / predev**：`node tools/sync-tokens.mjs && node tools/sync-css.mjs`，
+  实现 `npm run build` 自动同步 prototype 令牌与样式。
+- 修正 `globals.css` 分页注释「每页 48 条」→「每页 36 条」（对齐 `SkillsExplorer` 的 `PAGE_SIZE=36`）。
+- 同步 README 中/英文版本徽章至真实版本（此前长期停在 v1.20.67，与 package.json 脱节）。
+- 版本 bump 至 v1.14.45。
+
 ## [1.14.44] - 2026-08-28
 
 ### fix: 移除 preinstall 强制 pnpm 脚本，修复 EO CI 构建失败

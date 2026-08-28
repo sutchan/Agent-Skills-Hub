@@ -28,7 +28,7 @@
   --shadow-md: 0 4px 12px -2px hsl(var(--shadow-color) / .10), 0 2px 6px -2px hsl(var(--shadow-color) / .06);
   --shadow-lg: 0 12px 32px -8px hsl(var(--shadow-color) / .16), 0 4px 10px -4px hsl(var(--shadow-color) / .08);
   --shadow-pop: var(--shadow-lg);
-  --font-display: Georgia, "Times New Roman", "Songti SC", "STSong", "PingFang SC", "Microsoft YaHei", serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Songti SC", "STSong", "PingFang SC", "Microsoft YaHei", system-ui, serif;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --font-en: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
@@ -50,21 +50,21 @@ html[data-theme="dark"] {
   --card-foreground: 220 18% 92%;
   --popover: 224 24% 11%;
   --popover-foreground: 220 18% 92%;
-  --primary: 146 52% 60%;
+  --primary: 152 56% 58%;
   --primary-foreground: 224 32% 8%;
   --secondary: 224 18% 18%;
   --secondary-foreground: 220 18% 88%;
   --muted: 224 18% 16%;
   --muted-foreground: 220 12% 60%;
-  --accent: 146 52% 22%;
-  --accent-foreground: 146 52% 82%;
+  --accent: 152 56% 22%;
+  --accent-foreground: 152 56% 82%;
   --destructive: 0 62% 52%;
   --destructive-foreground: 0 0% 100%;
   --border: 224 16% 22%;
   --input: 224 16% 24%;
-  --ring: 146 52% 60%;
-  --node: 146 52% 62%;              /* 深色节点亮绿 */
-  --line: 146 30% 34%;              /* 深色节点连线 */
+  --ring: 152 56% 58%;
+  --node: 152 56% 62%;              /* 深色节点亮绿 */
+  --line: 152 30% 34%;              /* 深色节点连线 */
   --shadow-color: 0 0% 0%;
   --shadow-xs: 0 1px 2px hsl(var(--shadow-color) / .4);
   --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / .5), 0 2px 6px -1px hsl(var(--shadow-color) / .4);

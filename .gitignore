@@ -73,3 +73,4 @@ _*.mjs
 !skills/**/*.mjs
 !skills/**/*.txt
 !skills/**/*.md
+_msg.txt
