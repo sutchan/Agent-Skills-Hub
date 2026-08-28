@@ -2,6 +2,23 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.41] - 2026-08-28
+
+### fix: 修复 gitignore 误伤交付文件与 OG 图路径错误
+
+- **根 .gitignore**：移除 `*.txt` / `*.mjs` 宽泛通配（会误伤技能 LICENSE 与工具链），
+  改为精确忽略 `_*.mjs` 与 `*.log`；显式放行 `next.config.mjs`、`tools/**/*.mjs`、
+  `skills/**/*.mjs` / `*.txt` / `*.md`。
+- **skills/.gitignore（真凶）**：子目录级规则优先级高于根规则，其第 54-55 行
+  `*.mjs` / `*.txt` 导致 11 个技能 LICENSE.txt、12 个技能脚本、3 个字体许可、
+  30 个技能文档长期未入库（技能 LICENSE 合规缺失、脚本不可用）。已重写为
+  仅忽略 skills 范围内的临时/缓存/依赖/凭证文件。
+- 恢复入库：`next.config.mjs`（部署必需，此前被忽略）、5 个 `tools/*.mjs` 工具脚本、
+  12 个 `skills/**/*.mjs` 技能脚本、11 个技能 `LICENSE.txt`、3 个 `OFL-*.txt` 字体许可。
+- **tools/build.mjs**：OG 图源路径由不存在的 `app/public/` 修正为仓库根 `public/`
+  （此前 banner-og.svg 从未复制到 prototype/，社交分享图缺失），并补缺失告警。
+- 统一记忆目录：`.codebuddy` 与 `.workbuddy` 内容一致，已合并并以链接指向 `.workbuddy`。
+
 ## [1.14.40] - 2026-08-28
 
 ### fix: 修复原型卡片无法点击与 hero 区功能丢失

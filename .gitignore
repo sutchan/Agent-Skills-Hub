@@ -55,20 +55,21 @@ prototype/out/_next/
 .secret.key
 .env
 .env.local
-*.txt
 *.ffs_db
 
-# 构建脚本（核心工具链，必须入库）：放行根构建脚本与 CI 兼容转发层
-# 其余 *.mjs 临时脚本默认忽略，避免污染
-*.mjs
-!tools/build-skills-data.mjs
-!tools/build.mjs
-!tools/sync-tokens.mjs
-!prototype/build-skills-data.mjs
-!tools/validate-skills.mjs
-!tools/_scan_fm_bug.mjs
-# tools/lib/ 为共享模块（taxonomy / frontmatter / popularity 及单测），属核心工具链，必须入库
+# 注意：切勿用 *.txt / *.mjs / *.md 这类宽泛通配忽略"临时脚本"，
+# 会误伤技能 LICENSE.txt、next.config.mjs（部署必需）、skills/**/*.mjs（技能脚本）、技能文档。
+# 改为仅精确忽略根目录下以下划线开头的临时脚本与各类日志。
+_*.mjs
+*.log
+
+# 构建脚本（核心工具链，必须入库）：显式放行，避免上面规则误伤
+!next.config.mjs
+!tools/**/*.mjs
 !tools/lib/
 !tools/lib/*.mjs
-*.log
-*.mjs
+!prototype/build-skills-data.mjs
+# 技能自带脚本与许可证、文档均为交付内容，必须入库
+!skills/**/*.mjs
+!skills/**/*.txt
+!skills/**/*.md

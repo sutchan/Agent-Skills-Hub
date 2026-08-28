@@ -91,10 +91,13 @@ if (existsSync(favSrc)) {
   console.log("Copied favicon.svg -> prototype/favicon.svg");
 }
 // 复制社交分享横幅（Open Graph / Twitter Card），供 prototype.html 的 og:image 引用
-const ogSrc = join(ROOT, "app", "public", "banner-og.svg");
+// 品牌资产单一来源为仓库根 public/，非 app/public/（app 下无 public 目录）
+const ogSrc = join(ROOT, "public", "banner-og.svg");
 if (existsSync(ogSrc)) {
   copyFileSync(ogSrc, join(OUT_DIR, "banner-og.svg"));
   console.log("Copied banner-og.svg -> prototype/banner-og.svg");
+} else {
+  console.warn("WARN: banner-og.svg not found at public/banner-og.svg, og:image file not copied");
 }
 
 // 注：app/tokens-shared.css 不再由本脚本生成。令牌单一来源同步已拆出为
