@@ -1,6 +1,7 @@
 ---
 name: limrun-detox-testing
 category: 移动端开发
+en_category: Mobile Dev
 description: Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over destination tunnels.
 user-invocable: true
 ---

@@ -1,5 +1,5 @@
 ---
-name: prototype-2
+name: prototype-ui-picker
 description: 为某 UI 片段构建多个真正不同的版本供对比。
 en_description: Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.
 zh_displayName: UI 多版本原型

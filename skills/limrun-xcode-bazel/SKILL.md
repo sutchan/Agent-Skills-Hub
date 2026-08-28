@@ -1,6 +1,7 @@
 ---
 name: limrun-xcode-bazel
 category: 移动端开发
+en_category: Mobile Dev
 description: "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace (MODULE.bazel / WORKSPACE) building rules_apple / rules_swift targets and the user wants to `bazel build` it or run it on a simulator, or when a `--config=limrun` build or install misbehaves. To then tap, type, screenshot, or otherwise interact with the running app, use limrun-ios-simulator. For non-Bazel (plain xcodebuild) projects use limrun-xcode instead."
 user-invocable: true
 effort: high

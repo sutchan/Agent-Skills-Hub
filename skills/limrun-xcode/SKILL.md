@@ -1,6 +1,7 @@
 ---
 name: limrun-xcode
 category: 移动端开发
+en_category: Mobile Dev
 description: "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, or run its XCTest suites with `lim xcode test`, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects (an `.xcodeproj` / `.xcworkspace`, an XcodeGen `project.yml` with a gitignored project, React Native / Expo native build) when the user wants to build, compile, test, reload, produce a preview build, or ship a signed device IPA. To run, tap, screenshot, or otherwise interact with the result on a simulator, use limrun-ios-simulator. For Bazel workspaces, use limrun-xcode-bazel."
 user-invocable: true
 effort: high

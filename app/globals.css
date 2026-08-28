@@ -11,9 +11,6 @@
 @import "./responsive-shared.css";
 
 /* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
-/* 打开弹窗时锁定背景滚动 */
-body.no-scroll { overflow: hidden; }
-
 /* 尊重用户的减少动效偏好（无障碍 WCAG 2.3.3） */
 
 @media (prefers-reduced-motion: reduce) {

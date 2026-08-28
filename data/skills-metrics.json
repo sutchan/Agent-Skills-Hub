@@ -45,9 +45,9 @@
     "size": 7825,
     "files": 1
   },
-  "ai-video-generation-2": {
+  "ai-video-generation-runcomfy": {
     "popularity": 2,
-    "size": 25253,
+    "size": 25260,
     "files": 1
   },
   "analyze-project": {
@@ -374,13 +374,8 @@
     "size": 5865,
     "files": 1
   },
-  "find-skills-2": {
-    "popularity": 0,
-    "size": 4917,
-    "files": 1
-  },
   "fix-sentry-issues": {
-    "popularity": 0,
+    "popularity": 1,
     "size": 4980,
     "files": 1
   },
@@ -471,7 +466,7 @@
   },
   "google-mobile-ads-banner": {
     "popularity": 0,
-    "size": 10273,
+    "size": 9931,
     "files": 4
   },
   "grill-me": {
@@ -545,28 +540,28 @@
     "files": 30
   },
   "limrun-android-emulator": {
-    "popularity": 0,
-    "size": 14424,
+    "popularity": 1,
+    "size": 14723,
     "files": 1
   },
   "limrun-detox-testing": {
     "popularity": 0,
-    "size": 5990,
+    "size": 6016,
     "files": 1
   },
   "limrun-ios-simulator": {
-    "popularity": 0,
-    "size": 13890,
+    "popularity": 3,
+    "size": 14225,
     "files": 1
   },
   "limrun-xcode": {
-    "popularity": 0,
-    "size": 16140,
+    "popularity": 2,
+    "size": 17642,
     "files": 1
   },
   "limrun-xcode-bazel": {
-    "popularity": 0,
-    "size": 15400,
+    "popularity": 2,
+    "size": 15698,
     "files": 3
   },
   "logo-animation": {
@@ -608,13 +603,13 @@
   },
   "muapi-3d-logo-animation": {
     "popularity": 0,
-    "size": 2830,
+    "size": 2734,
     "files": 1,
     "skillVersion": "1.0.0"
   },
   "muapi-logo-creator": {
     "popularity": 0,
-    "size": 3596,
+    "size": 3489,
     "files": 1,
     "skillVersion": "0.1.0"
   },
@@ -706,7 +701,7 @@
   },
   "playwright-cli": {
     "popularity": 0,
-    "size": 58774,
+    "size": 58652,
     "files": 10
   },
   "playwright-explore-website": {
@@ -734,16 +729,6 @@
     "size": 16129,
     "files": 4
   },
-  "prototype-2": {
-    "popularity": 0,
-    "size": 15199,
-    "files": 2
-  },
-  "prototype-3": {
-    "popularity": 1,
-    "size": 15754,
-    "files": 4
-  },
   "prototype-design-explore": {
     "popularity": 1,
     "size": 15771,
@@ -769,6 +754,11 @@
     "popularity": 1,
     "size": 289975,
     "files": 22
+  },
+  "prototype-ui-picker": {
+    "popularity": 0,
+    "size": 15207,
+    "files": 2
   },
   "prototype-ui-variants": {
     "popularity": 0,
@@ -833,7 +823,7 @@
     "skillVersion": "1.0.0"
   },
   "setup-matt-pocock-skills": {
-    "popularity": 0,
+    "popularity": 1,
     "size": 19586,
     "files": 7
   },
@@ -843,18 +833,18 @@
     "files": 10
   },
   "short-drama-storyboard": {
-    "popularity": 1,
-    "size": 145127,
+    "popularity": 0,
+    "size": 145165,
     "files": 22
   },
   "short-drama-video-prompts": {
-    "popularity": 1,
-    "size": 180195,
+    "popularity": 0,
+    "size": 180250,
     "files": 22
   },
   "short-drama-write": {
     "popularity": 0,
-    "size": 214415,
+    "size": 214530,
     "files": 19
   },
   "simplify": {
@@ -879,7 +869,7 @@
   },
   "stripe-best-practices": {
     "popularity": 0,
-    "size": 60318,
+    "size": 60905,
     "files": 7
   },
   "suno": {
@@ -947,18 +937,23 @@
   },
   "travel-planner": {
     "popularity": 0,
-    "size": 58764,
+    "size": 58777,
     "files": 7
   },
-  "travel-planner-2": {
+  "travel-planner-itinerary": {
     "popularity": 0,
-    "size": 11761,
+    "size": 5874,
     "files": 1
   },
-  "travel-planner-3": {
+  "travel-planner-research": {
     "popularity": 0,
-    "size": 5853,
+    "size": 11781,
     "files": 1
+  },
+  "triage": {
+    "popularity": 0,
+    "size": 19377,
+    "files": 4
   },
   "twitter-api": {
     "popularity": 0,
@@ -1007,7 +1002,7 @@
   },
   "video-editing": {
     "popularity": 3,
-    "size": 10152,
+    "size": 9801,
     "files": 1
   },
   "video-storyboard": {

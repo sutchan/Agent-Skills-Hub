@@ -1,6 +1,7 @@
 ---
 name: stripe-best-practices
 category: 后端与平台
+en_category: Backend & Platform
 description: >-
   Guides Stripe integration decisions across API selection (Checkout Sessions vs
   PaymentIntents), Connect platform setup (Accounts v2, controller properties),

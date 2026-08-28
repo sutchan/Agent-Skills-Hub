@@ -1,6 +1,7 @@
 ---
 name: triage
 category: 工程实践与质量
+en_category: Engineering Practice & Quality
 description: Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.
 disable-model-invocation: true
 ---

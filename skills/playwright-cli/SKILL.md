@@ -1,6 +1,7 @@
 ---
 name: playwright-cli
 category: 工程实践与质量
+en_category: Engineering Practice & Quality
 description: Automate browser interactions, test web pages and work with Playwright tests.
 allowed-tools: Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)
 ---

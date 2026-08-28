@@ -2,6 +2,7 @@
 slug: muapi-3d-logo-animation
 name: muapi-3d-logo-animation
 category: 品牌与设计
+en_category: Brand & Design
 version: "1.0.0"
 description: Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects.
 acceptLicenseTerms: true

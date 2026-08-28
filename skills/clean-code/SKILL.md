@@ -1,15 +1,10 @@
 ---
 name: clean-code
-description: |-
-  通过规范的命名、小函数与干净的错误处理编写可读、可维护的代码。当用户提到清理代码、函数过长、代码异味、命名规范、童子军法则、单一职责或单元测试质量时触发；亦用于 PR 可读性审查、理顺混乱函数、改进错误处理。覆盖 SRP、注释纪律、格式化与单元测试。
+description: 'Write readable, maintainable code through disciplined naming, small functions, and clean error handling. Use when the user mentions "clean up this code", "this function is too long", "code smells", "naming conventions", "boy scout rule", "single responsibility", or "unit test quality". Also trigger when reviewing a pull request for readability, untangling a messy function, debating comment styles, or improving error-handling patterns. Covers SRP, comment discipline, formatting, and unit testing. For refactoring techniques, see refactoring-patterns. For architecture and dependency rules, see clean-architecture.'
 license: MIT
 metadata:
   author: wondelai
   version: "1.4.0"
-en_description: Write readable, maintainable code: disciplined naming, small functions, clean error handling, unit tests.
-zh_displayName: 整洁代码
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
 ---
 
 # Clean Code Framework

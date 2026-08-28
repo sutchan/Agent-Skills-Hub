@@ -1,5 +1,5 @@
 {
-  "total": 223,
+  "total": 222,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -443,22 +443,6 @@
       "githubDir": "skills/frontend-design"
     },
     {
-      "name": "google-mobile-ads-banner",
-      "category": "品牌与设计",
-      "enCategory": "Brand & Design",
-      "zh": "Google 移动广告横幅",
-      "description": "实现与配置 Google 移动广告横幅",
-      "enDescription": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "design-media"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-mobile-ads-banner",
-      "githubDir": "skills/google-mobile-ads-banner"
-    },
-    {
       "name": "logo-animation",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -529,9 +513,9 @@
       "name": "muapi-3d-logo-animation",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "3D Logo 动画",
-      "description": "将 2D logo 转为高级 3D 版本并制作动画。",
-      "enDescription": "Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects.",
+      "zh": "",
+      "description": "Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects.",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -545,9 +529,9 @@
       "name": "muapi-logo-creator",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
-      "zh": "Logo 创作(MUAPI)",
-      "description": "使用几何基元工程化生成专业级品牌 logo。",
-      "enDescription": "Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai",
+      "zh": "",
+      "description": "Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -664,59 +648,6 @@
       "license": "Complete terms in LICENSE.txt",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/theme-factory",
       "githubDir": "skills/theme-factory"
-    },
-    {
-      "name": "travel-planner",
-      "category": "品牌与设计",
-      "enCategory": "Brand & Design",
-      "zh": "旅行规划助手",
-      "description": "当用户需要规划行程、创建旅行 itinerary、管理旅行预算或寻求目的地建议时使用。首次使用时收集预算水平、旅行风格、兴趣与饮食限制等偏好，生成逐日行程、预算拆分、打包清单、文化注意事项与区域专属时间表，并维护偏好与历史行程库以做个性化推荐。",
-      "enDescription": "Use whenever users need help planning trips, creating travel itineraries, managing travel budgets, or seeking destination advice. On first use, collects comprehensive travel preferences including budget level, travel style, interests, and dietary restrictions. Generates detailed plans with day-by-day itineraries, budget breakdowns, packing checklists, cultural do's and don'ts, and region-specific schedules. Maintains a database of preferences and past trips for personalized recommendations.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "data",
-        "design-media"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner",
-      "githubDir": "skills/travel-planner"
-    },
-    {
-      "name": "travel-planner-2",
-      "category": "品牌与设计",
-      "enCategory": "Brand & Design",
-      "zh": "旅行规划助手（变体2）",
-      "description": "旅行目的地调研与每日行程制定，含物流规划、预算跟踪与体验优化。当用户规划行程、创建旅行 itinerary、对比目的地或组织旅行物流时使用。",
-      "enDescription": "Travel destination research and daily itinerary creation with logistics planning, budget tracking, and experience optimization. Use when planning trips, creating travel itineraries, comparing destinations, or organizing travel logistics.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "design-media"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-2",
-      "githubDir": "skills/travel-planner-2"
-    },
-    {
-      "name": "travel-planner-3",
-      "category": "品牌与设计",
-      "enCategory": "Brand & Design",
-      "zh": "旅行行程规划（变体3）",
-      "description": "创建综合旅行行程，含目的地分析、预算规划、交通、住宿与本地洞察。当用户规划行程、组织旅行日程或寻求目的地推荐时使用。",
-      "enDescription": "Creates comprehensive travel itineraries with destination analysis, budget planning, transportation, accommodation, and local insights. Use when planning trips, organizing travel schedules, or seeking destination recommendations.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "design-media",
-        "automation"
-      ],
-      "hidden": false,
-      "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-3",
-      "githubDir": "skills/travel-planner-3"
     },
     {
       "name": "ui-ux-pro-max",
@@ -1045,39 +976,6 @@
       "githubDir": "skills/prototype"
     },
     {
-      "name": "prototype-2",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "UI 多版本原型",
-      "description": "为某 UI 片段构建多个真正不同的版本供对比。",
-      "enDescription": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "web-frontend"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-2",
-      "githubDir": "skills/prototype-2"
-    },
-    {
-      "name": "prototype-3",
-      "category": "前端开发",
-      "enCategory": "Frontend Dev",
-      "zh": "设计探索原型",
-      "description": "构建一次性原型来回答一个设计问题。适用于用户想验证某个 state model 或 logic 是否感觉对，或探索 UI 应该长什么样时。",
-      "enDescription": "Build a one-off prototype to answer a design question — verify whether a state model or logic feels right, or explore what the UI should look like.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "web-frontend",
-        "design-media"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-3",
-      "githubDir": "skills/prototype-3"
-    },
-    {
       "name": "prototype-design-explore",
       "category": "前端开发",
       "enCategory": "Frontend Dev",
@@ -1130,6 +1028,22 @@
       "license": "Apache-2.0",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-stardust",
       "githubDir": "skills/prototype-stardust"
+    },
+    {
+      "name": "prototype-ui-picker",
+      "category": "前端开发",
+      "enCategory": "Frontend Dev",
+      "zh": "UI 多版本原型",
+      "description": "为某 UI 片段构建多个真正不同的版本供对比。",
+      "enDescription": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "web-frontend"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-ui-picker",
+      "githubDir": "skills/prototype-ui-picker"
     },
     {
       "name": "prototype-ui-variants",
@@ -1485,12 +1399,16 @@
       "name": "stripe-best-practices",
       "category": "后端与平台",
       "enCategory": "Backend & Platform",
-      "zh": "Stripe 最佳实践",
-      "description": "在 Stripe 集成决策上提供指引：API 选型（Checkout Sessions vs PaymentIntents）、Connect 平台搭建等。",
-      "enDescription": "Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents) and Connect platform setup.",
+      "zh": "",
+      "description": "Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, restricted keys, webhooks, OAuth). Use when building, modifying, or reviewing any Stripe integration, including accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
-      "tags": [],
+      "tags": [
+        "web-frontend",
+        "test-qa",
+        "security"
+      ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/stripe-best-practices",
       "githubDir": "skills/stripe-best-practices"
@@ -1869,15 +1787,33 @@
       "githubDir": "skills/flutter-use-http-package"
     },
     {
-      "name": "limrun-android-emulator",
+      "name": "google-mobile-ads-banner",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
-      "zh": "Limrun Android 模拟器",
-      "description": "驱动运行在 Limrun 云端 Android 模拟器上的应用：安装 APK、启动与终止、交互操作。",
-      "enDescription": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate, interact with the UI.",
+      "zh": "Google 移动广告横幅",
+      "description": "实现与配置 Google 移动广告横幅",
+      "enDescription": "Provides instructions to implement, integrate, or configure Google Mobile Ads (GMA) banner ads in Android, iOS, or Unity mobile applications. Use when the task involves setting up banner ads in a mobile application. Don't use for other ad formats like interstitial or rewarded ads.",
       "homepage": "",
       "allowedTools": [],
       "tags": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/google-mobile-ads-banner",
+      "githubDir": "skills/google-mobile-ads-banner"
+    },
+    {
+      "name": "limrun-android-emulator",
+      "category": "移动端开发",
+      "enCategory": "Mobile Dev",
+      "zh": "",
+      "description": "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, and use adb over the CLI's tunnel for logcat, files, and shell. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', or 'record a video'. To build the APK or AAB first, use limrun-gradle.",
+      "enDescription": "",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "cli",
+        "doc-writing",
+        "design-media"
+      ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-android-emulator",
       "githubDir": "skills/limrun-android-emulator"
@@ -1886,12 +1822,13 @@
       "name": "limrun-detox-testing",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
-      "zh": "Limrun Detox 测试",
-      "description": "在 Limrun iOS 模拟器上配置、运行或调试 Detox 端到端测试。",
-      "enDescription": "Configure, run, or debug Detox on Limrun iOS simulators.",
+      "zh": "",
+      "description": "Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over destination tunnels.",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
       "tags": [
+        "design-media",
         "test-qa"
       ],
       "hidden": false,
@@ -1902,12 +1839,16 @@
       "name": "limrun-ios-simulator",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
-      "zh": "Limrun iOS 模拟器",
-      "description": "驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍树。",
-      "enDescription": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility tree.",
+      "zh": "",
+      "description": "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, screenshot, record video, connect the app to local services, play a video file as the camera, and run timed action chains. Use after a build (from any builder) when the user wants to see, test, or interact with their app on a simulator, or says 'show me a screenshot', 'tap', 'run the UI test', 'record a video', 'connect localhost', 'mock the camera', or 'launch on simulator'. To build the app first, use limrun-xcode-bazel (Bazel workspaces) or limrun-xcode (xcodebuild projects).",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
-      "tags": [],
+      "tags": [
+        "ai-agent",
+        "design-media",
+        "test-qa"
+      ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-ios-simulator",
       "githubDir": "skills/limrun-ios-simulator"
@@ -1916,12 +1857,14 @@
       "name": "limrun-xcode",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
-      "zh": "远程 Xcode 构建",
-      "description": "用 `lim xcode build` 在远程 Xcode 构建 iOS / Apple 应用，或运行其 XCTest 测试套件，替代本地 xcodebuild。",
-      "enDescription": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, or run its XCTest suites.",
+      "zh": "",
+      "description": "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, or run its XCTest suites with `lim xcode test`, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects (an `.xcodeproj` / `.xcworkspace`, an XcodeGen `project.yml` with a gitignored project, React Native / Expo native build) when the user wants to build, compile, test, reload, produce a preview build, or ship a signed device IPA. To run, tap, screenshot, or otherwise interact with the result on a simulator, use limrun-ios-simulator. For Bazel workspaces, use limrun-xcode-bazel.",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
       "tags": [
+        "ai-agent",
+        "web-frontend",
         "test-qa"
       ],
       "hidden": false,
@@ -1932,12 +1875,14 @@
       "name": "limrun-xcode-bazel",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
-      "zh": "Limrun Xcode Bazel 构建",
-      "description": "在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用。",
-      "enDescription": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of local tooling.",
+      "zh": "",
+      "description": "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace (MODULE.bazel / WORKSPACE) building rules_apple / rules_swift targets and the user wants to `bazel build` it or run it on a simulator, or when a `--config=limrun` build or install misbehaves. To then tap, type, screenshot, or otherwise interact with the running app, use limrun-ios-simulator. For non-Bazel (plain xcodebuild) projects use limrun-xcode instead.",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
-      "tags": [],
+      "tags": [
+        "ai-agent"
+      ],
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/limrun-xcode-bazel",
       "githubDir": "skills/limrun-xcode-bazel"
@@ -2356,23 +2301,6 @@
       "githubDir": "skills/find-skills"
     },
     {
-      "name": "find-skills-2",
-      "category": "工程实践与质量",
-      "enCategory": "Engineering Practice & Quality",
-      "zh": "技能发现与安装",
-      "description": "当用户询问「怎么做 X」「找 X 的技能」「有没有能…的技能」或想扩展能力时，帮助用户发现并安装 agent 技能。",
-      "enDescription": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill.",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/find-skills-2",
-      "githubDir": "skills/find-skills-2"
-    },
-    {
       "name": "git-cleanup",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -2564,6 +2492,26 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
       "githubDir": "skills/planning-with-files"
+    },
+    {
+      "name": "playwright-cli",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "",
+      "description": "Automate browser interactions, test web pages and work with Playwright tests.",
+      "enDescription": "",
+      "homepage": "",
+      "allowedTools": [
+        "Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)"
+      ],
+      "tags": [
+        "web-frontend",
+        "test-qa",
+        "automation"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
+      "githubDir": "skills/playwright-cli"
     },
     {
       "name": "playwright-explore-website",
@@ -2785,6 +2733,23 @@
       "githubDir": "skills/traceknot"
     },
     {
+      "name": "triage",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "",
+      "description": "Move issues and external PRs through a state machine of triage roles, categorise, verify, grill if needed, and write agent-ready briefs.",
+      "enDescription": "",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/triage",
+      "githubDir": "skills/triage"
+    },
+    {
       "name": "write-tech-spec",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -3000,26 +2965,6 @@
       "githubDir": "skills/persona-project-manager"
     },
     {
-      "name": "playwright-cli",
-      "category": "自动化与集成",
-      "enCategory": "Automation & Integration",
-      "zh": "Playwright 自动化",
-      "description": "自动化浏览器交互、测试网页并与 Playwright 测试协同工作。",
-      "enDescription": "Automate browser interactions, test web pages and work with Playwright tests.",
-      "homepage": "",
-      "allowedTools": [
-        "Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)"
-      ],
-      "tags": [
-        "web-frontend",
-        "test-qa",
-        "automation"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
-      "githubDir": "skills/playwright-cli"
-    },
-    {
       "name": "playwriter",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
@@ -3090,6 +3035,58 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tiktok-api",
       "githubDir": "skills/tiktok-api"
+    },
+    {
+      "name": "travel-planner",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "旅行规划助手",
+      "description": "当用户需要规划行程、创建旅行 itinerary、管理旅行预算或寻求目的地建议时使用。首次使用时收集预算水平、旅行风格、兴趣与饮食限制等偏好，生成逐日行程、预算拆分、打包清单、文化注意事项与区域专属时间表，并维护偏好与历史行程库以做个性化推荐。",
+      "enDescription": "Use whenever users need help planning trips, creating travel itineraries, managing travel budgets, or seeking destination advice. On first use, collects comprehensive travel preferences including budget level, travel style, interests, and dietary restrictions. Generates detailed plans with day-by-day itineraries, budget breakdowns, packing checklists, cultural do's and don'ts, and region-specific schedules. Maintains a database of preferences and past trips for personalized recommendations.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "data",
+        "automation"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner",
+      "githubDir": "skills/travel-planner"
+    },
+    {
+      "name": "travel-planner-itinerary",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "旅行行程规划（变体3）",
+      "description": "创建综合旅行行程，含目的地分析、预算规划、交通、住宿与本地洞察。当用户规划行程、组织旅行日程或寻求目的地推荐时使用。",
+      "enDescription": "Creates comprehensive travel itineraries with destination analysis, budget planning, transportation, accommodation, and local insights. Use when planning trips, organizing travel schedules, or seeking destination recommendations.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "automation"
+      ],
+      "hidden": false,
+      "license": "MIT",
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-itinerary",
+      "githubDir": "skills/travel-planner-itinerary"
+    },
+    {
+      "name": "travel-planner-research",
+      "category": "自动化与集成",
+      "enCategory": "Automation & Integration",
+      "zh": "旅行规划助手（变体2）",
+      "description": "旅行目的地调研与每日行程制定，含物流规划、预算跟踪与体验优化。当用户规划行程、创建旅行 itinerary、对比目的地或组织旅行物流时使用。",
+      "enDescription": "Travel destination research and daily itinerary creation with logistics planning, budget tracking, and experience optimization. Use when planning trips, creating travel itineraries, comparing destinations, or organizing travel logistics.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "automation"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/travel-planner-research",
+      "githubDir": "skills/travel-planner-research"
     },
     {
       "name": "twitter-api",
@@ -3367,7 +3364,7 @@
       "githubDir": "skills/ai-video-generation"
     },
     {
-      "name": "ai-video-generation-2",
+      "name": "ai-video-generation-runcomfy",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
       "zh": "AI 视频生成（RunComfy）",
@@ -3384,8 +3381,8 @@
       ],
       "hidden": false,
       "license": "MIT",
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-video-generation-2",
-      "githubDir": "skills/ai-video-generation-2"
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/ai-video-generation-runcomfy",
+      "githubDir": "skills/ai-video-generation-runcomfy"
     },
     {
       "name": "capcut",
@@ -3652,9 +3649,9 @@
       "name": "short-drama-storyboard",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
-      "zh": "短剧分镜",
-      "description": "把中文短剧剧本与视觉设定写成含戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown。",
-      "enDescription": "Turn Chinese short-drama scripts and visual settings into storyboard Markdown with dramatic roles, continuity boundaries, and frozen keyframe prompts.",
+      "zh": "",
+      "description": "把中文短剧剧本和视觉设定写成有戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown。用户提出“拆分镜/设计镜头/做镜头表”“场次视觉计划/调度故事板”“比较导演方案”“写首帧/关键帧提示词”或检查轴线、站位、视线、持物连续性时使用；不生成媒体。",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -3663,6 +3660,7 @@
         "design-media"
       ],
       "hidden": false,
+      "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-storyboard",
       "githubDir": "skills/short-drama-storyboard"
     },
@@ -3670,9 +3668,9 @@
       "name": "short-drama-video-prompts",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
-      "zh": "短剧视频提示词",
-      "description": "把短剧分镜与冻结关键帧写成可直接复制的视频提示词 Markdown，也可按需求写时间线配乐/主题曲意图。",
-      "enDescription": "Convert short-drama storyboards and frozen keyframes into copy-paste video prompts, and optionally write timeline scoring/theme intent.",
+      "zh": "",
+      "description": "把短剧分镜和冻结关键帧写成可直接复制的视频提示词 Markdown，也可按用户要求写时间线配乐/主题曲意图。用户提到文生/图生视频动作、人物表演、运镜、口型、环境运动、镜头时长、起止状态、把分镜转成视频提示词或写配乐提示词时使用；不生成媒体、不创作歌词、不改分镜边界。",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
       "tags": [
@@ -3681,6 +3679,7 @@
         "design-media"
       ],
       "hidden": false,
+      "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-video-prompts",
       "githubDir": "skills/short-drama-video-prompts"
     },
@@ -3688,16 +3687,18 @@
       "name": "short-drama-write",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
-      "zh": "短剧编剧",
-      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，并规范化现成剧本。",
-      "enDescription": "Write or revise shootable Chinese short-drama / comic-drama episode scripts in Markdown, and normalize existing scripts.",
+      "zh": "",
+      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文地规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
       "tags": [
+        "ai-agent",
         "doc-writing",
         "design-media"
       ],
       "hidden": false,
+      "license": "MIT",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/short-drama-write",
       "githubDir": "skills/short-drama-write"
     },
@@ -3776,9 +3777,9 @@
       "name": "video-editing",
       "category": "音视频与多媒体",
       "enCategory": "Media & Multimedia",
-      "zh": "AI 辅助视频剪辑工作流",
-      "description": "AI 辅助视频编辑工作流，用于剪辑、组织与增强真实素材，覆盖从原始拍摄到 FFmpeg、Remotion、ElevenLabs、fal.ai 再到 Descript 或 CapCut 最终润色的完整管线。当用户想要编辑视频、剪辑素材、创建 vlog 或构建视频内容时使用。",
-      "enDescription": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
+      "zh": "",
+      "description": "AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.",
+      "enDescription": "",
       "homepage": "",
       "allowedTools": [],
       "tags": [

@@ -1,15 +1,10 @@
 ---
 name: clean-architecture
-description: |-
-  以依赖规则组织软件：源码依赖由外层框架指向内层用例与实体。当用户提到分层架构、依赖倒置、端口适配器（六边形）、洋葱架构、业务逻辑归属、与数据库解耦、无重写替换框架时使用。覆盖组件原则、边界与 SOLID；代码级质量见 clean-code。
+description: 'Structure software around the Dependency Rule: source code dependencies point inward from frameworks to use cases to entities. Use when the user mentions "architecture layers", "dependency rule", "ports and adapters (hexagonal)", "onion architecture", "screaming architecture", "where should business logic go", "decouple from the database", "swap the framework without a rewrite", or "keep business rules independent". Also trigger when deciding which layer code belongs in, isolating core logic from infrastructure, defining module boundaries, or debating whether the framework should call your code or the reverse. Covers component principles, boundaries, and SOLID. For code-level quality, see clean-code. For domain modeling, see domain-driven-design.'
 license: MIT
 metadata:
   author: wondelai
   version: "1.4.0"
-en_description: Structure software around the Dependency Rule; ports & adapters, onion, SOLID, module boundaries.
-zh_displayName: 整洁架构
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
 ---
 
 # Clean Architecture Framework

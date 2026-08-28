@@ -1,12 +1,12 @@
 ---
-name: travel-planner-3
+name: travel-planner-itinerary
 description: |-
   创建综合旅行行程，含目的地分析、预算规划、交通、住宿与本地洞察。当用户规划行程、组织旅行日程或寻求目的地推荐时使用。
 en_description: |-
   Creates comprehensive travel itineraries with destination analysis, budget planning, transportation, accommodation, and local insights. Use when planning trips, organizing travel schedules, or seeking destination recommendations.
 zh_displayName: 旅行行程规划（变体3）
-category: 品牌与设计
-en_category: Brand & Design
+category: 自动化与集成
+en_category: Automation & Integration
 license: MIT
 allowed-tools:
   - Bash

@@ -1,12 +1,12 @@
 ---
-name: travel-planner-2
+name: travel-planner-research
 description: |-
   旅行目的地调研与每日行程制定，含物流规划、预算跟踪与体验优化。当用户规划行程、创建旅行 itinerary、对比目的地或组织旅行物流时使用。
 en_description: |-
   Travel destination research and daily itinerary creation with logistics planning, budget tracking, and experience optimization. Use when planning trips, creating travel itineraries, comparing destinations, or organizing travel logistics.
 zh_displayName: 旅行规划助手（变体2）
-category: 品牌与设计
-en_category: Brand & Design
+category: 自动化与集成
+en_category: Automation & Integration
 ---
 
 # Travel Planner

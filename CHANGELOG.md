@@ -2,6 +2,24 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.46] - 2026-08-28
+
+### chore: 审查并修正 223 个技能的元数据与分类
+
+- **补全 14 个技能缺失的 `category`**：按语义归入 14 大领域（移动端开发 / 品牌与设计 /
+  工程实践与质量 / 音视频与多媒体 / 后端与平台）。
+- **补全 14 个技能的 `en_category`**：满足 `tools/build-skills-data.mjs` 的 REQUIRED 校验，
+  避免构建失败。
+- **修正误分类**：`google-mobile-ads-banner`（品牌与设计→移动端开发）、`travel-planner` 系列
+  三件套（品牌与设计→自动化与集成），并修复 `google-mobile-ads-banner` 损坏的 frontmatter。
+- **重命名命名撞车技能**（保留内容，仅改 `name` + 目录名）：`ai-video-generation-2`→
+  `ai-video-generation-runcomfy`、`prototype-2`→`prototype-ui-picker`、`travel-planner-2`→
+  `travel-planner-research`、`travel-planner-3`→`travel-planner-itinerary`。
+- **删除 2 个真重复技能**：`prototype-3`（与 `prototype-design-explore` 正文 100% 重复）、
+  `find-skills-2`（与 `find-skills` 语义/正文重复），技能总数 225→223。
+- 同步 README 中/英文领域表计数至真实统计值。
+- 版本 bump 至 v1.14.46。
+
 ## [1.14.45] - 2026-08-28
 
 ### chore: 建立 app CSS 与 prototype 的自动同步流水线
