@@ -1,12 +1,24 @@
 ---
 name: google-agents-cli-adk-code
-description: Google Agents CLI（ADK）代码生成与开发指南，基于 Agent Development Kit 编写智能体代码。
-en_description: Google Agents CLI (ADK) code generation and development guide for writing agent code with the Agent Development Kit.
-zh_displayName: Google 智能体 ADK 编码
-category: AI 与智能体
-en_category: AI & Agents
+description: >
+  This skill should be used when the user wants to "write agent code",
+  "build an agent with ADK", "add a tool", "create a callback", "define an agent",
+  "use state management", or needs ADK (Agent Development Kit) Python API patterns
+  and code examples. Part of the Google ADK skills suite.
+  It provides a quick reference for agent types, tool definitions, orchestration
+  patterns, callbacks, state management, and reference recipes to study.
+  Do NOT use for scaffolding (use google-agents-cli-scaffold) or deployment
+  (use google-agents-cli-deploy).
 metadata:
+  author: Google
+  license: Apache-2.0
+  version: 1.4.2
+  requires:
+    bins:
+      - agents-cli
+    install: "uv tool install google-agents-cli"
 ---
+
 # ADK Code Reference
 
 Activate `/google-agents-cli-workflow` first for required development phases and scaffolding steps.
