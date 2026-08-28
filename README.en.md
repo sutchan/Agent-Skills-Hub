@@ -11,7 +11,7 @@ A centrally managed collection of AI skills covering Brand & Design, Docs & Cont
 > Just want to use a skill? 5 steps, no build scripts needed.
 
 1. **Browse skills**: open [`prototype/prototype.html`](prototype/prototype.html) directly (offline, self-contained) or run the `app/` web app.
-2. **Pick a skill**: filter by the 13 domains; open a card to read its `SKILL.md` and trigger conditions.
+2. **Pick a skill**: filter by the 14 domains; open a card to read its `SKILL.md` and trigger conditions.
 3. **Install**: copy the whole `skills/<name>/` directory into your agent's skills path:
    - **Claude Code**: `~/.claude/skills/` (Windows: `%USERPROFILE%\.claude\skills\`)
    - **CodeBuddy**: your agent's skills path (see client docs)

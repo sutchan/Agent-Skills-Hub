@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.40] - 2026-08-28
+
+### fix: 修复原型卡片无法点击与 hero 区功能丢失
+
+- **根因**：`prototype/src/index.html` 将数据内联为 `<script>const SKILLS_DATA = ...</script>`，
+  但 `01-state.js` 以 `window.SKILLS_DATA || null` 读取；`const` 为块级作用域不挂 `window`，
+  导致全部 parts 拿到 `null`，`init()` 在 `SKILLS_DATA.skills.forEach` 抛错中断——
+  卡片不渲染、事件不绑定、hero 节点网不生成（两个 bug 同源）。
+- `prototype/src/index.html`：改为 `<script>window.SKILLS_DATA = ...</script>` 与契约一致。
+- 重建 `prototype/prototype.html` 与 `data/skills-data.json`（224 技能 / 14 类，「其他」归零）。
+
+### fix: 治理 27 个上游导入技能分类缺失
+
+- 27 个外部导入技能（ad-creative / agent-browser / vercel-* / web-design-guidelines 等）缺
+  `category`/`en_category`/`zh_displayName`/`en_description` 字段，错误归入「其他」类（违规）。
+- 按语义重归类至 14 个标准类；`en_category` 对齐 `tools/lib/taxonomy.mjs` 权威值
+  （统一为 `Engineering Practice & Quality`）；修正 `agent-development` 的 `name` 对齐目录名。
+- `tools/validate-skills.mjs` 校验通过（224 个技能 frontmatter 规范）。
+- 同步 README / README.en 领域表计数与「14 大领域」契约描述。
+
 ## [1.14.39] - 2026-08-28
 
 ### chore: 锁定 pnpm 包管理器并规范化技能文档换行符

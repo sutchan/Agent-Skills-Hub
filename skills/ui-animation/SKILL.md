@@ -1,6 +1,11 @@
 ---
 name: ui-animation
-description: >-
+description: |-
+  设计、实现、审查与逆向 UI 动效
+en_description: "Designs, implements, reviews, debugs, and reverse-engineers UI motion, and finds where an interface is missing it: CSS transitions, keyframes, springs, gestures, drag, easing, timing, framer-motion, and animation curves from screen recordings. Use when asked to \"add animations\", \"make this feel smooth\", \"review my animations\", \"add a swipe gesture\", \"match this easing\", \"reverse engineer this animation\", \"extract the animation curve\", \"where should this animate\", \"find animation opportunities\", or \"what's it called when...\" to name a motion effect from a vague description. Owns the passage between two states. For what a state looks like once built use ui-design; for which states exist and whether an action is reversible use product-design, including when a gesture replaces a control."
+zh_displayName: UI 动效
+category: 前端开发
+en_category: Frontend Dev
   Designs, implements, reviews, debugs, and reverse-engineers UI motion, and
   finds where an interface is missing it: CSS transitions, keyframes,
   springs, gestures, drag, easing, timing, framer-motion, and animation

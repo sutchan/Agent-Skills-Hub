@@ -1,6 +1,11 @@
 ---
 name: vercel-composition-patterns
-description:
+description: |-
+  Vercel 组合与架构模式
+en_description: ""
+zh_displayName: Vercel 组合模式
+category: 前端开发
+en_category: Frontend Dev
   React composition patterns that scale. Use when refactoring components with
   boolean prop proliferation, building flexible component libraries, or
   designing reusable APIs. Triggers on tasks involving compound components,

@@ -59,18 +59,18 @@
 
 | 领域 | 技能数 |
 |------|--------|
-| 品牌与设计 | 41 |
+| 品牌与设计 | 42 |
 | 文档与内容 | 2 |
 | 数据分析与可视化 | 2 |
-| 前端开发 | 27 |
-| 后端与平台 | 10 |
-| 移动端开发 | 28 |
+| 前端开发 | 28 |
+| 后端与平台 | 11 |
+| 移动端开发 | 27 |
 | WordPress 与 CMS | 11 |
 | 工程实践与质量 | 39 |
 | 文件与格式处理 | 4 |
-| 自动化与集成 | 18 |
-| AI 与智能体 | 7 |
-| 音视频与多媒体 | 27 |
+| 自动化与集成 | 15 |
+| AI 与智能体 | 8 |
+| 音视频与多媒体 | 28 |
 | 桌面与客户端 | 2 |
 | 安全 | 5 |
 
@@ -129,7 +129,7 @@ npm run start    # 启动生产服务
 
 - 新增技能：使用 [`skill-creator`](skills/skill-creator/) 技能按规范创建与评估。
 - 技能目录命名使用小写中划线（`kebab-case`），如 `python-testing/`，目录名须与 frontmatter `name` 字段保持一致。
-- `SKILL.md` 必须包含 `name`、`description`、`en_description`、`zh_displayName`、`category` 与 `en_category` 前置元数据：`category` 取 13 大领域之一（中文，稳定键：品牌与设计 / 文档与内容 / 数据分析与可视化 / 前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS / 工程实践与质量 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 安全），`en_category` 为对应英文分类名；`zh_displayName` 为中文一句话简介；**`description` 为中文完整描述（默认展示语言），`en_description` 为英文原文描述**。`tools/build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，未知分类自动追加为末位「其他」类（属违规，须为零）。
+- `SKILL.md` 必须包含 `name`、`description`、`en_description`、`zh_displayName`、`category` 与 `en_category` 前置元数据：`category` 取 14 大领域之一（中文，稳定键：品牌与设计 / 文档与内容 / 数据分析与可视化 / 前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS / 工程实践与质量 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 桌面与客户端 / 安全），`en_category` 为对应英文分类名；`zh_displayName` 为中文一句话简介；**`description` 为中文完整描述（默认展示语言），`en_description` 为英文原文描述**。`tools/build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，未知分类自动追加为末位「其他」类（属违规，须为零）。
 - 技能变更后运行 `npm run build` 重新生成 `data/skills-data.json` + `data/skills-metrics.json` 与展示页。频繁更新的指标（popularity/stars/size/files）仅需重算 `skills-metrics.json`，主数据文件保持轻量。
 
 ## 许可证
