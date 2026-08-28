@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.49] - 2026-08-28
+
+### fix: 修复深色模式根背景缺失导致白底浅字不可读
+
+- **根因**：`tokens-shared.css` 在 `html[data-theme="dark"]` 下把 `--background` 改为深灰（224 28% 8%），
+  但 app 的所有区块（`topbar`/`controls`/`cats`/`card`/`site-footer`）仅用 `var(--surface)`/
+  `var(--surface-2)`，**页面根背景 `<body>` 从未设置 `background: var(--bg)`**。
+  浅色模式因浏览器默认白底与深色文字巧合正常；深色模式切到深灰令牌后，
+  `<body>` 仍为浏览器默认白底，而 `--foreground` 等已变浅色，导致浅色文字显示在白底上完全不可读。
+- **修复**：在 APP 扩展区（globals.css）显式设置 `html, body { background: var(--bg); color: var(--text); }`，
+  深浅模式均正确跟随令牌切换。
+- **附带**：把 `.sort-wrap select` 下拉箭头硬编码 `#888` 改为 `#a8a8a8`，提升深色模式下箭头可见度。
+
 ## [1.14.48] - 2026-08-28
 
 ### fix: 修复顶部栏右侧按钮组布局错散

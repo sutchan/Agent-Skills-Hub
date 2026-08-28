@@ -1,4 +1,4 @@
-/* app/globals.css v1.14.47 — 应用全局样式
+/* app/globals.css v1.14.49 — 应用全局样式
  * 结构：① tokens-shared.css（设计令牌，由 prototype 同步）
  *       ② base/layout/components/responsive-shared.css（prototype 同源规则，由 tools/sync-css.mjs 自动生成）
  *       ③ 下方「APP 扩展区」：app 独有/改写原型的规则，优先于 shared 生效
@@ -9,6 +9,13 @@
 @import "./layout-shared.css";
 @import "./components-shared.css";
 @import "./responsive-shared.css";
+
+/* APP 扩展区：根背景与文字色（修复深色模式致命问题）
+   prototype 各区块用 var(--surface)/var(--surface-2)，但页面根背景未由 shared 设置，
+   导致深色模式切到 --background(深灰) 时 <body> 仍为浏览器默认白底、浅色文字不可读。
+   此处显式应用 --bg/--text，深浅模式均正确。 */
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--text); }
 
 /* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
 /* 尊重用户的减少动效偏好（无障碍 WCAG 2.3.3） */
@@ -303,7 +310,7 @@ html[data-lang="en"] .zh { display: none; }
 /* 排序下拉（v1.19.8，对齐 prototype .sort-wrap）：与 view-toggle 同高 */
 .sort-wrap { display: inline-flex; align-items: center; }
 
-.sort-wrap select { height: 34px; padding: 0 28px 0 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); color: hsl(var(--foreground)); font-size: 13px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+.sort-wrap select { height: 34px; padding: 0 28px 0 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); color: hsl(var(--foreground)); font-size: 13px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a8a8a8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
 
 /* 徽章（Badge）：小型状态/计数标签，默认主色浅底；变体 primary/secondary/muted（对齐 COMPONENTS #4） */
 .badge { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11px; font-weight: 600; line-height: 1; background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); border: 1px solid transparent; }
