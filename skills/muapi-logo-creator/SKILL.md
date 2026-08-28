@@ -1,12 +1,10 @@
 ---
 name: muapi-logo-creator
-description: 使用几何基元工程化生成专业级品牌 logo。
-en_description: Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai
-zh_displayName: Logo 创作(MUAPI)
 category: 品牌与设计
-en_category: Brand & Design
 version: 0.1.0
+description: Engineer professional-grade brand logos using geometric primitives and negative space — generates minimalist, scalable vector-style marks via muapi.ai
 ---
+
 # 🖼️ Logo Creator Skill
 
 **A specialized skill for AI Agents to engineer professional-grade brand identities.**

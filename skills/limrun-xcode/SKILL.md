@@ -1,12 +1,9 @@
 ---
 name: limrun-xcode
-description: |-
-  用 `lim xcode build` 在远程 Xcode 构建 iOS / Apple 应用，或运行其 XCTest 测试套件，替代本地 xcodebuild。
-en_description: |-
-  Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, or run its XCTest suites.
-zh_displayName: 远程 Xcode 构建
 category: 移动端开发
-en_category: Mobile Dev
+description: "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, or run its XCTest suites with `lim xcode test`, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects (an `.xcodeproj` / `.xcworkspace`, an XcodeGen `project.yml` with a gitignored project, React Native / Expo native build) when the user wants to build, compile, test, reload, produce a preview build, or ship a signed device IPA. To run, tap, screenshot, or otherwise interact with the result on a simulator, use limrun-ios-simulator. For Bazel workspaces, use limrun-xcode-bazel."
+user-invocable: true
+effort: high
 ---
 
 # Remote Xcode build
@@ -197,6 +194,30 @@ certificates** enabled. A `Cloud signing permission error` means that permission
 is missing. `No Account for Team` means the team ID and API key do not match.
 `Failed Registering Bundle Identifier` means the bundle ID belongs to another
 team and cannot be registered automatically.
+
+Cloud signing takes entitlements only from `--entitlements`, never from the
+project's `.entitlements` file: the archive is unsigned and the export
+preserves entitlements only from an existing code signature. Any app using
+capabilities (HealthKit, CloudKit, app groups, push) MUST pass the flag or
+the capability is silently stripped from the IPA. A bare path targets the
+app; `<bundleId>=<path>` targets an embedded bundle (widget, watch app);
+repeat per bundle:
+
+```bash
+lim xcode build . --sdk iphoneos --configuration Release \
+  --signing-method release-testing --team-id VMBY3VYW4U \
+  --asc-key-id 2X9R4HXF34 --asc-issuer-id "$ASC_ISSUER_ID" \
+  --asc-key AuthKey.p8 \
+  --entitlements ./MyApp/MyApp.entitlements \
+  --entitlements com.example.myapp.widgets=./Widgets/Widgets.entitlements \
+  --upload myapp.ipa
+```
+
+The plist values must be fully expanded (no `$(AppIdentifierPrefix)`; write
+the concrete prefix), must omit export-managed keys (`application-identifier`,
+`com.apple.developer.team-identifier`, `get-task-allow`,
+`beta-reports-active`), and every capability must be enabled on the App ID in
+the developer portal or the export fails naming it.
 
 Manual signing remains available when the user already has a p12 and profiles:
 

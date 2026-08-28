@@ -1,15 +1,21 @@
 ---
 name: stripe-best-practices
-description: |-
-  在 Stripe 集成决策上提供指引：API 选型（Checkout Sessions vs PaymentIntents）、Connect 平台搭建等。
-en_description: |-
-  Guides Stripe integration decisions across API selection (Checkout Sessions vs PaymentIntents) and Connect platform setup.
-zh_displayName: Stripe 最佳实践
 category: 后端与平台
-en_category: Backend & Platform
+description: >-
+  Guides Stripe integration decisions across API selection (Checkout Sessions vs
+  PaymentIntents), Connect platform setup (Accounts v2, controller properties),
+  billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax,
+  product tax codes), Treasury financial accounts, integration options
+  (Checkout, Payment Element), migrating from deprecated Stripe APIs, and
+  security best practices (API key management, restricted keys, webhooks,
+  OAuth). Use when building, modifying, or reviewing any Stripe integration,
+  including accepting payments, building marketplaces, integrating Stripe,
+  processing payments, setting up subscriptions, collecting sales tax, VAT, or
+  GST, creating connected accounts, or implementing secure key handling.
+
 ---
 
-Latest Stripe API version: **2026-07-29.dahlia**. Always use the latest API version and SDK unless the user specifies otherwise.
+Latest Stripe API version: **2026-08-26.dahlia**. Always use the latest API version and SDK unless the user specifies otherwise.
 
 Latest SDK versions:
 
@@ -23,7 +29,7 @@ Latest SDK versions:
 | Go | 86.2.0 |
 | .NET | 52.2.0 |
 
-If you don’t have a Stripe account, you can call a CLI command to generate working API keys with no registration required. You can install the Stripe CLI (`npm i -g @stripe/cli`) and run the command `stripe sandbox create` to get started.
+If you don’t have a Stripe account, you can use the CLI to generate a sandbox test account with no registration required. Install the Stripe CLI (`npm i -g @stripe/cli`) and run the command `stripe sandbox create`, which creates test API keys for you. When you recommend this, explain that [a sandbox is a Stripe test environment](https://docs.stripe.com/sandboxes.md).
 
 If `stripe sandbox create` is used, don’t use MCP.
 
