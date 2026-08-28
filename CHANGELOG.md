@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.43] - 2026-08-28
+
+### fix: 补齐错误边界与 404 页面，修复弹窗背景可滚动
+
+- **新增 `app/error.tsx`（全局错误边界）**：此前 app/ 仅有 layout + page，任意 Client 组件
+  运行时异常都会导致整页白屏且无降级。现提供双语错误页（`#errorBoundary`），含
+  「重试」（调用 `reset()`）与「返回首页」入口；错误编号 `digest` 可见，摘要打控制台便于排障。
+- **新增 `app/not-found.tsx`（404 页）**：双语提示 + 返回首页（`#notFoundPage`）。
+  已验证产物 `.next/server/app/_not-found.html` 含该 id 与中英文案。
+- **`detail-modal.tsx`**：弹窗打开期间锁定 `body` 滚动（`overflow:hidden`），
+  关闭时还原原值（记录 prev，不覆盖全局样式）。此前移动端/长列表弹窗背后内容仍可滚动。
+- 构建验证：`Compiled successfully` + 类型检查通过 + 静态页 4/4。
+  （Windows 本地最后一步 `writeStandaloneDirectory` 因无 symlink 权限报 EPERM，属环境限制，
+  与代码无关；EO 部署在 Linux 不受影响。）
+
 ## [1.14.42] - 2026-08-28
 
 ### perf: 消除水合闪烁并修复卡片 memo 失效（React/Next 性能治理）

@@ -1,4 +1,4 @@
-// app/components/detail-modal.tsx v1.20.68 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
+// app/components/detail-modal.tsx v1.14.43 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
 "use client";
 import { useEffect, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -34,6 +34,14 @@ export function DetailModal({
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
+
+  // 打开期间锁定 body 滚动（v1.14.43）：否则移动端/长列表弹窗背后内容仍可滚动。
+  // 记录并还原原值，避免覆盖全局样式中已设置的 overflow。
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, []);
 
   // 翻牌入场动画（对齐 prototype .dialog.flip）：挂载后下一帧加 flip class
   const [flip, setFlip] = useState(false);
