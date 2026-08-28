@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.44] - 2026-08-28
+
+### fix: 移除 preinstall 强制 pnpm 脚本，修复 EO CI 构建失败
+
+- **根因**：`package.json` 的 `"preinstall": "npx only-allow pnpm"` 强制要求 pnpm，
+  但 EdgeOne CI 的 `installCommand` 为 `npm install`，触发 `only-allow` 报错退出
+  （`Use "pnpm install" for installation in this project`），导致 `npm install` 失败、
+  整个 CI 构建中断。
+- **修复**：删除 `preinstall` 强制脚本。本地用 pnpm 是个人偏好，不应阻断 CI 的 npm 安装；
+  仓库保留 `pnpm-lock.yaml` 与 `packageManager` 字段，本地仍可 `pnpm install`。
+- 版本 bump 至 v1.14.44。
+
 ## [1.14.43] - 2026-08-28
 
 ### fix: 补齐错误边界与 404 页面，修复弹窗背景可滚动
@@ -2609,6 +2621,7 @@
 [1.14.40]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.40
 [1.14.41]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.41
 [1.14.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.42
+[1.14.44]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.44
 [1.14.43]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.43
 [1.14.44]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.44
 [1.14.45]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.45
