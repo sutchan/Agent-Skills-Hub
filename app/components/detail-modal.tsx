@@ -99,8 +99,7 @@ export function DetailModal({
         </div>
 
         <div className="detail-body" id="detailBody">
-          {desc && <p className="d-desc" id="detailDesc">{desc}</p>}
-
+          {/* 区块顺序对齐 prototype：meta → metrics → install → tools/github → desc → related */}
           <DetailMeta skill={skill} lang={lang} />
           <DetailMetrics skill={skill} allSkills={allSkills} lang={lang} />
           <DetailInstall skill={skill} lang={lang} />
@@ -121,6 +120,8 @@ export function DetailModal({
               {lang === "zh" ? "在 GitHub 查看" : "View on GitHub"} ↗
             </a>
           )}
+
+          {desc && <p className="d-desc" id="detailDesc">{desc}</p>}
 
           <DetailRelated skill={skill} allSkills={allSkills} lang={lang} onOpenSkill={onOpenSkill} />
         </div>

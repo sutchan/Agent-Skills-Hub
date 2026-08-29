@@ -1,11 +1,13 @@
-// app/components/AppShell.tsx v1.14.48 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.14.51 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
 import { SHARE_FEEDBACK, REPO_URL, copyRepoShare } from "../lib/share";
 import type { SkillsData } from "../lib/skills";
 import { catHue } from "../lib/catHue";
+import { useLangPref, useThemePref, setLangPref, setThemePref } from "../lib/prefs";
 import { SkillsExplorer } from "./SkillsExplorer";
+import { HeroNet, type HeroCatCount } from "./HeroNet";
 
 // 统计事件上报：对齐 prototype 01-state.js track —— 仅当 GA(gtag) 注入时上报，否则静默
 function track(event: string, params?: Record<string, unknown>) {
@@ -16,41 +18,48 @@ function track(event: string, params?: Record<string, unknown>) {
   } catch { /* 统计失败不影响主流程 */ }
 }
 
-const HERO_W = 800;
-const HERO_H = 240;
-
 function BrandMark() {
   return (
     <svg className="logo" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
       <rect width="32" height="32" rx="8" fill="hsl(152 56% 40%)" />
-      <text x="16" y="21" textAnchor="middle" fontSize="14" fontWeight="700" fill="#fff">H</text>
+      <text x="16" y="21" textAnchor="middle" fontSize="14" fontWeight={700} fill="#fff">H</text>
     </svg>
   );
 }
 
+// Hero 节点网交互：经 <svg> 事件委托（hover 高亮对应分类卡片 / click 切分类筛选）
+function bindHeroInteractions(svg: SVGSVGElement | null) {
+  if (!svg) return;
+  const catOf = (t: EventTarget | null) => (t as Element | null)?.getAttribute?.("data-cat") || "";
+  const highlight = (cat: string, on: boolean) =>
+    document.querySelectorAll<HTMLElement>("#grid .card").forEach((card) => {
+      if (card.dataset.cat === cat) card.classList.toggle("pulse", on);
+    });
+  svg.addEventListener("mouseover", (e) => { const c = catOf(e.target); if (c) highlight(c, true); });
+  svg.addEventListener("mouseout", (e) => { const c = catOf(e.target); if (c) highlight(c, false); });
+  svg.addEventListener("click", (e) => {
+    const c = catOf(e.target);
+    if (c) window.dispatchEvent(new CustomEvent("ash:cat-toggle", { detail: { cat: c } }));
+  });
+  svg.addEventListener("keydown", (e) => {
+    const c = catOf(e.target);
+    if (c && (e as KeyboardEvent).key === "Enter") {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent("ash:cat-toggle", { detail: { cat: c } }));
+    }
+  });
+}
+
 export function AppShell({ data, version }: { data: SkillsData; version?: string }) {
-  const [lang, setLang] = useState<Lang>("zh");
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const lang = useLangPref();
+  const theme = useThemePref();
+  const [toast, setToast] = useState<string | null>(null);
 
-  useEffect(() => {
-    const saved = (typeof localStorage !== "undefined" && localStorage.getItem("ash-lang")) as Lang | null;
-    if (saved === "zh" || saved === "en") setLang(saved);
-    const savedTheme = localStorage?.getItem("ash-theme");
-    if (savedTheme === "light" || savedTheme === "dark") setTheme(savedTheme);
-  }, []);
+  // 主题/语言切换：经惰性 store 写入，避免整树重渲（prefs 仅订阅组件刷新）
+  const toggleLang = () => setLangPref(lang === "zh" ? "en" : "zh");
+  const toggleTheme = () => setThemePref(theme === "dark" ? "light" : "dark");
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-lang", lang);
-    document.documentElement.lang = lang;
-    if (typeof localStorage !== "undefined") localStorage.setItem("ash-lang", lang);
-  }, [lang]);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    if (typeof localStorage !== "undefined") localStorage.setItem("ash-theme", theme);
-  }, [theme]);
-
-  // 量取顶栏高度注入 --topbar-h，供 .controls sticky 偏移（对齐 prototype 05-main.js setTopbarH，P2-1）
+  // 量取顶栏高度注入 --topbar-h，供 .controls sticky 偏移（对齐 prototype 05-main.js setTopbarH）
   useEffect(() => {
     const setTopbarH = () => {
       const h = document.getElementById("appHeader");
@@ -61,7 +70,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     return () => window.removeEventListener("resize", setTopbarH);
   }, []);
 
-  // 页脚统计（v1.19.7 由 hero 迁入并扩充）：可见技能总数、分类数、英文描述覆盖数、支持语言数
+  // 页脚统计：可见技能总数、分类数、英文描述覆盖数、支持语言数
   const stats = useMemo(() => {
     const visible = (data.skills || []).filter((s) => !s.hidden);
     return {
@@ -72,87 +81,61 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     };
   }, [data]);
 
-  // Hero 节点网：按分类计数生成动态节点（对齐 prototype 03-detail.js genNodes + 04-interactions 交互）
-  const heroNetRef = useRef<SVGSVGElement | null>(null);
-  useEffect(() => {
-    const svg = heroNetRef.current;
-    if (!svg) return;
-    const nodesLayer = svg.querySelector("#netNodes");
-    const linesLayer = svg.querySelector("#netLines");
-    if (!nodesLayer || !linesLayer) return;
+  // Hero 节点数据：按分类计数聚合（确定性，供 HeroNet SSR 渲染）
+  const heroCats = useMemo<HeroCatCount[]>(() => {
     const visible = (data.skills || []).filter((s) => !s.hidden);
-    const total = visible.length || 1;
     const counts = new Map<string, number>();
     for (const s of visible) counts.set(s.category, (counts.get(s.category) || 0) + 1);
-    const cats = Array.from(counts.entries());
-    const n = cats.length;
-    const coreX = HERO_W * 0.75;
-    const coreY = HERO_H / 2;
-    const nodes: { cat: string; count: number; x: number; y: number; r: number }[] = cats.map(([cat, c], i) => {
-      const ang = (i / Math.max(1, n)) * Math.PI * 2;
-      const rad = 110 + (i % 3) * 18;
-      return {
-        cat,
-        count: c,
-        x: coreX + Math.cos(ang) * rad,
-        y: coreY + Math.sin(ang) * rad,
-        r: 6 + Math.min(14, (c / total) * 90),
-      };
-    });
-    nodesLayer.innerHTML = "";
-    linesLayer.innerHTML = "";
-    nodes.forEach((p, i) => {
-      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      line.setAttribute("x1", String(coreX));
-      line.setAttribute("y1", String(coreY));
-      line.setAttribute("x2", String(p.x));
-      line.setAttribute("y2", String(p.y));
-      line.setAttribute("class", "net-line");
-      linesLayer.appendChild(line);
-      // 连线流动点（对齐 prototype 连线动画）
-      const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      dot.setAttribute("class", "net-dot");
-      dot.setAttribute("r", "2.2");
-      const motion = document.createElementNS("http://www.w3.org/2000/svg", "animateMotion");
-      motion.setAttribute("dur", (4 + (i % 5) * 0.7).toFixed(1) + "s");
-      motion.setAttribute("repeatCount", "indefinite");
-      motion.setAttribute("path", `M${coreX} ${coreY} L${p.x.toFixed(1)} ${p.y.toFixed(1)}`);
-      dot.appendChild(motion);
-      linesLayer.appendChild(dot);
-    });
-    nodes.forEach((p) => {
-      const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      c.setAttribute("cx", String(p.x));
-      c.setAttribute("cy", String(p.y));
-      c.setAttribute("r", String(p.r));
-      c.setAttribute("class", "hub-node");
-      c.setAttribute("data-cat", p.cat);
-      c.setAttribute("role", "button");
-      c.setAttribute("tabindex", "0");
-      c.setAttribute("aria-label", `${p.cat} ${p.count}`);
-      (c as SVGElement).style.animationDelay = (-(5.5 * nodes.indexOf(p) / Math.max(1, n))).toFixed(2) + "s";
-      const enter = () => document.querySelectorAll<HTMLElement>("#grid .card").forEach((card) => { if (card.dataset.cat === p.cat) card.classList.add("pulse"); });
-      const leave = () => document.querySelectorAll<HTMLElement>("#grid .card").forEach((card) => { if (card.dataset.cat === p.cat) card.classList.remove("pulse"); });
-      c.addEventListener("mouseenter", enter);
-      c.addEventListener("mouseleave", leave);
-      const fire = () => window.dispatchEvent(new CustomEvent("ash:cat-toggle", { detail: { cat: p.cat } }));
-      c.addEventListener("click", fire);
-      c.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fire(); } });
-      nodesLayer.appendChild(c);
-    });
+    return (data.categories || []).map((c) => ({ cat: c, count: counts.get(c) || 0 }));
   }, [data]);
+
+  // Hero 节点网交互：经 #heroNet 事件委托（hover 高亮卡片 / click 切分类），纯 DOM 监听不重建节点
+  useEffect(() => {
+    const svg = document.getElementById("heroNet") as SVGSVGElement | null;
+    if (!svg) return;
+    const catOf = (t: EventTarget | null) => (t as Element | null)?.getAttribute?.("data-cat") || "";
+    const highlight = (cat: string, on: boolean) =>
+      document.querySelectorAll<HTMLElement>("#grid .card").forEach((card) => {
+        if (card.dataset.cat === cat) card.classList.toggle("pulse", on);
+      });
+    const onOver = (e: Event) => { const c = catOf(e.target); if (c) highlight(c, true); };
+    const onOut = (e: Event) => { const c = catOf(e.target); if (c) highlight(c, false); };
+    const onClick = (e: Event) => {
+      const c = catOf(e.target);
+      if (c) window.dispatchEvent(new CustomEvent("ash:cat-toggle", { detail: { cat: c } }));
+    };
+    const onKey = (e: Event) => {
+      const c = catOf(e.target);
+      if (c && (e as KeyboardEvent).key === "Enter") {
+        e.preventDefault();
+        window.dispatchEvent(new CustomEvent("ash:cat-toggle", { detail: { cat: c } }));
+      }
+    };
+    svg.addEventListener("mouseover", onOver);
+    svg.addEventListener("mouseout", onOut);
+    svg.addEventListener("click", onClick);
+    svg.addEventListener("keydown", onKey);
+    return () => {
+      svg.removeEventListener("mouseover", onOver);
+      svg.removeEventListener("mouseout", onOut);
+      svg.removeEventListener("click", onClick);
+      svg.removeEventListener("keydown", onKey);
+    };
+  }, []);
 
   // 搜索/筛选时点亮 Hero 核心（对齐 prototype updateHeroNet）：监听 SkillsExplorer 派发的筛选状态
   useEffect(() => {
     const apply = (e: Event) => {
-      const svg = heroNetRef.current;
+      const svg = document.getElementById("heroNet") as SVGSVGElement | null;
       if (!svg) return;
       const detail = (e as CustomEvent<{ cats?: string[]; query?: string }>).detail || {};
       const isFiltered = Boolean(detail.query) || (detail.cats?.length ?? 0) > 0;
       svg.classList.toggle("filtering", isFiltered);
       svg.classList.toggle("searching", Boolean(detail.query));
       const active = new Set(detail.cats || []);
-      svg.querySelectorAll<SVGCircleElement>(".hub-node[data-cat]").forEach((nd) => nd.classList.toggle("active", active.has(nd.getAttribute("data-cat") || "")));
+      svg.querySelectorAll<SVGCircleElement>(".hub-node[data-cat]").forEach((nd) =>
+        nd.classList.toggle("active", active.has(nd.getAttribute("data-cat") || ""))
+      );
       const core = svg.querySelector<SVGCircleElement>(".hub-core");
       const glow = svg.querySelector<SVGCircleElement>(".hub-glow");
       if ((detail.cats || []).length === 1) {
@@ -176,8 +159,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
     window.dispatchEvent(new CustomEvent("ash:open-skill", { detail: { name: pick.name } }));
   };
 
-  // 页脚分享仓库：随机文案 + 完整 GitHub URL 复制到剪贴板（v1.20.9）
-  const [toast, setToast] = useState<string | null>(null);
+  // 页脚分享仓库（随机文案 + 完整 GitHub URL 复制到剪贴板）
   const handleShareRepo = async () => {
     const fb = SHARE_FEEDBACK[lang];
     const ok = await copyRepoShare(lang, stats.total);
@@ -213,7 +195,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
               className="icon-btn"
               title="语言 / Language"
               aria-label={lang === "zh" ? "切换语言" : "Switch language"}
-              onClick={() => setLang((l) => (l === "zh" ? "en" : "zh"))}
+              onClick={toggleLang}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="9" />
@@ -226,7 +208,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
               className="icon-btn"
               title="主题 / Theme"
               aria-label={theme === "dark" ? "切换到浅色" : "切换到深色"}
-              onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+              onClick={toggleTheme}
             >
               {theme === "dark" ? "☀" : "🌙"}
             </button>
@@ -235,12 +217,7 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
       </header>
 
       <section className="hero" id="hero" aria-labelledby={lang === "en" ? "heroTitleEn" : "heroTitle"}>
-        <svg className="hero-net" id="heroNet" ref={heroNetRef} viewBox={`0 0 ${HERO_W} ${HERO_H}`} preserveAspectRatio="xMidYMid slice" overflow="visible" aria-hidden="true">
-          <g id="netLines" stroke="hsl(var(--line))" strokeWidth={1.4} opacity={0.6}></g>
-          <circle className="hub-glow" cx={HERO_W * 0.75} cy={HERO_H / 2} r={42} fill="hsl(var(--node) / .18)" />
-          <g id="netNodes" fill="hsl(var(--node))"></g>
-          <circle className="hub-node hub-core" cx={HERO_W * 0.75} cy={HERO_H / 2} r={16} fill="hsl(var(--primary))" />
-        </svg>
+        <HeroNet cats={heroCats} />
         <div className="hero-inner">
           <span className="hero-eyebrow">{lang === "zh" ? "Agent 技能枢纽" : "Agent Skills Hub"}</span>
           <h1 className="zh" id="heroTitle">零散的 agent 技能，<br /><span className="accent">汇聚</span>成一处可检索的枢纽</h1>
