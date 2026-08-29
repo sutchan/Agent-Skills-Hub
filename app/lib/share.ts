@@ -1,4 +1,4 @@
-// app/lib/share.ts v1.20.57 — 分享逻辑与项目宣传文案
+// app/lib/share.ts v1.14.52 — 分享逻辑与项目宣传文案
 // 文案集合与 prototype/src/i18n.js 的 share.promos 保持逐字一致（openspec §4.5.4.3：
 // 两层复用同一文案集合，避免漂移）。原型 i18n.js 为权威来源，本文件与其同步。
 
@@ -63,6 +63,9 @@ export async function copySkillShare(
 
 /** 仓库根地址：页脚 Star 引导与分享仓库文案复用 */
 export const REPO_URL = "https://github.com/sutchan/Agent-Skills-Hub";
+
+/** Skills Manager 桌面应用主页（不支持深链接导入，按钮跳转后由用户在桌面端「+ Add Skills」导入） */
+export const SKILLS_MANAGER_URL = "https://github.com/xingkongliang/skills-manager";
 
 /** 构造「分享仓库」文本：随机宣传文案（含 {n} 技能总数）+ 当前页面 URL（二者以空行分隔）。
  *  优先分享 location.href（含 P0-1 的 hash 筛选深链，如 #cat=docs&q=xxx），回退 REPO_URL，

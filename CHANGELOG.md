@@ -2,6 +2,33 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.52] - 2026-08-29
+
+### refactor: 代码评审修复（DetailMeta key 稳定性 + URL 常量收敛）
+
+- **P4（DetailMeta）**：元信息行 `key` 由中文/英文标签改为稳定语义 slug（name/category/author/...），
+  避免语言切换时整行 React 重挂载、丢失潜在状态。
+- **P3（URL 常量）**：将 `SKILLS_MANAGER_URL` 从 `DetailInstall.tsx` 本地硬编码移入 `share.ts`
+  与 `REPO_URL` 统一收纳，消除 URL 散落、降低未来改 URL 漏改风险。
+- 核实 P1/P2（error/not-found 的 portal 与 appRoot 包裹）后发现当前代码已直接返回 `<main>`
+  并经 layout 的 `#appRoot` 注入，无需改动。
+- 版本 bump 至 v1.14.52。
+
+## [1.14.51] - 2026-08-29
+
+### refactor: 对齐 Vercel React 最佳实践（Hero 水合 / AppShell 重组 / 弹窗顺序）
+
+- **P0 Hero 水合不匹配 + CLS**：将原 `AppShell` 中 `useEffect` + `innerHTML` 注入的 Hero
+  节点网改为服务端确定性渲染——新增 `app/components/HeroNet.tsx`，按分类角度均匀分布生成
+  完整 SVG（节点/连线/流动点），SSR 与客户端首屏 DOM 完全一致，消除水合报错与布局抖动。
+- **P1 AppShell 巨型客户端组件重渲**：偏好读取改用 `useSyncExternalStore`
+  （新增 `app/lib/prefs.ts`），不再于 render 期直读 `localStorage`；语言/主题切换仅刷新
+  订阅组件而非整树，节点数据 `useMemo` 随 `data` 稳定，交互经 `#heroNet` 事件委托绑定。
+- **P2 详情弹窗区块顺序**：`detail-modal.tsx` 把 `DetailMeta`/`DetailMetrics`/`DetailInstall`
+  提到 `d-desc` 之前，对齐原型 `prototype/src/parts/03-detail.js`（meta → install → metric
+  → body(desc/tools/related)）。
+- 同步 `AppShell.tsx`/`HeroNet.tsx`/`prefs.ts`/`detail-modal.tsx` 头注释至 `v1.14.51`。
+
 ## [1.14.50] - 2026-08-29
 
 ### fix: 修正原型页脚版本兜底值与分页注释一致性
@@ -2725,8 +2752,8 @@
 [1.14.48]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.48
 [1.14.49]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.49
 [1.14.50]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.50
-[1.14.51]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.51
 [1.14.52]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.52
+[1.14.51]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.51
 [1.14.53]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.53
 [1.14.54]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.54
 [1.14.55]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.55
