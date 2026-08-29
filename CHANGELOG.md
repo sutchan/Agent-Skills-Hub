@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.55] - 2026-08-29
+
+### refactor: 应用对齐原型（热度 5 格 / 移动端 Sheet 抽屉）
+
+- **热度指标 5 格视觉**：`DetailMetrics.tsx` 由百分比连续条改为 **5 格圆点热度**
+  （`.heat-row`/`.heat-dot`，点亮格数随 `popularity/maxPopularity` 占比），对齐原型
+  `prototype/src/parts/03-detail.js` 的 `popularityHTML` 5 格热度；数值文本与无障碍
+  `aria-label` 保留百分比。
+- **移动端底部抽屉 Sheet**：`detail-modal.tsx` 新增 `matchMedia("(max-width:640px)")`
+  监听，移动端给弹窗加 `.sheet` 类；`globals.css` 补 `.detail.dialog.sheet`（底部锚定 +
+  顶部 grip 把手 + `sheetUp` 上滑入场），对齐原型 `03-detail.js:200` / `layout.css:128`。
+- 经核查确认：① Skills Manager 导入按钮（v1.20.33 已存在，URL 与原型一致）无需改动；
+  ② 原型无独立 TAG 筛选维度（全仓库 "tag" 仅 `window.gtag`），标签筛选缺口系误判，移除。
+- 同步 `detail-modal.tsx`/`DetailMetrics.tsx` 头注释至 `v1.14.55`。
+
 ## [1.14.54] - 2026-08-29
 
 ### feat: 原型新增首屏骨架屏占位

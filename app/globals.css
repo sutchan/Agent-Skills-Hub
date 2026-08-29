@@ -377,6 +377,34 @@ html[data-lang="en"] .zh { display: none; }
    使其成为普通流内居中、可统一滚动的面板（头部不固定，内容超高由本容器滚动，v1.19.30） */
 .detail.dialog { position: relative; overflow-y: auto; overflow-x: hidden; }
 
+/* 移动端底部抽屉（对齐 prototype .dialog.sheet ≤640px：底部锚定 + 顶部 grip + sheetUp 上滑） */
+@media (max-width: 640px) {
+  .detail.dialog.sheet {
+    inset: auto 0 0 0;
+    margin: 0;
+    width: 100%;
+    height: min(86vh, 760px);
+    border-radius: 18px 18px 0 0;
+    animation: sheetUp .28s ease;
+  }
+  .detail.dialog.sheet .detail-head { padding-top: 16px; position: relative; }
+  .detail.dialog.sheet .detail-head::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: hsl(var(--border));
+  }
+  /* 移动端抽屉优先用上滑入场，弱化翻牌（与原型行为一致） */
+  .detail.dialog.sheet.flip { animation: sheetUp .28s ease; transform-style: flat; }
+}
+@keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .detail.dialog.sheet, .detail.dialog.sheet.flip { animation: none; } }
+
 /* 详情弹窗各区块不被 flex 压缩：内容超出时由外层 .dialog 统一滚动（v1.19.21） */
 .detail .detail-meta, .detail .detail-metrics, .detail .d-install { flex: none; }
 

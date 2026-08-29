@@ -1,4 +1,4 @@
-// app/components/detail-modal.tsx v1.14.46 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
+// app/components/detail-modal.tsx v1.14.55 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
 "use client";
 import { useEffect, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -47,6 +47,16 @@ export function DetailModal({
   const [flip, setFlip] = useState(false);
   useEffect(() => { setFlip(false); const id = requestAnimationFrame(() => setFlip(true)); return () => cancelAnimationFrame(id); }, []);
 
+  // 移动端底部抽屉（对齐 prototype 03-detail.js:200 matchMedia≤640px → .dialog.sheet）
+  const [sheet, setSheet] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const apply = () => setSheet(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
   // githubDir 为仓库内部已知路径（skills/<name>），按原型直接拼接，
   // 不编码斜杠，否则 skills%2Fxxx 导致 GitHub 链接 404（对齐 03-detail.js:96）
   const githubUrl = `${GITHUB_TREE}/${skill.githubDir}`;
@@ -55,7 +65,7 @@ export function DetailModal({
 
   return (
     <div className="detail-overlay" id="detailOverlay" role="dialog" aria-modal="true" aria-label={skill.zh || skill.name}>
-      <div className={`detail dialog show${flip ? " flip" : ""}`} id="detailDialog" onClick={(e) => e.stopPropagation()}>
+      <div className={`detail dialog show${flip ? " flip" : ""}${sheet ? " sheet" : ""}`} id="detailDialog" onClick={(e) => e.stopPropagation()}>
         <div className="detail-head" id="detailHead">
           <span className="avatar" style={{ ["--hue" as string]: catHue(skill.category) }} aria-hidden="true">
             {initials(skill.name)}

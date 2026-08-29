@@ -230,6 +230,12 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
 .heat-bars i.on { background: hsl(var(--primary)); }
 .pop-label { font-size: 11.5px; color: var(--text-3); }
 
+/* 5 格热度（对齐 prototype popularityHTML：圆点 5 格，点亮格数随热度占比） */
+.heat-row { display: flex; gap: 5px; }
+.heat-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border); transition: background .15s, transform .15s; }
+.heat-dot.on { background: hsl(var(--primary)); box-shadow: 0 0 0 2px hsl(var(--primary) / .18); }
+@media (prefers-reduced-motion: reduce) { .heat-dot, .heat-dot.on { transition: none; } }
+
 /* 整张详情卡由外层 .detail 统一滚动，body 不再单独出现滚动条（v1.19.30） */
 .detail-body { padding: 18px 22px 22px; overflow: visible; display: flex; flex-direction: column; gap: 16px; flex: none; }
 .d-desc { margin: 0; line-height: 1.75; color: var(--text); white-space: pre-line; }
