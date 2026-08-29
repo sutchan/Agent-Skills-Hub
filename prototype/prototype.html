@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.20.56 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.49 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -803,7 +803,7 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="filter-scroll" id="cats"></div></nav>
 
   <main class="grid" id="grid" aria-label="技能列表" aria-live="off"></main>
-  <!-- 分页器：每页 100 条，数字翻页 + 上下页（renderPager 注入；v1.19.18） -->
+  <!-- 分页器：每页 36 条，数字翻页 + 上下页（renderPager 注入；v1.19.18） -->
   <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
 
   <!-- 页脚区：品牌 + 导航链接 + 版本/协议（id 供脚本与测试精确选取；文案随语言切换） -->
@@ -848,7 +848,7 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.14.45</span>
+      <span class="footer-ver" id="footerVer">v1.14.50</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -2184,7 +2184,7 @@ function showToast(msg) {
   _toastTimer = setTimeout(() => el.classList.remove("show"), 1800);
 }
 
-// prototype/src/parts/05-main.js v1.20.56 — 应用启动编排
+// prototype/src/parts/05-main.js v1.14.49 — 应用启动编排
 // URL hash 深链：筛选/搜索/排序/页码可分享、刷新可还原（P0-1）
 // 序列化规则：#cat=docs,ai-agent&q=xxx&sort=name&page=2，无筛选时清空 hash
 function writeHash() {
@@ -2267,7 +2267,7 @@ function init() {
   window.addEventListener("resize", setTopbarH);
   // 页脚版本号兜底：若 build 未替换 {{VERSION}} 字面量，运行时回退到真实版本（F 改进）
   const fv = $("#footerVer");
-  if (fv && fv.textContent.includes("{{VERSION}}")) fv.textContent = "v1.20.56";
+  if (fv && fv.textContent.includes("{{VERSION}}")) fv.textContent = "v1.14.49";
 }
 
 document.addEventListener("DOMContentLoaded", init);

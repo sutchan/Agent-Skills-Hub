@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.50] - 2026-08-29
+
+### fix: 修正原型页脚版本兜底值与分页注释一致性
+
+- 将 `prototype/src/parts/05-main.js` 页脚版本兜底值由过时的 `v1.20.56` 改为真实 HEAD `v1.14.49`，
+  避免 build 漏替换 `{{VERSION}}` 时运行时展示错误旧版本。
+- 修正 `prototype/src/index.html` 分页器注释（"每页 100 条"→"每页 36 条"）以对齐实际 `PAGE_SIZE`。
+- 同步两个改动源文件头注释到 `v1.14.49`；重建 `prototype.html` 验证页脚正确渲染 `v1.14.50`。
+- **换行符归一化（同版本收尾）**：将 `.gitattributes` 全局规则由 `* text=auto` 改为
+  `* text=auto eol=lf`，并对全仓库执行 `git add --renormalize .`，将此前因
+  `core.autocrlf=true` 回流入库的 CRLF 文本（CHANGELOG/README/README.en/package.json/
+  prototype 等 8 个文件）统一归一到 LF，消除跨平台 diff 噪音。仓库级 `core.autocrlf`
+  保持 `false`，与 `.gitattributes` 的 LF 权威声明一致。
+
 ## [1.14.49] - 2026-08-28
 
 ### fix: 修复深色模式根背景缺失导致白底浅字不可读
