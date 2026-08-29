@@ -1,0 +1,3 @@
+Built self-contained prototype -> E:\Github\Agent-Skills-Hub\prototype\prototype.html (289.3 KB)
+Copied favicon.svg -> prototype/favicon.svg
+Copied banner-og.svg -> prototype/banner-og.svg

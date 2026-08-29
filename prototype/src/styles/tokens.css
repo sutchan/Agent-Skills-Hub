@@ -1,4 +1,4 @@
-/* prototype/src/styles/tokens.css v1.20.17 — 设计令牌 + reset（DESIGN.md §2 事实来源）
+/* prototype/src/styles/tokens.css v1.14.52 — 设计令牌 + reset（DESIGN.md §2 事实来源）
  *
  * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
  * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）为历史兼容保留，供 base/layout/components 模块消费，
@@ -21,6 +21,8 @@
   --muted-foreground: 220 9% 46%;   /* 辅助文字 */
   --accent: 152 56% 95%;            /* 主色浅底（聚焦环/徽章） */
   --accent-foreground: 152 56% 33%;
+  --accent-2: 190 72% 42%;          /* 次级强调色（青，用于复制/分享等次要操作，拉开层级） */
+  --accent-2-foreground: 0 0% 100%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
   --border: 220 14% 90%;
@@ -74,6 +76,8 @@ html[data-theme="dark"] {
   --muted-foreground: 220 12% 60%;
   --accent: 152 56% 22%;
   --accent-foreground: 152 56% 82%;
+  --accent-2: 190 72% 56%;          /* 深色次级强调色（青） */
+  --accent-2-foreground: 224 32% 8%;
   --destructive: 0 62% 52%;
   --destructive-foreground: 0 0% 100%;
   --border: 224 16% 22%;

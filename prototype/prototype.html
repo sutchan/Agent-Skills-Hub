@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.49 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.53 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -21,7 +21,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
-  <style>/* prototype/src/styles/tokens.css v1.20.17 — 设计令牌 + reset（DESIGN.md §2 事实来源）
+  <style>/* prototype/src/styles/tokens.css v1.14.52 — 设计令牌 + reset（DESIGN.md §2 事实来源）
  *
  * 令牌体系以 shadcn/ui 风格 HSL 通道语义变量为唯一事实来源（DESIGN.md §2.1-2.5）。
  * 下方「扁平桥接别名」（--bg/--surface/--text-2 …）为历史兼容保留，供 base/layout/components 模块消费，
@@ -44,6 +44,8 @@
   --muted-foreground: 220 9% 46%;   /* 辅助文字 */
   --accent: 152 56% 95%;            /* 主色浅底（聚焦环/徽章） */
   --accent-foreground: 152 56% 33%;
+  --accent-2: 190 72% 42%;          /* 次级强调色（青，用于复制/分享等次要操作，拉开层级） */
+  --accent-2-foreground: 0 0% 100%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
   --border: 220 14% 90%;
@@ -97,6 +99,8 @@ html[data-theme="dark"] {
   --muted-foreground: 220 12% 60%;
   --accent: 152 56% 22%;
   --accent-foreground: 152 56% 82%;
+  --accent-2: 190 72% 56%;          /* 深色次级强调色（青） */
+  --accent-2-foreground: 224 32% 8%;
   --destructive: 0 62% 52%;
   --destructive-foreground: 0 0% 100%;
   --border: 224 16% 22%;
@@ -185,7 +189,7 @@ body.no-scroll { overflow: hidden; }
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
 
-/* prototype/src/styles/layout.css v1.20.56 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.14.52 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -371,16 +375,16 @@ html[data-lang="zh"] .en { display: none; }
 .star-btn svg { color: hsl(var(--primary-foreground)); }
 .share-btn {
   display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 999px;
-  background: var(--surface); color: var(--text); border: 1px solid var(--border);
-  font-size: 13px; font-weight: 600; cursor: pointer; transition: border-color .15s, color .15s, transform .15s ease;
+  background: var(--surface); color: hsl(var(--accent-2)); border: 1px solid color-mix(in srgb, hsl(var(--accent-2)) 35%, var(--border));
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: border-color .15s, color .15s, background .15s, transform .15s ease;
 }
-.share-btn:hover { border-color: var(--text-3); color: var(--text); transform: translateY(-1px); }
+.share-btn:hover { border-color: hsl(var(--accent-2)); color: hsl(var(--accent-2)); background: color-mix(in srgb, hsl(var(--accent-2) / .08), var(--surface)); transform: translateY(-1px); }
 @media (max-width: 640px) {
   .footer-cta { flex-basis: 100%; }
   .star-btn, .share-btn { flex: 1 1 auto; justify-content: center; }
 }
 
-/* prototype/src/styles/components.css v1.20.46 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
+/* prototype/src/styles/components.css v1.14.53 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区） */
 
 /* 分类 chip（筛选器）：默认中性灰，选中态才用 --hue 派生彩色（对齐 app，catHue 算法驱动） */
 .chip {
@@ -423,19 +427,33 @@ html[data-lang="zh"] .en { display: none; }
 /* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + title-row + card-title/sub/cat）
    渲染为原生 <button>（a11y 语义），需重置 button 默认样式 */
 .card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
-.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, hsl(var(--hue, 152) 55% 50%) 45%, var(--border)); }
-/* 方案 D：卡片 hover 时 cat-bar 色条「滴」出一滴同色墨，径向扩散（像技能在渗色） */
-.card::after {
-  content: ""; position: absolute; top: -40%; left: -10%; width: 60%; height: 60%;
-  background: radial-gradient(circle at 30% 30%, hsl(var(--hue, 152) 65% 50% / .22), transparent 70%);
-  opacity: 0; transform: scale(.6); transform-origin: top left; pointer-events: none;
-  transition: opacity .3s ease, transform .4s ease;
-}
-.card:hover::after { opacity: 1; transform: scale(1.1); }
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, hsl(var(--hue, 152) 55% 50%) 45%, var(--border)); background: color-mix(in srgb, hsl(var(--hue, 152) 55% 50% / .04), var(--surface)); }
+/* 方案 D（收敛）：移除径向光斑噪音，hover 仅保留上浮 + 彩色边框 + 极轻同色 tint，质感更克制高级 */
 /* 方案 A：节点 hover 时对应分类卡片脉冲高亮 */
 .card.pulse { animation: cardPulse 1s ease-in-out infinite; box-shadow: 0 0 0 2px hsl(var(--hue, 152) 65% 50% / .6), var(--shadow-pop); }
 @keyframes cardPulse { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-@media (prefers-reduced-motion: reduce) { .card::after { transition: none; } .card.pulse { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .card.pulse { animation: none; } }
+
+/* 首屏骨架屏：结构与 .card 一致，条块 shimmer 占位，JS 渲染后整体替换 */
+.skeleton {
+  position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--surface); padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 134px;
+}
+.skeleton .cat-bar { position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--border); }
+.skeleton .sk-top { display: flex; align-items: center; gap: 10px; }
+.skeleton .avatar { background: color-mix(in srgb, var(--text) 14%, var(--surface)); }
+.skeleton .sk-meta { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.skeleton .sk-desc { display: flex; flex-direction: column; gap: 6px; }
+.skeleton .bar { height: 9px; border-radius: 5px; background: color-mix(in srgb, var(--text) 12%, var(--surface)); }
+.skeleton .w40 { width: 40%; } .skeleton .w60 { width: 60%; } .skeleton .w70 { width: 70%; }
+.skeleton .w80 { width: 80%; } .skeleton .w90 { width: 90%; }
+.skeleton::after {
+  content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 7%, transparent), transparent);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .skeleton::after { animation: none; display: none; } }
 /* 焦点态与 hover 区分：键盘焦点用主色描边+偏移，避免与 hover 的边框变色混淆（C4） */
 .card:focus-visible { border-color: var(--primary); box-shadow: var(--shadow-pop), 0 0 0 2px hsl(var(--ring) / .45); }
 /* 内容包裹层：列表态作为横向排布的主内容列，网格态仅作普通容器 */
@@ -469,7 +487,7 @@ html[data-lang="zh"] .en { display: none; }
 :root[data-lang="zh"] #dialog .sub.en { display: block; font-size: 12px; color: var(--text-2); font-weight: 400; margin-top: 2px; }
 :root[data-lang="en"] #dialog .sub.en { display: none; }
 /* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 3 行截断 */
-.card-desc { color: var(--text-2); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card-desc { color: color-mix(in srgb, var(--text) 68%, var(--text-2)); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .card-desc > span { display: block; }
 .card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
 
@@ -802,7 +820,69 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
 
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="filter-scroll" id="cats"></div></nav>
 
-  <main class="grid" id="grid" aria-label="技能列表" aria-live="off"></main>
+  <main class="grid" id="grid" aria-label="技能列表" aria-live="off">
+    <!-- 首屏骨架占位：JS 渲染前避免白屏，renderGrid 会用真实卡片整体替换此容器 -->
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+  </main>
   <!-- 分页器：每页 36 条，数字翻页 + 上下页（renderPager 注入；v1.19.18） -->
   <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
 
@@ -848,7 +928,7 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.14.50</span>
+      <span class="footer-ver" id="footerVer">v1.14.54</span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>

@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.54] - 2026-08-29
+
+### feat: 原型新增首屏骨架屏占位
+
+- `index.html` 网格容器初始注入 12 张骨架卡片（结构与 .card 一致），避免 JS 渲染前白屏。
+- `components.css` 新增 `.skeleton` 样式与 shimmer 动画（支持 `prefers-reduced-motion` 降级），`renderGrid` 整体替换 `#grid` innerHTML 时自然清除。
+
+## [1.14.53] - 2026-08-29
+
+### style: 原型视觉设计改进（hover 收敛 / 次级强调色 / 描述对比度）
+
+- 收敛技能卡片 hover 动效：移除 `::after` 径向光斑噪音，改为克制的上浮 + 彩色边框 + 极轻同色 tint，降低 222 张大网格视觉噪音。
+- 新增次级强调色令牌 `--accent-2`（青 190°），应用于页脚「分享」按钮，与主绿「Star」按钮拉开操作层级。
+- 提升卡片描述对比度：`--text-2` 改为 `color-mix(text 68%, text-2)`，稳过 WCAG AA 下限。
+
 ## [1.14.52] - 2026-08-29
 
 ### refactor: 代码评审修复（DetailMeta key 稳定性 + URL 常量收敛）

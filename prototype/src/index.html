@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.49 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.53 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -146,7 +146,69 @@
 
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="filter-scroll" id="cats"></div></nav>
 
-  <main class="grid" id="grid" aria-label="技能列表" aria-live="off"></main>
+  <main class="grid" id="grid" aria-label="技能列表" aria-live="off">
+    <!-- 首屏骨架占位：JS 渲染前避免白屏，renderGrid 会用真实卡片整体替换此容器 -->
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+    <div class="skeleton" aria-hidden="true">
+      <div class="cat-bar"></div>
+      <div class="sk-top"><div class="avatar sm"></div><div class="sk-meta"><span class="bar w60"></span><span class="bar w40"></span></div></div>
+      <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
+    </div>
+  </main>
   <!-- 分页器：每页 36 条，数字翻页 + 上下页（renderPager 注入；v1.19.18） -->
   <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
 
