@@ -1,13 +1,9 @@
 ---
 name: figma-design-to-code
-description: |-
-  强制前置技能——在调用 get_design_context Figma MCP 工具前必须触发。只要用户想将 Figma 设计实现、构建、移植或编写为代码即触发（如“实现这个 Figma 设计”“把 Figma 变成代码”）。提供智能体正确实现 Figma 设计的关键步骤与指令，不可跳过。
-en_description: "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped."
-zh_displayName: Figma 设计转代码
-category: 品牌与设计
-en_category: Brand & Design
+description: "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped."
 disable-model-invocation: false
 ---
+
 # Implement a Figma Design as Code (Design → Code)
 
 Use this skill to turn a Figma design into code in a target codebase. This is the **read-FROM-Figma** direction: pull design context out of Figma with `get_design_context`, then adapt it into the project's real stack. For the reverse direction — building or updating a design *in* Figma from code — use [figma-generate-design](../figma-generate-design/SKILL.md) instead.

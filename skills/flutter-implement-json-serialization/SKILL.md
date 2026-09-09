@@ -1,11 +1,7 @@
 ---
 name: flutter-implement-json-serialization
-description: "使用 dart:convert 创建含 fromJson/toJson 的模型类。"
-en_description: "Create model classes with `fromJson` and `toJson` methods using `dart:convert`. Use when manually mapping JSON keys to class properties for simple data structures."
-zh_displayName: Flutter JSON 序列化
-category: 移动端开发
-en_category: Mobile Dev
-metadata: |-
+description: Create model classes with `fromJson` and `toJson` methods using `dart:convert`. Use when manually mapping JSON keys to class properties for simple data structures.
+metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Tue, 21 Apr 2026 21:44:50 GMT
 ---

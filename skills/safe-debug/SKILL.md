@@ -1,10 +1,6 @@
 ---
 name: safe-debug
-description: Rigor Debug / Rigor Audit 技能，面向深度学习科研工作。当用户想安全地调试训练/推理、排查数值异常或复现问题时使用。
-en_description: Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.
-zh_displayName: 安全调试
-category: 安全
-en_category: Security
+description: Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training failure and wants conservative diagnosis before any patching, with debug fixes clearly separated from research contributions. Do not use for broad refactoring, speculative adaptation, automatic exploratory patching, or general repository familiarization.
 ---
 
 # safe-debug
@@ -13,7 +9,7 @@ Use this as the Rigor Debug / Rigor Audit skill. The installed slug remains
 `safe-debug` for compatibility.
 
 Use the shared operating principles in
-`../../references/agent-operating-principles.md`; this skill should guide
+`../ai-research-reproduction/references/agent-operating-principles.md`; this skill should guide
 conservative diagnosis without blocking the model from finding the local root
 cause.
 
@@ -46,4 +42,4 @@ cause.
 
 ## Notes
 
-Use `references/debug-policy.md`, `../../references/research-rigor-principles.md`, and the shared `../../references/research-pitfall-checklist.md`.
+Use `references/debug-policy.md`, `../ai-research-reproduction/references/research-rigor-principles.md`, and the shared `../ai-research-reproduction/references/research-pitfall-checklist.md`.

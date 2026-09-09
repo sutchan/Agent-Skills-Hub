@@ -1,11 +1,7 @@
 ---
 name: dart-run-static-analysis
-description: 执行 dart analyze 识别警告与错误，并用 dart fix --apply 自动修复机械性问题。
-en_description: Execute `dart analyze` to identify warnings and errors, and use `dart fix --apply` to automatically resolve mechanical lint issues. Use during development to ensure code quality and before committing changes.
-zh_displayName: Dart 静态分析
-category: 移动端开发
-en_category: Mobile Dev
-metadata: |-
+description: Execute `dart analyze` to identify warnings and errors, and use `dart fix --apply` to automatically resolve mechanical lint issues. Use during development to ensure code quality and before committing changes.
+metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Fri, 24 Apr 2026 15:09:34 GMT
 ---

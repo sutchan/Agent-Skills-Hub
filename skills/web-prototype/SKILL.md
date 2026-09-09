@@ -1,12 +1,27 @@
 ---
 name: web-prototype
-description: |-
-  通用桌面网页原型：通过复制种子模板生成单一自包含 HTML 文件。在快速搭建可交互网页原型时使用。
-en_description: |-
-  General-purpose desktop web prototype: a single self-contained HTML file built by copying the seed template. Use for quick interactive web prototypes.
-zh_displayName: 网页原型
-category: 前端开发
-en_category: Frontend Dev
+description: |
+  General-purpose desktop web prototype. Single self-contained HTML file built
+  by copying the seed `assets/template.html` and pasting section layouts from
+  `references/layouts.md`. Default for any landing / marketing / docs / SaaS
+  page when no more specific skill matches.
+triggers:
+  - "prototype"
+  - "mockup"
+  - "landing"
+  - "single page"
+  - "marketing page"
+  - "homepage"
+od:
+  mode: prototype
+  platform: desktop
+  scenario: design
+  preview:
+    type: html
+    entry: index.html
+  design_system:
+    requires: true
+    sections: [color, typography, layout, components]
 ---
 
 # Web Prototype Skill
@@ -54,7 +69,7 @@ State the chosen list in one sentence to the user *before* writing — they can 
 
 ### Step 3 — Paste and fill
 
-For each chosen layout, copy the `<section>` block from `layouts.md` into `<main id="content">` of the project HTML. Replace bracketed `[REPLACE]` strings with real, specific copy from the user's brief. **No filler** — if a slot is empty, the section is the wrong choice; pick a different layout.
+For each chosen layout, copy the `<section>` block from `layouts.md` into `<main id="content">` of the project HTML. Replace bracketed `[REPLACE]` strings with real, specific copy from the user's brief. **No filler** — if a slot is empty, the section is the wrong choice; pick a different layout. Treat every `.ph-img` block as layout scaffolding and replace it when the section requires imagery, following the real-first rule below before self-checking.
 
 ### Step 4 — Self-check
 
@@ -68,7 +83,8 @@ Write the completed HTML to the canonical project file, normally `index.html`. T
 
 - **Single accent, used at most twice per screen.** Eyebrow + primary CTA is the default budget.
 - **Display font is serif** (Iowan Old Style / Charter / Georgia in the seed). Sans for body. Mono for numerics, captions, eyebrows.
-- **Image placeholders, not external URLs.** Use the `.ph-img` class — never link to a stock photo CDN.
+- **Real imagery, never remote hotlinks.** `.ph-img` is temporary layout scaffolding, not the default final treatment. For a named real-world referent, search/fetch the correct real image, copy it into the project, and reference it relatively; never generate, draw, or invent a substitute. For illustrative or atmospheric subjects, prefer suitable fetched real photography and use image generation only as a fallback. If no compliant asset can be acquired, keep an intentional labeled `.ph-img` and disclose the limitation in the delivery summary.
+- **Preserve real-image geometry.** Inspect each acquired image's intrinsic width and height, replace the entire `.ph-img` scaffold with an `<img class="content-img">`, and set matching `width` and `height` attributes. Never copy `.ph-img`, `.wide`, `.portrait`, or `.square` onto a real image. Content images must show the full frame; `object-fit: cover` is only for intentionally croppable decorative fills. The seed's `.content-img` rule bounds unusually tall or wide images to the viewport while keeping the other axis automatic.
 - **Mobile reflow already works** via the seed's media query at 920px. Don't break it by adding fixed widths.
 - **`data-od-id` on every `<section>`** so comment mode can target it.
 

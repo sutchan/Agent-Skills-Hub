@@ -1,11 +1,6 @@
 ---
 name: playwright-explore-website
-description: |-
-  用 Playwright 探索测试网站
-en_description: "Website exploration for testing using Playwright MCP"
-zh_displayName: Playwright 网站探索
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: 'Website exploration for testing using Playwright MCP'
 ---
 
 # Website Exploration for Testing

@@ -1,7 +1,5 @@
 ---
 name: limrun-detox-testing
-category: 移动端开发
-en_category: Mobile Dev
 description: Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over destination tunnels.
 user-invocable: true
 ---
@@ -49,7 +47,7 @@ Terminal 2:
 
 ```bash
 lim ios tunnel \
-  --route localhost:8099 \
+  --selector localhost:8099 \
   --detach \
   --id <ios-id>
 DETOX_SERVER_URL="ws://localhost:8099"
@@ -78,7 +76,7 @@ lim ios launch-app <bundle-id> \
 Prefer starting the tester before the app connects, or use the maintained orchestration in [limrun-inc/typescript-sdk `examples/detox-ios`](https://github.com/limrun-inc/typescript-sdk/tree/main/examples/detox-ios), to avoid benign mediator "cannot forward" noise.
 If you manually launch the app before `npx detox test --no-start`, that mediator message is expected until the tester connects.
 
-If tunnel start reports an active session, inspect it with `lim ios tunnel status --id <ios-id> --json`. Stop an obsolete session with `lim ios tunnel stop --id <ios-id>`, then start the declared mediator route again.
+If tunnel start reports an active session, inspect it with `lim ios tunnel status --id <ios-id> --json`. Stop an obsolete session with `lim ios tunnel stop --id <ios-id>`, then start the declared mediator selector again.
 An open idle tunnel does not count as instance activity, so it does not prevent
 the simulator's inactivity timeout between test runs.
 

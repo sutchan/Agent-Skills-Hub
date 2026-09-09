@@ -1,14 +1,9 @@
 ---
 name: dart-migrate-to-checks-package
 description: |-
-  将 package:matcher 的 expect 等用法替换为 package:checks 等价写法。
-en_description: |-
   Replace the usage of `expect` and similar functions from `package:matcher`
   to `package:checks` equivalents.
-zh_displayName: Dart 迁移至 checks 包
-category: 移动端开发
-en_category: Mobile Dev
-metadata: |-
+metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Tue, 09 Jun 2026 19:30:00 GMT
 ---

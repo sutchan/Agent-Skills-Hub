@@ -78,12 +78,17 @@ def infer_section_category(section: Optional[str]) -> Optional[str]:
     if not section:
         return None
     lowered = section.lower()
-    if any(word in lowered for word in ["inference", "usage", "demo", "example", "text-to-image", "image-to-image", "transcribe"]):
-        return "inference"
-    if any(word in lowered for word in ["evaluation", "evaluate", "benchmark", "metrics", "validation"]):
-        return "evaluation"
+    # Training is the highest-risk interpretation. Check it before generic
+    # headings such as "example" or "usage" so they cannot bypass training
+    # authorization when both appear in the same title.
     if any(word in lowered for word in ["training", "train", "finetune", "fine-tune", "pretrain"]):
         return "training"
+    if any(word in lowered for word in ["evaluation", "evaluate", "benchmark", "metrics", "validation"]) or re.search(
+        r"\b(?:test|tests|testing)\b", lowered
+    ):
+        return "evaluation"
+    if any(word in lowered for word in ["inference", "usage", "demo", "example", "text-to-image", "image-to-image", "transcribe"]):
+        return "inference"
     return None
 
 
@@ -109,13 +114,31 @@ SCRIPT_CATEGORY_HINTS = [
     (re.compile(r"\b(?:sample|generate|infer\w*|predict|demo)\w*\.py\b"), "inference"),
 ]
 
+SETUP_PREFIXES = (
+    "pip install",
+    "pip3 install",
+    "conda install",
+    "conda env create",
+    "conda create",
+    "conda activate",
+    "python -m pip install",
+    "git clone",
+    "cd ",
+)
+ASSET_PREFIXES = ("wget ", "curl ", "mkdir ", "tar ", "unzip ", "7z ", "aria2c ")
+
 
 def classify(command: str, section: Optional[str] = None) -> str:
+    lowered = command.lower().strip()
+    # Unambiguous setup/asset syntax outranks generic headings such as
+    # "Basic Example", which otherwise makes installation look like inference.
+    if lowered.startswith(SETUP_PREFIXES + ASSET_PREFIXES):
+        return "other"
+
     section_category = infer_section_category(section)
     if section_category:
         return section_category
 
-    lowered = command.lower()
     for pattern, category in SCRIPT_CATEGORY_HINTS:
         if pattern.search(lowered):
             return category
@@ -127,7 +150,7 @@ def classify(command: str, section: Optional[str] = None) -> str:
         token in lowered for token in ["txt2img", "img2img", "whisper ", "amg.py"]
     ):
         return "inference"
-    if any_word(["eval", "evaluate", "evaluation", "validation", "validate", "benchmark", "score"]):
+    if any_word(["eval", "evaluate", "evaluation", "validation", "validate", "benchmark", "score", "pytest", "test"]):
         return "evaluation"
     if any_word(["train", "training", "finetune", "pretrain"]) or any(
         token in lowered for token in ["fine-tune", "pre-train"]
@@ -137,27 +160,15 @@ def classify(command: str, section: Optional[str] = None) -> str:
 
 
 def command_kind(command: str, section: Optional[str] = None) -> str:
+    lowered = command.lower().strip()
+    if lowered.startswith(SETUP_PREFIXES):
+        return "setup"
+    if lowered.startswith(ASSET_PREFIXES):
+        return "asset"
+
     section_kind = infer_section_kind(section)
     if section_kind:
         return section_kind
-
-    lowered = command.lower().strip()
-    setup_prefixes = (
-        "pip install",
-        "pip3 install",
-        "conda install",
-        "conda env create",
-        "conda create",
-        "conda activate",
-        "python -m pip install",
-        "git clone",
-        "cd ",
-    )
-    asset_prefixes = ("wget ", "curl ", "mkdir ", "tar ", "unzip ", "7z ", "aria2c ")
-    if lowered.startswith(setup_prefixes):
-        return "setup"
-    if lowered.startswith(asset_prefixes):
-        return "asset"
     if "--help" in lowered or " -h" in lowered:
         return "smoke"
     return "run"
@@ -211,7 +222,66 @@ def clean_lines(block: str) -> List[str]:
     return commands
 
 
-def extract_commands(readme_text: str) -> Dict[str, object]:
+PYTHON_ENTRYPOINT_RE = re.compile(
+    r"(?:^|\s)(?P<path>(?:(?:\.?\.?)[\\/])?(?:[A-Za-z0-9_.-]+[\\/])*[A-Za-z0-9_.-]+\.py)(?=\s|$)"
+)
+TRAINING_STRUCTURE_SIGNALS = [
+    ("optimizer-step", re.compile(r"\boptimizer\s*\.\s*step\s*\(", re.IGNORECASE), 3),
+    ("backward-pass", re.compile(r"\.\s*backward\s*\(", re.IGNORECASE), 3),
+    ("model-train-mode", re.compile(r"\.\s*train\s*\(", re.IGNORECASE), 2),
+    ("train-function", re.compile(r"\bdef\s+train\w*\s*\(", re.IGNORECASE), 1),
+    ("epoch-loop", re.compile(r"\bfor\s+\w*epoch\w*\s+in\b", re.IGNORECASE), 1),
+]
+
+
+def referenced_python_script(command: str, readme_dir: Path) -> Optional[Path]:
+    matched = PYTHON_ENTRYPOINT_RE.search(command)
+    if not matched:
+        return None
+    root = readme_dir.resolve()
+    candidate = (root / matched.group("path")).resolve()
+    try:
+        candidate.relative_to(root)
+    except ValueError:
+        return None
+    if not candidate.is_file() or candidate.stat().st_size > 524_288:
+        return None
+    return candidate
+
+
+def training_structure_evidence(script: Path) -> List[str]:
+    try:
+        content = script.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return []
+    evidence: List[str] = []
+    score = 0
+    for label, pattern, weight in TRAINING_STRUCTURE_SIGNALS:
+        if pattern.search(content):
+            evidence.append(label)
+            score += weight
+    return evidence if score >= 4 else []
+
+
+def apply_entrypoint_structure(commands: List[Dict[str, str]], readme_dir: Optional[Path]) -> None:
+    if readme_dir is None:
+        return
+    for item in commands:
+        if item.get("kind") in {"setup", "asset"} or item.get("category") == "training":
+            continue
+        script = referenced_python_script(item["command"], readme_dir)
+        if script is None:
+            continue
+        evidence = training_structure_evidence(script)
+        if not evidence:
+            continue
+        item["classification_previous_category"] = item["category"]
+        item["category"] = "training"
+        item["classification_source"] = "entrypoint-structure"
+        item["classification_evidence"] = evidence
+
+
+def extract_commands(readme_text: str, readme_dir: Optional[Path] = None) -> Dict[str, object]:
     commands: List[Dict[str, str]] = []
     warnings: List[str] = []
     seen = set()
@@ -266,6 +336,8 @@ def extract_commands(readme_text: str) -> Dict[str, object]:
             seen.add(command)
         running_offset += len(line)
 
+    apply_entrypoint_structure(commands, readme_dir)
+
     if not commands:
         warnings.append("No shell-like commands were extracted from the README.")
 
@@ -289,7 +361,7 @@ def main() -> int:
 
     readme_path = Path(args.readme)
     text = readme_path.read_text(encoding="utf-8", errors="replace")
-    data = extract_commands(text)
+    data = extract_commands(text, readme_path.parent)
 
     if args.json:
         print(json.dumps(data, indent=2, ensure_ascii=False))

@@ -1,11 +1,7 @@
 ---
 name: dart-build-cli-app
-description: 命令行工具的入口结构、退出码与跨平台脚本编写规范。
-en_description: Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.
-zh_displayName: Dart CLI 应用构建
-category: 移动端开发
-en_category: Mobile Dev
-metadata: |-
+description: Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.
+metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Fri, 04 May 2026 17:41:00 GMT
 ---

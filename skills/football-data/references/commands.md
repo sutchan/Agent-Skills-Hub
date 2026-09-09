@@ -107,6 +107,8 @@ League, Turkish Super Lig). Returns an informative message for other leagues.
 Returns `data.events[]` (per meeting: date, home/away team+score, result, shots/corners
 when available) and `data.summary` (total meetings, per-team wins + goals, draws).
 Only counts meetings in a shared division. ESPN remains the fixture authority.
+`data.teams[]` reports `resolved` + `matched_as` per club: zero meetings with an
+unresolved club means the lookup failed, not that the clubs never met.
 
 ### get_team_strength
 Team strength via ClubElo Elo rating (free CSV). **European clubs only** — a
@@ -120,6 +122,10 @@ confidently matched to ClubElo are reported (`resolved: false`), never guessed.
 Returns `data.teams[]` (per team: `elo`, `rank`, `country`, `level`, `as_of`,
 `matched_as`). With two teams also returns `elo_difference` (team1 − team2) and
 `favorite`. Covers the same 11 European domestic leagues as `get_head_to_head`.
+
+`max_seasons` (int, optional) additionally tunes the local-Elo fallback used when
+ClubElo is unreachable (default 10, max 34). The fallback sets `source: "local-elo"`
+and a division-local scale — see `api-reference.md`.
 
 ### get_match_forecast
 ClubElo win/draw/loss + scoreline forecast for a team's upcoming fixtures (free CSV).

@@ -1,12 +1,9 @@
 ---
 name: to-spec
-description: 将当前对话转化为规格并发布到项目问题追踪器，无需手动搬移上下文。
-en_description: Turn the current conversation into a spec and publish it to the project issue tracker without manual context moving.
-zh_displayName: 对话转规格
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed."
 disable-model-invocation: true
 ---
+
 This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user; just synthesize what you already know.
 
 The issue tracker and triage label vocabulary should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.

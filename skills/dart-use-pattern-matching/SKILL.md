@@ -1,11 +1,7 @@
 ---
 name: dart-use-pattern-matching
-description: 在合适处使用 switch 表达式与模式匹配。
-en_description: Use switch expressions and pattern matching where appropriate
-zh_displayName: Dart 模式匹配
-category: 移动端开发
-en_category: Mobile Dev
-metadata: |-
+description: Use switch expressions and pattern matching where appropriate
+metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Fri, 24 Apr 2026 15:08:55 GMT
 ---

@@ -1,7 +1,5 @@
 ---
 name: playwright-cli
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
 description: Automate browser interactions, test web pages and work with Playwright tests.
 allowed-tools: Bash(playwright-cli:*) Bash(npx:*) Bash(npm:*)
 ---
@@ -167,6 +165,11 @@ playwright-cli run-code "async page => await page.context().grantPermissions(['g
 playwright-cli run-code --filename=script.js
 playwright-cli tracing-start
 playwright-cli tracing-stop
+
+# record user actions in the browser, print them as Playwright code on stop
+playwright-cli recording-start
+playwright-cli recording-stop
+
 playwright-cli video-start video.webm
 playwright-cli video-chapter "Chapter Title" --description="Details" --duration=2000
 playwright-cli video-stop

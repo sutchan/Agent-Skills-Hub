@@ -1,13 +1,9 @@
 ---
 name: figma-generate-library
-description: |-
-  从代码库在 Figma 中构建或更新专业级设计系统。当用户想创建变量/令牌、构建组件库、创建带变体集与变量绑定的单个组件、配置主题（明/暗模式）、记录设计基础，或调和代码与 Figma 的差距时使用。也适用于创建或生成任意 Figma 组件。本技能讲授构建什么与顺序，与讲授如何调用插件 API 的 figma-use 互补，两者应一起加载。
-en_description: Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together.
-zh_displayName: Figma 设计系统构建
-category: 品牌与设计
-en_category: Brand & Design
+description: "Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together."
 disable-model-invocation: false
 ---
+
 # Design System Builder — Figma MCP Skill
 
 Build professional-grade design systems in Figma that match code. This skill orchestrates multi-phase workflows across 20–100+ `use_figma` calls, enforcing quality patterns from real-world design systems (Material 3, Polaris, Figma UI3, Simple DS).
@@ -27,7 +23,6 @@ Before starting a phase:
 - Include every task/subtask that will be attempted in that phase.
 - Include the phase exit criteria.
 - Do not begin mutating work for the phase until this checklist has been posted.
-- If the phase requires explicit approval, ask for approval after the checklist and wait.
 
 During execution:
 - Before each major subsection, post a short update naming the exact section being worked on, using this format:
@@ -43,7 +38,6 @@ At the end of each phase:
   - Decisions or conflicts resolved
   - Remaining risks or follow-ups
 - Then show the required phase artifact for that phase and continue automatically.
-- Only ask for explicit approval after Phase 0 or if a genuine decision fork arises (see [Section 6](#6-decision-forks)). For Phases 1–4, the default is to continue automatically after the summary.
 
 ### Stable Task IDs
 
@@ -309,7 +303,6 @@ Collection: "Spacing"       modes: ["Value"]
 ## 9. Per-Phase Anti-Patterns
 
 **Phase 0 anti-patterns:**
-- ❌ Starting to create anything before scope is locked with user
 - ❌ Ignoring existing file conventions and imposing new ones
 - ❌ Skipping `search_design_system` before planning component creation
 
@@ -332,7 +325,7 @@ Collection: "Spacing"       modes: ["Value"]
 - ❌ Importing remote components then immediately detaching them
 
 **General anti-patterns:**
-- ❌ Retrying a failed script without understanding the error first
+- ❌ Retrying when `safeToRetryWithoutCanvasRead` is `false` before reading the canvas
 - ❌ Using name-prefix matching for cleanup (deletes user-owned nodes)
 - ❌ Building on unvalidated work from the previous step
 - ❌ Parallelizing use_figma calls (always sequential)

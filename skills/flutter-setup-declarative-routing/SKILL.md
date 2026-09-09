@@ -1,11 +1,7 @@
 ---
 name: flutter-setup-declarative-routing
-description: 使用 go_router 等包配置 MaterialApp.router 实现 URL 路由。
-en_description: Configure `MaterialApp.router` using a package like `go_router` for advanced URL-based navigation. Use when developing web applications or mobile apps that require specific deep linking and browser history support.
-zh_displayName: Flutter 声明式路由
-category: 移动端开发
-en_category: Mobile Dev
-metadata: |-
+description: Configure `MaterialApp.router` using a package like `go_router` for advanced URL-based navigation. Use when developing web applications or mobile apps that require specific deep linking and browser history support.
+metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Tue, 21 Apr 2026 21:08:03 GMT
 ---

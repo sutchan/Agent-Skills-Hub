@@ -1,12 +1,9 @@
 ---
 name: implement-spec
-description: 将规格说明实现为代码，在用户要求按规范落地功能时使用。
-en_description: Implement a specification in code.
-zh_displayName: 规格实现
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: "Implement a specification in code."
 disable-model-invocation: true
 ---
+
 You have been provided a spec. This spec should have tickets associated with it, describing how to implement the spec.
 
 The goal is a PR which implements the entire spec on a single branch.

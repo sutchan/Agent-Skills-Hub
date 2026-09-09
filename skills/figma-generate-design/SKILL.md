@@ -1,13 +1,9 @@
 ---
 name: figma-generate-design
-description: |-
-  与 figma-use 配合，将应用页面、视图或多区块布局翻译为 Figma。触发词：写入 Figma、从代码在 Figma 创建、推送页面到 Figma、把应用/页面在 Figma 中构建、创建屏幕、在 Figma 构建落地页、更新 Figma 屏幕以匹配代码、将弹窗/抽屉/面板转为 Figma。优先工作流技能，用于从代码或描述在 Figma 构建/更新整页、模态、抽屉、侧栏或组合多区块视图。
-en_description: "Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma', 'create in Figma from code', 'push page to Figma', 'take this app/page and build it in Figma', 'create a screen', 'build a landing page in Figma', 'update the Figma screen to match code', 'convert this modal/dialog/drawer/panel to Figma'. This is the preferred workflow skill whenever the user wants to build or update a full page, modal, dialog, drawer, sidebar, panel, or any composed multi-section view in Figma from code or a description. Discovers design system components, variables, and styles from Code Connect files, existing screens, and library search, then imports them and assembles views incrementally section-by-section using design system tokens instead of hardcoded values."
-zh_displayName: Figma 设计生成
-category: 品牌与设计
-en_category: Brand & Design
+description: "Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma', 'create in Figma from code', 'push page to Figma', 'take this app/page and build it in Figma', 'create a screen', 'build a landing page in Figma', 'update the Figma screen to match code', 'convert this modal/dialog/drawer/panel to Figma'. This is the preferred workflow skill whenever the user wants to build or update a full page, modal, dialog, drawer, sidebar, panel, or any composed multi-section view in Figma from code or a description. Discovers design system components, variables, and styles from Code Connect files, existing screens, and library search, then imports them and assembles views incrementally section-by-section using design system tokens instead of hardcoded values."
 disable-model-invocation: false
 ---
+
 # Build / Update Screens and Views from Design System
 
 Use this skill to create or update **screens, views, and multi-section UI containers** in Figma by **reusing the published design system** — components, variables, and styles — rather than drawing primitives with hardcoded values. This includes full pages, modals, dialogs, drawers, sidebars, panels, and any composed view with multiple sections. The key insight: the Figma file likely has a published design system with components, color/spacing variables, and text/effect styles that correspond to the codebase's UI components and tokens. Find and use those instead of drawing boxes with hex colors.
@@ -458,13 +454,10 @@ For detailed API patterns and gotchas, load these from the [figma-use](../figma-
 
 ## Error Recovery
 
-Follow the error recovery process from [figma-use](../figma-use/SKILL.md#6-error-recovery--self-correction):
+Follow [figma-use error recovery](../figma-use/SKILL.md#7-error-recovery--self-correction):
 
-1. **STOP** on error — do not retry immediately.
-2. **Read the error message carefully** to understand what went wrong.
-3. If the error is unclear, call `get_metadata` or `get_screenshot` to inspect the current file state.
-4. **Fix the script** based on the error message.
-5. **Retry** the corrected script — this is safe because failed scripts are atomic (nothing is created if a script errors).
+- If `safeToRetryWithoutCanvasRead` is `true`, fix the error and retry.
+- If `false`, read the canvas, determine what changed, then make changes.
 
 Because this skill works incrementally (one section per call), errors are naturally scoped to a single section. Previous sections from successful calls remain intact.
 

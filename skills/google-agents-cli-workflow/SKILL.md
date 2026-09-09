@@ -12,7 +12,7 @@ description: >
 metadata:
   author: Google
   license: Apache-2.0
-  version: 1.4.2
+  version: 1.5.0
   requires:
     bins:
       - agents-cli
@@ -26,8 +26,8 @@ metadata:
 > **Before writing agent code, make sure a scaffolded project exists (see Phase 2).** Skipping scaffolding loses eval boilerplate, CI/CD config, and project conventions.
 
 
-> Requires: google-agents-cli ~= 1.4.2
-> If version is behind, run: uv tool install "google-agents-cli~=1.4.2"
+> Requires: google-agents-cli ~= 1.5.0
+> If version is behind, run: uv tool install "google-agents-cli~=1.5.0"
 
 > Check version: agents-cli info
 > [Install uv](https://docs.astral.sh/uv/getting-started/installation/index.md) first if needed.
@@ -308,10 +308,13 @@ When you need specific infrastructure files (Terraform, CI/CD, Dockerfile) but d
 | `references/brainstorming.md` | Phase 0 design-dialogue playbook (one-at-a-time Q&A, approaches, gates) |
 | `references/terminology.md` | Product-name → CLI-value mapping |
 | `references/commands.md` | Per-phase `agents-cli` command index |
+| `references/extension.md` | Author an ad-hoc extension or adopt an existing one (override or add commands) |
 
 ## Development Commands
 
 Run `agents-cli --help` or `agents-cli <command> --help` for the authoritative flag list. A per-phase command index lives in `references/commands.md`; per-phase usage is in the phase sections above.
+
+To **override** a built-in command (e.g. wrap `deploy` with compliance checks) or **add a new one**, agents-cli has an extension system. To author an ad-hoc extension for this repo, or adopt an existing one, load `references/extension.md`.
 
 ---
 

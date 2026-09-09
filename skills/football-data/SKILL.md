@@ -1,13 +1,14 @@
 ---
 name: football-data
+description: |
+  Football (soccer) data across the world's major leagues — standings, schedules, match stats, xG, transfers, player profiles, head-to-head history, team strength (Elo), and match forecasts. Zero config, no API keys. Covers Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, Champions League, World Cup, Championship, Eredivisie, Primeira Liga, Serie A Brazil, Russian Premier League, Scottish/Belgian/Turkish top flights, European Championship, and more (call get_competitions for the live list).
 
-description: 覆盖全球主要足球联赛的数据——积分榜、赛程、比赛统计、预期进球（xG）、转会、球员档案、历史交锋、球队实力（Elo）与比赛预测。零配置、无需 API Key。涵盖英超、西甲、德甲、意甲、法甲、美职联、欧冠、世界杯、英冠、荷甲、葡超、巴甲、俄超、苏超/比甲/土超顶级联赛、欧洲杯等（调用 get_competitions 获取实时列表）。
-en_description: | Football (soccer) data across the world's major leagues — standings, schedules, match stats, xG, transfers, player profiles, head-to-head history, team strength (Elo), and match forecasts. Zero config, no API keys. Covers Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, Champions League, World Cup, Championship, Eredivisie, Primeira Liga, Serie A Brazil, Russian Premier League, Scottish/Belgian/Turkish top flights, European Championship, and more (call get_competitions for the live list).
-zh_displayName: 足球数据
-category: 数据分析与可视化
-en_category: Data Analysis & Visualization
+  Use when: user asks about football/soccer standings, fixtures, match stats, xG, lineups, player values, transfers, injury news, league tables, daily fixtures, player profiles, head-to-head records, team strength/Elo ratings, or match odds/forecasts.
+  Don't use when: user asks about American football/NFL (use nfl-data), college football (use cfb-data), NBA (use nba-data), WNBA (use wnba-data), college basketball (use cbb-data), NHL (use nhl-data), MLB (use mlb-data), tennis (use tennis-data), golf (use golf-data), cricket (use cricket-data), Formula 1 (use fastf1), or betting odds (use polymarket or kalshi). Don't use for live/real-time scores — data updates post-match. Don't use get_season_leaders or get_missing_players for non-Premier League leagues (they return empty). Don't use get_event_xg for leagues outside the top 5 (EPL, La Liga, Bundesliga, Serie A, Ligue 1).
 license: MIT
 metadata:
+  author: machina-sports
+  version: "0.1.0"
 ---
 
 # Football Data
@@ -77,15 +78,18 @@ This skill stitches several free sources together. **Coverage is not uniform** �
 | `get_season_leaders`, `get_missing_players` | FPL | **Premier League only** |
 | `get_player_profile`, `get_season_transfers` (market value) | Transfermarkt | Any player with a `tm_player_id` |
 | `get_head_to_head` | football-data.co.uk | **11 European domestic leagues** (EPL, Championship, La Liga, Serie A, Bundesliga, Ligue 1, Eredivisie, Primeira Liga, Scottish, Belgian, Turkish). Same-division meetings only. |
-| `get_team_strength`, `get_match_forecast` | ClubElo | **European clubs** (incl. Russia). |
+| `get_team_strength` | ClubElo, falling back to local Elo | **European clubs** (incl. Russia). Falls back to ratings computed from football-data.co.uk when ClubElo is down. |
+| `get_match_forecast` | ClubElo | **European clubs** (incl. Russia). No fallback — needs ClubElo's fixture feed. |
 
 Rule of thumb: **ESPN answers "what happened" everywhere; the enrichment sources ( Understat/FPL/ClubElo/football-data.co.uk ) add depth only in their coverage zone.** ESPN is always the fixture/score authority — never let an enrichment source override an ESPN score.
 
 ### Gotchas (from live testing)
 - **Pass IDs, not ambiguous names.** For H2H/strength/forecast, resolve teams with `search_team` first and pass the numeric `team_id`. Names like "Paris Saint-Germain" can collapse onto the wrong club (Paris FC) during name resolution.
 - **ClubElo off-season gaps**: current-date `get_team_strength` can miss clubs in the summer break (a club's weekly Elo period may not span today). If a well-known club returns unresolved, pass an in-season `date` (e.g. `date="2026-03-01"`).
+- **ClubElo outages**: `get_team_strength` falls back to locally computed Elo and sets `source: "local-elo"`. Check that field before comparing numbers across calls — the local scale is division-local, so a rating means nothing outside its own division and cross-division comparisons are refused. The fallback honours `date` (it rates the division as of that date, and each entry's `as_of` is the last match counted). `get_match_forecast` has no fallback and stays empty.
 - **`get_match_forecast` is short-horizon**: ClubElo only forecasts ~a week ahead — empty between matchdays / off-season. That's expected, not a failure.
 - **H2H is same-division only**: two clubs that met in a cup or across tiers won't show; it counts league meetings in the resolved division.
+- **H2H tells "unresolved" apart from "never met"**: football-data.co.uk uses short exonyms/abbreviations ("FC Koln", "M'gladbach", "Sp Lisbon"). Each club in `teams[]` reports `resolved` + `matched_as`; if a club is `resolved: false`, zero meetings means the lookup failed, not that the clubs never played.
 
 ## Combining Endpoints (mix-and-match)
 
@@ -120,7 +124,7 @@ When a piece of the composition isn't covered (e.g. xG outside the top 5, H2H fo
 | `get_event_timeline` | Match timeline (goals, cards, subs) |
 | `get_team_schedule` | Schedule for a specific team |
 | `get_head_to_head` | Historical H2H results + stats (European domestic leagues) |
-| `get_team_strength` | ClubElo Elo rating / two-team comparison (European clubs) |
+| `get_team_strength` | Elo rating / two-team comparison (European clubs); local-Elo fallback if ClubElo is down |
 | `get_match_forecast` | ClubElo win/draw/loss + scoreline forecast (~week ahead) |
 | `get_event_xg` | xG data (top 5 leagues only) |
 | `get_event_players_statistics` | Player-level match stats with optional xG |

@@ -1,11 +1,8 @@
 ---
 name: tdd
-description: 测试驱动开发，在用户希望以测试优先方式构建功能或修复缺陷时使用。
-en_description: Test-driven development. Use when the user wants to build features or fix bugs test-first.
-zh_displayName: 测试驱动开发
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.
 ---
+
 # Test-Driven Development
 
 TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, and the rules of the loop. Every section applies on every cycle: consult them before and during the loop, not after.

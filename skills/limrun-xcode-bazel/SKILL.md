@@ -1,7 +1,5 @@
 ---
 name: limrun-xcode-bazel
-category: 移动端开发
-en_category: Mobile Dev
 description: "Build a Bazel-based iOS / macOS / Apple app on Limrun's remote build execution (RBE) instead of a local Mac, and install it on a remote iOS simulator. Use when the project is a Bazel workspace (MODULE.bazel / WORKSPACE) building rules_apple / rules_swift targets and the user wants to `bazel build` it or run it on a simulator, or when a `--config=limrun` build or install misbehaves. To then tap, type, screenshot, or otherwise interact with the running app, use limrun-ios-simulator. For non-Bazel (plain xcodebuild) projects use limrun-xcode instead."
 user-invocable: true
 effort: high
@@ -32,9 +30,11 @@ verified, but if a flag errors or you need one not shown here, check
 2. Run the printed command, e.g.
    `bazelisk --digest_function=sha256 build --config=limrun //App`.
 
-Don't hand-write `.limrun/` or the flags — the CLI generates them for the fleet's
-Xcode and your OS. Re-run `lim xcode rbe` (after `--stop`) to refresh after a
-fleet Xcode upgrade.
+Don't hand-write `.limrun/` or the flags — the CLI generates them for the
+sandbox's Xcode and your OS. `lim xcode version set 27` (or the one-off
+`lim xcode rbe --xcode-version 27`) builds with another installed major. Re-run
+`lim xcode rbe` (after `--stop`) to refresh after a fleet Xcode upgrade or an
+Xcode switch.
 
 To add your own Bazel flags to the limrun path without editing the generated
 config, put them in **`user.limrun.bazelrc`** at the workspace root. The
@@ -56,7 +56,7 @@ Add `--no-open` when you have no browser to show the user; it skips opening
 the stream URL locally and still prints it for sharing.
 
 If the attach output includes a signed stream URL, share it with the user as a
-Markdown link, such as [Live simulator](<signed-stream-url>).
+Markdown link, such as `[Live simulator](<signed-stream-url>)`.
 
 With a simulator attached, every successful `--config=limrun` build automatically
 reinstalls and relaunches the app, no separate install step:
