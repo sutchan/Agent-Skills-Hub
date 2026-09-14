@@ -1,0 +1,6 @@
+{
+  "name": "Agent Skills Hub",
+  "description": "Discover and reuse high-quality AI agent skills categorized and searchable.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
