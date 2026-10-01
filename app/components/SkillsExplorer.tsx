@@ -16,6 +16,19 @@ const PAGE_SIZE = 36;
 type HashState = { cats: string[]; q: string; sort: typeof SORTS[number]; page: number };
 const SORTS = ["name", "name-desc", "cat", "zh"] as const;
 
+// 深链参数解码（安全降级）：
+// writeHash 写入时经 encodeURIComponent 编码，URLSearchParams 解析时会先解码一次，
+// 因此 parseHash 需二次 decodeURIComponent 还原；但若 hash 含孤立 %（如用户搜索 "50%"
+// 写入 #q=50%25，URLSearchParams 已解码为 "50%"），二次解码会抛 URIError 导致应用崩溃。
+// 解码失败时保留原始值，不中断深链还原。
+function safeDecode(v: string): string {
+  try {
+    return decodeURIComponent(v);
+  } catch {
+    return v;
+  }
+}
+
 function writeHash(s: HashState) {
   if (typeof window === "undefined") return;
   const parts: string[] = [];
@@ -36,10 +49,10 @@ function parseHash(): Partial<HashState> {
   const p = new URLSearchParams(raw);
   const out: Partial<HashState> = {};
   if (p.has("cat")) {
-    const cats = p.get("cat")!.split(",").map((c) => decodeURIComponent(c)).filter(Boolean);
+    const cats = p.get("cat")!.split(",").map((c) => safeDecode(c)).filter(Boolean);
     if (cats.length) out.cats = cats;
   }
-  if (p.has("q")) out.q = decodeURIComponent(p.get("q")!);
+  if (p.has("q")) out.q = safeDecode(p.get("q")!);
   if (p.has("sort")) {
     const sort = p.get("sort")!;
     if ((SORTS as readonly string[]).includes(sort)) out.sort = sort as typeof SORTS[number];

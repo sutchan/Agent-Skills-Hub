@@ -19,3 +19,15 @@ skills/** text eol=lf
 *.eot binary
 *.zip binary
 *.pdf binary
+*.dll binary
+*.exe binary
+*.so binary
+*.dylib binary
+*.jar binary
+*.class binary
+*.pyc binary
+*.bin binary
+*.7z binary
+*.gz binary
+*.tar binary
+*.vsix binary
