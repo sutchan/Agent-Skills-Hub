@@ -43,7 +43,7 @@ permissions:
 
 env:
   NODE_VERSION: "22"
-  PNPM_VERSION: "9.15.0"
+  PNPM_VERSION: "11.24.0"
   NEXT_TELEMETRY_DISABLED: "1"
   HAS_TOKEN: ${{ secrets.EDGEONE_API_TOKEN != '' }}
 
