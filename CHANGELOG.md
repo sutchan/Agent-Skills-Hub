@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.58] - 2026-10-01
+
+### docs: 重组项目规范文档与记忆文档
+
+- 统一四份规范文档（spec.md/project.md/AGENTS.md/CONTRIBUTING.md）结构、术语与格式；确立 **spec.md 为 frontmatter 契约/数据契约/一致性红线唯一权威源**，其余文档引用而非重复。
+- 删除重复与矛盾内容：spec.md 中超过真实 HEAD 的 `v1.20.x` 版本注记；AGENTS.md 角色契约中 `proposal.md`/`design.md` 产物描述（与 `docs/tasks.md` 工作流矛盾）；CONTRIBUTING.md 将工作分支误写为 `dev`（实际 `main`）。
+- 补充缺失红线：换行符 LF、版本 bump 仅更新被改文件头注释、数据型数字须实算、语义化 id、代码单文件 ≤200 行拆分。
+- 优化项目记忆（MEMORY.md）：主题归类、标注时效/可信度、去除冗余；清理 2 条失效全局记忆。
+
+[1.14.58]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.58
+
 ## [1.14.57] - 2026-10-01
 
 ### docs: 修复文档数据失真与版本头注释脱节
