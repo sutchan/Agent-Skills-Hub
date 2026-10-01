@@ -65,15 +65,14 @@ jobs:
         run: pnpm test
 
   validate-skills:
-    name: 技能元数据校验（观察期·不阻断）
+    name: 技能元数据校验（硬门禁）
     runs-on: ubuntu-latest
-    # 观察期说明：
-    #   当前 223 个技能中约 118 个 SKILL.md frontmatter 缺少必填字段（en_description /
-    #   zh_displayName / category / en_category），tools/validate-skills.mjs 退出码为 1。
-    #   若设为硬门禁，main 分支将长期飘红并连锁阻断部署。故先以观察期运行：暴露问题、
-    #   不阻断合并与发布。
-    # TODO: 用 tools/fix-skill-meta.mjs 修复全部技能后，删除 continue-on-error 恢复硬门禁。
-    continue-on-error: true
+    # 硬门禁说明：
+    #   自 998370c（Skills Manager 批量更新意外覆盖 125 个 SKILL.md 的 4 个必填 frontmatter
+    #   字段）事件后，已用 tools/_fix-from-history.mjs + tools/_fix-remaining.mjs 修复全部
+    #   169 个技能，validate-skills.mjs 退出码为 0。现恢复为硬门禁：任何 PR 若再次破坏
+    #   frontmatter（缺 en_description / zh_displayName / category / en_category 或顺序错乱），
+    #   CI 直接失败阻断合并，从源头防止上游工具/手动编辑覆盖契约字段。
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -100,12 +99,12 @@ jobs:
           code=${PIPESTATUS[0]}
           count=$(grep -c '^  - ' validate.log || true)
           {
-            echo "### 技能元数据校验（观察期）"
+            echo "### 技能元数据校验"
             echo ""
             if [ "$code" -eq 0 ]; then
               echo "✅ 全部技能 frontmatter 规范"
             else
-              echo "⚠️ 发现 **${count}** 处 frontmatter 问题（当前不阻断合并）"
+              echo "⚠️ 发现 **${count}** 处 frontmatter 问题（已阻断合并）"
               echo ""
               echo "<details><summary>查看全部问题</summary>"
               echo ""

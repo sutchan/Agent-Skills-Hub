@@ -75,3 +75,5 @@ _*.mjs
 !skills/**/*.md
 _msg.txt
 sync.ffs_lock
+*.err.txt
+*.out.txt
