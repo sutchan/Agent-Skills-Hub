@@ -1,0 +1,178 @@
+# Deploy —— 构建并部署到 EdgeOne Pages
+#
+# 产物：Next.js standalone 应用（next.config.mjs: output: "standalone"）
+# 平台：EdgeOne Pages 的 Next.js 混合渲染模式，直接消费 .next 目录
+#       （与仓库内 edgeone.json 的 "outputDirectory": ".next" 一致）
+#
+# 触发策略：
+#   push 到 main       → 部署生产环境（-e production）
+#   pull_request       → 部署预览环境（-e preview），并把预览链接回写到 PR
+#   workflow_dispatch  → 手动触发，默认生产环境
+#
+# 前置配置（仓库 Settings → Secrets and variables → Actions）：
+#   Secrets:  EDGEONE_API_TOKEN         必填，EdgeOne API Token
+#   Variables: EDGEONE_PROJECT_NAME     可选，默认 agent-skills-hub
+#   未配置 EDGEONE_API_TOKEN 时（如 fork 仓库的 PR），部署步骤会跳过并给出提示，不会误判为失败。
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 部署环境
+        required: true
+        default: production
+        type: choice
+        options:
+          - production
+          - preview
+
+# 部署任务不取消进行中的运行：中断部署可能产生半成品版本
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  NODE_VERSION: "22"
+  PNPM_VERSION: "9.15.0"
+  NEXT_TELEMETRY_DISABLED: "1"
+  # 供 step-level if 判断使用（secrets 上下文在 step if 中不可直接引用）
+  HAS_TOKEN: ${{ secrets.EDGEONE_API_TOKEN != '' }}
+
+jobs:
+  deploy:
+    name: 构建并部署（EdgeOne Pages）
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 恢复 Next.js 构建缓存
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-next-${{ hashFiles('pnpm-lock.yaml', 'app/**/*.ts', 'app/**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-next-
+
+      - name: 生产构建
+        run: pnpm build
+
+      - name: 解析部署目标
+        id: target
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "env=${{ github.event.inputs.environment }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "env=preview" >> "$GITHUB_OUTPUT"
+          else
+            echo "env=production" >> "$GITHUB_OUTPUT"
+          fi
+          echo "name=${{ vars.EDGEONE_PROJECT_NAME || 'agent-skills-hub' }}" >> "$GITHUB_OUTPUT"
+
+      - name: 部署到 EdgeOne Pages
+        id: deploy
+        if: env.HAS_TOKEN == 'true'
+        run: |
+          set -o pipefail
+          npx --yes edgeone@latest pages deploy ./.next \
+            -n "${{ steps.target.outputs.name }}" \
+            -t "$EDGEONE_API_TOKEN" \
+            -e "${{ steps.target.outputs.env }}" 2>&1 | tee deploy.log
+
+          # edgeone CLI 以 KEY=VALUE 形式输出部署信息，提取用于 PR 评论与摘要
+          url=$(grep -o 'EDGEONE_DEPLOY_URL=.*' deploy.log | head -1 | cut -d'=' -f2-)
+          pid=$(grep -o 'EDGEONE_PROJECT_ID=.*' deploy.log | head -1 | cut -d'=' -f2-)
+          echo "url=${url}" >> "$GITHUB_OUTPUT"
+          echo "project_id=${pid}" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "### EdgeOne Pages 部署"
+            echo ""
+            echo "| 项目 | 环境 | 链接 |"
+            echo "|---|---|---|"
+            echo "| ${{ steps.target.outputs.name }} | ${{ steps.target.outputs.env }} | ${url:-（CLI 未返回链接）} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+        env:
+          EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
+
+      - name: 提示未配置部署密钥
+        if: env.HAS_TOKEN != 'true'
+        run: |
+          echo "::warning::未检测到 EDGEONE_API_TOKEN，已跳过部署。请在仓库 Settings → Secrets and variables → Actions 中配置。"
+          {
+            echo "### EdgeOne Pages 部署"
+            echo ""
+            echo "⚠️ 已跳过：未配置 \`EDGEONE_API_TOKEN\` secret。构建已通过，产物未上传。"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 回写预览链接到 PR
+        if: |
+          env.HAS_TOKEN == 'true' &&
+          github.event_name == 'pull_request' &&
+          steps.deploy.outputs.url != ''
+        uses: actions/github-script@v7
+        env:
+          DEPLOY_URL: ${{ steps.deploy.outputs.url }}
+          PROJECT_ID: ${{ steps.deploy.outputs.project_id }}
+          DEPLOY_ENV: ${{ steps.target.outputs.env }}
+          PROJECT_NAME: ${{ steps.target.outputs.name }}
+        with:
+          script: |
+            const marker = '<!-- edgeone-preview -->';
+            const time = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+            const body = [
+              marker,
+              '## 🚀 EdgeOne Pages 预览部署完成',
+              '',
+              '| 项目 | 环境 | 预览链接 | 项目 ID | 更新时间 |',
+              '|---|---|---|---|---|',
+              `| ${process.env.PROJECT_NAME} | ${process.env.DEPLOY_ENV} | [🔗 点击预览](${process.env.DEPLOY_URL}) | ${process.env.PROJECT_ID || '-'} | ${time} |`,
+            ].join('\n');
+
+            const issue_number = context.issue.number;
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+            });
+            const existing = comments.data.find((c) => c.body && c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                body,
+              });
+            }
