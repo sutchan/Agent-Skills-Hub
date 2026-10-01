@@ -27,9 +27,9 @@
 
 | # | 任务 | 优先级 | 状态 | 备注 |
 |---|------|--------|------|------|
-| 11 | 分析 commit 998370c 的来源（Skills Manager 批量更新），建立防护机制 | P1 | 🔄 进行中 | 根因：Skills Manager 批量更新覆盖 frontmatter；防护=CI 硬门禁（见下方任务11执行） |
+| 11 | 分析 commit 998370c 的来源（Skills Manager 批量更新），建立防护机制 | P1 | ✅ 已完成 | 根因：Skills Manager 批量更新覆盖 frontmatter；防护=`.github/workflows/ci.yml` 的 `validate-skills` job 由"观察期不阻断"改为**硬门禁**（去 `continue-on-error`），任何 PR 破坏 frontmatter 即阻断合并；并修正过时注释（原写"223 个/118 缺字段"→ 现状 169 全部规范） |
 | 12 | 检查 998370c 是否还有其他破坏性变更未被发现 | P2 | ✅ 已完成 | 实证 `git show --stat 998370c`：仅 frontmatter 覆盖（7+-）+ 新增 vercel-react 技能/_bundled 脚本，无删除配置/CI 等破坏性变更；data 无"其他"类（validate 通过） |
-| 13 | 运行 `npm run build` 的 Next.js 部分在 WSL/Linux 环境验证 | P3 | 🔄 进行中 | 本机 Windows EPERM 限制，尝试 `pnpm build` 验证（仓库用 pnpm） |
+| 13 | 运行 `npm run build` 的 Next.js 部分在 WSL/Linux 环境验证 | P3 | ⚠️ 环境限制 | 本机 `pnpm build`：数据/原型/令牌链路全部成功（`Wrote 169 skills`、prototype.html 245KB、git 无 diff 可复现），Next.js 14.2.35 启动编译后在 `.next/standalone` 清理阶段报 `EPERM: scandir react`（Windows 权限限制）；完整构建须在 ubuntu CI（已有 build job）验证 |
 
 ---
 
@@ -42,3 +42,7 @@
   - 24 个 SKILL.md：手动补全缺失字段（含 en_description / zh_displayName / category / en_category）
   - 1 个 SKILL.md：修正契约字段顺序
   - `data/skills-data.json` / `data/skills-metrics.json` / `prototype/prototype.html`：重建
+- **防护机制（本次 2026-10-01 补充）**：`.github/workflows/ci.yml` 的 `validate-skills` job 由原"观察期不阻断（`continue-on-error: true`）"改为**硬门禁**，根源杜绝上游工具（如 Skills Manager 批量更新）或手动编辑再次覆盖/遗漏 frontmatter 契约字段；PR 校验失败即阻断合并。同步修正该 job 过时注释（原称"223 个技能中约 118 个缺字段"，现状 169 个全部规范）。
+- **环境验证结论**：本机 Windows `pnpm build` 在 Next.js standalone 清理阶段因 `EPERM` 失败（已知 Windows 限制），但数据/原型链路成功且产物与仓库无 diff（可复现）；完整 Next 构建依赖 ubuntu CI 的 `build` job。
+
+> 最后同步：2026-10-01 20:42 (UTC+8) — 任务 10/11/12 已完成，任务 13 标定环境限制；防护机制已落地于 `ci.yml`。

@@ -1,0 +1,33 @@
+import { test, expect } from "@playwright/test";
+
+// 轻量 e2e 冒烟：覆盖「应用可加载、关键模块渲染、核心交互不崩溃」。
+// 针对 `next build` 产物（webServer 自动 `next start`）。
+
+test("首页加载并渲染技能卡片", async ({ page }) => {
+  const resp = await page.goto("/");
+  expect(resp?.status()).toBe(200);
+  await expect(page).toHaveTitle(/Agent Skills Hub/);
+  await expect(page.locator("#appHeader")).toBeVisible();
+  await expect(page.locator("#hero")).toBeVisible();
+  const count = await page.locator("button.card").count();
+  expect(count).toBeGreaterThan(0);
+});
+
+test("点开技能详情弹窗正常渲染", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("button.card").first().click();
+  await expect(page.locator(".detail").first()).toBeVisible({ timeout: 5000 });
+});
+
+test("语言切换可交互（data-lang 在 zh/en 间切换）", async ({ page }) => {
+  await page.goto("/");
+  const before = await page.evaluate(() =>
+    document.documentElement.getAttribute("data-lang")
+  );
+  expect(before).toBe("zh");
+  await page.locator("#langBtn").click();
+  const after = await page.evaluate(() =>
+    document.documentElement.getAttribute("data-lang")
+  );
+  expect(after).toBe("en");
+});

@@ -1,47 +1,61 @@
-# CI —— 校验 / 测试 / 构建门禁
+# CI/CD —— 单一串行流水线：校验 → 构建 → 测试 → 部署(EdgeOne) → 发布(GitHub Release)
 #
-# 架构说明（基于仓库实际结构）：
-#   - 单一 Next.js 14（App Router）应用，源码在 app/，配置与依赖在仓库根
-#   - 包管理器：pnpm@9.15.0（仓库仅有 pnpm-lock.yaml，无 package-lock.json）
-#   - .npmrc 开启 engine-strict / package-manager-strict，必须用 pnpm 安装
-#   - 构建流水线：build-skills-data → build.mjs → sync-tokens → sync-css → next build
-#   - next.config.mjs 使用 output: "standalone"
+# 触发：
+#   push 到 main        → 校验 + 构建 + 测试 + 生产部署（不发布 Release）
+#   push 标签 v*        → 同上 + 发布 GitHub Release（含构建产物与从 CHANGELOG 提取的说明）
+#   pull_request        → 校验 + 构建 + 测试 + 预览部署（不发布）
+#   workflow_dispatch   → 手动触发，可选 production / preview 环境
 #
-# 门禁分级：
-#   硬门禁（失败即阻断）：类型检查、单元测试、生产构建
-#   观察期（仅报告不阻断）：技能元数据校验、生成物一致性校验
-#     原因见各 job 内注释，修复后请移除 continue-on-error 恢复为硬门禁。
+# 发布模式（标签触发，可追溯 / 可重复 / 风险低）：
+#   你手动 bump 版本 + 更新 CHANGELOG → 打 vX.Y.Z 标签并推送 → 本流水线在末尾 Release 阶段
+#   构建 data/*.json 与 prototype.html 作为产物附件，并提取对应 CHANGELOG 小节作为发行说明。
+#   校验阶段检查「package.json 版本 == 最新 CHANGELOG 小节 == git tag」一致性，不一致直接阻断。
+#
+# 部署平台：EdgeOne Pages（Next.js standalone，消费 .next 目录）
+# 前置 Secret：EDGEONE_API_TOKEN（Settings → Secrets and variables → Actions）；缺省时跳过部署并提示。
 
-name: CI
+name: CI/CD
 
 on:
   push:
     branches: [main]
+    tags: ["v*"]
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 部署环境
+        required: true
+        default: production
+        type: choice
+        options:
+          - production
+          - preview
 
-# 同一分支新提交自动取消旧的进行中任务，节省 runner 配额
+# 校验 / 构建 / 测试阶段可取消进行中的运行；部署与发布单独分组，避免中断产生半成品。
 concurrency:
-  group: ci-${{ github.ref }}
+  group: cicd-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 env:
-  # 与 .nvmrc（22）及 package.json engines（22.x || 26.x）对齐
   NODE_VERSION: "22"
   PNPM_VERSION: "9.15.0"
   NEXT_TELEMETRY_DISABLED: "1"
+  HAS_TOKEN: ${{ secrets.EDGEONE_API_TOKEN != '' }}
 
 jobs:
-  quality:
-    name: 质量门禁（类型检查 + 单元测试）
+  validate:
+    name: 校验（类型 + 单元/集成测试 + 版本一致性）
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: 安装 pnpm
         uses: pnpm/action-setup@v4
@@ -55,72 +69,21 @@ jobs:
           cache: pnpm
 
       - name: 安装依赖
-        # 必须用 pnpm：仓库只提供 pnpm-lock.yaml，npm ci 会因缺少 package-lock.json 直接失败
         run: pnpm install --frozen-lockfile
 
       - name: 类型检查
         run: pnpm exec tsc --noEmit
 
-      - name: 单元测试（tools/lib）
+      - name: 单元测试 + 集成测试
         run: pnpm test
 
-  validate-skills:
-    name: 技能元数据校验（硬门禁）
-    runs-on: ubuntu-latest
-    # 硬门禁说明：
-    #   自 998370c（Skills Manager 批量更新意外覆盖 125 个 SKILL.md 的 4 个必填 frontmatter
-    #   字段）事件后，已用 tools/_fix-from-history.mjs + tools/_fix-remaining.mjs 修复全部
-    #   169 个技能，validate-skills.mjs 退出码为 0。现恢复为硬门禁：任何 PR 若再次破坏
-    #   frontmatter（缺 en_description / zh_displayName / category / en_category 或顺序错乱），
-    #   CI 直接失败阻断合并，从源头防止上游工具/手动编辑覆盖契约字段。
-    steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
-
-      - name: 安装 pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: 安装 Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
-
-      - name: 安装依赖
-        run: pnpm install --frozen-lockfile
-
-      - name: 校验 skills/*/SKILL.md frontmatter
-        id: validate
-        run: |
-          set +e
-          node tools/validate-skills.mjs 2>&1 | tee validate.log
-          code=${PIPESTATUS[0]}
-          count=$(grep -c '^  - ' validate.log || true)
-          {
-            echo "### 技能元数据校验"
-            echo ""
-            if [ "$code" -eq 0 ]; then
-              echo "✅ 全部技能 frontmatter 规范"
-            else
-              echo "⚠️ 发现 **${count}** 处 frontmatter 问题（已阻断合并）"
-              echo ""
-              echo "<details><summary>查看全部问题</summary>"
-              echo ""
-              echo '```'
-              grep '^  - ' validate.log | head -50
-              echo '```'
-              echo ""
-              echo "</details>"
-            fi
-          } >> "$GITHUB_STEP_SUMMARY"
-          exit "$code"
+      - name: 版本 / CHANGELOG / Tag 一致性校验
+        run: node tools/check-version.mjs
 
   build:
     name: 生产构建
     runs-on: ubuntu-latest
-    needs: [quality]
+    needs: [validate]
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -139,7 +102,6 @@ jobs:
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
-      # 复用 Next.js 构建缓存（.next/cache），显著缩短二次构建耗时
       - name: 恢复 Next.js 构建缓存
         uses: actions/cache@v4
         with:
@@ -149,43 +111,208 @@ jobs:
             ${{ runner.os }}-next-
 
       - name: 生产构建
-        # 执行 data/*.json 与 prototype/prototype.html 生成 + next build
         run: pnpm build
 
-      - name: 校验生成物与仓库一致性（观察期·不阻断）
-        # 观察期说明：
-        #   当前构建不可复现——同一份代码重新构建会改写已入库的
-        #   data/skills-data.json、data/skills-metrics.json、prototype/prototype.html，
-        #   且技能数已从 README 的 223 漂移到 229。设为硬门禁会导致 CI 恒红。
-        # TODO: 收敛为可复现构建后，删除 continue-on-error 改为硬门禁。
-        id: sync
-        continue-on-error: true
-        run: |
-          dirty=$(git status --porcelain -- data prototype app)
-          if [ -n "$dirty" ]; then
-            {
-              echo "### 生成物一致性（观察期）"
-              echo ""
-              echo "⚠️ 构建产物与仓库内版本不一致，请本地执行 \`npm run build\` 后提交："
-              echo ""
-              echo '```'
-              echo "$dirty"
-              echo '```'
-            } >> "$GITHUB_STEP_SUMMARY"
-            git --no-pager diff --stat -- data prototype app
-            exit 1
-          fi
-          echo "✅ 生成物与仓库一致" >> "$GITHUB_STEP_SUMMARY"
-
-      # 只上传轻量交付物（data + 自包含原型页），
-      # .next 体积较大，由 deploy.yml 在自己的 job 内重新构建，不跨 workflow 传递
-      - name: 上传构建产物
+      - name: 上传构建产物（数据 + 自包含原型页）
         uses: actions/upload-artifact@v4
         with:
-          name: skills-hub-build-${{ github.sha }}
+          name: release-assets-${{ github.sha }}
           path: |
             data/skills-data.json
             data/skills-metrics.json
             prototype/prototype.html
           retention-days: 7
           if-no-files-found: error
+
+  e2e:
+    name: E2E 冒烟（Playwright）
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 安装 Playwright 浏览器（chromium）
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: 生产构建（供 e2e 起服务）
+        run: pnpm build
+
+      - name: E2E 测试
+        run: pnpm e2e
+
+      - name: 上传 Playwright 报告（失败留存）
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ github.sha }}
+          path: playwright-report/
+          retention-days: 7
+
+  deploy:
+    name: 部署（EdgeOne Pages）
+    runs-on: ubuntu-latest
+    needs: [e2e]
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 恢复 Next.js 构建缓存
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-next-${{ hashFiles('pnpm-lock.yaml', 'app/**/*.ts', 'app/**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-next-
+
+      - name: 生产构建
+        run: pnpm build
+
+      - name: 解析部署目标
+        id: target
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "env=${{ github.event.inputs.environment }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "env=preview" >> "$GITHUB_OUTPUT"
+          else
+            echo "env=production" >> "$GITHUB_OUTPUT"
+          fi
+          echo "name=${{ vars.EDGEONE_PROJECT_NAME || 'agent-skills-hub' }}" >> "$GITHUB_OUTPUT"
+
+      - name: 部署到 EdgeOne Pages
+        id: deploy
+        if: env.HAS_TOKEN == 'true'
+        run: |
+          set -o pipefail
+          npx --yes edgeone@latest pages deploy ./.next \
+            -n "${{ steps.target.outputs.name }}" \
+            -t "$EDGEONE_API_TOKEN" \
+            -e "${{ steps.target.outputs.env }}" 2>&1 | tee deploy.log
+          url=$(grep -o 'EDGEONE_DEPLOY_URL=.*' deploy.log | head -1 | cut -d'=' -f2-)
+          pid=$(grep -o 'EDGEONE_PROJECT_ID=.*' deploy.log | head -1 | cut -d'=' -f2-)
+          echo "url=${url}" >> "$GITHUB_OUTPUT"
+          echo "project_id=${pid}" >> "$GITHUB_OUTPUT"
+          {
+            echo "### EdgeOne Pages 部署"
+            echo ""
+            echo "| 项目 | 环境 | 链接 |"
+            echo "|---|---|---|"
+            echo "| ${{ steps.target.outputs.name }} | ${{ steps.target.outputs.env }} | ${url:-（CLI 未返回链接）} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+        env:
+          EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
+
+      - name: 提示未配置部署密钥
+        if: env.HAS_TOKEN != 'true'
+        run: |
+          echo "::warning::未检测到 EDGEONE_API_TOKEN，已跳过部署。请在仓库 Settings → Secrets and variables → Actions 中配置。"
+          {
+            echo "### EdgeOne Pages 部署"
+            echo ""
+            echo "⚠️ 已跳过：未配置 \`EDGEONE_API_TOKEN\` secret。构建已通过，产物未上传。"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 回写预览链接到 PR
+        if: |
+          env.HAS_TOKEN == 'true' &&
+          github.event_name == 'pull_request' &&
+          steps.deploy.outputs.url != ''
+        uses: actions/github-script@v7
+        env:
+          DEPLOY_URL: ${{ steps.deploy.outputs.url }}
+          PROJECT_ID: ${{ steps.deploy.outputs.project_id }}
+          DEPLOY_ENV: ${{ steps.target.outputs.env }}
+          PROJECT_NAME: ${{ steps.target.outputs.name }}
+        with:
+          script: |
+            const marker = '<!-- edgeone-preview -->';
+            const time = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+            const body = [
+              marker,
+              '## 🚀 EdgeOne Pages 预览部署完成',
+              '',
+              '| 项目 | 环境 | 预览链接 | 项目 ID | 更新时间 |',
+              '|---|---|---|---|---|',
+              `| ${process.env.PROJECT_NAME} | ${process.env.DEPLOY_ENV} | [🔗 点击预览](${process.env.DEPLOY_URL}) | ${process.env.PROJECT_ID || '-'} | ${time} |`,
+            ].join('\n');
+            const issue_number = context.issue.number;
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+            });
+            const existing = comments.data.find((c) => c.body && c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number, body });
+            }
+
+  release:
+    name: 发布 GitHub Release
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 解析版本号
+        id: meta
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_ENV"
+
+      - name: 下载构建产物
+        uses: actions/download-artifact@v4
+        with:
+          name: release-assets-${{ github.sha }}
+          path: .
+
+      - name: 提取发行说明（CHANGELOG 对应小节）
+        run: node tools/extract-release-notes.mjs ${{ env.version }} CHANGELOG.md release-notes.md
+
+      - name: 发布 GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: v${{ env.version }}
+          body_path: release-notes.md
+          files: |
+            data/skills-data.json
+            data/skills-metrics.json
+            prototype/prototype.html
