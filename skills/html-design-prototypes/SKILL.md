@@ -1,22 +1,20 @@
 ---
 name: html-design-prototypes
-description: >-
-  TRIGGER: before putting a UI / screen / component / animation comparison into `AskUserQuestion`
-  `preview:` chips, invoke this skill and ask "quick inline chips, or a real HTML prototype?" — no
-  exception for "simulate", "demo", "mock up". Builds real HTML prototypes for visual design,
-  component playgrounds, animation tuning, and design-system exploration — even when the production
-  target is React, Swift, SwiftUI, or Android. For N alternatives use html-brainstorm-grid; for one
-  tunable component use this skill.
-when_to_use: >-
-  "design / mock / prototype a component, screen, animation, transition"; "help me visualize how X
-  should look"; "tune this animation"; "build a quick playground for the tooltip"; any design-thinking
-  phase before production code, whatever the target framework. HTML is the fastest design surface;
-  chips are monospace text.
+description: |-
+    触发条件：在向 AskUserQuestion 选项填充前，构建 HTML 设计原型。
+en_description: |-
+    Create real HTML prototypes for visual design, component playgrounds, animation tuning, and design system exploration when comparing UI variants, before production code.
+zh_displayName: HTML 设计原型
+category: 前端开发
+en_category: Frontend Dev
+when_to_use: |-
+    "design / mock / prototype a component, screen, animation, transition"; "help me visualize how X
+    should look"; "tune this animation"; "build a quick playground for the tooltip"; any design-thinking
+    phase before production code, whatever the target framework. HTML is the fastest design surface;
+    chips are monospace text.
 license: MIT
-metadata:
-  version: "1.3.0"
+metadata: 
 ---
-
 # HTML Design & Prototypes
 
 HTML is the fastest design surface available — instant feedback loop, real layout engine, real typography, real interaction. Use it to sketch designs even when the production target is React Native, Swift, or anything else. The translation from HTML+CSS to the final framework is mechanical; the design exploration is what's hard.

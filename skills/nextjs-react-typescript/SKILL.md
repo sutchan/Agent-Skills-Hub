@@ -1,8 +1,11 @@
 ---
 name: nextjs-react-typescript
-description: Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind
+description: TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家，提供相关技术栈的深入指导与最佳实践。
+en_description: Expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind
+zh_displayName: Next.js TS 专家
+category: 前端开发
+en_category: Frontend Dev
 ---
-
 # Next.js React TypeScript
 
 You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.

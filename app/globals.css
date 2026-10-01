@@ -1,4 +1,4 @@
-/* app/globals.css v1.14.49 — 应用全局样式
+/* app/globals.css v1.14.55 — 应用全局样式
  * 结构：① tokens-shared.css（设计令牌，由 prototype 同步）
  *       ② base/layout/components/responsive-shared.css（prototype 同源规则，由 tools/sync-css.mjs 自动生成）
  *       ③ 下方「APP 扩展区」：app 独有/改写原型的规则，优先于 shared 生效
@@ -10,14 +10,13 @@
 @import "./components-shared.css";
 @import "./responsive-shared.css";
 
-/* APP 扩展区：根背景与文字色（修复深色模式致命问题）
-   prototype 各区块用 var(--surface)/var(--surface-2)，但页面根背景未由 shared 设置，
-   导致深色模式切到 --background(深灰) 时 <body> 仍为浏览器默认白底、浅色文字不可读。
-   此处显式应用 --bg/--text，深浅模式均正确。 */
-html { background: var(--bg); }
-body { background: var(--bg); color: var(--text); }
+/* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
+/* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
 
 /* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
+
+/* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
+
 /* 尊重用户的减少动效偏好（无障碍 WCAG 2.3.3） */
 
 @media (prefers-reduced-motion: reduce) {
@@ -67,35 +66,31 @@ html[data-lang="en"] .zh { display: none; }
 
 .hero-net .hub-glow { transform-box: fill-box; transform-origin: center; animation: coreGlow 3.4s ease-in-out infinite; fill: hsl(var(--core-hue, 152) 65% 38%); }
 
-@keyframes coreGlow {
   0%, 100% { transform: scale(1); }
+
   50% { transform: scale(1.18); }
-}
 
-@keyframes hubPulse {
   0% { transform: scale(1); opacity: .35; }
-  50% { transform: scale(1.9); opacity: 0; }
-  100% { transform: scale(1); opacity: 0; }
-}
 
-@keyframes netFloat {
+  50% { transform: scale(1.9); opacity: 0; }
+
+  100% { transform: scale(1); opacity: 0; }
+
   0%, 100% { transform: translateY(0); opacity: .82; }
+
   50% { transform: translateY(-4px); opacity: 1; }
-}
 
 .hero-net .net-line { animation: netBreathe 4.8s ease-in-out infinite; }
 
-@keyframes netBreathe {
   0%, 100% { opacity: .5; }
+
   50% { opacity: .85; }
-}
 
 .hero-net .net-dot { fill: hsl(var(--primary)); opacity: .85; pointer-events: none; animation: netDot 3s ease-in-out infinite; }
 
-@keyframes netDot {
   0%, 100% { opacity: .5; }
+
   50% { opacity: 1; }
-}
 
 .hero-net.searching .hub-node { animation: none; }
 
@@ -152,19 +147,19 @@ html[data-lang="en"] .zh { display: none; }
 /* 骰子翻牌动画（对齐 prototype .dialog.flip 3D 翻转 + 骰子抖动） */
 .dialog.flip { animation: flipIn .5s cubic-bezier(.2, .7, .2, 1); transform-style: preserve-3d; }
 
-@keyframes flipIn {
   0% { opacity: .2; transform: perspective(1000px) rotateX(82deg) translateY(24px); }
+
   55% { transform: perspective(1000px) rotateX(-12deg) translateY(-6px); }
+
   100% { opacity: 1; transform: perspective(1000px) rotateX(0deg) translateY(0); }
-}
 
 .card.pulse { animation: cardPulse 1.1s ease-out; box-shadow: var(--shadow-pop), 0 0 0 3px hsl(var(--primary) / .35); }
 
-@keyframes cardPulse {
   0% { transform: translateY(0); }
+
   40% { transform: translateY(-4px); }
+
   100% { transform: translateY(0); }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .dialog.flip { animation: none; }
@@ -378,6 +373,7 @@ html[data-lang="en"] .zh { display: none; }
 .detail.dialog { position: relative; overflow-y: auto; overflow-x: hidden; }
 
 /* 移动端底部抽屉（对齐 prototype .dialog.sheet ≤640px：底部锚定 + 顶部 grip + sheetUp 上滑） */
+
 @media (max-width: 640px) {
   .detail.dialog.sheet {
     inset: auto 0 0 0;
@@ -402,7 +398,11 @@ html[data-lang="en"] .zh { display: none; }
   /* 移动端抽屉优先用上滑入场，弱化翻牌（与原型行为一致） */
   .detail.dialog.sheet.flip { animation: sheetUp .28s ease; transform-style: flat; }
 }
-@keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+ from { transform: translateY(100%); }
+
+ to { transform: translateY(0); }
+
 @media (prefers-reduced-motion: reduce) { .detail.dialog.sheet, .detail.dialog.sheet.flip { animation: none; } }
 
 /* 详情弹窗各区块不被 flex 压缩：内容超出时由外层 .dialog 统一滚动（v1.19.21） */

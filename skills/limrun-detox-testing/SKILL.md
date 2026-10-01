@@ -1,9 +1,13 @@
 ---
 name: limrun-detox-testing
 description: Configure, run, or debug Detox on Limrun iOS simulators. Use when attaching the Limrun Detox runtime to an app, wiring Detox mediator connectivity, or validating app/tester connections over destination tunnels.
+en_description: |-
+  Configure, run, or debug Detox on Limrun iOS simulators. Wire Detox mediator connectivity and validate app/tester connections over destination tunnels.
+zh_displayName: Limrun Detox 测试
+category: 移动端开发
+en_category: Mobile Dev
 user-invocable: true
 ---
-
 # Limrun Detox
 
 Use this for Detox runtime work on Limrun iOS. Keep build concerns separate

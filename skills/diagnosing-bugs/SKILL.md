@@ -1,13 +1,16 @@
 ---
 name: diagnosing-bugs
-description: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
+description: 针对疑难缺陷与性能回退的诊断循环，在用户要求排查复杂问题或诊断 bug 时使用。
+en_description: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose this bug" or needs to debug a complex issue.
+zh_displayName: 缺陷诊断
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 # Diagnosing Bugs
 
 A discipline for hard bugs. Skip phases only when explicitly justified.
 
-When exploring the codebase, read `CONTEXT.md` (if it exists) to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
+When exploring the codebase, read `GLOSSARY.md` (if it exists) to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
 
 ## Redact
 

@@ -1,12 +1,15 @@
 ---
 name: clean-code
-description: 'Write readable, maintainable code through disciplined naming, small functions, and clean error handling. Use when the user mentions "clean up this code", "this function is too long", "code smells", "naming conventions", "boy scout rule", "single responsibility", or "unit test quality". Also trigger when reviewing a pull request for readability, untangling a messy function, debating comment styles, or improving error-handling patterns. Covers SRP, comment discipline, formatting, and unit testing. For refactoring techniques, see refactoring-patterns. For architecture and dependency rules, see clean-architecture.'
+description: |-
+  通过规范命名、小函数和清晰错误处理编写可读可维护的代码。适用于讨论整洁代码、代码异味、命名规范、童子军规则、单一职责或单元测试质量等场景。
+en_description: |-
+  Write readable, maintainable code through disciplined naming, small functions, and clean error handling. Use when mentioning clean code, code smells, naming conventions, boy scout rule, single responsibility, or unit test quality.
+zh_displayName: 整洁代码
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 license: MIT
-metadata:
-  author: wondelai
-  version: "1.4.0"
+metadata: 
 ---
-
 # Clean Code Framework
 
 A disciplined approach to writing code that communicates intent, minimizes surprises, and welcomes change. Apply these principles when writing new code, reviewing pull requests, refactoring legacy systems, or advising on code quality.

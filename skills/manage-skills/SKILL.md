@@ -1,8 +1,13 @@
 ---
 name: manage-skills
-description: Manage the user's shared agent-skill library via skills-manager-cli — install, update, remove, deploy or undeploy skills per agent, manage presets, organize tags, search, and adopt existing skills. Use this whenever the user wants Claude Code, Codex, Cursor, or another agent to gain or lose a skill, wants to organize the central library, or asks what is installed or deployed. Prefer this over direct agent-folder installs because Skills Manager preserves source metadata, preset membership, updates, and cross-agent deployment state.
+description: |-
+  通过 skills-manager-cli 管理共享智能体技能库——按 agent 安装、更新、删除、部署技能，管理预设、组织标签、搜索和采纳现有技能。
+en_description: |-
+  Manage the shared agent-skill library via skills-manager-cli — install, update, remove, deploy or undeploy skills per agent, manage presets, organize tags, search, and adopt existing skills.
+zh_displayName: 技能管理
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 ## Before doing anything
 
 1. **Resolve the CLI first, then use the path it prints.** Run this once (POSIX

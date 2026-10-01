@@ -1,14 +1,12 @@
 ---
 name: mcp-vods
-description: |-
-  用于追剧/追番的技能，为 AI 提供搜索影视播放地址的能力，并支持在小米电视上直接播放。当用户想搜索影视、动漫、短剧、综艺等节目信息或更新进度时使用此技能。
+description: 用于追剧/追番的技能，为AI提供搜索影视播放地址的能力，并支持在小米电视上直接播放。当用户想搜索影视、动漫、短剧、综艺等节目信息或更新进度时使用此技能。
 en_description: |-
-  A skill for tracking dramas and anime that gives the AI the ability to search for video-playback sources and play them directly on a Xiaomi TV. Use when the user wants to search for movies, anime, short dramas, variety shows, or check episode progress.
+    A skill for tracking dramas and anime that gives the AI the ability to search for video-playback sources and play them directly on a Xiaomi TV. Use when the user wants to search for movies, anime, short dramas, variety shows, or check episode progress.
 zh_displayName: 影视点播搜索 MCP
 category: 音视频与多媒体
 en_category: Media & Multimedia
 ---
-
 # 追剧/追番技能
 通过`npx -y mcporter`连接`mcp-vods`在多个源站中搜索影视、动漫、短剧、综艺等节目信息或更新进度。
 并支持通过配置可选的电视IP环境变量，实现投屏到电视上播放。

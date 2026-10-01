@@ -1,10 +1,14 @@
 ---
 name: limrun-android-emulator
-description: "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, read app logs, run shell commands, transfer files, tunnel the app's network destinations through your machine with HTTP inspection and HAR capture, and use adb over the CLI's tunnel for full logcat and interactive tools. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', 'record a video', 'inspect network traffic', or 'reach my local server from the emulator'. To build the APK or AAB first, use limrun-gradle."
+description: "\"Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, read app logs, run shell commands, transfer files, tunnel the app's network destinations through your machine with HTTP inspection and HAR capture, and use adb over the CLI's tunnel for full logcat and interactive tools. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', 'record a video', 'inspect network traffic', or 'reach my local server from the emulator'. To build the APK or AAB first, use limrun-gradle.\""
+en_description: |-
+  Drive an app running on a Limrun cloud Android emulator: install APK, launch, tap, type, screenshot, record video, inject audio, shape bandwidth, and use adb over CLI tunnel.
+zh_displayName: Limrun Android 模拟器
+category: 移动端开发
+en_category: Mobile Dev
 user-invocable: true
 effort: high
 ---
-
 # Limrun Android Emulator
 
 Interact with an app running on a Limrun cloud Android emulator, from any
@@ -18,8 +22,7 @@ Never use a local emulator, a local Android SDK, or Android Studio.
 ## Auth and CLI
 
 Install if needed: `npm install --global lim`. Auth is `lim login` or
-`LIM_API_KEY` (it may be set outside the project, so don't ask for it just
-because it's missing from `.env` or the shell). The CLI is the source of truth:
+`LIM_API_KEY` (it may already be set in the user's environment even when `.env` and the shell do not show it; check before asking for it). The CLI is the source of truth:
 the commands in this skill are verified, but if a flag errors or you need one
 not shown here, check `lim android <subcommand> --help` instead of guessing.
 
@@ -379,11 +382,14 @@ lim android delete <android-instance-id>
 
 ## Gotchas
 
-- **The fleet is x86_64.** Emulators report `x86_64,arm64-v8a` ABIs and run
-  arm64 code through translation, but an APK whose native libraries are
-  arm64-only for some vendor SDKs installs fine and then crashes with
-  `UnsatisfiedLinkError` when that code first loads. Build with x86_64 native
-  libs included.
+- **Ship one ABI, not a mix.** Emulators are x86_64 hosts that report
+  `x86_64,arm64-v8a` and run arm64 native libraries through translation. An
+  APK with only `arm64-v8a` libs installs and runs; x86_64 libs run natively
+  and fastest. An APK that mixes ABIs, some vendor SDK libs arm64-only and the
+  rest x86_64, installs as x86_64 and then crashes with `UnsatisfiedLinkError`
+  when the arm64-only code first loads. `armeabi-v7a`-only APKs are rejected
+  with `INSTALL_FAILED_NO_MATCHING_ABIS`, and apps that exec their own bundled
+  ARM command-line binaries are not supported under translation.
 - **Selectors match exactly.** `tap-element --text` and `find-element --text`
   need the full, exact string from `element-tree`; substrings match nothing.
 - **`install-app` returns before the install finishes.** The app lands a few
