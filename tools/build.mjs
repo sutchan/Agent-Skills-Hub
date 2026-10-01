@@ -2,6 +2,8 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+// 内联进 <script> 前的安全序列化：防技能描述等字段含 `</script>` 造成存储型 XSS
+import { jsonForInlineScript } from "./lib/safe-inline-json.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // 脚本位于 tools/ 子目录；ROOT 上提一级为仓库根
@@ -40,7 +42,7 @@ const data = (() => {
   } catch {
     // 指标文件缺失时保持主数据原样（兜底字段已在 build-skills-data.mjs 写入）
   }
-  return JSON.stringify(main);
+  return jsonForInlineScript(main);
 })();
 // 真实技能总数（数据单一来源），用于注入 meta description / og:description / twitter:description，
 // 避免 SEO/分享文案与磁盘技能实况漂移
