@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.56] - 2026-10-01
+
+### chore: 整理并更新技能 frontmatter 契约
+
+- 修复 `limrun-android-emulator/SKILL.md` 缺失的 4 个必填字段（en_description / zh_displayName / category / en_category），归正为「移动端开发 / Mobile Dev」。
+- 清理 2 个遗留空目录（`wordpress-axtolab-manager`、`wordpress-image-watermark-audit`，无 SKILL.md、git 不跟踪）。
+- 将 10 个仍为英文的 `description` 翻译为中文（limrun-android-emulator/detox-testing/ios-simulator/xcode/xcode-bazel、muapi-3d-logo-animation/logo-creator、playwright-cli、stripe-best-practices、video-editing），保留 `en_description` 英文原文。
+- 复检：169 个技能 `description` 全部中译、`en_category` 与 `category` 全部匹配、无非法分类；`node tools/validate-skills.mjs` 通过（169 技能 / 14 类）。
+- 根 `package.json` version 升至 v1.14.56；README 中/英版本徽章同步。
+
+[1.14.56]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.56
+
 ## [1.14.55] - 2026-08-29
 
 ### refactor: 应用对齐原型（热度 5 格 / 移动端 Sheet 抽屉）

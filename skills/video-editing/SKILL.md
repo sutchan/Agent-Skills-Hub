@@ -1,6 +1,6 @@
 ---
 name: video-editing
-description: AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers the full pipeline from raw capture through FFmpeg, Remotion, ElevenLabs, fal.ai, and final polish in Descript or CapCut. Use when the user wants to edit video, cut footage, create vlogs, or build video content.
+description: "面向真实素材剪辑、结构化与增强的 AI 辅助视频编辑工作流，覆盖从原始采集经 FFmpeg、Remotion、ElevenLabs、fal.ai，到在 Descript 与 CapCut 中做最终润色的完整管线。"
 en_description: |-
   AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers FFmpeg, Remotion, ElevenLabs, fal.ai, Descript and CapCut.
 zh_displayName: 视频剪辑

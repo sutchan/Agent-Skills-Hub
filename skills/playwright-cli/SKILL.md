@@ -1,6 +1,6 @@
 ---
 name: playwright-cli
-description: Automate browser interactions, test web pages and work with Playwright tests.
+description: "自动化浏览器交互、测试网页并与 Playwright 测试协同工作。"
 en_description: |-
   Automate browser interactions, test web pages and work with Playwright tests via CLI.
 zh_displayName: Playwright CLI 自动化

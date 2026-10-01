@@ -1,14 +1,14 @@
 ---
 name: limrun-android-emulator
-description: "\"Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, read app logs, run shell commands, transfer files, tunnel the app's network destinations through your machine with HTTP inspection and HAR capture, and use adb over the CLI's tunnel for full logcat and interactive tools. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', 'record a video', 'inspect network traffic', or 'reach my local server from the emulator'. To build the APK or AAB first, use limrun-gradle.\""
-en_description: |-
-  Drive an app running on a Limrun cloud Android emulator: install APK, launch, tap, type, screenshot, record video, inject audio, shape bandwidth, and use adb over CLI tunnel.
+description: "驱动运行在 Limrun 云端 Android 模拟器上的应用：安装 APK、启动与终止（含崩溃报告）、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制网络带宽、读取应用日志、运行 shell 命令、传输文件、通过本机隧道进行 HTTP 检查与 HAR 抓包、信任自定义 CA 证书，并使用 CLI 隧道的 adb 进行完整 logcat 与交互式操作。在构建（来自 limrun-gradle 或任意构建器）完成后，当用户希望在模拟器上查看、测试或交互其应用，或说“给我截图”“点击”“在模拟器上运行”“查 logcat”“录屏”“检查网络流量”“从模拟器访问本机服务器”时使用。构建 APK 或 AAB 请先用 limrun-gradle。"
+en_description: "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, read app logs, run shell commands, transfer files, tunnel the app's network destinations through your machine with HTTP inspection and HAR capture, trust a custom CA certificate, and use adb over the CLI's tunnel for full logcat and interactive tools. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', 'record a video', 'inspect network traffic', or 'reach my local server from the emulator'. To build the APK or AAB first, use limrun-gradle."
 zh_displayName: Limrun Android 模拟器
 category: 移动端开发
 en_category: Mobile Dev
 user-invocable: true
 effort: high
 ---
+
 # Limrun Android Emulator
 
 Interact with an app running on a Limrun cloud Android emulator, from any
@@ -355,6 +355,28 @@ session page in the console with a HAR download (default lifetime 3 days,
 CA, so **apps with certificate pinning fail through inspected domain
 selectors**: leave the pinned host out of the selectors or pass
 `--no-inspect` to relay bytes opaquely (no summaries, HAR, or persistence).
+
+## Trust a CA certificate
+
+Add a PEM CA certificate to the emulator's trust stores, for example the CA
+of an intercepting proxy that records app traffic:
+
+```bash
+lim android ca add ./proxy-ca.pem --id <android-instance-id>
+```
+
+Apps, WebViews, and Chrome trust it on their next connection, with no
+restart, for the life of the instance. Only one CA certificate per file;
+leaf certificates are rejected. Apps that pin certificates still reject it.
+
+To record through a proxy on the user's machine, trust its CA, reach it
+with a `--no-inspect` destination tunnel, then point the system proxy at the
+tunneled port. Start the tunnel first:
+
+```bash
+lim android tunnel --selector localhost:8888 --no-inspect --detach --id <android-instance-id>
+lim android adb-shell --id <android-instance-id> -- settings put global http_proxy 127.0.0.1:8888
+```
 
 ## Preview URL for humans
 

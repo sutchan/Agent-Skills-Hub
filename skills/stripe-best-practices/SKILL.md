@@ -1,6 +1,6 @@
 ---
 name: stripe-best-practices
-description: |-
+description: "指导 Stripe 集成决策，涵盖开发与测试环境规划（独立沙箱 vs 共享测试模式沙箱）、API 选择（Checkout Sessions vs PaymentIntents）、Connect 平台搭建、计费订阅、税务、Treasury 金融账户、集成选项与安全最佳实践。"
       Guides Stripe integration decisions across development and test environment
       planning (separate sandboxes vs the shared test mode sandbox), API selection
       (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2,

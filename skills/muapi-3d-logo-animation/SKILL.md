@@ -1,6 +1,6 @@
 ---
 name: muapi-3d-logo-animation
-description: Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects.
+description: "将 2D logo 转化为高级 3D 版本，并以专业电影级特效为其制作动画。"
 en_description: |-
   Transform a 2D logo into a premium 3D version and animate it with professional cinematic effects via muapi.ai.
 zh_displayName: 3D Logo 动画
