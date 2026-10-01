@@ -2,7 +2,7 @@
 
 感谢你愿意为 **Agent Skills Hub** 贡献！本指南帮助你在不破坏数据管线与规范的前提下，新增或更新技能、修复文档、提交变更。
 
-> 路径：`.github/CONTRIBUTING.md` · 版本：1.20.57
+> 路径：`.github/CONTRIBUTING.md` · 版本：1.14.57
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 
 ## 目录
@@ -20,8 +20,8 @@
 ## 仓库速览
 
 - 每个技能是 `skills/<name>/SKILL.md` 的独立目录，可含 `scripts/`、`references/`、`assets/`、`agents/` 等资源。
-- 技能数据由根目录 `npm run build` 从磁盘 `skills/` 自动生成，产物为 `data/skills-data.json`（稳定元数据）与 `data/skills-metrics.json`（频繁更新的派生指标：popularity/size/files/stars/firstSeen/skillVersion，以 `name` 为 key 的 map），二者构建时合并后注入自包含静态展示页 `prototype/index.html`。
-- 展示方式：`prototype/index.html`（静态单文件，可离线打开）+ `app/`（Next.js 应用源码工作区）。
+- 技能数据由根目录 `npm run build` 从磁盘 `skills/` 自动生成，产物为 `data/skills-data.json`（稳定元数据）与 `data/skills-metrics.json`（频繁更新的派生指标：popularity/size/files/stars/firstSeen/skillVersion，以 `name` 为 key 的 map），二者构建时合并后注入自包含静态展示页 `prototype/prototype.html`。
+- 展示方式：`prototype/prototype.html`（静态单文件，可离线打开）+ `app/`（Next.js 应用源码工作区）。
 
 ## 环境准备
 
@@ -32,7 +32,7 @@ npm install          # 安装根依赖（构建脚本所需）
 npm run build        # 验证构建链路，生成 data 与 prototype
 ```
 
-> 要求 Node.js ≥ 24.11.0（见根 `package.json` `engines`）。
+> 要求 Node.js `22.x || 26.x`（见根 `package.json` `engines`）。
 
 ## 新增或更新技能
 
@@ -75,7 +75,7 @@ name: <kebab-case 技能名，与目录名一致>
 description: <中文完整描述，默认展示语言>
 en_description: <英文原文描述，处理技能时保留>
 zh_displayName: <中文一句话简介>
-category: <9 大稳定领域之一，中文稳定键>
+category: <14 大稳定领域之一，中文稳定键>
 en_category: <对应英文分类名，英文态展示>
 # 以下为可选字段（平台/工具元数据），原样保留即可：
 # version / compatibility / license / author / homepage
@@ -100,7 +100,7 @@ en_category: <对应英文分类名，英文态展示>
 
 **禁止字段**：不得出现 `description_zh` / `description_en` 等冲突键，中文译文统一写入 `description`、英文原文写入 `en_description`。
 
-- `category` 取 9 大稳定领域之一（中文，稳定键）：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`开发框架与平台`、`文件与格式处理`、`自动化与集成`、`AI 与智能体`、`音视频与多媒体`、`安全`；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`、`AI 与智能体` → `AI & Agents`）。未知分类会被 `tools/build-skills-data.mjs` 自动追加为末位「其他」类（属违规，须为零——当前有 1 个待修复）。
+- `category` 取 14 大稳定领域之一（中文，稳定键）：`品牌与设计`、`文档与内容`、`数据分析与可视化`、`前端开发`、`后端与平台`、`移动端开发`、`WordPress 与 CMS`、`工程实践与质量`、`文件与格式处理`、`自动化与集成`、`AI 与智能体`、`音视频与多媒体`、`桌面与客户端`、`安全`；`en_category` 为对应英文分类名（如 `品牌与设计` → `Brand & Design`、`AI 与智能体` → `AI & Agents`）。未知分类会被 `tools/build-skills-data.mjs` 自动追加为末位「其他」类（属违规，须为零）。
 - `description` 与 `zh_displayName` 的区别：`zh_displayName` 是一句话摘要，`description` 是完整中文描述；`en_description` 为英文原文描述（默认展示中文，英文态展示英文）。
 - `tools/build-skills-data.mjs` 以磁盘 `skills/` 为唯一权威源读取这些字段，`category` 与 README 分类名严格一致。
 
@@ -112,7 +112,7 @@ npm run build   # = node tools/build-skills-data.mjs && node tools/build.mjs
 
 - `data/skills-data.json` 与 `data/skills-metrics.json` 均为**构建产物，勿手改**，需通过 `npm run build` 重新生成。频繁更新的指标（如 popularity/stars/size）只需重算 `skills-metrics.json`，主数据文件保持稳定，避免每次指标更新重写大文件。
 - **frontmatter 校验**：提交前运行 `node tools/validate-skills.mjs`，确保必填字段齐全、`category` 合法、无冲突键、契约字段顺序正确。CI 亦会执行此校验。
-- 原型样式令牌仅改 `prototype/src/styles/tokens.css`，禁止在 `components.css`/`responsive.css`/`index.html` 散写颜色字面量。
+- 原型样式令牌仅改 `prototype/src/styles/tokens.css`，禁止在 `components.css`/`responsive.css`/`prototype.html` 散写颜色字面量。
 
 ## 文档与版本一致性
 
@@ -121,6 +121,33 @@ npm run build   # = node tools/build-skills-data.mjs && node tools/build.mjs
 - 只有实际改动的文件才更新其文件头注释版本号，禁止全仓库批量刷写头注释。
 - CHANGELOG 遵循 [Keep a Changelog](https://keepachangelog.com/) + SemVer，每个版本小节须在底部有对应 release tag 锚点。
 - 详细流程见 [`docs/spec.md`](../docs/spec.md)「构建与发版」与「一致性红线」。
+
+### 文档同步清单（防版本/数字脱节）
+
+每次发版或文档改动，逐项核对以下「版本展示位」与「数据型数字」：
+
+**版本展示位**（均须等于根 `package.json` 的 `version`）：
+- README.md / README.en.md 版本徽章（`img.shields.io/badge/version-vX.Y.Z`）
+- CHANGELOG.md 顶部最新小节标题与底部 `[x.y.z]:` 锚点
+- docs/AGENTS.md、docs/project.md、docs/spec.md 头注释 `· 版本：x.y.z`
+- .github/CONTRIBUTING.md 头注释
+
+**数据型数字**（须以脚本实算，禁止手填）：
+- README 中/英「技能总数」（公开数 = `data/skills-data.json` 的 `total`，全部 = `skills.length`）
+- README 中/英 14 大领域表「技能数」（逐类以 `data/skills-data.json` 实算）
+- 领域表总和必须等于公开技能总数
+
+**手动校验命令**：
+```bash
+node -e "const d=require('./data/skills-data.json');const m={};for(const s of d.skills){if(!s.hidden)m[s.category]=(m[s.category]||0)+1}console.log('公开',d.total,'全部',d.skills.length);console.log(m)"
+```
+
+## 部署配置
+
+- **EdgeOne（主部署）**：根 `edgeone.json` 声明 `{framework:"next",buildCommand:"npm run build",outputDirectory:".next"}`，构建产物为 Next.js 独立服务。
+- **Vercel（静态通道）**：根 `vercel.json` 声明 `{outputDirectory:"prototype"}`，直接托管 `prototype/prototype.html` 静态展示页（与 EdgeOne 相互独立）。
+- **原型产物**：`npm run build` 生成 `prototype/prototype.html`（自包含、内联全部数据），`vercel.json` 将其作为站点根。
+- 本地预览：`npm run serve`（启动静态服务打开 `prototype.html`）。
 
 ## 提交规范
 
@@ -147,7 +174,7 @@ docs: 新增 .github Community Health Files 并同步版本至 v1.14.70
 1. 从 `dev` 拉出 `feature/*` 或 `fix/*` 分支进行改动（本仓库工作分支为 `dev`，非 `main`）。
 2. 完成后运行 `npm run build`，确认构建通过。
 3. 提交前检查清单：
-   - [ ] `SKILL.md` frontmatter 字段完整（name/description/en_description/zh/category/en_category）
+   - [ ] `SKILL.md` frontmatter 字段完整（name/description/en_description/zh_displayName/category/en_category）
   - [ ] 文件换行符为 Unix(LF)，非 Windows CRLF
   - [ ] `node tools/validate-skills.mjs` 校验通过（必填、分类、顺序、无冲突键）
    - [ ] 数据已通过 `npm run build` 重新生成

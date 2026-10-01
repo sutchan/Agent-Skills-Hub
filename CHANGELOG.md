@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.57] - 2026-10-01
+
+### docs: 修复文档数据失真与版本头注释脱节
+
+- 修正 README 中/英技能总数：**223/222 → 169/168**（以 `node tools/build-skills-data.mjs` 实算 `data/skills-data.json` 为准）。
+- 修正 README 中/英 14 大领域表计数（逐类以 `data/skills-data.json` 实算对齐）。
+- 同步 docs/AGENTS.md、project.md、spec.md 与 .github/CONTRIBUTING.md 头注释版本 **1.20.57 → 1.14.57**（此前严重超前于真实 HEAD）。
+- 修正 spec.md 版本权威源引用（当前 1.20.57 → 1.14.57）。
+- 修正 CONTRIBUTING：展示产物 `prototype/index.html` → `prototype/prototype.html`；Node 版本 `≥24.11.0` → `22.x || 26.x`；SKILL.md 分类由过时的「9 大领域」更正为「14 大领域」并补全分类清单；提交清单 `zh` → `zh_displayName`。
+- 新增「文档同步 SOP」（CONTRIBUTING）与术语表（project.md），并订正 AGENTS.md/project.md/spec.md 中失效的 OpenSpec CLI 与 `changes/`/`archive/` 目录引用（实际用 `docs/tasks.md` 跟踪）。
+
+[1.14.57]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.57
+
 ## [1.14.56] - 2026-10-01
 
 ### chore: 整理并更新技能 frontmatter 契约

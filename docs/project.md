@@ -1,9 +1,9 @@
 # Project Specification — Agent Skills Hub
 
-> 路径：`docs/project.md` · 版本：1.20.57
+> 路径：`docs/project.md` · 版本：1.14.57
 > 本文件是 OpenSpec 的项目级规范（project spec），定义变更工作流、产物约定与本仓库结构对齐方式。
-> 已落地能力基线见 [`spec.md`](spec.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
-> 配套技能：`skills/openspec-propose`、`skills/openspec-apply-change`、`skills/openspec-explore`、`skills/openspec-archive-change`。
+> 已落地能力基线见 [`spec.md`](spec.md)；变更通过 [`tasks.md`](tasks.md) 任务清单跟踪（本仓库不使用 OpenSpec CLI，无 `changes/`/`archive/` 目录）。
+> 相关技能：`skills/openspec-implementation/` 提供 OpenSpec 落地实现技能，其 `SKILL.md` 含逐步指令。
 
 ## 1. 项目概览
 
@@ -19,27 +19,24 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 | `README.md` | 技能清单（中文描述映射） | ✅ 中频 |
 | `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 `skills/<name>/SKILL.md` 生成数据；入口 `app/page.tsx`/`app/layout.tsx`/`app/globals.css`，共享逻辑在 `app/lib/`（`skills.ts` 数据读取与类型、`share.ts` 分享文案），品牌静态资产在仓库根 `public/`，组件在 `app/components/`（含 `detail/` 子模块），主题令牌在 `app/tokens-shared.css`（由 `tools/sync-tokens.mjs` 从原型 `tokens.css` 同步） | ✅ 中频 |
 | `prototype/` | 预构建静态 HTML 高保真原型（打开 `prototype/prototype.html` 预览） | ✅ 中频 |
-| `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（源码 `prototype/src/` 随仓库分发，`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物） | ✅ 中频 |
+| `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（源码 `prototype/src/` 随仓库分发，`prototype/` 下的 `prototype.html`/`favicon.svg`/`banner-og.svg` 为构建产物） | ✅ 中频 |
 | `tools/` | 仓库级脚本：`build-skills-data.mjs`（解析 SKILL.md 生成数据）、`build.mjs`（合并数据内联构建原型）、`sync-tokens.mjs`（令牌同步至 app）、`validate-skills.mjs`（frontmatter 契约校验）、`ensure-lf.mjs`（统一 LF 换行）、`_scan_fm_bug.mjs`（frontmatter 泄漏扫描）、`skills_readme.py`/`_skill_readme_lib.py`（README 领域表生成）、`coverage.py`（覆盖率） | ◻️ 低频 |
-| `docs/` | 项目文档：`project.md`（约定）、`spec.md`（能力基线）、`AGENTS.md`（协作指引）、`tasks.md`（任务清单）、`changes/`（提案）、`archive/`（归档） | ✅ 本目录 |
+| `docs/` | 项目文档：`project.md`（约定）、`spec.md`（能力基线）、`AGENTS.md`（协作指引）、`tasks.md`（任务清单，变更跟踪） | ✅ 本目录 |
 
-## 3. 变更工作流（OpenSpec）
+## 3. 变更工作流（docs/tasks.md）
 
-1. **提案**：`openspec new change <kebab-name>` 创建脚手架。
-2. **产物**：每个 change 在 `docs/changes/<name>/` 下包含：
-   - `proposal.md` — 做什么 & 为什么（背景、问题、目标、非目标）
-   - `design.md` — 怎么做（方案、数据模型、文件改动、风险）
-   - `tasks.md` — 实施步骤（可勾选清单）
-3. **就绪判定**：`openspec status --change <name>` 显示 `applyRequires` 全部 `done` 后可实施。
-4. **实施**：`/opsx:apply` 或人工按 `tasks.md` 执行。
-5. **归档**：完成后 `openspec archive <name>`，产物移入 `docs/archive/`。
+本仓库**不使用 OpenSpec CLI**，变更统一通过 [`docs/tasks.md`](tasks.md) 任务清单跟踪，直接提交到 `main`：
 
-## 4. Artifact 内容准则
+1. **登记任务**：在 `tasks.md` 新增任务条目（标题 / 优先级 / 状态 / 备注），描述变更范围与动机。
+2. **实施**：按仓库规范改动（技能改 `skills/<name>/SKILL.md`，文档改对应 `.md`）；涉及展示页须重跑 `npm run build` 重新生成 `data/` 与 `prototype/prototype.html`。
+3. **验收**：运行 `node tools/validate-skills.mjs` 校验 frontmatter 契约；确保 README 中/英、CHANGELOG、package.json 版本一致（每次修改 bump 最小版本号）。
+4. **归档**：完成后将 `tasks.md` 任务状态更新为「已完成」，并在 `CHANGELOG.md` 新增对应版本小节；无 `openspec archive` 步骤。
 
-- **proposal.md**：只写「为什么」，含可观测的验收标准；不写实现细节。
-- **design.md**：只写「怎么做」，含文件级改动清单、数据结构、回退方案；引用本项目现有模块（如 `tools/build.mjs`、`tools/build-skills-data.mjs`、展示页）而非重复其全文。
-- **tasks.md**：步骤须可独立验证，每步标注涉及文件。
-- **约束**：`openspec instructions` 返回的 `context` / `rules` / `project_context` 是给 AI 的约束，**不得**写入产物文件。
+## 4. 任务条目准则
+
+- 每个任务须可独立验证，标注涉及文件与优先级（P0/P1/P2）。
+- 任务描述聚焦「做什么 & 为什么」，实现细节写在对应变更的文件里，不重复全文。
+- 复杂跨文件变更可在 `tasks.md` 备注栏附设计要点；无需单独的 proposal/design 产物文件。
 
 ## 4.5 数据结构与接口标准（展示页）
 
@@ -111,3 +108,15 @@ Agent Skills Hub 是一个面向开发、设计、测试、DevOps、Agent 工程
 ## 7. 提交信息规范
 
 沿用仓库根 `README.md` / 协作规则：`<type>: <描述>`（feat/fix/docs/refactor/style/test/chore/perf/ci/revert），描述 ≤ 50 字符、动词开头、无句号。
+
+## 8. 术语表
+
+| 术语 | 含义 |
+|---|---|
+| 技能（Skill） | `skills/<name>/` 目录，含 `SKILL.md`（frontmatter + 说明），本仓库最小可分发单元 |
+| 展示页 / 原型 | `prototype/prototype.html`，由 `tools/build.mjs` 从 `data/` 内联构建的自包含静态 HTML |
+| app | `app/` 下的 Next.js 14 + React 18 Web 应用，`npm run build` 产物部署于 EdgeOne |
+| 数据源 | 技能权威 = `skills/<name>/SKILL.md` frontmatter；`data/skills-data.json` 为构建产物，勿手改 |
+| 14 大领域 | 稳定中文分类键（品牌与设计 / 文档与内容 / 数据分析与可视化 / 前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS / 工程实践与质量 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 桌面与客户端 / 安全），固化于 `tools/lib/taxonomy.mjs` |
+| frontmatter 契约 | `name`/`description`(中)/`en_description`(英)/`zh_displayName`/`category`(14类中文键)/`en_category` 六必备字段，顺序由 `tools/validate-skills.mjs` 校验 |
+| 数据型数字 | README 中/英的技能总数与领域表计数，须以 `data/skills-data.json` 实算，禁止手填 |

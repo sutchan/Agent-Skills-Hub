@@ -2,9 +2,9 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.14.56-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/prototype.html)
+[![版本](https://img.shields.io/badge/version-v1.14.57-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/prototype.html)
 
-一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、桌面与客户端、安全 14 大领域，共 223 个技能包（其中 1 个标记为隐藏，公开可见 222 个）。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述，含 frontmatter 前置元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 `tools/coverage.py` 统计。
+一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、桌面与客户端、安全 14 大领域，共 169 个技能包（其中 1 个标记为隐藏，公开可见 168 个）。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述，含 frontmatter 前置元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 `tools/coverage.py` 统计。
 
 ## 快速开始
 
@@ -27,7 +27,7 @@
 | | 亮点 | 说明 |
 |---|---|---|
 | ⚙️ | **零维护清单** | 技能数据与展示页由 `npm run build` 从磁盘 `skills/*/SKILL.md` 自动生成，技能增删无需手工维护任何清单 |
-| 🗂️ | **223 技能 · 14 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、桌面与客户端、安全 |
+| 🗂️ | **169 技能 · 14 大领域** | 覆盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、桌面与客户端、安全 |
 | 🌏 | **默认中文** | 中文目录 + 中文一句话简介 + 中文完整描述（`description`，默认展示语言），英文原文存 `en_description`，中文 Agent 用户开箱即用 |
 | 📦 | **一键安装** | 配合 [skills-manager](https://github.com/xingkongliang/skills-manager) 批量安装 / 更新 / 卸载 |
 | 🚀 | **离线可用** | 自包含静态展示页（`prototype/prototype.html`）内联全部数据，双击即可浏览全部技能，无框架依赖 |
@@ -59,20 +59,20 @@
 
 | 领域 | 技能数 |
 |------|--------|
-| 品牌与设计 | 38 |
+| 品牌与设计 | 32 |
 | 文档与内容 | 2 |
 | 数据分析与可视化 | 2 |
-| 前端开发 | 27 |
-| 后端与平台 | 11 |
-| 移动端开发 | 28 |
-| WordPress 与 CMS | 11 |
-| 工程实践与质量 | 40 |
-| 文件与格式处理 | 4 |
-| 自动化与集成 | 16 |
-| AI 与智能体 | 8 |
-| 音视频与多媒体 | 28 |
+| 前端开发 | 11 |
+| 后端与平台 | 8 |
+| 移动端开发 | 27 |
+| WordPress 与 CMS | 6 |
+| 工程实践与质量 | 34 |
+| 文件与格式处理 | 2 |
+| 自动化与集成 | 5 |
+| AI 与智能体 | 9 |
+| 音视频与多媒体 | 24 |
 | 桌面与客户端 | 2 |
-| 安全 | 5 |
+| 安全 | 4 |
 
 > 浏览全部技能：
 > - 静态展示页：[`prototype/prototype.html`](prototype/prototype.html)

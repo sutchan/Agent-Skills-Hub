@@ -1,8 +1,8 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.20.57
+> 路径：`docs/spec.md` · 版本：1.14.57
 > 本文件固化**当前已落地能力**的基线规范，作为变更的起点与回退基准。
-> 详细数据契约、交互与分享规则见 [`project.md`](project.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
+> 详细数据契约、交互与分享规则见 [`project.md`](project.md)；变更通过 [`tasks.md`](tasks.md) 任务清单跟踪（本仓库不使用 OpenSpec CLI，无 `changes/`/`archive/` 目录）。
 
 ---
 
@@ -10,7 +10,7 @@
 
 - **项目定位**：Agent 技能集合仓库，提供 `skills/`（原始技能）、`prototype/`（静态展示页）、`app/`（Next.js 应用工作区）三套资产。
 - **设计令牌权威源**：`prototype/src/styles/tokens.css`（单一来源，浅/深双主题）。主色绿：浅 `#2e9e6b`、深 `#5cc98c`。
-- **版本权威源**：仓库根 `package.json` 的 `version`（当前 1.20.57）。README 中英文徽章、CHANGELOG 顶部须与之保持一致。
+- **版本权威源**：仓库根 `package.json` 的 `version`（当前 1.14.57）。README 中英文徽章、CHANGELOG 顶部须与之保持一致。
 
 ---
 
@@ -107,7 +107,7 @@ type SkillsData = {
 
 ## 7. 演进方式
 
-- 任何对已落地能力的修改，先在 `changes/` 提案（参考 `AGENTS.md`），归档至 `archive/`。
+- 任何对已落地能力的修改，先在 [`docs/tasks.md`](tasks.md) 登记任务（参考 [`AGENTS.md`](AGENTS.md)），完成后将任务状态更新为「已完成」。
 - 本 spec 仅在能力真正落地/移除时更新，保持"当前真相"语义。
 
 ---
