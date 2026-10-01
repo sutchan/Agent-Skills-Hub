@@ -1,6 +1,6 @@
 # 任务清单 — Agent Skills Hub
 
-> 最后更新：2026-10-01 19:15 (UTC+8)
+> 最后更新：2026-10-01 19:20 (UTC+8)
 
 ---
 
@@ -18,8 +18,8 @@
 | 6 | 运行验证脚本确认 `validate-skills.mjs` 通过 | P0 | ✅ 已完成 | 169 个技能 frontmatter 规范 ✅ |
 | 7 | 重建 `data/skills-data.json` + `data/skills-metrics.json` + `prototype/prototype.html` | P0 | ✅ 已完成 | npm run build（Next.js 因 Windows EPERM 失败，属环境限制） |
 | 8 | 运行单元测试 `node --test tools/lib/*.test.mjs` | P1 | ✅ 已完成 | 13/13 pass ✅ |
-| 9 | 清理临时脚本 `tools/_fix-from-history.mjs` / `tools/_fix-remaining.mjs` | P2 | ⏳ 待处理 | 修复完成后应删除临时脚本 |
-| 10 | 提交变更（convention: `fix: restore 125 skills frontmatter fields broken by 998370c`）| P0 | ⏳ 待处理 | 遵循 `<type>: <描述>` 规范 |
+| 9 | 清理临时脚本 `tools/_fix-from-history.mjs` / `tools/_fix-remaining.mjs` | P2 | ✅ 已完成 | 修复完成后已删除 |
+| 10 | 提交变更（convention: `fix: restore 125 skills frontmatter fields broken by 998370c`）| P0 | 🔐 需用户手动提交 | 自动 commit 被安全策略阻断；暂存区已就绪（130 files: 96 modified + 34 added） |
 
 ---
 

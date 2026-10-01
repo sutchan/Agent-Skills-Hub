@@ -41,6 +41,10 @@ Requirements:
 - commands must be copyable
 - separate setup, assets, run, and verification steps
 - label each command as documented, adapted, or inferred
+- separate provenance from execution: a documented suggestion is not an executed command
+- mark unexecuted setup suggestions and asset observations explicitly; missing conventional
+  directories alone do not establish missing required assets
+- attach runtime status and evidence to actual command attempts
 - avoid dumping noise from the shell history
 
 ## `LOG.md`
@@ -72,9 +76,14 @@ Suggested top-level keys:
 - `status`
 - `documented_command_status`
 - `documented_command`
+- `documented_command_id`
 - `documented_command_kind`
 - `documented_command_source`
 - `documented_command_section`
+- `selection_source`
+- `selection_fingerprint`
+- `command_candidates`
+- `error`
 - `execution_mode`
 - `runtime`
 - `stage_results`
@@ -90,8 +99,13 @@ Suggested top-level keys:
 - `unverified_inferences`
 - `protocol_deviations`
 - `human_decisions_required`
+- `setup_advisories`
+- `command_reporting`
 - `next_safe_action`
 - `artifact_provenance`
+- `source_integrity`
+- `invocation_path`
+- `evidence_manifest_path`
 - `verified_commit_count`
 - `outputs`
 - `notes`
@@ -111,6 +125,17 @@ Recommended evidence level enums:
 
 Field intent:
 
+- `documented_command_id`, `selection_fingerprint`, `command_candidates`
+  - identify the exact README-backed candidate set shown during planning
+  - explicit `--command-id` execution should carry the plan fingerprint so a changed README/command set fails closed instead of silently running a different command
+  - setup and asset commands are not reproduction target candidates and cannot be selected through this mechanism
+- `error`
+  - optional machine-readable failure object with stable `code`, human summary,
+    review requirement and safe next actions
+  - examples include `missing_dependency`, `missing_asset`, `placeholder_required`,
+    `shell_review_required`, `command_not_found`, `command_failed`, `timeout`,
+    `metric_mismatch`, `source_modified`, `runtime_incomplete_without_status`,
+    and evidence-verification errors
 - `assumptions`
   - important assumptions that still shape execution or interpretation
 - `unverified_inferences`
@@ -119,8 +144,18 @@ Field intent:
   - meaningful differences from README, paper, or documented setup
 - `human_decisions_required`
   - decisions that should not be taken implicitly by the agent
+  - do not include generic missing setup metadata unless a selected action requires a decision
+- `setup_advisories`
+  - preserved setup-planner observations, not automatic blockers or proof of missing dependencies
+- `command_reporting`
+  - records setup, assets, main-run and separate verification-command execution status
+  - `not_run` means no recorded execution; actual runtime status is not scientific acceptance
 - `next_safe_action`
   - the lowest-risk next step a researcher can review or run
+  - for a successful bounded non-training target, verify existing evidence, return
+    the result and stop; do not recommend unrequested follow-up execution
+  - command-level `success` does not establish that an outer agent/client completed
+    its turn, that its evidence passed independent acceptance, or that a paper was reproduced
 - `artifact_provenance`
   - where key inputs or outputs came from, such as README, repo path, paper, dataset root, checkpoint, or generated logs
 - `stage_results`
@@ -129,11 +164,22 @@ Field intent:
 - `result_match`
   - an independent comparison object with `status` set to `matched`, `mismatched`, or `not_evaluated`
   - `matched` requires explicit expected metrics and a recorded tolerance; observed metrics alone remain `not_evaluated`
+  - after successful execution, missing or out-of-tolerance expected metrics make the
+    overall outcome `partial`; runtime and documented-command success still describe
+    process completion, not acceptance. The CLI exit code reports evidence generation;
+    automation must inspect the persisted outcome and configured acceptance checks
 - `runtime`
   - identifies the durable `_runtime/<run_id>/` directory, terminal state, event stream, full stdout/stderr logs, truncation flags, cancellation state, and duration
   - summary fields may contain only a bounded log tail; the referenced log files remain complete
 
 ## Runtime evidence
+
+For a short-call supervisor, see [agent-job.md](agent-job.md). Job lifecycle and
+completion-time `result.accepted` are distinct from both runtime status and
+`evidence_valid`. A timeout can have complete, valid evidence without acceptance.
+New manifest schema `1.1` also binds runtime `spec.json`, source-adjacent delivery
+and ownership receipts. Legacy schema `1.0` remains inspectable with explicitly
+reduced `legacy_core_only` coverage; it does not acquire new hashes retroactively.
 
 Every executed command should persist under the active evidence output directory:
 
@@ -156,6 +202,25 @@ Recovery may add `interrupted` or `orphaned`; retries create a new run with
 The status bundle should also expose the normalized `model_adapter` snapshot
 and its fingerprint. `resource_summary` must retain measurement scope so
 device-global GPU data is not misrepresented as per-process attribution.
+
+## Optional source-adjacent README
+
+Add `--source-adjacent-readme` to `orchestrate_repro.py` or `run_agent.py` to
+also create `RIGORPILOT_README.md` in the original README's directory. Keep
+the standard `repro_outputs/ANNOTATED_README.md` and its evidence files.
+
+The adjacent copy preserves all original bytes, including relative media and
+file links. Only RigorPilot-inserted evidence links are rebased. Open the path
+reported under `source_adjacent_readme`; `written` confirms delivery, while
+`blocked` means the ordinary evidence remains available but the extra copy
+could not safely be written. Cross-drive Windows evidence links use local
+file URLs; browser policies may prevent opening them, so prefer the same drive.
+
+The bundle retains `readme_delivery.json` to identify its generated copy.
+Repeating with the same source and output may refresh an unchanged owned copy.
+An unrelated or edited file, symlink, hard link, or conflicting receipt is not
+overwritten. Keep the receipt with the evidence; do not use it to claim that
+source code or external media were verified. The original README remains intact.
 
 ## `PATCHES.md`
 

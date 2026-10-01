@@ -38,9 +38,39 @@ def atomic_write_json(path: Path, payload: Dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     # Keep the sibling name short: exploratory Git worktrees can already sit
     # close to the legacy Windows MAX_PATH boundary.
-    temporary = path.with_name(f".{uuid.uuid4().hex[:4]}.tmp")
-    temporary.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    os.replace(temporary, path)
+    # A short name is useful on Windows, but a random name is not an ownership
+    # claim. Never truncate another writer's staging file on a name collision.
+    for _ in range(16):
+        temporary = path.with_name(f".{uuid.uuid4().hex[:4]}.tmp")
+        try:
+            handle = temporary.open("x", encoding="utf-8", newline="\n")
+            break
+        except FileExistsError:
+            continue
+    else:
+        raise FileExistsError("Unable to claim an atomic JSON staging file")
+    replaced = False
+    try:
+        with handle:
+            handle.write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        # Readers/antivirus can hold a short-lived Windows sharing lock during
+        # replacement. Retry the same complete file, never expose partial JSON.
+        for attempt in range(6):
+            try:
+                os.replace(temporary, path)
+                replaced = True
+                break
+            except PermissionError:
+                if attempt == 5:
+                    raise
+                time.sleep(0.02 * (attempt + 1))
+    finally:
+        # A successful replacement releases the staging name. Another writer
+        # may already have claimed that same name, so it is no longer ours.
+        if not replaced:
+            temporary.unlink(missing_ok=True)
 
 
 class TailBuffer:
@@ -355,6 +385,48 @@ def record_resource_snapshot(
     )
 
 
+def resolve_direct_argv(argv: List[str], cwd: Path, environment: Dict[str, str]) -> List[str]:
+    """Resolve bare executables only against the environment used by the child.
+
+    Windows CreateProcess may prefer the controller's interpreter directory
+    over an activated venv. Do not delegate that search or resolve a venv
+    interpreter symlink to its host target. Relative explicit paths use cwd.
+    """
+    if not argv or not argv[0]:
+        raise ValueError("direct command must name an executable")
+    name = argv[0]
+    if os.path.dirname(name):
+        if os.path.isabs(name):
+            return list(argv)
+        return [os.path.abspath(cwd / name), *argv[1:]]
+
+    def value(key: str) -> Optional[str]:
+        if os.name != "nt":
+            return environment.get(key)
+        return next((item for candidate, item in environment.items() if candidate.upper() == key), None)
+
+    path_value = value("PATH")
+    if not path_value:
+        raise FileNotFoundError(f"Executable not found on child PATH: {name} (PATH is empty or absent)")
+    suffixes = [""]
+    if os.name == "nt":
+        extensions = value("PATHEXT")
+        if extensions is None:
+            extensions = ".COM;.EXE;.BAT;.CMD"
+        suffixes.extend(extension for extension in extensions.split(";") if extension)
+    for entry in path_value.split(os.pathsep):
+        if os.name == "nt" and entry.startswith('"') and entry.endswith('"'):
+            entry = entry[1:-1]
+        directory = Path(entry) if entry else cwd
+        if not directory.is_absolute():
+            directory = cwd / directory
+        for suffix in suffixes:
+            candidate = Path(os.path.abspath(directory / (name + suffix)))
+            if candidate.is_file() and os.access(candidate, os.X_OK):
+                return [str(candidate), *argv[1:]]
+    raise FileNotFoundError(f"Executable not found on child PATH: {name}")
+
+
 def run_persistent_command(
     *,
     repo: Path,
@@ -444,10 +516,17 @@ def run_persistent_command(
 
     try:
         argv = build_command(command, shell_mode)
+        environment = dict(os.environ if child_env is None else child_env)
+        spec["requested_argv"] = list(argv)
+        atomic_write_json(run_dir / "spec.json", spec)
+        if shell_mode == "direct":
+            argv = resolve_direct_argv(argv, repo, environment)
+        spec["argv"] = list(argv)
+        atomic_write_json(run_dir / "spec.json", spec)
         creationflags = subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0
         process = subprocess.Popen(
             argv,
-            env=child_env,
+            env=environment,
             cwd=repo,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -469,7 +548,7 @@ def run_persistent_command(
         journal.event("launch_failed", error=str(exc))
         return _result_payload(journal.state, run_dir, stdout_capture, stderr_capture, shell_mode, started_monotonic)
 
-    journal.event("started", pid=process.pid)
+    journal.event("started", pid=process.pid, argv=argv)
     journal.update(status="running", started_at=utc_now(), pid=process.pid, last_heartbeat=utc_now())
     resource_summary = journal.state["resource_summary"]
     record_resource_snapshot(

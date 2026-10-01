@@ -179,7 +179,7 @@ interface ButtonProps {
 
 ## 2. Figma File Inspection
 
-Run these `use_figma` snippets at the start of every build. All are read-only and safe to run before any user checkpoint.
+Run these `use_figma` snippets during scoped discovery. All are read-only and safe to run before any mutation.
 
 ### List All Pages
 
@@ -336,7 +336,7 @@ get_libraries({ fileKey: "abc123", offset: 20 })
 
 ### Step 2: Search with `search_design_system`
 
-`search_design_system` runs three parallel searches against design libraries for the given file:
+`search_design_system` searches design libraries for the given file. Each `queries` entry names one entity type:
 
 1. **Components** — published library components, searched by name/description via a recommendation engine (relevance-ranked, not exact match)
 2. **Variables** — design tokens (colors, spacing, etc.) across subscribed libraries
@@ -349,19 +349,19 @@ By default it searches all accessible libraries. Pass `includeLibraryKeys` to se
 ```
 // Search all libraries
 search_design_system({
-  query: "button",              // required — text query
-  fileKey: "abc123",            // required — your file key
-  includeComponents: true,      // default true
-  includeVariables: true,       // default true
-  includeStyles: true           // default true
+  queries: [
+    { entity: "component", query: "button" },
+    { entity: "variable", query: "color" },
+    { entity: "style", query: "heading" }
+  ],
+  fileKey: "abc123"            // required — your file key
 })
 
 // Search a specific library only (use libraryKey from get_libraries)
 search_design_system({
-  query: "button",
+  queries: [{ entity: "component", query: "button" }],
   fileKey: "abc123",
-  includeLibraryKeys: ["lk-abc123..."],
-  includeComponents: true
+  includeLibraryKeys: ["lk-abc123..."]
 })
 ```
 
@@ -369,30 +369,44 @@ search_design_system({
 
 ```json
 {
-  "components": [
+  "results": [
     {
-      "name": "Button",
-      "libraryName": "Design System",
-      "assetType": "component_set",
-      "componentKey": "abc123def",
-      "description": "Primary action button"
-    }
-  ],
-  "variables": [
+      "entity": "component",
+      "query": "button",
+      "components": [
+        {
+          "name": "Button",
+          "libraryName": "Design System",
+          "assetType": "component_set",
+          "componentKey": "abc123def",
+          "description": "Primary action button"
+        }
+      ]
+    },
     {
-      "name": "colors/primary/500",
-      "variableType": "COLOR",
-      "variableSetKey": "set1key",
-      "key": "var1key",
-      "scopes": ["FRAME_FILL", "SHAPE_FILL"],
-      "variableCollectionName": "Colors"
-    }
-  ],
-  "styles": [
+      "entity": "variable",
+      "query": "color",
+      "variables": [
+        {
+          "name": "colors/primary/500",
+          "variableType": "COLOR",
+          "variableSetKey": "set1key",
+          "key": "var1key",
+          "scopes": ["FRAME_FILL", "SHAPE_FILL"],
+          "variableCollectionName": "Colors"
+        }
+      ]
+    },
     {
-      "name": "Heading/H1",
-      "styleType": "TEXT",
-      "key": "style1key"
+      "entity": "style",
+      "query": "heading",
+      "styles": [
+        {
+          "name": "Heading/H1",
+          "styleType": "TEXT",
+          "key": "style1key"
+        }
+      ]
     }
   ]
 }
@@ -413,8 +427,8 @@ const componentSet = await figma.importComponentSetByKeyAsync("abc123def");
 
 ### When to Search
 
-- **Phase 0, step 0c**: Search broadly (`query: "button"`, `query: "color"`, `query: "spacing"`) before planning anything. This establishes the reuse baseline.
-- **Immediately before each component creation**: Search for the specific component name before writing any `use_figma` creation code.
+- **During scoped discovery:** Search broadly for the selected inventory (`queries: [{ entity: "component", query: "button" }, { entity: "variable", query: "color" }, { entity: "variable", query: "spacing" }]`). This establishes the reuse baseline.
+- **Search again only when needed:** Repeat a component search when it was outside the selected inventory, available libraries changed, or the earlier result did not resolve it. Reuse current results for in-scope components.
 
 **Reuse decision:**
 
@@ -460,7 +474,7 @@ Compare what was found in code vs what already exists in Figma:
 
 ### User-Facing Discovery Summary Template
 
-Present this message before proceeding, then continue automatically into Phase 1 unless an unresolved conflict requires a user decision.
+Present one concise scope and acceptance summary, then continue into the selected workflow path. Ask the user only when an unresolved conflict requires a decision.
 
 ```
 Here's what I found and what I plan to build:
@@ -483,7 +497,7 @@ PLAN
   New variables: ~{N} ({breakdown by collection})
   New styles: {N} text, {M} effect
   New components: {list}
-  Libraries to search before each component: {list}
+  Reusable library results for the selected inventory: {list}
 
 GAPS / CONFLICTS NEEDING DECISIONS
   ⚠ {conflict description} — Code says X, Figma already has Y. Which wins?

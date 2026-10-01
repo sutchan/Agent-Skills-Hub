@@ -240,7 +240,7 @@
   - `categoryEn`（根级）：分类中文→英文映射对象。
 - 分类计数由 `02-render.js` 的 `catCounts()` 预聚合为 `Map`，搜索由 `matches(s, terms)`（预切分词表缓存）实现。
 - 注意：`app/` 是项目**可运行 Web 应用**源码工作区，与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`（构建时由 `tools/build-skills-data.mjs` 生成 `data/skills-data.json` + `data/skills-metrics.json`）。
-- 红色底线：数据契约须与 `tools/build-skills-data.mjs`/`tools/build.mjs`、`openspec/spec.md` 严格一致。
+- 红色底线：数据契约须与 `tools/build-skills-data.mjs`/`tools/build.mjs`、`docs/spec.md` 严格一致。
 
 ---
 

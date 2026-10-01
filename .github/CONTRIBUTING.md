@@ -120,7 +120,7 @@ npm run build   # = node tools/build-skills-data.mjs && node tools/build.mjs
 - 任何修改后均需 **bump 一次最小版本号**（修复/文档/配置 = patch；新功能 = minor；破坏性变更 = major）。
 - 只有实际改动的文件才更新其文件头注释版本号，禁止全仓库批量刷写头注释。
 - CHANGELOG 遵循 [Keep a Changelog](https://keepachangelog.com/) + SemVer，每个版本小节须在底部有对应 release tag 锚点。
-- 详细流程见 [`openspec/spec.md`](../openspec/spec.md)「构建与发版」与「一致性红线」。
+- 详细流程见 [`docs/spec.md`](../docs/spec.md)「构建与发版」与「一致性红线」。
 
 ## 提交规范
 

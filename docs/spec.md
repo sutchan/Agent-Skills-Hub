@@ -1,0 +1,137 @@
+# Agent-Skills-Hub 能力基线（Spec）
+
+> 路径：`docs/spec.md` · 版本：1.20.57
+> 本文件固化**当前已落地能力**的基线规范，作为变更的起点与回退基准。
+> 详细数据契约、交互与分享规则见 [`project.md`](project.md)；演进提案见 [`changes/`](changes/)，已归档变更见 [`archive/`](archive/)。
+
+---
+
+## 1. 范围与权威源
+
+- **项目定位**：Agent 技能集合仓库，提供 `skills/`（原始技能）、`prototype/`（静态展示页）、`app/`（Next.js 应用工作区）三套资产。
+- **设计令牌权威源**：`prototype/src/styles/tokens.css`（单一来源，浅/深双主题）。主色绿：浅 `#2e9e6b`、深 `#5cc98c`。
+- **版本权威源**：仓库根 `package.json` 的 `version`（当前 1.20.57）。README 中英文徽章、CHANGELOG 顶部须与之保持一致。
+
+---
+
+## 2. 数据契约（已落地）
+
+展示页与任何消费方共享的数据结构，由 `tools/build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 解析生成。**数据拆分为两份产物**（v1.20.3 起）：`data/skills-data.json`（稳定元数据）+ `data/skills-metrics.json`（频繁更新的派生指标，以 `name` 为 key 的 map），合并后由 `tools/build.mjs` 内联进 `prototype/prototype.html`，`app/lib/skills.ts` 的 `loadSkills()` 亦读取并合并二者。
+
+### 2.1 技能条目（SkillEntry，来自 skills-data.json）
+```ts
+type SkillEntry = {
+  name: string;            // 目录名（kebab-case），唯一键
+  category: string;        // 中文分类名（稳定键，如 "品牌与设计"）
+  enCategory: string;      // 英文分类名（SKILL.md frontmatter en_category，英文态展示）
+  zh: string;              // 中文一句话描述（来自 frontmatter zh_displayName）
+  description: string;     // 中文完整描述（默认展示语言，SKILL.md frontmatter description）
+  enDescription: string;   // 英文原文描述（SKILL.md frontmatter en_description）
+  allowedTools: string[];  // SKILL.md frontmatter 的 allowed-tools（无则 []）
+  hidden: boolean;         // 是否在展示页/索引中隐藏（frontmatter hidden:true，如 agent-browser 等内部预览用）
+  source?: string;         // 可选，外部上游 owner/repo（如 "vercel-labs/agent-browser"），指向开放生态 skills.sh 的溯源链接
+  homepage?: string;       // 可选，来源网址（frontmatter homepage/source/url/website）
+  installCommand: string;  // 恒定派生：npx skills add sutchan/Agent-Skills-Hub/skills/<name>
+  githubDir: string;       // 恒定派生：skills/<name>
+  tags?: string[];         // 预留字段（当前数据未生成，仅 app 类型占位；原型侧标签由 name 派生展示，见 §2.3）
+};
+```
+
+### 2.1.1 派生指标（SkillMetrics，来自 skills-metrics.json，以 name 为 key 合并）
+```ts
+type SkillMetrics = {
+  popularity?: number;     // 被其他技能 description 提及次数（相关性热度代理）
+  size?: number;           // 技能目录总字节数
+  files?: number;          // 文件数（递归）
+  stars?: number;          // GitHub 星标（定期抓取）
+  firstSeen?: string;      // 首次收录日期
+  skillVersion?: string;   // 技能版本
+};
+```
+
+### 2.2 顶层结构（skills-data.json）
+```ts
+type SkillsData = {
+  total: number;           // = 过滤 hidden 后的可见技能数（动态统计，非硬编码）
+  categories: string[];    // 去重后的中文分类名（由 skills[].category 推导，不存 count）
+  categoryEn: Record<string, string>; // 分类中文名 -> 英文名映射（英文态 chip/展示用）
+  skills: SkillEntry[];
+};
+```
+
+### 2.3 一致性规则（固化）
+- `category` 必须是 **14 大稳定中文分类键之一**（品牌与设计 / 文档与内容 / 数据分析与可视化 / 前端开发 / 后端与平台 / 移动端开发 / WordPress 与 CMS / 工程实践与质量 / 文件与格式处理 / 自动化与集成 / AI 与智能体 / 音视频与多媒体 / 桌面与客户端 / 安全，见 README 领域表格）；`en_category` 为对应英文名。`tools/lib/taxonomy.mjs` 的 `CATEGORY_ORDER` 固化这 14 类（v1.20.67 起新增「桌面与客户端」类，原 13 类全部保留），以磁盘 `skills/` 为唯一权威源读取这些字段；未知分类自动追加为末位「其他」类（属违规，须为零）。
+- `zh`（来自 `zh_displayName`）为中文一句话简介；`description` 为中文完整描述（默认展示语言，frontmatter `description` 须为中文，使用 `|-` 块标量）；`en_description` 为英文原文描述。**处理技能时必须同时提供中文 `description` 与英文 `en_description`**，`enDescription` 由构建脚本从 frontmatter `en_description` 读取。
+- `data/skills-data.json` 与 `data/skills-metrics.json` 均为**构建产物，勿手改**，重跑 `npm run build` 再生；README 领域表格的计数须与构建后的 `data/skills-data.json` 一致， 数量以 `total`（过滤 hidden 后的可见技能数）为准。频繁更新指标（popularity/stars/size）仅需重算 `skills-metrics.json`，主数据文件保持轻量。
+- **标签（tags）对齐**：`SkillEntry.tags` 由 `tools/build-skills-data.mjs` 的 `deriveTags()` 基于技能 description/enDescription/category 关键词自动派生（v1.20.13 起已生成并写入 `data/skills-data.json`），原型（`02-render.js` 的 `renderTags`）与 app（`SkillsExplorer.tsx` 的标签 chip）均消费该字段做第二组「功能标签」筛选（多选 OR，与分类以 AND 组合）；`SkillEntry.tags` 为可选数组，未命中的技能不渲染标签 chip。
+
+---
+
+## 3. 展示页交互（已落地）
+
+`prototype/prototype.html` 为自包含静态页（无 React/Next 运行时）：
+
+- **搜索**：前端关键词匹配 `name` / `zh` / `description`，输入即时过滤。
+- **分类筛选**：点击分类标签过滤；"全部"重置。
+- **卡片网格**：每卡显示头像（首字母）、名称、中文描述、分类标签。
+- **详情弹窗**：点击卡片打开 dialog（语义化 `id` + `aria-modal` + `aria-labelledby`），展示中英文描述、分类、allowedTools；支持分享。
+- **分享/复制**：将当前技能链接写入剪贴板。
+- 主要容器与弹窗均已加语义化 `id` 与 ARIA 属性（便于调试/无障碍/e2e 定位）。
+
+---
+
+## 4. 分享功能（已落地，v1.14.0）
+
+- 技能详情支持生成可分享链接（URL 携带技能标识）。
+- 详情页首屏 SEO：`<title>` 与 `<meta name="description">` 使用技能中文名 + 描述。
+- 分享文案遵循项目文案基调（见 `project.md` §4.5.2 第4-6条）。
+
+---
+
+## 5. 构建与发版（已落地）
+
+- **构建**：根 `package.json` 的 `npm run build` = `node tools/build-skills-data.mjs && node tools/build.mjs`，产物 `data/skills-data.json` + `data/skills-metrics.json` + `prototype/prototype.html`。
+- **发版步骤**：bump `package.json` version → 重跑 build → 同步 README 徽章/CHANGELOG → 打 tag `vX.Y.Z` 推送。
+- **CI**：`.github/workflows/` 校验仓库根 `data/skills-data.json`。
+
+---
+
+## 6. 一致性红线（已落地）
+
+1. `data/skills-data.json` 为构建产物，勿手改，重跑 `npm run build` 再生。
+2. 设计令牌仅改 `tokens.css`，禁止在 `components.css`/`responsive.css`/`index.html` 散写颜色字面量（改后须 rebuild）。
+3. README 中英文、CHANGELOG、package.json 版本号三者一致。
+4. 技能 `category` 与 README 分类名严格一致。
+
+---
+
+## 7. 演进方式
+
+- 任何对已落地能力的修改，先在 `changes/` 提案（参考 `AGENTS.md`），归档至 `archive/`。
+- 本 spec 仅在能力真正落地/移除时更新，保持"当前真相"语义。
+
+---
+
+## 8. 外部技能生态参考（skills.sh）
+
+本仓库并非封闭孤岛——业界存在开放的 **Agent Skills 生态系统 [skills.sh](https://www.skills.sh)**（由 Vercel 出品、技能开源在 GitHub），是当前最权威的开放 Agent Skills 目录，可作为本仓库的**选品参考、能力对标与补充来源**。
+
+### 8.1 生态概况
+- **定位**：开放的 Agent 技能目录（"The Open Agent Skills Ecosystem"），技能即"AI 代理可复用的能力"，通过 CLI 一键安装增强代理的程序性知识。
+- **安装方式**：`$ npx skills add <owner/repo>`（官方 CLI，如 `npx skills add vercel-labs/agent-browser`）。
+- **分类（Topics）**：React、Next.js、Design & UI、Mobile、Agent workflows、Databases、Testing、Marketing 等。
+- **主流技能示例**：`find-skills`（vercel-labs/skills）、`agent-browser`（vercel-labs/agent-browser）、`frontend-design`（anthropics/skills）、`grill-me` / `tdd` / `prototype`（mattpocock/skills）、`vercel-react-best-practices`（vercel-labs/agent-skills）等。
+
+### 8.2 程序化访问（API 与数据源）
+- **skills.sh 橱窗 API**（仅选品/发现用）：基址 `https://skills.sh/api/v1/`，HTTPS + JSON；需 Vercel OIDC Token（`Authorization: Bearer` 或 `x-vercel-oidc-token`），否则 401；限流 600 请求/分钟。端点 `GET /skills`(排行榜 view=all-time|trending|hot)、`/skills/search`(q/limit/owner)、`/skills/curated`(官方精选)、`/skills/{source}/{skill}`(详情 files[] 含 SKILL.md 原文)。列表/搜索返回 `V1Skill`(`id/slug/name/source/installs/installUrl/url`)，**不直接暴露 `category`/`description`**，主题分类仅见于网页 Topics 导航。
+- **真实数据源是 GitHub 仓库**（skills.sh 仅为展示橱窗，其 API 不给 SKILL.md 内容）。`npx skills` CLI（vercel-labs/skills v1.5.23）完全**不依赖 skills.sh API**，公开仓库免 token 直连 GitHub。
+- **免 token 批量导入链路**（已落地 `tools/import-from-github.mjs`，2026-08-23 实测跑通）：
+  1. `GET api.github.com/repos/{owner}/{repo}/git/trees/{branch}?recursive=1` 递归列出所有 `SKILL.md`（匿名限流 60/小时）；
+  2. `GET raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}` 拉取文件（自带 302 重定向跟随）；
+  3. 解析 frontmatter → 去重（本地 `skills/<name>/` 已存在则 SKIP）→ 13 类分类映射（关键词粗匹配，人工复核）→ 补 4 必备字段（`zh_displayName`/`category`/`en_category`/`en_description`）+ `source:<owner/repo>` 溯源。
+- 上游 `SKILL.md` 通常仅含 `name`/`description`(英文)/`license`/`metadata`，**全缺本仓库 4 必备字段**，`description` 需译为中文（默认展示语言）。导入工具默认 `--dry-run` 仅打印计划，加 `--write` 才落盘。
+
+### 8.3 与本仓库的关系
+- **选品/对标**：新增本地技能前，可先在 skills.sh 检索同类能力，避免重复造轮子、借鉴其 frontmatter 结构。
+- **溯源标注**：凡本地技能源自 skills.sh 生态上游，建议在 `SKILL.md` frontmatter 标注 `source: <owner/repo>`，由 `build-skills-data.mjs` 读取写入 `SkillEntry.source`，便于外部溯源（见 §2.1）。
+- **不强制同步**：本仓库自有 14 大稳定分类体系（见 §2.3，外加须清零的「其他」违规类），不照搬 skills.sh 的 Topics 分类；两者分类维度不同，仅作参考。

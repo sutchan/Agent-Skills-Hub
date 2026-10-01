@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -12,10 +13,12 @@ import shlex
 import subprocess
 import sys
 import tempfile
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from annotate_readme import write_annotated_readme
+from annotate_readme import strip_annotated_bytes, write_annotated_readme
 
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
@@ -29,8 +32,9 @@ SHARED_SCRIPTS = (
 if str(SHARED_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SHARED_SCRIPTS))
 
-from runtime_runner import run_persistent_command
+from runtime_runner import TERMINAL_STATES, run_persistent_command
 from model_adapter import ModelAdapterError, load_model_profile, missing_capabilities
+from command_utils import contains_shell_syntax
 
 
 def load_lessons_store():
@@ -134,20 +138,718 @@ def write_bundle(script: Path, output_dir: Path, context: Dict[str, Any]) -> Non
             context_path.unlink()
 
 
-def build_asset_commands(asset_data: Dict[str, Any]) -> List[Dict[str, str]]:
+SOURCE_SIDE_EFFECT_SUFFIXES = {
+    ".c", ".cc", ".cfg", ".cmd", ".cpp", ".cu", ".cuh", ".h", ".hpp",
+    ".ini", ".ipynb", ".js", ".json", ".mjs", ".ps1", ".py", ".pyi",
+    ".sh", ".toml", ".ts", ".tsx", ".yaml", ".yml",
+}
+SOURCE_SIDE_EFFECT_NAMES = {"dockerfile", "makefile"}
+CACHE_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", ".tox", ".nox"}
+GENERATED_OUTPUT_PARTS = {
+    "artifacts", "checkpoints", "logs", "outputs", "predictions", "results",
+    "runs", "tensorboard", "wandb",
+}
+
+
+def _snapshot_digest(tracked_files: Dict[str, str], untracked_source_files: Dict[str, str]) -> str:
+    payload = {
+        "tracked_files": tracked_files,
+        "untracked_source_files": untracked_source_files,
+    }
+    return hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def _ignored_untracked_roots(repo_path: Path, ignore_paths: Optional[List[Path]]) -> List[str]:
+    roots: List[str] = []
+    for raw in ignore_paths or []:
+        try:
+            relative = Path(raw).resolve().relative_to(repo_path.resolve()).as_posix().rstrip("/")
+        except (OSError, ValueError):
+            continue
+        if relative and relative != "." and relative not in roots:
+            roots.append(relative)
+    return sorted(roots)
+
+
+def _is_ignored_untracked(relative: str, ignored_roots: List[str]) -> bool:
+    parts = Path(relative).parts
+    lowered_parts = {part.lower() for part in parts}
+    if any(part in CACHE_PARTS for part in parts) or lowered_parts.intersection(GENERATED_OUTPUT_PARTS):
+        return True
+    normalized = relative.replace("\\", "/").rstrip("/")
+    return any(normalized == root or normalized.startswith(root + "/") for root in ignored_roots)
+
+
+def _is_source_side_effect(relative: str) -> bool:
+    path = Path(relative)
+    return path.suffix.lower() in SOURCE_SIDE_EFFECT_SUFFIXES or path.name.lower() in SOURCE_SIDE_EFFECT_NAMES
+
+
+def _source_file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def tracked_source_snapshot(
+    repo_path: Path,
+    ignore_untracked_paths: Optional[List[Path]] = None,
+) -> Dict[str, Any]:
+    """Hash tracked files plus untracked source/config files.
+
+    Generated evidence roots may be excluded from the untracked-source scan.
+    Tracked files are never excluded.
+    """
+    try:
+        tracked_result = subprocess.run(
+            ["git", "-C", str(repo_path), "ls-files", "-z"],
+            check=False,
+            capture_output=True,
+        )
+        untracked_result = subprocess.run(
+            ["git", "-C", str(repo_path), "ls-files", "--others", "--exclude-standard", "-z"],
+            check=False,
+            capture_output=True,
+        )
+    except OSError as exc:
+        return {
+            "status": "unavailable",
+            "reason": f"git unavailable: {exc}",
+            "files": {},
+            "untracked_source_files": {},
+        }
+    if tracked_result.returncode != 0 or untracked_result.returncode != 0:
+        return {
+            "status": "unavailable",
+            "reason": "target is not a readable Git worktree",
+            "files": {},
+            "untracked_source_files": {},
+        }
+
+    files: Dict[str, str] = {}
+    for raw in tracked_result.stdout.split(b"\0"):
+        if not raw:
+            continue
+        relative = os.fsdecode(raw)
+        path = repo_path / relative
+        try:
+            if path.is_symlink():
+                files[relative] = "symlink:" + os.readlink(path)
+            elif path.is_file():
+                files[relative] = _source_file_sha256(path)
+            else:
+                files[relative] = "missing"
+        except OSError as exc:
+            files[relative] = f"unreadable:{type(exc).__name__}"
+
+    ignored_roots = _ignored_untracked_roots(repo_path, ignore_untracked_paths)
+    untracked_source_files: Dict[str, str] = {}
+    for raw in untracked_result.stdout.split(b"\0"):
+        if not raw:
+            continue
+        relative = os.fsdecode(raw).replace("\\", "/")
+        if _is_ignored_untracked(relative, ignored_roots) or not _is_source_side_effect(relative):
+            continue
+        path = repo_path / relative
+        try:
+            if path.is_symlink():
+                untracked_source_files[relative] = "symlink:" + os.readlink(path)
+            elif path.is_file():
+                untracked_source_files[relative] = _source_file_sha256(path)
+            else:
+                untracked_source_files[relative] = "missing"
+        except OSError as exc:
+            untracked_source_files[relative] = f"unreadable:{type(exc).__name__}"
+
+    return {
+        "status": "captured",
+        "files": files,
+        "untracked_source_files": untracked_source_files,
+        "ignored_untracked_roots": ignored_roots,
+        "snapshot_sha256": _snapshot_digest(files, untracked_source_files),
+    }
+
+
+def compare_source_snapshots(before: Dict[str, Any], after: Dict[str, Any]) -> Dict[str, Any]:
+    if before.get("status") != "captured" or after.get("status") != "captured":
+        return {
+            "status": "unavailable",
+            "unchanged": None,
+            "changed_files": [],
+            "reason": before.get("reason") or after.get("reason") or "source snapshot unavailable",
+        }
+    before_files = before.get("files", {})
+    after_files = after.get("files", {})
+    before_untracked = before.get("untracked_source_files", {})
+    after_untracked = after.get("untracked_source_files", {})
+    changed_tracked = sorted(
+        path for path in set(before_files) | set(after_files)
+        if before_files.get(path) != after_files.get(path)
+    )
+    added_untracked = sorted(path for path in after_untracked if path not in before_untracked)
+    modified_untracked = sorted(
+        path for path in set(before_untracked) & set(after_untracked)
+        if before_untracked.get(path) != after_untracked.get(path)
+    )
+    removed_untracked = sorted(path for path in before_untracked if path not in after_untracked)
+    changed_untracked = sorted(set(added_untracked + modified_untracked + removed_untracked))
+    changed = sorted(set(changed_tracked + changed_untracked))
+    return {
+        "status": "verified",
+        "unchanged": not changed,
+        "tracked_file_count": len(before_files),
+        "untracked_source_file_count_before": len(before_untracked),
+        "untracked_source_file_count_after": len(after_untracked),
+        "before_sha256": before.get("snapshot_sha256") or _snapshot_digest(before_files, before_untracked),
+        "after_sha256": after.get("snapshot_sha256") or _snapshot_digest(after_files, after_untracked),
+        "changed_files": changed,
+        "changed_tracked_files": changed_tracked,
+        "changed_untracked_source_files": changed_untracked,
+        "unexpected_added_source_files": added_untracked,
+        "modified_untracked_source_files": modified_untracked,
+        "removed_untracked_source_files": removed_untracked,
+        "ignored_untracked_roots": after.get("ignored_untracked_roots", before.get("ignored_untracked_roots", [])),
+    }
+
+
+def _evidence_record(path: Path, repo_path: Path, output_dir: Path) -> Dict[str, Any]:
+    resolved = path.resolve()
+    try:
+        relative = resolved.relative_to(output_dir.resolve()).as_posix()
+        scope = "output"
+        rendered_path = relative
+    except ValueError:
+        try:
+            relative = resolved.relative_to(repo_path.resolve()).as_posix()
+            scope = "repo"
+            rendered_path = relative
+        except ValueError:
+            scope = "absolute"
+            rendered_path = str(resolved)
+    return {
+        "scope": scope,
+        "path": rendered_path,
+        "size_bytes": resolved.stat().st_size,
+        "sha256": hashlib.sha256(resolved.read_bytes()).hexdigest(),
+    }
+
+
+def write_evidence_manifest(
+    repo_path: Path,
+    output_dir: Path,
+    context: Dict[str, Any],
+    invocation_path: Path,
+) -> Path:
+    candidates: Dict[str, Optional[Path]] = {
+        "summary": output_dir / "SUMMARY.md",
+        "status": output_dir / "status.json",
+        "commands": output_dir / "COMMANDS.md",
+        "log": output_dir / "LOG.md",
+        "scientific_changelog": output_dir / "SCIENTIFIC_CHANGELOG.md",
+        "comparability_report": output_dir / "COMPARABILITY_REPORT.md",
+        "patches": output_dir / "PATCHES.md",
+        "annotated_readme": output_dir / "ANNOTATED_README.md",
+        "invocation": invocation_path,
+        "runtime_state": Path(context["runtime_state_path"]) if context.get("runtime_state_path") else None,
+        "runtime_events": Path(context["runtime_events_path"]) if context.get("runtime_events_path") else None,
+        "runtime_stdout": Path(context["stdout_log_path"]) if context.get("stdout_log_path") else None,
+        "runtime_stderr": Path(context["stderr_log_path"]) if context.get("stderr_log_path") else None,
+        "runtime_resources": Path(context["resources_log_path"]) if context.get("resources_log_path") else None,
+        "runtime_spec": Path(context["runtime_state_path"]).with_name("spec.json") if context.get("runtime_state_path") else None,
+    }
+    adjacent = context.get("source_adjacent_readme") or {}
+    if adjacent.get("status") == "written" and adjacent.get("path"):
+        candidates["source_adjacent_readme"] = Path(adjacent["path"])
+        candidates["readme_delivery"] = output_dir / "readme_delivery.json"
+    source_readme = next((repo_path / name for name in ("README.md", "README") if (repo_path / name).is_file()), None)
+    if source_readme is not None:
+        candidates["source_readme"] = source_readme
+
+    records: Dict[str, Any] = {}
+    for label, path in candidates.items():
+        if path is not None and path.is_file():
+            records[label] = _evidence_record(path, repo_path, output_dir)
+
+    manifest_path = output_dir / "evidence_manifest.json"
+    manifest = {
+        "schema_version": "1.1",
+        "target_repo": str(repo_path.resolve()),
+        "output_dir": str(output_dir.resolve()),
+        "files": records,
+    }
+    manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
+    return manifest_path
+
+
+def _resolve_manifest_record(record: Dict[str, Any], repo_path: Path, output_dir: Path) -> Optional[Path]:
+    scope = str(record.get("scope") or "")
+    raw_path = str(record.get("path") or "")
+    if not raw_path:
+        return None
+    if scope == "output":
+        base = output_dir.resolve()
+        resolved = (base / raw_path).resolve()
+        try:
+            resolved.relative_to(base)
+        except ValueError:
+            return None
+        return resolved
+    if scope == "repo":
+        base = repo_path.resolve()
+        resolved = (base / raw_path).resolve()
+        try:
+            resolved.relative_to(base)
+        except ValueError:
+            return None
+        return resolved
+    if scope == "absolute":
+        return Path(raw_path).resolve() if Path(raw_path).is_absolute() else None
+    return None
+
+
+def verify_evidence_manifest(
+    repo_path: Path, output_dir: Path, expected_paths: Optional[Dict[str, Path]] = None,
+) -> Dict[str, Any]:
+    manifest_path = output_dir / "evidence_manifest.json"
+    if not manifest_path.is_file():
+        return {"valid": False, "manifest_path": str(manifest_path), "files": {}, "error": "manifest missing"}
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"valid": False, "manifest_path": str(manifest_path), "files": {}, "error": str(exc)}
+
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("files"), dict):
+        return {"valid": False, "manifest_path": str(manifest_path), "files": {}, "error": "manifest/files must be objects"}
+    version = manifest.get("schema_version")
+    if not isinstance(version, str) or version not in {"1.0", "1.1"}:
+        return {"valid": False, "manifest_path": str(manifest_path), "files": {}, "error": "unsupported manifest schema"}
+    required_paths = {
+        "summary": output_dir / "SUMMARY.md", "status": output_dir / "status.json",
+        "commands": output_dir / "COMMANDS.md", "log": output_dir / "LOG.md",
+        "scientific_changelog": output_dir / "SCIENTIFIC_CHANGELOG.md",
+        "comparability_report": output_dir / "COMPARABILITY_REPORT.md",
+        "invocation": output_dir / "invocation.json",
+        **(expected_paths or {}),
+    }
+    if version == "1.0":
+        # Historical bundles did not retain these hashes. Expose reduced coverage
+        # instead of rewriting their bytes or pretending they have the new proof.
+        for label in ("runtime_spec", "source_adjacent_readme", "readme_delivery"):
+            if label not in manifest["files"]:
+                required_paths.pop(label, None)
+
+    results: Dict[str, bool] = {label: False for label in required_paths}
+    for label, record in (manifest.get("files") or {}).items():
+        if (not isinstance(record, dict) or type(record.get("size_bytes")) is not int
+                or record["size_bytes"] < 0 or not isinstance(record.get("sha256"), str)
+                or not re.fullmatch(r"[0-9a-f]{64}", record["sha256"])):
+            results[str(label)] = False
+            continue
+        path = _resolve_manifest_record(record, repo_path, output_dir)
+        if path is None or not path.is_file():
+            results[str(label)] = False
+            continue
+        if label in required_paths and path != required_paths[label].resolve():
+            results[str(label)] = False
+            continue
+        try:
+            results[str(label)] = (
+                path.stat().st_size == int(record.get("size_bytes", -1))
+                and hashlib.sha256(path.read_bytes()).hexdigest() == record.get("sha256")
+            )
+        except (OSError, TypeError, ValueError):
+            results[str(label)] = False
+    valid = bool(results) and all(results.values())
+    return {
+        "valid": valid,
+        "manifest_path": str(manifest_path),
+        "files": results,
+        "coverage": "complete_manifest_v1_1" if version == "1.1" else "legacy_core_only",
+    }
+
+
+def plan_payload(
+    chosen: Dict[str, Any],
+    setup_plan: Dict[str, Any],
+    shell_mode: str,
+    nontraining_timeout_seconds: int,
+    training_timeout_seconds: int,
+) -> Dict[str, Any]:
+    selected_id = chosen.get("documented_command_id")
+    fingerprint = chosen.get("selection_fingerprint")
+    training_target = chosen.get("selected_goal") == "training"
+    timeout_flag = "--train-timeout" if training_target else "--timeout"
+    target_timeout_seconds = training_timeout_seconds if training_target else nontraining_timeout_seconds
+    reviewed_run_args = []
+    if selected_id and fingerprint:
+        reviewed_run_args = [
+            "--run-selected",
+            "--command-id", selected_id,
+            "--plan-fingerprint", fingerprint,
+            timeout_flag, str(target_timeout_seconds),
+        ]
+    return {
+        "schema_version": "1.0",
+        "mode": "plan_only",
+        "selected_goal": chosen["selected_goal"],
+        "selected_command_id": selected_id,
+        "documented_command": chosen.get("documented_command") or None,
+        "documented_command_source": chosen.get("command_source", "none"),
+        "documented_command_section": chosen.get("documented_command_section"),
+        "requires_substitution": bool(chosen.get("requires_substitution")),
+        "selection_source": chosen.get("selection_source"),
+        "selection_fingerprint": fingerprint,
+        "command_candidates": chosen.get("command_candidates", []),
+        "reviewed_run_args": reviewed_run_args,
+        "setup_advisory_count": len(setup_plan.get("unresolved_setup_risks", [])),
+        "plan_side_effects": {
+            "executes_target_command": False,
+            "installs_dependencies": False,
+            "downloads_assets": False,
+            "modifies_target_source": False,
+            "writes_evidence": False,
+        },
+        "proposed_run_contract": {
+            "shell_mode": shell_mode,
+            "target_command_timeout_seconds": target_timeout_seconds,
+            "target_timeout_flag": timeout_flag,
+            "timeout_scope": "target_command_only",
+            "orchestrator_must_reach_terminal_state": True,
+            "external_timeout_wrapper_allowed": False,
+            "outer_timeout_guidance": (
+                "Do not wrap the orchestrator in an equal or shorter timeout. "
+                f"If the host requires an outer watchdog, keep it comfortably longer than {timeout_flag} "
+                "so child-process cleanup and terminal evidence can finish."
+            ),
+            "installs_dependencies": False,
+            "downloads_assets": False,
+            "orchestrator_modifies_target_source": False,
+            "target_command_side_effects": "repository-defined; review the selected command",
+            "writes_evidence": True,
+        },
+    }
+
+
+def selection_error_payload(error: CommandSelectionError) -> Dict[str, Any]:
+    return {
+        "schema_version": "1.0",
+        "mode": "selection_error",
+        "status": "blocked",
+        "error": {
+            "code": error.code,
+            "summary": str(error),
+            "requires_human": True,
+            "safe_next_actions": ["Run --plan-only again and choose a command from the current candidate set."],
+        },
+        "selection_fingerprint": error.fingerprint,
+        "command_candidates": error.candidates,
+    }
+
+
+def compact_agent_payload(
+    context: Dict[str, Any],
+    output_dir: Path,
+    invocation_path: Path,
+    source_integrity: Dict[str, Any],
+) -> Dict[str, Any]:
+    return {
+        "schema_version": "1.0",
+        "status": context.get("status"),
+        "selected_goal": context.get("selected_goal"),
+        "selected_command_id": context.get("documented_command_id"),
+        "documented_command": context.get("documented_command"),
+        "selection_fingerprint": context.get("selection_fingerprint"),
+        "error": context.get("error"),
+        "runtime_status": context.get("runtime_status"),
+        "result_match": context.get("result_match", {}).get("status", "not_evaluated"),
+        "main_blocker": context.get("main_blocker"),
+        "next_safe_action": context.get("next_safe_action"),
+        "evidence": {
+            "summary": str(output_dir / "SUMMARY.md"),
+            "status": str(output_dir / "status.json"),
+            "stdout": context.get("stdout_log_path"),
+            "stderr": context.get("stderr_log_path"),
+            "annotated_readme": context.get("annotated_readme"),
+            "invocation": str(invocation_path),
+            "manifest": str(output_dir / "evidence_manifest.json"),
+        },
+        "source_integrity": source_integrity,
+        "source_adjacent_readme": context.get("source_adjacent_readme"),
+    }
+
+
+def incomplete_runtime_without_status(output_dir: Path) -> Optional[Dict[str, Any]]:
+    runtime_root = output_dir / "_runtime"
+    if not runtime_root.is_dir():
+        return None
+    candidates: List[Dict[str, Any]] = []
+    for state_path in runtime_root.glob("*/state.json"):
+        try:
+            state = json.loads(state_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(state, dict) or state.get("status") not in {"created", "running"}:
+            continue
+        candidates.append(
+            {
+                "run_id": state.get("run_id") or state_path.parent.name,
+                "status": state.get("status"),
+                "state_path": str(state_path.resolve()),
+                "started_at": state.get("started_at"),
+                "last_heartbeat": state.get("last_heartbeat"),
+            }
+        )
+    if not candidates:
+        return None
+    candidates.sort(key=lambda item: str(item.get("last_heartbeat") or item.get("started_at") or ""))
+    return candidates[-1]
+
+
+def _verify_existing_output(repo_path: Path, output_dir: Path) -> Dict[str, Any]:
+    checks: Dict[str, bool] = {}
+    status_path = output_dir / "status.json"
+    if not status_path.is_file():
+        incomplete_runtime = incomplete_runtime_without_status(output_dir)
+        if incomplete_runtime is not None:
+            return {
+                "schema_version": "1.0",
+                "mode": "verify_only",
+                "evidence_valid": False,
+                "checks": {"status_file": False, "runtime_terminal": False},
+                "runtime": incomplete_runtime,
+                "error": {
+                    "code": "runtime_incomplete_without_status",
+                    "summary": (
+                        "Missing status.json while a retained runtime state is still nonterminal; "
+                        "the orchestrator may still be running or may have been interrupted before "
+                        "child-process cleanup and terminal evidence finalization. Do not replay the command automatically."
+                    ),
+                },
+            }
+        return {"schema_version": "1.0", "mode": "verify_only", "evidence_valid": False,
+                "checks": {"status_file": False},
+                "error": {"code": "evidence_missing", "summary": f"Missing {status_path}"}}
+    try:
+        status = json.loads(status_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"schema_version": "1.0", "mode": "verify_only", "evidence_valid": False,
+                "checks": {"status_file": False},
+                "error": {"code": "evidence_invalid", "summary": str(exc)}}
+
+    checks["status_file"] = True
+    expected_paths: Dict[str, Path] = {}
+    try:
+        checks["target_repo"] = Path(status.get("target_repo", "")).resolve() == repo_path.resolve()
+    except (OSError, TypeError):
+        checks["target_repo"] = False
+
+    runtime = status.get("runtime")
+    if runtime:
+        state_path = Path(str(runtime.get("state_path") or ""))
+        stdout_path = Path(str(runtime.get("stdout_log_path") or ""))
+        stderr_path = Path(str(runtime.get("stderr_log_path") or ""))
+        try:
+            state = json.loads(state_path.read_text(encoding="utf-8"))
+            checks["runtime"] = (
+                stdout_path.is_file()
+                and stderr_path.is_file()
+                and state.get("status") == runtime.get("status")
+                and state.get("run_id") == runtime.get("run_id")
+                and state.get("status") in TERMINAL_STATES
+            )
+        except (OSError, json.JSONDecodeError):
+            checks["runtime"] = False
+        expected_paths.update(runtime_state=state_path, runtime_stdout=stdout_path, runtime_stderr=stderr_path)
+        expected_paths["runtime_spec"] = state_path.with_name("spec.json")
+        for label, key in (("runtime_events", "events_path"), ("runtime_resources", "resources_log_path")):
+            if runtime.get(key):
+                expected_paths[label] = Path(runtime[key])
+    else:
+        checks["runtime"] = True
+
+    annotated = output_dir / "ANNOTATED_README.md"
+    source_readme = next((repo_path / name for name in ("README.md", "README") if (repo_path / name).is_file()), None)
+    if annotated.is_file() and source_readme is not None:
+        expected_paths.update(annotated_readme=annotated, source_readme=source_readme)
+        try:
+            checks["readme_round_trip"] = strip_annotated_bytes(annotated.read_bytes()) == source_readme.read_bytes()
+        except (OSError, ValueError):
+            checks["readme_round_trip"] = False
+    else:
+        checks["readme_round_trip"] = source_readme is None and not annotated.exists()
+
+    invocation_path = output_dir / "invocation.json"
+    source_integrity: Dict[str, Any] = {"status": "not_recorded", "unchanged": None, "changed_files": []}
+    if invocation_path.is_file():
+        try:
+            source_integrity = json.loads(invocation_path.read_text(encoding="utf-8")).get(
+                "source_integrity", source_integrity
+            )
+            checks["invocation"] = True
+        except (OSError, json.JSONDecodeError):
+            checks["invocation"] = False
+    else:
+        checks["invocation"] = False
+
+    if source_integrity.get("status") == "verified" and source_integrity.get("after_sha256"):
+        ignore_paths = [
+            repo_path / relative
+            for relative in source_integrity.get("ignored_untracked_roots", [])
+            if isinstance(relative, str) and relative
+        ]
+        current_snapshot = tracked_source_snapshot(repo_path, ignore_paths)
+        checks["source_current"] = (
+            current_snapshot.get("status") == "captured"
+            and current_snapshot.get("snapshot_sha256") == source_integrity.get("after_sha256")
+        )
+    else:
+        checks["source_current"] = source_integrity.get("status") in {"not_requested", "not_recorded"}
+
+    adjacent = status.get("source_adjacent_readme") or {}
+    if adjacent.get("status") == "written":
+        expected_paths.update(source_adjacent_readme=Path(adjacent["path"]), readme_delivery=output_dir / "readme_delivery.json")
+    manifest_verification = verify_evidence_manifest(repo_path, output_dir, expected_paths)
+    checks["evidence_manifest"] = bool(manifest_verification.get("valid"))
+
+    failed_checks = [name for name, ok in checks.items() if not ok]
+    if not failed_checks:
+        verification_error = None
+    elif "target_repo" in failed_checks:
+        verification_error = {"code": "target_repo_mismatch", "summary": "Evidence belongs to a different target repository."}
+    elif "source_current" in failed_checks:
+        verification_error = {"code": "source_changed_after_run", "summary": "Current source no longer matches the post-run source snapshot."}
+    elif "evidence_manifest" in failed_checks:
+        verification_error = {"code": "evidence_tampered", "summary": "Retained evidence no longer matches its local manifest."}
+    else:
+        verification_error = {"code": "evidence_invalid", "summary": "One or more evidence consistency checks failed."}
+
+    return {
+        "schema_version": "1.0",
+        "mode": "verify_only",
+        "evidence_valid": all(checks.values()),
+        "task_status": status.get("status"),
+        "runtime_status": runtime.get("status") if runtime else None,
+        "result_match": status.get("result_match", {}).get("status", "not_evaluated"),
+        "checks": checks,
+        "source_integrity": source_integrity,
+        "evidence_manifest": manifest_verification,
+        "status_path": str(status_path),
+        "error": verification_error,
+    }
+
+
+def verify_existing_output(repo_path: Path, output_dir: Path) -> Dict[str, Any]:
+    """Malformed control JSON is a rejected bundle, never an agent-facing traceback."""
+    try:
+        return _verify_existing_output(repo_path, output_dir)
+    except (OSError, ValueError, TypeError, AttributeError, KeyError) as exc:
+        return {
+            "schema_version": "1.0", "mode": "verify_only", "evidence_valid": False,
+            "checks": {"evidence_structure": False},
+            "error": {"code": "evidence_invalid", "summary": f"Malformed or unreadable evidence structure ({type(exc).__name__})."},
+        }
+
+
+def _bounded_log_text(run_data: Dict[str, Any], limit: int = 131072) -> str:
+    parts = [str(item) for item in run_data.get("execution_log", [])]
+    for key in ("stderr_log_path", "stdout_log_path"):
+        raw_path = run_data.get(key)
+        if not raw_path:
+            continue
+        try:
+            with Path(str(raw_path)).open("rb") as log:
+                log.seek(0, os.SEEK_END)
+                log.seek(max(0, log.tell() - limit))
+                data = log.read(limit)
+        except OSError:
+            continue
+        parts.append(data[-limit:].decode("utf-8", errors="replace"))
+    return "\n".join(parts)[-limit:]
+
+
+def classify_execution_error(
+    *,
+    run_selected: bool,
+    chosen: Dict[str, Any],
+    run_data: Dict[str, Any],
+    source_integrity: Dict[str, Any],
+) -> Optional[str]:
+    if not run_selected:
+        return None
+    if source_integrity.get("unchanged") is False:
+        return "source_modified"
+    if (
+        run_data.get("runtime_status") == "success"
+        and run_data.get("result_match", {}).get("status") == "mismatched"
+    ):
+        return "metric_mismatch"
+    if chosen.get("requires_substitution"):
+        return "placeholder_required"
+    if not chosen.get("documented_command"):
+        return "no_documented_command"
+    if not chosen.get("command_feasible", True):
+        reason = str(chosen.get("command_feasibility_reason") or "").lower()
+        if "shell" in reason:
+            return "shell_review_required"
+        if "download" in reason:
+            return "large_download_review_required"
+        if "directory is absent" in reason:
+            return "missing_asset"
+        return "prerequisite_unavailable"
+    if run_data.get("status") == "success":
+        return None
+
+    evidence = _bounded_log_text(run_data)
+    lowered = evidence.lower()
+    blocker = str(run_data.get("main_blocker") or "").lower()
+    if "shell syntax" in lowered or "shell syntax" in blocker:
+        return "shell_review_required"
+    if "modulenotfounderror" in lowered or "no module named" in lowered:
+        return "missing_dependency"
+    if "filenotfounderror" in lowered or "no such file or directory" in lowered:
+        return "missing_asset"
+    if run_data.get("runtime_status") == "timed_out" or "timed out" in blocker:
+        return "timeout"
+    if run_data.get("cancelled") or run_data.get("runtime_status") == "cancelled":
+        return "cancelled"
+    if "executable not found" in blocker or "failed before launch" in lowered:
+        return "command_not_found"
+    return "command_failed"
+
+
+def build_error_record(context: Dict[str, Any], error_code: Optional[str]) -> Optional[Dict[str, Any]]:
+    if not error_code:
+        return None
+    return {
+        "code": error_code,
+        "summary": context.get("main_blocker"),
+        "requires_human": bool(context.get("human_decisions_required")),
+        "safe_next_actions": [context.get("next_safe_action")] if context.get("next_safe_action") else [],
+    }
+
+
+def build_asset_commands(asset_data: Dict[str, Any], user_language: str = "en") -> List[Dict[str, str]]:
+    """Report observations, not mandatory preparation invented from directory names."""
     commands: List[Dict[str, str]] = []
     for item in asset_data.get("manifest", []):
         group = item.get("asset_group", "asset")
-        target = item.get("target_path", "")
         if item.get("status") == "present":
-            commands.append({"label": "inferred", "command": f"# Found existing {group} asset path at {item.get('source_hint')}."})
-        else:
-            commands.append({"label": "inferred", "command": f"# Prepare {group} assets under {target} before the documented run."})
+            commands.append({"label": "inferred", "execution_status": "not_run", "command": text(
+                user_language,
+                f"# Observed {group} path: {item.get('source_hint')}; contents and applicability are unverified.",
+                f"# 已发现 {group} 路径：{item.get('source_hint')}；内容及是否适用于当前目标尚未验证。",
+            )})
 
-    for hint in asset_data.get("text_hints", [])[:3]:
+    for hint in asset_data.get("text_hints", []):
         descriptor = hint.get("paths") or hint.get("urls") or hint.get("line", "")
         source = Path(hint.get("source", "README.md")).name
-        commands.append({"label": "documented", "command": f"# Asset hint from {source}: {descriptor}"})
+        commands.append({"label": "documented", "execution_status": "not_run", "command": text(
+            user_language,
+            f"# Asset hint from {source}: {descriptor}; confirm relevance to the selected command before preparation.",
+            f"# 来自 {source} 的资源线索：{descriptor}；准备前先确认是否与选定命令相关。",
+        )})
     return commands
 
 
@@ -223,6 +925,20 @@ def estimate_training_duration(repo_path: Path, command: str, max_train_steps: i
 
 
 OUT_DIR_RE = re.compile(r"--out[_-]?dir[= ]([\w./-]+)")
+TARGET_COMMAND_KINDS = {"run", "smoke"}
+CATEGORY_PRIORITY = {"inference": 0, "evaluation": 1, "training": 2, "other": 3}
+NON_TARGET_COMMAND_PREFIXES = (
+    "pip install ", "pip3 install ", "python -m pip install ", "python3 -m pip install ",
+    "uv pip install ", "poetry install ", "conda install ", "conda create ", "conda env create ",
+    "conda activate ", "git clone ", "wget ", "curl ", "aria2c ", "make install ",
+    "npm install ", "npm ci ", "yarn install ", "pnpm install ", "apt install ", "apt-get install ",
+    "dnf install ", "yum install ", "brew install ", "choco install ", "winget install ",
+)
+
+
+def is_non_target_command(command: str) -> bool:
+    lowered = command.strip().lower()
+    return any(lowered == prefix.rstrip() or lowered.startswith(prefix) for prefix in NON_TARGET_COMMAND_PREFIXES)
 
 
 def command_score(command: Dict[str, Any], produced_out_dirs: frozenset = frozenset()) -> int:
@@ -261,8 +977,16 @@ LARGE_REMOTE_MODEL_RE = re.compile(
 )
 
 
-def command_feasibility(command: Dict[str, Any], repo_path: Optional[Path]) -> tuple[bool, str]:
+def command_feasibility(
+    command: Dict[str, Any],
+    repo_path: Optional[Path],
+    shell_mode: str = "direct",
+) -> tuple[bool, str]:
     text_value = str(command.get("command", ""))
+    if command.get("needs_substitution"):
+        return False, "documented placeholder values require substitution before execution"
+    if shell_mode == "direct" and contains_shell_syntax(text_value):
+        return False, "command requires native shell syntax; review it before using --shell-mode native"
     if command.get("category") != "inference":
         return True, "no static prerequisite blocker detected"
     out_match = OUT_DIR_RE.search(text_value)
@@ -273,7 +997,28 @@ def command_feasibility(command: Dict[str, Any], repo_path: Optional[Path]) -> t
     return True, "no static prerequisite blocker detected"
 
 
-def choose_goal(commands: List[Dict[str, Any]], repo_path: Optional[Path] = None) -> Dict[str, Any]:
+def _candidate_fingerprint(candidates: List[Dict[str, Any]]) -> str:
+    stable = [
+        {
+            "id": item["id"],
+            "command": item["command"],
+            "category": item["category"],
+            "kind": item["kind"],
+            "section": item.get("section"),
+            "source": item.get("source"),
+            "source_file": item.get("source_file"),
+            "needs_substitution": item.get("needs_substitution", False),
+        }
+        for item in candidates
+    ]
+    return hashlib.sha256(json.dumps(stable, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def build_command_candidates(
+    commands: List[Dict[str, Any]],
+    repo_path: Optional[Path] = None,
+    shell_mode: str = "direct",
+) -> List[Dict[str, Any]]:
     produced_out_dirs = frozenset(
         match.group(1)
         for item in commands
@@ -281,53 +1026,140 @@ def choose_goal(commands: List[Dict[str, Any]], repo_path: Optional[Path] = None
         for match in [OUT_DIR_RE.search(str(item.get("command", "")).lower())]
         if match
     )
-    ranked = sorted(commands, key=lambda item: -command_score(item, produced_out_dirs))
-    goal_candidates = [
-        {
-            "command": item.get("command", ""),
-            "category": item.get("category"),
-            "score": command_score(item, produced_out_dirs),
-            "needs_substitution": bool(item.get("needs_substitution")),
-            "feasible": command_feasibility(item, repo_path)[0],
-            "feasibility_reason": command_feasibility(item, repo_path)[1],
-        }
-        for item in ranked[:3]
-    ]
+    candidates: List[Dict[str, Any]] = []
+    for item in commands:
+        if item.get("kind", "run") not in TARGET_COMMAND_KINDS or is_non_target_command(str(item.get("command", ""))):
+            continue
+        feasible, feasibility_reason = command_feasibility(item, repo_path, shell_mode)
+        candidates.append(
+            {
+                "id": f"cmd-{len(candidates) + 1:02d}",
+                "command": item.get("command", ""),
+                "category": item.get("category", "other"),
+                "kind": item.get("kind", "run"),
+                "section": item.get("section"),
+                "source": item.get("source", "readme"),
+                "source_file": item.get("source_file"),
+                "score": command_score(item, produced_out_dirs),
+                "needs_substitution": bool(item.get("needs_substitution")),
+                "requires_native_shell": bool(
+                    not item.get("needs_substitution")
+                    and contains_shell_syntax(str(item.get("command", "")))
+                ),
+                "feasible": feasible,
+                "feasibility_reason": feasibility_reason,
+                "auto_selectable": bool(not item.get("needs_substitution") and feasible),
+            }
+        )
+    ranked = sorted(
+        candidates,
+        key=lambda item: (
+            CATEGORY_PRIORITY.get(str(item.get("category")), 99),
+            -int(item.get("score", 0)),
+            item["id"],
+        ),
+    )
+    for rank, item in enumerate(ranked, start=1):
+        item["selection_rank"] = rank
+    return candidates
 
-    for category in ["inference", "evaluation", "training", "other"]:
-        candidates = [item for item in commands if item.get("category") == category]
-        if not candidates:
-            continue
-        runnable = [
-            item
-            for item in candidates
-            if not item.get("needs_substitution") and command_feasibility(item, repo_path)[0]
-        ]
-        if not runnable:
-            continue
-        best = max(runnable, key=lambda item: command_score(item, produced_out_dirs))
+
+class CommandSelectionError(ValueError):
+    def __init__(self, code: str, message: str, candidates: List[Dict[str, Any]], fingerprint: str):
+        super().__init__(message)
+        self.code = code
+        self.candidates = candidates
+        self.fingerprint = fingerprint
+
+
+def choose_goal(
+    commands: List[Dict[str, Any]],
+    repo_path: Optional[Path] = None,
+    shell_mode: str = "direct",
+    command_id: str = "",
+    plan_fingerprint: str = "",
+) -> Dict[str, Any]:
+    candidates = build_command_candidates(commands, repo_path, shell_mode)
+    fingerprint = _candidate_fingerprint(candidates)
+    if plan_fingerprint and plan_fingerprint != fingerprint:
+        raise CommandSelectionError(
+            "plan_changed",
+            "The documented command set changed after review; run --plan-only again before execution.",
+            candidates,
+            fingerprint,
+        )
+
+    selected: Optional[Dict[str, Any]] = None
+    selection_source = "policy"
+    if command_id:
+        selected = next((item for item in candidates if item["id"] == command_id), None)
+        if selected is None:
+            raise CommandSelectionError(
+                "unknown_command_id",
+                f"Unknown command id `{command_id}`; select one of the current plan candidates.",
+                candidates,
+                fingerprint,
+            )
+        selection_source = "reviewed_command_id"
+    else:
+        ranked = sorted(
+            (item for item in candidates if item["auto_selectable"]),
+            key=lambda item: (
+                CATEGORY_PRIORITY.get(str(item.get("category")), 99),
+                -int(item.get("score", 0)),
+                item["id"],
+            ),
+        )
+        if ranked:
+            selected = ranked[0]
+        elif candidates:
+            selected = sorted(
+                candidates,
+                key=lambda item: (
+                    CATEGORY_PRIORITY.get(str(item.get("category")), 99),
+                    -int(item.get("score", 0)),
+                    item["id"],
+                ),
+            )[0]
+            selection_source = "policy_blocked_candidate"
+        else:
+            selected = None
+
+    if selected is not None:
         return {
-            "selected_goal": category,
-            "goal_priority": category,
-            "documented_command": best.get("command", ""),
-            "command_source": best.get("source", "readme"),
-            "documented_command_kind": best.get("kind", "run"),
-            "documented_command_section": best.get("section"),
-            "documented_command_source_file": best.get("source_file"),
-            "requires_substitution": bool(best.get("needs_substitution")),
-            "goal_candidates": goal_candidates,
+            "selected_goal": selected["category"],
+            "goal_priority": selected["category"],
+            "documented_command": selected["command"],
+            "documented_command_id": selected["id"],
+            "command_source": selected.get("source", "readme"),
+            "documented_command_kind": selected.get("kind", "run"),
+            "documented_command_section": selected.get("section"),
+            "documented_command_source_file": selected.get("source_file"),
+            "requires_substitution": bool(selected.get("needs_substitution")),
+            "command_feasible": bool(selected.get("feasible")),
+            "command_feasibility_reason": selected.get("feasibility_reason"),
+            "selection_source": selection_source,
+            "selection_fingerprint": fingerprint,
+            "command_candidates": candidates,
+            "goal_candidates": sorted(candidates, key=lambda item: item["selection_rank"])[:3],
         }
 
     return {
         "selected_goal": "repo-intake-only",
         "goal_priority": "other",
         "documented_command": "",
+        "documented_command_id": None,
         "command_source": "none",
         "documented_command_kind": "none",
         "documented_command_section": None,
         "documented_command_source_file": None,
         "requires_substitution": False,
-        "goal_candidates": goal_candidates,
+        "command_feasible": False,
+        "command_feasibility_reason": "no auto-selectable README-backed run/smoke command",
+        "selection_source": selection_source,
+        "selection_fingerprint": fingerprint,
+        "command_candidates": candidates,
+        "goal_candidates": sorted(candidates, key=lambda item: item["selection_rank"])[:3],
     }
 
 
@@ -724,6 +1556,11 @@ def build_context(
     skill_chain = plan_skill_chain(chosen["selected_goal"], include_analysis_pass, include_paper_gap)
     execution_skill = "run-train" if chosen["selected_goal"] == "training" else "minimal-run-and-audit"
     status = run_data["status"] if run_selected else "not_run"
+    metric_acceptance_failed = (
+        run_selected
+        and run_data.get("runtime_status") == "success"
+        and run_data.get("result_match", {}).get("status") == "mismatched"
+    )
     documented_status = (
         run_data["documented_command_status"]
         if run_selected
@@ -731,8 +1568,10 @@ def build_context(
     )
 
     structure = scan_data.get("structure", {})
-    setup_commands = setup_plan.get("setup_commands", [])
-    asset_commands = build_asset_commands(asset_data)
+    # Intake plans are not execution evidence, even when their provenance is documented.
+    setup_commands = [dict(item, execution_status="not_run") for item in setup_plan.get("setup_commands", [])]
+    asset_commands = build_asset_commands(asset_data, user_language)
+    setup_advisories = list(setup_plan.get("unresolved_setup_risks", []))
     dataset_hint = run_data.get("dataset") or derive_dataset_hint(asset_data)
     checkpoint_hint = run_data.get("checkpoint_source") or derive_checkpoint_hint(asset_data)
     training_duration_hint = (
@@ -783,6 +1622,12 @@ def build_context(
     if run_selected:
         if status == "success":
             result_summary = text(user_language, "Selected documented command finished successfully.", "选定的文档命令已成功完成。")
+        elif metric_acceptance_failed:
+            result_summary = text(
+                user_language,
+                "The documented command completed, but explicit metric acceptance failed; this is not a successful reproduction result.",
+                "文档命令已完成，但显式指标验收未通过；本次结果不能视为复现成功。",
+            )
         elif status == "partial":
             result_summary = (
                 text(
@@ -829,26 +1674,128 @@ def build_context(
         if section:
             source_note += text(user_language, f", section `{section}`", f"，章节 `{section}`")
         command_notes.append(source_note)
+        if chosen.get("documented_command_id"):
+            command_notes.append(
+                text(
+                    user_language,
+                    f"Reviewed command id: `{chosen['documented_command_id']}`; selection source: `{chosen.get('selection_source', 'policy')}`.",
+                    f"已审阅命令 ID：`{chosen['documented_command_id']}`；选择来源：`{chosen.get('selection_source', 'policy')}`。",
+                )
+            )
     command_notes.append(f"Planned skill chain: {', '.join(skill_chain)}")
 
-    if setup_plan.get("unresolved_setup_risks"):
-        human_decisions_required.extend(setup_plan["unresolved_setup_risks"])
+    # Setup discovery gaps are advisory until a selected action actually needs them.
+    # Preserve every gap separately; an observed execution failure still requires review below.
     if chosen.get("requires_substitution"):
-        human_decisions_required.append(
-            "Substitute the placeholder values (<...>) in the selected documented command before execution."
-        )
+        human_decisions_required.append(text(user_language,
+            "Substitute the placeholder values (<...>) in the selected documented command before execution.",
+            "执行前请将选定文档命令中的占位符（<...>）替换为真实值。"))
     if not chosen["documented_command"]:
-        human_decisions_required.append("Select or confirm a documented runnable command before treating this as a reproduction run.")
+        human_decisions_required.append(text(user_language,
+            "Select or confirm a documented runnable command before treating this as a reproduction run.",
+            "先选择或确认可运行的文档命令，才能将本次操作视为复现执行。"))
     if chosen["selected_goal"] == "training" and lane == "trusted" and not full_training_authorized:
-        human_decisions_required.append("Review the startup verification evidence and confirm whether to continue with a fuller training reproduction run.")
-    if run_selected and status in {"partial", "blocked"}:
-        human_decisions_required.append("Review the blocker before adapting commands, dependencies, or protocol-sensitive settings.")
+        human_decisions_required.append(text(user_language,
+            "Review the startup verification evidence and confirm whether to continue with a fuller training reproduction run.",
+            "检查启动验证证据，并确认是否继续更完整的训练复现。"))
+    if metric_acceptance_failed:
+        human_decisions_required.append(text(user_language,
+            "Review missing or out-of-tolerance metrics against the recorded expectations and experiment protocol before accepting the result or changing the command.",
+            "接受结果或调整命令前，请按已记录的期望值和实验协议检查缺失或超出容差的指标。"))
+    elif run_selected and status in {"partial", "blocked"}:
+        human_decisions_required.append(text(user_language,
+            "Review the blocker before adapting commands, dependencies, or protocol-sensitive settings.",
+            "调整命令、依赖或影响实验协议的设置前，请先检查阻塞原因。"))
     if include_paper_gap:
-        human_decisions_required.append(
-            "Provide a narrow paper question and an authoritative paper source before running paper-context-resolver."
-        )
+        human_decisions_required.append(text(user_language,
+            "Provide a narrow paper question and an authoritative paper source before running paper-context-resolver.",
+            "运行 paper-context-resolver 前，请提供具体的论文问题与权威论文来源。"))
 
-    if chosen["selected_goal"] == "training":
+    if metric_acceptance_failed:
+        next_action = text(
+            user_language,
+            "Inspect `status.json.result_match` and the raw logs, then check metric names, data, preprocessing, checkpoints, and evaluation conditions. Do not widen tolerances or change expected values merely to obtain a pass.",
+            "检查 `status.json.result_match` 和原始日志，再核对指标名称、数据、预处理、权重与评测条件。不要仅为通过验收而放宽容差或更改期望值。",
+        )
+        next_safe_action = text(
+            user_language,
+            "Preserve the failed acceptance evidence and review the mismatch before any retry or protocol change; command completion alone does not satisfy the expected result.",
+            "保留验收失败证据，在重试或修改实验协议前检查不匹配原因；命令完成本身不代表已达到期望结果。",
+        )
+    elif (
+        run_selected
+        and chosen["selected_goal"] != "training"
+        and run_data.get("runtime_status") == "timed_out"
+    ):
+        next_action = text(
+            user_language,
+            "Inspect the retained stdout/stderr to confirm whether the same documented command was still making progress. If the user's stated command-time budget allows it, rerun the same reviewed command with a larger `--timeout` within that bound; do not change dependencies, inputs, or the command merely to avoid the timeout.",
+            "检查保留的 stdout/stderr，确认同一文档命令在超时时是否仍有进展。若用户给定的单命令时间预算允许，可在该上限内用更大的 `--timeout` 重跑同一已审核命令；不要仅为避开超时而修改依赖、输入或命令。",
+        )
+        next_safe_action = text(
+            user_language,
+            "Keep the reviewed command and protocol unchanged. Only increase `--timeout` up to the user's existing bound after confirming the timeout was the blocker; otherwise preserve the partial evidence and stop.",
+            "保持已审核命令和实验协议不变。确认阻塞项确实只是超时后，才可在用户既有上限内增大 `--timeout`；否则保留 partial 证据并停止。",
+        )
+    elif run_selected and status == "blocked" and chosen.get("requires_substitution"):
+        next_action = text(
+            user_language,
+            "Resolve the README placeholder values from documented repository context, then run --plan-only again before executing the updated concrete command.",
+            "先从仓库文档中确定 README 占位符的真实值，再重新运行 --plan-only，确认具体命令后执行。",
+        )
+        next_safe_action = text(
+            user_language,
+            "Do not execute literal <...> placeholders or guess protocol-sensitive values; preserve the reviewed plan and replan after the concrete values are known.",
+            "不要直接执行字面量 <...> 占位符，也不要猜测影响实验协议的值；确定真实值后重新生成并审核计划。",
+        )
+    elif run_selected and status == "blocked" and not chosen.get("command_feasible", True):
+        feasibility_reason = str(chosen.get("command_feasibility_reason") or "")
+        lowered_reason = feasibility_reason.lower()
+        if "native shell" in lowered_reason or "shell syntax" in lowered_reason:
+            next_action = text(
+                user_language,
+                f"Review the exact shell operators in `{chosen['documented_command']}`. If they are intended and authorized, rerun the same reviewed candidate with `--run-selected --command-id {chosen.get('documented_command_id')} --plan-fingerprint {chosen.get('selection_fingerprint')} --shell-mode native`.",
+                f"检查 `{chosen['documented_command']}` 中的 shell 运算符；若确认文档确实要求且已授权，请使用同一已审核候选并加 `--run-selected --command-id {chosen.get('documented_command_id')} --plan-fingerprint {chosen.get('selection_fingerprint')} --shell-mode native` 重新执行。",
+            )
+            next_safe_action = text(
+                user_language,
+                "Keep direct mode as the default. Only after reviewing the exact documented command, rerun that reviewed candidate with `--shell-mode native`; do not broaden shell authorization globally.",
+                "默认继续使用 direct 模式；仅在检查过该文档命令后，才对同一已审核候选加 `--shell-mode native` 重跑，不要扩大为全局 shell 授权。",
+            )
+        elif "download" in lowered_reason:
+            next_action = text(
+                user_language,
+                "Review the documented model/asset download size and source, obtain explicit authorization for the download, then replan before execution.",
+                "检查文档中的模型/资源下载来源与规模，取得明确下载授权后再重新计划并执行。",
+            )
+            next_safe_action = text(
+                user_language,
+                "Do not bypass the large-download gate by changing the command or silently fetching a different checkpoint.",
+                "不要通过修改命令绕过大下载门槛，也不要静默改为下载其他 checkpoint。",
+            )
+        elif "directory is absent" in lowered_reason:
+            next_action = text(
+                user_language,
+                "Satisfy the README-documented local prerequisite that produces the required output directory, then run --plan-only again.",
+                "先按 README 满足会生成所需本地输出目录的前置步骤，然后重新运行 --plan-only。",
+            )
+            next_safe_action = text(
+                user_language,
+                "Do not invent a replacement checkpoint/output directory; preserve the documented producer-consumer relationship.",
+                "不要自行编造替代 checkpoint/输出目录；保持文档中的生产者-消费者关系。",
+            )
+        else:
+            next_action = text(
+                user_language,
+                f"Review the documented prerequisite before retrying: {feasibility_reason}",
+                f"重试前先检查文档前置条件：{feasibility_reason}",
+            )
+            next_safe_action = text(
+                user_language,
+                "Keep the reviewed command unchanged until its documented prerequisite is satisfied, then replan.",
+                "在满足文档前置条件前保持已审核命令不变，满足后重新计划。",
+            )
+    elif chosen["selected_goal"] == "training":
         if lane == "trusted" and not full_training_authorized:
             next_action = text(
                 user_language,
@@ -874,20 +1821,42 @@ def build_context(
         next_action = (
             text(user_language, "Prepare environment and assets, then retry the documented command.", "先准备环境与资源，再重试该文档命令。")
             if status in {"partial", "blocked", "not_run"}
-            else text(user_language, "Review outputs and continue with the next documented verification step.", "检查输出后继续下一步文档化验证。")
+            else text(user_language,
+                "Check the recorded evidence against the requested target, deliver the bounded result, and stop. Further experiments require a new request; this result alone does not establish paper-level reproduction.",
+                "按本次请求核对已记录的证据，交付限定范围内的结果，然后停止。后续实验需要新的请求；本次结果本身不代表论文级复现。")
         )
         next_safe_action = (
             "Review setup assumptions and confirm the next documented command before making any semantic changes."
             if status in {"partial", "blocked", "not_run"}
-            else "Review generated outputs and confirm that the next documented verification step preserves experiment meaning."
+            else text(user_language,
+                "Verify the existing evidence and return the result to the user, then stop without launching additional commands or optional stages unless requested.",
+                "核验现有证据并向用户交付结果，然后停止；未经请求，不启动额外命令或可选阶段。")
         )
 
-    run_commands = ([{"label": "documented", "command": chosen["documented_command"]}] if chosen["documented_command"] else [])
+    run_execution_status = run_data.get("runtime_status") or "not_run"
+    run_commands = ([{
+        "label": "documented", "command": chosen["documented_command"],
+        "execution_status": run_execution_status,
+        "execution_evidence": run_data.get("runtime_state_path"),
+    }] if chosen["documented_command"] else [])
     verification_commands = (
         [{"label": "inferred", "command": "python - <<'PY'\nimport pathlib\nprint(pathlib.Path('train_outputs/status.json').exists())\nPY"}]
         if chosen["selected_goal"] == "training"
-        else [{"label": "inferred", "command": "# Add metric check, artifact check, or smoke verification command here."}]
+        else []
     )
+    if chosen["selected_goal"] != "training":
+        comparison_status = run_data.get("result_match", {}).get("status", "not_evaluated")
+        command_notes.append(text(
+            user_language,
+            f"No separate verification command was executed. Built-in metric comparison: `{comparison_status}`; inspect `status.json.result_match` for expected values and tolerance.",
+            f"未执行单独的验证命令。内置指标比较状态为 `{comparison_status}`；期望值与容差见 `status.json.result_match`。",
+        ))
+    for item in verification_commands:
+        item["execution_status"] = "not_run"
+    command_reporting = {
+        "setup": "not_run", "assets": "not_run",
+        "main_run": run_execution_status, "verification": "not_run",
+    }
 
     evidence = [
         text(
@@ -948,11 +1917,17 @@ def build_context(
         "status": status,
         "documented_command_status": documented_status,
         "documented_command": chosen["documented_command"] or "None extracted",
+        "documented_command_id": chosen.get("documented_command_id"),
         "documented_command_kind": chosen.get("documented_command_kind", "none"),
         "documented_command_source": chosen.get("command_source", "none"),
         "documented_command_section": chosen.get("documented_command_section"),
         "documented_command_source_file": chosen.get("documented_command_source_file"),
         "requires_substitution": bool(chosen.get("requires_substitution")),
+        "command_feasible": bool(chosen.get("command_feasible")),
+        "command_feasibility_reason": chosen.get("command_feasibility_reason"),
+        "selection_source": chosen.get("selection_source"),
+        "selection_fingerprint": chosen.get("selection_fingerprint"),
+        "command_candidates": chosen.get("command_candidates", []),
         "goal_candidates": chosen.get("goal_candidates", []),
         "evidence_level": "direct" if chosen["documented_command"] else "mixed",
         "result_summary": result_summary,
@@ -964,6 +1939,8 @@ def build_context(
         "run_commands": run_commands,
         "verification_commands": verification_commands,
         "command_notes": command_notes,
+        "command_reporting": command_reporting,
+        "setup_advisories": setup_advisories,
         "timeline": timeline,
         "assumptions": assumptions,
         "unverified_inferences": unverified_inferences,
@@ -1020,13 +1997,20 @@ def build_context(
 
 
 def main() -> int:
+    started_monotonic = time.monotonic()
+    started_at = datetime.now(timezone.utc).isoformat()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     if hasattr(sys.stderr, "reconfigure"):
         sys.stderr.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description="Run a minimal README-first reproduction orchestration.")
     parser.add_argument("--repo", required=True, help="Path to the target repository.")
-    parser.add_argument("--output-dir", default="repro_outputs", help="Directory to write standardized outputs into.")
+    parser.add_argument(
+        "--output-dir",
+        default="",
+        help="Directory to write standardized outputs into (default: <repo>/repro_outputs).",
+    )
+    parser.add_argument("--source-adjacent-readme", action="store_true", help="Also write an owned RIGORPILOT_README.md beside the original README, preserving relative media paths.")
     parser.add_argument("--train-output-dir", default="", help="Optional override for the supplemental training output directory.")
     parser.add_argument(
         "--runtime-root",
@@ -1044,14 +2028,64 @@ def main() -> int:
     parser.add_argument("--no-gpu-monitor", action="store_true", help="Disable NVIDIA telemetry for training commands.")
     parser.add_argument("--user-language", default="en", help="Language tag for human-readable reports.")
     parser.add_argument("--run-selected", action="store_true", help="Execute the selected documented command.")
+    parser.add_argument(
+        "--command-id",
+        default="",
+        help="Select a README-backed command id returned by --plan-only; never accepts arbitrary shell text.",
+    )
+    parser.add_argument(
+        "--plan-fingerprint",
+        default="",
+        help="Bind --command-id to the exact candidate set returned by the reviewed plan.",
+    )
+    parser.add_argument(
+        "--plan-only",
+        action="store_true",
+        help="Inspect README/setup signals and print the selected command plus side-effect contract without writing evidence or executing target code.",
+    )
+    parser.add_argument(
+        "--include-agent-handoff",
+        action="store_true",
+        help=(
+            "With --plan-only, also return the optional short-call start/status/cancel argv. "
+            "Omit by default so ordinary agents see only the direct reviewed run path."
+        ),
+    )
+    parser.add_argument(
+        "--verify-output",
+        action="store_true",
+        help="Verify an existing evidence bundle and print a compact result without executing target code.",
+    )
+    parser.add_argument(
+        "--agent-output",
+        action="store_true",
+        help="Print a compact agent-facing result; the durable evidence bundle remains unchanged.",
+    )
     parser.add_argument("--include-analysis-pass", action="store_true", help="Run analyze-project and record its outputs in the stage ledger.")
     parser.add_argument(
         "--include-paper-gap",
         action="store_true",
         help="Request paper-context-resolver; records a blocked stage until a narrow question and source are supplied.",
     )
-    parser.add_argument("--timeout", type=int, default=120, help="Execution timeout in seconds for non-training documented commands.")
-    parser.add_argument("--train-timeout", type=int, default=120, help="Monitoring timeout in seconds for training commands.")
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=120,
+        help=(
+            "Target-command timeout in seconds for non-training documented commands. "
+            "Do not wrap the whole orchestrator in an equal or shorter external timeout; "
+            "cleanup and terminal evidence finalization occur after the target deadline."
+        ),
+    )
+    parser.add_argument(
+        "--train-timeout",
+        type=int,
+        default=120,
+        help=(
+            "Target training monitoring timeout in seconds. Pass the intended bound during --plan-only "
+            "so reviewed_run_args binds it; do not wrap the whole orchestrator in an equal or shorter external timeout."
+        ),
+    )
     parser.add_argument("--lane", choices=["trusted", "explore"], default="trusted", help="Execution lane policy.")
     parser.add_argument("--full-training-authorized", action="store_true", help="Allow the orchestrator to proceed beyond startup verification for training.")
     parser.add_argument("--resume-from", default="", help="Optional checkpoint path to pass through to run-train.")
@@ -1077,6 +2111,15 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    if args.plan_only and args.run_selected:
+        parser.error("--plan-only cannot be combined with --run-selected")
+    if args.include_agent_handoff and not args.plan_only:
+        parser.error("--include-agent-handoff requires --plan-only")
+    if args.verify_output and (args.plan_only or args.run_selected):
+        parser.error("--verify-output cannot be combined with --plan-only or --run-selected")
+    if args.plan_fingerprint and not args.command_id:
+        parser.error("--plan-fingerprint requires --command-id")
+
     if args.timeout <= 0 or args.train_timeout <= 0:
         parser.error("--timeout and --train-timeout must be greater than zero")
     if args.metric_absolute_tolerance < 0 or not math.isfinite(args.metric_absolute_tolerance):
@@ -1087,6 +2130,16 @@ def main() -> int:
         parser.error(str(exc))
 
     repo_path = Path(args.repo).resolve()
+    output_dir = (
+        Path(args.output_dir).resolve()
+        if args.output_dir
+        else (repo_path / "repro_outputs").resolve()
+    )
+    if args.verify_output:
+        verification = verify_existing_output(repo_path, output_dir)
+        print(json.dumps(verification, indent=2, ensure_ascii=False))
+        return 0 if verification.get("evidence_valid") else 1
+
     source_skills_dir = Path(__file__).resolve().parents[2]
     bundled_skills_dir = SKILL_ROOT / "_bundled" / "skills"
     base_dir = (
@@ -1110,7 +2163,6 @@ def main() -> int:
         command_data = run_json(extract_script, ["--readme", readme_path, "--json"])
         command_data = delegate_to_docs(readme_path, extract_script, command_data)
 
-    output_dir = Path(args.output_dir).resolve()
     train_output_dir = Path(args.train_output_dir).resolve() if args.train_output_dir else output_dir.parent / "train_outputs"
     runtime_root = Path(args.runtime_root).resolve() if args.runtime_root else output_dir / "_runtime"
     try:
@@ -1120,10 +2172,64 @@ def main() -> int:
         parser.error(str(exc))
     if missing_model_capabilities:
         parser.error(f"model profile is missing required capabilities: {', '.join(missing_model_capabilities)}")
+    setup_plan = run_json(setup_script, ["--repo", str(repo_path), "--json"])
+    if args.command_id and args.run_selected and not args.plan_fingerprint:
+        candidates = build_command_candidates(command_data.get("commands", []), repo_path, args.shell_mode)
+        error = CommandSelectionError(
+            "review_token_required",
+            "Executing an explicit command id requires the selection fingerprint returned by --plan-only.",
+            candidates,
+            _candidate_fingerprint(candidates),
+        )
+        print(json.dumps(selection_error_payload(error), indent=2, ensure_ascii=False))
+        return 2
+    try:
+        chosen = choose_goal(
+            command_data.get("commands", []),
+            repo_path,
+            args.shell_mode,
+            args.command_id,
+            args.plan_fingerprint,
+        )
+    except CommandSelectionError as exc:
+        print(json.dumps(selection_error_payload(exc), indent=2, ensure_ascii=False))
+        return 2
+    if args.plan_only:
+        payload = plan_payload(chosen, setup_plan, args.shell_mode, args.timeout, args.train_timeout)
+        # Keep the normal plan compact. Short-lived hosts can explicitly request
+        # exact handoff argv instead of making every agent choose between two
+        # execution paths on every routine run.
+        if (args.include_agent_handoff and chosen.get("documented_command_id") and chosen["selected_goal"] != "training"
+                and args.lane == "trusted" and not args.include_analysis_pass and not args.include_paper_gap
+                and not args.runtime_root and not args.train_output_dir and not args.model_profile_json
+                and not args.require_model_capability and not args.monitor_gpu):
+            entry = [sys.executable, str(SKILL_ROOT / "scripts/repro_job.py")]
+            start_argv = [*entry, "start", "--repo", str(repo_path), "--output-dir", str(output_dir),
+                          "--command-id", chosen["documented_command_id"], "--plan-fingerprint", chosen["selection_fingerprint"],
+                          "--timeout", str(args.timeout), "--shell-mode", args.shell_mode, "--user-language", args.user_language]
+            if args.source_adjacent_readme:
+                start_argv += ["--source-adjacent-readme"]
+            for metric in args.expected_metric:
+                start_argv += ["--expected-metric", metric]
+            start_argv += ["--metric-absolute-tolerance", str(args.metric_absolute_tolerance)]
+            payload["agent_handoff"] = {
+                "start_argv": start_argv,
+                "status_argv": [*entry, "status", "--output-dir", str(output_dir)],
+                "cancel_argv": [*entry, "cancel", "--output-dir", str(output_dir)],
+                "wait_strategy": "start_returns_receipt_then_poll_status",
+                "receipt_identity_guidance": "After start returns, use its job-id-bound status_argv/cancel_argv. Path-only queries are for recovering a lost start response, not proof of the expected job identity.",
+                "same_request_repeat": "reuse_receipt_never_replay",
+                "scope": "trusted_nontraining_local_supervisor_not_sandbox",
+                "host_requirement": "Host must permit bounded child supervisors to outlive a short tool call; otherwise use its native persistent execution session. Never bypass a host sandbox or kill-on-close policy.",
+                "accepted_only_after": "terminal runtime, task success, source integrity and evidence verification",
+            }
+        elif args.include_agent_handoff:
+            payload["agent_handoff"] = None
+        print(json.dumps(payload, indent=2, ensure_ascii=False))
+        return 0
+
     assets_root = output_dir.parent / "artifacts" / "assets"
     asset_manifest_path = assets_root / "asset_manifest.json"
-
-    setup_plan = run_json(setup_script, ["--repo", str(repo_path), "--json"])
     asset_data = run_json(
         asset_script,
         [
@@ -1173,7 +2279,12 @@ def main() -> int:
                 }
             )
 
-    chosen = choose_goal(command_data.get("commands", []), repo_path)
+    source_snapshot_ignores = [output_dir, train_output_dir, runtime_root, assets_root]
+    source_before = (
+        tracked_source_snapshot(repo_path, source_snapshot_ignores)
+        if args.run_selected else
+        {"status": "not_requested", "files": {}, "untracked_source_files": {}}
+    )
     dataset_hint = derive_dataset_hint(asset_data)
     checkpoint_hint = derive_checkpoint_hint(asset_data)
     run_data: Dict[str, Any] = {
@@ -1201,12 +2312,20 @@ def main() -> int:
         "model_adapter": model_adapter,
     }
     if args.run_selected and chosen.get("requires_substitution"):
-        run_data["status"] = "not_run"
-        run_data["documented_command_status"] = "not_run"
+        run_data["status"] = "blocked"
+        run_data["documented_command_status"] = "blocked"
         run_data["main_blocker"] = text(
             args.user_language,
             "Documented command contains placeholder values (<...>); substitute them before execution.",
             "文档命令包含占位符（<...>），需要先替换为真实值再执行。",
+        )
+    elif args.run_selected and chosen.get("documented_command") and not chosen.get("command_feasible", True):
+        run_data["status"] = "blocked"
+        run_data["documented_command_status"] = "blocked"
+        run_data["main_blocker"] = text(
+            args.user_language,
+            f"Selected documented command is not safe to run under the current plan: {chosen.get('command_feasibility_reason')}",
+            f"当前计划下不应直接执行选定的文档命令：{chosen.get('command_feasibility_reason')}",
         )
     elif args.run_selected:
         if chosen["selected_goal"] == "training":
@@ -1245,6 +2364,37 @@ def main() -> int:
         expected_metrics,
         args.metric_absolute_tolerance,
     )
+    if (
+        args.run_selected
+        and run_data.get("runtime_status") == "success"
+        and run_data.get("status") in {"success", "partial"}
+        and run_data["result_match"]["status"] == "mismatched"
+    ):
+        # Keep command/runtime success as process evidence, but never let exit 0
+        # override an explicitly failed result criterion in the overall outcome.
+        run_data["status"] = "partial"
+        run_data["main_blocker"] = text(
+            args.user_language,
+            "Explicit metric acceptance failed: at least one expected metric is missing or outside the configured absolute tolerance. Inspect `status.json.result_match` for per-metric evidence.",
+            "显式指标验收未通过：至少一个期望指标缺失或超出设定的绝对容差。逐项证据见 `status.json.result_match`。",
+        )
+
+    source_integrity = (
+        compare_source_snapshots(
+            source_before,
+            tracked_source_snapshot(repo_path, source_snapshot_ignores),
+        )
+        if args.run_selected else
+        {"status": "not_requested", "unchanged": None, "changed_files": []}
+    )
+    if args.run_selected and source_integrity.get("unchanged") is False:
+        if run_data.get("status") == "success":
+            run_data["status"] = "partial"
+        run_data["main_blocker"] = text(
+            args.user_language,
+            "The selected command changed tracked source or introduced unexpected untracked source/config files; preserve the evidence and review those changes before accepting the run.",
+            "选定命令修改了已跟踪源码，或引入了意外的未跟踪源码/配置文件；请保留证据并审查这些变更后再接受本次运行。",
+        )
 
     execution_stage = "run-train" if chosen["selected_goal"] == "training" else "minimal-run-and-audit"
     stage_results.append(
@@ -1283,9 +2433,27 @@ def main() -> int:
         full_training_authorized=args.full_training_authorized,
         stage_results=stage_results,
     )
+    context["source_integrity"] = source_integrity
+    if args.run_selected and source_integrity.get("unchanged") is False:
+        context["human_decisions_required"].append(text(
+            args.user_language,
+            "Review the tracked changes and unexpected untracked source/config files before any reproduction claim.",
+            "在做出任何复现结论前，请审查已跟踪文件变更以及意外新增的未跟踪源码/配置文件。",
+        ))
+        context["protocol_deviations"].append(
+            "Target command changed source/config files: " + ", ".join(source_integrity.get("changed_files", []))
+        )
+    error_code = classify_execution_error(
+        run_selected=args.run_selected,
+        chosen=chosen,
+        run_data=run_data,
+        source_integrity=source_integrity,
+    )
+    context["error"] = build_error_record(context, error_code)
 
     context["annotated_readme"] = None
     context["readme_section_coverage"] = {}
+    context["source_adjacent_readme"] = {"status": "not_requested", "path": None}
     if readme_path and Path(readme_path).exists():
         annotated_path, coverage = write_annotated_readme(
             readme_path=Path(readme_path),
@@ -1299,9 +2467,20 @@ def main() -> int:
                 ),
             },
             output_path=output_dir / "ANNOTATED_README.md",
+            source_adjacent=args.source_adjacent_readme,
+            train_output_dir=train_output_dir,
         )
         context["annotated_readme"] = str(annotated_path)
         context["readme_section_coverage"] = coverage
+        context["source_adjacent_readme"] = coverage["source_adjacent_readme"]
+    elif args.source_adjacent_readme:
+        context["source_adjacent_readme"] = {"status": "blocked", "path": None, "reason": "No source README was found; standard evidence retained."}
+
+    invocation_path = output_dir / "invocation.json"
+    evidence_manifest_path = output_dir / "evidence_manifest.json"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    context["invocation_path"] = str(invocation_path)
+    context["evidence_manifest_path"] = str(evidence_manifest_path)
 
     write_bundle(repro_write_script, output_dir, context)
     if context["selected_goal"] == "training":
@@ -1309,7 +2488,27 @@ def main() -> int:
 
     context["lesson_recorded"] = maybe_record_lesson(repo_path, context) if args.run_selected else None
 
-    print(json.dumps(context, indent=2, ensure_ascii=False))
+    invocation = {
+        "schema_version": "1.0",
+        "argv": [sys.executable, *sys.argv],
+        "cwd": os.getcwd(),
+        "started_at": started_at,
+        "finished_at": datetime.now(timezone.utc).isoformat(),
+        "elapsed_seconds": round(time.monotonic() - started_monotonic, 3),
+        "run_selected": bool(args.run_selected),
+        "selected_goal": context.get("selected_goal"),
+        "selected_command_id": context.get("documented_command_id"),
+        "documented_command": context.get("documented_command"),
+        "selection_source": context.get("selection_source"),
+        "selection_fingerprint": context.get("selection_fingerprint"),
+        "error": context.get("error"),
+        "source_integrity": source_integrity,
+    }
+    invocation_path.write_text(json.dumps(invocation, indent=2, ensure_ascii=False), encoding="utf-8")
+    write_evidence_manifest(repo_path, output_dir, context, invocation_path)
+
+    payload = compact_agent_payload(context, output_dir, invocation_path, source_integrity) if args.agent_output else context
+    print(json.dumps(payload, indent=2, ensure_ascii=False))
     return 0
 
 
