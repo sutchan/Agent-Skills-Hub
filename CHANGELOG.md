@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.60] - 2026-10-02
+
+### feat: 优化页脚排版并新增更新日期
+
+- 修复页脚 `<footer className="footer">` 长期缺少基础样式（边框/背景/内边距被死规则 `.site-footer` 占用）导致的视觉错位。
+- 重构页脚信息结构：品牌名与协议说明合并为 `.footer-info` 信息块，版本号与更新日期合并为 `.footer-meta` 信息块。
+- 版本号后新增更新日期（取自 CHANGELOG.md 顶部小节日期，格式 `更新于 YYYY-MM-DD` / `Updated YYYY-MM-DD`），新增 `app/lib/meta.ts` 统一读取 `package.json` + CHANGELOG.md。
+- 清理 layout-shared.css 中未被任何元素使用的死规则（`.site-footer`/`.footer-brand`/`.footer-link`/`.footer-ver`/`.footer-sep`/`.footer-copy` 等），页脚样式收口至 globals.css。
+
+[1.14.60]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.60
+
 ## [1.14.59] - 2026-10-02
 
 ### feat: 新增 wordpress-axtolab-manager 技能

@@ -1,4 +1,4 @@
-// app/components/AppShell.tsx v1.14.51 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// app/components/AppShell.tsx v1.14.60 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -50,7 +50,7 @@ function bindHeroInteractions(svg: SVGSVGElement | null) {
   });
 }
 
-export function AppShell({ data, version }: { data: SkillsData; version?: string }) {
+export function AppShell({ data, version, updatedAt }: { data: SkillsData; version?: string; updatedAt?: string }) {
   const lang = useLangPref();
   const theme = useThemePref();
   const [toast, setToast] = useState<string | null>(null);
@@ -250,9 +250,16 @@ export function AppShell({ data, version }: { data: SkillsData; version?: string
 
       <footer className="footer" id="appFooter">
         <div className="footer-inner">
-          <span>Agent Skills Hub</span>
-          <span>{lang === "zh" ? "开源免费 · MIT 协议" : "Open source · MIT License"}</span>
-          {version ? <span className="footer-version">v{version}</span> : null}
+          <div className="footer-info">
+            <span className="footer-name">Agent Skills Hub</span>
+            <span className="footer-desc">{lang === "zh" ? "开源免费 · MIT 协议" : "Open source · MIT License"}</span>
+          </div>
+          <div className="footer-meta" id="footerMeta">
+            {version ? <span className="footer-version">v{version}</span> : null}
+            {updatedAt ? (
+              <span className="footer-updated">{lang === "zh" ? `更新于 ${updatedAt}` : `Updated ${updatedAt}`}</span>
+            ) : null}
+          </div>
           <div className="footer-cta" id="footerCta">
             <a
               className="star-btn"

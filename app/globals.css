@@ -1,4 +1,4 @@
-/* app/globals.css v1.14.58 — 应用全局样式
+/* app/globals.css v1.14.60 — 应用全局样式
  * 结构：① tokens-shared.css（设计令牌，由 prototype 同步）
  *       ② base/layout/components/responsive-shared.css（prototype 同源规则，由 tools/sync-css.mjs 自动生成）
  *       ③ 下方「APP 扩展区」：app 独有/改写原型的规则，优先于 shared 生效
@@ -193,13 +193,19 @@ html[data-lang="en"] .zh { display: none; }
 .empty-state { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 40px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 
 /* 页脚 */
-.site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }
+.footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }
 
-.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
 
-.footer-version { font-variant-numeric: tabular-nums; color: var(--text-2); font-size: 12px; }
+/* 品牌区：名称 + 协议说明上下叠放（v1.14.60 由原先散落的独立 span 合并为信息块） */
+.footer-info { display: flex; flex-direction: column; gap: 2px; }
+.footer-name { font-weight: 700; color: hsl(var(--foreground)); }
+.footer-desc { color: var(--text-2); font-size: 13px; }
 
-.footer-bottom { max-width: 1200px; margin: 16px auto 0; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--text-2); font-size: 12px; }
+/* 版本 + 更新日期（v1.14.60）：版本号后补更新日期，以分隔点区隔 */
+.footer-meta { display: flex; align-items: baseline; gap: 10px; font-size: 12px; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.footer-version { font-weight: 600; color: hsl(var(--foreground)); }
+.footer-updated::before { content: "·"; margin-right: 10px; opacity: .5; }
 
 /* 页脚 CTA：Star 引导 + 分享（v1.20.9，对齐 prototype .footer-cta） */
 .footer-cta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
