@@ -1,4 +1,4 @@
-/* app/globals.css v1.14.60 — 应用全局样式
+/* app/globals.css v1.14.61 — 应用全局样式
  * 结构：① tokens-shared.css（设计令牌，由 prototype 同步）
  *       ② base/layout/components/responsive-shared.css（prototype 同源规则，由 tools/sync-css.mjs 自动生成）
  *       ③ 下方「APP 扩展区」：app 独有/改写原型的规则，优先于 shared 生效
@@ -324,6 +324,9 @@ html[data-lang="en"] .zh { display: none; }
 .sort-wrap { display: inline-flex; align-items: center; }
 
 .sort-wrap select { height: 34px; padding: 0 28px 0 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); color: hsl(var(--foreground)); font-size: 13px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a8a8a8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+
+/* 视图切换 + 排序：搜索框右侧工具栏（v1.14.61），margin-left:auto 推至行尾 */
+.toolbar-right { display: inline-flex; align-items: center; gap: 12px; margin-left: auto; }
 
 /* 徽章（Badge）：小型状态/计数标签，默认主色浅底；变体 primary/secondary/muted（对齐 COMPONENTS #4） */
 .badge { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 9px; border-radius: 999px; font-size: 11px; font-weight: 600; line-height: 1; background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); border: 1px solid transparent; }

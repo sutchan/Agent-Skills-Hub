@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.61] - 2026-10-02
+
+### style: 视图切换与排序移至搜索框右侧
+
+- 将 `view-toggle`（网格/列表视图）与 `sort-wrap`（排序下拉）从分类筛选之后移至搜索框右侧，包进新的 `.toolbar-right` 工具栏组。
+- `.toolbar-right` 用 `margin-left: auto` 推至搜索行行尾；搜索框 `flex:1` 撑满后，分类筛选（`categoryChips`）与设置按钮自然换至下一行。
+- 新增语义化 id `toolbarRight`，便于无障碍与测试定位。
+
+[1.14.61]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.61
+
 ## [1.14.60] - 2026-10-02
 
 ### feat: 优化页脚排版并新增更新日期
