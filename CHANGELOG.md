@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.59] - 2026-10-02
+
+### feat: 新增 wordpress-axtolab-manager 技能
+
+- 从零创作 `skills/wordpress-axtolab-manager/SKILL.md`（此前该目录为空、于 2026-10-01 清理时删除，本次重写补全）。
+- 定位：管理并操作 **Axtolab AI Connector for WordPress** 插件（v1.0.3+，免费无限制），在 WordPress 站点与 Claude/ChatGPT/MCP 等 AI 智能体间建立安全连接，驱动内容/媒体/SEO/WooCommerce 写操作自动化，并提供回滚、敏感操作守卫与审计。
+- 内容覆盖：核心能力、安装与连接、双认证模型（应用密码 / OAuth 2.1 Bearer）、敏感操作守卫（自动/询问/阻止）、WooCommerce MCP 工具表（`wp_woo_*` 7 个）、主要设置项、过滤钩子、安全运维要点。
+- frontmatter 契约合规：name/description(中)/en_description(英)/zh_displayName(中文「Axtolab AI 连接器管理」)/category(WordPress 与 CMS)/en_category(WordPress & CMS) + `compatibility`；`node tools/validate-skills.mjs` 通过（170 技能 / 14 类）。
+- 数据链路重建：`data/skills-data.json` 由 169 → 170 技能。
+- 根 `package.json` version 升至 v1.14.59；README 中/英版本徽章同步。
+
+[1.14.59]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.59
+
 ## [1.14.58] - 2026-10-01
 
 ### docs: 重组项目规范文档与记忆文档
