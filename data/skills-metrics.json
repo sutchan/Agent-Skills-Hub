@@ -30,6 +30,11 @@
     "size": 29387,
     "files": 1
   },
+  "ai-image-generation-2": {
+    "popularity": 0,
+    "size": 30138,
+    "files": 1
+  },
   "ai-music": {
     "popularity": 0,
     "size": 15143,
@@ -37,8 +42,8 @@
   },
   "ai-research-reproduction": {
     "popularity": 0,
-    "size": 530190,
-    "files": 48
+    "size": 456737,
+    "files": 40
   },
   "ai-video-generation": {
     "popularity": 1,
@@ -87,12 +92,12 @@
   },
   "brainstorming": {
     "popularity": 0,
-    "size": 83269,
+    "size": 82546,
     "files": 8
   },
   "brand-guidelines": {
     "popularity": 0,
-    "size": 14076,
+    "size": 13875,
     "files": 2
   },
   "brand-operation": {
@@ -107,7 +112,7 @@
   },
   "browser-automation": {
     "popularity": 1,
-    "size": 21953,
+    "size": 21833,
     "files": 3
   },
   "bun": {
@@ -256,7 +261,7 @@
   },
   "diagnosing-bugs": {
     "popularity": 0,
-    "size": 10203,
+    "size": 10159,
     "files": 3
   },
   "discover-brand": {
@@ -291,7 +296,7 @@
   },
   "douyin-video-summary": {
     "popularity": 0,
-    "size": 6934,
+    "size": 6893,
     "files": 4
   },
   "drama-analyzer": {
@@ -330,7 +335,7 @@
   },
   "executing-plans": {
     "popularity": 0,
-    "size": 23267,
+    "size": 23187,
     "files": 3
   },
   "fastify-best-practices": {
@@ -365,7 +370,7 @@
   },
   "figma-implement-design": {
     "popularity": 1,
-    "size": 16158,
+    "size": 16126,
     "files": 6
   },
   "figma-use": {
@@ -445,17 +450,17 @@
   },
   "football-data": {
     "popularity": 0,
-    "size": 45457,
+    "size": 45432,
     "files": 6
   },
   "frontend-design": {
     "popularity": 0,
-    "size": 20017,
+    "size": 19840,
     "files": 2
   },
   "git-cleanup": {
     "popularity": 0,
-    "size": 15704,
+    "size": 15703,
     "files": 3
   },
   "google-agents-cli-adk-code": {
@@ -587,12 +592,12 @@
   },
   "logo-creator": {
     "popularity": 1,
-    "size": 3713451,
+    "size": 3713409,
     "files": 25
   },
   "logo-designer": {
     "popularity": 0,
-    "size": 45781,
+    "size": 45678,
     "files": 3
   },
   "luma": {
@@ -640,7 +645,7 @@
   },
   "netease-music-cli": {
     "popularity": 0,
-    "size": 17099,
+    "size": 16899,
     "files": 2
   },
   "next-best-practices": {
@@ -706,8 +711,8 @@
   },
   "planning-with-files": {
     "popularity": 0,
-    "size": 452748,
-    "files": 32
+    "size": 465721,
+    "files": 34
   },
   "playwright-cli": {
     "popularity": 0,
@@ -736,19 +741,19 @@
   },
   "remotion-best-practices": {
     "popularity": 0,
-    "size": 1168115,
+    "size": 1167633,
     "files": 141,
     "skillVersion": "4.0.532"
   },
   "requesting-code-review": {
     "popularity": 0,
-    "size": 9721,
-    "files": 2
+    "size": 16170,
+    "files": 3
   },
   "review-animations": {
     "popularity": 0,
-    "size": 18475,
-    "files": 2
+    "size": 28276,
+    "files": 3
   },
   "seedance-2-5-image-to-video": {
     "popularity": 0,
@@ -777,8 +782,8 @@
   },
   "systematic-debugging": {
     "popularity": 0,
-    "size": 41058,
-    "files": 11
+    "size": 43044,
+    "files": 12
   },
   "test-driven-development": {
     "popularity": 0,
@@ -792,17 +797,17 @@
   },
   "traceknot": {
     "popularity": 0,
-    "size": 763691,
+    "size": 761404,
     "files": 53
   },
   "ui-animation": {
     "popularity": 0,
-    "size": 194094,
-    "files": 27
+    "size": 197194,
+    "files": 29
   },
   "ui-ux-pro-max": {
     "popularity": 0,
-    "size": 3581842,
+    "size": 3577487,
     "files": 63
   },
   "video-editing": {
