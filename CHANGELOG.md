@@ -2,7 +2,7 @@
 
 本项目所有重要变更均记录于此文件。
 
-## [1.14.70] - 2026-10-04
+## [1.14.73] - 2026-10-04
 
 ### fix: 移除重复导入的 ai-image-generation-2 技能
 
@@ -13,13 +13,14 @@
 ### docs: 更新 tasks.md 进度并关闭任务 #13
 
 - tasks.md 记录 2026-10-04 进度：新增「迭代三」（重复技能清理 + 构建验证）；任务 #13（Next.js 完整构建验证）关闭——本地实测 `✓ Compiled successfully`、类型检查通过、`Generating static pages (173/173)`，未再出现 Windows standalone `EPERM`。
-- 新增后续待办：CHANGELOG 版本号碰撞（`1.14.60`–`1.14.69` 被 2026-08-20 历史段重复占用）、`next.config.mjs` 头注释版本漂移。
+- 新增后续待办：#14 CHANGELOG 版本序列治理、#15 缺 `v*` 发布 tag、#16 文件头注释版本漂移、#17 本地重复构建被 IDE safe-delete 守卫拦截。
 
-### chore: 版本同步至 v1.14.70
+### chore: 版本同步至 v1.14.73
 
-- `package.json` → 1.14.70；README / README.en 版本徽章同步；CHANGELOG 新增本节。
+- `package.json` → 1.14.73；README / README.en 版本徽章同步；CHANGELOG 新增本节。
+- **版本号选取依据**：CHANGELOG 共 247 个版本小节，1.14.x 与 1.20.x 双序列交错、28+ 版本号重复；其中 1.14.x 系列在 2026-08-20 已推进至 **1.14.72**（`1.14.70`/`1.14.71`/`1.14.72` 均已占用）。为避免与既有编号冲突，本次取下一个未占用的 **1.14.73**。历史编号治理登记为 tasks.md #14，本节不重写既有历史记录。
 
-[1.14.70]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.70
+[1.14.73]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.73
 
 ## [1.14.61] - 2026-10-02
 

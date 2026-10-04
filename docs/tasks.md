@@ -54,7 +54,7 @@
 | 4 | 复验契约通过 | P0 | ✅ 已完成 | `✅ skills 校验通过：170 个技能 frontmatter 规范` |
 | 5 | 运行完整 `npm run build` 验证（即原任务 #13） | P3 | ✅ 已完成 | `✓ Compiled successfully`；类型检查通过；`Generating static pages (173/173)`；路由 `/`、`/_not-found`、`/skills/[slug]` 均产出；**未再出现** Windows standalone `EPERM` |
 | 6 | 重建数据 / 原型产物 | P1 | ✅ 已完成 | `Wrote 170 skills across 14 categories`；`prototype.html` 247.1 KB；`skills-metrics.json` 更新 |
-| 7 | 版本 bump 1.14.61 → **1.14.70** | P1 | ✅ 已完成 | `1.14.60`–`1.14.69` 已被 2026-08-20 历史段占用，bump 至 1.14.62 会碰撞，故取下一个未被占用且单调递增的 1.14.70；同步 package.json / README 中英徽章 / CHANGELOG（含锚点） |
+| 7 | 版本 bump 1.14.61 → **1.14.73** | P1 | ✅ 已完成 | 全量扫描 CHANGELOG 后确认 1.14.x 系列在 2026-08-20 已推进至 **1.14.72**（1.14.70/71/72 均已占用），故取 1.14.73；同步 package.json / README 中英徽章 / CHANGELOG（含锚点）。注：初判的 1.14.70 存在碰撞，已修正 |
 | 8 | 同步本次进度到 tasks.md | P2 | ✅ 已完成 | 时间戳 2026-10-04 |
 
 ---
@@ -66,7 +66,7 @@
 | 11 | 分析 commit 998370c 来源并建立防护机制 | P1 | ✅ 已完成 | 根因：Skills Manager 批量更新覆盖 frontmatter；防护=ci.yml 的 `validate-skills` job 改为**硬门禁**（去 `continue-on-error`）；修正过时注释（"223 个/118 缺字段"→现状 169 全部规范） |
 | 12 | 检查 998370c 是否还有其他破坏性变更 | P2 | ✅ 已完成 | `git show --stat 998370c`：仅 frontmatter 覆盖 + 新增 vercel-react 技能，无删除配置/CI；data 无"其他"类 |
 | 13 | 验证 `npm run build` 的 Next.js 完整构建产物 | P3 | ✅ 已完成 | 2026-10-04 本地实测全绿：编译成功 + 类型检查通过 + 静态生成 173/173 + 路由表输出；历史 Windows standalone `EPERM` 未再复现 |
-| 14 | 修复 CHANGELOG 版本号碰撞 | P1 | ⬜ 待处理 | `1.14.60`–`1.14.69` 已被 2026-08-20 历史段占用，而当前序列自 1.14.60/1.14.61 重新编号 → `## [1.14.61]` 与锚点各重复 2 处；本次 bump 跳至 1.14.70 规避，需回填/合并历史编号 |
+| 14 | 治理 CHANGELOG 版本序列 | P1 | ⬜ 待处理 | **全量诊断**：共 247 个版本小节；1.14.x（96 个）与 1.20.x（72 个）双序列交错；**28+ 版本号重复**（1.14.39–1.14.61 近乎全部重复，另含 1.20.55 / 1.20.28 / 1.20.3 / 1.19.30 / 1.19.2）；1.14.x 最大已到 1.14.72。治理需重排历史编号与锚点，属历史重写，**待用户确认方案后执行** |
 | 15 | 建立 `v*` 发布 tag 流程 | P2 | ⬜ 待处理 | 仓库仅有 skills-manager 的 `sm-v-*` 自动标签，**无任何 `v1.14.x` tag**；`check-version.mjs` 仅在 tag 推送时校验 tag，故常规 CI 未暴露该缺口 |
 | 16 | 修正文件头注释版本漂移 | P3 | ⬜ 待处理 | `next.config.mjs` 头注释标 `v1.20.49`、`taxonomy.mjs` 标 `v1.20.67`、prototype 令牌 base 标 `1.20.17`，与实际 1.14.x 序列不一致 |
 | 17 | 处理本地重复构建被 IDE safe-delete 守卫拦截 | P3 | ⬜ 待处理 | 2026-10-04 实测：`.next` 已有 ≥500 文件时，`next build` 清理阶段触发 `[safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED] count:500`（IDE `node-safe-delete-shim.cjs` 拦截 `fs.unlink`）而失败；属工具环境限制，非代码缺陷。规避：构建前清空 `.next`，或以 CI ubuntu `build` job 为准 |
@@ -77,7 +77,7 @@
 
 - **迭代一（修复 CI）**：125 个技能缺失 4 个必填 frontmatter 字段 → 修复后 169 个全部通过校验，数据与原型已重建；防护机制（validate-skills 硬门禁）已落地于 `ci.yml`。
 - **迭代二（文档重组）**：四份规范文档统一结构/术语、spec.md 定为权威契约源；MEMORY.md 主题归类 + 时效/可信度标注；清理 2 条失效全局记忆；版本 bump 至 1.14.58。
-- **迭代三（重复技能清理 + 构建验证）**：删除重复导入的 `ai-image-generation-2`（正文与 `ai-image-generation` 完全一致、frontmatter 破损），校验恢复 **170 个技能**全通过；`npm run build` 本地全绿（编译 + 类型检查 + 173/173 静态生成），任务 #13 关闭；版本 bump 至 **1.14.70**（避开 1.14.60–1.14.69 历史占用）。
-- **环境验证结论（2026-10-04 更新）**：Windows 上 `next build` 本次**完整通过**，此前 standalone 清理阶段的 `EPERM` 未再复现；CI ubuntu `build` job 仍保留为权威验证路径。新增待办 #14（CHANGELOG 版本号碰撞）、#15（缺 `v*` 发布 tag）、#16（文件头注释版本漂移）、#17（本地重复构建被 IDE safe-delete 守卫拦截）。
+- **迭代三（重复技能清理 + 构建验证）**：删除重复导入的 `ai-image-generation-2`（正文与 `ai-image-generation` 完全一致、frontmatter 破损），校验恢复 **170 个技能**全通过；`npm run build` 本地全绿（编译 + 类型检查 + 173/173 静态生成），任务 #13 关闭；版本 bump 至 **1.14.73**（1.14.x 系列已占用至 1.14.72）。
+- **环境验证结论（2026-10-04 更新）**：Windows 上 `next build` 本次**完整通过**，此前 standalone 清理阶段的 `EPERM` 未再复现；CI ubuntu `build` job 仍保留为权威验证路径。新增待办 #14（CHANGELOG 版本序列治理：247 小节 / 双序列交错 / 28+ 版本号重复）、#15（缺 `v*` 发布 tag）、#16（文件头注释版本漂移）、#17（本地重复构建被 IDE safe-delete 守卫拦截）。
 
 > 最后同步：2026-10-04 — 迭代一、二、三全部完成；#13 已关闭；登记新待办 #14–#17。
