@@ -1,6 +1,6 @@
 # 任务清单 — Agent Skills Hub
 
-> 最后更新：2026-10-01（本次整理，本地构建验证进行中）
+> 最后更新：2026-10-04（本次整理与剩余任务收口）
 
 ---
 
@@ -15,7 +15,7 @@
 | 3 | 从 git 历史恢复 113 个技能的 frontmatter 字段 | P0 | ✅ 已完成 | 113/125 技能被修复；12 个跳过（历史版本也不完整或文件不存在） |
 | 4 | 编写手动补全脚本 `tools/_fix-remaining.mjs` 处理 26 个遗留技能 | P0 | ✅ 已完成 | 预置映射表补全所有缺失字段；24/26 修复，2 个目录不存在 |
 | 5 | 修复 `ai-image-generation` 契约字段顺序问题 | P1 | ✅ 已完成 | description ↔ en_description 位置交换 |
-| 6 | 运行验证脚本确认 `validate-skills.mjs` 通过 | P0 | ✅ 已完成 | 169 个技能 frontmatter 规范 ✅ |
+| 6 | 运行验证脚本确认 `validate-skills.mjs` 通过 | P0 | ✅ 已完成 | 当时 169 个技能全部规范；**2026-10-04 现状 170 个**（见迭代三） |
 | 7 | 重建 `data/skills-data.json` + `data/skills-metrics.json` + `prototype/prototype.html` | P0 | ✅ 已完成 | npm run build（Next.js 因 Windows EPERM 失败，属环境限制） |
 | 8 | 运行单元测试 `node --test tools/lib/*.test.mjs` | P1 | ✅ 已完成 | 13/13 pass ✅ |
 | 9 | 清理临时脚本 `tools/_fix-from-history.mjs` / `tools/_fix-remaining.mjs` | P2 | ✅ 已完成 | 修复完成后已删除 |
@@ -42,13 +42,34 @@
 
 ---
 
+## 迭代三：修复重复导入技能 + 构建验证（2026-10-04，已完成）
+
+**触发**：2026-10-04 复跑 `validate-skills` 发现新的 P0 契约违规——新增的 `skills/ai-image-generation-2/` 是重复导入且 frontmatter 不合规，会触发 ci.yml `validate-skills` 硬门禁阻断。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 1 | 复验 `validate-skills.mjs`，定位契约违规 | P0 | ✅ 已完成 | `ai-image-generation-2/SKILL.md` 共 5 个问题：缺 `en_description`/`zh_displayName`/`category`/`en_category`，且 `name` 与目录名不一致 |
+| 2 | 判定该技能为重复导入 | P0 | ✅ 已完成 | 两目录均仅含 `SKILL.md`，正文 28350 字符**完全一致**，仅 frontmatter 不同（副本为破损上游格式） |
+| 3 | 删除重复技能目录 `skills/ai-image-generation-2/` | P0 | ✅ 已完成 | 按仓库去重约定删除，而非改造为 `ai-image-generation-2` 冗余技能 |
+| 4 | 复验契约通过 | P0 | ✅ 已完成 | `✅ skills 校验通过：170 个技能 frontmatter 规范` |
+| 5 | 运行完整 `npm run build` 验证（即原任务 #13） | P3 | ✅ 已完成 | `✓ Compiled successfully`；类型检查通过；`Generating static pages (173/173)`；路由 `/`、`/_not-found`、`/skills/[slug]` 均产出；**未再出现** Windows standalone `EPERM` |
+| 6 | 重建数据 / 原型产物 | P1 | ✅ 已完成 | `Wrote 170 skills across 14 categories`；`prototype.html` 247.1 KB；`skills-metrics.json` 更新 |
+| 7 | 版本 bump 1.14.61 → **1.14.70** | P1 | ✅ 已完成 | `1.14.60`–`1.14.69` 已被 2026-08-20 历史段占用，bump 至 1.14.62 会碰撞，故取下一个未被占用且单调递增的 1.14.70；同步 package.json / README 中英徽章 / CHANGELOG（含锚点） |
+| 8 | 同步本次进度到 tasks.md | P2 | ✅ 已完成 | 时间戳 2026-10-04 |
+
+---
+
 ## 后续迭代（验证 / 建议）
 
 | # | 任务 | 优先级 | 状态 | 备注 |
 |---|------|--------|------|------|
 | 11 | 分析 commit 998370c 来源并建立防护机制 | P1 | ✅ 已完成 | 根因：Skills Manager 批量更新覆盖 frontmatter；防护=ci.yml 的 `validate-skills` job 改为**硬门禁**（去 `continue-on-error`）；修正过时注释（"223 个/118 缺字段"→现状 169 全部规范） |
 | 12 | 检查 998370c 是否还有其他破坏性变更 | P2 | ✅ 已完成 | `git show --stat 998370c`：仅 frontmatter 覆盖 + 新增 vercel-react 技能，无删除配置/CI；data 无"其他"类 |
-| 13 | 验证 `npm run build` 的 Next.js 独立构建产物（Linux/CI） | P3 | 🔄 验证中 | 本地 Windows `npm run build` 构建运行中：数据/原型/令牌链路预期成功，next build 在 `.next/standalone` 清理阶段历史报 `EPERM`（Windows 权限限制）；完整构建依赖 ubuntu CI `build` job（已在 ci.yml 配置）。结论待回写 |
+| 13 | 验证 `npm run build` 的 Next.js 完整构建产物 | P3 | ✅ 已完成 | 2026-10-04 本地实测全绿：编译成功 + 类型检查通过 + 静态生成 173/173 + 路由表输出；历史 Windows standalone `EPERM` 未再复现 |
+| 14 | 修复 CHANGELOG 版本号碰撞 | P1 | ⬜ 待处理 | `1.14.60`–`1.14.69` 已被 2026-08-20 历史段占用，而当前序列自 1.14.60/1.14.61 重新编号 → `## [1.14.61]` 与锚点各重复 2 处；本次 bump 跳至 1.14.70 规避，需回填/合并历史编号 |
+| 15 | 建立 `v*` 发布 tag 流程 | P2 | ⬜ 待处理 | 仓库仅有 skills-manager 的 `sm-v-*` 自动标签，**无任何 `v1.14.x` tag**；`check-version.mjs` 仅在 tag 推送时校验 tag，故常规 CI 未暴露该缺口 |
+| 16 | 修正文件头注释版本漂移 | P3 | ⬜ 待处理 | `next.config.mjs` 头注释标 `v1.20.49`、`taxonomy.mjs` 标 `v1.20.67`、prototype 令牌 base 标 `1.20.17`，与实际 1.14.x 序列不一致 |
+| 17 | 处理本地重复构建被 IDE safe-delete 守卫拦截 | P3 | ⬜ 待处理 | 2026-10-04 实测：`.next` 已有 ≥500 文件时，`next build` 清理阶段触发 `[safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED] count:500`（IDE `node-safe-delete-shim.cjs` 拦截 `fs.unlink`）而失败；属工具环境限制，非代码缺陷。规避：构建前清空 `.next`，或以 CI ubuntu `build` job 为准 |
 
 ---
 
@@ -56,6 +77,7 @@
 
 - **迭代一（修复 CI）**：125 个技能缺失 4 个必填 frontmatter 字段 → 修复后 169 个全部通过校验，数据与原型已重建；防护机制（validate-skills 硬门禁）已落地于 `ci.yml`。
 - **迭代二（文档重组）**：四份规范文档统一结构/术语、spec.md 定为权威契约源；MEMORY.md 主题归类 + 时效/可信度标注；清理 2 条失效全局记忆；版本 bump 至 1.14.58。
-- **环境验证结论（沿用）**：本机 Windows `pnpm/npm build` 在 Next.js standalone 清理阶段因 `EPERM` 失败（已知 Windows 限制），但数据/原型链路成功且产物与仓库无 diff（可复现）；完整 Next 构建依赖 ubuntu CI 的 `build` job。
+- **迭代三（重复技能清理 + 构建验证）**：删除重复导入的 `ai-image-generation-2`（正文与 `ai-image-generation` 完全一致、frontmatter 破损），校验恢复 **170 个技能**全通过；`npm run build` 本地全绿（编译 + 类型检查 + 173/173 静态生成），任务 #13 关闭；版本 bump 至 **1.14.70**（避开 1.14.60–1.14.69 历史占用）。
+- **环境验证结论（2026-10-04 更新）**：Windows 上 `next build` 本次**完整通过**，此前 standalone 清理阶段的 `EPERM` 未再复现；CI ubuntu `build` job 仍保留为权威验证路径。新增待办 #14（CHANGELOG 版本号碰撞）、#15（缺 `v*` 发布 tag）、#16（文件头注释版本漂移）、#17（本地重复构建被 IDE safe-delete 守卫拦截）。
 
-> 最后同步：2026-10-01 — 迭代一、迭代二全部完成；#13 本地验证构建运行中，结论待回写。
+> 最后同步：2026-10-04 — 迭代一、二、三全部完成；#13 已关闭；登记新待办 #14–#17。

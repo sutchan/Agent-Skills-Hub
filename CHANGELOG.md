@@ -2,6 +2,25 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.70] - 2026-10-04
+
+### fix: 移除重复导入的 ai-image-generation-2 技能
+
+- 删除 `skills/ai-image-generation-2/`（与 `skills/ai-image-generation/` 正文完全一致的重复导入）；其 frontmatter 缺 `en_description` / `zh_displayName` / `category` / `en_category` 四个必填字段，且 `name` 与目录名不一致，触发 `validate-skills` 硬门禁失败（5 个问题）。
+- 复验：`node tools/validate-skills.mjs` → **170 个技能** frontmatter 全部规范。
+- 重建 `data/skills-data.json`、`data/skills-metrics.json` 与 `prototype/prototype.html`（247.1 KB）。
+
+### docs: 更新 tasks.md 进度并关闭任务 #13
+
+- tasks.md 记录 2026-10-04 进度：新增「迭代三」（重复技能清理 + 构建验证）；任务 #13（Next.js 完整构建验证）关闭——本地实测 `✓ Compiled successfully`、类型检查通过、`Generating static pages (173/173)`，未再出现 Windows standalone `EPERM`。
+- 新增后续待办：CHANGELOG 版本号碰撞（`1.14.60`–`1.14.69` 被 2026-08-20 历史段重复占用）、`next.config.mjs` 头注释版本漂移。
+
+### chore: 版本同步至 v1.14.70
+
+- `package.json` → 1.14.70；README / README.en 版本徽章同步；CHANGELOG 新增本节。
+
+[1.14.70]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.70
+
 ## [1.14.61] - 2026-10-02
 
 ### style: 视图切换与排序移至搜索框右侧

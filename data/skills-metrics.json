@@ -706,8 +706,8 @@
   },
   "planning-with-files": {
     "popularity": 0,
-    "size": 452748,
-    "files": 32
+    "size": 465721,
+    "files": 34
   },
   "playwright-cli": {
     "popularity": 0,
@@ -742,13 +742,13 @@
   },
   "requesting-code-review": {
     "popularity": 0,
-    "size": 9721,
-    "files": 2
+    "size": 16170,
+    "files": 3
   },
   "review-animations": {
     "popularity": 0,
-    "size": 18475,
-    "files": 2
+    "size": 28276,
+    "files": 3
   },
   "seedance-2-5-image-to-video": {
     "popularity": 0,
@@ -777,8 +777,8 @@
   },
   "systematic-debugging": {
     "popularity": 0,
-    "size": 41058,
-    "files": 11
+    "size": 43044,
+    "files": 12
   },
   "test-driven-development": {
     "popularity": 0,
@@ -797,8 +797,8 @@
   },
   "ui-animation": {
     "popularity": 0,
-    "size": 194094,
-    "files": 27
+    "size": 197194,
+    "files": 29
   },
   "ui-ux-pro-max": {
     "popularity": 0,
