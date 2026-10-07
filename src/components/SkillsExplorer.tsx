@@ -341,6 +341,7 @@ export function SkillsExplorer({
             key={s.name}
             skill={s}
             onOpen={openSkill}
+            lang={lang}
             showDesc={showDesc}
             showCat={showCat}
             showBar={showBar}

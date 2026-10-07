@@ -1,4 +1,4 @@
-/* responsive-shared.css — 由 prototype/src/styles/responsive.css v1.20.37 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
+/* responsive-shared.css — 由 prototype/src/styles/responsive.css v1.20.38 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
 /* 平板断点（P2-2）：压缩 hero 字号与顶栏间距，避免 641–1024 区间拥挤 */
 @media (max-width: 1024px) {
   .hero { padding: 36px 24px; margin: 8px auto 22px; }
@@ -16,8 +16,6 @@
   .view-toggle { display: none; }
   .grid { padding: 16px; gap: 12px; grid-template-columns: 1fr; }
   .dialog { width: 96vw; height: 90vh; }
-  .footer-inner { flex-direction: column; align-items: flex-start; }
-  .footer-copy { margin-left: 0; }
 }
 
 @media (max-width: 640px) {

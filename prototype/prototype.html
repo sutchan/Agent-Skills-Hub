@@ -447,9 +447,9 @@ html[data-lang="zh"] .en { display: none; }
 }
 .chip-all.active:hover { color: hsl(var(--primary-foreground)); transform: translateY(-2px); }
 
-/* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + title-row + card-title/sub/cat）
-   渲染为原生 <button>（a11y 语义），需重置 button 默认样式 */
-.card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+/* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + card-open[title-row + card-title/sub/cat] + 赞/踩行）
+   v1.14.81 起为 <div> 容器（不可聚焦，键盘可达性由 .card-open 承担），故不再需要 button 的字体/对齐复位 */
+.card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, hsl(var(--hue, 152) 55% 50%) 45%, var(--border)); background: color-mix(in srgb, hsl(var(--hue, 152) 55% 50% / .04), var(--surface)); }
 /* 方案 D（收敛）：移除径向光斑噪音，hover 仅保留上浮 + 彩色边框 + 极轻同色 tint，质感更克制高级 */
 /* 方案 A：节点 hover 时对应分类卡片脉冲高亮 */
