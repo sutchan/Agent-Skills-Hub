@@ -1,7 +1,8 @@
-// src/lib/skills.ts v1.20.50 — 技能数据读取与类型
+// src/lib/skills.ts v1.20.51 — 技能数据读取与类型
 // 数据源：仓库根 data/skills-data.json（稳定元数据，由 build-skills-data.mjs 生成）
-// + data/skills-metrics.json（频繁更新的派生指标：popularity/size/files/stars/firstSeen/skillVersion）。
-// 两文件合并后提供给渲染层，指标独立存储避免每次重算重写大文件。
+// + data/skills-metrics.json（频繁更新的派生指标：popularity/size/files/stars/firstSeen/skillVersion）
+// + data/skills-votes.json（用户上报的赞票数，由 tools/build-votes.mjs 从投票汇总 Issue 汇总）。
+// 三文件合并后提供给渲染层，指标独立存储避免每次重算重写大文件。
 // 在 Next.js 服务端组件中以 fs 读取，避免客户端拉取大体积 JSON。
 
 import fs from "node:fs";
@@ -28,6 +29,9 @@ export interface Skill {
   size?: number; // 技能目录总字节数
   files?: number; // 文件数（递归）
   popularity?: number; // 被其他技能 description 提及次数（相关性热度代理）
+  // 用户上报的赞票数（data/skills-votes.json，构建期汇总）；与上面的 popularity 口径不同：
+  // popularity 是构建期自动派生的相关性代理，votes 是真实用户反馈，二者不可混同
+  votes?: number;
   // 元信息（build-skills-data.mjs 提取自 frontmatter，详情弹窗展示）
   author?: string;
   license?: string;
@@ -63,6 +67,7 @@ export interface SkillsData {
 // 故以 process.cwd()（=仓库根）直接锚定 data/ 最可靠。
 const DATA_PATH = path.resolve(process.cwd(), "data", "skills-data.json");
 const METRICS_PATH = path.resolve(process.cwd(), "data", "skills-metrics.json");
+const VOTES_PATH = path.resolve(process.cwd(), "data", "skills-votes.json");
 
 // 模块级缓存：数据文件为构建期静态文件，运行期不变。
 // 避免每个请求重复 readFileSync + JSON.parse（Vercel server-hoist-static-io）。
@@ -81,14 +86,27 @@ export function loadSkills(): SkillsData {
     } catch {
       // 指标文件缺失时不阻断主流程，主数据已含兜底字段
     }
+    // 赞票数：来自 data/skills-votes.json（构建期由 tools/build-votes.mjs 汇总上报数据）。
+    // 无上报数据时降级为空表，页面照常渲染（票数是增强项，不参与任何必填契约）。
+    let votes: Record<string, number> = {};
+    try {
+      votes = JSON.parse(fs.readFileSync(VOTES_PATH, "utf8")) as Record<string, number>;
+    } catch {
+      votes = {};
+    }
     const skills = (data.skills || []).map((s) => {
       const m = metrics[s.name];
-      return m ? { ...s, ...m } : s;
+      const merged: Skill = m ? { ...s, ...m } : { ...s };
+      const v = votes[s.name];
+      if (typeof v === "number" && Number.isFinite(v) && v > 0) merged.votes = Math.floor(v);
+      return merged;
     });
     // 防御性兜底：即使数据异常也保证字段存在，避免渲染层崩溃
     cached = {
       total: data.total || skills.length,
       categories: data.categories || [],
+      // 修复：此前漏传 categoryEn —— 类型声明与 JSON 均存在，运行期却是 undefined
+      categoryEn: data.categoryEn || {},
       skills,
     };
     return cached;

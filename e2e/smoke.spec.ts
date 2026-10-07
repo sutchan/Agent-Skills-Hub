@@ -21,34 +21,50 @@ test("点开技能详情弹窗正常渲染", async ({ page }) => {
   await expect(page.locator(".detail").first()).toBeVisible({ timeout: 5000 });
 });
 
-test("赞/踩计数独立且可持久化", async ({ page }) => {
+test("赞为累加制：可叠加、可撤销、可持久化", async ({ page }) => {
   await page.goto("/");
   const card = page.locator(".card").first();
   const up = card.locator('.vote-btn[data-vote="up"]');
-  const down = card.locator('.vote-btn[data-vote="down"]');
 
+  // 初始未赞：计数 0，且不渲染撤销按钮
+  await expect(up.locator(".vote-count")).toHaveText("0");
+  await expect(card.locator(".vote-btn.vote-undo")).toHaveCount(0);
+
+  // 累加：连点三次 → 计数 3（v1.14.85 起为累加制，非布尔开关）
   await up.click();
-  await expect(up).toHaveAttribute("aria-pressed", "true");
-  await expect(down).toHaveAttribute("aria-pressed", "false");
-  // 赞 1 次后踩 1 次：两者同时为 1，互不抵消
-  await down.click();
-  await expect(up).toHaveAttribute("aria-pressed", "true");
-  await expect(down).toHaveAttribute("aria-pressed", "true");
-  await expect(up.locator(".vote-count")).toHaveText("1");
-  await expect(down.locator(".vote-count")).toHaveText("1");
+  await up.click();
+  await up.click();
+  await expect(up.locator(".vote-count")).toHaveText("3");
+  await expect(card.locator(".vote-btn.vote-undo")).toHaveCount(1);
 
   // 投票不得触发详情弹窗
   await expect(page.locator(".detail")).toHaveCount(0);
 
   // 刷新后仍在（localStorage 持久化）
   await page.reload();
-  await expect(page.locator('.vote-btn[data-vote="up"]').first()).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator('.vote-btn[data-vote="down"]').first()).toHaveAttribute("aria-pressed", "true");
+  await expect(
+    page.locator('.vote-btn[data-vote="up"]').first().locator(".vote-count")
+  ).toHaveText("3");
 
-  // 再点赞该项即取消该项，另一方向不受影响
-  await page.locator('.vote-btn[data-vote="up"]').first().click();
-  await expect(page.locator('.vote-btn[data-vote="up"]').first()).toHaveAttribute("aria-pressed", "false");
-  await expect(page.locator('.vote-btn[data-vote="down"]').first()).toHaveAttribute("aria-pressed", "true");
+  // 撤销 → 归零且撤销按钮消失
+  await page.locator(".vote-btn.vote-undo").first().click();
+  await expect(
+    page.locator('.vote-btn[data-vote="up"]').first().locator(".vote-count")
+  ).toHaveText("0");
+  await expect(page.locator(".vote-btn.vote-undo")).toHaveCount(0);
+});
+
+test("详情弹窗含投票区、口径说明与上报入口", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("button.card-open").first().click();
+  await expect(page.locator(".detail").first()).toBeVisible({ timeout: 5000 });
+  await expect(page.locator("#detailVote")).toBeVisible();
+  // 口径说明必须存在：区分「热度」（构建期派生）与「赞」（用户反馈）
+  await expect(page.locator("#detailVote .d-vote-note")).toBeVisible();
+  await expect(page.locator("#exportVotesBtn")).toBeVisible();
+  await expect(page.locator("#reportIssueLink")).toBeVisible();
+  // 踩已移除：全站不应再出现向下投票按钮
+  await expect(page.locator('.vote-btn[data-vote="down"]')).toHaveCount(0);
 });
 
 test("语言切换可交互（data-lang 在 zh/en 间切换）", async ({ page }) => {
