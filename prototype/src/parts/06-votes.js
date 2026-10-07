@@ -111,30 +111,32 @@ function voteHTML(name) {
   </div>`;
 }
 
-// 就地更新某张卡片的计数与撤销按钮显隐（避免整卡重渲，保留滚动与展开动效）
-function syncVoteUI(card, name) {
+// 就地更新该技能在页面上所有投票行的计数与撤销按钮显隐。
+// 必须遍历全部行而非仅当前行：详情弹窗打开时，卡片行与弹窗行同时存在，
+// 只更新被点的那一个会让另一个留下过期计数（原型无框架重渲，需手动同步）。
+function syncVoteUI(name) {
   const c = voteCounts(name);
-  const row = card.querySelector(".card-vote");
-  if (!row) return;
-  const btn = row.querySelector('.vote-btn[data-vote="up"]');
-  if (btn) {
+  document.querySelectorAll("[data-vote-row]").forEach((row) => {
+    const btn = row.querySelector('.vote-btn[data-vote="up"]');
+    if (!btn || btn.getAttribute("data-name") !== name) return;
     const tip = I18N.t("vote.up") + " " + name + " · " + c.up;
+    btn.setAttribute("data-voted", String(c.up > 0));
     btn.setAttribute("aria-label", tip);
     btn.setAttribute("title", tip);
     const num = btn.querySelector(".vote-count");
     if (num) num.textContent = String(c.up);
-  }
-  const undo = row.querySelector(".vote-btn.vote-undo");
-  if (c.up > 0 && !undo) row.insertAdjacentHTML("beforeend", undoButtonHTML(name));
-  else if (c.up === 0 && undo) undo.remove();
+    const undo = row.querySelector(".vote-btn.vote-undo");
+    if (c.up > 0 && !undo) row.insertAdjacentHTML("beforeend", undoButtonHTML(name));
+    else if (c.up === 0 && undo) undo.remove();
+  });
 }
 
-// 事件绑定：委托到 document，覆盖后续动态插入的卡片
+// 事件绑定：委托到 document，覆盖后续动态插入的卡片与弹窗内的投票行
 function bindVotes() {
   document.addEventListener("click", (e) => {
     const btn = e.target.closest(".vote-btn");
     if (!btn) return;
-    // 关键：投票不冒泡去触发卡片打开（卡片打开由 04 的 grid 委托处理并跳过 [data-vote]）
+    // 关键：投票不冒泡去触发卡片打开（卡片打开由 04 的 grid 委托处理并跳过 [data-vote-row]）
     e.preventDefault();
     e.stopPropagation();
     const name = btn.getAttribute("data-name");
@@ -142,8 +144,7 @@ function bindVotes() {
     const isUndo = btn.hasAttribute("data-vote-undo");
     if (isUndo) undoVote(name);
     else addVote(name);
-    const card = btn.closest(".card");
-    if (card) syncVoteUI(card, name);
+    syncVoteUI(name);
     track("vote", { skill: name, dir: isUndo ? "undo" : "up" });
   });
 }

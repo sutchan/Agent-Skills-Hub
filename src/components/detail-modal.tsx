@@ -135,7 +135,7 @@ export function DetailModal({
           {desc && <p className="d-desc" id="detailDesc">{desc}</p>}
 
           {/* 投票区在描述之后：表态应在读完内容之后（v1.14.85） */}
-          <DetailVote name={skill.name} lang={lang} />
+          <DetailVote name={skill.name} votes={skill.votes} lang={lang} />
 
           <DetailRelated skill={skill} allSkills={allSkills} lang={lang} onOpenSkill={onOpenSkill} />
         </div>

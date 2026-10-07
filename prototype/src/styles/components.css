@@ -289,6 +289,9 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
    放在描述之后、相关技能之前，表态应在读完内容之后。
    .card-vote 在此复用卡片内的样式，但取消上边框（区块间距已由 .detail-body 的 gap 提供）。 */
 .d-vote { display: flex; flex-direction: column; gap: 9px; padding-top: 16px; border-top: 1px solid var(--border); }
+.d-vote-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.d-vote-head h4 { margin: 0; }
+.d-vote-total { font-size: 11.5px; color: hsl(var(--primary)); font-variant-numeric: tabular-nums; }
 .d-vote .card-vote { margin-top: 0; padding-top: 0; border-top: 0; }
 .d-vote-note { margin: 0; font-size: 12px; line-height: 1.6; color: var(--text-3); }
 .d-vote-actions { display: flex; flex-wrap: wrap; gap: 8px; }

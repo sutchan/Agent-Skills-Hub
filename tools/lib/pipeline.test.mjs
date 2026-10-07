@@ -14,6 +14,7 @@ const TOOLS = join(ROOT, "tools");
 const SKILLS_DIR = join(ROOT, "skills");
 const DATA = join(ROOT, "data", "skills-data.json");
 const METRICS = join(ROOT, "data", "skills-metrics.json");
+const VOTES = join(ROOT, "data", "skills-votes.json");
 const PROTO = join(ROOT, "prototype", "prototype.html");
 
 // 与 build-skills-data.mjs 的 EXCLUDE 保持一致，确保「磁盘技能数 == 生成技能数」
@@ -50,6 +51,19 @@ test("build-skills-data 产出与主数据契约一致", () => {
     assert.ok(Array.isArray(s.tags), "tags 应为数组");
   }
   assert.ok(existsSync(METRICS), "data/skills-metrics.json 未生成");
+});
+
+test("build-votes 产出的赞票数契约有效（键为技能名、值为正整数）", () => {
+  run("build-votes.mjs");
+  assert.ok(existsSync(VOTES), "data/skills-votes.json 未生成");
+  const votes = JSON.parse(readFileSync(VOTES, "utf8"));
+  assert.equal(typeof votes, "object", "票数应为 { [skillName]: number } 结构");
+  assert.ok(!Array.isArray(votes), "票数不应为数组");
+  const known = new Set(JSON.parse(readFileSync(DATA, "utf8")).skills.map((s) => s.name));
+  for (const [name, n] of Object.entries(votes)) {
+    assert.ok(known.has(name), `票数含未知技能名：${name}`);
+    assert.ok(Number.isInteger(n) && n > 0, `${name} 的票数应为正整数，实际 ${n}`);
+  }
 });
 
 test("validate-skills 通过（不破坏 frontmatter 契约）", () => {

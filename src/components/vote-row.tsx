@@ -82,7 +82,16 @@ const ISSUE_NEW = `${REPO_URL}/issues/new?labels=vote-report`;
  *     避免用户把后者当成前者的同类指标；
  *  3. 本地闭环 —— 「导出我的赞」把本浏览器累计复制出来供上报；「有问题？提 Issue」承接负向反馈。
  */
-export function DetailVote({ name, lang }: { name: string; lang: Lang }) {
+export function DetailVote({
+  name,
+  votes,
+  lang,
+}: {
+  name: string;
+  /** 全站累计上报票数（data/skills-votes.json）；0/未上报时不展示 */
+  votes?: number;
+  lang: Lang;
+}) {
   const { up } = useVotesFor(name);
   const votedCount = useVotedCount();
   const [copied, setCopied] = useState(false);
@@ -102,7 +111,14 @@ export function DetailVote({ name, lang }: { name: string; lang: Lang }) {
 
   return (
     <div className="d-vote" id="detailVote">
-      <h4>{zh ? "有用性反馈" : "Usefulness feedback"}</h4>
+      <div className="d-vote-head">
+        <h4>{zh ? "有用性反馈" : "Usefulness feedback"}</h4>
+        {votes ? (
+          <span className="d-vote-total">
+            {zh ? `全站 ${votes} 赞` : `${votes} upvotes repo-wide`}
+          </span>
+        ) : null}
+      </div>
       <VoteRow name={name} up={up} lang={lang} onVote={castVote} onClear={clearVote} />
       <p className="d-vote-note">
         {zh

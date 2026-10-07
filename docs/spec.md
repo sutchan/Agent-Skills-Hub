@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.14.81
+> 路径：`docs/spec.md` · 版本：1.14.85
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 
@@ -11,7 +11,7 @@
 - **项目定位**：Agent 技能集合仓库，提供 `skills/`（原始技能）、`prototype/`（静态展示页）、`src/`（Next.js 14 + React 18 应用工作区，采用官方 `src/` 目录约定）三套资产。
 - **技能权威源**：磁盘 `skills/<name>/SKILL.md` 的 frontmatter，构建脚本唯一读取源。
 - **设计令牌权威源**：`prototype/src/styles/tokens.css`（单一来源，浅/深双主题；主色绿：浅 `#2e9e6b`、深 `#5cc98c`）。
-- **版本权威源**：根 `package.json` 的 `version`（当前 1.14.81）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之保持一致。
+- **版本权威源**：根 `package.json` 的 `version`（当前 1.14.84）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之保持一致。
 
 ---
 

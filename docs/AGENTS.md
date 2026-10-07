@@ -1,6 +1,6 @@
 # AI 协作指引（AGENTS）
 
-> 路径：`docs/AGENTS.md` · 版本：1.14.81
+> 路径：`docs/AGENTS.md` · 版本：1.14.85
 > 本文件供 AI 编码助手（如 CodeBuddy / Claude）在处理本仓库变更时遵循。能力契约见 [spec.md](spec.md)，仓库约定见 [project.md](project.md)，贡献操作见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 
 ---

@@ -262,6 +262,8 @@
 
 > 版本：v1.19.14 — 详情弹窗重构：新增 `src/components/detail-modal.tsx`，`build-skills-data.mjs` 提取 `author`/`license`/`version`/`githubDir`；原型 `03-detail.js` 注入元信息区（作者/协议/GitHub 目录）+ 相关技能 + 复制命令；数据契约 `SkillEntry` 增 `source?` 可选字段（v1.19.18 规范补充，指向 skills.sh 生态上游溯源）。后续 v1.19.15~v1.19.18 的逐项变更见根 `CHANGELOG.md`。
 
+> 版本：v1.14.84 — 规范追平（**当前实现为准**）：分类筛选自 **v1.14.82 起由多选 OR 改回单选**（`state.cats` 数组 → 单选字符串，空串 = 全部；原型 `01-state.js`/`02-render.js` 已按单选实现，`src/components/SkillsExplorer.tsx` 同步），故上文 v1.19.13 所述「升级为多选 OR」为**历史状态、非当前实现**，阅读时以本条为准。`prototype/` 目录另新增 `states.html`（状态预览）与 `wireframes.html`（线框图预览）两个设计预览页。本轮另同步全局版本至 v1.14.84。
+
 ### 8.1 标志释义（Logo）
 
 三节点（技能）经连线汇聚至中心 Hub 圆点，象征「技能 → 统一中心枢纽」的产品定位；圆角方形承载（对齐 `--radius: 0.75rem` 视觉语言），主绿填充。

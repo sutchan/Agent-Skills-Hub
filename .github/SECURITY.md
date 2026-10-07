@@ -1,6 +1,6 @@
 # 安全政策
 
-> 路径：`.github/SECURITY.md` · 版本：1.14.81
+> 路径：`.github/SECURITY.md` · 版本：1.14.84
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 
 ## 受支持版本

@@ -184,6 +184,7 @@ function detailHTML(skill) {
     <div class="detail-body">
       <p class="d-desc">${esc(desc || "")}</p>
       ${toolsHTML}
+      <div class="d-vote"><div class="d-vote-head"><h4>${I18N.t("vote.title")}</h4></div>${voteHTML(skill.name)}<p class="d-vote-note">${I18N.t("vote.note")}</p></div>
       ${relatedHTML}
     </div>
   </div>`;
