@@ -2,6 +2,22 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.80] - 2026-10-07
+
+### feat: 页脚区重排为「目录版权页」并提升排版
+
+- **结构重排**：`prototype/src/index.html` 页脚由「四块 flex 散块」重构为三层——顶区（品牌识别 + 导航/动作）、全库台账、构建元数据行；新增 `.footer-top`/`.footer-id`/`.footer-wordmark`/`.footer-actions`/`.stats-head`/`.stats-ledger`/`.footer-meta`，移除 `.footer-sep`。
+- **统计区改为真台账**：`.footer-stats` 由「虚线分隔的散块 + 全大写 eyebrow」改为**表头实线细线 + 竖向分栏细线**的规格表；标记改用 `<dl>/<dt>/<dd>` 语义；顺序改为**标签在上、数字在下**（衬线 30px 紧字距），刻意区别于圆角统计卡；竖线只落在栏与栏之间，首尾不设线。
+- **去除元信息间隔号**：删除 `v1.14.79 · 2026-10-07 · …` 的 `·` 分隔符（含文案内部的 `·`），版本与日期改用 `等宽字体 + 留白分栏`——版本/构建日期本属机器可读字段，等宽有语义依据（复用既有 `--font-mono` 令牌），非装饰。
+- **动作层级收敛**：Star 为唯一实心主动作（改用 `color-mix` 加深替代 `filter: brightness`），Share 降为青色描边次动作，导航降为文字链接 + 自左侧展开的下划线（`:is(:hover, :focus-visible)` 同现，无位移/缩放）；取消全部 hover 上浮位移。
+- **识别强化**：Hub 图形 26px→34px，图形旁重复的「Skills Hub」文字上移为独立衬线字标 `Agent Skills Hub`。
+- **文案**：`footer.copyright` 去间隔号（「开源免费，采用 MIT 协议」/「Open source, MIT licensed」）；`footer.star` 移除与星形 SVG 图标重复的 ⭐ emoji。
+- **响应式**：页脚断点内聚于 `layout.css`（`responsive.css` 中失效的 `.footer-inner` 弹性声明随之移除）；≤640px 台账转两列并补横向细线、每行首列去竖线贴齐左缘，动作按钮平分整行。
+- **修复一处真实缺陷**：`build.mjs` 以 `.replace(string)` **只替换模板中首个**版本/日期占位符（刻意让 `05-main.js` 的运行时兜底字面量存活）。本次新增的页脚注释因含占位符字面量而「抢占」了替换，导致页脚残留未替换文本。已改写注释，并在模板内写明该约束。
+- **视觉自检**：Playwright 渲染中/英 × 浅/深 × 桌面/移动共 4 态截图复核；据此修正描述文案 `46ch` 过窄导致末字成孤行（改 `40em` + `text-wrap: pretty`）与冗余 emoji。脚本契约 id 全部保留，`renderStats` 实测写入 171/14/171/2；CSS 死类 0、括号配平、页脚内未替换占位符 0。
+
+[1.14.80]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.80
+
 ## [1.14.79] - 2026-10-07
 
 ### refactor: 清理原型冗余文件与死代码

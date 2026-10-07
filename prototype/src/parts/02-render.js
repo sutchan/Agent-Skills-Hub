@@ -56,30 +56,33 @@ function skillSlug(name) {
 }
 
 // 分类在固定顺序中的序号（与 app SkillsExplorer data-cat 对齐，驱动 cat-bar 色板）
-// 卡片：与 app SkillsExplorer 结构对齐（cat-bar 色条 + title-row + card-title/card-desc/card-cat）
-// 使用原生 <button> 保证可聚焦、Enter/Space 原生触发（P1-1 a11y）；
+// 卡片为 <div> 容器而非 <button>：打开详情由 .card-open 承担，赞/踩为其后同级独立按钮，
+// 避免「按钮内嵌按钮」的无效 HTML 与读屏器无法区分二者（见 06-votes.js）
 // 默认展示语言为中文：标题与描述均按当前语言互斥显示（.zh/.en 由 base.css html[data-lang] 控制）：
 // 中文态显示中文名 + 中文描述（description），英文态显示英文名 + 英文描述（enDescription）
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   const descZh = s.description || s.zh || I18N.t("card.noDesc");
-  return `<button type="button" class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${esc(s.category)}" aria-label="${esc(label)}">
+  return `<div class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${esc(s.category)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
     <div class="card-body">
-      <div class="title-row">
-        <div class="avatar sm" style="--hue:${catHue(s.category)}">${initials(s.name)}</div>
-        <div class="card-title">
-          <span class="zh">${esc(s.zh || s.name)}</span>
-          <span class="en">${esc(s.name)}</span>
+      <button type="button" class="card-open" aria-label="${esc(label)}">
+        <div class="title-row">
+          <div class="avatar sm" style="--hue:${catHue(s.category)}">${initials(s.name)}</div>
+          <div class="card-title">
+            <span class="zh">${esc(s.zh || s.name)}</span>
+            <span class="en">${esc(s.name)}</span>
+          </div>
         </div>
-      </div>
-      <div class="card-desc">
-        <span class="zh">${esc(descZh)}</span>
-        <span class="en">${esc(s.enDescription || "")}</span>
-      </div>
-      <div class="card-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
+        <div class="card-desc">
+          <span class="zh">${esc(descZh)}</span>
+          <span class="en">${esc(s.enDescription || "")}</span>
+        </div>
+        <div class="card-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
+      </button>
     </div>
-  </button>`;
+    ${voteHTML(s.name)}
+  </div>`;
 }
 
 function emptyHTML() {

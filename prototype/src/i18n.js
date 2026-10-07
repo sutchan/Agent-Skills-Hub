@@ -1,4 +1,4 @@
-// prototype/src/i18n.js v1.20.34 — 独立国际化模块
+// prototype/src/i18n.js v1.20.35 — 独立国际化模块
 // 设计目标：
 //   1. 集中管理 UI 文案字典（zh / en），避免散落硬编码。
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
@@ -52,6 +52,8 @@
       "share.btn": "分享",
       "share.copied": "已复制到剪贴板",
       "share.failed": "复制失败，请手动复制",
+      "vote.up": "赞",
+      "vote.down": "踩",
       "filter.all": "全部",
       "dice.btn": "今天学点什么",
       "dice.title": "为你抽中的技能",
@@ -100,8 +102,8 @@
         "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，{n} 技能即插即用，开源免费！"
       ],
       "footer.desc": "高质量 Agent 技能目录，按分类浏览、搜索、即取即用。",
-      "footer.copyright": "开源免费 · MIT 协议",
-      "footer.star": "给仓库点个 Star ⭐"
+      "footer.copyright": "开源免费，采用 MIT 协议",
+      "footer.star": "给仓库点个 Star"
     },
     en: {
       "brand.subtitle": "Curated agent skill library",
@@ -140,6 +142,8 @@
       "share.btn": "Share",
       "share.copied": "Copied to clipboard",
       "share.failed": "Copy failed, please copy manually",
+      "vote.up": "Upvote",
+      "vote.down": "Downvote",
       "filter.all": "All",
       "dice.btn": "Learn something",
       "dice.title": "Your skill draw",
@@ -188,8 +192,8 @@
         "💡 Want a stronger coding agent? Explore Agent Skills Hub: {n} plug-and-play skills, open source and free!"
       ],
       "footer.desc": "A curated directory of high-quality agent skills — browse, search, and reuse.",
-      "footer.copyright": "Open source · MIT License",
-      "footer.star": "Star this repo ⭐"
+      "footer.copyright": "Open source, MIT licensed",
+      "footer.star": "Star this repo"
     }
   };
 

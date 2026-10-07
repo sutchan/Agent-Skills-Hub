@@ -68,8 +68,10 @@
 }
 @keyframes shimmer { 100% { transform: translateX(100%); } }
 @media (prefers-reduced-motion: reduce) { .skeleton::after { animation: none; display: none; } }
-/* 焦点态与 hover 区分：键盘焦点用主色描边+偏移，避免与 hover 的边框变色混淆（C4） */
-.card:focus-visible { border-color: var(--primary); box-shadow: var(--shadow-pop), 0 0 0 2px hsl(var(--ring) / .45); }
+/* 焦点态与 hover 区分：键盘焦点用主色描边+偏移，避免与 hover 的边框变色混淆（C4）
+   注：.card 已改为 <div> 容器（不可聚焦），焦点环落在 .card-open 上；
+   .card 有 overflow:hidden，故用负 offset 把描边画在内部，避免被裁切。 */
+.card-open:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; border-radius: 10px; }
 /* 内容包裹层：列表态作为横向排布的主内容列，网格态仅作普通容器 */
 .card-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
 /* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
@@ -102,11 +104,42 @@
 .card-desc > span { display: block; }
 .card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
 
+/* ===== 卡片打开触发区 =====
+   .card 为 <div> 容器（承载 cat-bar / 投票行），不可聚焦；
+   .card-open 承担「打开详情」的语义与键盘可达性，其内部纵向排布即原卡片内容。
+   button 的字体/边框/背景/颜色由 tokens.css 的全局 button 复位规则提供，此处只补布局。 */
+.card-open { display: flex; flex-direction: column; gap: 8px; width: 100%; min-width: 0; padding: 0; text-align: left; color: inherit; }
+
+/* ===== 赞 / 踩行 =====
+   语义：赞与踩各自独立计数、互不抵消，可同时为正。
+   排版：与内容区以 1px 细线分隔（承袭页脚台账的细线语言），网格态居底、列表态居右。 */
+.card-vote { display: flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); }
+/* 列表态：投票行移到卡片右侧，分隔线由横转竖 */
+.grid.list .card-vote { margin-top: 0; margin-left: auto; padding-top: 0; padding-left: 16px; border-top: 0; border-left: 1px solid var(--border); }
+
+/* 计数按钮：小药丸。描边常驻（非激活时透明底+浅描边），
+   使激活态只换色不换尺寸，卡片高度与内部布局不跳动。
+   无障碍：颜色不是唯一区分手段——上下箭头形状不同，且 aria-pressed 同步状态。 */
+.vote-btn {
+  display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px;
+  background: transparent; color: var(--text-2); border: 1px solid var(--border);
+  font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums;
+  transition: color .15s ease, background .15s ease, border-color .15s ease;
+}
+.vote-btn:hover { color: var(--text); border-color: var(--text-3); }
+.vote-btn svg { flex: none; }
+/* 预留两位数字宽度，避免 0→1 时按钮宽度变化导致抖动 */
+.vote-count { min-width: 2ch; text-align: center; }
+.vote-up[aria-pressed="true"] { color: hsl(var(--primary-foreground)); background: hsl(var(--primary)); border-color: hsl(var(--primary)); }
+.vote-down[aria-pressed="true"] { color: hsl(var(--destructive-foreground)); background: hsl(var(--destructive)); border-color: hsl(var(--destructive)); }
+
 /* 紧凑密度（设置项切换）：缩小卡片内边距与色条外边距，缩短行高，提升单位屏信息量 */
 :root[data-density="compact"] .card { padding: 11px; gap: 6px; }
 :root[data-density="compact"] .card .cat-bar { margin: -11px -11px 0; }
 :root[data-density="compact"] .card .card-desc { font-size: 11px; line-height: 1.4; -webkit-line-clamp: 2; line-clamp: 2; }
 :root[data-density="compact"] .grid { gap: 10px; }
+:root[data-density="compact"] .card-vote { padding-top: 8px; }
+:root[data-density="compact"] .vote-btn { padding: 2px 7px; font-size: 11px; }
 
 /* UI 元素显隐（设置项切换）：关闭时按范围隐藏描述 / 分类标签 / 分类色条
    列表态色条为绝对定位装饰条，关闭后一并隐藏 */

@@ -124,8 +124,10 @@ function bind() {
     renderGrid();
   });
   // 卡片点击打开详情（事件委托）
-  // 卡片为原生 <button>，Enter/Space 原生触发 click，此处仅需处理 click，避免 double-open
+  // .card 为容器、.card-open 为触发按钮；鼠标点击卡片任意处与键盘 Enter/Space 均冒泡至 #grid 统一处理
+  // 投票行整体豁免：点击赞/踩只切换计数，不打开详情
   on("#grid", "click", (e) => {
+    if (e.target.closest("[data-vote-row]")) return;
     const card = e.target.closest(".card");
     if (!card) return;
     const s = SKILL_MAP.get(card.dataset.name);
