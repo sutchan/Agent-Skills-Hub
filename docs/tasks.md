@@ -59,6 +59,24 @@
 
 ---
 
+## 迭代四：frontmatter 契约字段批量回填 + 版本同步至 v1.14.74（2026-10-07，已完成）
+
+**触发**：技能 frontmatter 普遍缺 `en_description` / `zh_displayName` / `category` / `en_category` 等契约必填字段（上游导入遗留），且版本号需统一至 1.14.74。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 1 | 以 git 历史中文权威源 `71e5f23^` 为基准，批量回填 170 个 `skills/*/SKILL.md` 的 `description`(中) / `en_description`(英) / `zh_displayName` / `category` / `en_category` 五字段；英文 `description` 迁至 `en_description`；修正 name≠目录名 | P0 | ✅ 已完成 | 外部 skills-manager 自动提交 `ab00264 chore: 回填技能 frontmatter 契约字段`；`validate-skills` → 170 技能全规范 |
+| 2 | 重建 `data/skills-data.json`（170 / 14 类，无「其他」类）、`data/skills-metrics.json` 与 `prototype/prototype.html`；复验契约 | P0 | ✅ 已完成 | `ab00264`；`71e5f23` 引入的「其他」类回退随回填消除 |
+| 3 | 同步 `app/globals.css` 与 token css（base / layout / components / responsive） | P1 | ✅ 已完成 | `ab00264` |
+| 4 | 文档版本同步至 v1.14.74（package.json / README 徽章 / CHANGELOG / 各文档头注释） | P1 | ✅ 已完成 | 全局 1.14.74 已由外部统一；`v1.14.74` tag 仍缺失（登记于 #15） |
+| 5 | 重建原型 `prototype.html` 注入版本 1.14.74（footer `v1.14.74`） | P2 | ✅ 已完成 | 对齐全局版本 |
+| 6 | 核对 README 中/英分类计数表与 `data` 实算分布一致 | P2 | ✅ 已完成 | 修正「自动化与集成」误写 6→5（实算 5） |
+| 7 | 更新本 tasks.md 记录迭代四 | P2 | ✅ 已完成 | 时间戳 2026-10-07 |
+
+> 注：本次「更新原型及相关文档」由用户于 2026-10-07 发起；批量回填 / 数据重建 / 文档版本同步的主体由外部 skills-manager 自动提交（`ab00264`），本迭代收口原型版本注入与文档计数核对。
+
+---
+
 ## 后续迭代（验证 / 建议）
 
 | # | 任务 | 优先级 | 状态 | 备注 |
@@ -79,5 +97,6 @@
 - **迭代二（文档重组）**：四份规范文档统一结构/术语、spec.md 定为权威契约源；MEMORY.md 主题归类 + 时效/可信度标注；清理 2 条失效全局记忆；版本 bump 至 1.14.58。
 - **迭代三（重复技能清理 + 构建验证）**：删除重复导入的 `ai-image-generation-2`（正文与 `ai-image-generation` 完全一致、frontmatter 破损），校验恢复 **170 个技能**全通过；`npm run build` 本地全绿（编译 + 类型检查 + 173/173 静态生成），任务 #13 关闭；版本 bump 至 **1.14.73**（1.14.x 系列已占用至 1.14.72）。
 - **环境验证结论（2026-10-04 更新）**：Windows 上 `next build` 本次**完整通过**，此前 standalone 清理阶段的 `EPERM` 未再复现；CI ubuntu `build` job 仍保留为权威验证路径。新增待办 #14（CHANGELOG 版本序列治理：247 小节 / 双序列交错 / 28+ 版本号重复）、#15（缺 `v*` 发布 tag）、#16（文件头注释版本漂移）、#17（本地重复构建被 IDE safe-delete 守卫拦截）。
+- **迭代四（frontmatter 回填 + 版本同步 v1.14.74）**：外部 skills-manager 自动提交 `ab00264` 以 `71e5f23^` 为权威源，批量回填 170 技能五契约字段（英文 `description` 迁至 `en_description`），重建 data / prototype 消除 `71e5f23` 的「其他」类回退；全局版本统一至 1.14.74（仅缺 `v1.14.74` tag，见 #15）；本迭代收口原型版本注入与 README 分类计数核对（修正「自动化与集成」6→5）。
 
-> 最后同步：2026-10-04 — 迭代一、二、三全部完成；#13 已关闭；登记新待办 #14–#17。
+> 最后同步：2026-10-07 — 迭代一、二、三、四全部完成；#13 已关闭；#14–#17 待处理（其中 #15 的 `v1.14.74` tag 仍未建立）。

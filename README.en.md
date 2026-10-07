@@ -65,7 +65,7 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 | Frontend Dev | 11 |
 | Backend & Platform | 8 |
 | Mobile Dev | 27 |
-| WordPress & CMS | 6 |
+| WordPress & CMS | 7 |
 | Engineering Practice & Quality | 34 |
 | File & Format Handling | 2 |
 | Automation & Integration | 5 |
