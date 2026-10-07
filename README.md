@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.14.77-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/prototype.html)
+[![版本](https://img.shields.io/badge/version-v1.14.78-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md) [![技能数量](https://img.shields.io/badge/skills-动态-blue)](prototype/prototype.html)
 
 一个集中管理的 AI 技能（Skill）集合，涵盖品牌与设计、文档与内容、数据分析与可视化、前端开发、后端与平台、移动端开发、WordPress 与 CMS、工程实践与质量、文件与格式处理、自动化与集成、AI 与智能体、音视频与多媒体、桌面与客户端、安全 14 大领域，共 171 个技能包（其中 1 个标记为隐藏，公开可见 170 个）。每个技能是独立目录，内含 `SKILL.md`（技能说明与触发描述，含 frontmatter 前置元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 等资源；本仓库做了“中文目录 + 中文描述”的本地化，正文主要保留上游英文，翻译覆盖率由 `tools/coverage.py` 统计。
 
@@ -10,7 +10,7 @@
 
 > 只想用技能？5 步搞定，无需碰构建脚本。
 
-1. **浏览技能**：直接双击打开 [`prototype/prototype.html`](prototype/prototype.html)（离线自包含，内联全部数据），或运行 `app/` 在线应用。
+1. **浏览技能**：直接双击打开 [`prototype/prototype.html`](prototype/prototype.html)（离线自包含，内联全部数据），或运行 `src/` 在线应用。
 2. **挑选技能**：按 14 大领域筛选，点开卡片查看 `SKILL.md` 说明与触发条件。
 3. **安装技能**：把 `skills/<name>/` 整个目录复制到你的 Agent 技能目录：
    - Claude Code：`~/.claude/skills/`
@@ -114,9 +114,9 @@ cd Agent-Skills-Hub
 | 目录 | 类型 | 用途 |
 |------|------|------|
 | `prototype/prototype.html` | 静态单文件展示页 | 自包含全部技能数据，构建时内联，可离线打开 |
-| `app/` | 可运行 Web 应用（源码） | 基于 Next.js，从 `skills/` 实时生成数据 |
+| `src/` | 可运行 Web 应用（源码） | 基于 Next.js（src 目录约定），从 `skills/` 实时生成数据 |
 
-`app/` 是应用源码工作区（Next.js App Router 位于仓库根下的 `app/` 目录），技术栈与命令见仓库根 `package.json`：
+`src/` 是应用源码工作区（遵循 Next.js 官方 `src/` 目录约定：`src/app/` 路由、`src/components/` 组件、`src/lib/` 逻辑），与仓库根的构建/部署配置文件解耦，技术栈与命令见仓库根 `package.json`：
 
 ```bash
 npm install

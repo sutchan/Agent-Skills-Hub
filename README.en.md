@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.14.77-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/prototype.html)
+[![Version](https://img.shields.io/badge/version-v1.14.78-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md) [![Skills](https://img.shields.io/badge/skills-dynamic-blue)](prototype/prototype.html)
 
 A centrally managed collection of AI skills covering Brand & Design, Docs & Content, Data Analysis & Visualization, Frontend Dev, Backend & Platform, Mobile Dev, WordPress & CMS, Engineering Practice & Quality, File & Format Handling, Automation & Integration, AI & Agents, Media & Multimedia, Desktop & Client, and Security — 171 skill packs on GitHub (1 marked hidden, 170 publicly visible). Each skill is a standalone directory with `SKILL.md` plus optional `scripts/`, `references/`, `assets/`, `agents/`; localized with Chinese categories and descriptions, while bodies keep upstream English (coverage tracked by `tools/coverage.py`).
 
@@ -10,7 +10,7 @@ A centrally managed collection of AI skills covering Brand & Design, Docs & Cont
 
 > Just want to use a skill? 5 steps, no build scripts needed.
 
-1. **Browse skills**: open [`prototype/prototype.html`](prototype/prototype.html) directly (offline, self-contained) or run the `app/` web app.
+1. **Browse skills**: open [`prototype/prototype.html`](prototype/prototype.html) directly (offline, self-contained) or run the `src/` web app.
 2. **Pick a skill**: filter by the 14 domains; open a card to read its `SKILL.md` and trigger conditions.
 3. **Install**: copy the whole `skills/<name>/` directory into your agent's skills path:
    - **Claude Code**: `~/.claude/skills/` (Windows: `%USERPROFILE%\.claude\skills\`)
@@ -114,9 +114,9 @@ The repo provides two showcase options, both auto-generated from `skills/<name>/
 | Directory | Type | Purpose |
 |-----------|------|---------|
 | `prototype/prototype.html` | Static single-file showcase | Self-contained skill data inlined at build time; opens offline |
-| `app/` | Runnable web app (source) | Next.js app generating data from `skills/` |
+| `src/` | Runnable web app (source) | Next.js app (src directory convention) generating data from `skills/` |
 
-`app/` is the web app source workspace (Next.js App Router lives under the repo-root `app/` directory); tech stack and commands per the repo-root `package.json`:
+`src/` is the web app source workspace (following the official Next.js `src/` convention: `src/app/` routes, `src/components/` components, `src/lib/` logic), decoupled from the repo-root build/deploy configs; tech stack and commands per the repo-root `package.json`:
 
 ```bash
 npm install

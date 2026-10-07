@@ -1,6 +1,6 @@
 # AI 协作指引（AGENTS）
 
-> 路径：`docs/AGENTS.md` · 版本：1.14.76
+> 路径：`docs/AGENTS.md` · 版本：1.14.78
 > 本文件供 AI 编码助手（如 CodeBuddy / Claude）在处理本仓库变更时遵循。能力契约见 [spec.md](spec.md)，仓库约定见 [project.md](project.md)，贡献操作见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 
 ---
@@ -20,7 +20,7 @@
 
 - **变更前**：先读 `spec.md` 了解当前能力基线（frontmatter 契约、数据契约、一致性红线），再读 `project.md` 了解目录约定与变更工作流。
 - **任务登记**：变更统一在 `docs/tasks.md` 登记任务条目（标题/优先级/状态/备注）；本仓库**不生成 proposal.md / design.md 独立产物文件**，设计要点直接写在对应变更文件或 tasks.md 备注栏。
-- **数据纪律**：技能权威是磁盘 `skills/<name>/SKILL.md`；`data/*.json` 与 `prototype/prototype.html` 为构建产物，**勿手改**，改后重跑 `npm run build`。`app/` 同样以 SKILL.md 为权威数据源。
+- **数据纪律**：技能权威是磁盘 `skills/<name>/SKILL.md`；`data/*.json` 与 `prototype/prototype.html` 为构建产物，**勿手改**，改后重跑 `npm run build`。`src/` 同样以 SKILL.md 为权威数据源。
 - **无嵌套副本**：新技能只能落在 `skills/<name>/`，不得创建 `skills/<x>/skills/<name>/` 之类嵌套。
 - **数据型数字**：README 中/英技能总数与领域表计数须以 `data/skills-data.json` 实算，禁止手填。
 

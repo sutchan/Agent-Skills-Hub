@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.78] - 2026-10-07
+
+### refactor: 采用 Next.js 官方 src/ 目录结构
+
+- 将应用源码整体由仓库根 `app/` 迁移至 `src/`（`git mv` 保留历史），形成 `src/app/`、`src/components/`、`src/lib/`，与根目录的构建/部署配置文件（`next.config.mjs`、`tsconfig.json`、`edgeone.json`、`vercel.json` 等）清晰解耦。Next.js 自动识别 `src/app` 为 App Router 根。
+- 全仓引用同步：`tsconfig.json` include 改为 `src/**/*`；`tools/sync-css.mjs`（`APP` 根路径）、`tools/sync-tokens.mjs`（输出路径）改为 `src/`；`tools/lib/hash-state.test.mjs` 导入改为 `../../src/lib/hash-state.ts`；三处 `EXCLUDE` 集合 `app` → `src`。
+- CI/协作配置同步：`.github/workflows/ci.yml` Next.js 缓存键 glob、`CONTRIBUTING.md`、Issue 模板（feature_request/bug_report）目录表述改为 `src/`。
+- 文档同步：README 中英双版「快速开始」「在线展示页面」路径与说明改为 `src/`（含 src 目录约定释义）。
+- 内部导入全部为相对路径，迁移后无需改动即可解析；`node --test tools/lib/hash-state.test.mjs` 4/4 通过。
+
+[1.14.78]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.78
+
 ## [1.14.77] - 2026-10-07
 
 ### fix: 修复 webapp-testing 契约字段并重建数据

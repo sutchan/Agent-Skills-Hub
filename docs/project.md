@@ -1,13 +1,13 @@
 # 仓库约定（Project Conventions）
 
-> 路径：`docs/project.md` · 版本：1.14.76
+> 路径：`docs/project.md` · 版本：1.14.78
 > 本文件定义目录结构、变更工作流与术语表。能力契约（frontmatter/数据/红线）的唯一权威源是 [spec.md](spec.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)。
 
 ---
 
 ## 1. 项目概览
 
-Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合仓库。以 `skills/<name>/SKILL.md` 为核心单元组织，并提供 `app/`（可运行 Web 应用源码）与 `prototype/`（预构建静态展示页）两层 Web 产物做可视化浏览与开发。
+Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各行业领域的 AI 技能集合仓库。以 `skills/<name>/SKILL.md` 为核心单元组织，并提供 `src/`（可运行 Web 应用源码）与 `prototype/`（预构建静态展示页）两层 Web 产物做可视化浏览与开发。
 
 ---
 
@@ -18,7 +18,7 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | `skills/<name>/SKILL.md` | 单个技能定义（正文 + frontmatter；6 必备字段见 [spec.md §2](spec.md)），构建脚本以磁盘为准读取 | ✅ 高频 |
 | `skills/<name>/references/`、`scripts/`、`assets/`、`agents/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `README.md` / `README.en.md` | 技能清单（中/英文描述映射、领域概览表） | ✅ 中频 |
-| `app/` | 项目 Web 应用源码工作区（Next.js 14 + React 18；`dev`/`build`/`start`），从 SKILL.md 生成数据；入口 `app/page.tsx`/`app/layout.tsx`/`app/globals.css`，共享逻辑 `app/lib/`（`skills.ts` 数据读取与类型、`share.ts` 分享文案），品牌资产在仓库根 `public/`，组件 `app/components/`（含 `detail/` 子模块），主题令牌 `app/tokens-shared.css`（由 `tools/sync-tokens.mjs` 从原型 `tokens.css` 同步） | ✅ 中频 |
+| `src/` | 项目 Web 应用源码工作区（Next.js 14 + React 18，采用官方 `src/` 目录约定；`dev`/`build`/`start`），从 SKILL.md 生成数据；入口 `src/app/page.tsx`/`src/app/layout.tsx`/`src/app/globals.css`，共享逻辑 `src/lib/`（`skills.ts` 数据读取与类型、`share.ts` 分享文案），品牌资产在仓库根 `public/`，组件 `src/components/`（含 `detail/` 子模块），主题令牌 `src/tokens-shared.css`（由 `tools/sync-tokens.mjs` 从原型 `tokens.css` 同步） | ✅ 中频 |
 | `prototype/` | 预构建静态 HTML 高保真原型（打开 `prototype/prototype.html` 预览） | ✅ 中频 |
 | `prototype/DESIGN.md`、`prototype/COMPONENTS.md` | 原型设计规范与组件库说明（源码 `prototype/src/` 随仓库分发；`prototype/` 下的 `prototype.html`/`favicon.svg`/`banner-og.svg` 为构建产物） | ✅ 中频 |
 | `tools/` | 仓库级脚本：`build-skills-data.mjs`（解析 SKILL.md 生成数据）、`build.mjs`（合并数据内联构建原型）、`sync-tokens.mjs`/`sync-css.mjs`（令牌/样式同步至 app）、`validate-skills.mjs`（frontmatter 契约校验）、`ensure-lf.mjs`（统一 LF）、`import-from-github.mjs`（生态导入） | ◻️ 低频 |
@@ -54,7 +54,7 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 |---|---|
 | 技能（Skill） | `skills/<name>/` 目录，含 `SKILL.md`（frontmatter + 说明），本仓库最小可分发单元 |
 | 展示页 / 原型 | `prototype/prototype.html`，由 `tools/build.mjs` 从 `data/` 内联构建的自包含静态 HTML |
-| app | `app/` 下的 Next.js 14 + React 18 Web 应用，`npm run build` 产物部署于 EdgeOne |
+| app | `src/` 下的 Next.js 14 + React 18 Web 应用（App Router 位于 `src/app/`），`npm run build` 产物部署于 EdgeOne |
 | 数据源（权威源） | 技能权威 = 磁盘 `skills/<name>/SKILL.md` frontmatter；构建脚本唯一读取源 |
 | 构建产物 | `data/skills-data.json`、`data/skills-metrics.json`、`prototype/prototype.html`（由 `npm run build` 生成，**勿手改**） |
 | 14 大领域 | 稳定中文分类键（见 [spec.md §2.1](spec.md)），固化于 `tools/lib/taxonomy.mjs` 的 `CATEGORY_ORDER` |

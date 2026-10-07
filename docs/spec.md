@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.14.76
+> 路径：`docs/spec.md` · 版本：1.14.78
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 
@@ -8,7 +8,7 @@
 
 ## 1. 范围与权威源
 
-- **项目定位**：Agent 技能集合仓库，提供 `skills/`（原始技能）、`prototype/`（静态展示页）、`app/`（Next.js 14 + React 18 应用工作区）三套资产。
+- **项目定位**：Agent 技能集合仓库，提供 `skills/`（原始技能）、`prototype/`（静态展示页）、`src/`（Next.js 14 + React 18 应用工作区，采用官方 `src/` 目录约定）三套资产。
 - **技能权威源**：磁盘 `skills/<name>/SKILL.md` 的 frontmatter，构建脚本唯一读取源。
 - **设计令牌权威源**：`prototype/src/styles/tokens.css`（单一来源，浅/深双主题；主色绿：浅 `#2e9e6b`、深 `#5cc98c`）。
 - **版本权威源**：根 `package.json` 的 `version`（当前 1.14.76）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之保持一致。
@@ -59,7 +59,7 @@
 
 ## 3. 数据契约（构建产物）
 
-由 `tools/build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 解析生成，**拆分为两份产物**：`data/skills-data.json`（稳定元数据）+ `data/skills-metrics.json`（频繁派生指标，以 `name` 为 key 的 map），二者合并后由 `tools/build.mjs` 内联进 `prototype/prototype.html`，`app/lib/skills.ts` 的 `loadSkills()` 亦读取并合并。
+由 `tools/build-skills-data.mjs` 从磁盘 `skills/<name>/SKILL.md` 解析生成，**拆分为两份产物**：`data/skills-data.json`（稳定元数据）+ `data/skills-metrics.json`（频繁派生指标，以 `name` 为 key 的 map），二者合并后由 `tools/build.mjs` 内联进 `prototype/prototype.html`，`src/lib/skills.ts` 的 `loadSkills()` 亦读取并合并。
 
 ### 3.1 技能条目（SkillEntry）
 
@@ -124,7 +124,7 @@ type SkillsData = {
 
 ## 5. 展示页（原型）与 app 交互（已落地）
 
-`prototype/prototype.html` 为自包含静态页（无 React/Next 运行时）；`app/` 为同数据的 Next.js 应用。完整交互细节以 [project.md](project.md) 与 `prototype/DESIGN.md` / `prototype/COMPONENTS.md` 为准，要点：
+`prototype/prototype.html` 为自包含静态页（无 React/Next 运行时）；`src/` 为同数据的 Next.js 应用。完整交互细节以 [project.md](project.md) 与 `prototype/DESIGN.md` / `prototype/COMPONENTS.md` 为准，要点：
 
 - **搜索**：前端关键词匹配 `name` / `zh` / `description`，即时过滤。
 - **分类筛选**：分类 chip 多选（OR），「全部」复位。
@@ -138,7 +138,7 @@ type SkillsData = {
 技能详情点击「分享」复制**分析链接**（技能详情页 URL `skills/<name>/`）：
 
 1. 剪贴板 = 链接 + 一条**随机**宣传文案（中/英各 ≥3 条，按当前语言随机取 1 条），二者以空行分隔，纯文本。
-2. 文案统一定义于 `prototype/src/i18n.js` 的 `share.promos`（zh/en），`app/lib/share.ts` 复用同一集合，不重复定义。
+2. 文案统一定义于 `prototype/src/i18n.js` 的 `share.promos`（zh/en），`src/lib/share.ts` 复用同一集合，不重复定义。
 3. 链接构造：优先 `location.origin + 根 path + skills/<name>/`，离线回退相对路径。
 4. 复制容错：`navigator.clipboard.writeText` → 降级 `execCommand('copy')` → 明确失败提示。
 5. 反馈：轻量 toast（`role="status"` / `aria-live="polite"`，3 秒消失、可键盘关闭）；分享按钮带 `aria-label`。
