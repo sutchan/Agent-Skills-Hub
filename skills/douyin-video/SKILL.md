@@ -1,13 +1,12 @@
 ---
 name: douyin-video
-description: |-
-  抖音无水印视频下载与文案提取工具：从抖音分享链接获取无水印视频下载地址、下载视频，并通过语音识别提取视频中的口播文案自动保存。当用户需要处理抖音视频链接或提取视频内容时触发。
-en_description: Download watermark-free Douyin videos and extract spoken copy from shared links.
+description: 抖音无水印视频下载与文案提取工具：从抖音分享链接获取无水印视频下载地址、下载视频，并通过语音识别提取视频中的口播文案自动保存。当用户需要处理抖音视频链接或提取视频内容时触发。
+en_description: |-
+  Download watermark-free Douyin videos and extract spoken copy from shared links.
 zh_displayName: 抖音视频下载与文案提取
 category: 音视频与多媒体
 en_category: Media & Multimedia
 ---
-
 # 抖音无水印视频下载和文案提取
 
 从抖音分享链接获取无水印视频下载链接, 下载视频, 并使用语音识别提取视频中的文案, 自动保存到文件.

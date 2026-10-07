@@ -1,7 +1,8 @@
 ---
 name: flutter-use-http-package
 description: 使用 http 包执行 GET、POST、PUT 或 DELETE 请求。
-en_description: Use the `http` package to execute GET, POST, PUT, or DELETE requests. Use when you need to fetch from or send data to a REST API.
+en_description: |-
+  Use the `http` package to execute GET, POST, PUT, or DELETE requests. Use when you need to fetch from or send data to a REST API.
 zh_displayName: Flutter HTTP 请求
 category: 移动端开发
 en_category: Mobile Dev

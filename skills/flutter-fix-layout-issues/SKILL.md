@@ -1,7 +1,8 @@
 ---
 name: flutter-fix-layout-issues
 description: 修复 Flutter 布局错误（溢出、无界约束等）。
-en_description: Fixes Flutter layout errors (overflows, unbounded constraints) using Dart and Flutter MCP tools. Use when addressing "RenderFlex overflowed", "Vertical viewport was given unbounded height", or similar layout issues.
+en_description: |-
+  Fixes Flutter layout errors (overflows, unbounded constraints) using Dart and Flutter MCP tools. Use when addressing "RenderFlex overflowed", "Vertical viewport was given unbounded height", or similar layout issues.
 zh_displayName: Flutter 布局问题修复
 category: 移动端开发
 en_category: Mobile Dev

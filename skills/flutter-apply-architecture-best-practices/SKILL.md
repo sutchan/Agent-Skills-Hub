@@ -1,7 +1,8 @@
 ---
 name: flutter-apply-architecture-best-practices
 description: 采用推荐的层式架构（UI、逻辑、数据）为 Flutter 应用做架构设计。
-en_description: Architects a Flutter application using the recommended layered approach (UI, Logic, Data).
+en_description: |-
+  Architects a Flutter application using the recommended layered approach (UI, Logic, Data).
 zh_displayName: Flutter 架构最佳实践
 category: 移动端开发
 en_category: Mobile Dev

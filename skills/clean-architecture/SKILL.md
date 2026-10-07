@@ -1,7 +1,6 @@
 ---
 name: clean-architecture
-description: |-
-  围绕依赖规则构建软件架构：源代码依赖从框架指向用例再指向实体。适用于讨论架构分层、依赖规则、端口与适配器、洋葱架构或解耦框架等场景。
+description: 围绕依赖规则构建软件架构：源代码依赖从框架指向用例再指向实体。适用于讨论架构分层、依赖规则、端口与适配器、洋葱架构或解耦框架等场景。
 en_description: |-
   Structure software around the Dependency Rule: source code dependencies point inward from frameworks to use cases to entities. Use when mentioning architecture layers, dependency rule, ports and adapters, onion architecture, or decoupling from frameworks.
 zh_displayName: 整洁架构

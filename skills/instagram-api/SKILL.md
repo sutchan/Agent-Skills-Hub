@@ -1,15 +1,14 @@
 ---
 name: instagram-api
-description: |-
-    fetcher.sh 上的 Instagram API 替代——以 USDC 按次付费（x402）或 Bearer 密钥预付费，无需登录与会话 Cookie。按 @handle 解析主页、按关键词搜用户、拉取帖子/Reels/快拍/标记帖/粉丝/关注、按短码查帖子、读评论、拉取话题或位置信息流、按音轨拉帖子，以及粉丝导出、监控、网红发现与竞品追踪，无需 Graph API 验证或无头浏览器。
+description: fetcher.sh 上的 Instagram API 替代——以 USDC 按次付费（x402）或 Bearer 密钥预付费，无需登录与会话 Cookie。按 @handle 解析主页、按关键词搜用户、拉取帖子/Reels/快拍/标记帖/粉丝/关注、按短码查帖子、读评论、拉取话题或位置信息流、按音轨拉帖子，以及粉丝导出、监控、网红发现与竞品追踪，无需 Graph API 验证或无头浏览器。
 en_description: |-
-    An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or
-    prepaid credits with a Bearer key, no login and no session cookies. Resolve a
-    profile by @handle, search users by keyword, pull posts/reels/stories/tagged
-    posts/followers/followings, look up a post by shortcode, read comments, fetch
-    hashtag or location feeds, pull posts by audio track, plus follower export,
-    monitoring, influencer discovery, and competitor tracking without Graph API
-    verification or a headless browser.
+  An Instagram API alternative on fetcher.sh — pay-per-call in USDC via x402, or
+  prepaid credits with a Bearer key, no login and no session cookies. Resolve a
+  profile by @handle, search users by keyword, pull posts/reels/stories/tagged
+  posts/followers/followings, look up a post by shortcode, read comments, fetch
+  hashtag or location feeds, pull posts by audio track, plus follower export,
+  monitoring, influencer discovery, and competitor tracking without Graph API
+  verification or a headless browser.
 zh_displayName: Instagram API 替代
 category: 自动化与集成
 en_category: Automation & Integration

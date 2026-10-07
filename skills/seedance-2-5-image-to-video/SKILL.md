@@ -1,7 +1,6 @@
 ---
 name: seedance-2-5-image-to-video
-description: |-
-  使用 ByteDance Seedance 2.5 图生视频模型将静态图片转换为 4-30 秒的 720p 电影级短片，支持同步原生音频，通过 RunComfy 提供服务。
+description: 使用 ByteDance Seedance 2.5 图生视频模型将静态图片转换为 4-30 秒的 720p 电影级短片，支持同步原生音频，通过 RunComfy 提供服务。
 en_description: |-
   Animate a single still image into a 4-30 second 720p cinematic clip with optional synchronized native audio using ByteDance Seedance 2.5 Image to Video on RunComfy.
 zh_displayName: Seedance 2.5 图生视频

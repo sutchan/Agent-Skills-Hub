@@ -1,7 +1,8 @@
 ---
 name: git-cleanup
 description: 安全分析与清理本地 git 分支与工作树。
-en_description: Safely analyzes and cleans up local git branches and worktrees by categorizing them as merged, squash-merged, superseded, or active work.
+en_description: |-
+  Safely analyzes and cleans up local git branches and worktrees by categorizing them as merged, squash-merged, superseded, or active work.
 zh_displayName: Git 分支清理
 category: 工程实践与质量
 en_category: Engineering Practice & Quality

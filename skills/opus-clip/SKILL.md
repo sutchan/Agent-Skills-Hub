@@ -1,15 +1,13 @@
 ---
 name: opus-clip
-description: |-
-  Opus Clip 流水线技能——将长视频剪成带病毒指数、自动字幕与智能重构的 Short。当用户想要 Opus Clip 专属工作流：额度、档位、批量切片或将长视频路由到短内容时使用。人工复核，导出干净（无水印）。区别于通用的 captions-and-clipping 工艺。
-en_description: >-
+description: Opus Clip 流水线技能——将长视频剪成带病毒指数、自动字幕与智能重构的 Short。当用户想要 Opus Clip 专属工作流：额度、档位、批量切片或将长视频路由到短内容时使用。人工复核，导出干净（无水印）。区别于通用的 captions-and-clipping 工艺。
+en_description: |-
   The Opus Clip pipeline skill — clip long-form video into viral shorts with Virality Score, auto-captions, and smart reframing. Use when someone wants Opus Clip-specific workflows: credits, tiers, batch clipping, or routing long video to short-form. A human reviews; export clean (no watermark). Distinct from general captions-and-clipping craft.
 zh_displayName: Opus Clip 智能切片
 category: 音视频与多媒体
 en_category: Media & Multimedia
 version: 1.0.0
 ---
-
 # opus-clip
 
 The **clip-pipeline tool skill** — choose the source, let AI find candidates, inspect and rank honestly, polish

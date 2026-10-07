@@ -1,7 +1,8 @@
 ---
 name: dart-use-pattern-matching
 description: 在合适处使用 switch 表达式与模式匹配。
-en_description: Use switch expressions and pattern matching where appropriate
+en_description: |-
+  Use switch expressions and pattern matching where appropriate
 zh_displayName: Dart 模式匹配
 category: 移动端开发
 en_category: Mobile Dev

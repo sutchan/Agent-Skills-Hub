@@ -1,13 +1,12 @@
 ---
 name: figma-implement-design
-description: |-
-  将 Figma 设计稿转换为可交付的生产级应用代码，保持 1:1 视觉还原。当用户要做设计到代码的实现、提到「实现设计」「生成代码」「实现组件」、提供 Figma 链接或要求按 Figma 规范构建组件时触发；Figma 画布写操作请用 figma-use。
-en_description: Translate Figma designs into production-ready app code with 1:1 visual fidelity.
+description: 将 Figma 设计稿转换为可交付的生产级应用代码，保持 1:1 视觉还原。当用户要做设计到代码的实现、提到「实现设计」「生成代码」「实现组件」、提供 Figma 链接或要求按 Figma 规范构建组件时触发；Figma 画布写操作请用 figma-use。
+en_description: |-
+  Translate Figma designs into production-ready app code with 1:1 visual fidelity.
 zh_displayName: Figma 转生产代码
 category: 品牌与设计
 en_category: Brand & Design
 ---
-
 # Implement Design
 
 ## Overview

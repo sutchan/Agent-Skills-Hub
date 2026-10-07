@@ -1,7 +1,8 @@
 ---
 name: html-prototype
 description: 直接调用的专家技能，产出精致、响应式、自包含的 HTML 原型。
-en_description: Direct-invocation specialist for polished, responsive, self-contained HTML mockups and interactive prototypes grounded in the user's conversation, product context, and design language. Use when the user explicitly invokes html-prototype or the broad html skill routes a mockup or prototype request here. Do not activate independently from a general request. Treat a mockup as a noninteractive fidelity mode within this skill, not as a separate skill.
+en_description: |-
+  Direct-invocation specialist for polished, responsive, self-contained HTML mockups and interactive prototypes grounded in the user's conversation, product context, and design language. Use when the user explicitly invokes html-prototype or the broad html skill routes a mockup or prototype request here. Do not activate independently from a general request. Treat a mockup as a noninteractive fidelity mode within this skill, not as a separate skill.
 zh_displayName: HTML 原型
 category: 前端开发
 en_category: Frontend Dev

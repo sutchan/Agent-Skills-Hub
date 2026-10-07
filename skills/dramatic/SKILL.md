@@ -1,17 +1,14 @@
 ---
 name: dramatic
-description: |-
-  高对比、戏剧化的设计系统，以大胆的版式、沉浸式视觉与非常规构图抓住注意力。
+description: 高对比、戏剧化的设计系统，以大胆的版式、沉浸式视觉与非常规构图抓住注意力。
 en_description: |-
   High-contrast, theatrical design system with bold layouts, immersive visuals, and unconventional compositions that command attention.
 zh_displayName: 戏剧风设计系统
 category: 品牌与设计
 en_category: Brand & Design
 license: MIT
-metadata:
-  author: typeui.sh
+metadata: 
 ---
-
 <!-- TYPEUI_SH_MANAGED_START -->
 # Dramatic Design System Skill (Universal)
 

@@ -1,13 +1,12 @@
 ---
 name: brand-operation
-description: |-
-  在小红书运营品牌号：建立官方品牌阵地、培育品牌社群、提升互动与增长。当用户要做品牌账号定位、内容规划、社群运营或账号涨粉时触发。
-en_description: Operate a brand account on Xiaohongshu: build official presence, grow community, scale engagement.
+description: 在小红书运营品牌号：建立官方品牌阵地、培育品牌社群、提升互动与增长。当用户要做品牌账号定位、内容规划、社群运营或账号涨粉时触发。
+en_description: |-
+  Operate a brand account on Xiaohongshu: build official presence, grow community, scale engagement.
 zh_displayName: 品牌号运营
 category: 品牌与设计
 en_category: Brand & Design
 ---
-
 # Brand Operation (品牌号运营)
 
 ## Overview

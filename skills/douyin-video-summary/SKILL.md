@@ -1,13 +1,12 @@
 ---
 name: douyin-video-summary
-description: |-
-  抖音视频摘要：提取音频→本地 whisper.cpp 转写→生成结构化摘要，可选同步到飞书文档。当用户分享抖音链接并希望获得视频内容的文字摘要时触发。
-en_description: Summarize Douyin videos: extract audio, transcribe locally with whisper.cpp, structured summary, optional Feishu sync.
+description: 抖音视频摘要：提取音频→本地 whisper.cpp 转写→生成结构化摘要，可选同步到飞书文档。当用户分享抖音链接并希望获得视频内容的文字摘要时触发。
+en_description: |-
+  Summarize Douyin videos: extract audio, transcribe locally with whisper.cpp, structured summary, optional Feishu sync.
 zh_displayName: 抖音视频摘要
 category: 音视频与多媒体
 en_category: Media & Multimedia
 ---
-
 # Douyin Video Summary
 
 Summarize Douyin videos: extract audio → transcribe locally → AI summary.

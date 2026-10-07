@@ -1,8 +1,8 @@
 ---
 name: prototype-pollution
-description: |-
-    针对 JavaScript 技术栈的原型污染安全测试。
-en_description: Prototype pollution testing for JavaScript stacks. Use when user input is merged into objects (query parsers, JSON bodies, deep assign), when configuring libraries via untrusted keys, or when hunting RCE gadgets via polluted Object.prototype in Node or the browser.
+description: 针对 JavaScript 技术栈的原型污染安全测试。
+en_description: |-
+  Prototype pollution testing for JavaScript stacks. Use when user input is merged into objects (query parsers, JSON bodies, deep assign), when configuring libraries via untrusted keys, or when hunting RCE gadgets via polluted Object.prototype in Node or the browser.
 zh_displayName: 原型污染测试
 category: 安全
 en_category: Security

@@ -1,9 +1,13 @@
 ---
 name: prototype
-description: Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels right. Only runs when explicitly invoked; it does not trigger on its own.
+description: 构建一次性原型以验证设计问题，在用户希望快速验证状态模型或界面形态时使用。
+en_description: |-
+  Build a throwaway prototype to answer a design question. Use when the user wants to sanity-check a state model or UI shape.
+zh_displayName: 原型构建
+category: 前端开发
+en_category: Frontend Dev
 disable-model-invocation: true
 ---
-
 # Prototyping Variants
 
 ## Initial Response

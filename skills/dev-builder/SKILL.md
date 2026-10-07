@@ -1,7 +1,8 @@
 ---
 name: dev-builder
 description: 全栈开发工程师技能包，依据产品需求文档与原型图实现功能代码，涵盖技术栈选择、项目初始化、功能实现与验证。
-en_description: Full-stack developer skill kit that implements feature code from a product spec and prototypes, covering tech-stack selection, project scaffolding, implementation, and verification.
+en_description: |-
+  Full-stack developer skill kit that implements feature code from a product spec and prototypes, covering tech-stack selection, project scaffolding, implementation, and verification.
 zh_displayName: 全栈开发工程师
 category: AI 与智能体
 en_category: AI & Agents

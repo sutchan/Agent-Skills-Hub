@@ -1,6 +1,6 @@
 # 仓库约定（Project Conventions）
 
-> 路径：`docs/project.md` · 版本：1.14.58
+> 路径：`docs/project.md` · 版本：1.14.73
 > 本文件定义目录结构、变更工作流与术语表。能力契约（frontmatter/数据/红线）的唯一权威源是 [spec.md](spec.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)。
 
 ---

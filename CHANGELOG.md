@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.74] - 2026-10-07
+
+### chore: 批量回填所有技能的 frontmatter 契约字段
+
+- 以 git 历史中文权威源（`71e5f23^`）为基准，为 170 个 `skills/*/SKILL.md` 补全 `description`(中文短描述) / `en_description`(英文场景) / `zh_displayName`(中文名) / `category` / `en_category` 五个契约字段；将英文 `description` 迁移至 `en_description`，并修正 `name` 与目录名不一致（如 agent-development）。
+- 重建 `data/skills-data.json`（170 技能 / 14 类）、`data/skills-metrics.json` 与 `prototype/prototype.html`（246.4 KB）；复验 `node tools/validate-skills.mjs` → **170 个技能** frontmatter 全部规范（0 问题）。
+- 同步 `app/globals.css` 与 token css（base / layout / components / responsive）。
+
+[1.14.74]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.74
+
 ## [1.14.73] - 2026-10-04
 
 ### fix: 移除重复导入的 ai-image-generation-2 技能

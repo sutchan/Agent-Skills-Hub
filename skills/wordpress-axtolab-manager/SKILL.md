@@ -1,13 +1,13 @@
 ---
 name: wordpress-axtolab-manager
-description: "管理并操作 Axtolab AI Connector for WordPress 插件：在 WordPress 站点与 Claude/ChatGPT/MCP 等 AI 智能体之间建立安全连接，驱动内容、媒体、SEO、WooCommerce 等写操作自动化，并提供回滚、敏感操作守卫与审计日志。当用户需要安装/配置该插件、通过 AI 智能体管理 WordPress 内容与商品、或排查连接与权限问题时使用。"
-en_description: "Manage and operate the Axtolab AI Connector for WordPress plugin: establish secure connections between a WordPress site and AI agents like Claude, ChatGPT, and MCP; drive automation of content, media, SEO, and WooCommerce writes; and provide rollback, sensitive-action guardrails, and audit logging. Use when installing/configuring the plugin, managing WordPress content or products via AI agents, or troubleshooting connections and permissions."
+description: 管理并操作 Axtolab AI Connector for WordPress 插件：在 WordPress 站点与 Claude/ChatGPT/MCP 等 AI 智能体之间建立安全连接，驱动内容、媒体、SEO、WooCommerce 等写操作自动化，并提供回滚、敏感操作守卫与审计日志。当用户需要安装/配置该插件、通过 AI 智能体管理 WordPress 内容与商品、或排查连接与权限问题时使用。
+en_description: |-
+  Manage and operate the Axtolab AI Connector for WordPress plugin: establish secure connections between a WordPress site and AI agents like Claude, ChatGPT, and MCP; drive automation of content, media, SEO, and WooCommerce writes; and provide rollback, sensitive-action guardrails, and audit logging. Use when installing/configuring the plugin, managing WordPress content or products via AI agents, or troubleshooting connections and permissions.
 zh_displayName: Axtolab AI 连接器管理
 category: WordPress 与 CMS
 en_category: WordPress & CMS
 compatibility: "WordPress 6.2+, PHP 7.4+. 需 Axtolab AI Connector 插件 v1.0.3+；WooCommerce 工具需 WooCommerce 激活。"
 ---
-
 # Axtolab AI Connector 管理器（WordPress）
 
 ## Overview

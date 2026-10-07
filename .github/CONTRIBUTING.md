@@ -2,7 +2,7 @@
 
 感谢你愿意为 **Agent Skills Hub** 贡献！本指南帮助你在不破坏数据管线与规范的前提下，新增或更新技能、修复文档、提交变更。
 
-> 路径：`.github/CONTRIBUTING.md` · 版本：1.14.58
+> 路径：`.github/CONTRIBUTING.md` · 版本：1.14.73
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 > 能力契约（frontmatter/数据/红线）的唯一权威源是 [docs/spec.md](./docs/spec.md)；仓库约定见 [docs/project.md](./docs/project.md)。
 

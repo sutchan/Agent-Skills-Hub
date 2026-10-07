@@ -1,13 +1,12 @@
 ---
 name: compliance
-description: |-
-  理解并遵守小红书平台规则，规避违规，维护账号健康与安全。当用户需要排查限流、违规风险、社区规范解读或账号安全运营时触发。
-en_description: Understand and comply with Xiaohongshu platform rules; avoid violations, keep account health.
+description: 理解并遵守小红书平台规则，规避违规，维护账号健康与安全。当用户需要排查限流、违规风险、社区规范解读或账号安全运营时触发。
+en_description: |-
+  Understand and comply with Xiaohongshu platform rules; avoid violations, keep account health.
 zh_displayName: 平台合规运营
 category: 品牌与设计
 en_category: Brand & Design
 ---
-
 # 合规运营 (Compliance)
 
 ## 概述

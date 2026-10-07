@@ -1,15 +1,12 @@
 ---
 name: orca-cli
-description: >-
-  Operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts,
-  skill sharing, worktree comments, and Orca's embedded browser through the `orca` CLI. Use
-  when the user says "$orca-cli", "Orca worktree", "child worktree", "spawn codex/claude in a
-  worktree", "read/wait/send Orca terminal", "handoff" / "handover" / "give this to another
-  agent", "Orca browser", "orca artifacts", or "share skills". Prefer it over raw git
-  worktree, ad hoc PTYs, or Computer Use when Orca state is involved. Use Computer Use only
-  when a visible window needs GUI control that a CLI, filesystem, or API cannot do.
+description: 用 orca CLI 管理工作树与文件夹
+en_description: |-
+  Use the public `orca` CLI to operate Orca-managed worktrees, folder contexts, terminals, repos, automations, artifacts, skill sharing, worktree comments, and the browser embedded inside the Orca app. Use when the user says \"$orca-cli\", \"use orca cli\", \"Orca worktree\", \"child worktree\", \"cardStatus\", \"spawn codex/claude in a worktree\", \"read/wait/send Orca terminal\", \"terminal send\", \"full handoff\", \"handover\", \"give this to another agent\", \"another worktree\", \"Orca browser\", \"orca artifacts\", \"share HTML/Markdown\", \"public artifact link\", \"share skills\", or \"control the browser inside Orca\". Prefer this over raw `git worktree`, ad hoc PTYs, Playwright, or Computer Use when the task touches Orca-managed state. Use Computer Use for browser windows, webviews, or desktop UI outside Orca's embedded browser.
+zh_displayName: Orca CLI
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
-
 # Orca CLI
 
 This discovery stub loads the version-matched guide from the Orca executable used for this session.

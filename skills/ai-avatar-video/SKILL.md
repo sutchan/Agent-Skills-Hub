@@ -1,8 +1,8 @@
 ---
 name: ai-avatar-video
-description: |-
-  通过 inference.sh CLI 创建 AI 数字人与口播视频。推荐 P-Video-Avatar（最快最便宜、内置 TTS），另支持 OmniHuman、Fabric、PixVerse；音频可用 Inworld TTS-2、ElevenLabs、Kokoro。适用于 AI 主持人、解说视频、虚拟网红、配音、营销视频、UGC 广告、游戏数字人、NPC 对话等场景。
-en_description: "Create AI avatar and talking head videos via inference.sh CLI. Recommended: P-Video-Avatar (fastest, cheapest, built-in TTS). Also: OmniHuman, Fabric, PixVerse. Audio: Inworld TTS-2 (100+ languages, emotion steering for characters), ElevenLabs, Kokoro. Capabilities: audio-driven avatars, text-to-avatar, lipsync videos, talking head generation, virtual presenters, UGC content. Use for: AI presenters, explainer videos, virtual influencers, dubbing, marketing videos, UGC ads, gaming avatars, NPC dialogue. Triggers: ai avatar, talking head, lipsync, avatar video, virtual presenter, ai spokesperson, audio driven video, heygen alternative, synthesia alternative, talking avatar, lip sync, video avatar, ai presenter, digital human, ugc, ugc video, ugc ad, avatar ugc"
+description: 通过 inference.sh CLI 创建 AI 数字人与口播视频。推荐 P-Video-Avatar（最快最便宜、内置 TTS），另支持 OmniHuman、Fabric、PixVerse；音频可用 Inworld TTS-2、ElevenLabs、Kokoro。适用于 AI 主持人、解说视频、虚拟网红、配音、营销视频、UGC 广告、游戏数字人、NPC 对话等场景。
+en_description: |-
+  Create AI avatar and talking head videos via inference.sh CLI. Recommended: P-Video-Avatar (fastest, cheapest, built-in TTS). Also: OmniHuman, Fabric, PixVerse. Audio: Inworld TTS-2 (100+ languages, emotion steering for characters), ElevenLabs, Kokoro. Capabilities: audio-driven avatars, text-to-avatar, lipsync videos, talking head generation, virtual presenters, UGC content. Use for: AI presenters, explainer videos, virtual influencers, dubbing, marketing videos, UGC ads, gaming avatars, NPC dialogue. Triggers: ai avatar, talking head, lipsync, avatar video, virtual presenter, ai spokesperson, audio driven video, heygen alternative, synthesia alternative, talking avatar, lip sync, video avatar, ai presenter, digital human, ugc, ugc video, ugc ad, avatar ugc
 zh_displayName: AI 数字人视频
 category: 音视频与多媒体
 en_category: Media & Multimedia

@@ -1,7 +1,6 @@
 ---
 name: clean-code
-description: |-
-  通过规范命名、小函数和清晰错误处理编写可读可维护的代码。适用于讨论整洁代码、代码异味、命名规范、童子军规则、单一职责或单元测试质量等场景。
+description: 通过规范命名、小函数和清晰错误处理编写可读可维护的代码。适用于讨论整洁代码、代码异味、命名规范、童子军规则、单一职责或单元测试质量等场景。
 en_description: |-
   Write readable, maintainable code through disciplined naming, small functions, and clean error handling. Use when mentioning clean code, code smells, naming conventions, boy scout rule, single responsibility, or unit test quality.
 zh_displayName: 整洁代码

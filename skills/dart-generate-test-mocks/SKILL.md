@@ -1,7 +1,8 @@
 ---
 name: dart-generate-test-mocks
-description: "使用 package:mockito 与 build_runner 为外部依赖定义并生成 mock 对象。"
-en_description: "Define and generate mock objects for external dependencies using `package:mockito` and `build_runner`. Use when unit testing classes that depend on complex external services like APIs or databases."
+description: 使用 package:mockito 与 build_runner 为外部依赖定义并生成 mock 对象。
+en_description: |-
+  Define and generate mock objects for external dependencies using `package:mockito` and `build_runner`. Use when unit testing classes that depend on complex external services like APIs or databases.
 zh_displayName: Dart 测试桩生成
 category: 移动端开发
 en_category: Mobile Dev

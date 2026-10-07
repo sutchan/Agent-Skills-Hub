@@ -1,7 +1,8 @@
 ---
 name: flutter-add-widget-test
 description: 使用 WidgetTester 实现组件级测试，校验 UI 渲染与用户交互。
-en_description: Implement a component-level test using `WidgetTester` to verify UI rendering and user interactions (tapping, scrolling, entering text). Use when validating that a specific widget displays correct data and responds to events as expected.
+en_description: |-
+  Implement a component-level test using `WidgetTester` to verify UI rendering and user interactions (tapping, scrolling, entering text). Use when validating that a specific widget displays correct data and responds to events as expected.
 zh_displayName: Flutter 组件测试
 category: 移动端开发
 en_category: Mobile Dev

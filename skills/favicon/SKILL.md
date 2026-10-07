@@ -1,7 +1,8 @@
 ---
 name: favicon
 description: 从源图生成完整的一套 favicon 并更新 HTML。用于为 Web 项目配置 favicon。
-en_description: Generate a complete set of favicons from a source image and update HTML. Use when setting up favicons for a web project.
+en_description: |-
+  Generate a complete set of favicons from a source image and update HTML. Use when setting up favicons for a web project.
 zh_displayName: Favicon 生成
 category: 品牌与设计
 en_category: Brand & Design

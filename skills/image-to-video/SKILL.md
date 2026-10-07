@@ -1,8 +1,8 @@
 ---
 name: image-to-video
-description: |-
-    在 RunComfy 上让任意静态图动起来——本技能是智能路由器，将用户意图匹配到 RunComfy 目录中合适的图生视频模型。通用动画选 HappyHorse 1.0 I2V，自定义配音唇形同步选带 audio_url 的 Wan 2.7，多模态动画选 Seedance 2.0 Pro。附带各模型提示词范式，通过本地 RunComfy CLI 调用。
-en_description: "Animate any still image on RunComfy — this skill is a smart router that matches the user's intent to the right i2v model in the RunComfy catalog. Picks HappyHorse 1.0 I2V (Arena #1, native audio, identity preservation) for general animations, Wan 2.7 with `audio_url` for custom-voiceover lip-sync, or Seedance 2.0 Pro for multi-modal animation from image + reference video + reference audio. Bundles each model's documented prompting patterns so the caller gets sharper output without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/image-to-video` (or endpoint variant) through the local RunComfy CLI. Triggers on \"image to video\", \"image-to-video\", \"i2v\", \"animate image\", \"make this move\", or any explicit ask to turn a still into video."
+description: 在 RunComfy 上让任意静态图动起来——本技能是智能路由器，将用户意图匹配到 RunComfy 目录中合适的图生视频模型。通用动画选 HappyHorse 1.0 I2V，自定义配音唇形同步选带 audio_url 的 Wan 2.7，多模态动画选 Seedance 2.0 Pro。附带各模型提示词范式，通过本地 RunComfy CLI 调用。
+en_description: |-
+  Animate any still image on RunComfy — this skill is a smart router that matches the user's intent to the right i2v model in the RunComfy catalog. Picks HappyHorse 1.0 I2V (Arena #1, native audio, identity preservation) for general animations, Wan 2.7 with `audio_url` for custom-voiceover lip-sync, or Seedance 2.0 Pro for multi-modal animation from image + reference video + reference audio. Bundles each model's documented prompting patterns so the caller gets sharper output without burning iterations on the wrong model. Calls `runcomfy run <vendor>/<model>/image-to-video` (or endpoint variant) through the local RunComfy CLI. Triggers on \"image to video\", \"image-to-video\", \"i2v\", \"animate image\", \"make this move\", or any explicit ask to turn a still into video.
 zh_displayName: 图片转视频
 category: 音视频与多媒体
 en_category: Media & Multimedia

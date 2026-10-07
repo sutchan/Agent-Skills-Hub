@@ -1,7 +1,6 @@
 ---
 name: ai-image-generation
-description: |-
-  通过 RunComfy CLI 使用 FLUX 2、GPT Image 2、Seedream、Nano Banana 等 11+ 模型生成和编辑 AI 图像。支持文生图、图生图、局部重绘、LoRA、文字渲染。
+description: 通过 RunComfy CLI 使用 FLUX 2、GPT Image 2、Seedream、Nano Banana 等 11+ 模型生成和编辑 AI 图像。支持文生图、图生图、局部重绘、LoRA、文字渲染。
 en_description: |-
   Generate and edit images on RunComfy via the `runcomfy` CLI — a smart
   router across the full image-model catalog: FLUX 2 (Klein 9B/4B, Pro,
@@ -16,7 +15,6 @@ allowed-tools: Bash(runcomfy *)
 homepage: https://www.runcomfy.com
 license: MIT
 ---
-
 # AI Image Generation
 
 Generate and edit images with 11+ AI models via the [RunComfy](https://www.runcomfy.com/?utm_source=skills.sh&utm_medium=skill&utm_campaign=ai-image-generation) CLI — text-to-image and image-to-image, one auth, one command. This skill picks the right model for the user's intent and ships the documented prompt patterns + the exact `runcomfy run` invoke for each.

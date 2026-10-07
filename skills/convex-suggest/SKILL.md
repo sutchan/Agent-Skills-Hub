@@ -1,7 +1,6 @@
 ---
 name: convex-suggest
-description: |-
-  当用户手动实现 Convex 已有的模式时（定时任务、分片计数器、限流器、存储、搜索、在线状态、工作流、RAG），主动建议使用对应的 Convex 组件。被动触发，任务完成后才建议，不打断。
+description: 当用户手动实现 Convex 已有的模式时（定时任务、分片计数器、限流器、存储、搜索、在线状态、工作流、RAG），主动建议使用对应的 Convex 组件。被动触发，任务完成后才建议，不打断。
 en_description: |-
   Suggest the matching Convex component when the user hand-rolls a pattern it already solves (crons, sharded-counter, rate-limiter, storage, search, presence, workflow, RAG). Passive — suggest after the task, never interrupt.
 zh_displayName: Convex 组件建议

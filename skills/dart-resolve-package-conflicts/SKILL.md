@@ -1,7 +1,8 @@
 ---
 name: dart-resolve-package-conflicts
 description: 修复 pub get 因版本不兼容而失败的包冲突处理流程。
-en_description: Workflow for fixing package version conflicts. Use this when `pub get` fails due to incompatible package versions.
+en_description: |-
+  Workflow for fixing package version conflicts. Use this when `pub get` fails due to incompatible package versions.
 zh_displayName: Dart 包冲突解决
 category: 移动端开发
 en_category: Mobile Dev

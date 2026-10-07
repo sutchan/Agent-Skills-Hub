@@ -1,14 +1,12 @@
 ---
 name: manga-drama
-description: |-
-  漫剧生成器——基于 Seedance 的漫画风格短剧生成工具。支持以主角图片为基础，自动生成漫剧分镜脚本并生成视频。适用于创作漫画风格的短视频、角色故事、动画。
+description: 漫剧生成器——基于 Seedance 的漫画风格短剧生成工具。支持以主角图片为基础，自动生成漫剧分镜脚本并生成视频。适用于创作漫画风格的短视频、角色故事、动画。
 en_description: |-
   Manga-drama generator — a Seedance-based tool for comic-style short-drama generation. Auto-generates manga storyboard scripts from a protagonist image and produces video. Use for comic-style shorts, character stories, and animation.
 zh_displayName: 漫剧生成器
 category: 音视频与多媒体
 en_category: Media & Multimedia
 ---
-
 # 漫剧生成器
 
 基于 Seedance 视频生成能力，专门用于创作**漫画风格的短剧**（漫剧）。

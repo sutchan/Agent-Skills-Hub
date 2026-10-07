@@ -1,6 +1,6 @@
 ---
 name: video-editing
-description: "面向真实素材剪辑、结构化与增强的 AI 辅助视频编辑工作流，覆盖从原始采集经 FFmpeg、Remotion、ElevenLabs、fal.ai，到在 Descript 与 CapCut 中做最终润色的完整管线。"
+description: 面向真实素材剪辑、结构化与增强的 AI 辅助视频编辑工作流，覆盖从原始采集经 FFmpeg、Remotion、ElevenLabs、fal.ai，到在 Descript 与 CapCut 中做最终润色的完整管线。
 en_description: |-
   AI-assisted video editing workflows for cutting, structuring, and augmenting real footage. Covers FFmpeg, Remotion, ElevenLabs, fal.ai, Descript and CapCut.
 zh_displayName: 视频剪辑

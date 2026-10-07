@@ -1,9 +1,8 @@
 ---
 name: winui-dev-workflow
-description: |-
-    WinUI 3 应用的构建与运行工作流：项目创建、BuildAndRun.ps1 脚本、winapp run、错误诊断与前置准备。
+description: WinUI 3 应用的构建与运行工作流：项目创建、BuildAndRun.ps1 脚本、winapp run、错误诊断与前置准备。
 en_description: |-
-    Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites.
+  Build and run workflow for WinUI 3 apps — project creation, BuildAndRun.ps1 script, winapp run, error diagnosis, and prerequisites.
 zh_displayName: WinUI 开发工作流
 category: 桌面与客户端
 en_category: Desktop & Client

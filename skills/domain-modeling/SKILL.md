@@ -1,7 +1,8 @@
 ---
 name: domain-modeling
 description: 构建并打磨项目领域模型，在讨论代码库术语、撰写领域逻辑或统一概念时使用。
-en_description: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing domain logic, or unifying concepts.
+en_description: |-
+  Build and sharpen a project's domain model. Use when discussing codebase terminology, writing domain logic, or unifying concepts.
 zh_displayName: 领域建模
 category: 工程实践与质量
 en_category: Engineering Practice & Quality

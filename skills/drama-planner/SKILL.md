@@ -1,7 +1,6 @@
 ---
 name: drama-planner
-description: |-
-  制定竖屏短剧专业策划方案，含情绪价值分析、黄金三秒钩子设计、三幕式结构规划等。适用于短剧项目前期策划、商业化方案设计、创作指导。
+description: 制定竖屏短剧专业策划方案，含情绪价值分析、黄金三秒钩子设计、三幕式结构规划等。适用于短剧项目前期策划、商业化方案设计、创作指导。
 en_description: |-
   Produce professional vertical short-drama planning packages: emotional-value analysis, golden-three-seconds hook design, three-act structure planning. Use for early-stage short-drama project planning, commercialization design, and creative direction.
 zh_displayName: 短剧策划方案
@@ -12,44 +11,10 @@ last_updated: 2026-01-11
 license: MIT
 compatibility: Claude Code 1.0+
 maintainer: 宫凡
-allowed-tools:
-  - Read
+allowed-tools: 
 model: opus
-changelog:
-  - version: 2.2.0
-    date: 2026-01-11
-    changes:
-      - type: improved
-        content: 添加 references/guide.md 引用，完善详细文档部分
-  - version: 2.1.0
-    date: 2026-01-11
-    changes:
-      - type: improved
-        content: 优化 description 字段，使其更精简并符合命令式语言规范
-      - type: improved
-        content: 优化功能、使用场景、核心步骤、输入要求、输出格式的描述，使其更符合命令式语言规范
-      - type: added
-        content: 添加约束条件、示例和详细文档部分
-  - version: 2.0.0
-    date: 2026-01-11
-    changes:
-      - type: breaking
-        content: 按照 Agent Skills 官方规范重构
-      - type: improved
-        content: 优化 description，使用命令式语言，精简主内容
-      - type: added
-        content: 添加 license、compatibility 可选字段
-      - type: added
-        content: 添加 allowed-tools (Read, Write) 和 model (opus) 字段
-      - type: added
-        content: 添加 references/ 结构存放详细示例
-  - version: 1.0.0
-    date: 2026-01-10
-    changes:
-      - type: added
-        content: 初始版本
+changelog: 
 ---
-
 # 竖屏短剧策划师
 
 ## 功能

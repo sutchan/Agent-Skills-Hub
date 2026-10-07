@@ -1,7 +1,6 @@
 ---
 name: drama-creator
-description: |-
-  创作竖屏短剧剧本，包括宏观建构、剧本创作、精准优化、创意发想。适用于从零开始创作短剧、优化现有剧本、设计故事大纲和悬念钩子。
+description: 创作竖屏短剧剧本，包括宏观建构、剧本创作、精准优化、创意发想。适用于从零开始创作短剧、优化现有剧本、设计故事大纲和悬念钩子。
 en_description: |-
   Write vertical short-drama screenplays, covering macro structuring, scriptwriting, precise optimization, and idea generation. Use to create short dramas from scratch, refine existing scripts, design story outlines, and craft suspense hooks.
 zh_displayName: 短剧剧本创作
@@ -14,45 +13,8 @@ compatibility: Claude Code 1.0+
 maintainer: 宫凡
 allowed-tools: []
 model: opus
-changelog:
-  - version: 2.2.0
-    date: 2026-01-11
-    changes:
-      - type: improved
-        content: 基于原始agent prompt优化SKILL.md内容
-      - type: added
-        content: 添加角色设定、口头禅、任务模式自适应等内容
-      - type: improved
-        content: 完善创作方法论和工作流程描述
-      - type: added
-        content: 添加references/templates.md等参考文件
-  - version: 2.1.0
-    date: 2026-01-11
-    changes:
-      - type: improved
-        content: 优化 description 字段，使其更精简并符合命令式语言规范
-      - type: changed
-        content: 模型更改为 opus
-      - type: improved
-        content: 优化功能、使用场景、核心步骤、输入要求、输出格式的描述，使其更符合命令式语言规范
-      - type: added
-        content: 添加约束条件、示例和详细文档部分
-  - version: 2.0.0
-    date: 2026-01-11
-    changes:
-      - type: breaking
-        content: 按照 Agent Skills 官方规范重构
-      - type: improved
-        content: 优化 description，使用命令式语言，精简主内容
-      - type: added
-        content: 添加 license、compatibility 可选字段
-  - version: 1.0.0
-    date: 2026-01-10
-    changes:
-      - type: added
-        content: 初始版本
+changelog: 
 ---
-
 # 竖屏短剧剧本创作大师
 
 ## 角色设定

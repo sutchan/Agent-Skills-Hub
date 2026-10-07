@@ -1,9 +1,13 @@
 ---
 name: short-drama-video-prompts
 description: 把短剧分镜和冻结关键帧写成可直接复制的视频提示词 Markdown，也可按用户要求写时间线配乐/主题曲意图。用户提到文生/图生视频动作、人物表演、运镜、口型、环境运动、镜头时长、起止状态、把分镜转成视频提示词或写配乐提示词时使用；不生成媒体、不创作歌词、不改分镜边界。
+en_description: |-
+  Convert short-drama storyboards and frozen keyframes into copy-ready video generation prompts, plus optional scoring/theme intent. Use for text-to-video or image-to-video prompts.
+zh_displayName: 短剧视频提示词
+category: 音视频与多媒体
+en_category: Media & Multimedia
 license: MIT
 ---
-
 # 短剧视频与时间线音乐提示词
 
 把已确认镜头和起始帧写成有边界、可生成、可直接复制的 `剧集/<EP>/视频提示词.md`。
