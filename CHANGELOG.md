@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.82] - 2026-10-07
+
+### refactor: 分类筛选由多选 OR 改为单选
+
+- **语义**：同一时刻至多选中一个分类；点「全部」或**再次点击当前项**即复位为空（回到全部）。原型与 Next.js 应用同步改造。
+- **状态表示**：`state.cats` 由 `string[]`（多选，空数组=全部）改为 `string`（单选，空串=全部）；应用侧 `useState<string[]>([])` → `useState("")`，`HashState.cats` 字段改名 `cat`。
+- **交互与渲染**：`renderCats` 的 active 判定由 `indexOf(...) !== -1` 改为 `=== it.key`；`renderGrid` 过滤由 `indexOf(s.category) === -1` 改为 `s.category !== state.cats`；分类点击与 Hero 节点点击（`toggleHeroCat`）均改为「选中/取消」二态；`clearFilters` 复位为 `""`。埋点 `filter_category` 的 `categories: string[]` 改为 `category: string`。
+- **⚠️ 修复一处隐蔽缺陷**：`AppShell.tsx` 的 `ash:filter-state` 处理器原用 `new Set(detail.cats)` 与 `detail.cats![0]`。字段变为字符串后，`new Set("docs")` 会**按字符拆成 `d/o/c/s`**、且 `[0]` 只会取到首字符，导致 Hero 节点高亮与核心色全错。已改为 `new Set(detail.cat ? [detail.cat] : [])` 与直接使用 `detail.cat`，并在代码处写明该陷阱。
+- **深链兼容**：hash 由 `#cat=a,b` 变为 `#cat=a`；`parseHash` 对旧多选链接 `#cat=a,b` **取第一个有效值**优雅降级（`#,b` / `a,` / `,` 等边界亦覆盖），不致整段失效。原型 `05-main.js` 与应用 `hash-state.ts` 行为一致。
+- **`src/lib/hash-state.ts` 与其单测同步为单选**（该模块此前仅被 `tools/lib/hash-state.test.mjs` 引用，但保留多选会形成隐性不一致）：新增「旧多选链接取首值」与「单选只承载一个分类」两组用例。
+- **文档**：同步 `docs/spec.md` §分类筛选口径为单选。
+- **验证**：`tsc --noEmit` 0 错误；`node --test tools/lib/*.test.mjs` **30/30** 通过（较上 +2）；原型产物运行期实测 15 个 chip、切换时 active 恒为 1 项、再次点击复位为「全部」、卡片仅含该分类、单值深链生效、旧多选链接取首值、控制台无错误。
+
+[1.14.82]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.82
+
 ## [1.14.81] - 2026-10-07
 
 ### feat: 技能卡片增加赞/踩（双计数独立），原型与应用同步实现
