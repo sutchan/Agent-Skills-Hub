@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.77] - 2026-10-07
+
+### fix: 修复 webapp-testing 契约字段并重建数据
+
+- `skills/webapp-testing/SKILL.md` 在会话间隙被外部改回旧版 frontmatter（仅 `name` + 英文 `description` + `license`），缺失 `en_description` / `zh_displayName` / `category` / `en_category` 四个必填字段，触发 `validate-skills` 门禁失败（4 问题）。
+- 以历史中文权威源 `71e5f23^` 取 `webapp-testing` 映射（category=工程实践与质量、zh=Web 应用测试）补全四个字段并修正 `name`；重跑校验 → **170 个技能 frontmatter 全部规范（0 问题）**。
+- 重建 `data/skills-data.json`、`data/skills-metrics.json` 与 `prototype/prototype.html`，同步 `app/globals.css` 与 token css（反映当前磁盘 `skills/` 全量状态）。
+
+[1.14.77]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.77
+
 ## [1.14.75] - 2026-10-07
 
 ### fix: 修复 ui-animation 契约字段缺失

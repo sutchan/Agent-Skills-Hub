@@ -165,7 +165,7 @@
   },
   "codebase-design": {
     "popularity": 0,
-    "size": 11868,
+    "size": 11964,
     "files": 4
   },
   "coding-standards": {
@@ -281,7 +281,7 @@
   },
   "domain-modeling": {
     "popularity": 0,
-    "size": 8668,
+    "size": 8664,
     "files": 4
   },
   "douyin-video": {
@@ -706,8 +706,8 @@
   },
   "planning-with-files": {
     "popularity": 0,
-    "size": 465712,
-    "files": 34
+    "size": 457000,
+    "files": 32
   },
   "playwright-cli": {
     "popularity": 0,
@@ -747,8 +747,8 @@
   },
   "review-animations": {
     "popularity": 0,
-    "size": 28281,
-    "files": 3
+    "size": 18515,
+    "files": 2
   },
   "seedance-2-5-image-to-video": {
     "popularity": 0,
@@ -797,7 +797,7 @@
   },
   "ui-animation": {
     "popularity": 0,
-    "size": 191825,
+    "size": 187872,
     "files": 25
   },
   "ui-ux-pro-max": {
@@ -817,8 +817,8 @@
   },
   "webapp-testing": {
     "popularity": 0,
-    "size": 5627,
-    "files": 2
+    "size": 23186,
+    "files": 6
   },
   "winui-design": {
     "popularity": 0,
@@ -862,7 +862,7 @@
   },
   "writing-plans": {
     "popularity": 0,
-    "size": 11003,
-    "files": 2
+    "size": 10335,
+    "files": 1
   }
 }
