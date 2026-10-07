@@ -1,11 +1,11 @@
 ---
 name: tdd
-description: Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.
+description: 测试驱动开发（TDD）：先写失败测试再写实现，驱动模块设计与重构，保障代码可测性与回归安全。当用户要落地 TDD、按「红-绿-重构」循环开发、或编写集成测试时使用。
 en_description: |-
   Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.
-zh_displayName: tdd
-category: 其他
-en_category: 其他
+zh_displayName: 测试驱动开发
+category: 工程实践与质量
+en_category: Engineering Practice & Quality
 ---
 # Test-Driven Development
 

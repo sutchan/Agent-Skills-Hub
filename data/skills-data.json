@@ -1,5 +1,5 @@
 {
-  "total": 169,
+  "total": 170,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -14,8 +14,7 @@
     "AI 与智能体",
     "音视频与多媒体",
     "桌面与客户端",
-    "安全",
-    "其他"
+    "安全"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
@@ -31,8 +30,7 @@
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
     "桌面与客户端": "Desktop & Client",
-    "安全": "Security",
-    "其他": "其他"
+    "安全": "Security"
   },
   "skills": [
     {
@@ -563,6 +561,24 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/redesign-existing-projects",
       "githubDir": "skills/redesign-existing-projects"
+    },
+    {
+      "name": "review-animations",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "zh": "动效评审",
+      "description": "依据源自 Emil Kowalski 作品的高水准动效标准评审动画与动效代码。当用户希望动效更顺滑、有质感、符合高级动效规范时使用。",
+      "enDescription": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "design-media",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/review-animations",
+      "githubDir": "skills/review-animations"
     },
     {
       "name": "ui-ux-pro-max",
@@ -1651,6 +1667,23 @@
       "githubDir": "skills/code-review-and-quality"
     },
     {
+      "name": "codebase-design",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "代码库设计",
+      "description": "用于设计或改进深层模块设计的共享词汇与方法，帮助构建高内聚、可维护的代码结构。",
+      "enDescription": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a codebase's module structure.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/codebase-design",
+      "githubDir": "skills/codebase-design"
+    },
+    {
       "name": "debugging-and-error-recovery",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -1682,6 +1715,24 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/diagnosing-bugs",
       "githubDir": "skills/diagnosing-bugs"
+    },
+    {
+      "name": "domain-modeling",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "领域建模",
+      "description": "构建并打磨项目领域模型，在讨论代码库术语、撰写领域逻辑或统一概念时使用。",
+      "enDescription": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing domain logic, or unifying concepts.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "doc-writing",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/domain-modeling",
+      "githubDir": "skills/domain-modeling"
     },
     {
       "name": "executing-plans",
@@ -1927,6 +1978,25 @@
       "githubDir": "skills/paper-context-resolver"
     },
     {
+      "name": "planning-with-files",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "文件规划助手",
+      "description": "Manus 式持久化基于文件的规划，为 AI 编码智能体在磁盘保留 task_plan.md、findings.md、progress.md，使工作在上下文丢失与 /clear 后仍能存活。当用户要求规划、拆分或组织多步骤项目、研究任务或任何需要 5+ 工具调用的工作时使用。支持 /clear 后自动会话恢复。",
+      "enDescription": "Manus-style persistent file-based planning for AI coding agents: keeps task_plan.md, findings.md, and progress.md on disk so work survives context loss and /clear. Use when asked to plan, break down, or organize a multi-step project, research task, or any work requiring 5+ tool calls. Supports automatic session recovery after /clear.",
+      "homepage": "",
+      "allowedTools": [
+        "Read Write Edit Bash Glob Grep"
+      ],
+      "tags": [
+        "ai-agent",
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
+      "githubDir": "skills/planning-with-files"
+    },
+    {
       "name": "playwright-cli",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -1996,6 +2066,24 @@
       "githubDir": "skills/systematic-debugging"
     },
     {
+      "name": "tdd",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "测试驱动开发",
+      "description": "测试驱动开发（TDD）：先写失败测试再写实现，驱动模块设计与重构，保障代码可测性与回归安全。当用户要落地 TDD、按「红-绿-重构」循环开发、或编写集成测试时使用。",
+      "enDescription": "Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions \"red-green-refactor\", or wants integration tests.",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "design-media",
+        "test-qa",
+        "security"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/tdd",
+      "githubDir": "skills/tdd"
+    },
+    {
       "name": "test-driven-development",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -2063,6 +2151,22 @@
       "license": "Complete terms in LICENSE.txt",
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/webapp-testing",
       "githubDir": "skills/webapp-testing"
+    },
+    {
+      "name": "writing-plans",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "zh": "编写计划",
+      "description": "当你有多步任务的规格或需求、在动手写代码之前使用",
+      "enDescription": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "test-qa"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
+      "githubDir": "skills/writing-plans"
     },
     {
       "name": "docx",
@@ -2909,91 +3013,6 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-pollution",
       "githubDir": "skills/prototype-pollution"
-    },
-    {
-      "name": "codebase-design",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.",
-      "enDescription": "",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/codebase-design",
-      "githubDir": "skills/codebase-design"
-    },
-    {
-      "name": "domain-modeling",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR.",
-      "enDescription": "",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "doc-writing"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/domain-modeling",
-      "githubDir": "skills/domain-modeling"
-    },
-    {
-      "name": "planning-with-files",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Persistent file-based planning for multi-step AI-agent work. Keeps task_plan.md, findings.md, and progress.md on disk; lifecycle hooks inject selected project planning context. Automatic recovery reads project planning files only. Explicit session-catchup.py --metadata reads same-project local agent session records and emits aggregate counts only; --replay may emit bounded nonce-framed excerpts. Optional gated mode can request continuation only when the host supports it and never runs commands declared in Markdown. The skill has no network upload path. Use for research or work needing 5+ tool calls.",
-      "enDescription": "",
-      "homepage": "",
-      "allowedTools": [
-        "Read Write Edit Bash Glob Grep"
-      ],
-      "tags": [
-        "ai-agent",
-        "doc-writing"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/planning-with-files",
-      "githubDir": "skills/planning-with-files"
-    },
-    {
-      "name": "review-animations",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
-      "enDescription": "",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [
-        "ai-agent",
-        "design-media",
-        "test-qa"
-      ],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/review-animations",
-      "githubDir": "skills/review-animations"
-    },
-    {
-      "name": "writing-plans",
-      "category": "其他",
-      "enCategory": "其他",
-      "zh": "",
-      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
-      "enDescription": "",
-      "homepage": "",
-      "allowedTools": [],
-      "tags": [],
-      "hidden": false,
-      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
-      "githubDir": "skills/writing-plans"
     }
   ]
 }

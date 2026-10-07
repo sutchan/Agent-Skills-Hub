@@ -165,7 +165,7 @@
   },
   "codebase-design": {
     "popularity": 0,
-    "size": 11964,
+    "size": 11868,
     "files": 4
   },
   "coding-standards": {
@@ -281,7 +281,7 @@
   },
   "domain-modeling": {
     "popularity": 0,
-    "size": 8664,
+    "size": 8692,
     "files": 4
   },
   "douyin-video": {
@@ -706,7 +706,7 @@
   },
   "planning-with-files": {
     "popularity": 0,
-    "size": 457000,
+    "size": 453483,
     "files": 32
   },
   "playwright-cli": {
@@ -747,7 +747,7 @@
   },
   "review-animations": {
     "popularity": 0,
-    "size": 18515,
+    "size": 18480,
     "files": 2
   },
   "seedance-2-5-image-to-video": {
@@ -779,6 +779,11 @@
     "popularity": 0,
     "size": 43049,
     "files": 12
+  },
+  "tdd": {
+    "popularity": 0,
+    "size": 7692,
+    "files": 4
   },
   "test-driven-development": {
     "popularity": 0,
@@ -817,7 +822,7 @@
   },
   "webapp-testing": {
     "popularity": 0,
-    "size": 23186,
+    "size": 22887,
     "files": 6
   },
   "winui-design": {
@@ -862,7 +867,7 @@
   },
   "writing-plans": {
     "popularity": 0,
-    "size": 10335,
+    "size": 10533,
     "files": 1
   }
 }
