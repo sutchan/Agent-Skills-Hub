@@ -1,4 +1,4 @@
-/* components-shared.css — 由 prototype/src/styles/components.css v1.14.78 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
+/* components-shared.css — 由 prototype/src/styles/components.css v1.14.79 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
 /* 分类 chip（筛选器）：默认中性灰，选中态才用 --hue 派生彩色（对齐 app，catHue 算法驱动） */
 .chip {
   --hue: 220;
@@ -96,9 +96,6 @@
 /* 仅英文：隐藏中文名，英文原名升为主标题 */
 :root[data-name-mode="en"] .card-title .zh { display: none; }
 :root[data-name-mode="en"] .card-title .en { display: block; font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
-/* 详情弹窗标题下方英文原名：中文态弱化为副标题，英文态隐藏（避免英文名重复） */
-:root[data-lang="zh"] #dialog .sub.en { display: block; font-size: 12px; color: var(--text-2); font-weight: 400; margin-top: 2px; }
-:root[data-lang="en"] #dialog .sub.en { display: none; }
 /* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 3 行截断 */
 .card-desc { color: color-mix(in srgb, var(--text) 68%, var(--text-2)); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .card-desc > span { display: block; }

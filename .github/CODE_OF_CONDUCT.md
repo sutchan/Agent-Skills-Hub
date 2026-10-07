@@ -1,6 +1,6 @@
 # Contributor Covenant 行为准则
 
-> 路径：`.github/CODE_OF_CONDUCT.md` · 版本：1.14.76
+> 路径：`.github/CODE_OF_CONDUCT.md` · 版本：1.14.79
 
 ## 我们的承诺
 

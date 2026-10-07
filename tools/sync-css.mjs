@@ -1,5 +1,5 @@
-// tools/sync-css.mjs — 将 prototype/src/styles 四模块同步为 src 的 *-shared.css，
-// 并把 src/globals.css 拆分为「prototype 同源(@import shared) + app 扩展区」两层。
+// tools/sync-css.mjs — 将 prototype/src/styles 四模块同步为 src/app 的 *-shared.css，
+// 并把 src/app/globals.css 拆分为「prototype 同源(@import shared) + app 扩展区」两层。
 //
 // 同步策略（零回归）：
 //   shared 文件 = prototype 四模块原文（提供 prototype 全部规则，含其新增/演进）。

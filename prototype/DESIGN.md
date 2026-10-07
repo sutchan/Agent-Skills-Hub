@@ -185,7 +185,7 @@
 - 原型为只读展示，无表单提交错误。
 - 边界情况：技能 `zh`/`description` 缺失时由 `esc()` 安全降级为空串，i18n 缺失 key 时由 `I18N.t()` 回退 zh / key 原文，均不崩溃。
 - 仓库内 Markdown 文档（README / CONTRIBUTING 等）的技能链接使用相对路径 `skills/<name>/`，由 GitHub 自动解析，避免硬编码用户名。
-- 原型站点详情弹窗的"查看技能"使用绝对 GitHub 链接 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>/`，由 `prototype/src/parts/03-detail.js` 的 `REPO_SKILLS_TREE` 常量维护；app 层 `app/components/detail-modal.tsx` 同样硬编码 `githubDir`（`app/lib/skills.ts`）指向该常量，两层保持一致。
+- 原型站点详情弹窗的"查看技能"使用绝对 GitHub 链接 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>/`，由 `prototype/src/parts/03-detail.js` 的 `REPO_SKILLS_TREE` 常量维护；src 层 `src/components/detail-modal.tsx` 同样硬编码 `githubDir`（`src/lib/skills.ts`）指向该常量，两层保持一致。
 
 ### 4.4 空状态（Empty）
 
@@ -199,7 +199,7 @@
 - 分类 chip 用 `aria-pressed` 反映选中态。
 - 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
 - 顶部栏图标按钮统一 `.icon-btn`（34px、flex 居中、`aria-pressed`/`aria-label`），`#settingsBtn` 带 `aria-label`（v1.17.2 补齐样式，修复按钮参差对齐）。
-- **app 层对齐（v1.20.6）**：`app/components/skill-card.tsx` 卡片根已改为原生 `<button>`（依赖原生 Enter/Space）；`app/components/detail-modal.tsx` 自带 Esc 关闭 + 焦点陷阱（`keydown` 监听，无独立 `ui/dialog.tsx`）；顶栏（`AppShell.tsx`）已含 `#langBtn` 语言切换与 `#themeBtn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`）；`SkillsExplorer.tsx` 顶栏含网格/列表视图切换（`#viewBtn`）与 `#settingsBtn` 齿轮按钮，打开 `app/components/settings-panel.tsx` 设置弹窗（聚合「界面元素 / 名称显示 / 显示密度」三组，无独立 `ui/settings-dialog.tsx`）；视图（`ash-view`）、密度（`ash-density`，写 `data-density` + globals.css `:root[data-density="compact"]` 生效）、界面元素、名称显示均持久化；搜索框新增 120ms 防抖 + 输入法 composition 拦截（对齐原型 `DEBOUNCE_MS`）；结果计数 `#resultCount`（aria-live）；滚动超 300px 显示回到顶部 `#toTop`（`.to-top.show` 样式）；`AppShell.tsx` 渲染 `<section class="hero" id="hero">` 节点网 Hero（按分类计数动态生成 `#netNodes`，双语标题/副标题/特性标签 + 方案 B 随机骰子 `#diceBtn`，点击派发 `ash:open-skill` 由 `SkillsExplorer.tsx` 打开 `detail-modal.tsx`，样式同源 `app/globals.css`）。
+- **src 层对齐（v1.20.6）**：`src/components/skill-card.tsx` 卡片根已改为原生 `<button>`（依赖原生 Enter/Space）；`src/components/detail-modal.tsx` 自带 Esc 关闭 + 焦点陷阱（`keydown` 监听，无独立 `ui/dialog.tsx`）；顶栏（`AppShell.tsx`）已含 `#langBtn` 语言切换与 `#themeBtn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`）；`SkillsExplorer.tsx` 顶栏含网格/列表视图切换（`#viewBtn`）与 `#settingsBtn` 齿轮按钮，打开 `src/components/settings-panel.tsx` 设置弹窗（聚合「界面元素 / 名称显示 / 显示密度」三组，无独立 `ui/settings-dialog.tsx`）；视图（`ash-view`）、密度（`ash-density`，写 `data-density` + globals.css `:root[data-density="compact"]` 生效）、界面元素、名称显示均持久化；搜索框新增 120ms 防抖 + 输入法 composition 拦截（对齐原型 `DEBOUNCE_MS`）；结果计数 `#resultCount`（aria-live）；滚动超 300px 显示回到顶部 `#toTop`（`.to-top.show` 样式）；`AppShell.tsx` 渲染 `<section class="hero" id="hero">` 节点网 Hero（按分类计数动态生成 `#netNodes`，双语标题/副标题/特性标签 + 方案 B 随机骰子 `#diceBtn`，点击派发 `ash:open-skill` 由 `SkillsExplorer.tsx` 打开 `detail-modal.tsx`，样式同源 `src/globals.css`）。
 
 ### 4.6 页脚区（Footer）
 
@@ -207,9 +207,9 @@
 - 结构分两段：
   - **品牌与导航**（`footer-inner`）：左侧品牌区（`footer-brand` 含 logo + 名称 + 简介 `footer-desc`），右侧导航链接列（`footer-links`，含 GitHub 仓库、README、规范文档、品牌资产）。
   - **版本与协议**（`footer-bottom`）：项目版本 `footer-ver`（来自根 `package.json`，由 `build.mjs` 注入 `{{VERSION}}` / app 经 `page.tsx` 读取传入）+ 分隔符 + 开源协议声明 `footer-copy`。
-- 文案遵循全局 i18n：原型层 `footer.desc` / `footer.copyright` 用 `data-i18n` + `.zh`/`.en` 类随语言切换；`app/` 层以 `lang` 条件渲染。
+- 文案遵循全局 i18n：原型层 `footer.desc` / `footer.copyright` 用 `data-i18n` + `.zh`/`.en` 类随语言切换；`src/` 层以 `lang` 条件渲染。
 - 链接统一 `target="_blank" rel="noopener"` 外链，内链用相对路径；品牌 logo 与页眉同源（三节点 Hub SVG）。
-- 样式在 `prototype/src/styles/components.css` 与 `app/globals.css` 同步维护，主色与令牌同源；移动端 `footer-inner` 竖向堆叠。
+- 样式在 `prototype/src/styles/components.css` 与 `src/globals.css` 同步维护，主色与令牌同源；移动端 `footer-inner` 竖向堆叠。
 
 ---
 
@@ -239,7 +239,7 @@
   - `allowedTools`：授权工具列表；`hidden`：是否隐藏（`renderGrid` 过滤）。
   - `categoryEn`（根级）：分类中文→英文映射对象。
 - 分类计数由 `02-render.js` 的 `catCounts()` 预聚合为 `Map`，搜索由 `matches(s, terms)`（预切分词表缓存）实现。
-- 注意：`app/` 是项目**可运行 Web 应用**源码工作区，与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`（构建时由 `tools/build-skills-data.mjs` 生成 `data/skills-data.json` + `data/skills-metrics.json`）。
+- 注意：`src/` 是项目**可运行 Web 应用**源码工作区，与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`（构建时由 `tools/build-skills-data.mjs` 生成 `data/skills-data.json` + `data/skills-metrics.json`）。
 - 红色底线：数据契约须与 `tools/build-skills-data.mjs`/`tools/build.mjs`、`docs/spec.md` 严格一致。
 
 ---
@@ -258,9 +258,9 @@
 
 品牌资产为矢量 SVG，单一事实来源位于仓库根 [`public/`](public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`public/hub.svg`](public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
 
-> 版本：v1.19.13 — 筛选增强：分类筛选由单选升级为**多选 OR**（state.cat → state.cats 数组，空=全部，点击 chip 非破坏式 toggle）；新增**排序**下拉（控制区 `#sortSelect`：名称 A-Z / 名称 Z-A / 按分类 / 按中文名，默认 A-Z）。原型 `02-render.js` 新增 `sortSkills()`、renderCats 按 `state.cats.includes` 判 active；`04-interactions.js` 分类点击改 toggle、`clearFilters` 重置 cats+sort、绑定 `#sortSelect` change；`index.html` 控制区加排序 select + `i18n.js` 加 `sort.*` 中英文案 + `components.css` 加 `.sort-wrap select` 样式。app `SkillsExplorer.tsx` 改 `cats` 多选(toggleCat)+`sort` state+排序比较器+控制区 select；`globals.css` 补 `.sort-wrap` 样式。其余同 v1.19.12（全字段规范重排 SKILL.md 头部注释）+ v1.19.7（统计迁入页脚 4 项：技能总数/分类/英文描述覆盖/支持语言）+ v1.19.6（名称显示分组 + 设置紧凑化）+ v1.19.5（界面元素分组）+ v1.19.4（app 卡片层重建、`app/components/` 最小可用 `AppShell`/`SkillsExplorer`/`skill-card`、`.card-body` 列表布局修复）+ v1.19.3（原型卡片双名/列表修复）+ v1.18.3（页眉品牌区优化、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
+> 版本：v1.19.13 — 筛选增强：分类筛选由单选升级为**多选 OR**（state.cat → state.cats 数组，空=全部，点击 chip 非破坏式 toggle）；新增**排序**下拉（控制区 `#sortSelect`：名称 A-Z / 名称 Z-A / 按分类 / 按中文名，默认 A-Z）。原型 `02-render.js` 新增 `sortSkills()`、renderCats 按 `state.cats.includes` 判 active；`04-interactions.js` 分类点击改 toggle、`clearFilters` 重置 cats+sort、绑定 `#sortSelect` change；`index.html` 控制区加排序 select + `i18n.js` 加 `sort.*` 中英文案 + `components.css` 加 `.sort-wrap select` 样式。src `SkillsExplorer.tsx` 改 `cats` 多选(toggleCat)+`sort` state+排序比较器+控制区 select；`globals.css` 补 `.sort-wrap` 样式。其余同 v1.19.12（全字段规范重排 SKILL.md 头部注释）+ v1.19.7（统计迁入页脚 4 项：技能总数/分类/英文描述覆盖/支持语言）+ v1.19.6（名称显示分组 + 设置紧凑化）+ v1.19.5（界面元素分组）+ v1.19.4（src 卡片层重建、`src/components/` 最小可用 `AppShell`/`SkillsExplorer`/`skill-card`、`.card-body` 列表布局修复）+ v1.19.3（原型卡片双名/列表修复）+ v1.18.3（页眉品牌区优化、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
 
-> 版本：v1.19.14 — 详情弹窗重构：新增 `app/components/detail-modal.tsx`，`build-skills-data.mjs` 提取 `author`/`license`/`version`/`githubDir`；原型 `03-detail.js` 注入元信息区（作者/协议/GitHub 目录）+ 相关技能 + 复制命令；数据契约 `SkillEntry` 增 `source?` 可选字段（v1.19.18 规范补充，指向 skills.sh 生态上游溯源）。后续 v1.19.15~v1.19.18 的逐项变更见根 `CHANGELOG.md`。
+> 版本：v1.19.14 — 详情弹窗重构：新增 `src/components/detail-modal.tsx`，`build-skills-data.mjs` 提取 `author`/`license`/`version`/`githubDir`；原型 `03-detail.js` 注入元信息区（作者/协议/GitHub 目录）+ 相关技能 + 复制命令；数据契约 `SkillEntry` 增 `source?` 可选字段（v1.19.18 规范补充，指向 skills.sh 生态上游溯源）。后续 v1.19.15~v1.19.18 的逐项变更见根 `CHANGELOG.md`。
 
 ### 8.1 标志释义（Logo）
 
@@ -298,7 +298,7 @@
 
 - 格式：SVG（矢量，自适应任意 DPI）；如目标平台仅接受位图，由 `favicon.svg` 栅格化为 32×32 / 180×180（apple-touch）PNG。
 - 颜色：纯 `#2e9e6b` 底 + 反白图形，无渐变（保证 16px 下清晰）。
-- 部署：`prototype/favicon.svg` 由根 `build.mjs` 从 `public/favicon.svg` 复制；`app/` 通过 `app/layout.tsx` 的 `metadata.icons.icon = "/favicon.svg"` 引用 `public/favicon.svg`。
+- 部署：`prototype/favicon.svg` 由根 `build.mjs` 从 `public/favicon.svg` 复制；`src/` 通过 `src/app/layout.tsx` 的 `metadata.icons.icon = "/favicon.svg"` 引用 `public/favicon.svg`。
 
 ### 8.5 禁用示例（Don'ts）
 
@@ -310,6 +310,6 @@
 
 ### 8.6 使用约定
 
-- 页眉品牌区：标志（30×30，圆角底 + 极淡主绿光晕 `box-shadow`，hover `scale(1.06)`）+ 文字两行——主名「Agent Skills Hub」（衬线 `--font-display`，17px/700）+ 副标题（11px/`--text-2`/弱化），见 `app/components/AppShell.tsx` 的 `BrandMark()`+`.brand-text` 与原型 `prototype/src/index.html` 的 `.brand`+`.brand-text`。
+- 页眉品牌区：标志（30×30，圆角底 + 极淡主绿光晕 `box-shadow`，hover `scale(1.06)`）+ 文字两行——主名「Agent Skills Hub」（衬线 `--font-display`，17px/700）+ 副标题（11px/`--text-2`/弱化），见 `src/components/AppShell.tsx` 的 `BrandMark()`+`.brand-text` 与原型 `prototype/src/index.html` 的 `.brand`+`.brand-text`。
 - 代码内联引用：原型用 data-URI 内联 `public/hub.svg` 的 symbol + 外链 `favicon.svg` 双重声明（见 `prototype/src/index.html` `<head>`）。
 - 品牌资产变更须同步：①本 §8 与 README「品牌资产」；②`public/hub.svg` 与 `public/*` 资产同源；③版本号 bump。

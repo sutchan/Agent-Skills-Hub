@@ -1,4 +1,4 @@
-/* base-shared.css — 由 prototype/src/styles/base.css v1.20.17 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
+/* base-shared.css — 由 prototype/src/styles/base.css v1.20.18 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
 /* 键盘焦点可见：仅对键盘用户显示焦点环，避免鼠标点击残留描边 */
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 6px; }
 /* 打开弹窗时锁定背景滚动 */
@@ -33,7 +33,6 @@ body.no-scroll { overflow: hidden; }
   pointer-events: none; max-width: 86vw; text-align: center;
 }
 .toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
-.toast.err { background: hsl(var(--destructive)); }
 
 /* 语言切换后英文/中文描述互斥显示 */
 html[data-lang="en"] .zh { display: none; }
