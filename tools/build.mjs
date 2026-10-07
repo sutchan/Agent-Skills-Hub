@@ -1,4 +1,4 @@
-// build.mjs v1.20.18 — 将 src 模板 + 真实数据内联为自包含 prototype/prototype.html（产物直出 prototype/ 根）
+// build.mjs v1.20.19 — 将 src 模板 + 真实数据内联为自包含 prototype/prototype.html（产物直出 prototype/ 根）
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -54,6 +54,8 @@ const PROJECT_VERSION = (() => {
   try { return JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version; }
   catch (e) { return ""; }
 })();
+// 构建日期（YYYY-MM-DD），注入页脚"更新日期"展示（避免硬编码漂移）
+const BUILD_DATE = new Date().toISOString().slice(0, 10);
 
 // 统计代码注入：GA4 Measurement ID 优先取环境变量，缺省回退到仓库硬编码的公开兜底值。
 // GA4 测量 ID 为公开值；本地预览可无环境变量（兜底 ID 注入），CI 部署通过 GA_MEASUREMENT_ID 环境变量覆盖。
@@ -78,6 +80,7 @@ const out = htmlTpl
   .replace("{{JS}}", () => js)
   .replace("{{ANALYTICS}}", () => analytics)
   .replace("{{VERSION}}", () => PROJECT_VERSION)
+  .replace("{{BUILD_DATE}}", () => BUILD_DATE)
   .replace(/\{SKILLS_TOTAL\}/g, () => String(SKILLS_TOTAL));
 
 mkdirSync(OUT_DIR, { recursive: true });

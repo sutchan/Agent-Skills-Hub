@@ -1,4 +1,4 @@
-// prototype/src/parts/05-main.js v1.14.49 — 应用启动编排
+// prototype/src/parts/05-main.js v1.14.76 — 应用启动编排
 // URL hash 深链：筛选/搜索/排序/页码可分享、刷新可还原（P0-1）
 // 序列化规则：#cat=docs,ai-agent&q=xxx&sort=name&page=2，无筛选时清空 hash
 function writeHash() {
@@ -82,6 +82,11 @@ function init() {
   // 页脚版本号兜底：若 build 未替换 {{VERSION}} 字面量，运行时回退到真实版本（F 改进）
   const fv = $("#footerVer");
   if (fv && fv.textContent.includes("{{VERSION}}")) fv.textContent = "v1.14.49";
+  // 页脚更新日期兜底：若 build 未替换 {{BUILD_DATE}} 字面量，运行时回退到今日日期
+  const fd = $("#footerDate");
+  if (fd && fd.textContent.includes("{{BUILD_DATE}}")) {
+    fd.innerHTML = fd.innerHTML.replace("{{BUILD_DATE}}", new Date().toISOString().slice(0, 10));
+  }
 }
 
 document.addEventListener("DOMContentLoaded", init);

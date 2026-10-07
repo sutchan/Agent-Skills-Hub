@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.53 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.76 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -189,7 +189,7 @@ body.no-scroll { overflow: hidden; }
 html[data-lang="en"] .zh { display: none; }
 html[data-lang="zh"] .en { display: none; }
 
-/* prototype/src/styles/layout.css v1.14.52 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.14.76 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -355,6 +355,8 @@ html[data-lang="zh"] .en { display: none; }
 .footer-bottom { max-width: var(--maxw); margin: 16px auto 0; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--text-2); font-size: 12px; }
 .footer-ver { font-weight: 600; color: var(--text); }
 .footer-sep { opacity: .5; }
+.footer-date { color: var(--text-2); }
+.footer-date .date-val { font-variant-numeric: tabular-nums; }
 .footer-copy { margin-left: auto; }
 /* 页脚统计区（v1.19.7 由 hero 迁入并扩充）：横向平铺 4 项，计算中英双语显隐与 hero 统计一致 */
 .footer-stats { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px 28px; margin-top: 6px; padding-top: 16px; border-top: 1px dashed var(--border); }
@@ -928,7 +930,9 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       </div>
     </div>
     <div class="footer-bottom" id="footerBottom">
-      <span class="footer-ver" id="footerVer">v1.14.74</span>
+      <span class="footer-ver" id="footerVer">v1.14.76</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <span class="footer-date" id="footerDate"><span class="zh">更新于 </span><span class="en">Updated </span><span class="date-val">2026-10-07</span></span>
       <span class="footer-sep" aria-hidden="true">·</span>
       <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费 · MIT 协议</span>
       <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source · MIT License</span>
@@ -2264,7 +2268,7 @@ function showToast(msg) {
   _toastTimer = setTimeout(() => el.classList.remove("show"), 1800);
 }
 
-// prototype/src/parts/05-main.js v1.14.49 — 应用启动编排
+// prototype/src/parts/05-main.js v1.14.76 — 应用启动编排
 // URL hash 深链：筛选/搜索/排序/页码可分享、刷新可还原（P0-1）
 // 序列化规则：#cat=docs,ai-agent&q=xxx&sort=name&page=2，无筛选时清空 hash
 function writeHash() {
@@ -2348,6 +2352,11 @@ function init() {
   // 页脚版本号兜底：若 build 未替换 {{VERSION}} 字面量，运行时回退到真实版本（F 改进）
   const fv = $("#footerVer");
   if (fv && fv.textContent.includes("{{VERSION}}")) fv.textContent = "v1.14.49";
+  // 页脚更新日期兜底：若 build 未替换 {{BUILD_DATE}} 字面量，运行时回退到今日日期
+  const fd = $("#footerDate");
+  if (fd && fd.textContent.includes("{{BUILD_DATE}}")) {
+    fd.innerHTML = fd.innerHTML.replace("{{BUILD_DATE}}", new Date().toISOString().slice(0, 10));
+  }
 }
 
 document.addEventListener("DOMContentLoaded", init);

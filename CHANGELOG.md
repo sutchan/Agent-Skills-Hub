@@ -12,6 +12,17 @@
 
 [1.14.75]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.75
 
+## [1.14.76] - 2026-10-07
+
+### feat: 原型页脚增加版本号与更新日期
+
+- `prototype/src/index.html` 页脚 `footer-bottom` 在版本号后新增"更新日期"（`{{BUILD_DATE}}`，构建日期 YYYY-MM-DD），中英双语（更新于 / Updated）。
+- `tools/build.mjs` 注入 `{{BUILD_DATE}}`；`prototype/src/parts/05-main.js` 增加 `{{BUILD_DATE}}` 运行时兜底。
+- `prototype/src/styles/layout.css` 新增 `.footer-date` 样式（等宽数字）。
+- 确认原型构建（`tools/build.mjs`）已将全部 CSS/JS 内联进单一 `prototype.html`，产物无外部本地 `<link>`/`<script src>` 引用，已自包含。
+
+[1.14.76]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.76
+
 ## [1.14.74] - 2026-10-07
 
 ### chore: 批量回填所有技能的 frontmatter 契约字段
