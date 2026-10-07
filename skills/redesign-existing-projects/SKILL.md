@@ -1,11 +1,8 @@
 ---
 name: redesign-existing-projects
-description: 将现有网站与应用升级至高级品质，审计当前设计、识别问题并交付改进方案。
-en_description: Upgrades existing websites and apps to premium quality. Audits current design, identifies issues, and delivers an improvement plan.
-zh_displayName: 现有项目重设计
-category: 品牌与设计
-en_category: Brand & Design
+description: Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.
 ---
+
 # Redesign Skill
 
 ## How This Works

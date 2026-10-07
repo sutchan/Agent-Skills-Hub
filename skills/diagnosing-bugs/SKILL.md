@@ -1,11 +1,8 @@
 ---
 name: diagnosing-bugs
-description: 针对疑难缺陷与性能回退的诊断循环，在用户要求排查复杂问题或诊断 bug 时使用。
-en_description: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose this bug" or needs to debug a complex issue.
-zh_displayName: 缺陷诊断
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.
 ---
+
 # Diagnosing Bugs
 
 A discipline for hard bugs. Skip phases only when explicitly justified.

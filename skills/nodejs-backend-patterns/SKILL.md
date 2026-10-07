@@ -1,12 +1,8 @@
 ---
 name: nodejs-backend-patterns
-description: |-
-    构建生产级 Node.js 后端服务
-en_description: "Build production-ready Node.js backend services with Express/Fastify, implementing middleware patterns, error handling, authentication, database integration, and API design best practices. Use when creating Node.js servers, REST APIs, GraphQL backends, or microservices architectures."
-zh_displayName: Node.js 后端模式
-category: 后端与平台
-en_category: Backend & Platform
+description: Build production-ready Node.js backend services with Express/Fastify, implementing middleware patterns, error handling, authentication, database integration, and API design best practices. Use when creating Node.js servers, REST APIs, GraphQL backends, or microservices architectures.
 ---
+
 # Node.js Backend Patterns
 
 Comprehensive guidance for building scalable, maintainable, and production-ready Node.js backend applications with modern frameworks, architectural patterns, and best practices.

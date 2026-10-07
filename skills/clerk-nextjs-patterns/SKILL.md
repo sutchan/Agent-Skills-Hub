@@ -1,27 +1,29 @@
 ---
 name: clerk-nextjs-patterns
-description: 高级 Next.js 模式——middleware、Server Actions、缓存等，帮助在 Clerk + Next.js 应用中落地稳健的认证与集成模式。
-en_description: Advanced Next.js patterns - middleware, Server Actions, caching with
-zh_displayName: Clerk 认证模式
-category: 安全
-en_category: Security
+description: Advanced Next.js patterns - middleware, Server Actions, caching with
+  Clerk.
 license: MIT
 allowed-tools: WebFetch
 compatibility: Requires NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY. For manual JWT verification (standalone API servers without Clerk middleware), additionally requires CLERK_JWT_KEY or CLERK_PEM_PUBLIC_KEY.
-metadata: 
+metadata:
+  author: clerk
+  version: 2.2.0
 ---
+
 # Next.js Patterns
 
 > **Version**: Check `package.json` for the SDK version — see `clerk` skill for the version table. Core 2 differences are noted inline with `> **Core 2 ONLY (skip if current SDK):**` callouts.
 
 For basic setup, see `clerk-setup` skill.
 
+> **Route protection:** call `await auth.protect()` in each page, Route Handler, and Server Function. Keep `clerkMiddleware()` bare. `createRouteMatcher` is deprecated in `@clerk/nextjs` 7 and will be removed in the next major version. Don't add it. If a project already uses it, leave it working and point the user to the [migration guide](https://clerk.com/docs/guides/development/upgrading/upgrade-guides/migrate-from-create-route-matcher).
+
 ## What Do You Need?
 
 | Task | Reference |
 |------|-----------|
 | Server vs client auth (`auth()` vs hooks) | references/server-vs-client.md |
-| Configure middleware (public-first vs protected-first) | references/middleware-strategies.md |
+| Protect routes (check in each page, handler, and Server Function) | references/middleware-strategies.md |
 | Protect Server Actions | references/server-actions.md |
 | API route auth (401 vs 403) | references/api-routes.md |
 | Cache auth data (user-scoped caching) | references/caching-auth.md |
@@ -31,7 +33,7 @@ For basic setup, see `clerk-setup` skill.
 | Reference | Description |
 |-----------|-------------|
 | `references/server-vs-client.md` | `await auth()` vs hooks |
-| `references/middleware-strategies.md` | Public-first vs protected-first, `proxy.ts` (Next.js <=15: `middleware.ts`) |
+| `references/middleware-strategies.md` | `auth.protect()` in each resource, bare `clerkMiddleware()` in `proxy.ts` (Next.js <=15: `middleware.ts`) |
 | `references/server-actions.md` | Protect mutations |
 | `references/api-routes.md` | 401 vs 403 |
 | `references/caching-auth.md` | User-scoped caching |
@@ -122,6 +124,7 @@ import { Show } from '@clerk/nextjs'
 | Auth not working on API routes | Missing matcher | Add `'/(api|trpc)(.*)'` to `proxy.ts` (Next.js <=15: `middleware.ts`) |
 | Cache returns wrong user's data | Missing userId in key | Include `userId` in `unstable_cache` key |
 | Mutations bypass auth | Unprotected Server Action | Check `auth()` at start of action |
+| Protected page returns 200, not 307, while signed out | The redirect happened after streaming started (e.g. under a `loading.tsx`) | Confirm the body redirects to sign-in and has no protected data. Keep the check in the page |
 | Wrong HTTP error code | Confused 401/403 | 401 = not signed in, 403 = no permission |
 
 ## Session Tokens & Custom JWTs

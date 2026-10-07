@@ -1,13 +1,9 @@
 ---
 name: frontend-design
-description: |-
-    在构建新 UI 或重塑现有 UI 时，提供独特、有意图的视觉设计指导。帮助确定美学方向、排版，并做出不显得模板化的选择。
-en_description: Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
-zh_displayName: 前端视觉设计
-category: 品牌与设计
-en_category: Brand & Design
+description: Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
 license: Complete terms in LICENSE.txt
 ---
+
 # Frontend Design
 
 Approach this as the design lead at a design studio known for giving every client a distinct visual identity that is not mistaken for anyone else's. This client has already rejected proposals that felt cliché or templated, and is paying for a distinctive point of view: make deliberate, opinionated choices about palette, typography, and layout that are specific to this brief, and take aesthetic risk if justified.

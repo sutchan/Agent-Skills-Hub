@@ -1,11 +1,8 @@
 ---
 name: code-review
-description: 围绕既定基准（提交、分支、标签或合并基点）从规范与规格两个维度审查代码改动。
-en_description: Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: standards and spec compliance.
-zh_displayName: 代码审查
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
 ---
+
 Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
 - **Standards**: does the code conform to this repo's documented coding standards?

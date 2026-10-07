@@ -1,12 +1,8 @@
 ---
 name: code-review-and-quality
-description: |-
-    多维度代码审查保障合并质量
-en_description: "Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch."
-zh_displayName: 代码审查与质量
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch. Use when asked to review a diff or a pull request, even when the diff is pasted inline.
 ---
+
 # Code Review and Quality
 
 ## Overview
@@ -164,6 +160,8 @@ Tests reveal intent and coverage:
 - Do tests have descriptive names?
 - Would the tests catch a regression if the code changed?
 ```
+
+Answer the last question by experiment, not by reading. Invert one condition the change adds (drop a negation, swap `&&` for `||`), run the suite, then restore the file from a copy. A mutation that stays green is a finding: name the test case that is missing. For a project-wide mutation score, see `constraint-driven-development`.
 
 ### Step 3: Review the Implementation
 

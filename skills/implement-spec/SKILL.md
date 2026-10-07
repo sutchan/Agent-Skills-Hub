@@ -1,12 +1,9 @@
 ---
 name: implement-spec
-description: 将规格说明实现为代码，在用户要求按规范落地功能时使用。
-en_description: Implement a specification in code.
-zh_displayName: 规格实现
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: "Implement the result of /to-spec and /to-tickets in code."
 disable-model-invocation: true
 ---
+
 You have been provided a spec. This spec should have tickets associated with it, describing how to implement the spec.
 
 The issue tracker should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.

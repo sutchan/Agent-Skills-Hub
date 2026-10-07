@@ -1,12 +1,8 @@
 ---
 name: hyperframes-creative
-description: |-
-    HyperFrames 视频非动画创意方向
-en_description: "Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns, and brand / style decisions. For atomic motion patterns and scene blueprints, use `hyperframes-animation`."
-zh_displayName: HyperFrames 创意指导
-category: 音视频与多媒体
-en_category: Media & Multimedia
+description: Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns, and brand / style decisions. For atomic motion patterns and scene blueprints, use `hyperframes-animation`.
 ---
+
 **Plugin installs:** Before setup or freshness commands, follow [plugin execution rules](../hyperframes/references/plugin-installation.md) when this skill is inside a HyperFrames plugin. Standalone installs keep the update instructions below.
 
 # HyperFrames Creative
@@ -61,10 +57,10 @@ For motion patterns, scene blueprints, transitions, and CSS marker effects, use 
 
 `contrast-report.mjs` resolves helper packages from the current project first, then can bootstrap the bundled HyperFrames package version. Set `HYPERFRAMES_SKILL_PKG_VERSION=<version>` only when running the skill outside the bundled CLI/skill install and you need to pin that bootstrap version explicitly.
 
-Run from the repo root with explicit paths, for example:
+Run with explicit paths, for example:
 
 ```bash
-python skills/hyperframes-creative/scripts/extract-audio-data.py <audio-file>
+python <SKILL_DIR>/scripts/extract-audio-data.py <audio-file>
 ```
 
 Animation analysis (`animation-map.mjs`) lives in `hyperframes-animation/scripts/`.

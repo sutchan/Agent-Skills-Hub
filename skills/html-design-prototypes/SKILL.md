@@ -1,20 +1,22 @@
 ---
 name: html-design-prototypes
-description: |-
-    触发条件：在向 AskUserQuestion 选项填充前，构建 HTML 设计原型。
-en_description: |-
-    Create real HTML prototypes for visual design, component playgrounds, animation tuning, and design system exploration when comparing UI variants, before production code.
-zh_displayName: HTML 设计原型
-category: 前端开发
-en_category: Frontend Dev
-when_to_use: |-
-    "design / mock / prototype a component, screen, animation, transition"; "help me visualize how X
-    should look"; "tune this animation"; "build a quick playground for the tooltip"; any design-thinking
-    phase before production code, whatever the target framework. HTML is the fastest design surface;
-    chips are monospace text.
+description: >-
+  TRIGGER: before putting a UI / screen / component / animation comparison into `AskUserQuestion`
+  `preview:` chips, invoke this skill and ask "quick inline chips, or a real HTML prototype?" — no
+  exception for "simulate", "demo", "mock up". Builds real HTML prototypes for visual design,
+  component playgrounds, animation tuning, and design-system exploration — even when the production
+  target is React, Swift, SwiftUI, or Android. For N alternatives use html-brainstorm-grid; for one
+  tunable component use this skill.
+when_to_use: >-
+  "design / mock / prototype a component, screen, animation, transition"; "help me visualize how X
+  should look"; "tune this animation"; "build a quick playground for the tooltip"; any design-thinking
+  phase before production code, whatever the target framework. HTML is the fastest design surface;
+  chips are monospace text.
 license: MIT
-metadata: 
+metadata:
+  version: "1.4.0"
 ---
+
 # HTML Design & Prototypes
 
 HTML is the fastest design surface available — instant feedback loop, real layout engine, real typography, real interaction. Use it to sketch designs even when the production target is React Native, Swift, or anything else. The translation from HTML+CSS to the final framework is mechanical; the design exploration is what's hard.
@@ -114,6 +116,7 @@ submitToClaude({
 These defaults apply to every artifact this skill produces. A rule above wins on conflict; otherwise they are non-negotiable.
 
 - **Write a real `.html` file to disk** (`<topic>-<kind>.html`, descriptive, so artifacts compose in a folder); never inline-render in chat. Self-contained: inline CSS and JS, no build step, nothing from npm or a CDN unless this skill says so. Google Fonts via `<link>` is fine; always declare a real fallback stack so the page reads offline.
+- **Complete document shell, never a fragment**: `<!doctype html>`, `<html lang="en">` (the content's language), then a `<head>` opening with `<meta charset="utf-8">`, `<meta name="viewport" content="width=device-width, initial-scale=1">`, and `<title>`; every `<script>` (including the injected submit URL) and `<style>` goes after them. Without the charset, `file://` opens render non-ASCII text as mojibake.
 - **Mobile-responsive**: collapse to a single column under ~700px.
 - **Browser storage is for in-progress state only.** `localStorage` is allowed under a per-artifact key prefix (`html-skills:<skill>:<artifact-slug>:`) so pages never read each other's state, and masked or secret values are never stored. Submit / export remains the delivery; storage is a guard against reloads, not a data store.
 - **Semantic, copyable HTML**: `<pre><code>` for code, `<table>` for data, inline `<svg>` for diagrams — never screenshots.

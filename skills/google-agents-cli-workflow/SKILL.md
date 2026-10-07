@@ -1,14 +1,24 @@
 ---
 name: google-agents-cli-workflow
-description: |-
-  完整的 ADK 开发生命周期：脚手架、构建、评估、部署、发布、监控。使用 Agent Development Kit 构建智能体的入口。
-en_description: |-
-  Full ADK development lifecycle: scaffold, build, evaluate, deploy, publish, observe. Entry point for building agents with the Agent Development Kit.
-zh_displayName: Google ADK 开发工作流
-category: AI 与智能体
-en_category: AI & Agents
-metadata: 
+description: >
+  This skill should be used when the user wants to "develop an agent",
+  "build an agent using ADK", "run the agent locally", "debug agent code",
+  "test an agent", "deploy an agent", "publish an agent", "monitor an agent",
+  or needs the ADK (Agent Development Kit) development lifecycle and coding
+  guidelines. Entrypoint for building ADK agents.
+  Always active — provides the full workflow (scaffold, build, evaluate,
+  deploy, publish, observe), code preservation rules, model selection
+  guidance, and troubleshooting steps for ADK or any agent development.
+metadata:
+  author: Google
+  license: Apache-2.0
+  version: 1.9.0
+  requires:
+    bins:
+      - agents-cli
+    install: "uv tool install google-agents-cli"
 ---
+
 # Agent Development Workflow & Guidelines
 
 **agents-cli** is a CLI and skills toolkit for building, evaluating, and deploying agents on Google Cloud. It works with any coding agent — Antigravity CLI, Claude Code, Codex, or others — and with the agent framework of your choice (the [Agent Development Kit (ADK)](https://adk.dev/) by default). Install with `uvx google-agents-cli setup`.
@@ -16,8 +26,8 @@ metadata:
 > **Before writing agent code, make sure a scaffolded project exists (see Phase 2).** Skipping scaffolding loses eval boilerplate, CI/CD config, and project conventions.
 
 
-> Requires: google-agents-cli ~= 1.8.0
-> If version is behind, run: uv tool install "google-agents-cli~=1.8.0"
+> Requires: google-agents-cli ~= 1.9.0
+> If version is behind, run: uv tool install "google-agents-cli~=1.9.0"
 
 > Check version: agents-cli info
 > [Install uv](https://docs.astral.sh/uv/getting-started/installation/index.md) first if needed.

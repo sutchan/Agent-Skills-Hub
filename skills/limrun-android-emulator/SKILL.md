@@ -1,10 +1,6 @@
 ---
 name: limrun-android-emulator
-description: "驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动与终止应用并附带崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制网络带宽、读取应用日志、执行 shell 命令、传输文件，并通过本机隧道转发应用网络目标（支持 HTTP 检测与 HAR 抓包）、信任自定义 CA 证书，以及经由 CLI 隧道使用 adb 获取完整 logcat 与交互工具。在构建完成后（使用 limrun-gradle 或任意构建器）使用——当用户想在模拟器上查看、测试或操作应用，或说「给我看截图」「点一下」「在模拟器上运行」「看 logcat」「录屏」「检查网络流量」或「从模拟器访问我的本地服务」时调用。需先用 limrun-gradle 构建 APK 或 AAB。"
-en_description: "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, read app logs, run shell commands, transfer files, tunnel the app's network destinations through your machine with HTTP inspection and HAR capture, trust a custom CA certificate, and use adb over the CLI's tunnel for full logcat and interactive tools. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', 'record a video', 'inspect network traffic', or 'reach my local server from the emulator'. To build the APK or AAB first, use limrun-gradle."
-zh_displayName: "Limrun 安卓模拟器"
-category: 移动端开发
-en_category: Mobile Dev
+description: "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, read app logs, run shell commands, transfer files, tunnel the app's network destinations through your machine with HTTP inspection and HAR capture, trust a custom CA certificate, and use adb over the CLI's tunnel for full logcat and interactive tools. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', 'record a video', 'inspect network traffic', or 'reach my local server from the emulator'. To build the APK or AAB first, use limrun-gradle."
 user-invocable: true
 effort: high
 ---
