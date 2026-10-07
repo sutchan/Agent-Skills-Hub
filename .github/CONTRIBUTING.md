@@ -35,7 +35,7 @@ npm install          # 安装根依赖（构建脚本所需）
 npm run build        # 验证构建链路，生成 data 与 prototype
 ```
 
-> 要求 Node.js `22.x || 26.x`（见根 `package.json` `engines`）。
+> 要求 Node.js `>=22.11`（见根 `package.json` `engines`）。`engines` 只声明**下限**而非大版本白名单：部署平台（EdgeOne / Vercel）会在 LTS 轮换时自动升级 Node 大版本，硬钉 `22.x || 26.x` 会在平台升级后令 `npm install` 直接失败。
 
 ## 新增或更新技能
 

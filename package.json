@@ -1,6 +1,6 @@
 {
   "name": "agent-skills-hub",
-  "version": "1.14.82",
+  "version": "1.14.83",
   "private": true,
   "description": "Agent Skills Hub — 高质量 agent 技能目录与高保真原型（纯静态站点）",
   "scripts": {
@@ -26,7 +26,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "22.x || 26.x",
+    "node": ">=22.11",
     "pnpm": ">=9"
   },
   "packageManager": "pnpm@11.24.0"

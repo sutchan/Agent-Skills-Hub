@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.83] - 2026-10-07
+
+### fix: 修复 EdgeOne Pages 构建 `npm install` 失败（EBADENGINE）
+
+- **现象**：EdgeOne 构建在 `edgeone makers build` → `npm install` 步骤以退出码 1 失败，报 `npm error code EBADENGINE` / `notsup Not compatible with your version of node/npm: agent-skills-hub@1.14.82`，构建环境 Node 为 `v24.18.0`（npm 11.16.0）。
+- **根因**：根 `package.json` 的 `engines.node` 硬钉大版本白名单 `22.x || 26.x`，同时 `.npmrc` 开启了 `engine-strict=true`。二者叠加使引擎不匹配从「警告」升级为「安装失败」；而 Node 24 正是当前 LTS（22 → 24 → 26 轮换中的一环），却被白名单漏掉。本地 Node v26.4.0 落在白名单内，故本地开发与 CI 一直无感，只有部署平台报错。
+- **修复**：`engines.node` 由 `22.x || 26.x` 改为**下限** `>=22.11`，不再钉死大版本。部署平台（EdgeOne / Vercel）会在 LTS 轮换时自动升级 Node，硬钉白名单会让每次平台升级都中断构建——该字段已因此在历史上反复横跳（`>=24.11.0` → `24.x` → `22.x || 26.x`），本次改为下限以根治。保留 `engine-strict=true`，仍可拦截过旧 Node。
+- **附带清理**：删除 `.npmrc` 中 npm 无法识别的 `package-manager-strict=true`（每次 install 刷 `npm warn Unknown project config "package-manager-strict"`，且该键对 npm 不生效）。
+- **文档同步**：`.github/CONTRIBUTING.md` 的 Node 要求改为 `>=22.11`，并说明「只声明下限」的原因以免回退；README 中/英徽章对齐至 v1.14.83（此前徽章仍停在 v1.14.81，与 `package.json` 已存在漂移）。
+
+[1.14.83]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.83
+
 ## [1.14.82] - 2026-10-07
 
 ### refactor: 分类筛选由多选 OR 改为单选
