@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.79] - 2026-10-07
+
+### refactor: 清理原型冗余文件与死代码
+
+- **删除冗余文件**：`prototype/build-skills-data.mjs`（兼容转发壳，`package.json` 的 `predev`/`build`/`serve` 与 CI 均直接调用 `tools/build-skills-data.mjs`，该壳零调用方）；`prototype/states.html`、`prototype/wireframes.html`（孤儿设计稿，不被构建管线引用，README/文档/CI 零引用）。`prototype/` 收敛为「构建源 `src/` + 产物 `prototype.html` + 品牌资产 + 3 份规范文档」。
+- **删除 CSS 死类**（v1.19 详情弹窗重构遗留，HTML/JS 零引用）：`layout.css` 的 `.hero-stat`/`.dialog-head`/`.dialog-close`/`.dialog-body`/`.dialog.sheet .dialog-head*`/`.sheet`/`.sheet.show`/`.sheet-grip`；`components.css` 的 `.dialog-foot`/`.zh-desc`/`#dialog .sub.en`/`.btn-primary`/`.btn-secondary`/`.btn-outline`/`.btn.secondary`/`.btn.outline`；`base.css` 的 `.toast.err`。保留仍在用的 `.btn.primary`/`.btn-ghost`/`.detail-head`/`.settings-head`。
+- **删除死函数** `renderFilterChips`（`02-render.js` 定义后从未被调用，`renderCats` 内联拼 chip）。
+- **复核**：脚本比对 156 个 CSS 类选择器与 198 个 JS 符号，**死类/死符号均为 0**；重建 `prototype/prototype.html`，CSS 括号配平、关键节点齐全、页脚注入 `v1.14.79` / `2026-10-07`。
+
+[1.14.79]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.79
+
 ## [1.14.78] - 2026-10-07
 
 ### refactor: 采用 Next.js 官方 src/ 目录结构

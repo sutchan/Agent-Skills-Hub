@@ -1,4 +1,4 @@
-/* prototype/src/styles/layout.css v1.14.78 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
+/* prototype/src/styles/layout.css v1.14.79 — 页面骨架布局（顶栏 / Hero / 控制区 / 分类 / 网格 / 弹窗 / 页脚） */
 
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
@@ -128,13 +128,6 @@
 .empty-net .en-glass { fill: none; stroke: hsl(var(--primary)); stroke-width: 2.4; }
 .empty-net .en-handle { stroke: hsl(var(--primary)); stroke-width: 2.4; stroke-linecap: round; }
 
-/* 抽屉（Sheet）：移动端详情采用底部上滑抽屉，较居中弹窗更贴合小屏手势（对齐 COMPONENTS #9） */
-.sheet { position: fixed; z-index: 51; left: 0; right: 0; bottom: 0; width: 100%; max-height: 88vh; background: var(--surface); border-radius: 18px 18px 0 0; box-shadow: var(--shadow-pop); display: none; flex-direction: column; overflow: hidden; transform: translateY(100%); transition: transform .25s ease; }
-.sheet.show { display: flex; transform: translateY(0); }
-/* 抽屉抓手（视觉提示，非交互） */
-.sheet-grip { width: 40px; height: 4px; border-radius: 999px; background: var(--border); margin: 10px auto 0; flex: 0 0 auto; }
-
-/* 抽屉（Sheet）：移动端详情采用底部上滑抽屉——当前原型未启用（无对应 DOM/JS 调用），保留为预留样式 */
 /* 空状态提示（搜索无结果等）：标题 + 说明 + 清除按钮（对齐 emptyHTML 输出，grid 内横跨整行） */
 .empty-state { grid-column: 1 / -1; text-align: center; color: var(--text-2); padding: 40px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .empty-state .empty-title { font-size: 18px; font-weight: 600; color: var(--text); }

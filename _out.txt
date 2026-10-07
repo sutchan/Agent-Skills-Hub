@@ -1,0 +1,15 @@
+fec1813 chore: 移除过时的样式与错误边界文件
+ src/{ => app}/base-shared.css       |  0
+ src/{ => app}/components-shared.css |  0
+ src/{ => app}/error.tsx             |  0
+ src/{ => app}/globals.css           |  0
+ src/{ => app}/layout-shared.css     |  0
+ src/{ => app}/layout.tsx            |  0
+ src/{ => app}/not-found.tsx         |  0
+ src/{ => app}/page.tsx              |  0
+ src/{ => app}/responsive-shared.css |  0
+ src/{ => app}/tokens-shared.css     |  0
+ src/skills/[slug]/page.tsx          | 36 ------------------------------------
+ src/skills/[slug]/skill-opener.tsx  | 15 ---------------
+ 12 files changed, 51 deletions(-)
+
