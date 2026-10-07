@@ -1,4 +1,4 @@
-// src/components/skill-card.tsx v1.14.81 — 技能卡片（div 容器 + .card-open 触发区 + 内嵌赞/踩行）
+// src/components/skill-card.tsx v1.14.85 — 技能卡片（div 容器 + .card-open 触发区 + 内嵌赞行）
 "use client";
 import { memo } from "react";
 import { catHue } from "../lib/catHue";
@@ -6,10 +6,10 @@ import { initials } from "../lib/initials";
 import { skillSlug } from "../lib/skillSlug";
 import type { Lang } from "../lib/share";
 import type { Skill } from "../lib/skills";
-import { castVote, useVotesFor } from "../lib/votes";
+import { castVote, clearVote, useVotesFor } from "../lib/votes";
 import { VoteRow } from "./vote-row";
 
-// 卡片为 <div> 容器而非 <button>：打开详情由 .card-open 承担，赞/踩为其后同级独立按钮，
+// 卡片为 <div> 容器而非 <button>：打开详情由 .card-open 承担，赞行为其后同级独立按钮，
 // 避免「按钮内嵌按钮」的无效 HTML 与读屏器无法区分二者（对齐原型 cardHTML / 06-votes.js）
 export const SkillCard = memo(function SkillCard({
   skill,
@@ -70,7 +70,7 @@ export const SkillCard = memo(function SkillCard({
           )}
         </button>
       </div>
-      <VoteRow name={skill.name} up={votes.up} down={votes.down} lang={lang} onVote={castVote} />
+      <VoteRow name={skill.name} up={votes.up} lang={lang} onVote={castVote} onClear={clearVote} />
     </div>
   );
 });

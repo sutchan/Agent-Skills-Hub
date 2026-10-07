@@ -1,4 +1,4 @@
-// src/components/detail-modal.tsx v1.14.56 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
+// src/components/detail-modal.tsx v1.14.85 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/投票/相关技能区块）
 "use client";
 import { useEffect, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -11,6 +11,7 @@ import { DetailMeta } from "./detail/DetailMeta";
 import { DetailMetrics } from "./detail/DetailMetrics";
 import { DetailInstall } from "./detail/DetailInstall";
 import { DetailRelated } from "./detail/DetailRelated";
+import { DetailVote } from "./vote-row";
 
 const GITHUB_TREE = "https://github.com/sutchan/Agent-Skills-Hub/tree/main";
 
@@ -132,6 +133,9 @@ export function DetailModal({
           )}
 
           {desc && <p className="d-desc" id="detailDesc">{desc}</p>}
+
+          {/* 投票区在描述之后：表态应在读完内容之后（v1.14.85） */}
+          <DetailVote name={skill.name} lang={lang} />
 
           <DetailRelated skill={skill} allSkills={allSkills} lang={lang} onOpenSkill={onOpenSkill} />
         </div>

@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.84] - 2026-10-07
+
+### docs: 恢复并完善原型配套设计稿（组件库规范 + 状态规范）
+
+- **恢复**：`prototype/wireframes.html`（组件库规范，340 行）与 `prototype/states.html`（状态规范，172 行）自 git 历史恢复。二者曾于 `ef27f67`（src/ 目录迁移）中被作为「零引用孤儿设计稿」删除——**该判断有误**：它们虽不被构建管线引用，但属人工维护的设计交付物，是 `prototype.html` 高保真原型的规范侧文档。
+- **令牌对齐**：两文件的 `:root` / `html[data-theme="dark"]` 此前已漂移（深色主色 `146 52% 60%`、`--maxw:1180px`、字体栈为 `Georgia,"Times New Roman"`）。现与 `prototype/src/styles/tokens.css` 单一同源：主色 `152 56% 40%` / 深色 `152 56% 58%`、`--maxw:1200px`、补齐 `--accent-2`/`--node`/`--line`/三级阴影/`--font-mono`、字体栈更新为 Iowan Old Style 族。并在文件内写明「变更纪律：先改 tokens.css 再同步本文档」。
+- **`wireframes.html` 新增复合组件章节**（7 项）：Form 控制区（搜索+排序+视图，含输入法 composition 处理）、Switch/Segmented、Pagination（每页 36、窗口 ±2、边界禁用而非隐藏）、StatLedger 统计台账、Vote 赞踩、Toast、EmptyState。
+- **`wireframes.html` 新增使用规则章节**（2 项）：组件选型表（11 条「需求 → 用什么 → 不要用什么 → 理由」，含"整卡套按钮后无处安放赞踩"这类具体坑）、状态矩阵（加载/有数据/空/出错 四态必备 + 无障碍状态位「颜色永远不是唯一状态载体」）。
+- **修正两处过时说明**：`CategoryFilter` 由「多选 OR」改为单选（对齐 v1.14.82）；`SkillCard` 由「原生 `<button class="card">`」改为 div 容器 + `.card-open` + 同级投票行（对齐 v1.14.81），并说明为何不能整卡套按钮。
+- **红线扩充至 9 条**：新增「禁止嵌套可交互元素」「勿手改 `*-shared.css`」「模板/文案禁止出现版本占位符字面量」「改令牌须同步本文档与 DESIGN.md」。
+- **`states.html` 新增极值/边界态**（5 类）：超长内容与截断（技能名不截断 / 卡片描述 3 行 / 详情内保留完整段落）、极值计数（128/9999/0 与 2/3 位数宽度）、字段缺失（缺可选字段不渲染占位符、缺链接整行隐藏）、分页边界（单页隐藏分页器、筛选重置页码）、降级/离线态（说明发生了什么 + 怎么修）。
+- **验证**：Playwright 实测两文件**无重复 id、无死锚点、22 个 section、选型表 15 行**；令牌浅/深两态均正确解析（`152 56% 40%` / `152 56% 58%`、`--maxw:1200px`、Iowan Old Style 字体栈）；控制台无错误；占位符字面量 0 处（符合新增红线）。截图复核台账与选型表视觉符合设计语言。
+
+[1.14.84]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.84
+
 ## [1.14.83] - 2026-10-07
 
 ### fix: 修复 EdgeOne Pages 构建 `npm install` 失败（EBADENGINE）
