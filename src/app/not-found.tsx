@@ -1,4 +1,4 @@
-// app/not-found.tsx v1.14.43 — 404 页面
+// src/app/not-found.tsx v1.14.44 — 404 页面
 // 无需 'use client'：双语沿用 html[data-lang] + .zh/.en CSS 显隐，
 // 而 data-lang 已由 layout.tsx 的首屏偏好脚本在解析阶段设置，静态渲染即可正确显隐。
 export default function NotFound() {

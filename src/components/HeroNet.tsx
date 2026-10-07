@@ -1,4 +1,4 @@
-// app/components/HeroNet.tsx v1.14.51 — Hero 节点网（确定性 SSR 渲染）
+// src/components/HeroNet.tsx v1.14.52 — Hero 节点网（确定性 SSR 渲染）
 // 对齐 prototype 04-interactions.js renderHeroNodes：按分类计数生成环绕核心的节点网，
 // 半径随技能数非线性放大、连线带 SMIL 流动点。改用确定性角度布局（替代原型随机分布），
 // 使服务端渲染与客户端首屏 DOM 完全一致——消除水合不匹配与布局抖动（CLS）。

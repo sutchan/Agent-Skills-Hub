@@ -1,4 +1,4 @@
-// app/lib/detail-helpers.ts v1.19.38 — 详情弹窗纯函数与复制逻辑（从 detail-modal.tsx 抽离）
+// src/lib/detail-helpers.ts v1.19.39 — 详情弹窗纯函数与复制逻辑（从 detail-modal.tsx 抽离）
 import type { Lang } from "./share";
 
 /** 字节数格式化：B / KB / MB（与 prototype 一致） */

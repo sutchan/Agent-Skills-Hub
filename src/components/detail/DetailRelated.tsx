@@ -1,4 +1,4 @@
-// app/components/detail/DetailRelated.tsx v1.14.47 — 技能详情弹窗：相关技能（同分类）
+// src/components/detail/DetailRelated.tsx v1.14.48 — 技能详情弹窗：相关技能（同分类）
 import type { Lang } from "../../lib/share";
 import type { Skill } from "../../lib/skills";
 import { initials } from "../../lib/initials";

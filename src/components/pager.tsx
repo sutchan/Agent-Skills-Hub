@@ -1,4 +1,4 @@
-// app/components/pager.tsx v1.19.38 — 分页器（纯展示，页码窗口 + 上一页/下一页 + 信息）
+// src/components/pager.tsx v1.19.39 — 分页器（纯展示，页码窗口 + 上一页/下一页 + 信息）
 import type { Lang } from "../lib/share";
 
 /** 分页器：受控展示，goPage 由父组件实现（含滚动回顶） */

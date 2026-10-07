@@ -18,7 +18,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = dirname(__dirname);
 const APP_VER = (() => { try { return JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version; } catch { return "0.0.0"; } })();
 const PROTO = join(ROOT, "prototype", "src", "styles");
-const APP = join(ROOT, "src");
+const APP = join(ROOT, "src", "app");
 const MODULES = ["base", "layout", "components", "responsive"];
 const DRY = process.env.DRY === "1";
 
@@ -94,7 +94,7 @@ for (const mod of MODULES) {
 if (!DRY) {
   const importLines = MODULES.map((mm) => `@import "./${mm}-shared.css";`).join("\n");
   const newCss =
-    `/* src/globals.css v${APP_VER} — 应用全局样式\n` +
+    `/* src/app/globals.css v${APP_VER} — 应用全局样式\n` +
     ` * 结构：① tokens-shared.css（设计令牌，由 prototype 同步）\n` +
     ` *       ② base/layout/components/responsive-shared.css（prototype 同源规则，由 tools/sync-css.mjs 自动生成）\n` +
     ` *       ③ 下方「APP 扩展区」：app 独有/改写原型的规则，优先于 shared 生效\n` +
@@ -112,4 +112,4 @@ if (!DRY) {
 console.log("prototype 版本:", protoVers);
 console.log("app 扩展区块数:", appExt.length);
 console.log("已生成:", MODULES.map((mm) => `${mm}-shared.css`).join(", "));
-console.log(DRY ? "DRY 模式：未重写 globals.css" : "已重写: src/globals.css");
+console.log(DRY ? "DRY 模式：未重写 globals.css" : "已重写: src/app/globals.css");

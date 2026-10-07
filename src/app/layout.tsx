@@ -1,4 +1,4 @@
-// app/layout.tsx v1.14.42 — 根布局（含全站 GA4 注入与首屏偏好预置）
+// src/app/layout.tsx v1.14.43 — 根布局（含全站 GA4 注入与首屏偏好预置）
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";

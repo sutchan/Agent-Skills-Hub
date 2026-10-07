@@ -1,4 +1,4 @@
-// app/components/detail/DetailInstall.tsx v1.14.52 — 技能详情弹窗：安装命令与复制
+// src/components/detail/DetailInstall.tsx v1.14.53 — 技能详情弹窗：安装命令与复制
 import type { Lang } from "../../lib/share";
 import { REPO_URL, SKILLS_MANAGER_URL } from "../../lib/share";
 import type { Skill } from "../../lib/skills";

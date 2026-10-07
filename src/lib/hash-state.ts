@@ -1,8 +1,8 @@
-// app/lib/hash-state.ts v1.0.0 — URL hash 深链状态编解码（纯函数，可单测）
+// src/lib/hash-state.ts v1.0.1 — URL hash 深链状态编解码（纯函数，可单测）
 // 与原型 05-main.js 的 writeHash/parseHash 对齐（相同序列格式 #cat=a,b&q=x&sort=name&page=2）。
 // @note 修复：parseHash 不再对 URLSearchParams 已解码的值二次 decodeURIComponent。
 // URLSearchParams 解析时已还原百分号编码，若值含字面 %（如搜索 "100%"），
-// 二次解码会抛 URIError "URI malformed"，导致挂载/回退时整页进入错误边界（app/error.tsx）。
+// 二次解码会抛 URIError "URI malformed"，导致挂载/回退时整页进入错误边界（src/app/error.tsx）。
 
 export const SORTS = ["name", "name-desc", "cat", "zh"] as const;
 

@@ -1,4 +1,4 @@
-// app/lib/meta.ts v1.14.60 — 读取应用版本与更新日期（单一事实源：package.json + CHANGELOG.md）
+// src/lib/meta.ts v1.14.61 — 读取应用版本与更新日期（单一事实源：package.json + CHANGELOG.md）
 import fs from "node:fs";
 import path from "node:path";
 

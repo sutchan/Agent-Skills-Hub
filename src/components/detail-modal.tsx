@@ -1,4 +1,4 @@
-// app/components/detail-modal.tsx v1.14.55 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
+// src/components/detail-modal.tsx v1.14.56 — 技能详情弹窗（编排头部 + 组合元信息/指标/安装/相关技能区块）
 "use client";
 import { useEffect, useState } from "react";
 import type { Lang } from "../lib/share";

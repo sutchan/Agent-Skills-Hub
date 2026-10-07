@@ -1,4 +1,4 @@
-// app/lib/share.ts v1.14.52 — 分享逻辑与项目宣传文案
+// src/lib/share.ts v1.14.53 — 分享逻辑与项目宣传文案
 // 文案集合与 prototype/src/i18n.js 的 share.promos 保持逐字一致（openspec §4.5.4.3：
 // 两层复用同一文案集合，避免漂移）。原型 i18n.js 为权威来源，本文件与其同步。
 
@@ -6,7 +6,7 @@ export type Lang = "zh" | "en";
 
 /** 项目宣传文案：中/英各 ≥3 条，复制时随机取 1 条（openspec §4.5.4.2）。
  *  文案与 prototype/src/i18n.js 的 share.promos 逐字对齐，{n} 由 buildShareText 注入真实技能总数，
- *  品牌名统一为 Agent Skills Hub（与 app/layout.tsx metadata、原型 title 一致）。 */
+ *  品牌名统一为 Agent Skills Hub（与 src/app/layout.tsx metadata、原型 title 一致）。 */
 export const SHARE_PROMOS: Record<Lang, string[]> = {
   zh: [
     "😎 我在 Agent Skills Hub 发现了超好用的 AI 技能库，{n} 高质量技能免费收藏，直接丢进你的编程 Agent 就能用！",

@@ -1,4 +1,4 @@
-// app/components/detail/DetailMeta.tsx v1.14.52 — 技能详情弹窗：元信息行（原始名/分类/作者/协议/版本/网址/size/files）
+// src/components/detail/DetailMeta.tsx v1.14.53 — 技能详情弹窗：元信息行（原始名/分类/作者/协议/版本/网址/size/files）
 import type { Lang } from "../../lib/share";
 import type { Skill } from "../../lib/skills";
 import { formatSize } from "../../lib/detail-helpers";

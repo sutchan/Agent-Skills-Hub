@@ -1,4 +1,4 @@
-// app/error.tsx v1.14.43 — 全局错误边界（Client Component，必备）
+// src/app/error.tsx v1.14.44 — 全局错误边界（Client Component，必备）
 // 作用：捕获路由段内任意 Client 组件运行时异常，避免整页白屏；提供重置入口。
 // 约定：主要容器加语义化 id（#errorBoundary）；中英双语沿用 html[data-lang] + .zh/.en 显隐。
 "use client";

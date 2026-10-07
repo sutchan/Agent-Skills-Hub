@@ -1,4 +1,4 @@
-// app/components/detail/DetailMetrics.tsx v1.14.55 — 技能详情弹窗：派生指标（5 格热度，对齐原型 popularityHTML）
+// src/components/detail/DetailMetrics.tsx v1.14.56 — 技能详情弹窗：派生指标（5 格热度，对齐原型 popularityHTML）
 import type { Lang } from "../../lib/share";
 import type { Skill } from "../../lib/skills";
 import { maxPopularity } from "../../lib/detail-helpers";

@@ -1,4 +1,4 @@
-// app/lib/skills.ts v1.20.49 — 技能数据读取与类型
+// src/lib/skills.ts v1.20.50 — 技能数据读取与类型
 // 数据源：仓库根 data/skills-data.json（稳定元数据，由 build-skills-data.mjs 生成）
 // + data/skills-metrics.json（频繁更新的派生指标：popularity/size/files/stars/firstSeen/skillVersion）。
 // 两文件合并后提供给渲染层，指标独立存储避免每次重算重写大文件。

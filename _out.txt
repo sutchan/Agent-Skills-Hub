@@ -1,15 +1,26 @@
-fec1813 chore: 移除过时的样式与错误边界文件
- src/{ => app}/base-shared.css       |  0
- src/{ => app}/components-shared.css |  0
- src/{ => app}/error.tsx             |  0
- src/{ => app}/globals.css           |  0
- src/{ => app}/layout-shared.css     |  0
- src/{ => app}/layout.tsx            |  0
- src/{ => app}/not-found.tsx         |  0
- src/{ => app}/page.tsx              |  0
- src/{ => app}/responsive-shared.css |  0
- src/{ => app}/tokens-shared.css     |  0
- src/skills/[slug]/page.tsx          | 36 ------------------------------------
- src/skills/[slug]/skill-opener.tsx  | 15 ---------------
- 12 files changed, 51 deletions(-)
-
+UPDATED src/app/error.tsx
+UPDATED src/app/layout.tsx
+UPDATED src/app/not-found.tsx
+UPDATED src/app/skills/[slug]/page.tsx
+UPDATED src/components/AppShell.tsx
+UPDATED src/components/detail/DetailInstall.tsx
+UPDATED src/components/detail/DetailMeta.tsx
+UPDATED src/components/detail/DetailMetrics.tsx
+UPDATED src/components/detail/DetailRelated.tsx
+UPDATED src/components/detail-modal.tsx
+UPDATED src/components/HeroNet.tsx
+UPDATED src/components/pager.tsx
+UPDATED src/components/settings-panel.tsx
+UPDATED src/components/skill-card.tsx
+UPDATED src/components/SkillsExplorer.tsx
+UPDATED src/lib/catHue.ts
+UPDATED src/lib/detail-helpers.ts
+UPDATED src/lib/hash-state.ts
+UPDATED src/lib/initials.ts
+UPDATED src/lib/meta.ts
+UPDATED src/lib/prefs.ts
+UPDATED src/lib/share.ts
+UPDATED src/lib/skills.ts
+UPDATED src/lib/skillSlug.ts
+UPDATED src/lib/types.ts
+total changed: 25
