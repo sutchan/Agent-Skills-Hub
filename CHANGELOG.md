@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.75] - 2026-10-07
+
+### fix: 修复 ui-animation 契约字段缺失
+
+- `skills/ui-animation/SKILL.md` 在会话间隙被外部改回旧版 frontmatter（仅 `name` + 英文 `description`），缺失 `en_description` / `zh_displayName` / `category` / `en_category` 四个必填字段，触发 `validate-skills` 门禁失败（4 问题）。
+- 以历史中文权威源 `71e5f23^` 取 `ui-animation` 映射（category=前端开发、zh=UI 动效）补全四个字段并修正 `name`=目录名；重跑校验 → **170 个技能 frontmatter 全部规范（0 问题）**。
+- 同步重建 `data/skills-data.json`、`data/skills-metrics.json` 与 `prototype/prototype.html`（246.4 KB）。
+
+[1.14.75]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.75
+
 ## [1.14.74] - 2026-10-07
 
 ### chore: 批量回填所有技能的 frontmatter 契约字段
