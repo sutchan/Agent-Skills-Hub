@@ -1,4 +1,4 @@
-/* app/globals.css v1.14.77 — 应用全局样式
+/* src/globals.css v1.14.78 — 应用全局样式
  * 结构：① tokens-shared.css（设计令牌，由 prototype 同步）
  *       ② base/layout/components/responsive-shared.css（prototype 同源规则，由 tools/sync-css.mjs 自动生成）
  *       ③ 下方「APP 扩展区」：app 独有/改写原型的规则，优先于 shared 生效
@@ -11,6 +11,8 @@
 @import "./responsive-shared.css";
 
 /* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
+/* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
+
 /* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
 
 /* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */

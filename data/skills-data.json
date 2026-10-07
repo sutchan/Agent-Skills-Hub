@@ -1,5 +1,5 @@
 {
-  "total": 170,
+  "total": 171,
   "categories": [
     "品牌与设计",
     "文档与内容",
@@ -14,7 +14,8 @@
     "AI 与智能体",
     "音视频与多媒体",
     "桌面与客户端",
-    "安全"
+    "安全",
+    "其他"
   ],
   "categoryEn": {
     "品牌与设计": "Brand & Design",
@@ -30,7 +31,8 @@
     "AI 与智能体": "AI & Agents",
     "音视频与多媒体": "Media & Multimedia",
     "桌面与客户端": "Desktop & Client",
-    "安全": "Security"
+    "安全": "Security",
+    "其他": "其他"
   },
   "skills": [
     {
@@ -3013,6 +3015,24 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/prototype-pollution",
       "githubDir": "skills/prototype-pollution"
+    },
+    {
+      "name": "hyperframes",
+      "category": "其他",
+      "enCategory": "其他",
+      "zh": "",
+      "description": "Mandatory entry point: read this first for any request to make, create, edit, animate, or render a video, animation, or motion graphic, including a promo, explainer, captioned clip, title card, overlay, slideshow or interactive deck, Remotion port, or any HyperFrames HTML composition. Also use it to inspect, diagnose, validate, preview, publish, or batch-render an existing HyperFrames project. Inputs may be a website URL, GitHub PR, Figma design or URL, text or brief, existing footage, or music. It resumes project state, captures intent when applicable, selects and installs the owning workflow, and routes domain capabilities. HyperFrames is the default output framework unless the user explicitly chooses another framework for the deliverable or asks only to record a browser session.",
+      "enDescription": "",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [
+        "ai-agent",
+        "cli",
+        "web-frontend"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/hyperframes",
+      "githubDir": "skills/hyperframes"
     }
   ]
 }

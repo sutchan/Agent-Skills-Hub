@@ -508,13 +508,18 @@
     "size": 6512,
     "files": 2
   },
-  "hyperframes-core": {
+  "hyperframes": {
     "popularity": 0,
+    "size": 151076,
+    "files": 29
+  },
+  "hyperframes-core": {
+    "popularity": 1,
     "size": 100726,
     "files": 11
   },
   "hyperframes-creative": {
-    "popularity": 0,
+    "popularity": 1,
     "size": 1207506,
     "files": 79
   },

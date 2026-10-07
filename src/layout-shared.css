@@ -1,4 +1,4 @@
-/* layout-shared.css — 由 prototype/src/styles/layout.css v1.14.76 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
+/* layout-shared.css — 由 prototype/src/styles/layout.css v1.14.78 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
 .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 12px 24px; }
@@ -60,9 +60,6 @@
 .hero h1 { margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); line-height: 1.12; letter-spacing: -.01em; color: hsl(var(--foreground)); }
 .hero h1 .accent { color: hsl(var(--primary)); }
 .hero p { margin: 0; color: var(--text-2); font-size: 15px; max-width: 56ch; }
-.hero-stat { display: inline-flex; gap: 22px; margin-top: 20px; flex-wrap: wrap; }
-.hero-stat .num { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; }
-.hero-stat .lbl { font-size: 12px; color: var(--text-2); }
 .hero-features { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
 .hero-features li { font-size: 12.5px; line-height: 1.5; color: var(--text-2); background: hsl(var(--secondary)); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
 /* 方案 B：骰子按钮（彩蛋） */
@@ -118,17 +115,8 @@
   100% { transform: perspective(1200px) rotateY(0deg) scale(1); opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .dialog.flip { animation: none; } }
-.dialog-head { display: flex; align-items: center; gap: 12px; padding: 20px 22px; border-bottom: 1px solid var(--border); }
-.dialog-head h2 { margin: 0; font-family: var(--font-display); font-size: 18px; }
-.dialog-head .sub { color: var(--text-2); font-size: 12px; font-family: var(--font-en); }
-.dialog-head .dialog-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
-.dialog-close { margin-left: auto; }
-.dialog-body { padding: 22px; overflow: auto; }
-/* 方案 C：移动端（≤640px）详情弹窗改为底部抽屉 Sheet */
+/* 方案 C：移动端（≤640px）详情弹窗改为底部抽屉 Sheet（头部由 .detail-head / .settings-head 承载） */
 .dialog.sheet { inset: auto 0 0 0; margin: 0; width: 100%; height: min(86vh, 760px); border-radius: 18px 18px 0 0; animation: sheetUp .28s ease; }
-.dialog.sheet .dialog-head { padding-top: 16px; }
-.dialog.sheet .dialog-head::before { content: ""; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 40px; height: 4px; border-radius: 999px; background: var(--border); }
-.dialog.sheet .dialog-head { position: relative; }
 @keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { .dialog.sheet { animation: none; } }
 /* 方案 C：空状态签名插画（节点网 + 放大镜） */
