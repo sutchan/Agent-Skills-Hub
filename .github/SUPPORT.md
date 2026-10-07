@@ -1,6 +1,6 @@
 # 获取支持
 
-> 路径：`.github/SUPPORT.md` · 版本：1.14.79
+> 路径：`.github/SUPPORT.md` · 版本：1.14.81
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 
 需要帮助？这里按问题类型指引你到正确的渠道，以最快获得响应。

@@ -1,4 +1,4 @@
-// prototype/src/parts/05-main.js v1.14.76 — 应用启动编排
+// prototype/src/parts/05-main.js v1.14.82 — 应用启动编排
 // URL hash 深链：筛选/搜索/排序/页码可分享、刷新可还原（P0-1）
 // 序列化规则：#cat=docs&q=xxx&sort=name&page=2，无筛选时清空 hash（分类为单选，仅一个值）
 function writeHash() {

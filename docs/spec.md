@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.14.79
+> 路径：`docs/spec.md` · 版本：1.14.81
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 
@@ -11,7 +11,7 @@
 - **项目定位**：Agent 技能集合仓库，提供 `skills/`（原始技能）、`prototype/`（静态展示页）、`src/`（Next.js 14 + React 18 应用工作区，采用官方 `src/` 目录约定）三套资产。
 - **技能权威源**：磁盘 `skills/<name>/SKILL.md` 的 frontmatter，构建脚本唯一读取源。
 - **设计令牌权威源**：`prototype/src/styles/tokens.css`（单一来源，浅/深双主题；主色绿：浅 `#2e9e6b`、深 `#5cc98c`）。
-- **版本权威源**：根 `package.json` 的 `version`（当前 1.14.79）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之保持一致。
+- **版本权威源**：根 `package.json` 的 `version`（当前 1.14.81）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之保持一致。
 
 ---
 
@@ -127,7 +127,7 @@ type SkillsData = {
 `prototype/prototype.html` 为自包含静态页（无 React/Next 运行时）；`src/` 为同数据的 Next.js 应用。完整交互细节以 [project.md](project.md) 与 `prototype/DESIGN.md` / `prototype/COMPONENTS.md` 为准，要点：
 
 - **搜索**：前端关键词匹配 `name` / `zh` / `description`，即时过滤。
-- **分类筛选**：分类 chip 多选（OR），「全部」复位。
+- **分类筛选**：分类 chip **单选**（同一时刻至多一个分类；点「全部」或再次点击当前项即复位为空）。v1.14.82 起由多选 OR 改为单选。
 - **标签筛选**：功能标签 chip 多选（OR），与分类以 AND 组合。
 - **视图**：`grid` / `list` 仅改布局，不影响过滤。
 - **详情弹窗**：语义化 `id` + `aria-modal` + `aria-labelledby`，展示中英描述、分类、allowedTools，支持分享。
