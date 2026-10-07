@@ -1,4 +1,4 @@
-/* layout-shared.css — 由 prototype/src/styles/layout.css v1.14.80 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
+/* layout-shared.css — 由 prototype/src/styles/layout.css v1.14.81 自动生成，勿手改；改动请在 prototype 修改后重跑 tools/sync-css.mjs */
 /* 顶部栏：背景全宽，内容限宽居中（与网格 --maxw 对齐，修复大屏过宽断层） */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--surface); backdrop-filter: saturate(160%) blur(8px); border-bottom: 1px solid var(--border); }
 .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 12px 24px; }
@@ -132,35 +132,26 @@
 .empty-state .empty-title { font-size: 18px; font-weight: 600; color: var(--text); }
 .empty-state .empty-desc { font-size: 14px; }
 
-/* ===== 页脚：目录版权页（colophon）=====
-   三层结构：识别与动作 / 全库台账 / 构建元数据。
-   排版取向：全左对齐（台账数字亦左对齐，不居中），不居中、不两端对齐。 */
+/* ===== 页脚：目录版权页（colophon）—— 简化版：识别与动作 / 构建元数据两区，单行 flex（对齐 app #appFooter）===== */
 
 /* 底层：背景全宽，内容限宽居中（--maxw，与其余栏一致） */
-.site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 40px 24px 26px; margin-top: 28px; }
-.footer-inner { max-width: var(--maxw); margin: 0 auto; }
+.site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
 
-/* 顶区：品牌识别居左，导航与动作居右 */
-.footer-top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 18px 32px; }
-.footer-brand { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
-.footer-logo { display: inline-flex; flex: none; }
-.footer-brand .logo { display: block; width: 34px; height: 34px; }
-.footer-id { min-width: 0; }
-/* 字标用显示衬线体，与 Hero 大标题、台账数字同一「声音」；图形旁不再重复文字 */
-.footer-wordmark { display: block; font-family: var(--font-display); font-size: 19px; font-weight: 700; letter-spacing: -.01em; color: hsl(var(--foreground)); }
-/* 46ch 对中文过窄会把末字挤成孤行，放宽到 40em 并启用 pretty 断行 */
-.footer-desc { color: var(--text-2); font-size: 13px; margin-top: 3px; max-width: 40em; text-wrap: pretty; }
+/* 品牌识别区：名称 + 协议说明上下叠放 */
+.footer-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.footer-name { font-weight: 700; color: hsl(var(--foreground)); }
+.footer-desc { color: var(--text-2); font-size: 13px; }
 
-/* 导航降为文字链接：下划线自左侧展开，无位移/缩放；hover 与键盘焦点同现 */
-.footer-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 4px 20px; }
-.footer-link { position: relative; color: var(--text-2); text-decoration: none; font-size: 13px; padding-bottom: 3px; }
-.footer-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left center; transition: transform .18s ease; }
-.footer-link:is(:hover, :focus-visible) { color: hsl(var(--primary)); }
-.footer-link:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+/* 构建元数据：版本 + 更新日期，等宽字体机器可读，以间隔号分栏 */
+.footer-meta { display: flex; align-items: baseline; gap: 10px; font-size: 12px; color: var(--text-2); font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
+.footer-ver, .footer-version { font-weight: 600; color: hsl(var(--foreground)); }
+.footer-date { color: var(--text-2); }
+.footer-date::before { content: "·"; margin-right: 10px; opacity: .5; }
+.footer-date .date-val { font-variant-numeric: tabular-nums; }
 
-/* 动作区：Star 为唯一实心主动作，Share 为青色描边次动作（取消等权重药丸与 hover 上浮） */
-.footer-cta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+/* 动作区：Star 为唯一实心主动作，Share 降为文字链（无药丸/描边，下划线自左侧展开） */
+.footer-cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .star-btn {
   display: inline-flex; align-items: center; gap: 7px; padding: 8px 15px; border-radius: 999px;
   background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border: 1px solid hsl(var(--primary));
@@ -170,49 +161,21 @@
 .star-btn:hover { background: color-mix(in srgb, hsl(var(--primary)) 88%, #000); border-color: color-mix(in srgb, hsl(var(--primary)) 88%, #000); }
 .star-btn svg { flex: none; color: hsl(var(--primary-foreground)); }
 .share-btn {
-  display: inline-flex; align-items: center; gap: 7px; padding: 8px 15px; border-radius: 999px;
-  background: transparent; color: hsl(var(--accent-2)); border: 1px solid color-mix(in srgb, hsl(var(--accent-2)) 32%, var(--border));
-  font-size: 13px; font-weight: 600; cursor: pointer;
-  transition: color .15s ease, border-color .15s ease, background .15s ease;
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 2px;
+  background: transparent; color: var(--text-2); border: 0; font-size: 13px; font-weight: 600; cursor: pointer;
+  position: relative; text-decoration: none;
 }
-.share-btn:hover { color: hsl(var(--accent-2)); border-color: hsl(var(--accent-2)); background: color-mix(in srgb, hsl(var(--accent-2) / .1), transparent); }
+.share-btn::after { content: ""; position: absolute; left: 2px; right: 2px; bottom: 0; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left center; transition: transform .18s ease; }
+.share-btn:is(:hover, :focus-visible) { color: hsl(var(--primary)); }
+.share-btn:is(:hover, :focus-visible)::after { transform: scaleX(1); }
 .share-btn svg { flex: none; }
 
-/* 全库台账：表头细线 + 竖向分栏细线的规格表，取代虚线分隔的散块 */
-.footer-stats { margin-top: 30px; }
-.stats-head { display: flex; align-items: baseline; gap: 8px; padding-bottom: 9px; border-bottom: 1px solid var(--border); }
-/* 全库统计标注：说明数字恒为仓库全量，与随筛选变化的 resultCount 区分 */
-.stats-scope { font-size: 11.5px; color: var(--text-2); }
-.stats-ledger { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; }
-/* 标签在上、数字在下的规格表读法，刻意区别于「圆角统计卡」 */
-.stat { display: flex; flex-direction: column; gap: 6px; padding: 16px 20px; }
-/* 竖线只落在栏与栏之间，首尾不设线 */
-.stat + .stat { border-left: 1px solid var(--border); }
-.stat:first-child { padding-left: 0; }
-.stat .lbl { margin: 0; font-size: 11.5px; color: var(--text-2); }
-.stat .num { margin: 0; font-family: var(--font-display); font-size: 30px; font-weight: 700; line-height: 1.05; letter-spacing: -.015em; color: hsl(var(--foreground)); font-variant-numeric: tabular-nums; }
-
-/* 末行：构建元数据用等宽字体（机器可读字段），以留白分栏而非间隔号 */
-.footer-bottom { max-width: var(--maxw); margin: 0 auto; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; color: var(--text-2); font-size: 12px; }
-.footer-meta { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; font-family: var(--font-mono); font-size: 11.5px; }
-.footer-ver { font-weight: 600; color: var(--text); }
-.footer-date { color: var(--text-2); }
-.footer-date .date-val { font-variant-numeric: tabular-nums; }
-.footer-copy { margin-left: auto; }
-
 @media (max-width: 640px) {
-  .site-footer { padding: 28px 16px 20px; margin-top: 20px; }
-  .footer-actions { align-items: flex-start; }
+  .site-footer { padding: 20px 16px; margin-top: 20px; }
   .footer-cta { width: 100%; }
   .star-btn, .share-btn { flex: 1 1 auto; justify-content: center; }
-  .footer-copy { margin-left: 0; }
-  /* 台账转两列：补一条横向细线；每行首列去掉竖线并贴齐左缘 */
-  .stats-ledger { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stat { padding: 14px 16px; }
-  .stat:nth-child(2n + 1) { padding-left: 0; border-left: 0; }
-  .stat:nth-child(n + 3) { border-top: 1px solid var(--border); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .footer-link::after { transition: none; }
+  .share-btn::after { transition: none; }
 }
 

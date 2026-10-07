@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.86] - 2026-10-07
+
+### refactor(footer): 精简页脚并对齐原型与 app
+
+- 移除全库统计台账（`footer-stats` 四项：技能总数 / 分类 / 英文描述覆盖 / 支持语言），原型与 app 同步去除（原型删 `renderStats` 与 DOM，app 删 `footer-stats` JSX）。
+- 移除页脚 GitHub·README 外链（`footer-links`）与目录简介长句；`footer-desc` 收敛为 MIT 协议文案（「开源免费 · MIT 协议」）。
+- Share 由描边药丸降级为文字链（`share-btn`），仅 Star 保留为实心主动作。
+- 页脚结构收敛为单行 flex 的 `footer-inner`（品牌识别 / 构建元数据 / 动作区），原型与 app 同源同构。
+- 清理 CSS 残桩：`globals.css` / `layout-shared.css` 的 `footer-links` / `footer-stats` 死规则经 `sync-css.mjs` 同步消除；i18n 移除 `stat.*` / `footer.copyright` 键。
+- `DESIGN.md` §4.6 同步更新。
+
 ## [1.14.85] - 2026-10-07
 
 ### feat(vote): 赞改为累加制并移除踩，打通「本地投票 → 上报 → 构建期聚合」链路
@@ -21,6 +32,7 @@
 - **验证**：`tsc --noEmit` 0 错误；`node --test tools/lib/*.test.mjs` **31/31 通过**（含新增 `build-votes` 契约测试：票数键必须是已知技能名、值必须为正整数）。
 
 [1.14.85]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.85
+[1.14.86]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.86
 
 ## [1.14.84] - 2026-10-07
 

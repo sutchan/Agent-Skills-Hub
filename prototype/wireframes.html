@@ -169,6 +169,16 @@
   html[data-lang="en"] .zh{display:none}
   html[data-lang="zh"] .en{display:none}
   @media(max-width:820px){.layout{grid-template-columns:1fr}.sidenav{display:none}}
+  /* ===== 页脚：版本号与更新日期（与 prototype/src/index.html footer-bottom 同构）=====
+     变更纪律：本页为人工维护交付物、不参与构建，故版本/日期为静态字段（无占位符注入）。
+     发版时须与根 package.json version 同步更新此二字段，与本文件顶部令牌纪律同理。 */
+  .site-footer{margin-top:44px;padding:20px 0 30px;border-top:1px solid hsl(var(--border));color:hsl(var(--muted-foreground))}
+  .footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 18px}
+  .footer-meta{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;font-family:var(--font-mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .footer-ver{color:hsl(var(--foreground));font-weight:600}
+  .footer-date{color:hsl(var(--muted-foreground))}
+  .footer-copy{font-size:12.5px}
+  @media(max-width:560px){.footer-inner{flex-direction:column;align-items:flex-start;gap:6px}}
 </style>
 </head>
 <body>
@@ -583,6 +593,17 @@
       </section>
     </main>
   </div>
+
+  <footer class="site-footer" id="siteFooter" aria-label="页脚 / Footer">
+    <div class="footer-inner" id="footerInner">
+      <span class="footer-meta">
+        <span class="footer-ver" id="footerVer">v1.14.85</span>
+        <span class="footer-date" id="footerDate"><span class="zh">更新于 </span><span class="en">Updated </span><span class="date-val">2026-10-07</span></span>
+      </span>
+      <span class="footer-copy zh" id="footerCopyZh">开源免费，采用 MIT 协议</span>
+      <span class="footer-copy en" id="footerCopyEn">Open source, MIT licensed</span>
+    </div>
+  </footer>
 
 <script>
   // 轻量中英/主题切换（与 prototype 行为一致，纯前端）

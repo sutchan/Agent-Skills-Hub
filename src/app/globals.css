@@ -1,4 +1,4 @@
-/* src/app/globals.css v1.14.85 — 应用全局样式
+/* src/app/globals.css v1.14.86 — 应用全局样式
  * 结构：① tokens-shared.css（设计令牌，由 prototype 同步）
  *       ② base/layout/components/responsive-shared.css（prototype 同源规则，由 tools/sync-css.mjs 自动生成）
  *       ③ 下方「APP 扩展区」：app 独有/改写原型的规则，优先于 shared 生效
@@ -11,6 +11,8 @@
 @import "./responsive-shared.css";
 
 /* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
+/* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
+
 /* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
 
 /* ===================== APP 扩展区（原型同源规则之上的 app 适配，请勿移入 shared） ===================== */
@@ -219,14 +221,8 @@ html[data-lang="en"] .zh { display: none; }
 /* 页脚 */
 .footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 28px 24px; margin-top: 24px; }
 
-.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
-
 /* 品牌区：名称 + 协议说明上下叠放（v1.14.60 由原先散落的独立 span 合并为信息块） */
 .footer-info { display: flex; flex-direction: column; gap: 2px; }
-
-.footer-name { font-weight: 700; color: hsl(var(--foreground)); }
-
-.footer-desc { color: var(--text-2); font-size: 13px; }
 
 /* 版本 + 更新日期（v1.14.60）：版本号后补更新日期，以分隔点区隔 */
 .footer-meta { display: flex; align-items: baseline; gap: 10px; font-size: 12px; color: var(--text-2); font-variant-numeric: tabular-nums; }
@@ -242,18 +238,6 @@ html[data-lang="en"] .zh { display: none; }
 .install-source { display: inline-block; margin-top: 8px; font-size: 12.5px; color: var(--text-2); text-decoration: none; word-break: break-all; }
 
 .install-source:hover { color: hsl(var(--primary)); text-decoration: underline; }
-
-/* 页脚导航链接（对齐 prototype footer 独立 GitHub/README 链接） */
-.footer-links { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
-
-.footer-links a { color: var(--text-2); text-decoration: none; font-size: 13px; transition: color .15s ease; }
-
-.footer-links a:hover { color: var(--primary); }
-
-/* 页脚统计区（v1.19.7 由 hero 迁入并扩充，对齐 prototype .footer-stats）：横向平铺 4 项 */
-.footer-stats { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 6px; padding-top: 16px; border-top: 1px dashed var(--border); }
-
-.footer-stats .lbl { font-size: 11.5px; color: hsl(var(--text-2)); }
 
 /* 结果计数：网格上方，aria-live 实时播报（对齐 prototype #resultCount） */
 .result-count { max-width: 1200px; margin: 0 auto; padding: 0 24px; font-size: 12.5px; color: var(--text-2); }

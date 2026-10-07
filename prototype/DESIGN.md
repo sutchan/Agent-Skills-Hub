@@ -203,13 +203,14 @@
 
 ### 4.6 页脚区（Footer）
 
-- 位于技能网格 `<main>` 之后、`overlay` 之前，作为页面收尾区块（语义化 `<footer id="siteFooter">`）。
-- 结构分两段：
-  - **品牌与导航**（`footer-inner`）：左侧品牌区（`footer-brand` 含 logo + 名称 + 简介 `footer-desc`），右侧导航链接列（`footer-links`，含 GitHub 仓库、README、规范文档、品牌资产）。
-  - **版本与协议**（`footer-bottom`）：项目版本 `footer-ver`（来自根 `package.json`，由 `build.mjs` 注入 `{{VERSION}}` / app 经 `page.tsx` 读取传入）+ 分隔符 + 开源协议声明 `footer-copy`。
-- 文案遵循全局 i18n：原型层 `footer.desc` / `footer.copyright` 用 `data-i18n` + `.zh`/`.en` 类随语言切换；`src/` 层以 `lang` 条件渲染。
-- 链接统一 `target="_blank" rel="noopener"` 外链，内链用相对路径；品牌 logo 与页眉同源（三节点 Hub SVG）。
-- 样式在 `prototype/src/styles/components.css` 与 `src/globals.css` 同步维护，主色与令牌同源；移动端 `footer-inner` 竖向堆叠。
+- 位于技能网格 `<main>` 之后、`overlay` 之前，作为页面收尾区块（语义化 `<footer id="siteFooter">`，app 侧 `id="appFooter"`）。
+- 结构收敛为单行 flex 的 `footer-inner`，含三块（原型与 app 同源同构）：
+  - **品牌识别**（`footer-info`）：名称 `footer-name` + 协议说明 `footer-desc`（即 MIT 文案「开源免费 · MIT 协议」）。
+  - **构建元数据**（`footer-meta`）：项目版本 `footer-ver`/`footer-version`（来自根 `package.json`，由 `build.mjs` 注入 `{{VERSION}}` / app 经 `page.tsx` 读取传入）+ 间隔号 + 更新日期 `footer-date`（注入 `{{BUILD_DATE}}` / app 传入 `updatedAt`），均为等宽字体机器可读字段。
+  - **动作区**（`footer-cta`）：Star 为唯一实心主动作 `star-btn`（外链 stargazers）；Share 已降为**文字链** `share-btn`（无药丸/描边，下划线自左侧展开），点击经剪贴板复制仓库分享文案。
+- **已移除**（v1.14.86 精简）：全库统计台账（`footer-stats` 四项：技能总数/分类/英文描述覆盖/支持语言）、GitHub·README 外链（`footer-links`）、目录简介长句。原型与 app 同步去除，保持两者一致。
+- 文案遵循全局 i18n：原型层 `footer.desc` / `footer.star` / `share.btn` 用 `data-i18n` + `.zh`/`.en` 类随语言切换；`src/` 层以 `lang` 条件渲染。
+- 样式在 `prototype/src/styles/layout.css` 与 `src/app/layout-shared.css`（经 `tools/sync-css.mjs` 同源同步）/ `src/app/globals.css` 维护，主色与令牌同源；移动端 `footer-inner` 竖向堆叠、`footer-cta` 占满整行。
 
 ---
 

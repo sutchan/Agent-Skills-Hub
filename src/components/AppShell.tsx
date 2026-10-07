@@ -1,4 +1,4 @@
-// src/components/AppShell.tsx v1.14.61 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚统计）
+// src/components/AppShell.tsx v1.14.62 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -292,28 +292,6 @@ export function AppShell({ data, version, updatedAt }: { data: SkillsData; versi
               </svg>
               <span>{lang === "zh" ? "分享" : "Share"}</span>
             </button>
-          </div>
-          <nav className="footer-links" id="footerLinks" aria-label={lang === "zh" ? "页脚导航" : "Footer navigation"}>
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer">{lang === "zh" ? "GitHub" : "GitHub"}</a>
-            <a href={`${REPO_URL}#readme`} target="_blank" rel="noopener noreferrer">{lang === "zh" ? "README" : "README"}</a>
-          </nav>
-          <div className="footer-stats" id="footerStats">
-            <div className="stat">
-              <div className="num">{stats.total}</div>
-              <div className="lbl">{lang === "zh" ? "技能总数" : "Total skills"}</div>
-            </div>
-            <div className="stat">
-              <div className="num">{stats.cats}</div>
-              <div className="lbl">{lang === "zh" ? "分类" : "Categories"}</div>
-            </div>
-            <div className="stat">
-              <div className="num">{stats.enCov}</div>
-              <div className="lbl">{lang === "zh" ? "英文描述" : "EN described"}</div>
-            </div>
-            <div className="stat">
-              <div className="num">{stats.langs}</div>
-              <div className="lbl">{lang === "zh" ? "支持语言" : "Languages"}</div>
-            </div>
           </div>
         </div>
         {toast ? (

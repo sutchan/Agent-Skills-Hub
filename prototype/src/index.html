@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.80 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.81 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -212,84 +212,33 @@
   <!-- 分页器：每页 36 条，数字翻页 + 上下页（renderPager 注入；v1.19.18） -->
   <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
 
-  <!-- 页脚区：定位为「目录版权页」——识别与动作 / 全库台账 / 构建元数据三层
-       脚本契约（勿改 id）：#statTotal/#statCats/#statEnCov/#statLangs 由 02-render 的 renderStats 写入；
-       #footerVer/#footerDate 由 05-main 做占位符字面量兜底；#starBtn/#shareBtn 绑定交互。
-       注意：build.mjs 只替换模板中「首个」版本/日期占位符（好让 05-main 的兜底判断存活），
-       因此本模板的注释与文案中切勿出现占位符字面量，否则会抢占替换并使页脚留下未替换文本。 -->
+  <!-- 页脚区：定位为「目录版权页」—— 识别与动作 / 构建元数据两区，单行 flex 收敛（对齐 app #appFooter）
+       脚本契约（勿改 id）：#footerVer/#footerDate 由 05-main 做占位符字面量兜底；#starBtn/#shareBtn 绑定交互。
+       注意：build.mjs 只替换模板中首个版本/日期占位符；本模板的注释与文案中切勿出现版本、日期占位符字面量，否则会抢占替换使页脚残留未替换文本。 -->
   <footer class="site-footer" id="siteFooter">
     <div class="footer-inner" id="footerInner">
-      <div class="footer-top">
-        <div class="footer-brand" id="footerBrand">
-          <a class="footer-logo" id="footerLogo" href="#" aria-label="Agent Skills Hub">
-            <svg class="logo" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
-              <rect width="32" height="32" rx="8" fill="url(#ash-grad)" />
-              <use href="#ash-hub" xlink:href="#ash-hub" width="32" height="32" color="#fff" />
-            </svg>
-          </a>
-          <div class="footer-id">
-            <span class="footer-wordmark">Agent Skills Hub</span>
-            <p class="footer-desc zh" id="footerDescZh" data-i18n="footer.desc">高质量 Agent 技能目录，按分类浏览、搜索、即取即用。</p>
-            <p class="footer-desc en" id="footerDescEn" data-i18n="footer.desc">A curated directory of high-quality agent skills — browse, search, and reuse.</p>
-          </div>
-        </div>
-        <div class="footer-actions">
-          <nav class="footer-links" id="footerLinks" aria-label="页脚导航 / Footer links">
-            <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener">GitHub</a>
-            <a class="footer-link" href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener">README</a>
-          </nav>
-          <div class="footer-cta" id="footerCta">
-            <a class="star-btn" id="starBtn" href="https://github.com/sutchan/Agent-Skills-Hub/stargazers" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9L12 2.5z"/></svg>
-              <span class="zh" data-i18n="footer.star">给仓库点个 Star</span>
-              <span class="en" data-i18n="footer.star">Star this repo</span>
-            </a>
-            <button class="share-btn" id="shareBtn" type="button" aria-label="分享 / Share">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
-              <span class="zh" data-i18n="share.btn">分享</span>
-              <span class="en" data-i18n="share.btn">Share</span>
-            </button>
-          </div>
-        </div>
+      <div class="footer-info" id="footerInfo">
+        <span class="footer-name">Agent Skills Hub</span>
+        <span class="footer-desc zh" id="footerDescZh" data-i18n="footer.desc">开源免费 · MIT 协议</span>
+        <span class="footer-desc en" id="footerDescEn" data-i18n="footer.desc">Open source · MIT License</span>
       </div>
-      <!-- 全库台账：四项统计恒为仓库全量，不随筛选变化（与 resultCount 的实时匹配数相区分） -->
-      <div class="footer-stats" id="footerStats">
-        <div class="stats-head">
-          <span class="stats-scope zh">全库统计</span>
-          <span class="stats-scope en">Full catalog</span>
-        </div>
-        <dl class="stats-ledger">
-          <div class="stat">
-            <dt class="lbl zh" data-i18n="stat.total">技能总数</dt>
-            <dt class="lbl en" data-i18n="stat.total">Total skills</dt>
-            <dd class="num" id="statTotal">0</dd>
-          </div>
-          <div class="stat">
-            <dt class="lbl zh" data-i18n="stat.cats">分类</dt>
-            <dt class="lbl en" data-i18n="stat.cats">Categories</dt>
-            <dd class="num" id="statCats">0</dd>
-          </div>
-          <div class="stat">
-            <dt class="lbl zh" data-i18n="stat.enCov">英文描述</dt>
-            <dt class="lbl en" data-i18n="stat.enCov">EN described</dt>
-            <dd class="num" id="statEnCov">0</dd>
-          </div>
-          <div class="stat">
-            <dt class="lbl zh" data-i18n="stat.langs">支持语言</dt>
-            <dt class="lbl en" data-i18n="stat.langs">Languages</dt>
-            <dd class="num" id="statLangs">2</dd>
-          </div>
-        </dl>
-      </div>
-    </div>
-    <div class="footer-bottom" id="footerBottom">
-      <!-- 构建元数据：版本与日期为机器可读字段，用等宽字体并以留白分栏（不用间隔号） -->
-      <span class="footer-meta">
+      <div class="footer-meta" id="footerMeta">
+        <!-- 构建元数据：版本与日期为机器可读字段，用等宽字体并以留白分栏（不用间隔号） -->
         <span class="footer-ver" id="footerVer">v{{VERSION}}</span>
         <span class="footer-date" id="footerDate"><span class="zh">更新于 </span><span class="en">Updated </span><span class="date-val">{{BUILD_DATE}}</span></span>
-      </span>
-      <span class="footer-copy zh" id="footerCopyZh" data-i18n="footer.copyright">开源免费，采用 MIT 协议</span>
-      <span class="footer-copy en" id="footerCopyEn" data-i18n="footer.copyright">Open source, MIT licensed</span>
+      </div>
+      <div class="footer-cta" id="footerCta">
+        <a class="star-btn" id="starBtn" href="https://github.com/sutchan/Agent-Skills-Hub/stargazers" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9L12 2.5z"/></svg>
+          <span class="zh" data-i18n="footer.star">给仓库点个 Star</span>
+          <span class="en" data-i18n="footer.star">Star this repo</span>
+        </a>
+        <button class="share-btn" id="shareBtn" type="button" aria-label="分享 / Share">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span class="zh" data-i18n="share.btn">分享</span>
+          <span class="en" data-i18n="share.btn">Share</span>
+        </button>
+      </div>
     </div>
   </footer>
 

@@ -1,15 +1,5 @@
-// prototype/src/parts/02-render.js v1.20.59 — 列表/网格渲染与统计
-function renderStats() {
-  // 统计区已自 hero 迁入 footer（v1.19.7）：展示可见技能总数、分类数、英文描述覆盖数、支持语言数
-  const visible = SKILLS_DATA.skills.filter((s) => !s.hidden);
-  const total = visible.length;
-  const enCov = visible.filter((s) => s.enDescription && String(s.enDescription).trim()).length;
-  $("#statTotal").textContent = total;
-  $("#statCats").textContent = SKILLS_DATA.categories.length;
-  $("#statEnCov").textContent = enCov;
-  $("#statLangs").textContent = SUPPORTED_LANGS.length; // 数据驱动：zh / en 双语支持
-}
-// 历史函数移除：hero 标题已改为静态 thesis 文案（含 accent 强调），不再需要动态 {n} 注入
+// prototype/src/parts/02-render.js v1.20.60 — 列表/网格渲染
+// 历史函数移除：renderStats（页脚全库统计台账）已随页脚精简移除（v1.14.81）。
 
 // 分类筛选项结构，数据源合并自 aggregateFilters()（实况派生，不再依赖静态 categories 数组）。
 // 分类项：key=分类名，hue=catHue 彩色。
@@ -126,7 +116,6 @@ function renderGrid() {
   });
   list = sortSkills(list);
   const agg = aggregateFilters(); // 单次遍历聚合分类计数
-  renderStats();
   renderCats(agg);
   // 分页：每页 PAGE_SIZE 条，page 为 0 基
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
