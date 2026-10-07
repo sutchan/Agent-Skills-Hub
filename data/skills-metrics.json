@@ -1,7 +1,7 @@
 {
   "ad-creative": {
     "popularity": 0,
-    "size": 214452,
+    "size": 216952,
     "files": 13
   },
   "ads-creative": {
@@ -11,12 +11,12 @@
   },
   "agent-browser": {
     "popularity": 0,
-    "size": 3652,
+    "size": 3457,
     "files": 1
   },
-  "agent-development": {
+  "Agent Development": {
     "popularity": 0,
-    "size": 70329,
+    "size": 70223,
     "files": 7,
     "skillVersion": "0.1.0"
   },
@@ -57,7 +57,7 @@
   },
   "architecture-blueprint-generator": {
     "popularity": 2,
-    "size": 13537,
+    "size": 13358,
     "files": 1
   },
   "bailian-web-search": {
@@ -67,12 +67,12 @@
   },
   "banner-creator": {
     "popularity": 0,
-    "size": 5994083,
+    "size": 5993926,
     "files": 16
   },
   "banner-design": {
-    "popularity": 2,
-    "size": 12235,
+    "popularity": 0,
+    "size": 12064,
     "files": 2
   },
   "better-auth-best-practices": {
@@ -82,7 +82,7 @@
   },
   "blueprint": {
     "popularity": 1,
-    "size": 16565,
+    "size": 16201,
     "files": 1
   },
   "brainstorming": {
@@ -92,7 +92,7 @@
   },
   "brand-guidelines": {
     "popularity": 0,
-    "size": 14076,
+    "size": 13781,
     "files": 2
   },
   "brand-operation": {
@@ -144,7 +144,7 @@
   },
   "clerk-nextjs-patterns": {
     "popularity": 0,
-    "size": 25741,
+    "size": 30131,
     "files": 12
   },
   "cloudbase": {
@@ -154,13 +154,13 @@
     "skillVersion": "2.30.0"
   },
   "code-review": {
-    "popularity": 1,
-    "size": 6625,
+    "popularity": 0,
+    "size": 6689,
     "files": 2
   },
   "code-review-and-quality": {
     "popularity": 0,
-    "size": 20733,
+    "size": 20976,
     "files": 1
   },
   "codebase-design": {
@@ -240,7 +240,7 @@
   },
   "debugging-and-error-recovery": {
     "popularity": 0,
-    "size": 11012,
+    "size": 10913,
     "files": 1
   },
   "descript": {
@@ -256,7 +256,7 @@
   },
   "diagnosing-bugs": {
     "popularity": 0,
-    "size": 10203,
+    "size": 9993,
     "files": 3
   },
   "discover-brand": {
@@ -325,7 +325,7 @@
   },
   "eve": {
     "popularity": 0,
-    "size": 1196,
+    "size": 1032,
     "files": 1
   },
   "executing-plans": {
@@ -335,7 +335,7 @@
   },
   "fastify-best-practices": {
     "popularity": 0,
-    "size": 190687,
+    "size": 190183,
     "files": 21
   },
   "favicon": {
@@ -345,22 +345,22 @@
   },
   "figma-code-connect": {
     "popularity": 0,
-    "size": 60475,
+    "size": 60134,
     "files": 3
   },
   "figma-design-to-code": {
     "popularity": 0,
-    "size": 4503,
+    "size": 4066,
     "files": 1
   },
   "figma-generate-design": {
     "popularity": 1,
-    "size": 43269,
+    "size": 43282,
     "files": 3
   },
   "figma-generate-library": {
     "popularity": 1,
-    "size": 222393,
+    "size": 221842,
     "files": 16
   },
   "figma-implement-design": {
@@ -370,12 +370,12 @@
   },
   "figma-use": {
     "popularity": 0,
-    "size": 649886,
+    "size": 649922,
     "files": 21
   },
   "find-skills": {
     "popularity": 0,
-    "size": 5865,
+    "size": 5472,
     "files": 1
   },
   "fix-sentry-issues": {
@@ -445,12 +445,12 @@
   },
   "football-data": {
     "popularity": 0,
-    "size": 45457,
+    "size": 45828,
     "files": 6
   },
   "frontend-design": {
     "popularity": 0,
-    "size": 20017,
+    "size": 19741,
     "files": 2
   },
   "git-cleanup": {
@@ -459,48 +459,48 @@
     "files": 3
   },
   "google-agents-cli-adk-code": {
-    "popularity": 0,
-    "size": 144016,
+    "popularity": 2,
+    "size": 144176,
     "files": 7
   },
   "google-agents-cli-deploy": {
-    "popularity": 0,
-    "size": 69303,
-    "files": 8
+    "popularity": 1,
+    "size": 74639,
+    "files": 9
   },
   "google-agents-cli-workflow": {
-    "popularity": 0,
-    "size": 43504,
+    "popularity": 1,
+    "size": 43801,
     "files": 7
   },
   "google-mobile-ads-banner": {
     "popularity": 0,
-    "size": 9943,
+    "size": 9835,
     "files": 4
   },
   "grill-me": {
     "popularity": 0,
-    "size": 502,
+    "size": 294,
     "files": 2
   },
   "grill-with-docs": {
-    "popularity": 2,
-    "size": 741,
+    "popularity": 0,
+    "size": 392,
     "files": 2
   },
   "grilling": {
     "popularity": 0,
-    "size": 2295,
+    "size": 2100,
     "files": 2
   },
   "handoff": {
     "popularity": 0,
-    "size": 1228,
+    "size": 1081,
     "files": 2
   },
   "html-design-prototypes": {
-    "popularity": 0,
-    "size": 11332,
+    "popularity": 1,
+    "size": 11921,
     "files": 1
   },
   "html-prototype": {
@@ -510,12 +510,12 @@
   },
   "hyperframes-core": {
     "popularity": 0,
-    "size": 95296,
+    "size": 100475,
     "files": 11
   },
   "hyperframes-creative": {
     "popularity": 0,
-    "size": 1207513,
+    "size": 1207341,
     "files": 79
   },
   "image-to-video": {
@@ -524,13 +524,13 @@
     "files": 1
   },
   "implement-spec": {
-    "popularity": 0,
-    "size": 3125,
+    "popularity": 1,
+    "size": 2948,
     "files": 2
   },
   "improve-codebase-architecture": {
     "popularity": 0,
-    "size": 13047,
+    "size": 12807,
     "files": 3
   },
   "insforge-cli": {
@@ -556,27 +556,27 @@
   },
   "limrun-android-emulator": {
     "popularity": 0,
-    "size": 19646,
+    "size": 18714,
     "files": 1
   },
   "limrun-detox-testing": {
     "popularity": 0,
-    "size": 6218,
+    "size": 5972,
     "files": 1
   },
   "limrun-ios-simulator": {
-    "popularity": 0,
-    "size": 20528,
+    "popularity": 2,
+    "size": 21607,
     "files": 1
   },
   "limrun-xcode": {
-    "popularity": 0,
-    "size": 25993,
+    "popularity": 2,
+    "size": 26138,
     "files": 1
   },
   "limrun-xcode-bazel": {
-    "popularity": 0,
-    "size": 16180,
+    "popularity": 2,
+    "size": 16263,
     "files": 3
   },
   "logo-animation": {
@@ -587,7 +587,7 @@
   },
   "logo-creator": {
     "popularity": 1,
-    "size": 3713451,
+    "size": 3713314,
     "files": 25
   },
   "logo-designer": {
@@ -603,7 +603,7 @@
   },
   "manage-skills": {
     "popularity": 0,
-    "size": 17957,
+    "size": 17998,
     "files": 1
   },
   "manga-drama": {
@@ -613,8 +613,8 @@
   },
   "marketing-plan": {
     "popularity": 0,
-    "size": 255410,
-    "files": 15
+    "size": 267756,
+    "files": 16
   },
   "mcp-vods": {
     "popularity": 0,
@@ -650,7 +650,7 @@
   },
   "nextjs-app-router-patterns": {
     "popularity": 0,
-    "size": 13811,
+    "size": 13653,
     "files": 2
   },
   "nextjs-code-review": {
@@ -665,7 +665,7 @@
   },
   "nodejs-backend-patterns": {
     "popularity": 0,
-    "size": 26557,
+    "size": 26401,
     "files": 3
   },
   "opc-mvp-designer": {
@@ -686,7 +686,7 @@
   },
   "orca-cli": {
     "popularity": 1,
-    "size": 2752,
+    "size": 2372,
     "files": 1
   },
   "paper-context-resolver": {
@@ -716,7 +716,7 @@
   },
   "prototype": {
     "popularity": 0,
-    "size": 15464,
+    "size": 15378,
     "files": 2
   },
   "prototype-pollution": {
@@ -731,14 +731,14 @@
   },
   "redesign-existing-projects": {
     "popularity": 0,
-    "size": 15179,
+    "size": 15060,
     "files": 1
   },
   "remotion-best-practices": {
     "popularity": 0,
-    "size": 1168115,
+    "size": 1170421,
     "files": 141,
-    "skillVersion": "4.0.532"
+    "skillVersion": "4.0.533"
   },
   "requesting-code-review": {
     "popularity": 0,
@@ -756,23 +756,23 @@
     "files": 1
   },
   "short-drama-storyboard": {
-    "popularity": 1,
-    "size": 182287,
+    "popularity": 0,
+    "size": 181981,
     "files": 23
   },
   "short-drama-video-prompts": {
-    "popularity": 1,
-    "size": 259211,
+    "popularity": 0,
+    "size": 258909,
     "files": 27
   },
   "short-drama-write": {
     "popularity": 0,
-    "size": 226418,
+    "size": 226149,
     "files": 19
   },
   "stripe-best-practices": {
     "popularity": 0,
-    "size": 69510,
+    "size": 70292,
     "files": 7
   },
   "systematic-debugging": {
@@ -787,7 +787,7 @@
   },
   "to-spec": {
     "popularity": 0,
-    "size": 3363,
+    "size": 3178,
     "files": 2
   },
   "traceknot": {
@@ -802,7 +802,7 @@
   },
   "ui-ux-pro-max": {
     "popularity": 0,
-    "size": 3581842,
+    "size": 3581974,
     "files": 63
   },
   "video-editing": {
@@ -837,27 +837,27 @@
   },
   "wp-abilities-audit": {
     "popularity": 0,
-    "size": 41539,
+    "size": 41183,
     "files": 4
   },
   "wp-abilities-verify": {
     "popularity": 1,
-    "size": 56449,
+    "size": 56106,
     "files": 7
   },
   "wp-patterns": {
     "popularity": 0,
-    "size": 44233,
+    "size": 43812,
     "files": 8
   },
   "wp-playground": {
     "popularity": 1,
-    "size": 25594,
+    "size": 25218,
     "files": 7
   },
   "wp-plugin-directory-guidelines": {
     "popularity": 1,
-    "size": 49564,
+    "size": 49108,
     "files": 4
   },
   "writing-plans": {
