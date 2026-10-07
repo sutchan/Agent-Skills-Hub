@@ -1,9 +1,9 @@
 // prototype/src/parts/05-main.js v1.14.76 — 应用启动编排
 // URL hash 深链：筛选/搜索/排序/页码可分享、刷新可还原（P0-1）
-// 序列化规则：#cat=docs,ai-agent&q=xxx&sort=name&page=2，无筛选时清空 hash
+// 序列化规则：#cat=docs&q=xxx&sort=name&page=2，无筛选时清空 hash（分类为单选，仅一个值）
 function writeHash() {
   const parts = [];
-  if (state.cats.length) parts.push("cat=" + encodeURIComponent(state.cats.join(",")));
+  if (state.cats) parts.push("cat=" + encodeURIComponent(state.cats));
   if (state.query.trim()) parts.push("q=" + encodeURIComponent(state.query.trim()));
   if (state.sort && state.sort !== "name") parts.push("sort=" + encodeURIComponent(state.sort));
   if (state.page > 0) parts.push("page=" + state.page);
@@ -18,8 +18,9 @@ function parseHash() {
   const params = new URLSearchParams(raw);
   let changed = false;
   if (params.has("cat")) {
-    const cats = params.get("cat").split(",").map((c) => decodeURIComponent(c)).filter(Boolean);
-    if (JSON.stringify(cats) !== JSON.stringify(state.cats)) { state.cats = cats; changed = true; }
+    // 单选：仅取一个分类；兼容旧版多选链接（#cat=a,b），取第一个有效值
+    const cat = params.get("cat").split(",").map((c) => decodeURIComponent(c)).filter(Boolean)[0] || "";
+    if (cat !== state.cats) { state.cats = cat; changed = true; }
   }
   if (params.has("q")) {
     const q = decodeURIComponent(params.get("q"));

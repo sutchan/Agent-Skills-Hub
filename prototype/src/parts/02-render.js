@@ -23,16 +23,16 @@ function buildFilterItems(agg) {
   return { catItems };
 }
 
-// 分类 chips（v1.19.8 起多选 OR）：state.cats 为空 = 全部；数据来自 aggregateFilters 实况（v1.20.22 合并）
+// 分类 chips（单选）：state.cats 为空串 = 全部，选中项与 state.cats 相等；数据来自 aggregateFilters 实况
 function renderCats(agg) {
-  const allActive = state.cats.length === 0;
+  const allActive = !state.cats;
   const items = buildFilterItems(agg).catItems;
   // "全部"chip 用中性 hue，置于分类项之前
   const allBtn = `<button class="chip chip-all${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`;
   const container = $("#cats");
   if (!container) return;
   container.innerHTML = allBtn + items.map((it) => {
-    const active = state.cats.indexOf(it.key) !== -1;
+    const active = state.cats === it.key;
     return `<button class="chip${active ? " active" : ""}" data-cat="${esc(it.key)}" style="--hue:${it.hue}" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
   }).join("");
 }
@@ -117,11 +117,11 @@ function queryTerms(q) {
 function renderGrid() {
   const q = state.query.trim();
   const terms = queryTerms(q);
-  // 过滤：可见 + 关键词匹配 + 分类多选 OR（cats 为空 = 全部）
+  // 过滤：可见 + 关键词匹配 + 分类单选（state.cats 为空串 = 全部）
   let list = SKILLS_DATA.skills.filter((s) => {
     if (s.hidden) return false;
     if (!matches(s, terms)) return false;
-    if (state.cats.length && state.cats.indexOf(s.category) === -1) return false;
+    if (state.cats && s.category !== state.cats) return false;
     return true;
   });
   list = sortSkills(list);

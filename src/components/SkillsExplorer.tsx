@@ -11,9 +11,10 @@ import { Pager } from "./pager";
 // 每页 36 条 —— 对齐原型 prototype/src/parts/01-state.js PAGE_SIZE=36（原型为设计权威源）
 const PAGE_SIZE = 36;
 
-// URL hash 深链：与原型 05-main.js 的 writeHash/parseHash 对齐（相同序列格式 #cat=a,b&q=x&sort=name&page=2）
+// URL hash 深链：与原型 05-main.js 的 writeHash/parseHash 对齐（相同序列格式 #cat=a&q=x&sort=name&page=2）
 // 使 app 筛选/搜索/排序/页码可分享、刷新可还原，且与原型深链链接互认。
-type HashState = { cats: string[]; q: string; sort: typeof SORTS[number]; page: number };
+// 分类为单选，故 cat 只有一个值（空串 = 全部）。
+type HashState = { cat: string; q: string; sort: typeof SORTS[number]; page: number };
 const SORTS = ["name", "name-desc", "cat", "zh"] as const;
 
 // 深链参数解码（安全降级）：
@@ -32,7 +33,7 @@ function safeDecode(v: string): string {
 function writeHash(s: HashState) {
   if (typeof window === "undefined") return;
   const parts: string[] = [];
-  if (s.cats.length) parts.push("cat=" + encodeURIComponent(s.cats.join(",")));
+  if (s.cat) parts.push("cat=" + encodeURIComponent(s.cat));
   if (s.q.trim()) parts.push("q=" + encodeURIComponent(s.q.trim()));
   if (s.sort !== "name") parts.push("sort=" + encodeURIComponent(s.sort));
   if (s.page > 0) parts.push("page=" + s.page);
@@ -49,8 +50,9 @@ function parseHash(): Partial<HashState> {
   const p = new URLSearchParams(raw);
   const out: Partial<HashState> = {};
   if (p.has("cat")) {
-    const cats = p.get("cat")!.split(",").map((c) => safeDecode(c)).filter(Boolean);
-    if (cats.length) out.cats = cats;
+    // 单选：仅取一个分类；兼容旧版多选链接（#cat=a,b），取第一个有效值
+    const cat = p.get("cat")!.split(",").map((c) => safeDecode(c)).filter(Boolean)[0];
+    if (cat) out.cat = cat;
   }
   if (p.has("q")) out.q = safeDecode(p.get("q")!);
   if (p.has("sort")) {
@@ -71,7 +73,7 @@ export function SkillsExplorer({
   data: SkillsData;
   lang: Lang;
 }) {
-  const [cats, setCats] = useState<string[]>([]); // 多选 OR，空 = 全部
+  const [cat, setCat] = useState(""); // 分类单选，空串 = 全部
   const [raw, setRaw] = useState(""); // 搜索框即时输入（受控）
   const [q, setQ] = useState(""); // 防抖后的查询（实际用于过滤，对齐原型 DEBOUNCE_MS=120）
   const composing = useRef(false); // 输入法组合中标志，避免拼音过程狂刷网格
@@ -127,7 +129,7 @@ export function SkillsExplorer({
   useEffect(() => {
     if (typeof window === "undefined") return;
     const h = parseHash();
-    if (h.cats) setCats(h.cats);
+    if (h.cat) setCat(h.cat);
     if (typeof h.q === "string") { setRaw(h.q); setQ(h.q); }
     if (h.sort) setSort(h.sort);
     if (typeof h.page === "number") setPage(h.page);
@@ -139,7 +141,7 @@ export function SkillsExplorer({
     if (typeof window === "undefined") return;
     const onHash = () => {
       const h = parseHash();
-      if (h.cats) setCats(h.cats);
+      if (h.cat) setCat(h.cat);
       if (typeof h.q === "string") { setRaw(h.q); setQ(h.q); }
       if (h.sort) setSort(h.sort);
       if (typeof h.page === "number") setPage(h.page);
@@ -156,8 +158,8 @@ export function SkillsExplorer({
 
   // 深链写入：筛选/搜索/排序/页码变化后同步到 location.hash（刷新/分享可还原，对齐原型 P0-1）
   useEffect(() => {
-    writeHash({ cats, q, sort, page });
-  }, [cats, q, sort, page]);
+    writeHash({ cat, q, sort, page });
+  }, [cat, q, sort, page]);
 
   // 回到顶部（对齐原型 toTop：滚动超 300px 显隐）
   const [showToTop, setShowToTop] = useState(false);
@@ -196,7 +198,7 @@ export function SkillsExplorer({
     const kw = q.trim().toLowerCase();
     const list = data.skills.filter((s) => {
       if (s.hidden) return false;
-      if (cats.length && !cats.includes(s.category)) return false;
+      if (cat && s.category !== cat) return false;
       if (kw && !(`${s.name} ${s.zh || ""} ${s.description} ${s.enDescription || ""} ${s.category} ${s.enCategory || ""}`.toLowerCase().includes(kw))) return false;
       return true;
     });
@@ -207,7 +209,7 @@ export function SkillsExplorer({
       zh: (a, b) => String(a.zh || a.name).localeCompare(String(b.zh || b.name), "zh"),
     };
     return [...list].sort(cmp[sort]);
-  }, [data.skills, cats, q, sort]);
+  }, [data.skills, cat, q, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages - 1);
@@ -215,7 +217,7 @@ export function SkillsExplorer({
     () => filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE),
     [filtered, safePage]
   );
-  useEffect(() => { setPage(0); }, [q, cats, sort]);
+  useEffect(() => { setPage(0); }, [q, cat, sort]);
 
   // 翻页：更新页码并滚动回网格顶部
   const goPage = (p: number) => {
@@ -223,15 +225,16 @@ export function SkillsExplorer({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // 单选：点「全部」或再次点击当前项即取消筛选（回到全部）
   const toggleCat = (c: string) => {
-    if (c === "all") { setCats([]); return; }
-    setCats((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
+    if (c === "all") { setCat(""); return; }
+    setCat((prev) => (prev === c ? "" : c));
   };
 
   // 分类点击联动 Hero 节点网：派发当前筛选状态供 AppShell 点亮核心（对齐 prototype updateHeroNet）
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent("ash:filter-state", { detail: { cats, query: q } }));
-  }, [cats, q]);
+    window.dispatchEvent(new CustomEvent("ash:filter-state", { detail: { cat, query: q } }));
+  }, [cat, q]);
 
   return (
     <section id="skillsExplorer" className="explorer">
@@ -283,11 +286,11 @@ export function SkillsExplorer({
             </select>
           </label>
         </div>
-        <div className="chips" id="categoryChips" role="group" aria-label={lang === "zh" ? "分类（可多选）" : "Categories (multi-select)"}>
+        <div className="chips" id="categoryChips" role="group" aria-label={lang === "zh" ? "分类（单选）" : "Categories (single select)"}>
           <button
             key="all"
-            className={`chip${cats.length === 0 ? " active" : ""}`}
-            aria-pressed={cats.length === 0}
+            className={`chip${cat === "" ? " active" : ""}`}
+            aria-pressed={cat === ""}
             onClick={() => toggleCat("all")}
           >
             {lang === "zh" ? "全部" : "All"}
@@ -295,8 +298,8 @@ export function SkillsExplorer({
           {catsAll.map((c) => (
             <button
               key={c}
-              className={`chip${cats.includes(c) ? " active" : ""}`}
-              aria-pressed={cats.includes(c)}
+              className={`chip${cat === c ? " active" : ""}`}
+              aria-pressed={cat === c}
               onClick={() => toggleCat(c)}
             >
               {c}

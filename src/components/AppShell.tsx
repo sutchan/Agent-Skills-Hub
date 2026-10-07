@@ -128,18 +128,20 @@ export function AppShell({ data, version, updatedAt }: { data: SkillsData; versi
     const apply = (e: Event) => {
       const svg = document.getElementById("heroNet") as SVGSVGElement | null;
       if (!svg) return;
-      const detail = (e as CustomEvent<{ cats?: string[]; query?: string }>).detail || {};
-      const isFiltered = Boolean(detail.query) || (detail.cats?.length ?? 0) > 0;
+      // 分类为单选：detail.cat 是一个分类名或空串。
+      // 注意不可用 new Set(detail.cat) / detail.cat[0]——字符串会被逐字符拆开，须显式包成单元素集合。
+      const detail = (e as CustomEvent<{ cat?: string; query?: string }>).detail || {};
+      const isFiltered = Boolean(detail.query) || Boolean(detail.cat);
       svg.classList.toggle("filtering", isFiltered);
       svg.classList.toggle("searching", Boolean(detail.query));
-      const active = new Set(detail.cats || []);
+      const active = new Set<string>(detail.cat ? [detail.cat] : []);
       svg.querySelectorAll<SVGCircleElement>(".hub-node[data-cat]").forEach((nd) =>
         nd.classList.toggle("active", active.has(nd.getAttribute("data-cat") || ""))
       );
       const core = svg.querySelector<SVGCircleElement>(".hub-core");
       const glow = svg.querySelector<SVGCircleElement>(".hub-glow");
-      if ((detail.cats || []).length === 1) {
-        const hue = catHue(detail.cats![0]);
+      if (detail.cat) {
+        const hue = catHue(detail.cat);
         core?.style.setProperty("--core-hue", String(hue));
         glow?.style.setProperty("--core-hue", String(hue));
       } else {

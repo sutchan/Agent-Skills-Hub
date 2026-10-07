@@ -36,8 +36,8 @@ const state = {
   // 名称显示策略：默认双显（中文名主 + 英文原名副），可切仅中文 / 仅英文
   nameMode: NAME_MODE_BOTH,
   query: "",
-  // 分类筛选（多选 OR，空数组 = 全部）；v1.19.8 起由单选 cat 升级为多选 cats
-  cats: [],
+  // 分类筛选（单选，空串 = 全部）；v1.14.82 起由多选数组 cats 改为单选字符串 cat
+  cats: "",
   // 排序：name↑（默认，按 name）/ name↓ / cat（按分类）/ zh（按中文名）
   sort: "name",
   // 当前页码（0 基），切换筛选/搜索/排序时重置为 0

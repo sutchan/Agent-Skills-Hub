@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.20.57 — 主题/语言/视图/密度/UI元素/名称显示/分类多选/排序/分页 切换与事件绑定 + Hero 搜索联动
+// prototype/src/parts/04-interactions.js v1.20.58 — 主题/语言/视图/密度/UI元素/名称显示/分类单选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -107,17 +107,14 @@ function bind() {
       renderGrid();
     });
   });
-  // 分类导航（事件委托，v1.19.8 起多选 OR）
+  // 分类导航（事件委托，单选）
   on("#cats", "click", (e) => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     const val = chip.dataset.cat || "";
-    if (!val) { state.cats = []; } // "全部"清空多选
-    else {
-      const i = state.cats.indexOf(val);
-      if (i === -1) state.cats.push(val); else state.cats.splice(i, 1);
-    }
-    track("filter_category", { categories: state.cats.slice() });
+    // 单选：点「全部」或再次点击当前项即取消筛选（回到全部）
+    state.cats = !val || state.cats === val ? "" : val;
+    track("filter_category", { category: state.cats });
     state.page = 0; // 筛选变化回到第一页
     renderCats(aggregateFilters()); // 重渲分类 chips，刷新 active 态（彩色选中背景依赖此）
     updateHeroNet();
@@ -143,7 +140,7 @@ function bind() {
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = []; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; updateHeroNet(); renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = ""; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; updateHeroNet(); renderGrid(); }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
@@ -193,18 +190,18 @@ function bind() {
 function updateHeroNet() {
   const net = $("#heroNet");
   if (!net) return;
-  const active = Boolean(state.query) || (state.cats && state.cats.length > 0);
+  const active = Boolean(state.query) || Boolean(state.cats);
   net.classList.toggle("filtering", active);
   net.classList.toggle("searching", Boolean(state.query));
-  // 方案 A：同步节点 active 态（被选中的分类高亮）
+  // 单选：仅当前选中分类的节点点亮
   net.querySelectorAll(".hub-node[data-cat]").forEach((n) => {
-    n.classList.toggle("active", state.cats.includes(n.getAttribute("data-cat")));
+    n.classList.toggle("active", state.cats === n.getAttribute("data-cat"));
   });
-  // 选中单个分类时，核心节点（.hub-core / .hub-glow）同步为该分类色；多选/清空回落主色绿（CSS 默认 --core-hue 未定义）
+  // 选中分类时，核心节点（.hub-core / .hub-glow）同步为该分类色；清空回落主色绿（CSS 默认 --core-hue 未定义）
   const core = net.querySelector(".hub-core");
   const glow = net.querySelector(".hub-glow");
-  if (state.cats.length === 1) {
-    const hue = catHue(state.cats[0]);
+  if (state.cats) {
+    const hue = catHue(state.cats);
     [core, glow].forEach((el) => { if (el) el.style.setProperty("--core-hue", String(hue)); });
   } else {
     [core, glow].forEach((el) => { if (el) el.style.removeProperty("--core-hue"); });
@@ -302,15 +299,14 @@ function highlightCatCards(cat, on) {
   });
 }
 
-// 方案 A：节点 click → 切换该分类筛选
+// 方案 A：节点 click → 切换该分类筛选（单选；再次点击同一节点即取消）
 function toggleHeroCat(cat) {
-  const i = state.cats.indexOf(cat);
-  if (i >= 0) state.cats.splice(i, 1); else state.cats.push(cat);
+  state.cats = state.cats === cat ? "" : cat;
   state.page = 0;
   renderCats(aggregateFilters());
   updateHeroNet();
   renderGrid();
-  track("hero_node_filter", { cat, active: state.cats.includes(cat) });
+  track("hero_node_filter", { cat, active: state.cats === cat });
 }
 
 // 方案 B：随机抽一个技能（翻牌动画开盲盒）
