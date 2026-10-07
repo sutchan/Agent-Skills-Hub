@@ -17,7 +17,7 @@ const METRICS = join(ROOT, "data", "skills-metrics.json");
 const PROTO = join(ROOT, "prototype", "prototype.html");
 
 // 与 build-skills-data.mjs 的 EXCLUDE 保持一致，确保「磁盘技能数 == 生成技能数」
-const EXCLUDE = new Set([".skills-manager", ".trae", "app", "brand", "data", "tools"]);
+const EXCLUDE = new Set([".skills-manager", ".trae", "src", "brand", "data", "tools"]);
 
 function run(script) {
   // 非 0 退出时 execFileSync 直接抛错，天然成为测试失败信号

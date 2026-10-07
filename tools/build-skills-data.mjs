@@ -1,4 +1,4 @@
-// build-skills-data.mjs v1.20.28 — 解析 skills/<name>/SKILL.md 顶层 frontmatter → data/skills-data.json
+// build-skills-data.mjs v1.20.29 — 解析 skills/<name>/SKILL.md 顶层 frontmatter → data/skills-data.json
 // 以磁盘 skills/<name>/SKILL.md 为唯一权威源，生成自包含 JSON 供静态 HTML 原型使用。
 // 分类(category)、简短中文名称(zh_displayName)与 description 中文译文均来自各 SKILL.md 的 frontmatter，不再依赖 README。
 // 注意语义约定：zh 为「简短中文名称」（卡片标题），zh-desc 为「中文描述」（卡片描述区）；勿将描述句填入 zh。
@@ -21,7 +21,7 @@ const OUT = join(ROOT, "data", "skills-data.json");
 const METRICS_OUT = join(ROOT, "data", "skills-metrics.json");
 
 // 非技能目录（仓库内其他子项目/资产），构建时跳过
-const EXCLUDE = new Set([".skills-manager", ".trae", "app", "brand", "data", "tools"]);
+const EXCLUDE = new Set([".skills-manager", ".trae", "src", "brand", "data", "tools"]);
 
 // 功能标签（tags）词表：基于技能 description/enDescription/category 关键词自动派生（v1.20.12）
 // 每个标签含 slug（data 存储键）、中英显示名、命中正则。deriveTags 输出 slug 数组（每个技能 1-3 个）。

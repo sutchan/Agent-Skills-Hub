@@ -3,7 +3,7 @@ import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const SK = join(process.cwd(), "skills");
-const EX = new Set([".skills-manager", ".trae", "app", "brand", "data", "tools", "node_modules"]);
+const EX = new Set([".skills-manager", ".trae", "src", "brand", "data", "tools", "node_modules"]);
 const CONTRACT = new Set([
   "name", "description", "en_description", "zh_displayName", "category", "en_category",
   "displayName", "license", "version", "author", "homepage", "allowed-tools", "hidden",

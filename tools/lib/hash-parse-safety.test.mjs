@@ -1,6 +1,6 @@
 // tools/lib/hash-parse-safety.test.mjs — SkillsExplorer parseHash 二次解码崩溃回归测试
 //
-// 缺陷背景（app/components/SkillsExplorer.tsx parseHash）：
+// 缺陷背景（src/components/SkillsExplorer.tsx parseHash）：
 //   writeHash 写入 hash 时经 encodeURIComponent 编码（如搜索 "50%" 写入 #q=50%25）；
 //   URLSearchParams 解析时已解码一次（%25 -> %），parseHash 又对结果二次 decodeURIComponent。
 //   当 hash 含孤立 %（"50%"、"50%off"）时，decodeURIComponent 抛出 URIError 且未被捕获，

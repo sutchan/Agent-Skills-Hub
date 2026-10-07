@@ -1,11 +1,12 @@
-// tools/sync-css.mjs — 将 prototype/src/styles 四模块同步为 app 的 *-shared.css，
-// 并把 app/globals.css 拆分为「prototype 同源(@import shared) + app 扩展区」两层。
+// tools/sync-css.mjs — 将 prototype/src/styles 四模块同步为 src 的 *-shared.css，
+// 并把 src/globals.css 拆分为「prototype 同源(@import shared) + app 扩展区」两层。
 //
 // 同步策略（零回归）：
 //   shared 文件 = prototype 四模块原文（提供 prototype 全部规则，含其新增/演进）。
 //   globals.css 扩展区 = app 独有规则 + app 改写过原型的规则（选择器相同但声明不同）。
 //   加载顺序：shared 在前，app 扩展在后 -> app 改写优先，prototype 仅补充 app 缺失的新规则。
 //   因此 prototype 演进后只需重跑本脚本即可消除版本漂移，且不破坏 app 既有适配。
+//   注：app 源码现已迁移至仓库根 src/ 目录（Next.js src 约定）。
 //
 // 用法：node tools/sync-css.mjs            （生成 shared + 重写 globals.css）
 //       DRY=1 node tools/sync-css.mjs      （仅生成 shared，不重写 globals.css，供 review）
@@ -17,7 +18,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = dirname(__dirname);
 const APP_VER = (() => { try { return JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version; } catch { return "0.0.0"; } })();
 const PROTO = join(ROOT, "prototype", "src", "styles");
-const APP = join(ROOT, "app");
+const APP = join(ROOT, "src");
 const MODULES = ["base", "layout", "components", "responsive"];
 const DRY = process.env.DRY === "1";
 
@@ -93,7 +94,7 @@ for (const mod of MODULES) {
 if (!DRY) {
   const importLines = MODULES.map((mm) => `@import "./${mm}-shared.css";`).join("\n");
   const newCss =
-    `/* app/globals.css v${APP_VER} — 应用全局样式\n` +
+    `/* src/globals.css v${APP_VER} — 应用全局样式\n` +
     ` * 结构：① tokens-shared.css（设计令牌，由 prototype 同步）\n` +
     ` *       ② base/layout/components/responsive-shared.css（prototype 同源规则，由 tools/sync-css.mjs 自动生成）\n` +
     ` *       ③ 下方「APP 扩展区」：app 独有/改写原型的规则，优先于 shared 生效\n` +
@@ -111,4 +112,4 @@ if (!DRY) {
 console.log("prototype 版本:", protoVers);
 console.log("app 扩展区块数:", appExt.length);
 console.log("已生成:", MODULES.map((mm) => `${mm}-shared.css`).join(", "));
-console.log(DRY ? "DRY 模式：未重写 globals.css" : "已重写: app/globals.css");
+console.log(DRY ? "DRY 模式：未重写 globals.css" : "已重写: src/globals.css");

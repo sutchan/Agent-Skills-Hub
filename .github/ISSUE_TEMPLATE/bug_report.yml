@@ -24,7 +24,7 @@ body:
         - 展示页（prototype/index.html）
         - 构建脚本（build / build-skills-data）
         - 某个技能
-        - app/ 应用
+        - src/ 应用
         - 文档 / README
         - 其他
     validations:

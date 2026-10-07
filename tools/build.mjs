@@ -1,4 +1,4 @@
-// build.mjs v1.20.19 — 将 src 模板 + 真实数据内联为自包含 prototype/prototype.html（产物直出 prototype/ 根）
+// build.mjs v1.20.20 — 将 src 模板 + 真实数据内联为自包含 prototype/prototype.html（产物直出 prototype/ 根）
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -89,14 +89,14 @@ writeFileSync(join(OUT_DIR, "prototype.html"), out, "utf8");
 console.log(`Built self-contained prototype -> ${join(OUT_DIR, "prototype.html")} (${(out.length / 1024).toFixed(1)} KB)`);
 
 // 复制品牌 favicon 到 prototype/ 根目录，使原型部署后 <link rel="icon" href="favicon.svg"> 可达（data URI 仍保证离线自包含）
-// 品牌资产统一存放于仓库根 public/（单一来源），app/icon.svg 为应用图标同源生成
+// 品牌资产统一存放于仓库根 public/（单一来源），src/app/icon.svg 为应用图标同源生成
 const favSrc = join(ROOT, "public", "favicon.svg");
 if (existsSync(favSrc)) {
   copyFileSync(favSrc, join(OUT_DIR, "favicon.svg"));
   console.log("Copied favicon.svg -> prototype/favicon.svg");
 }
 // 复制社交分享横幅（Open Graph / Twitter Card），供 prototype.html 的 og:image 引用
-// 品牌资产单一来源为仓库根 public/，非 app/public/（app 下无 public 目录）
+// 品牌资产单一来源为仓库根 public/，非 src/app/public/（app 下无 public 目录）
 const ogSrc = join(ROOT, "public", "banner-og.svg");
 if (existsSync(ogSrc)) {
   copyFileSync(ogSrc, join(OUT_DIR, "banner-og.svg"));
@@ -105,5 +105,5 @@ if (existsSync(ogSrc)) {
   console.warn("WARN: banner-og.svg not found at public/banner-og.svg, og:image file not copied");
 }
 
-// 注：app/tokens-shared.css 不再由本脚本生成。令牌单一来源同步已拆出为
+// 注：src/tokens-shared.css 不再由本脚本生成。令牌单一来源同步已拆出为
 // tools/sync-tokens.mjs（事实源 prototype/src/styles/tokens.css），视觉变更后手动运行。

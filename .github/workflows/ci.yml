@@ -106,7 +106,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .next/cache
-          key: ${{ runner.os }}-next-${{ hashFiles('pnpm-lock.yaml', 'app/**/*.ts', 'app/**/*.tsx') }}
+          key: ${{ runner.os }}-next-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
           restore-keys: |
             ${{ runner.os }}-next-
 
@@ -192,7 +192,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .next/cache
-          key: ${{ runner.os }}-next-${{ hashFiles('pnpm-lock.yaml', 'app/**/*.ts', 'app/**/*.tsx') }}
+          key: ${{ runner.os }}-next-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
           restore-keys: |
             ${{ runner.os }}-next-
 

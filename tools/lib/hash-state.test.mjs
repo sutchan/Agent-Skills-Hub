@@ -1,8 +1,8 @@
-// tools/lib/hash-state.test.mjs v1.0.0 — app/lib/hash-state.ts 回归测试
+// tools/lib/hash-state.test.mjs v1.0.1 — src/lib/hash-state.ts 回归测试
 // 覆盖：writeHash/parseHash 往返一致；含字面 % 的查询不再因双重解码抛 URIError。
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parseHash, writeHash } from "../../app/lib/hash-state.ts";
+import { parseHash, writeHash } from "../../src/lib/hash-state.ts";
 
 test("round-trip：writeHash 编码 -> parseHash 解码，中文/空格/分类多选一致", () => {
   const h = writeHash({ cats: ["文档"], q: "vue 组件", sort: "zh", page: 2 });

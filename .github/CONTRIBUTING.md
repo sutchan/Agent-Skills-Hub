@@ -24,7 +24,7 @@
 
 - 每个技能是 `skills/<name>/SKILL.md` 的独立目录，可含 `scripts/`、`references/`、`assets/`、`agents/` 等资源。
 - 技能数据由 `npm run build` 从磁盘 `skills/` 自动生成，产物为 `data/skills-data.json`（稳定元数据）与 `data/skills-metrics.json`（频繁派生指标，以 `name` 为 key 的 map），二者合并后注入自包含静态展示页 `prototype/prototype.html`。
-- 展示方式：`prototype/prototype.html`（静态单文件，可离线打开）+ `app/`（Next.js 应用源码工作区）。
+- 展示方式：`prototype/prototype.html`（静态单文件，可离线打开）+ `src/`（Next.js 应用源码工作区，采用 src 目录约定）。
 
 ## 环境准备
 
