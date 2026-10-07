@@ -68,7 +68,7 @@ Skills are organized into the following domains (see the [Online Showcase](#onli
 | WordPress & CMS | 7 |
 | Engineering Practice & Quality | 34 |
 | File & Format Handling | 2 |
-| Automation & Integration | 5 |
+| Automation & Integration | 6 |
 | AI & Agents | 9 |
 | Media & Multimedia | 24 |
 | Desktop & Client | 2 |
