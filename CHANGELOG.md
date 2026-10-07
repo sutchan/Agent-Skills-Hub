@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.81] - 2026-10-07
+
+### feat: 技能卡片增加赞/踩（双计数独立），原型与应用同步实现
+
+- **语义**：赞与踩**各自独立计数、互不抵消，可同时为正**；再次点击同一项即取消该项。无后端聚合，数值经 `localStorage`（键 `ash-votes`，结构 `{name:{up,down}}`）持久化于本浏览器。
+- **解除嵌套可交互元素**（关键结构修正）：卡片原为整块 `<button>`，在其内放赞/踩会构成「按钮内嵌按钮」——HTML 无效且读屏器无法区分二者。现将卡片改为 `<div class="card">` 容器 + `button.card-open` 承担打开详情与键盘可达性 + `.card-vote` 作为同级独立按钮行；鼠标点击卡片任意处与键盘 Enter/Space 均经 `#grid` 事件委托统一处理，`[data-vote-row]` 整行豁免以保证投票不打开详情。
+- **原型侧**（`prototype/src/`）：新增 `parts/06-votes.js`（懒加载 localStorage、双计数切换、图标、委托绑定、`track` 埋点）；`02-render.js` 的 `cardHTML` 重构；`04-interactions.js` 网格委托加投票豁免；`i18n.js` 新增 `vote.up`/`vote.down`。
+- **应用侧**（`src/`）：新增 `lib/votes.ts`（`useSyncExternalStore` 惰性订阅 store，引用稳定，投票只重渲被点的那张卡，无水合不匹配）、`components/vote-row.tsx`；`skill-card.tsx` 重构为容器结构；`SkillsExplorer.tsx` 传入 `lang`。
+- **样式单一来源**：投票样式只写在 `prototype/src/styles/components.css`，再由 `tools/sync-css.mjs` 生成 `components-shared.css`；同时删除 `src/app/globals.css` 中与原型重复的 `.card`/`.card-body` 覆写及已失效的 `.card:focus-visible`（卡片不再是可聚焦元素，焦点环移至 `.card-open`，因 `.card` 有 `overflow:hidden` 故用负 offset 内描边）。计数按钮描边常驻，激活只换色不换尺寸，避免卡片抖动；颜色非唯一区分手段（上下箭头形状 + `aria-pressed`）。
+- **e2e 更新**：`e2e/smoke.spec.ts` 原用 `button.card` 选择器，重构后会失效，已改为 `.card` / `button.card-open`，并新增「赞/踩双计数独立 + 刷新持久化 + 投票不误开详情」用例。
+- **验证**：`tsc --noEmit` 0 错误；`node --test tools/lib/*.test.mjs` 28/28 通过；原型产物实测 36 卡 / 72 投票按钮 / **0 个嵌套可交互元素**、赞+踩后两者同为 1 且详情弹窗未开、控制台无错误。
+
+[1.14.81]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.81
+
 ## [1.14.80] - 2026-10-07
 
 ### feat: 页脚区重排为「目录版权页」并提升排版
