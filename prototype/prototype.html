@@ -532,6 +532,15 @@ html[data-lang="zh"] .en { display: none; }
 .icon-btn:active { transform: translateY(0); }
 .icon-btn[aria-pressed="true"] { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
 
+.fav-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 8px;
+  background: transparent; color: var(--text-2); border: 1px solid var(--border);
+  cursor: pointer; transition: color .15s, background .15s, border-color .15s; flex: none;
+}
+.fav-btn:hover { color: hsl(var(--primary)); border-color: hsl(var(--primary)); background: hsl(var(--secondary)); }
+.fav-btn.bookmarked { color: hsl(var(--primary)); background: hsl(var(--primary) / .12); border-color: hsl(var(--primary)); }
+
 /* 主题按钮图标：浅色模式显示月亮（可切到深色），深色模式显示太阳（可切到浅色） */
 [data-theme="light"] .theme-sun { display: none; }
 [data-theme="light"] .theme-moon { display: block; }
@@ -772,6 +781,11 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
               <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
             </g>
             <path class="theme-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+          </svg>
+        </button>
+        <button class="icon-btn" id="favToggleBtn" data-tip-zh="收藏夹" data-tip-en="Favorites" aria-label="收藏夹 / Favorites" aria-pressed="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
           </svg>
         </button>
         <button class="icon-btn" id="settingsBtn" data-tip-zh="设置" data-tip-en="Settings" aria-label="打开设置 / Open settings">
@@ -1303,7 +1317,47 @@ const state = {
   sort: "name",
   // 当前页码（0 基），切换筛选/搜索/排序时重置为 0
   page: 0,
+  favoritesOnly: false,
 };
+
+const LS_FAV = "ash-favorites";
+function getFavorites() {
+  try {
+    const raw = localStorage.getItem(LS_FAV);
+    if (!raw) return new Set();
+    const arr = JSON.parse(raw);
+    if (Array.isArray(arr)) return new Set(arr);
+  } catch (e) {}
+  return new Set();
+}
+function saveFavorites(set) {
+  try {
+    localStorage.setItem(LS_FAV, JSON.stringify(Array.from(set)));
+  } catch (e) {}
+}
+function isFavorite(name) {
+  return getFavorites().has(name);
+}
+function toggleFavorite(name) {
+  const favs = getFavorites();
+  if (favs.has(name)) favs.delete(name);
+  else favs.add(name);
+  saveFavorites(favs);
+  return favs.has(name);
+}
+function syncFavUI(name) {
+  const fav = isFavorite(name);
+  document.querySelectorAll(`.fav-btn[data-fav-name="${CSS.escape(name)}"]`).forEach((btn) => {
+    btn.classList.toggle("bookmarked", fav);
+    const svg = btn.querySelector("svg");
+    if (svg) svg.setAttribute("fill", fav ? "currentColor" : "none");
+    btn.setAttribute("aria-label", (fav ? "取消收藏" : "收藏") + " " + name);
+    btn.setAttribute("title", fav ? "取消收藏" : "收藏");
+  });
+  if (state.favoritesOnly) {
+    renderGrid();
+  }
+}
 
 // 偏好读取辅助：校验合法枚举值，非法则回退默认（避免脏 localStorage 破坏状态）
 function loadEnum(key, allowed, fallback) {
@@ -1423,23 +1477,31 @@ function skillSlug(name) {
 function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   const descZh = s.description || s.zh || I18N.t("card.noDesc");
+  const fav = isFavorite(s.name);
   return `<div class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${esc(s.category)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
     <div class="card-body">
-      <button type="button" class="card-open" aria-label="${esc(label)}">
-        <div class="title-row">
-          <div class="avatar sm" style="--hue:${catHue(s.category)}">${initials(s.name)}</div>
-          <div class="card-title">
-            <span class="zh">${esc(s.zh || s.name)}</span>
-            <span class="en">${esc(s.name)}</span>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+        <button type="button" class="card-open" aria-label="${esc(label)}" style="flex: 1;">
+          <div class="title-row">
+            <div class="avatar sm" style="--hue:${catHue(s.category)}">${initials(s.name)}</div>
+            <div class="card-title">
+              <span class="zh">${esc(s.zh || s.name)}</span>
+              <span class="en">${esc(s.name)}</span>
+            </div>
           </div>
-        </div>
-        <div class="card-desc">
-          <span class="zh">${esc(descZh)}</span>
-          <span class="en">${esc(s.enDescription || "")}</span>
-        </div>
-        <div class="card-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
-      </button>
+          <div class="card-desc">
+            <span class="zh">${esc(descZh)}</span>
+            <span class="en">${esc(s.enDescription || "")}</span>
+          </div>
+          <div class="card-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
+        </button>
+        <button type="button" class="fav-btn${fav ? " bookmarked" : ""}" data-fav-name="${esc(s.name)}" aria-label="${fav ? "取消收藏" : "收藏"} ${esc(s.name)}" title="${fav ? "取消收藏" : "收藏"}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="${fav ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
     ${voteHTML(s.name)}
   </div>`;
@@ -1482,6 +1544,7 @@ function renderGrid() {
     if (s.hidden) return false;
     if (!matches(s, terms)) return false;
     if (state.cats && s.category !== state.cats) return false;
+    if (state.favoritesOnly && !isFavorite(s.name)) return false;
     return true;
   });
   list = sortSkills(list);
@@ -1639,6 +1702,7 @@ function detailHTML(skill) {
   const desc = st.lang === "zh" ? skill.description : (skill.enDescription || skill.description);
   const titleZh = skill.zh || skill.name;
   const titleEn = skill.name;
+  const fav = isFavorite(skill.name);
 
   // 名称显示策略（与卡片一致）
   let titleHTML = "";
@@ -1713,6 +1777,11 @@ function detailHTML(skill) {
     <div class="detail-head">
       ${titleHTML}
       <div class="d-actions">
+        <button type="button" class="fav-btn${fav ? " bookmarked" : ""}" data-fav-name="${esc(skill.name)}" aria-label="${fav ? "取消收藏" : "收藏"} ${esc(skill.name)}" title="${fav ? "取消收藏" : "收藏"}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="${fav ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
         <button id="copyNameBtn" class="btn ghost" data-name="${esc(skill.name)}">${I18N.t("detail.copyName")}</button>
         <span id="copyTip" class="copy-tip"></span>
       </div>
@@ -1912,6 +1981,32 @@ function bind() {
   // 方案 B：骰子按钮
   const diceBtn = $("#diceBtn");
   if (diceBtn) diceBtn.addEventListener("click", rollDice);
+  // 收藏按钮点击委托
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".fav-btn");
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const name = btn.getAttribute("data-fav-name");
+    if (!name) return;
+    const isFav = toggleFavorite(name);
+    syncFavUI(name);
+    showToast(isFav ? "已加入收藏夹" : "已移出收藏夹");
+    track("favorite_toggle", { skill: name, favorite: isFav });
+  });
+
+  // 顶栏收藏夹切换
+  const favToggleBtn = $("#favToggleBtn");
+  if (favToggleBtn) {
+    favToggleBtn.addEventListener("click", () => {
+      state.favoritesOnly = !state.favoritesOnly;
+      state.page = 0;
+      favToggleBtn.classList.toggle("active", state.favoritesOnly);
+      favToggleBtn.setAttribute("aria-pressed", String(state.favoritesOnly));
+      renderGrid();
+      track("favorites_filter_toggle", { active: state.favoritesOnly });
+    });
+  }
   // 视图切换
   $$(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
