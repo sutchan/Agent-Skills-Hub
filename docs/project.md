@@ -72,3 +72,20 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 - **AGENTS.md**：AI 助手协作流程与质量门禁。
 - **CONTRIBUTING.md**（`.github/`）：贡献者操作指南（新增技能、构建、版本同步、部署、提交、PR）。
 - 所有规范文档互为引用、不重复定义；冲突以 **spec.md** 为准。
+
+---
+
+## 7. 点赞与收藏功能的数据存储规划（Tencent Cloud EdgeOne / EO Makers 边缘存储架构）
+
+为实现点赞（Votes）与收藏（Bookmarks）功能的高效、全球低延迟存储，基于腾讯云 EdgeOne / EO Makers 平台规划以下边缘架构：
+
+1. **点赞（Votes）存储方案（公共共享状态）**：
+   - **存储载体**：腾讯云 EdgeOne **Edge KV**（边缘键值存储）。
+   - **键名设计**：`vote:<skill_name>`（例如 `vote:ad-creative`）。
+   - **数据结构**：`{ "up": number }`。
+   - **边缘函数（Edge Functions）**：提供 `/api/vote` 接口。用户点赞时边缘函数读取 Edge KV、原子累加 `up + 1`、写回 Edge KV 并全球边缘节点同步返回最新计数。
+
+2. **收藏（Bookmarks）存储方案（用户端状态）**：
+   - **客户端降级方案**：默认使用浏览器 `localStorage`（键名 `ash-favorites`），存储收藏的技能名称字符串数组，零后端依赖，离线可用。
+   - **云端同步方案（EO Makers 边缘扩展）**：对于登录用户，可扩展利用 EdgeOne Edge KV 存储：`user:<user_id>:favorites` $\rightarrow$ 收藏技能名称数组。
+

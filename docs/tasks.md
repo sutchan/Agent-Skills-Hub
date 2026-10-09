@@ -91,6 +91,19 @@
 
 ---
 
+## 迭代五：点赞与收藏边缘存储集成规划（Tencent Cloud EdgeOne / EO Makers）
+
+**目的**：为点赞与收藏功能规划基于腾讯云 EdgeOne / EO Makers 平台的边缘存储架构（Edge KV + Edge Functions），明确公共计数与用户态存储实现方法。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 1 | 在 `docs/project.md` 规划 EdgeOne / EO Makers 边缘存储架构 | P1 | ✅ 已完成 | 确立点赞全局 KV 计数与收藏双模（localStorage + Edge KV）存储方案 |
+| 2 | 在 `docs/tasks.md` 登记点赞与收藏边缘存储开发与实施任务 | P1 | ✅ 已完成 | 本任务 |
+| 3 | 编写 EdgeOne 边缘函数接口（`/api/votes`、`/api/favorites`）与 Edge KV 模拟存储逻辑 | P2 | ✅ 已完成 | 已在 `server.js` 实现，通过 `data/kv-store.json` 模拟 Edge KV |
+| 4 | 扩展前端客户端收藏与点赞逻辑，双向同步对接 EO Makers 边缘云端存储 | P2 | ✅ 已完成 | 已实现 localStorage 缓存 + 异步云端 API 双向同步 |
+
+---
+
 ## 变更摘要
 
 - **迭代一（修复 CI）**：125 个技能缺失 4 个必填 frontmatter 字段 → 修复后 169 个全部通过校验，数据与原型已重建；防护机制（validate-skills 硬门禁）已落地于 `ci.yml`。
@@ -99,4 +112,4 @@
 - **环境验证结论（2026-10-04 更新）**：Windows 上 `next build` 本次**完整通过**，此前 standalone 清理阶段的 `EPERM` 未再复现；CI ubuntu `build` job 仍保留为权威验证路径。新增待办 #14（CHANGELOG 版本序列治理：247 小节 / 双序列交错 / 28+ 版本号重复）、#15（缺 `v*` 发布 tag）、#16（文件头注释版本漂移）、#17（本地重复构建被 IDE safe-delete 守卫拦截）。
 - **迭代四（frontmatter 回填 + 版本同步 v1.14.74）**：外部 skills-manager 自动提交 `ab00264` 以 `71e5f23^` 为权威源，批量回填 170 技能五契约字段（英文 `description` 迁至 `en_description`），重建 data / prototype 消除 `71e5f23` 的「其他」类回退；全局版本统一至 1.14.74（仅缺 `v1.14.74` tag，见 #15）；本迭代收口原型版本注入与 README 分类计数核对（修正「自动化与集成」6→5）。
 
-> 最后同步：2026-10-07 — 迭代一、二、三、四全部完成；#13 已关闭；#14–#17 待处理（其中 #15 的 `v1.14.74` tag 仍未建立）。
+> 最后同步：2026-10-09 — 迭代一、二、三、四全部完成；新增迭代五（腾讯云 EdgeOne / EO Makers 点赞与收藏边缘存储规划）。

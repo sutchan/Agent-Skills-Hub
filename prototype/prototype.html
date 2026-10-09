@@ -1340,10 +1340,21 @@ function isFavorite(name) {
 }
 function toggleFavorite(name) {
   const favs = getFavorites();
-  if (favs.has(name)) favs.delete(name);
+  const isFav = favs.has(name);
+  if (isFav) favs.delete(name);
   else favs.add(name);
   saveFavorites(favs);
-  return favs.has(name);
+  fetch('/api/favorites', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name })
+  }).then(r => r.json()).then(data => {
+    if (data && data.favorites) {
+      saveFavorites(new Set(data.favorites));
+      syncFavUI(name);
+    }
+  }).catch(() => {});
+  return !isFav;
 }
 function syncFavUI(name) {
   const fav = isFavorite(name);
@@ -2475,6 +2486,28 @@ function init() {
   if (fd && fd.textContent.includes("2026-10-09")) {
     fd.innerHTML = fd.innerHTML.replace("2026-10-09", new Date().toISOString().slice(0, 10));
   }
+  initCloudSync();
+}
+
+function initCloudSync() {
+  fetch('/api/votes').then(r => r.json()).then(data => {
+    if (data && typeof data === 'object') {
+      const all = ensureVotes();
+      Object.assign(all, data);
+      saveVotes();
+      SKILLS_DATA.skills.forEach(s => syncVoteUI(s.name));
+    }
+  }).catch(() => {});
+
+  fetch('/api/favorites').then(r => r.json()).then(data => {
+    if (data && typeof data === 'object') {
+      const keys = Object.keys(data);
+      if (keys.length) {
+        saveFavorites(new Set(keys));
+        SKILLS_DATA.skills.forEach(s => syncFavUI(s.name));
+      }
+    }
+  }).catch(() => {});
 }
 
 document.addEventListener("DOMContentLoaded", init);
@@ -2551,6 +2584,17 @@ function addVote(name) {
   const next = { up: (all[name] ? all[name].up : 0) + 1 };
   all[name] = next;
   saveVotes();
+  fetch('/api/votes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, action: 'up' })
+  }).then(r => r.json()).then(data => {
+    if (data && typeof data.up === 'number') {
+      all[name] = { up: data.up };
+      saveVotes();
+      syncVoteUI(name);
+    }
+  }).catch(() => {});
   return next;
 }
 
@@ -2560,6 +2604,17 @@ function undoVote(name) {
   if (!all[name]) return { up: 0 };
   delete all[name];
   saveVotes();
+  fetch('/api/votes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, action: 'undo' })
+  }).then(r => r.json()).then(data => {
+    if (data) {
+      delete all[name];
+      saveVotes();
+      syncVoteUI(name);
+    }
+  }).catch(() => {});
   return { up: 0 };
 }
 

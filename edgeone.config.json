@@ -1,0 +1,15 @@
+{
+  "name": "agent-skills-hub",
+  "routes": [
+    {
+      "pattern": "*/api/*",
+      "script": "edge-worker.js"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "ASH_KV",
+      "namespace": "ash_kv_store"
+    }
+  ]
+}
