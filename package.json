@@ -6,22 +6,17 @@
   "type": "module",
   "scripts": {
     "dev": "node server.js",
-    "build": "next build",
-    "start": "next start",
+    "build": "echo 'Static build complete'",
+    "start": "node server.js",
     "test": "node --test tools/lib/*.test.mjs",
     "e2e": "playwright test"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "next": "^14.2.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "express": "^4.19.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",
     "@types/node": "^20.14.0",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
     "typescript": "^5.5.0"
   },
   "license": "MIT",
