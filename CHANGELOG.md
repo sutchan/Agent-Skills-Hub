@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.87] - 2026-10-09
+
+### fix: 修复 6 个技能契约字段并重建数据
+
+- 会话间隙外部进程改坏 6 个技能 frontmatter（删 `en_description` / `zh_displayName` / `category` / `en_category` 四必填字段，仅留 `name` + 英文 `description`）：`code-review`、`diagnosing-bugs`、`grilling`、`limrun-xcode`、`remotion-best-practices`、`tdd`。
+- 以历史中文权威源 `71e5f23^` 取映射补全（`tdd` 不在历史映射，手动归类「工程实践与质量」/中文名「测试驱动开发」）；重跑 `validate-skills` → **172 个技能 frontmatter 全部规范（0 问题）**。
+- 重建 `data/skills-data.json`、`data/skills-metrics.json` 与 `prototype/prototype.html`，同步 `app/globals.css` 与 token css。
+
+[1.14.87]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.87
+
 ## [1.14.86] - 2026-10-07
 
 ### refactor(footer): 精简页脚并对齐原型与 app

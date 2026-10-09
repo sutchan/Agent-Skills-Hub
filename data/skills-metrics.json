@@ -155,7 +155,7 @@
   },
   "code-review": {
     "popularity": 1,
-    "size": 6630,
+    "size": 6711,
     "files": 2
   },
   "code-review-and-quality": {
@@ -256,7 +256,7 @@
   },
   "diagnosing-bugs": {
     "popularity": 0,
-    "size": 10208,
+    "size": 10342,
     "files": 3
   },
   "discover-brand": {
@@ -490,7 +490,7 @@
   },
   "grilling": {
     "popularity": 0,
-    "size": 2300,
+    "size": 2362,
     "files": 2
   },
   "handoff": {
@@ -576,7 +576,7 @@
   },
   "limrun-xcode": {
     "popularity": 0,
-    "size": 25991,
+    "size": 26487,
     "files": 1
   },
   "limrun-xcode-bazel": {
@@ -741,9 +741,9 @@
   },
   "remotion-best-practices": {
     "popularity": 0,
-    "size": 1170701,
+    "size": 1179240,
     "files": 141,
-    "skillVersion": "4.0.533"
+    "skillVersion": "4.0.534"
   },
   "requesting-code-review": {
     "popularity": 0,
@@ -787,7 +787,7 @@
   },
   "tdd": {
     "popularity": 0,
-    "size": 7692,
+    "size": 7771,
     "files": 4
   },
   "test-driven-development": {
