@@ -1,12 +1,8 @@
 ---
 name: tdd
-description: 测试驱动开发（TDD）：先写失败测试再写实现，驱动模块设计与重构，保障代码可测性与回归安全。当用户要落地 TDD、按「红-绿-重构」循环开发、或编写集成测试时使用。
-en_description: |-
-  Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.
-zh_displayName: 测试驱动开发
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.
 ---
+
 # Test-Driven Development
 
 TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, and the rules of the loop. Every section applies on every cycle: consult them before and during the loop, not after.
@@ -25,7 +21,7 @@ A **seam** is the public boundary you test at: the interface where you observe b
 
 **Test only at pre-agreed seams.** Before writing any test, write down the seams under test and confirm them with the user. No test is written at an unconfirmed seam. You can't test everything, so agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
 
-Ask: "What's the public interface, and which seams should we test?"
+Ask: "What's the public interface, and which seams should we test?" Give each proposed seam a one-line note on what it catches and what it misses.
 
 When the shape of that interface is itself in question (how deep the module is, where the seam belongs, what the interface should expose), call the Skill tool with "codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
 

@@ -1,14 +1,10 @@
 ---
 name: limrun-xcode
-description: 在远程 Xcode 上构建 iOS/Apple 应用（用 `lim xcode build` 替代本地 xcodebuild）、用 `lim xcode run` 运行项目命令，或用 `lim xcode test` 运行其 XCTest 测试套件——可从任意环境（Linux、Windows、macOS、VM、容器）发起。
-en_description: |-
-  Build iOS / Apple apps on remote Xcode with `lim xcode build`, run with `lim xcode run`, or test with `lim xcode test` — from any environment (Linux, Windows, macOS, VM, container).
-zh_displayName: Limrun 远程 Xcode 构建
-category: 移动端开发
-en_category: Mobile Dev
+description: "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, run project commands with `lim xcode run`, or run its XCTest suites with `lim xcode test`, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects (an `.xcodeproj` / `.xcworkspace`, an XcodeGen `project.yml` with a gitignored project, React Native / Expo native build) when the user wants to build, compile, run code generation or Make targets, test, inspect build logs, reload, produce a preview build, or ship a signed device IPA. To run, tap, screenshot, or otherwise interact with the result on a simulator, use limrun-ios-simulator. For Bazel workspaces, use limrun-xcode-bazel."
 user-invocable: true
 effort: high
 ---
+
 # Remote Xcode build
 
 Build Apple projects on Limrun's remote Xcode, from any environment (Linux,
@@ -531,6 +527,13 @@ https://console.limrun.com/preview?asset=${ASSET_NAME}&platform=ios
 ## Gotchas
 
 - **Build errors are part of the job.** If a build fails, read the error output, fix the code, and rebuild before reporting back.
+- **A project mise file installs tools the build never uses.** The first
+  build or run in a sandbox runs `mise install` for every `[tools]` entry in the
+  synced mise files, so a monorepo's root `mise.toml` full of databases and
+  cloud CLIs slows it down or fails it. Keep using the project file when it
+  works. If it doesn't, add a `mise.limrun.toml` beside it listing only the
+  build's tools (for example node and pnpm); in that directory Limrun reads it
+  instead of the other mise files.
 - **The embedded Xcode sandbox is gone.** The TypeScript SDK (0.54.0+) and
   `lim` (0.35.0+) no longer create an Xcode sandbox inside an iOS instance.
   Symptoms after an upgrade: `'sandbox' does not exist in type 'Spec'` on
