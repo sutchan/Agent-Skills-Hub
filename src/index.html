@@ -1350,7 +1350,7 @@ function toggleFavorite(name) {
   fetch('/api/favorites', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name })
+    body: JSON.stringify({ name, action: isFav ? 'remove' : 'add' })
   }).then(r => r.json()).then(data => {
     if (data && data.favorites) {
       saveFavorites(new Set(data.favorites));
@@ -2566,7 +2566,9 @@ function initCloudSync() {
     if (data && typeof data === 'object') {
       const keys = Object.keys(data);
       if (keys.length) {
-        saveFavorites(new Set(keys));
+        const cur = getFavorites();
+        keys.forEach(k => cur.add(k));
+        saveFavorites(cur);
         SKILLS_DATA.skills.forEach(s => syncFavUI(s.name));
       }
     }

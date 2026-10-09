@@ -43,10 +43,11 @@ async function handleRequest(request) {
 
         if (action === "undo") {
           data.up = 0;
+          if (kv) await kv.delete(key);
         } else {
           data.up += 1;
+          if (kv) await kv.put(key, JSON.stringify(data));
         }
-        if (kv) await kv.put(key, JSON.stringify(data));
         return new Response(JSON.stringify({ name, ...data }), { headers: corsHeaders });
       }
     }
@@ -62,17 +63,25 @@ async function handleRequest(request) {
         return new Response(JSON.stringify(favs), { headers: corsHeaders });
       }
       if (request.method === "POST") {
-        const { name } = await request.json();
+        const { name, action } = await request.json();
         if (!name) return new Response(JSON.stringify({ error: "Missing name" }), { status: 400, headers: corsHeaders });
         const key = `fav:${name}`;
         const exists = kv ? await kv.get(key) : null;
         let isFav = false;
-        if (exists) {
+        if (action === "add") {
+          if (kv) await kv.put(key, "1");
+          isFav = true;
+        } else if (action === "remove") {
           if (kv) await kv.delete(key);
           isFav = false;
         } else {
-          if (kv) await kv.put(key, "1");
-          isFav = true;
+          if (exists) {
+            if (kv) await kv.delete(key);
+            isFav = false;
+          } else {
+            if (kv) await kv.put(key, "1");
+            isFav = true;
+          }
         }
         const keys = kv ? await kv.list({ prefix: "fav:" }) : { keys: [] };
         const allFavs = (keys.keys || []).map(k => k.replace("fav:", ""));

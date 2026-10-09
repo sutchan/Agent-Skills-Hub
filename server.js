@@ -51,12 +51,14 @@ app.post('/api/votes', (req, res) => {
   if (!kvStore.votes[name]) kvStore.votes[name] = { up: 0 };
   
   if (action === 'undo') {
-    kvStore.votes[name].up = 0;
+    delete kvStore.votes[name];
+    saveKvStore(kvStore);
+    return res.json({ name, up: 0 });
   } else {
     kvStore.votes[name].up += 1;
+    saveKvStore(kvStore);
+    return res.json({ name, ...kvStore.votes[name] });
   }
-  saveKvStore(kvStore);
-  res.json({ name, ...kvStore.votes[name] });
 });
 
 app.get('/api/favorites', (req, res) => {
@@ -64,10 +66,17 @@ app.get('/api/favorites', (req, res) => {
 });
 
 app.post('/api/favorites', (req, res) => {
-  const { name } = req.body;
+  const { name, action } = req.body;
   if (!name) return res.status(400).json({ error: 'Missing skill name' });
   if (!kvStore.favorites) kvStore.favorites = {};
-  const isFav = !kvStore.favorites[name];
+  let isFav;
+  if (action === 'add') {
+    isFav = true;
+  } else if (action === 'remove') {
+    isFav = false;
+  } else {
+    isFav = !kvStore.favorites[name];
+  }
   if (isFav) {
     kvStore.favorites[name] = true;
   } else {
