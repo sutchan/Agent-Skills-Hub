@@ -1,4 +1,4 @@
-// prototype/src/parts/03-detail.js v1.20.34 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
+// prototype/src/parts/03-detail.js v1.14.88 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）
@@ -194,6 +194,7 @@ function openDetail(arg) {
   // 04-interactions 可能传入 skill 对象（原委托逻辑），也可能传入 name 字符串
   const skill = typeof arg === "string" ? SKILL_MAP.get(arg) : arg;
   if (!skill || !skill.name) return;
+  _lastFocus = document.activeElement; // 记录触发元素，关闭时归还焦点（A1 无障碍）
   const overlay = $("#overlay");
   const dialog = $("#dialog");
   // 详情内容注入常驻 #dialog（保留元素，避免破坏设置弹窗等复用者）
@@ -209,6 +210,9 @@ function openDetail(arg) {
   document.body.classList.add("no-scroll");
 
   $("#detailClose").addEventListener("click", closeDetail);
+  // 无障碍：打开后把焦点移入弹窗（聚焦关闭按钮），关闭时归还触发元素（见 closeDetail / A1）
+  const dc = $("#detailClose");
+  if (dc) dc.focus();
   const copyBtn = $("#copyNameBtn");
   if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
   // 复制安装命令
@@ -233,6 +237,11 @@ function closeDetail() {
     dialog.innerHTML = ""; // 仅清空内容，保留 #dialog 容器
   }
   document.body.classList.remove("no-scroll");
+  // 无障碍：归还焦点到打开弹窗前的触发元素，避免焦点丢失在 body（A1）
+  if (_lastFocus && document.contains(_lastFocus)) {
+    try { _lastFocus.focus(); } catch { /* 忽略 */ }
+  }
+  _lastFocus = null;
 }
 
 // 全局 Esc 关闭（grid 点击委托与 overlay 点击关闭已在 04-interactions 处理）
@@ -242,3 +251,19 @@ document.addEventListener("keydown", (e) => {
     if (overlay && overlay.classList.contains("show")) closeDetail();
   }
 });
+
+// 弹窗焦点陷阱：打开（overlay.show）时 Tab/Shift+Tab 在弹窗内循环，防止键盘焦点逃逸到背景（WCAG 2.1.2）。
+// 详情与设置弹窗共用 #overlay/#dialog，故统一在此拦截（A1）。
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Tab") return;
+  const overlay = $("#overlay");
+  if (!overlay || !overlay.classList.contains("show")) return;
+  const f = overlay.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+  if (!f.length) return;
+  const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+
+// 弹窗打开前的焦点持有者，供 closeDetail 归还（模块级，避免污染 state）
+let _lastFocus = null;

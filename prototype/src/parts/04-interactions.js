@@ -1,4 +1,4 @@
-// prototype/src/parts/04-interactions.js v1.20.58 — 主题/语言/视图/密度/UI元素/名称显示/分类单选/排序/分页 切换与事件绑定 + Hero 搜索联动
+// prototype/src/parts/04-interactions.js v1.14.88 — 主题/语言/视图/密度/UI元素/名称显示/分类单选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -12,8 +12,13 @@ function applyTheme() {
 // 视图模式（网格/列表）：同步到 <html data-view>，驱动 .grid 列布局与卡片排布
 function applyView() {
   document.documentElement.setAttribute("data-view", state.view);
-  // 顶栏视图切换按钮的 active 态同步（与设置弹窗内的切换保持一致）
-  $$(".view-btn").forEach((b) => b.classList.toggle("active", b.dataset.view === state.view));
+  // 顶栏视图切换按钮的 active 态与 aria-pressed 同步（与设置弹窗内的切换保持一致）；
+  // aria-pressed 表达当前视图语义，供读屏用户感知选中态（A2）
+  $$(".view-btn").forEach((b) => {
+    const active = b.dataset.view === state.view;
+    b.classList.toggle("active", active);
+    b.setAttribute("aria-pressed", active ? "true" : "false");
+  });
 }
 
 // 显示密度（舒适/紧凑）：同步到 <html data-density>，由 CSS 控制卡片间距与内边距
@@ -208,6 +213,13 @@ function updateHeroNet() {
   }
 }
 
+// 分类名 → 稳定 32 位哈希（FNV-1a），用于节点确定性布局抖动（避免 Math.random 刷新跳变，C7）
+function catHash(s) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+
 // 方案 A：按分类动态生成节点（半径随技能数变化），环绕核心排布，可交互
 function renderHeroNodes() {
   const g = $("#netNodes");
@@ -234,24 +246,19 @@ function renderHeroNodes() {
       lineG.appendChild(ln);
     });
   }
-  // 每次刷新随机分布：覆盖整个 viewBox 并允许略溢出（约 -30~830 / -20~260），分布更开阔、线条更明显
-  // 窄屏收敛边界，避免 slice 裁切掉过多节点（P1-4）
-  const narrow = window.innerWidth < 640;
-  const x0 = narrow ? 40 : -30, x1 = narrow ? 760 : 830;
-  const y0 = narrow ? 10 : -20, y1 = narrow ? 230 : 260;
-  const placed = [];
-  const minDist = narrow ? 24 : 30; // 节点最小间距，防止重叠（窄屏更密可适当减小）
+  // 确定性布局：按分类序号均匀环绕核心排布 + 基于分类名的稳定抖动，
+  // 刷新与 init/兜底 rAF 两次渲染位置一致，避免随机跳变（C7）
+  const ringR = 92; // 环绕半径（viewBox 空间），留出核心区
   cats.forEach((c, idx) => {
-    let x, y, ok = false, tries = 0;
-    do {
-      x = x0 + Math.random() * (x1 - x0);
-      y = y0 + Math.random() * (y1 - y0);
-      ok = placed.every((p) => Math.hypot(p.x - x, p.y - y) >= minDist);
-      tries++;
-    } while (!ok && tries < 40);
-    placed.push({ x, y });
+    const h = catHash(c);
+    const ang = (idx / n) * Math.PI * 2 - Math.PI / 2 + (((h % 11) - 5) * 0.025);
     const t = max > min ? ((counts.get(c) || 0) - min) / (max - min) : .5;
     const r = 3 + Math.pow(t, 1.4) * 13; // 半径 ~3~16 随计数，非线性放大大小差异（大分类更突出）
+    const ring = ringR + t * 26; // 大分类更靠外，与小分类拉开层次
+    const jx = ((h >> 3) % 17) - 8;
+    const jy = ((h >> 7) % 17) - 8;
+    const x = cx + Math.cos(ang) * ring + jx;
+    const y = cy + Math.sin(ang) * ring * 0.82 + jy;
     const node = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     node.setAttribute("class", "hub-node");
     node.setAttribute("cx", x.toFixed(1));
@@ -259,9 +266,9 @@ function renderHeroNodes() {
     node.setAttribute("r", r.toFixed(1));
     node.setAttribute("fill", `hsl(${catHue(c)} 65% 38%)`);
     node.setAttribute("data-cat", c);
-    node.setAttribute("role", "button");
-    node.setAttribute("tabindex", "0");
-    node.setAttribute("aria-label", `${c} ${counts.get(c) || 0}`);
+    // 节点是分类筛选的「鼠标第二入口」；键盘/读屏统一走顶部 chip，
+    // 故节点设为装饰性（aria-hidden + 无 tabindex/role），避免与 chip 重复的 14 个 tab stop（C8）
+    node.setAttribute("aria-hidden", "true");
     // 同步对应连线终点
     if (lineG && lineG.children[idx]) {
       lineG.children[idx].setAttribute("x2", x.toFixed(1));
@@ -282,7 +289,6 @@ function renderHeroNodes() {
     node.addEventListener("mouseenter", () => highlightCatCards(c, true));
     node.addEventListener("mouseleave", () => highlightCatCards(c, false));
     node.addEventListener("click", () => toggleHeroCat(c));
-    node.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleHeroCat(c); } });
     g.appendChild(node);
   });
   // 连线常态错峰呼吸：注入相位偏移（4.8s 周期均分），强化节点网"信号流动"观感
@@ -329,12 +335,13 @@ function openSettings() {
   const dialog = $("#dialog");
   const overlay = $("#overlay");
   if (!dialog || !overlay) return;
+  _lastFocus = document.activeElement; // 记录触发元素（设置按钮），关闭时归还焦点（A1）
   const t = (k) => I18N.t(k);
   // 单选组：根据 state 当前值标记 active；点击即写回 state + 持久化 + 应用
   const seg = (name, current, opts) =>
     `<div class="seg" role="group" aria-label="${esc(t(name))}">` +
     opts.map((o) =>
-      `<button type="button" class="seg-btn${o.val === current ? " active" : ""}" data-name="${name}" data-val="${o.val}">${esc(t(o.label))}</button>`
+      `<button type="button" class="seg-btn${o.val === current ? " active" : ""}" data-name="${name}" data-val="${o.val}" aria-pressed="${o.val === current ? "true" : "false"}">${esc(t(o.label))}</button>`
     ).join("") +
     `</div>`;
   const toggle = (key, on) =>
@@ -343,8 +350,8 @@ function openSettings() {
   dialog.innerHTML = `
   <div class="settings-panel" id="settingsPanel" role="document">
     <div class="settings-head">
-      <h2 class="zh" data-i18n="settings.title">设置</h2>
-      <h2 class="en" data-i18n="settings.title">Settings</h2>
+      <h2 class="zh" data-i18n="settings.title" id="settingsTitleZh">设置</h2>
+      <h2 class="en" data-i18n="settings.title" id="settingsTitleEn">Settings</h2>
       <button type="button" class="icon-btn close-x" id="settingsClose" aria-label="${esc(t("settings.done"))}">&times;</button>
     </div>
     <div class="settings-body">
@@ -385,7 +392,8 @@ function openSettings() {
   // 选中态同步到 <html data-*>，保证 .modal 居中（非移动端 Sheet）
   dialog.classList.remove("sheet");
   dialog.classList.add("modal");
-  dialog.setAttribute("aria-labelledby", "");
+  // 无障碍：指向设置标题（中英两 h2 随 data-lang 显隐，aria-labelledby 引用可见者，隐藏者被忽略，A3）
+  dialog.setAttribute("aria-labelledby", "settingsTitleZh settingsTitleEn");
   overlay.classList.add("show");
   dialog.classList.add("show");
   document.body.classList.add("no-scroll");
@@ -400,7 +408,7 @@ function openSettings() {
       else if (name === "settings.view") { state.view = val; savePref(LS_VIEW, val); applyView(); renderGrid(); }
       else if (name === "settings.density") { state.density = val; savePref(LS_DENSITY, val); applyDensity(); }
       else if (name === "settings.name") { state.nameMode = val; savePref(LS_NAME_MODE, val); applyNameMode(); }
-      dialog.querySelectorAll(`.seg-btn[data-name="${name}"]`).forEach((b) => b.classList.toggle("active", b === btn));
+      dialog.querySelectorAll(`.seg-btn[data-name="${name}"]`).forEach((b) => { b.classList.toggle("active", b === btn); b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
     });
   });
   // 开关
@@ -417,7 +425,7 @@ function openSettings() {
     });
   });
   const closeBtn = $("#settingsClose");
-  if (closeBtn) closeBtn.addEventListener("click", closeDetail);
+  if (closeBtn) { closeBtn.addEventListener("click", closeDetail); closeBtn.focus(); }
 }
 
 // 复制文本到剪贴板：优先 Clipboard API，失败降级 execCommand；返回是否成功

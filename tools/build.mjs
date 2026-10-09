@@ -1,4 +1,4 @@
-// build.mjs v1.20.20 — 将 src 模板 + 真实数据内联为自包含 prototype/prototype.html（产物直出 prototype/ 根）
+// build.mjs v1.14.88 — 将 src 模板 + 真实数据内联为自包含 prototype/prototype.html（产物直出 prototype/ 根）
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -79,8 +79,8 @@ const out = htmlTpl
   .replace("{{I18N}}", () => i18n)
   .replace("{{JS}}", () => js)
   .replace("{{ANALYTICS}}", () => analytics)
-  .replace("{{VERSION}}", () => PROJECT_VERSION)
-  .replace("{{BUILD_DATE}}", () => BUILD_DATE)
+  .replace(/\{\{VERSION\}\}/g, () => PROJECT_VERSION)
+  .replace(/\{\{BUILD_DATE\}\}/g, () => BUILD_DATE)
   .replace(/\{SKILLS_TOTAL\}/g, () => String(SKILLS_TOTAL));
 
 mkdirSync(OUT_DIR, { recursive: true });

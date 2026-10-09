@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.81 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.88 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="app-version" content="1.14.88" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
   <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 171 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
@@ -924,7 +925,7 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       </div>
       <div class="footer-meta" id="footerMeta">
         <!-- 构建元数据：版本与日期为机器可读字段，用等宽字体并以留白分栏（不用间隔号） -->
-        <span class="footer-ver" id="footerVer">v1.14.87</span>
+        <span class="footer-ver" id="footerVer">v1.14.88</span>
         <span class="footer-date" id="footerDate"><span class="zh">更新于 </span><span class="en">Updated </span><span class="date-val">2026-10-09</span></span>
       </div>
       <div class="footer-cta" id="footerCta">
@@ -1537,7 +1538,7 @@ function renderPager(total, totalPages) {
   pager.innerHTML = items.join("");
 }
 
-// prototype/src/parts/03-detail.js v1.20.34 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
+// prototype/src/parts/03-detail.js v1.14.88 — 详情弹窗：元信息区 + 安装命令 + 相关技能 + 复制 + 移动端 Sheet
 // 全局函数风格：state / SKILLS_DATA / SKILL_MAP / esc / catHue / I18N 由其它脚本按序注入
 
 // GitHub 仓库基础路径（详情弹窗跳转源码目录用）
@@ -1733,6 +1734,7 @@ function openDetail(arg) {
   // 04-interactions 可能传入 skill 对象（原委托逻辑），也可能传入 name 字符串
   const skill = typeof arg === "string" ? SKILL_MAP.get(arg) : arg;
   if (!skill || !skill.name) return;
+  _lastFocus = document.activeElement; // 记录触发元素，关闭时归还焦点（A1 无障碍）
   const overlay = $("#overlay");
   const dialog = $("#dialog");
   // 详情内容注入常驻 #dialog（保留元素，避免破坏设置弹窗等复用者）
@@ -1748,6 +1750,9 @@ function openDetail(arg) {
   document.body.classList.add("no-scroll");
 
   $("#detailClose").addEventListener("click", closeDetail);
+  // 无障碍：打开后把焦点移入弹窗（聚焦关闭按钮），关闭时归还触发元素（见 closeDetail / A1）
+  const dc = $("#detailClose");
+  if (dc) dc.focus();
   const copyBtn = $("#copyNameBtn");
   if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
   // 复制安装命令
@@ -1772,6 +1777,11 @@ function closeDetail() {
     dialog.innerHTML = ""; // 仅清空内容，保留 #dialog 容器
   }
   document.body.classList.remove("no-scroll");
+  // 无障碍：归还焦点到打开弹窗前的触发元素，避免焦点丢失在 body（A1）
+  if (_lastFocus && document.contains(_lastFocus)) {
+    try { _lastFocus.focus(); } catch { /* 忽略 */ }
+  }
+  _lastFocus = null;
 }
 
 // 全局 Esc 关闭（grid 点击委托与 overlay 点击关闭已在 04-interactions 处理）
@@ -1782,7 +1792,23 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// prototype/src/parts/04-interactions.js v1.20.58 — 主题/语言/视图/密度/UI元素/名称显示/分类单选/排序/分页 切换与事件绑定 + Hero 搜索联动
+// 弹窗焦点陷阱：打开（overlay.show）时 Tab/Shift+Tab 在弹窗内循环，防止键盘焦点逃逸到背景（WCAG 2.1.2）。
+// 详情与设置弹窗共用 #overlay/#dialog，故统一在此拦截（A1）。
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Tab") return;
+  const overlay = $("#overlay");
+  if (!overlay || !overlay.classList.contains("show")) return;
+  const f = overlay.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+  if (!f.length) return;
+  const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+
+// 弹窗打开前的焦点持有者，供 closeDetail 归还（模块级，避免污染 state）
+let _lastFocus = null;
+
+// prototype/src/parts/04-interactions.js v1.14.88 — 主题/语言/视图/密度/UI元素/名称显示/分类单选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
   const btn = $("#themeBtn");
@@ -1796,8 +1822,13 @@ function applyTheme() {
 // 视图模式（网格/列表）：同步到 <html data-view>，驱动 .grid 列布局与卡片排布
 function applyView() {
   document.documentElement.setAttribute("data-view", state.view);
-  // 顶栏视图切换按钮的 active 态同步（与设置弹窗内的切换保持一致）
-  $$(".view-btn").forEach((b) => b.classList.toggle("active", b.dataset.view === state.view));
+  // 顶栏视图切换按钮的 active 态与 aria-pressed 同步（与设置弹窗内的切换保持一致）；
+  // aria-pressed 表达当前视图语义，供读屏用户感知选中态（A2）
+  $$(".view-btn").forEach((b) => {
+    const active = b.dataset.view === state.view;
+    b.classList.toggle("active", active);
+    b.setAttribute("aria-pressed", active ? "true" : "false");
+  });
 }
 
 // 显示密度（舒适/紧凑）：同步到 <html data-density>，由 CSS 控制卡片间距与内边距
@@ -1992,6 +2023,13 @@ function updateHeroNet() {
   }
 }
 
+// 分类名 → 稳定 32 位哈希（FNV-1a），用于节点确定性布局抖动（避免 Math.random 刷新跳变，C7）
+function catHash(s) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+
 // 方案 A：按分类动态生成节点（半径随技能数变化），环绕核心排布，可交互
 function renderHeroNodes() {
   const g = $("#netNodes");
@@ -2018,24 +2056,19 @@ function renderHeroNodes() {
       lineG.appendChild(ln);
     });
   }
-  // 每次刷新随机分布：覆盖整个 viewBox 并允许略溢出（约 -30~830 / -20~260），分布更开阔、线条更明显
-  // 窄屏收敛边界，避免 slice 裁切掉过多节点（P1-4）
-  const narrow = window.innerWidth < 640;
-  const x0 = narrow ? 40 : -30, x1 = narrow ? 760 : 830;
-  const y0 = narrow ? 10 : -20, y1 = narrow ? 230 : 260;
-  const placed = [];
-  const minDist = narrow ? 24 : 30; // 节点最小间距，防止重叠（窄屏更密可适当减小）
+  // 确定性布局：按分类序号均匀环绕核心排布 + 基于分类名的稳定抖动，
+  // 刷新与 init/兜底 rAF 两次渲染位置一致，避免随机跳变（C7）
+  const ringR = 92; // 环绕半径（viewBox 空间），留出核心区
   cats.forEach((c, idx) => {
-    let x, y, ok = false, tries = 0;
-    do {
-      x = x0 + Math.random() * (x1 - x0);
-      y = y0 + Math.random() * (y1 - y0);
-      ok = placed.every((p) => Math.hypot(p.x - x, p.y - y) >= minDist);
-      tries++;
-    } while (!ok && tries < 40);
-    placed.push({ x, y });
+    const h = catHash(c);
+    const ang = (idx / n) * Math.PI * 2 - Math.PI / 2 + (((h % 11) - 5) * 0.025);
     const t = max > min ? ((counts.get(c) || 0) - min) / (max - min) : .5;
     const r = 3 + Math.pow(t, 1.4) * 13; // 半径 ~3~16 随计数，非线性放大大小差异（大分类更突出）
+    const ring = ringR + t * 26; // 大分类更靠外，与小分类拉开层次
+    const jx = ((h >> 3) % 17) - 8;
+    const jy = ((h >> 7) % 17) - 8;
+    const x = cx + Math.cos(ang) * ring + jx;
+    const y = cy + Math.sin(ang) * ring * 0.82 + jy;
     const node = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     node.setAttribute("class", "hub-node");
     node.setAttribute("cx", x.toFixed(1));
@@ -2043,9 +2076,9 @@ function renderHeroNodes() {
     node.setAttribute("r", r.toFixed(1));
     node.setAttribute("fill", `hsl(${catHue(c)} 65% 38%)`);
     node.setAttribute("data-cat", c);
-    node.setAttribute("role", "button");
-    node.setAttribute("tabindex", "0");
-    node.setAttribute("aria-label", `${c} ${counts.get(c) || 0}`);
+    // 节点是分类筛选的「鼠标第二入口」；键盘/读屏统一走顶部 chip，
+    // 故节点设为装饰性（aria-hidden + 无 tabindex/role），避免与 chip 重复的 14 个 tab stop（C8）
+    node.setAttribute("aria-hidden", "true");
     // 同步对应连线终点
     if (lineG && lineG.children[idx]) {
       lineG.children[idx].setAttribute("x2", x.toFixed(1));
@@ -2066,7 +2099,6 @@ function renderHeroNodes() {
     node.addEventListener("mouseenter", () => highlightCatCards(c, true));
     node.addEventListener("mouseleave", () => highlightCatCards(c, false));
     node.addEventListener("click", () => toggleHeroCat(c));
-    node.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleHeroCat(c); } });
     g.appendChild(node);
   });
   // 连线常态错峰呼吸：注入相位偏移（4.8s 周期均分），强化节点网"信号流动"观感
@@ -2113,12 +2145,13 @@ function openSettings() {
   const dialog = $("#dialog");
   const overlay = $("#overlay");
   if (!dialog || !overlay) return;
+  _lastFocus = document.activeElement; // 记录触发元素（设置按钮），关闭时归还焦点（A1）
   const t = (k) => I18N.t(k);
   // 单选组：根据 state 当前值标记 active；点击即写回 state + 持久化 + 应用
   const seg = (name, current, opts) =>
     `<div class="seg" role="group" aria-label="${esc(t(name))}">` +
     opts.map((o) =>
-      `<button type="button" class="seg-btn${o.val === current ? " active" : ""}" data-name="${name}" data-val="${o.val}">${esc(t(o.label))}</button>`
+      `<button type="button" class="seg-btn${o.val === current ? " active" : ""}" data-name="${name}" data-val="${o.val}" aria-pressed="${o.val === current ? "true" : "false"}">${esc(t(o.label))}</button>`
     ).join("") +
     `</div>`;
   const toggle = (key, on) =>
@@ -2127,8 +2160,8 @@ function openSettings() {
   dialog.innerHTML = `
   <div class="settings-panel" id="settingsPanel" role="document">
     <div class="settings-head">
-      <h2 class="zh" data-i18n="settings.title">设置</h2>
-      <h2 class="en" data-i18n="settings.title">Settings</h2>
+      <h2 class="zh" data-i18n="settings.title" id="settingsTitleZh">设置</h2>
+      <h2 class="en" data-i18n="settings.title" id="settingsTitleEn">Settings</h2>
       <button type="button" class="icon-btn close-x" id="settingsClose" aria-label="${esc(t("settings.done"))}">&times;</button>
     </div>
     <div class="settings-body">
@@ -2169,7 +2202,8 @@ function openSettings() {
   // 选中态同步到 <html data-*>，保证 .modal 居中（非移动端 Sheet）
   dialog.classList.remove("sheet");
   dialog.classList.add("modal");
-  dialog.setAttribute("aria-labelledby", "");
+  // 无障碍：指向设置标题（中英两 h2 随 data-lang 显隐，aria-labelledby 引用可见者，隐藏者被忽略，A3）
+  dialog.setAttribute("aria-labelledby", "settingsTitleZh settingsTitleEn");
   overlay.classList.add("show");
   dialog.classList.add("show");
   document.body.classList.add("no-scroll");
@@ -2184,7 +2218,7 @@ function openSettings() {
       else if (name === "settings.view") { state.view = val; savePref(LS_VIEW, val); applyView(); renderGrid(); }
       else if (name === "settings.density") { state.density = val; savePref(LS_DENSITY, val); applyDensity(); }
       else if (name === "settings.name") { state.nameMode = val; savePref(LS_NAME_MODE, val); applyNameMode(); }
-      dialog.querySelectorAll(`.seg-btn[data-name="${name}"]`).forEach((b) => b.classList.toggle("active", b === btn));
+      dialog.querySelectorAll(`.seg-btn[data-name="${name}"]`).forEach((b) => { b.classList.toggle("active", b === btn); b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
     });
   });
   // 开关
@@ -2201,7 +2235,7 @@ function openSettings() {
     });
   });
   const closeBtn = $("#settingsClose");
-  if (closeBtn) closeBtn.addEventListener("click", closeDetail);
+  if (closeBtn) { closeBtn.addEventListener("click", closeDetail); closeBtn.focus(); }
 }
 
 // 复制文本到剪贴板：优先 Clipboard API，失败降级 execCommand；返回是否成功
@@ -2250,7 +2284,7 @@ function showToast(msg) {
   _toastTimer = setTimeout(() => el.classList.remove("show"), 1800);
 }
 
-// prototype/src/parts/05-main.js v1.14.82 — 应用启动编排
+// prototype/src/parts/05-main.js v1.14.88 — 应用启动编排
 // URL hash 深链：筛选/搜索/排序/页码可分享、刷新可还原（P0-1）
 // 序列化规则：#cat=docs&q=xxx&sort=name&page=2，无筛选时清空 hash（分类为单选，仅一个值）
 function writeHash() {
@@ -2332,13 +2366,19 @@ function init() {
   };
   setTopbarH();
   window.addEventListener("resize", setTopbarH);
-  // 页脚版本号兜底：若 build 未替换 {{VERSION}} 字面量，运行时回退到真实版本（F 改进）
+  // 页脚版本号兜底：若 build 未替换 1.14.88 字面量，运行时回退到真实版本（F 改进）
   const fv = $("#footerVer");
-  if (fv && fv.textContent.includes("{{VERSION}}")) fv.textContent = "v1.14.49";
-  // 页脚更新日期兜底：若 build 未替换 {{BUILD_DATE}} 字面量，运行时回退到今日日期
+  // 兜底：build 未替换 1.14.88 时，取 <meta name="app-version"> 注入的真实版本（与 package.json 同源），
+  // 避免硬编码陈旧版本号（B4）；双保险仍失败才回退常量
+  if (fv && fv.textContent.includes("1.14.88")) {
+    const meta = document.querySelector('meta[name="app-version"]');
+    const v = (meta && meta.content && !meta.content.includes("{{")) ? meta.content : "1.14.49";
+    fv.textContent = "v" + v;
+  }
+  // 页脚更新日期兜底：若 build 未替换 2026-10-09 字面量，运行时回退到今日日期
   const fd = $("#footerDate");
-  if (fd && fd.textContent.includes("{{BUILD_DATE}}")) {
-    fd.innerHTML = fd.innerHTML.replace("{{BUILD_DATE}}", new Date().toISOString().slice(0, 10));
+  if (fd && fd.textContent.includes("2026-10-09")) {
+    fd.innerHTML = fd.innerHTML.replace("2026-10-09", new Date().toISOString().slice(0, 10));
   }
 }
 
