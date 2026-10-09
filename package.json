@@ -6,13 +6,17 @@
   "type": "module",
   "scripts": {
     "dev": "node server.js",
-    "build": "echo 'Static build complete'",
+    "build": "NODE_ENV=production next build && cp src/index.html out/index.html",
+    "lint": "tsc --noEmit",
     "start": "node server.js",
     "test": "node --test tools/lib/*.test.mjs",
     "e2e": "playwright test"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "next": "^16.4.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",

@@ -101,6 +101,7 @@
 | 2 | 在 `docs/tasks.md` 登记点赞与收藏边缘存储开发与实施任务 | P1 | ✅ 已完成 | 本任务 |
 | 3 | 编写 EdgeOne 边缘函数接口（`/api/votes`、`/api/favorites`）与 Edge KV 模拟存储逻辑 | P2 | ✅ 已完成 | 已在 `server.js` 实现，通过 `data/kv-store.json` 模拟 Edge KV |
 | 4 | 扩展前端客户端收藏与点赞逻辑，双向同步对接 EO Makers 边缘云端存储 | P2 | ✅ 已完成 | 已实现 localStorage 缓存 + 异步云端 API 双向同步 |
+| 5 | 为技能卡片添加键盘快捷键（按 'f' 键）快速收藏当前选中的技能 | P2 | ✅ 已完成 | 提升交互效率，支持双语 Toast 提示与分析埋点 |
 
 ---
 

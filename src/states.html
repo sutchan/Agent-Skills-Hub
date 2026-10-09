@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="zh" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>状态高保真稿 · States · Agent Skills Hub</title>
+<link rel="icon" href="favicon.svg" />
+<style>
+  /* ===== 设计令牌：与 prototype/src/styles/tokens.css 单一同源 ===== */
+  :root{
+    --background:0 0% 100%; --foreground:224 24% 12%;
+    --card:0 0% 100%; --card-foreground:224 24% 12%;
+    --popover:0 0% 100%; --popover-foreground:224 24% 12%;
+    --primary:152 56% 40%; --primary-foreground:0 0% 100%;
+    --secondary:220 16% 96%; --secondary-foreground:224 24% 18%;
+    --muted:220 16% 96%; --muted-foreground:220 9% 46%;
+    --accent:152 56% 95%; --accent-foreground:152 56% 33%;
+    --accent-2:190 72% 42%; --accent-2-foreground:0 0% 100%;
+    --destructive:0 72% 51%; --destructive-foreground:0 0% 100%;
+    --border:220 14% 90%; --input:220 14% 90%; --ring:152 56% 40%;
+    --node:152 58% 56%; --line:152 40% 82%;
+    --radius:0.75rem; --shadow-color:224 32% 20%;
+    --shadow-sm:0 1px 2px hsl(var(--shadow-color)/.05),0 2px 6px -1px hsl(var(--shadow-color)/.08);
+    --shadow-md:0 4px 12px -2px hsl(var(--shadow-color)/.10),0 2px 6px -2px hsl(var(--shadow-color)/.06);
+    --shadow-lg:0 12px 32px -8px hsl(var(--shadow-color)/.16),0 4px 10px -4px hsl(var(--shadow-color)/.08);
+    --font-display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Songti SC","STSong","PingFang SC","Microsoft YaHei",system-ui,serif;
+    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    --font-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --maxw:1200px;
+  }
+  html[data-theme="dark"]{
+    --background:224 28% 8%; --foreground:220 18% 92%;
+    --card:224 24% 11%; --card-foreground:220 18% 92%;
+    --popover:224 24% 11%; --popover-foreground:220 18% 92%;
+    --primary:152 56% 58%; --primary-foreground:224 32% 8%;
+    --secondary:224 18% 18%; --secondary-foreground:220 18% 88%;
+    --muted:224 18% 16%; --muted-foreground:220 12% 60%;
+    --accent:152 56% 22%; --accent-foreground:152 56% 82%;
+    --accent-2:190 72% 56%; --accent-2-foreground:224 32% 8%;
+    --destructive:0 62% 52%; --destructive-foreground:0 0% 100%;
+    --border:224 16% 22%; --input:224 16% 24%; --ring:152 56% 58%;
+    --node:152 56% 62%; --line:152 30% 34%;
+    --shadow-color:0 0% 0%;
+    --shadow-sm:0 1px 2px hsl(var(--shadow-color)/.5),0 2px 6px -1px hsl(var(--shadow-color)/.4);
+    --shadow-md:0 4px 12px -2px hsl(var(--shadow-color)/.5),0 2px 6px -2px hsl(var(--shadow-color)/.4);
+    --shadow-lg:0 16px 40px -8px hsl(var(--shadow-color)/.6),0 4px 12px -4px hsl(var(--shadow-color)/.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font-sans);font-size:15px;line-height:1.6;color:hsl(var(--foreground));background:hsl(var(--background))}
+  .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:16px;padding:12px 24px;background:hsl(var(--card));border-bottom:1px solid var(--border)}
+  .brand{font-family:var(--font-display);font-weight:700;font-size:18px}
+  .spacer{flex:1}
+  .icon-btn{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:10px;background:hsl(var(--muted));color:hsl(var(--foreground));cursor:pointer;font-size:13px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:32px 24px 80px}
+  h1.doc{font-family:var(--font-display);font-size:clamp(28px,4vw,40px);margin:0 0 8px}
+  .sub{color:hsl(var(--muted-foreground));margin:0 0 28px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+  .state-card{border:1px solid var(--border);border-radius:var(--radius);background:hsl(var(--card));overflow:hidden}
+  .state-card .lab{padding:12px 16px;font-family:var(--font-display);font-weight:600;font-size:15px;border-bottom:1px solid var(--border);background:hsl(var(--secondary))}
+  .state-card .body{padding:20px}
+  /* 骨架 */
+  .skel{height:14px;border-radius:6px;background:hsl(var(--muted));animation:pulse 1.4s ease-in-out infinite;margin-bottom:10px}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  /* 空状态 */
+  .empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:30px 16px}
+  .empty svg{width:40px;height:40px;color:hsl(var(--muted-foreground))}
+  .empty .t{font-family:var(--font-display);font-weight:600;font-size:16px}
+  .empty .d{font-size:13px;color:hsl(var(--muted-foreground))}
+  .btn{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 16px;border-radius:calc(var(--radius) - 2px);font-weight:600;font-size:14px;cursor:pointer;border:1px solid transparent}
+  .btn.default{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+  .btn.outline{background:transparent;border-color:var(--border);color:hsl(var(--foreground))}
+  /* 移动端模拟 */
+  .phone{border:8px solid hsl(var(--foreground));border-radius:28px;width:300px;height:560px;overflow:hidden;position:relative;background:hsl(var(--background))}
+  .phone .bar{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px}
+  .phone .content{padding:12px;display:flex;flex-direction:column;gap:10px}
+  .phone .scard{border:1px solid var(--border);border-radius:10px;padding:10px;font-size:12px}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:hsl(var(--foreground));color:hsl(var(--background));padding:10px 18px;border-radius:10px;font-size:14px;box-shadow:0 8px 24px hsl(var(--shadow-color)/.3)}
+  .err{display:flex;flex-direction:column;align-items:center;gap:10px;padding:30px;text-align:center}
+  .err .code{font-family:var(--font-mono);font-size:40px;color:hsl(var(--destructive));font-weight:700}
+  .dialog-demo{max-width:440px;margin:0 auto;background:hsl(var(--popover));border:1px solid var(--border);border-radius:1rem;box-shadow:0 12px 32px -8px hsl(var(--shadow-color)/.16);padding:22px}
+  .av{width:46px;height:46px;border-radius:12px;background:hsl(var(--primary)/.15);color:hsl(var(--primary));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:18px}
+  .switch{width:42px;height:24px;border-radius:999px;border:1px solid var(--border);background:hsl(var(--muted));position:relative;cursor:pointer}
+  .switch .knob{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:hsl(var(--card));transition:.2s}
+  .switch.on{background:hsl(var(--primary));border-color:hsl(var(--primary))}.switch.on .knob{transform:translateX(18px)}
+  .settings-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border)}
+  html[data-lang="en"] .zh{display:none}
+  html[data-lang="zh"] .en{display:none}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">状态高保真稿</div>
+    <div class="spacer"></div>
+    <button class="icon-btn" id="langBtn" title="语言">中</button>
+    <button class="icon-btn" id="themeBtn" title="主题">🌗</button>
+  </header>
+
+  <div class="wrap">
+    <h1 class="doc zh">状态型高保真稿 · States</h1>
+    <h1 class="doc en">High-Fidelity State Specs</h1>
+    <p class="sub zh">覆盖原型关键状态的视觉与交互快照：加载、空结果、详情弹窗、设置弹窗、错误、Toast、移动端 Sheet，以及<strong>极值与边界</strong>（超长内容截断、极值计数、字段缺失、分页边界、降级态）。与 <code>prototype/prototype.html</code> 同源。</p>
+    <p class="sub en">Visual + interaction snapshots of key prototype states: loading, empty, detail, settings, error, toast, mobile sheet, plus <strong>extremes and boundaries</strong> (overflow truncation, extreme counts, missing fields, pagination bounds, degraded). Sourced from prototype/prototype.html.</p>
+
+    <div class="grid">
+      <!-- 加载骨架 -->
+      <div class="state-card">
+        <div class="lab zh">加载骨架 · Loading</div><div class="lab en">Loading Skeleton</div>
+        <div class="body">
+          <div class="skel" style="width:70%"></div>
+          <div class="skel" style="width:90%"></div>
+          <div class="skel" style="width:60%"></div>
+          <div class="skel" style="width:85%;margin-top:14px"></div>
+          <div class="skel" style="width:50%"></div>
+        </div>
+      </div>
+
+      <!-- 空状态 -->
+      <div class="state-card">
+        <div class="lab zh">空状态 · Empty</div><div class="lab en">Empty State</div>
+        <div class="body"><div class="empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="16" r="3"/></svg>
+          <div class="t zh">未找到匹配的技能</div><div class="t en">No matching skills</div>
+          <div class="d zh">试着减少筛选条件或清空搜索词。</div><div class="d en">Try loosening filters or clearing the search.</div>
+          <button class="btn outline" style="margin-top:6px">清除筛选</button>
+        </div></div>
+      </div>
+
+      <!-- 详情弹窗态 -->
+      <div class="state-card">
+        <div class="lab zh">详情弹窗 · Detail</div><div class="lab en">Detail Dialog</div>
+        <div class="body"><div class="dialog-demo">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div class="av">AC</div><div><div style="font-family:var(--font-display);font-weight:600;font-size:16px">ad-creative</div><span style="font-size:12px;color:hsl(var(--muted-foreground))">品牌与设计</span></div></div>
+          <p style="font-size:13px;margin:0 0 12px">付费广告创意生成：为任意付费广告平台生成、迭代或规模化广告创意（标题、描述、主文案或完整…</p>
+          <div style="display:flex;gap:8px"><button class="btn default" style="height:34px;font-size:13px">查看仓库 ↗</button><button class="btn outline" style="height:34px;font-size:13px">分享</button></div>
+        </div></div>
+      </div>
+
+      <!-- 设置弹窗态 -->
+      <div class="state-card">
+        <div class="lab zh">设置弹窗 · Settings</div><div class="lab en">Settings Dialog</div>
+        <div class="body"><div class="dialog-demo">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:17px;margin-bottom:8px">设置</div>
+          <div class="settings-row"><span>语言</span><span style="font-size:13px;color:hsl(var(--muted-foreground))">中文</span></div>
+          <div class="settings-row"><span>主题</span><span style="font-size:13px;color:hsl(var(--muted-foreground))">浅色</span></div>
+          <div class="settings-row"><span>显示描述</span><div class="switch on"><span class="knob"></span></div></div>
+          <div class="settings-row" style="border-bottom:0"><span>显示色条</span><div class="switch"><span class="knob"></span></div></div>
+        </div></div>
+      </div>
+
+      <!-- 错误态 -->
+      <div class="state-card">
+        <div class="lab zh">错误态 · Error</div><div class="lab en">Error State</div>
+        <div class="body"><div class="err">
+          <div class="code">!</div>
+          <div class="t zh">加载失败</div><div class="t en">Failed to load</div>
+          <div class="d zh">技能数据获取异常，请稍后重试。</div><div class="d en">Skill data fetch failed, retry later.</div>
+          <button class="btn default" style="margin-top:4px">重试</button>
+        </div></div>
+      </div>
+
+      <!-- 移动端模拟 -->
+      <div class="state-card">
+        <div class="lab zh">移动端 · Mobile</div><div class="lab en">Mobile Sheet</div>
+        <div class="body" style="display:flex;justify-content:center">
+          <div class="phone">
+            <div class="bar"><span style="font-family:var(--font-display);font-weight:600">Skills</span><span style="flex:1"></span><span style="font-size:11px;color:hsl(var(--muted-foreground))">网格 ▦</span></div>
+            <div class="content">
+              <div class="scard"><b>ad-creative</b><br><span style="color:hsl(var(--muted-foreground))">付费广告创意生成…</span></div>
+              <div class="scard"><b>banner-design</b><br><span style="color:hsl(var(--muted-foreground))">多格式横幅设计…</span></div>
+              <div class="scard"><b>brand-guidelines</b><br><span style="color:hsl(var(--muted-foreground))">Anthropic 品牌规范…</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast -->
+      <div class="state-card">
+        <div class="lab zh">Toast 反馈</div><div class="lab en">Toast Feedback</div>
+        <div class="body" style="position:relative;min-height:120px;display:flex;align-items:center;justify-content:center">
+          <div class="toast">已复制链接 ✓</div>
+        </div>
+      </div>
+      <!-- ===== 极值 / 边界态 ===== -->
+      <div class="state-card">
+        <div class="lab zh">超长内容 · Overflow</div><div class="lab en">Overflow &amp; Truncation</div>
+        <div class="body">
+          <div class="scard" style="border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px">
+            <div style="font-size:11px;color:hsl(var(--muted-foreground));margin-bottom:4px">超长技能名（不截断，允许换行）</div>
+            <div style="font-family:var(--font-display);font-weight:600;font-size:15px;overflow-wrap:break-word">brand-guidelines-and-visual-identity-system-for-enterprise</div>
+          </div>
+          <div class="scard" style="border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px">
+            <div style="font-size:11px;color:hsl(var(--muted-foreground));margin-bottom:4px">超长描述（卡片 3 行截断）</div>
+            <div style="font-size:12px;color:hsl(var(--muted-foreground));display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">为任意规模的团队建立一致的品牌视觉识别系统，涵盖标志、色彩、字体、版式、图标、插画与动效规范，并提供可直接落地的设计令牌与组件库，确保跨触点一致性且可随品牌演进而演进。</div>
+          </div>
+          <div class="scard" style="border:1px solid var(--border);border-radius:10px;padding:12px">
+            <div style="font-size:11px;color:hsl(var(--muted-foreground));margin-bottom:4px">详情弹窗内保留完整段落（不截断）</div>
+            <div style="font-size:12px;white-space:pre-line;line-height:1.7">段落一：适用场景与目标。
+
+段落二：关键约束与前置条件。
+
+段落三：输出物与验收标准。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="state-card">
+        <div class="lab zh">极值计数 · Extreme Values</div><div class="lab en">Extreme Values</div>
+        <div class="body">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+            <span class="chip active" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;border:1px solid var(--border);background:hsl(var(--primary));color:hsl(var(--primary-foreground));font-size:13px">超大分类 128 <span style="opacity:.8">128</span></span>
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;border:1px solid var(--border);background:hsl(var(--muted));font-size:13px">单一技能 1 <span style="opacity:.8">1</span></span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button class="vote-btn" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border:1px solid var(--border);border-radius:999px;background:hsl(var(--primary));color:hsl(var(--primary-foreground));font-size:11.5px;font-weight:600" aria-pressed="true" aria-label="赞 128">👍 <span style="min-width:2ch;text-align:center">128</span></button>
+            <button class="vote-btn" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border:1px solid var(--border);border-radius:999px;background:hsl(var(--destructive));color:hsl(var(--destructive-foreground));font-size:11.5px;font-weight:600" aria-pressed="true" aria-label="踩 9999">👎 <span style="min-width:2ch;text-align:center">9999</span></button>
+            <button class="vote-btn" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border:1px solid var(--border);border-radius:999px;background:transparent;color:hsl(var(--muted-foreground));font-size:11.5px;font-weight:600" aria-pressed="false" aria-label="赞 0">👍 <span style="min-width:2ch;text-align:center">0</span></button>
+          </div>
+          <div class="skel" style="width:100%;margin-top:14px;height:10px"></div>
+          <div class="skel" style="width:40%;margin-top:8px;height:10px"></div>
+        </div>
+      </div>
+
+      <div class="state-card">
+        <div class="lab zh">字段缺失 · Missing Fields</div><div class="lab en">Missing Fields</div>
+        <div class="body">
+          <div class="scard" style="border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px">
+            <div style="font-size:11px;color:hsl(var(--muted-foreground));margin-bottom:6px">缺失可选字段（描述 / 英文描述 / 分类）——不渲染占位符，行高不塌陷</div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="av" style="width:30px;height:30px;border-radius:10px;background:hsl(var(--primary)/.15);color:hsl(var(--primary));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">?</div>
+              <div><div style="font-family:var(--font-display);font-weight:600;font-size:14px">未命名技能</div><div style="font-size:12px;color:hsl(var(--muted-foreground))">暂无描述</div></div>
+            </div>
+          </div>
+          <div class="scard" style="border:1px solid var(--border);border-radius:10px;padding:12px">
+            <div style="font-size:11px;color:hsl(var(--muted-foreground));margin-bottom:6px">GitHub 链接缺失——整行隐藏而非显示空链接</div>
+            <div style="font-size:12px;color:hsl(var(--muted-foreground))">元信息区仅渲染真实存在的字段：技能名、分类；主页与源码目录缺失时不出现该行。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="state-card">
+        <div class="lab zh">分页边界 · Pagination Bounds</div><div class="lab en">Pagination Bounds</div>
+        <div class="body">
+          <div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+            <button class="btn outline" style="height:34px;min-width:34px;padding:0 9px;font-size:13px" disabled aria-label="上一页">‹</button>
+            <button class="btn default" style="height:34px;min-width:34px;padding:0 9px;font-size:13px" aria-current="page">1</button>
+            <span style="color:hsl(var(--muted-foreground))">…</span>
+            <button class="btn outline" style="height:34px;min-width:34px;padding:0 9px;font-size:13px">5</button>
+            <button class="btn outline" style="height:34px;min-width:34px;padding:0 9px;font-size:13px" aria-label="下一页">›</button>
+            <span style="font-size:12.5px;color:hsl(var(--muted-foreground));margin-left:8px">第 1 / 5 页</span>
+          </div>
+          <div style="font-size:11px;color:hsl(var(--muted-foreground));border-top:1px solid var(--border);padding-top:8px">
+            单页结果（总数 ≤ 36）时<strong>整个分页器隐藏</strong>；筛选变化后页码重置为第 1 页并平滑滚回网格顶部。
+          </div>
+        </div>
+      </div>
+
+      <div class="state-card">
+        <div class="lab zh">离线 / 数据缺失 · Degraded</div><div class="lab en">Degraded / Offline</div>
+        <div class="body">
+          <div class="err">
+            <div class="code">!</div>
+            <div class="t zh">技能数据未能载入</div><div class="t en">Skill data unavailable</div>
+            <div class="d zh">数据文件缺失或格式异常，页面无法展示技能列表。可尝试刷新页面，或前往仓库确认数据文件是否完整。</div>
+            <div class="d en">The data file is missing or malformed, so the skill list cannot be rendered. Try refreshing, or check the repository for data file integrity.</div>
+            <button class="btn default" style="margin-top:4px">重新加载</button>
+          </div>
+          <div style="font-size:11px;color:hsl(var(--muted-foreground));border-top:1px solid var(--border);padding-top:8px;margin-top:4px">
+            降级原则：说明<strong>发生了什么 + 怎么修</strong>，不道歉、不使用「出错了」这类模糊措辞。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const root=document.documentElement;
+  const lb=document.getElementById('langBtn'),tb=document.getElementById('themeBtn');
+  lb.addEventListener('click',()=>{root.setAttribute('data-lang',root.getAttribute('data-lang')==='zh'?'en':'zh');lb.textContent=root.getAttribute('data-lang')==='zh'?'中':'EN';});
+  tb.addEventListener('click',()=>{root.setAttribute('data-theme',root.getAttribute('data-theme')==='dark'?'light':'dark');});
+  document.querySelectorAll('.switch').forEach(s=>s.addEventListener('click',()=>s.classList.toggle('on')));
+</script>
+</body>
+</html>

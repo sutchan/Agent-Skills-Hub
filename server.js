@@ -12,8 +12,8 @@ const HOST = '0.0.0.0';
 
 app.use(express.json());
 
-// Serve static assets from prototype, public, data, skills
-app.use(express.static(path.join(__dirname, 'prototype')));
+// Serve static assets from src, public, data, skills
+app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/data', express.static(path.join(__dirname, 'data')));
 app.use('/skills', express.static(path.join(__dirname, 'skills')));
@@ -78,7 +78,7 @@ app.post('/api/favorites', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'prototype', 'prototype.html'));
+  res.sendFile(path.join(__dirname, 'src', 'index.html'));
 });
 
 app.listen(PORT, HOST, () => {

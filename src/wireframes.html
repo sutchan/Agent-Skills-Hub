@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="zh" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>组件库规范 · Wireframes · Agent Skills Hub</title>
+<link rel="icon" href="favicon.svg" />
+<style>
+  /* ===== 设计令牌：与 prototype/src/styles/tokens.css 单一同源 =====
+     变更纪律：视觉令牌先改 tokens.css，再同步此文档（反之亦然），避免两处漂移。 */
+  :root{
+    --background:0 0% 100%; --foreground:224 24% 12%;
+    --card:0 0% 100%; --card-foreground:224 24% 12%;
+    --popover:0 0% 100%; --popover-foreground:224 24% 12%;
+    --primary:152 56% 40%; --primary-foreground:0 0% 100%;
+    --secondary:220 16% 96%; --secondary-foreground:224 24% 18%;
+    --muted:220 16% 96%; --muted-foreground:220 9% 46%;
+    --accent:152 56% 95%; --accent-foreground:152 56% 33%;
+    --accent-2:190 72% 42%; --accent-2-foreground:0 0% 100%;
+    --destructive:0 72% 51%; --destructive-foreground:0 0% 100%;
+    --border:220 14% 90%; --input:220 14% 90%; --ring:152 56% 40%;
+    --node:152 58% 56%; --line:152 40% 82%;
+    --radius:0.75rem; --shadow-color:224 32% 20%;
+    --shadow-sm:0 1px 2px hsl(var(--shadow-color)/.05),0 2px 6px -1px hsl(var(--shadow-color)/.08);
+    --shadow-md:0 4px 12px -2px hsl(var(--shadow-color)/.10),0 2px 6px -2px hsl(var(--shadow-color)/.06);
+    --shadow-lg:0 12px 32px -8px hsl(var(--shadow-color)/.16),0 4px 10px -4px hsl(var(--shadow-color)/.08);
+    --font-display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Songti SC","STSong","PingFang SC","Microsoft YaHei",system-ui,serif;
+    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    --font-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --maxw:1200px;
+  }
+  html[data-theme="dark"]{
+    --background:224 28% 8%; --foreground:220 18% 92%;
+    --card:224 24% 11%; --card-foreground:220 18% 92%;
+    --popover:224 24% 11%; --popover-foreground:220 18% 92%;
+    --primary:152 56% 58%; --primary-foreground:224 32% 8%;
+    --secondary:224 18% 18%; --secondary-foreground:220 18% 88%;
+    --muted:224 18% 16%; --muted-foreground:220 12% 60%;
+    --accent:152 56% 22%; --accent-foreground:152 56% 82%;
+    --accent-2:190 72% 56%; --accent-2-foreground:224 32% 8%;
+    --destructive:0 62% 52%; --destructive-foreground:0 0% 100%;
+    --border:224 16% 22%; --input:224 16% 24%; --ring:152 56% 58%;
+    --node:152 56% 62%; --line:152 30% 34%;
+    --shadow-color:0 0% 0%;
+    --shadow-sm:0 1px 2px hsl(var(--shadow-color)/.5),0 2px 6px -1px hsl(var(--shadow-color)/.4);
+    --shadow-md:0 4px 12px -2px hsl(var(--shadow-color)/.5),0 2px 6px -2px hsl(var(--shadow-color)/.4);
+    --shadow-lg:0 16px 40px -8px hsl(var(--shadow-color)/.6),0 4px 12px -4px hsl(var(--shadow-color)/.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font-sans);font-size:15px;line-height:1.6;color:hsl(var(--foreground));background:hsl(var(--background))}
+  a{color:hsl(var(--primary));text-decoration:none}
+  /* ===== 布局 ===== */
+  .topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:16px;padding:12px 24px;background:hsl(var(--card));border-bottom:1px solid var(--border)}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:18px}
+  .brand .logo{width:32px;height:32px;border-radius:8px;box-shadow:0 2px 8px hsl(var(--primary)/.28)}
+  .topbar .spacer{flex:1}
+  .icon-btn{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:10px;background:hsl(var(--muted));color:hsl(var(--foreground));cursor:pointer;font-size:13px}
+  .icon-btn:hover{background:hsl(var(--secondary));color:hsl(var(--primary))}
+  .layout{display:grid;grid-template-columns:220px 1fr;gap:32px;max-width:var(--maxw);margin:0 auto;padding:32px 24px 80px}
+  .sidenav{position:sticky;top:72px;align-self:start;display:flex;flex-direction:column;gap:4px}
+  .sidenav a{padding:8px 12px;border-radius:8px;color:hsl(var(--muted-foreground));font-size:14px}
+  .sidenav a:hover{background:hsl(var(--secondary));color:hsl(var(--foreground))}
+  .sidenav .grp{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:hsl(var(--muted-foreground));margin:14px 12px 2px}
+  main section{margin-bottom:48px;scroll-margin-top:80px}
+  h1.doc{font-family:var(--font-display);font-size:clamp(28px,4vw,40px);margin:0 0 8px}
+  .sub{color:hsl(var(--muted-foreground));margin:0 0 24px}
+  h2.sec{font-family:var(--font-display);font-size:24px;border-bottom:1px solid var(--border);padding-bottom:8px;margin:0 0 20px}
+  h3.comp{font-size:17px;margin:28px 0 10px}
+  .demo{display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:22px;border:1px solid var(--border);border-radius:var(--radius);background:hsl(var(--card))}
+  .note{margin-top:10px;font-size:13px;color:hsl(var(--muted-foreground))}
+  .note code{font-family:var(--font-mono);background:hsl(var(--muted));padding:1px 6px;border-radius:5px;font-size:12px}
+  /* ===== 基础组件样式（与 prototype/src 同源，精简呈现） ===== */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border-radius:calc(var(--radius) - 2px);font-family:var(--font-sans);font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;transition:.15s}
+  .btn.sm{height:32px;padding:0 12px;font-size:13px}
+  .btn.lg{height:44px;padding:0 22px}
+  .btn.icon{width:40px;padding:0}
+  .btn.default{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+  .btn.default:hover{filter:brightness(1.06)}
+  .btn.secondary{background:hsl(var(--secondary));color:hsl(var(--secondary-foreground))}
+  .btn.outline{background:transparent;border-color:var(--border);color:hsl(var(--foreground))}
+  .btn.ghost{background:transparent;color:hsl(var(--foreground))}
+  .btn.ghost:hover{background:hsl(var(--secondary))}
+  .btn.destructive{background:hsl(var(--destructive));color:hsl(var(--destructive-foreground))}
+  .btn:active{transform:scale(.98)}
+  .inp{display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border:1px solid var(--input);border-radius:calc(var(--radius) - 2px);background:hsl(var(--background));min-width:260px}
+  .inp input{flex:1;border:0;outline:0;background:transparent;font-family:var(--font-sans);font-size:14px;color:hsl(var(--foreground))}
+  .inp:focus-within{border-color:hsl(var(--primary));box-shadow:0 0 0 3px hsl(var(--ring)/.2)}
+  .badge{display:inline-flex;align-items:center;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:600}
+  .badge.default{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+  .badge.secondary{background:hsl(var(--secondary));color:hsl(var(--secondary-foreground))}
+  .badge.outline{border:1px solid var(--border);color:hsl(var(--foreground))}
+  .badge.muted{background:hsl(var(--muted));color:hsl(var(--muted-foreground))}
+  .badge.accent{background:hsl(var(--accent));color:hsl(var(--accent-foreground))}
+  .card{background:hsl(var(--card));border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 1px 2px hsl(var(--shadow-color)/.04),0 1px 3px hsl(var(--shadow-color)/.06);overflow:hidden}
+  .card .hd{padding:16px 16px 0;font-family:var(--font-display);font-weight:600;font-size:15px}
+  .card .ct{padding:8px 16px 16px;color:hsl(var(--muted-foreground));font-size:14px}
+  .skel{height:14px;border-radius:6px;background:hsl(var(--muted));animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  .sep{height:1px;background:var(--border);width:100%}
+  .sep.v{width:1px;height:32px}
+  /* 分类 chip */
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;border:1px solid var(--border);background:hsl(var(--muted));color:hsl(var(--foreground));font-size:13px;cursor:pointer;transition:.15s}
+  .chip:hover{border-color:hsl(var(--primary)/.4)}
+  .chip.active{background:hsl(var(--primary));color:hsl(var(--primary-foreground));border-color:hsl(var(--primary))}
+  /* 技能卡片 */
+  .skill-card{display:flex;flex-direction:column;text-align:left;width:260px;padding:16px;background:hsl(var(--card));border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 1px 2px hsl(var(--shadow-color)/.04);cursor:pointer;font:inherit;color:inherit;transition:.15s}
+  .skill-card:hover{border-color:hsl(var(--primary)/.4);box-shadow:0 4px 12px -2px hsl(var(--shadow-color)/.1);transform:translateY(-2px)}
+  .skill-card .cat{font-size:11px;color:hsl(var(--muted-foreground));margin-bottom:6px}
+  .skill-card .nm{font-family:var(--font-display);font-weight:600;font-size:15px;word-break:break-word}
+  .skill-card .ds{font-size:13px;color:hsl(var(--muted-foreground));margin-top:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .skill-card.list{flex-direction:row;width:100%;align-items:center;gap:16px}
+  .skill-card.list .ds{-webkit-line-clamp:1;margin-top:0;flex:1}
+  /* 详情弹窗示意 */
+  .dialog-demo{position:relative;max-width:480px;margin:0 auto;background:hsl(var(--popover));border:1px solid var(--border);border-radius:1rem;box-shadow:0 12px 32px -8px hsl(var(--shadow-color)/.16);padding:24px}
+  .dialog-demo .av{width:48px;height:48px;border-radius:12px;background:hsl(var(--primary)/.15);color:hsl(var(--primary));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:20px}
+  .settings-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+  .switch{width:42px;height:24px;border-radius:999px;border:1px solid var(--border);background:hsl(var(--muted));position:relative;cursor:pointer}
+  .switch .knob{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:hsl(var(--card));transition:.2s}
+  .switch.on{background:hsl(var(--primary));border-color:hsl(var(--primary))}
+  .switch.on .knob{transform:translateX(18px)}
+  .seg{display:inline-flex;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .seg-btn{padding:6px 14px;border:0;background:hsl(var(--card));color:hsl(var(--foreground));font-size:13px;cursor:pointer}
+  .seg-btn.active{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+  .redline{border-left:3px solid hsl(var(--destructive));background:hsl(var(--muted));padding:12px 16px;border-radius:0 8px 8px 0;font-size:14px}
+  .redline ol{margin:8px 0 0;padding-left:20px}
+  /* ===== 复合组件样式（与 prototype/src 同源） ===== */
+  /* 表单：搜索 + 排序 + 视图 的控制区 */
+  .form-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .sort-wrap select{height:40px;padding:0 28px 0 10px;border:1px solid var(--input);border-radius:calc(var(--radius) - 2px);background:hsl(var(--background));color:hsl(var(--foreground));font-size:13px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+  .view-toggle{display:inline-flex;gap:4px;padding:3px;border:1px solid var(--border);border-radius:10px;background:hsl(var(--secondary))}
+  .view-btn{width:34px;height:34px;border:0;border-radius:7px;background:transparent;color:hsl(var(--muted-foreground));cursor:pointer;display:grid;place-items:center}
+  .view-btn.active{background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+  /* 分页器 */
+  .pager{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px}
+  .pg-btn{min-width:34px;height:34px;padding:0 9px;border:1px solid var(--border);border-radius:9px;background:hsl(var(--card));color:hsl(var(--foreground));font-size:13px;cursor:pointer}
+  .pg-btn.active{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff;font-weight:600}
+  .pg-btn[disabled]{opacity:.4;cursor:not-allowed}
+  .pg-info{font-size:12.5px;color:hsl(var(--muted-foreground));margin-left:8px}
+  /* 统计台账：表头细线 + 竖向分栏细线（承袭页脚台账语言） */
+  .ledger-head{padding-bottom:9px;border-bottom:1px solid var(--border);font-size:11.5px;color:hsl(var(--muted-foreground))}
+  .ledger{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ledger .stat{display:flex;flex-direction:column;gap:6px;padding:16px 20px}
+  .ledger .stat:first-child{padding-left:0}
+  .ledger .stat + .stat{border-left:1px solid var(--border)}
+  .ledger .lbl{font-size:11.5px;color:hsl(var(--muted-foreground))}
+  .ledger .num{font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1.05;letter-spacing:-.015em;font-variant-numeric:tabular-nums}
+  /* 赞/踩行：描边常驻，激活只换色不换尺寸 */
+  .vote-row{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
+  .vote-btn{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border:1px solid var(--border);border-radius:999px;background:transparent;color:hsl(var(--muted-foreground));font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer;transition:.15s}
+  .vote-btn:hover{color:hsl(var(--foreground))}
+  .vote-btn .n{min-width:2ch;text-align:center}
+  .vote-up[aria-pressed="true"]{background:hsl(var(--primary));border-color:hsl(var(--primary));color:hsl(var(--primary-foreground))}
+  .vote-down[aria-pressed="true"]{background:hsl(var(--destructive));border-color:hsl(var(--destructive));color:hsl(var(--destructive-foreground))}
+  /* Toast 轻提示 */
+  .toast-demo{display:inline-flex;align-items:center;padding:10px 18px;border-radius:10px;background:hsl(var(--popover));color:hsl(var(--popover-foreground));box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:14px;font-weight:500}
+  /* 空状态 */
+  .empty-demo{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:26px 16px;color:hsl(var(--muted-foreground))}
+  .empty-demo .t{font-family:var(--font-display);font-weight:600;font-size:16px;color:hsl(var(--foreground))}
+  .empty-demo .d{font-size:13px}
+  /* 规则表 */
+  table.rules{width:100%;border-collapse:collapse;font-size:14px}
+  table.rules th,table.rules td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+  table.rules th{font-size:12px;color:hsl(var(--muted-foreground));font-weight:600;white-space:nowrap}
+  table.rules td code{font-family:var(--font-mono);background:hsl(var(--muted));padding:1px 6px;border-radius:5px;font-size:12px}
+  .matrix{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+  .matrix .cell{display:flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid var(--border);border-radius:9px;background:hsl(var(--card));font-size:13px}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  /* 中英显隐 */
+  html[data-lang="en"] .zh{display:none}
+  html[data-lang="zh"] .en{display:none}
+  @media(max-width:820px){.layout{grid-template-columns:1fr}.sidenav{display:none}}
+  /* ===== 页脚：版本号与更新日期（与 prototype/src/index.html footer-bottom 同构）=====
+     变更纪律：本页为人工维护交付物、不参与构建，故版本/日期为静态字段（无占位符注入）。
+     发版时须与根 package.json version 同步更新此二字段，与本文件顶部令牌纪律同理。 */
+  .site-footer{margin-top:44px;padding:20px 0 30px;border-top:1px solid hsl(var(--border));color:hsl(var(--muted-foreground))}
+  .footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 18px}
+  .footer-meta{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;font-family:var(--font-mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+  .footer-ver{color:hsl(var(--foreground));font-weight:600}
+  .footer-date{color:hsl(var(--muted-foreground))}
+  .footer-copy{font-size:12.5px}
+  @media(max-width:560px){.footer-inner{flex-direction:column;align-items:flex-start;gap:6px}}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#2e9e6b"/><g fill="#fff"><circle cx="9" cy="9" r="3"/><circle cx="23" cy="9" r="3"/><circle cx="16" cy="23" r="3"/><path d="M9 9 L16 23 L23 9" stroke="#fff" stroke-width="2" fill="none"/></g></svg>组件库规范</div>
+    <div class="spacer"></div>
+    <button class="icon-btn" id="langBtn" title="语言 / Language" aria-label="切换语言">中</button>
+    <button class="icon-btn" id="themeBtn" title="主题 / Theme" aria-label="切换主题">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><g class="theme-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g><path class="theme-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </header>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="grp">基础组件</div>
+      <a href="#button">Button 按钮</a>
+      <a href="#input">Input 输入</a>
+      <a href="#badge">Badge 徽章</a>
+      <a href="#card">Card 卡片</a>
+      <a href="#skeleton">Skeleton 骨架</a>
+      <a href="#separator">Separator 分隔</a>
+      <div class="grp">复合组件</div>
+      <a href="#dialog">Dialog 弹窗</a>
+      <a href="#form">Form 控制区</a>
+      <a href="#switch">Switch / Segmented</a>
+      <a href="#pager">Pagination 分页</a>
+      <a href="#ledger">StatLedger 统计台账</a>
+      <a href="#vote">Vote 赞踩</a>
+      <a href="#toast">Toast 轻提示</a>
+      <a href="#empty">EmptyState 空态</a>
+      <div class="grp">业务组件</div>
+      <a href="#toggles">Toggle 切换组</a>
+      <a href="#chip">CategoryFilter</a>
+      <a href="#skillcard">SkillCard 卡片</a>
+      <a href="#detail">SkillDetail 详情</a>
+      <a href="#settings">SettingsPanel</a>
+      <div class="grp">规范</div>
+      <a href="#choose">组件选型</a>
+      <a href="#matrix">状态矩阵</a>
+      <a href="#redline">使用红线</a>
+    </nav>
+
+    <main>
+      <h1 class="doc zh">组件库规范 · Wireframes</h1>
+      <h1 class="doc en">Component Library · Wireframes</h1>
+      <p class="sub zh">Agent Skills Hub 原型组件的可视化规范——基础 / 复合 / 业务组件，含真实渲染示例与用法红线。与 <code>prototype/DESIGN.md</code>、<code>COMPONENTS.md</code> 同源。</p>
+      <p class="sub en">Visual spec for the Agent Skills Hub prototype components — base / composite / domain, with live render samples and usage rules. Sourced from DESIGN.md & COMPONENTS.md.</p>
+
+      <!-- ===== 基础组件 ===== -->
+      <section id="button">
+        <h2 class="sec">Button 按钮</h2>
+        <h3 class="comp zh">变体</h3><h3 class="comp en">Variants</h3>
+        <div class="demo">
+          <button class="btn default">主行动</button>
+          <button class="btn secondary">次行动</button>
+          <button class="btn outline">描边</button>
+          <button class="btn ghost">幽灵</button>
+          <button class="btn destructive">删除</button>
+        </div>
+        <h3 class="comp zh">尺寸</h3><h3 class="comp en">Sizes</h3>
+        <div class="demo">
+          <button class="btn sm default">sm</button>
+          <button class="btn default">default</button>
+          <button class="btn lg default">lg</button>
+          <button class="btn icon default" aria-label="图标按钮">＋</button>
+        </div>
+        <p class="note zh">状态：<code>hover</code> 变深 / 阴影提升；<code>active:scale(.98)</code>；<code>focus-visible</code> 主色环。代码位置 <code>components/ui/button.tsx</code>。</p>
+        <p class="note en">States: hover darken, active scale(.98), focus-visible ring. Source: components/ui/button.tsx.</p>
+      </section>
+
+      <section id="input">
+        <h2 class="sec">Input 输入</h2>
+        <div class="demo">
+          <label class="inp"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input type="search" placeholder="搜索技能名称或描述…" /></label>
+        </div>
+        <p class="note zh"><code>type="search"</code>，左内嵌 Search 图标；聚焦主色环 + 2px offset。Source <code>components/ui/input.tsx</code>。</p>
+        <p class="note en">type="search" with inline icon; focus ring. Source components/ui/input.tsx.</p>
+      </section>
+
+      <section id="badge">
+        <h2 class="sec">Badge 徽章</h2>
+        <div class="demo">
+          <span class="badge default">default</span>
+          <span class="badge secondary">secondary</span>
+          <span class="badge outline">outline</span>
+          <span class="badge muted">muted</span>
+          <span class="badge accent">accent</span>
+        </div>
+        <p class="note zh">用途：分类标签（muted）、Hero 计数（accent）。11px 小字。Source <code>components/ui/badge.tsx</code>。</p>
+        <p class="note en">Use: category (muted), hero count (accent). Source components/ui/badge.tsx.</p>
+      </section>
+
+      <section id="card">
+        <h2 class="sec">Card 卡片</h2>
+        <div class="demo">
+          <div class="card" style="width:240px"><div class="hd">卡片标题</div><div class="ct">卡片内容区，承载业务信息。默认 rounded-lg + border + shadow-sm。</div></div>
+        </div>
+        <p class="note zh">结构 <code>Card > CardHeader > CardTitle + CardContent</code>。Source <code>components/ui/card.tsx</code>。</p>
+        <p class="note en">Structure Card > CardHeader > CardTitle + CardContent. Source components/ui/card.tsx.</p>
+      </section>
+
+      <section id="skeleton">
+        <h2 class="sec">Skeleton 骨架</h2>
+        <div class="demo" style="flex-direction:column;align-items:stretch">
+          <div class="skel" style="width:60%"></div>
+          <div class="skel" style="width:90%"></div>
+          <div class="skel" style="width:80%"></div>
+        </div>
+        <p class="note zh"><code>animate-pulse</code> 占位，首屏载入 9 个。Source <code>components/ui/skeleton.tsx</code>。</p>
+        <p class="note en">animate-pulse placeholder, 9 on first paint. Source components/ui/skeleton.tsx.</p>
+      </section>
+
+      <section id="separator">
+        <h2 class="sec">Separator 分隔</h2>
+        <div class="demo">
+          <span class="badge muted">前</span><span class="sep v"></span><span class="badge muted">后</span>
+        </div>
+        <div class="demo" style="flex-direction:column;align-items:stretch"><span class="sep"></span></div>
+        <p class="note zh">horizontal / vertical，<code>bg-border</code>。Source <code>components/ui/separator.tsx</code>。</p>
+        <p class="note en">horizontal / vertical. Source components/ui/separator.tsx.</p>
+      </section>
+
+      <section id="dialog">
+        <h2 class="sec">Dialog 弹窗</h2>
+        <div class="dialog-demo">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+            <div class="av">AD</div>
+            <div><div style="font-family:var(--font-display);font-weight:600;font-size:17px">ad-creative</div><div style="font-size:12px;color:hsl(var(--muted-foreground))">品牌与设计 · Brand &amp; Design</div></div>
+          </div>
+          <p style="font-size:14px;margin:0 0 14px">付费广告创意生成：当用户需要为任意付费广告平台生成、迭代或规模化广告创意…</p>
+          <div style="display:flex;gap:10px"><button class="btn default sm">查看仓库</button><button class="btn outline sm">分享</button></div>
+        </div>
+        <p class="note zh">入场 <code>fade + pop</code>；Esc 关闭、点遮罩关闭、焦点陷阱、<code>aria-modal</code>。Source <code>components/ui/dialog.tsx</code>（原生实现于 <code>parts/03-detail.js</code>）。</p>
+        <p class="note en">fade + pop; Esc / overlay close, focus trap, aria-modal. Source components/ui/dialog.tsx.</p>
+      </section>
+
+      <!-- ===== 复合组件 ===== -->
+      <section id="form">
+        <h2 class="sec">Form 控制区</h2>
+        <h3 class="comp zh">搜索 + 排序 + 视图</h3><h3 class="comp en">Search + Sort + View</h3>
+        <div class="demo">
+          <label class="inp" style="flex:1 1 240px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input type="search" placeholder="搜索技能名称或描述…" /></label>
+          <div class="view-toggle"><button class="view-btn active" aria-label="网格">▦</button><button class="view-btn" aria-label="列表">☰</button></div>
+          <label class="sort-wrap"><span class="sr-only">排序</span><select><option>名称 A-Z</option><option>名称 Z-A</option><option>按分类</option><option>按中文名</option></select></label>
+        </div>
+        <p class="note zh">三件套按 <code>flex:1 1 240px</code> 让搜索框吃掉剩余宽度，排序与视图固定在右。搜索框须设 <code>type="search"</code>，并用 <code>on(sel,"input")</code> + <code>on(sel,"compositionstart/end")</code> 处理输入法——组合期间不触发筛选，避免拼音过程狂刷网格。Source <code>parts/04-interactions.js bind()</code>。</p>
+        <p class="note en">Search flexes; sort &amp; view fixed right. Handle IME composition to avoid filtering mid-composition. Source parts/04-interactions.js.</p>
+      </section>
+
+      <section id="switch">
+        <h2 class="sec">Switch / Segmented 切换</h2>
+        <div class="demo">
+          <div class="switch on" role="switch" aria-checked="true" tabindex="0"><span class="knob"></span></div>
+          <div class="switch" role="switch" aria-checked="false" tabindex="0"><span class="knob"></span></div>
+          <div class="seg" role="group"><button class="seg-btn active">双显</button><button class="seg-btn">仅中文</button><button class="seg-btn">仅英文</button></div>
+        </div>
+        <p class="note zh"><strong>Switch</strong> 用于「开/关」型二值设置（显示描述/分类标签/分类色条），必须带 <code>role="switch"</code> + <code>aria-checked</code>。<strong>Segmented</strong> 用于「多档互斥」型枚举（主题/语言/布局/密度/名称显示），选中项以主色填充区分。<strong>只用 aria-pressed，不要两者混用</strong>。Source <code>parts/04-interactions.js openSettings()</code>。</p>
+        <p class="note en">Switch for booleans (role=switch + aria-checked); Segmented for mutually exclusive enums. Never mix aria-pressed into either. Source openSettings().</p>
+      </section>
+
+      <section id="pager">
+        <h2 class="sec">Pagination 分页</h2>
+        <div class="demo">
+          <div class="pager">
+            <button class="pg-btn" disabled aria-label="上一页">‹</button>
+            <button class="pg-btn active" aria-current="page">1</button>
+            <button class="pg-btn">2</button>
+            <span class="pg-ellipsis" style="color:hsl(var(--muted-foreground))">…</span>
+            <button class="pg-btn">5</button>
+            <button class="pg-btn" aria-label="下一页">›</button>
+            <span class="pg-info">第 1 / 5 页</span>
+          </div>
+        </div>
+        <p class="note zh">每页 <strong>36</strong> 条。窗口为「当前页 ±2 + 首尾必显」，中间以 <code>…</code> 省略；首页禁用「‹」、末页禁用「›」（<code>disabled</code> 而非隐藏）。翻页后 <code>window.scrollTo({top:0,behavior:"smooth"})</code> 回到网格顶部；<code>data-page</code> 为 0 基。<strong>筛选/搜索/排序变化时页码重置为 0</strong>。Source <code>parts/02-render.js renderPager()</code>。</p>
+        <p class="note en">36/page; window = current ±2 plus first/last; disabled (not hidden) arrows at bounds; scroll to top on page change; reset to 0 when filters change. Source renderPager().</p>
+      </section>
+
+      <section id="ledger">
+        <h2 class="sec">StatLedger 统计台账</h2>
+        <div class="demo" style="flex-direction:column;align-items:stretch">
+          <div class="ledger-head">全库统计</div>
+          <div class="ledger">
+            <div class="stat"><span class="lbl">技能总数</span><span class="num">171</span></div>
+            <div class="stat"><span class="lbl">分类</span><span class="num">14</span></div>
+            <div class="stat"><span class="lbl">英文描述</span><span class="num">171</span></div>
+            <div class="stat"><span class="lbl">支持语言</span><span class="num">2</span></div>
+          </div>
+        </div>
+        <p class="note zh">表头<strong>实线细线</strong> + 竖向分栏细线的「规格表」读法，<strong>标签在上、数字在下</strong>；竖线只落在栏与栏之间，首尾不设线。数字用 <code>--font-display</code> 衬线 + <code>tabular-nums</code>。<strong>必须标注「全库统计」</strong>——数字恒为仓库全量，不随筛选变化，需与控制区随筛选变化的 <code>resultCount</code> 明确区分，否则用户会误读。Source <code>parts/02-render.js renderStats()</code>。</p>
+        <p class="note en">Solid hairline header + vertical column rules; label above figure; figures in display serif with tabular-nums. Must be labelled "Full catalog" to distinguish from the live filtered resultCount. Source renderStats().</p>
+      </section>
+
+      <section id="vote">
+        <h2 class="sec">Vote 赞 / 踩</h2>
+        <h3 class="comp zh">未投票 / 已赞 / 已踩</h3><h3 class="comp en">None / Up / Down</h3>
+        <div class="demo">
+          <div class="vote-row" style="margin-top:0;border-top:0;padding-top:0;width:180px">
+            <button class="vote-btn" aria-pressed="false" aria-label="赞 ad-creative"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg><span class="n" aria-hidden="true">0</span></button>
+            <button class="vote-btn" aria-pressed="false" aria-label="踩 ad-creative"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><span class="n" aria-hidden="true">0</span></button>
+          </div>
+          <div class="vote-row" style="margin-top:0;border-top:0;padding-top:0;width:180px">
+            <button class="vote-btn vote-up" aria-pressed="true" aria-label="赞 banner-design"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg><span class="n" aria-hidden="true">3</span></button>
+            <button class="vote-btn vote-down" aria-pressed="true" aria-label="踩 banner-design"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><span class="n" aria-hidden="true">1</span></button>
+          </div>
+        </div>
+        <p class="note zh">语义：<strong>赞与踩各自独立计数、互不抵消、可同时为正</strong>；再点同一项即取消该项。存储 <code>localStorage["ash-votes"]</code>，结构 <code>{name:{up,down}}</code>，原型 <code>06-votes.js</code> 与应用 <code>lib/votes.ts</code> 键名与结构一致。无后端聚合，数值仅代表本浏览器累计。</p>
+        <p class="note zh">样式：描边<strong>常驻</strong>（未激活时透明底 + 浅描边），使激活态<strong>只换色不换尺寸</strong>，卡片不抖动；计数 <code>min-width:2ch</code> 预留两位数字宽度。</p>
+        <p class="note zh">无障碍：颜色<strong>不是唯一区分手段</strong>——上下箭头形状不同，且 <code>aria-pressed</code> 同步状态；计数标 <code>aria-hidden</code>（对读屏而言 pressed 已表达「我是否投过」）。<strong>点击投票不得触发卡片打开</strong>，须在 <code>#grid</code> 委托中豁免 <code>[data-vote-row]</code>。</p>
+        <p class="note en">Independent up/down counters (not cancelling), toggle off on re-click, persisted in localStorage under "ash-votes". Border always present so activation changes colour only. Shape + aria-pressed carry state, not colour alone. Clicks must not open the card.</p>
+      </section>
+
+      <section id="toast">
+        <h2 class="sec">Toast 轻提示</h2>
+        <div class="demo"><span class="toast-demo">已复制到剪贴板</span></div>
+        <p class="note zh">底部居中上浮，1.8s 自动消失，<code>role="status"</code> + <code>aria-live="polite"</code> 供读屏播报；<code>pointer-events:none</code> 不挡操作；同一时刻复用同一节点（先 <code>clearTimeout</code> 再计时），避免连点堆叠。失败态用 <code>.err</code>（destructive 底）。Source <code>parts/04-interactions.js showToast()</code>。</p>
+        <p class="note en">Bottom-centre, auto-dismiss 1.8s, role=status + aria-live=polite, pointer-events none, single reused node with cleared timer. Source showToast().</p>
+      </section>
+
+      <section id="empty">
+        <h2 class="sec">EmptyState 空态</h2>
+        <div class="demo">
+          <div class="empty-demo">
+            <svg width="40" height="40" viewBox="0 0 160 100" fill="none" aria-hidden="true">
+              <g stroke="currentColor" stroke-width="1.2" opacity=".5"><line x1="40" y1="30" x2="80" y2="55"/><line x1="80" y1="55" x2="120" y2="35"/><line x1="80" y1="55" x2="55" y2="82"/><line x1="80" y1="55" x2="110" y2="80"/></g>
+              <circle cx="80" cy="55" r="8" fill="currentColor" opacity=".65"/>
+              <circle cx="100" cy="70" r="14" stroke="currentColor" stroke-width="2.4" fill="none"/>
+              <line x1="110" y1="80" x2="120" y2="90" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+            <div class="t">没有匹配的技能</div>
+            <div class="d">换个关键词或分类试试，或清除当前筛选。</div>
+            <button class="btn outline sm">清除筛选</button>
+          </div>
+        </div>
+        <p class="note zh">签名插画沿用品牌「节点网 + 放大镜」母题（与 Hero 节点网同源），非通用灰盒图标。三段结构：<strong>插画 → 标题 → 说明 → 可行动作</strong>；说明必须给出<strong>下一步怎么办</strong>，而非只说「无结果」。清除按钮为 document 级事件委托（空态可能随筛选变化被重渲）。<code>aria-live="polite"</code>。Source <code>parts/02-render.js emptyHTML()</code>。</p>
+        <p class="note en">Signature illustration reuses the hub-network motif. Structure: art, title, description, one action. The description must tell the user how to recover. Source emptyHTML().</p>
+      </section>
+
+      <!-- ===== 业务组件 ===== -->
+      <section id="toggles">
+        <h2 class="sec">Toggle 切换组</h2>
+        <h3 class="comp">ThemeToggle / LangToggle / ViewToggle</h3>
+        <div class="demo">
+          <button class="icon-btn" aria-label="主题">🌗</button>
+          <button class="icon-btn" aria-label="语言">中</button>
+          <div class="seg"><button class="seg-btn active">网格</button><button class="seg-btn">列表</button></div>
+        </div>
+        <p class="note zh">均受控 + localStorage 持久化（<code>ash-theme</code>/<code>ash-lang</code>/<code>ash-view</code>）。Source <code>parts/04-interactions.js</code>、<code>i18n.js</code>。</p>
+        <p class="note en">Controlled + persisted. Source parts/04-interactions.js, i18n.js.</p>
+      </section>
+
+      <section id="chip">
+        <h2 class="sec">CategoryFilter（Chip）</h2>
+        <div class="demo">
+          <button class="chip active">全部</button>
+          <button class="chip">品牌与设计</button>
+          <button class="chip">文档与内容</button>
+          <button class="chip">开发框架与平台</button>
+        </div>
+        <p class="note zh">语义（v1.14.82 起）：<strong>单选</strong>——同一时刻至多一个分类；点「全部」或再次点击当前项即复位为空。选中态主色高亮，<code>aria-pressed</code> 反映选中。Source <code>parts/02-render.js renderCats()</code>。</p>
+        <p class="note en">Single select (since v1.14.82): at most one category; click "All" or re-click the active chip to reset. Source parts/02-render.js renderCats().</p>
+      </section>
+
+      <section id="skillcard">
+        <h2 class="sec">SkillCard 技能卡片</h2>
+        <h3 class="comp zh">网格</h3><h3 class="comp en">Grid</h3>
+        <div class="demo">
+          <button class="skill-card"><span class="cat">品牌与设计</span><span class="nm">ad-creative</span><span class="ds">付费广告创意生成：为任意付费广告平台生成、迭代或规模化广告创意…</span></button>
+          <button class="skill-card"><span class="cat">品牌与设计</span><span class="nm">banner-design</span><span class="ds">为社交媒体、广告、网站主视觉、创意素材与印刷设计横幅…</span></button>
+        </div>
+        <h3 class="comp zh">列表</h3><h3 class="comp en">List</h3>
+        <div class="demo" style="flex-direction:column;align-items:stretch">
+          <button class="skill-card list"><span class="cat">品牌与设计</span><span class="nm">ad-creative</span><span class="ds">付费广告创意生成：为任意付费广告平台生成、迭代或规模化广告创意…</span></button>
+        </div>
+        <p class="note zh">卡片为 <code>&lt;div class="card"&gt;</code> <strong>容器</strong>（v1.14.81 起）：打开详情由内嵌 <code>&lt;button class="card-open"&gt;</code> 承担，赞/踩为其后<strong>同级</strong>独立按钮行——避免「按钮内嵌按钮」的无效 HTML 与读屏无法区分。鼠标点卡片任意处与键盘 Enter/Space 均经 <code>#grid</code> 委托处理；<code>[data-vote-row]</code> 整行豁免，投票不会误开详情。</p>
+        <p class="note en">Card is a div container; a nested button.card-open opens detail, votes are sibling buttons (no nested interactive elements). Source components/skill-card.tsx / parts/02-render.js cardHTML().</p>
+      </section>
+
+      <section id="detail">
+        <h2 class="sec">SkillDetail 技能详情</h2>
+        <div class="dialog-demo">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+            <div class="av">BC</div>
+            <div><div style="font-family:var(--font-display);font-weight:600;font-size:17px">banner-creator</div><span class="badge muted" style="margin-top:2px">品牌与设计</span></div>
+          </div>
+          <p class="zh" style="font-size:14px;margin:0 0 8px"><b>中文：</b>使用 AI 图像生成创建横幅。沟通格式与风格，生成变体，结合用户反馈迭代，裁剪至所需尺寸。</p>
+          <p class="en" style="font-size:14px;margin:0 0 8px"><b>EN：</b>Create banners with AI image generation. Communicate format &amp; style, generate variants, iterate with feedback, crop to size.</p>
+          <div class="sep" style="margin:10px 0"></div>
+          <div style="font-size:12px;color:hsl(var(--muted-foreground))">授权工具：Read / Write / Edit</div>
+          <div style="display:flex;gap:10px;margin-top:14px"><button class="btn default sm">查看技能 ↗</button><button class="btn outline sm">复制命令</button></div>
+        </div>
+        <p class="note zh">中/英描述整块 <code>.zh</code>/<code>.en</code> 类显隐（全局 <code>html[data-lang]</code>）。Source <code>parts/03-detail.js openDetail()</code>。</p>
+        <p class="note en">zh/en blocks toggled by html[data-lang]. Source parts/03-detail.js.</p>
+      </section>
+
+      <section id="settings">
+        <h2 class="sec">SettingsPanel 设置面板</h2>
+        <div class="dialog-demo">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:18px;margin-bottom:12px">设置</div>
+          <div class="settings-row"><span>语言 / Language</span><div class="seg"><button class="seg-btn active">中</button><button class="seg-btn">EN</button></div></div>
+          <div class="settings-row"><span>主题 / Theme</span><div class="seg"><button class="seg-btn active">浅色</button><button class="seg-btn">深色</button></div></div>
+          <div class="settings-row"><span>显示分类色条</span><div class="switch on"><span class="knob"></span></div></div>
+          <div class="settings-row" style="border-bottom:0"><span>显示技能描述</span><div class="switch"><span class="knob"></span></div></div>
+        </div>
+        <p class="note zh">复用 <code>#dialog</code> 框架；四组切换就地刷新，不重建弹窗。Source <code>parts/03-detail.js openSettings()</code>。</p>
+        <p class="note en">Reuses #dialog; in-place refresh. Source parts/03-detail.js openSettings().</p>
+      </section>
+
+      <!-- ===== 规范 ===== -->
+      <section id="choose">
+        <h2 class="sec">组件选型</h2>
+        <p class="sub" style="margin:0 0 14px">先按下表确定「用哪个」，再翻到对应章节看变体。选错控件比样式不一致更难挽回。</p>
+        <table class="rules">
+          <thead><tr><th>需求</th><th>用</th><th>不要用</th><th>理由</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>主行动（每屏至多 1 个）</td><td><code>.btn.default</code></td><td>多个并列实心按钮</td>
+              <td>实心按钮即「本页唯一主动作」，多个会互相争夺注意力</td>
+            </tr>
+            <tr>
+              <td>次级行动 / 并列操作</td><td><code>.btn.outline</code> / <code>.btn.ghost</code></td><td><code>.btn.default</code></td>
+              <td>降级视觉权重，保持主次分明</td>
+            </tr>
+            <tr>
+              <td>不可逆 / 破坏性操作</td><td><code>.btn.destructive</code></td><td>实心主色</td>
+              <td>破坏性动作不得占用主色，避免被误当默认路径</td>
+            </tr>
+            <tr>
+              <td>开/关 型设置</td><td><code>Switch</code> + <code>role="switch"</code></td><td>Segmented / Checkbox</td>
+              <td>二值语义用开关；多档互斥才用分段控件</td>
+            </tr>
+            <tr>
+              <td>多档互斥枚举（2–4 档）</td><td><code>Segmented</code></td><td>Switch / 下拉</td>
+              <td>档位少时全部可见优于折叠在下拉里</td>
+            </tr>
+            <tr>
+              <td>档位较多（≥5）</td><td><code>select</code> 下拉</td><td>Segmented</td><td>横向空间放不下，过长的分段控件会换行破版</td>
+            </tr>
+            <tr>
+              <td>分类筛选</td><td><code>Chip</code> 单选</td><td>多选 Chip / 下拉</td>
+              <td>分类是单选语义（至多一个），且需常驻可见可点</td>
+            </tr>
+            <tr>
+              <td>卡片内打开详情</td><td><code>&lt;button class="card-open"&gt;</code></td><td>整张卡片套按钮</td>
+              <td>整卡套按钮后无处安放赞/踩等次级按钮（会造成嵌套可交互元素）</td>
+            </tr>
+            <tr>
+              <td>表达「我赞过/踩过」</td><td><code>Vote 赞踩行</code></td><td>星级评分 / 净分</td>
+              <td>赞踩是两个独立维度，净分会掩盖「赞多但踩也多」的真实分歧</td>
+            </tr>
+            <tr>
+              <td>四舍五入的全库数字</td><td><code>StatLedger</code> + 「全库统计」标注</td><td>与筛选结果混排</td>
+              <td>用户会误以为数字随筛选变化，必须显式区分全量 vs 实时</td>
+            </tr>
+            <tr>
+              <td>短暂反馈（复制成功等）</td><td><code>Toast</code></td><td>弹窗 / 内联提示</td>
+              <td>反馈不打断当前任务，弹窗会打断流程</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="matrix">
+        <h2 class="sec">状态矩阵</h2>
+        <p class="sub" style="margin:0 0 14px">任何数据区都必须覆盖这四种状态；缺一即为不完整。详细视觉见 <code>states.html</code>。</p>
+        <table class="rules">
+          <thead><tr><th>状态</th><th>触发</th><th>呈现</th><th>要点</th></tr></thead>
+          <tbody>
+            <tr><td>加载中</td><td>首屏 / 翻页拉取</td><td>骨架屏（12 条）</td><td>骨架形状须贴近真实卡片（色条 + 标题 + 两行描述），否则载入时布局跳变</td></tr>
+            <tr><td>有数据</td><td>正常</td><td>卡片网格 / 列表</td><td>数字与文案全部来自真实数据，不内联假数据</td></tr>
+            <tr><td>空结果</td><td>筛选无命中</td><td><code>EmptyState</code></td><td>必须给可执行的下一步（清除筛选），不能只说「无结果」</td></tr>
+            <tr><td>出错</td><td>数据缺失 / 解析失败</td><td>错误态 + 明确原因</td><td>说明发生了什么、怎么修；不道歉、不使用模糊措辞</td></tr>
+          </tbody>
+        </table>
+        <h3 class="comp zh">无障碍状态位</h3><h3 class="comp en">Accessibility states</h3>
+        <div class="matrix">
+          <span class="cell"><span class="dot" style="background:hsl(var(--primary))"></span>已激活（主色填充）</span>
+          <span class="cell"><span class="dot" style="background:hsl(var(--border))"></span>常态（浅描边）</span>
+          <span class="cell"><span class="dot" style="background:hsl(var(--muted-foreground))"></span>弱化 / 禁用</span>
+          <span class="cell"><span class="dot" style="background:hsl(var(--destructive))"></span>破坏性 / 踩</span>
+        </div>
+        <p class="note zh">颜色<strong>永远不是唯一的状态载体</strong>：须同时具备形状差异（上下箭头 / 填充 vs 描边）或 <code>aria-pressed</code> / <code>aria-checked</code>，以满足色觉障碍与读屏用户。</p>
+      </section>
+
+      <section id="redline">
+        <h2 class="sec">组件使用红线</h2>
+        <div class="redline">
+          <div class="zh">以下为硬性约束，违反视为缺陷而非风格偏好。</div>
+          <div class="en">Hard constraints — violations are defects, not style preferences.</div>
+          <ol>
+            <li class="zh">复用 <code>tokens.css</code> 的 CSS 变量，禁止硬编码颜色/间距/圆角。</li>
+            <li class="zh">图标统一内联 SVG，禁止引入其它图标库。</li>
+            <li class="zh"><strong>禁止嵌套可交互元素</strong>：按钮内不得再放按钮（卡片已改为容器 + <code>.card-open</code>）。</li>
+            <li class="zh">可交互元素须有 <code>aria-label</code> 或语义角色；弹窗标题用 <code>sr-only</code>。</li>
+            <li class="zh">动效仅 ~200ms 基准，缓动用 <code>ease-out</code> 系；全局兼容 <code>prefers-reduced-motion</code>。</li>
+            <li class="zh">业务数据只读来自 <code>data/skills-data.json</code>，不内联假数据。</li>
+            <li class="zh">样式优先定义在 <code>prototype/src/styles/</code>，与令牌同源；应用侧由 <code>tools/sync-css.mjs</code> 同步，<strong>勿手改 <code>*-shared.css</code></strong>。</li>
+            <li class="zh">本模板与文案中<strong>禁止出现版本/日期占位符字面量</strong>（<code>build.mjs</code> 只替换模板中首个占位符，会被抢占）。</li>
+            <li class="zh">改动视觉令牌须同步本文件与 <code>DESIGN.md</code>，避免文档与实现漂移。</li>
+          </ol>
+          <ol>
+            <li class="en">Reuse tokens.css variables; no hardcoded colors/spacing/radii.</li>
+            <li class="en">Icons: inline SVG only; no other icon libraries.</li>
+            <li class="en">Never nest interactive elements (no button inside button).</li>
+            <li class="en">Interactive elements need aria-label / role; dialog title sr-only.</li>
+            <li class="en">Motion ~200ms baseline with ease-out; respect prefers-reduced-motion.</li>
+            <li class="en">Data read-only from data/skills-data.json; no fake data.</li>
+            <li class="en">Define styles in prototype/src/styles/; app side is synced — never hand-edit *-shared.css.</li>
+            <li class="en">Never write version/date placeholder literals in templates or copy.</li>
+            <li class="en">Keep this file and DESIGN.md in sync when tokens change.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer" id="siteFooter" aria-label="页脚 / Footer">
+    <div class="footer-inner" id="footerInner">
+      <span class="footer-meta">
+        <span class="footer-ver" id="footerVer">v1.14.85</span>
+        <span class="footer-date" id="footerDate"><span class="zh">更新于 </span><span class="en">Updated </span><span class="date-val">2026-10-07</span></span>
+      </span>
+      <span class="footer-copy zh" id="footerCopyZh">开源免费，采用 MIT 协议</span>
+      <span class="footer-copy en" id="footerCopyEn">Open source, MIT licensed</span>
+    </div>
+  </footer>
+
+<script>
+  // 轻量中英/主题切换（与 prototype 行为一致，纯前端）
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const langBtn = document.getElementById('langBtn');
+  const sun = themeBtn.querySelector('.theme-sun'), moon = themeBtn.querySelector('.theme-moon');
+  function paintTheme(){ const dark = root.getAttribute('data-theme')==='dark'; sun.style.display = dark?'block':'none'; moon.style.display = dark?'none':'block'; }
+  function paintLang(){ langBtn.textContent = root.getAttribute('data-lang')==='zh' ? '中' : 'EN'; }
+  themeBtn.addEventListener('click', ()=>{ root.setAttribute('data-theme', root.getAttribute('data-theme')==='dark'?'light':'dark'); paintTheme(); });
+  langBtn.addEventListener('click', ()=>{ root.setAttribute('data-lang', root.getAttribute('data-lang')==='zh'?'en':'zh'); paintLang(); });
+  // 演示用 seg / switch 交互
+  document.querySelectorAll('.seg').forEach(seg=>seg.addEventListener('click',e=>{ if(e.target.classList.contains('seg-btn')){ seg.querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active')); e.target.classList.add('active'); }}));
+  document.querySelectorAll('.switch').forEach(sw=>sw.addEventListener('click',()=>{ const on=sw.classList.toggle('on'); sw.setAttribute('aria-checked',on?'true':'false'); }));
+  // 演示用 view-toggle 交互
+  document.querySelectorAll('.view-toggle').forEach(vt=>vt.addEventListener('click',e=>{ const b=e.target.closest('.view-btn'); if(!b) return; vt.querySelectorAll('.view-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); }));
+  // 演示用 chip 交互（单选：点「全部」或再次点击当前项即复位）
+  document.querySelectorAll('#chip .chip').forEach(c=>c.addEventListener('click',()=>{
+    const all=c.classList.contains('chip-all');
+    const wasActive=c.classList.contains('active');
+    document.querySelectorAll('#chip .chip').forEach(x=>x.classList.remove('active'));
+    if(all||wasActive) document.querySelector('#chip .chip').classList.add('active');
+    else c.classList.add('active');
+  }));
+  // 演示用赞/踩交互（双计数独立、互不抵消，再次点击取消该项）
+  document.querySelectorAll('.vote-btn').forEach(b=>b.addEventListener('click',()=>{
+    const on=b.getAttribute('aria-pressed')==='true';
+    b.setAttribute('aria-pressed',on?'false':'true');
+    const n=b.querySelector('.n'); if(n) n.textContent=String(Math.max(0,(+n.textContent||0)+(on?-1:1)));
+  }));
+  paintTheme(); paintLang();
+</script>
+</body>
+</html>

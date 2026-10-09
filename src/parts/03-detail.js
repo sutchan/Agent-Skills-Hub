@@ -184,7 +184,7 @@ function detailHTML(skill) {
     <div class="detail-body">
       <p class="d-desc">${esc(desc || "")}</p>
       ${toolsHTML}
-      <div class="d-vote"><div class="d-vote-head"><h4>${I18N.t("vote.title")}</h4></div>${voteHTML(skill.name)}<p class="d-vote-note">${I18N.t("vote.note")}</p></div>
+      <div class="d-vote" id="detailVote"><div class="d-vote-head"><h4>${I18N.t("vote.title")}</h4><div style="display:inline-flex;gap:8px;align-items:center;"><button type="button" id="exportVotesBtn" class="btn ghost sm" style="font-size:12px;padding:3px 8px;">导出反馈</button><a id="reportIssueLink" href="https://github.com/sutchan/Agent-Skills-Hub/issues/new" target="_blank" rel="noopener noreferrer" class="btn ghost sm open-ext" style="font-size:12px;padding:3px 8px;text-decoration:none;">反馈问题</a></div></div>${voteHTML(skill.name)}<p class="d-vote-note">${I18N.t("vote.note")}</p></div>
       ${relatedHTML}
     </div>
   </div>`;
@@ -218,6 +218,21 @@ function openDetail(arg) {
   // 复制安装命令
   const copyCmdBtn = $("#copyCmdBtn");
   if (copyCmdBtn) copyCmdButton(copyCmdBtn);
+
+  const exportBtn = $("#exportVotesBtn");
+  if (exportBtn) {
+    exportBtn.addEventListener("click", () => {
+      const data = JSON.stringify(ensureVotes(), null, 2);
+      const blob = new Blob([data], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "skills-votes.json";
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast(state.lang === 'zh' ? '反馈数据已导出' : 'Votes data exported');
+    });
+  }
 
   // 相关技能点击 → 切换详情
   dialog.querySelectorAll(".related-card").forEach((btn) => {

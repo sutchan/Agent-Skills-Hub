@@ -150,8 +150,11 @@ input { font-family: inherit; }
 /* prototype/src/styles/base.css v1.20.18 — 全局 UX 增强（无障碍 + 动效 + 反馈）
    设计令牌来自 tokens.css，组件布局见 layout.css / components.css。 */
 
-/* 键盘焦点可见：仅对键盘用户显示焦点环，避免鼠标点击残留描边 */
-:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 6px; }
+/* 键盘焦点可见：高对比度视觉焦点指示器（WCAG 2.4.7 + focus-visible:ring-4 focus-visible:ring-primary-500/50） */
+:focus-visible { outline: none !important; box-shadow: 0 0 0 4px hsl(var(--primary) / 0.5) !important; border-radius: 6px; }
+.card:focus-visible { outline: none !important; box-shadow: 0 0 0 4px hsl(var(--primary) / 0.5) !important; }
+.card-open:focus-visible { outline: none !important; box-shadow: inset 0 0 0 2px hsl(var(--primary) / 0.5) !important; border-radius: 8px; }
+.fav-btn:focus-visible, .vote-btn:focus-visible, .btn:focus-visible, .icon-btn:focus-visible, .share-btn:focus-visible, .view-btn:focus-visible, .cat-chip:focus-visible, .search input:focus-visible { outline: none !important; box-shadow: 0 0 0 4px hsl(var(--primary) / 0.5) !important; }
 /* 打开弹窗时锁定背景滚动 */
 body.no-scroll { overflow: hidden; }
 /* 尊重用户的减少动效偏好（无障碍 WCAG 2.3.3） */
@@ -754,7 +757,7 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       <stop offset="1" stop-color="hsl(146 52% 60%)" />
     </linearGradient>
   </svg>
-  <header class="topbar" id="siteHeader">
+  <header class="topbar" id="appHeader" data-alias="siteHeader">
     <div class="topbar-inner" id="topbarInner">
       <a class="brand" id="brandLink" href="#">
         <svg class="logo" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
@@ -1489,7 +1492,7 @@ function cardHTML(s) {
   const label = s.zh ? `${s.name}（${s.zh}）` : s.name;
   const descZh = s.description || s.zh || I18N.t("card.noDesc");
   const fav = isFavorite(s.name);
-  return `<div class="card" id="skill-${skillSlug(s.name)}" data-name="${esc(s.name)}" data-cat="${esc(s.category)}">
+  return `<div class="card" id="skill-${skillSlug(s.name)}" tabindex="0" data-name="${esc(s.name)}" data-cat="${esc(s.category)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
     <div class="card-body">
       <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
@@ -1507,7 +1510,7 @@ function cardHTML(s) {
           </div>
           <div class="card-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
         </button>
-        <button type="button" class="fav-btn${fav ? " bookmarked" : ""}" data-fav-name="${esc(s.name)}" aria-label="${fav ? "取消收藏" : "收藏"} ${esc(s.name)}" title="${fav ? "取消收藏" : "收藏"}">
+        <button type="button" id="fav-${skillSlug(s.name)}" class="fav-btn${fav ? " bookmarked" : ""}" data-fav-name="${esc(s.name)}" aria-label="${fav ? "取消收藏" : "收藏"} ${esc(s.name)} (按 F 键快速收藏)" title="${fav ? "取消收藏" : "收藏"} (按 F 键快速收藏)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="${fav ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
           </svg>
@@ -1804,7 +1807,7 @@ function detailHTML(skill) {
     <div class="detail-body">
       <p class="d-desc">${esc(desc || "")}</p>
       ${toolsHTML}
-      <div class="d-vote"><div class="d-vote-head"><h4>${I18N.t("vote.title")}</h4></div>${voteHTML(skill.name)}<p class="d-vote-note">${I18N.t("vote.note")}</p></div>
+      <div class="d-vote" id="detailVote"><div class="d-vote-head"><h4>${I18N.t("vote.title")}</h4><div style="display:inline-flex;gap:8px;align-items:center;"><button type="button" id="exportVotesBtn" class="btn ghost sm" style="font-size:12px;padding:3px 8px;">导出反馈</button><a id="reportIssueLink" href="https://github.com/sutchan/Agent-Skills-Hub/issues/new" target="_blank" rel="noopener noreferrer" class="btn ghost sm open-ext" style="font-size:12px;padding:3px 8px;text-decoration:none;">反馈问题</a></div></div>${voteHTML(skill.name)}<p class="d-vote-note">${I18N.t("vote.note")}</p></div>
       ${relatedHTML}
     </div>
   </div>`;
@@ -1839,6 +1842,21 @@ function openDetail(arg) {
   const copyCmdBtn = $("#copyCmdBtn");
   if (copyCmdBtn) copyCmdButton(copyCmdBtn);
 
+  const exportBtn = $("#exportVotesBtn");
+  if (exportBtn) {
+    exportBtn.addEventListener("click", () => {
+      const data = JSON.stringify(ensureVotes(), null, 2);
+      const blob = new Blob([data], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "skills-votes.json";
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast(state.lang === 'zh' ? '反馈数据已导出' : 'Votes data exported');
+    });
+  }
+
   // 相关技能点击 → 切换详情
   dialog.querySelectorAll(".related-card").forEach((btn) => {
     btn.addEventListener("click", () => openDetail(btn.getAttribute("data-name")));
@@ -1869,6 +1887,51 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     const overlay = $("#overlay");
     if (overlay && overlay.classList.contains("show")) closeDetail();
+  }
+});
+
+// 键盘快捷键 'f' / 'F'：快速收藏当前选中的技能卡片；Enter / Space：打开选中的卡片
+document.addEventListener("keydown", (e) => {
+  const active = document.activeElement;
+  if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA" || active.tagName === "SELECT")) {
+    return;
+  }
+  if (e.key === "f" || e.key === "F") {
+    const overlay = $("#overlay");
+    if (overlay && overlay.classList.contains("show")) {
+      const favBtn = $("#dialog .fav-btn[data-fav-name]");
+      if (favBtn) {
+        const name = favBtn.getAttribute("data-fav-name");
+        if (name) {
+          e.preventDefault();
+          const isFav = toggleFavorite(name);
+          syncFavUI(name);
+          showToast(isFav ? (state.lang === 'zh' ? `已快捷收藏: ${name}` : `Bookmarked: ${name}`) : (state.lang === 'zh' ? `已取消快捷收藏: ${name}` : `Unbookmarked: ${name}`));
+          track("keyboard_favorite", { skill: name, favorite: isFav });
+          return;
+        }
+      }
+    }
+    let card = active ? active.closest(".card") : null;
+    if (!card) {
+      card = $("#grid .card");
+    }
+    if (card) {
+      const name = card.dataset.name;
+      if (name) {
+        e.preventDefault();
+        const isFav = toggleFavorite(name);
+        syncFavUI(name);
+        showToast(isFav ? (state.lang === 'zh' ? `已快捷收藏: ${name}` : `Bookmarked: ${name}`) : (state.lang === 'zh' ? `已取消快捷收藏: ${name}` : `Unbookmarked: ${name}`));
+        track("keyboard_favorite", { skill: name, favorite: isFav });
+      }
+    }
+  } else if ((e.key === "Enter" || e.key === " ") && active && active.classList.contains("card")) {
+    const cardOpen = active.querySelector(".card-open");
+    if (cardOpen) {
+      e.preventDefault();
+      cardOpen.click();
+    }
   }
 });
 
@@ -2467,7 +2530,7 @@ function init() {
   renderGrid();
   // 量取顶栏高度注入 --topbar-h，供 .controls sticky 偏移使用（P2-1），并监听 resize 更新
   const setTopbarH = () => {
-    const h = document.getElementById("siteHeader");
+    const h = document.getElementById("appHeader") || document.getElementById("siteHeader");
     if (h) document.documentElement.style.setProperty("--topbar-h", h.offsetHeight + "px");
   };
   setTopbarH();
