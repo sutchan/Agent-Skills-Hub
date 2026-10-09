@@ -1,71 +1,16 @@
-// src/components/SkillsExplorer.tsx v1.14.82 — 应用主面板：搜索 / 分类（单选）/ 排序 / 视图 / 分页 / 网格渲染 / 骰子拉起详情
+// src/components/SkillsExplorer.tsx v1.14.89 — 应用主面板编排：组合搜索/分类/排序/网格/详情，挂载深链与偏好同步
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
 import type { SkillsData, Skill } from "../lib/skills";
-import { catHue } from "../lib/catHue";
 import { SkillCard } from "./skill-card";
 import { DetailModal } from "./detail-modal";
 import { SettingsPanel } from "./settings-panel";
 import { Pager } from "./pager";
-
-// 每页 36 条 —— 对齐原型 prototype/src/parts/01-state.js PAGE_SIZE=36（原型为设计权威源）
-const PAGE_SIZE = 36;
-
-// URL hash 深链：与原型 05-main.js 的 writeHash/parseHash 对齐（相同序列格式 #cat=a&q=x&sort=name&page=2）
-// 使 app 筛选/搜索/排序/页码可分享、刷新可还原，且与原型深链链接互认。
-// 分类为单选，故 cat 只有一个值（空串 = 全部）。
-type HashState = { cat: string; q: string; sort: typeof SORTS[number]; page: number };
-const SORTS = ["name", "name-desc", "cat", "zh"] as const;
-
-// 深链参数解码（安全降级）：
-// writeHash 写入时经 encodeURIComponent 编码，URLSearchParams 解析时会先解码一次，
-// 因此 parseHash 需二次 decodeURIComponent 还原；但若 hash 含孤立 %（如用户搜索 "50%"
-// 写入 #q=50%25，URLSearchParams 已解码为 "50%"），二次解码会抛 URIError 导致应用崩溃。
-// 解码失败时保留原始值，不中断深链还原。
-function safeDecode(v: string): string {
-  try {
-    return decodeURIComponent(v);
-  } catch {
-    return v;
-  }
-}
-
-function writeHash(s: HashState) {
-  if (typeof window === "undefined") return;
-  const parts: string[] = [];
-  if (s.cat) parts.push("cat=" + encodeURIComponent(s.cat));
-  if (s.q.trim()) parts.push("q=" + encodeURIComponent(s.q.trim()));
-  if (s.sort !== "name") parts.push("sort=" + encodeURIComponent(s.sort));
-  if (s.page > 0) parts.push("page=" + s.page);
-  const h = parts.length ? "#" + parts.join("&") : "";
-  if (window.location.hash !== h) {
-    history.replaceState(null, "", h || window.location.pathname + window.location.search);
-  }
-}
-
-function parseHash(): Partial<HashState> {
-  if (typeof window === "undefined") return {};
-  const raw = window.location.hash.replace(/^#/, "");
-  if (!raw) return {};
-  const p = new URLSearchParams(raw);
-  const out: Partial<HashState> = {};
-  if (p.has("cat")) {
-    // 单选：仅取一个分类；兼容旧版多选链接（#cat=a,b），取第一个有效值
-    const cat = p.get("cat")!.split(",").map((c) => safeDecode(c)).filter(Boolean)[0];
-    if (cat) out.cat = cat;
-  }
-  if (p.has("q")) out.q = safeDecode(p.get("q")!);
-  if (p.has("sort")) {
-    const sort = p.get("sort")!;
-    if ((SORTS as readonly string[]).includes(sort)) out.sort = sort as typeof SORTS[number];
-  }
-  if (p.has("page")) {
-    const pg = parseInt(p.get("page")!, 10);
-    if (!Number.isNaN(pg) && pg > 0) out.page = pg;
-  }
-  return out;
-}
+import type { SortKey } from "./SkillsExplorer.hash";
+import { PAGE_SIZE, computeCatCounts, filterAndSort } from "./SkillsExplorer.filters";
+import { SearchControls } from "./SkillsExplorer.controls";
+import { useHashSync, useExplorerEffects, usePrefsSync } from "./SkillsExplorer.hooks";
 
 export function SkillsExplorer({
   data,
@@ -81,7 +26,7 @@ export function SkillsExplorer({
   // v1.14.42：初值统一用默认值，偏好在下方 useEffect 中一次性恢复。
   // 此前在 useState 初始化函数里读 localStorage：① SSR 首屏可能执行 ② 与 useEffect 重复读取导致二次渲染。
   const [view, setView] = useState<"grid" | "list">("grid");
-  const [sort, setSort] = useState<"name" | "name-desc" | "cat" | "zh">("name");
+  const [sort, setSort] = useState<SortKey>("name");
   // UI 元素显隐设置（独立持久化到 localStorage + <html data-show-*>）
   const [showDesc, setShowDesc] = useState(true);
   const [showCat, setShowCat] = useState(true);
@@ -91,133 +36,28 @@ export function SkillsExplorer({
   const [settingsOpen, setShowSettings] = useState(false);
   const [detail, setDetail] = useState<Skill | null>(null);
   const [page, setPage] = useState(0);
+  const [showToTop, setShowToTop] = useState(false);
 
   // 稳定回调（v1.14.42）：内联箭头函数每次渲染都是新引用，会使 SkillCard 的 memo 失效，
   // 导致本页最多 36 张卡片在数据未变时全部重渲染。此处以 useCallback 固定引用（rerender-memo）。
   const openSkill = useCallback((sk: Skill) => setDetail(sk), []);
   const closeDetail = useCallback(() => setDetail(null), []);
 
-  // 接收 Hero 骰子派发的随机技能打开详情（对齐 prototype 03-detail.js shareSkill/openDetail）
-  useEffect(() => {
-    const onPick = (e: Event) => {
-      const name = (e as CustomEvent<{ name?: string }>).detail?.name;
-      if (!name) return;
-      const sk = data.skills.find((s) => s.name === name && !s.hidden);
-      if (sk) setDetail(sk);
-    };
-    window.addEventListener("ash:open-skill", onPick as EventListener);
-    return () => window.removeEventListener("ash:open-skill", onPick as EventListener);
-  }, [data.skills]);
-
-  // 恢复偏好（localStorage 不可用时回退默认）
-  useEffect(() => {
-    const read = (k: string) => {
-      try { return localStorage.getItem(k); } catch { return null; }
-    };
-    const on = (v: string | null) => v !== "false";
-    setShowDesc(on(read("ash-show-desc")));
-    setShowCat(on(read("ash-show-cat")));
-    setShowBar(on(read("ash-show-bar")));
-    const nm = read("ash-name-mode");
-    if (nm === "zh" || nm === "en") setNameMode(nm);
-    const d = read("ash-density");
-    if (d === "comfortable" || d === "compact") setDensity(d);
-    const v = read("ash-view");
-    if (v === "grid" || v === "list") setView(v);
-  }, []);
-
-  // URL 深链初始化：挂载时解析 hash 还原筛选/搜索/排序/页码（晚于偏好恢复，浏览器端生效）
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const h = parseHash();
-    if (h.cat) setCat(h.cat);
-    if (typeof h.q === "string") { setRaw(h.q); setQ(h.q); }
-    if (h.sort) setSort(h.sort);
-    if (typeof h.page === "number") setPage(h.page);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // 浏览器前进/后退或外部改 hash 时还原深链
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const onHash = () => {
-      const h = parseHash();
-      if (h.cat) setCat(h.cat);
-      if (typeof h.q === "string") { setRaw(h.q); setQ(h.q); }
-      if (h.sort) setSort(h.sort);
-      if (typeof h.page === "number") setPage(h.page);
-    };
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
-  }, []);
-
-  // 搜索防抖（对齐原型 DEBOUNCE_MS=120）：raw 停止输入 120ms 后写入 q 触发过滤
-  useEffect(() => {
-    const t = setTimeout(() => setQ(raw), 120);
-    return () => clearTimeout(t);
-  }, [raw]);
-
-  // 深链写入：筛选/搜索/排序/页码变化后同步到 location.hash（刷新/分享可还原，对齐原型 P0-1）
-  useEffect(() => {
-    writeHash({ cat, q, sort, page });
-  }, [cat, q, sort, page]);
-
-  // 回到顶部（对齐原型 toTop：滚动超 300px 显隐）
-  const [showToTop, setShowToTop] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setShowToTop(window.scrollY > 300);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // 偏好变化时同步到 <html data-show-*> / data-name-mode + 持久化
-  useEffect(() => {
-    const root = document.documentElement;
-    root.setAttribute("data-show-desc", showDesc ? "on" : "off");
-    root.setAttribute("data-show-cat", showCat ? "on" : "off");
-    root.setAttribute("data-show-bar", showBar ? "on" : "off");
-    root.setAttribute("data-name-mode", nameMode);
-    root.setAttribute("data-density", density);
-    const writeBool = (k: string, v: boolean) => {
-      try { localStorage.setItem(k, v ? "true" : "false"); } catch { /* 隐私模式忽略 */ }
-    };
-    const writeStr = (k: string, v: string) => {
-      try { localStorage.setItem(k, v); } catch { /* 隐私模式忽略 */ }
-    };
-    writeBool("ash-show-desc", showDesc);
-    writeBool("ash-show-cat", showCat);
-    writeBool("ash-show-bar", showBar);
-    writeStr("ash-name-mode", nameMode);
-    writeStr("ash-density", density);
-    writeStr("ash-view", view);
-  }, [showDesc, showCat, showBar, nameMode, density, view]);
+  useHashSync(setCat, setRaw, setQ, setSort, setPage);
+  useExplorerEffects(raw, setQ, cat, q, sort, page, setPage, data, setDetail, setShowToTop);
+  usePrefsSync(
+    setShowDesc, setShowCat, setShowBar, setNameMode, setDensity, setView,
+    showDesc, showCat, showBar, nameMode, density, view,
+  );
 
   const catsAll = data.categories;
 
-  // 各分类技能计数（对齐 prototype 02-render aggregateFilters 的 agg.cats），驱动 .chip-count 展示
-  const catCounts = useMemo(() => {
-    const m: Record<string, number> = {};
-    for (const s of data.skills) m[s.category] = (m[s.category] || 0) + 1;
-    return m;
-  }, [data]);
+  const catCounts = useMemo(() => computeCatCounts(data.skills), [data]);
 
-  const filtered = useMemo(() => {
-    const kw = q.trim().toLowerCase();
-    const list = data.skills.filter((s) => {
-      if (s.hidden) return false;
-      if (cat && s.category !== cat) return false;
-      if (kw && !(`${s.name} ${s.zh || ""} ${s.description} ${s.enDescription || ""} ${s.category} ${s.enCategory || ""}`.toLowerCase().includes(kw))) return false;
-      return true;
-    });
-    const cmp: Record<typeof sort, (a: Skill, b: Skill) => number> = {
-      name: (a, b) => String(a.name).localeCompare(String(b.name)),
-      "name-desc": (a, b) => String(b.name).localeCompare(String(a.name)),
-      cat: (a, b) => String(a.category).localeCompare(String(b.category), "zh") || String(a.name).localeCompare(String(b.name)),
-      zh: (a, b) => String(a.zh || a.name).localeCompare(String(b.zh || b.name), "zh"),
-    };
-    return [...list].sort(cmp[sort]);
-  }, [data.skills, cat, q, sort]);
+  const filtered = useMemo(
+    () => filterAndSort({ skills: data.skills, q, cat, sort }),
+    [data.skills, cat, q, sort]
+  );
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages - 1);
@@ -225,7 +65,6 @@ export function SkillsExplorer({
     () => filtered.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE),
     [filtered, safePage]
   );
-  useEffect(() => { setPage(0); }, [q, cat, sort]);
 
   // 翻页：更新页码并滚动回网格顶部
   const goPage = (p: number) => {
@@ -239,94 +78,23 @@ export function SkillsExplorer({
     setCat((prev) => (prev === c ? "" : c));
   };
 
-  // 分类点击联动 Hero 节点网：派发当前筛选状态供 AppShell 点亮核心（对齐 prototype updateHeroNet）
-  useEffect(() => {
-    window.dispatchEvent(new CustomEvent("ash:filter-state", { detail: { cat, query: q } }));
-  }, [cat, q]);
-
   return (
     <section id="skillsExplorer" className="explorer">
-      <div className="controls" id="controls">
-       <div className="controls-inner">
-        <div className="search" id="searchWrap">
-          <input
-            id="search"
-            type="search"
-            placeholder={lang === "zh" ? "搜索技能名称或描述…" : "Search skills by name or description…"}
-            value={raw}
-            onChange={(e) => { if (composing.current) return; setRaw(e.target.value); }}
-            onCompositionStart={() => { composing.current = true; }}
-            onCompositionEnd={(e) => { composing.current = false; setRaw(e.currentTarget.value); }}
-            aria-label={lang === "zh" ? "搜索技能" : "Search skills"}
-          />
-        </div>
-        <div className="toolbar-right" id="toolbarRight">
-          <div className="view-toggle" id="viewToggle" role="group" aria-label={lang === "zh" ? "视图模式" : "View mode"}>
-            <button
-              className={`view-btn${view === "grid" ? " active" : ""}`}
-              aria-pressed={view === "grid"}
-              onClick={() => setView("grid")}
-              aria-label={lang === "zh" ? "网格视图" : "Grid view"}
-            >
-              ▦
-            </button>
-            <button
-              className={`view-btn${view === "list" ? " active" : ""}`}
-              aria-pressed={view === "list"}
-              onClick={() => setView("list")}
-              aria-label={lang === "zh" ? "列表视图" : "List view"}
-            >
-              ☰
-            </button>
-          </div>
-          <label className="sort-wrap" id="sortWrap">
-            <span className="sr-only">{lang === "zh" ? "排序" : "Sort"}</span>
-            <select
-              id="sortSelect"
-              value={sort}
-              onChange={(e) => setSort(e.target.value as typeof sort)}
-              aria-label={lang === "zh" ? "排序" : "Sort"}
-            >
-              <option value="name">{lang === "zh" ? "名称 A-Z" : "Name A-Z"}</option>
-              <option value="name-desc">{lang === "zh" ? "名称 Z-A" : "Name Z-A"}</option>
-              <option value="cat">{lang === "zh" ? "按分类" : "By category"}</option>
-              <option value="zh">{lang === "zh" ? "按中文名" : "By Chinese name"}</option>
-            </select>
-          </label>
-        </div>
-        <div className="chips" id="categoryChips" role="group" aria-label={lang === "zh" ? "分类（单选）" : "Categories (single select)"}>
-          <button
-            key="all"
-            className={`chip chip-all${cat === "" ? " active" : ""}`}
-            style={{ ["--hue" as string]: 152 }}
-            aria-pressed={cat === ""}
-            onClick={() => toggleCat("all")}
-          >
-            {lang === "zh" ? "全部" : "All"}
-          </button>
-          {catsAll.map((c) => (
-            <button
-              key={c}
-              className={`chip${cat === c ? " active" : ""}`}
-              style={{ ["--hue" as string]: catHue(c) }}
-              aria-pressed={cat === c}
-              onClick={() => toggleCat(c)}
-            >
-              <span>{c}</span>
-              <span className="chip-count">{catCounts[c] ?? 0}</span>
-            </button>
-          ))}
-        </div>
-        <button
-          id="settingsBtn"
-          className="icon-btn"
-          aria-label={lang === "zh" ? "设置" : "Settings"}
-          onClick={() => setShowSettings(true)}
-        >
-          ⚙
-        </button>
-       </div>
-      </div>
+      <SearchControls
+        lang={lang}
+        raw={raw}
+        setRaw={setRaw}
+        composing={composing}
+        view={view}
+        setView={setView}
+        sort={sort}
+        setSort={setSort}
+        catsAll={catsAll}
+        cat={cat}
+        catCounts={catCounts}
+        toggleCat={toggleCat}
+        onSettings={() => setShowSettings(true)}
+      />
 
       {settingsOpen && (
         <SettingsPanel
