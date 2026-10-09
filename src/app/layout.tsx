@@ -1,8 +1,12 @@
 import React from 'react';
 
 export const metadata = {
-  title: 'Agent Skills Hub · 高质量 Agent 技能目录',
-  description: '集中管理 171+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。',
+  title: 'Agent Skills Hub',
+  description: 'Discover and reuse high-quality AI agent skills categorized and searchable.',
+  openGraph: {
+    title: 'Agent Skills Hub',
+    description: 'Discover and reuse high-quality AI agent skills categorized and searchable.',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
