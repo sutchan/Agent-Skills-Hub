@@ -1,4 +1,8 @@
 {
-  "votes": {},
+  "votes": {
+    "ad-creative": {
+      "up": 0
+    }
+  },
   "favorites": {}
 }
