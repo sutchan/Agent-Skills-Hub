@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "node server.js",
-    "build": "echo 'Static build complete'",
-    "start": "node server.js",
+    "build": "next build",
+    "start": "next start",
     "test": "node --test tools/lib/*.test.mjs",
     "e2e": "playwright test"
   },
