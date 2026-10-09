@@ -1,4 +1,4 @@
-// src/components/AppShell.tsx v1.14.62 — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚）
+// src/components/AppShell.tsx — 应用外壳（顶栏品牌区 + Hero 节点网 + 语言/主题切换 + 技能浏览器 + 页脚）
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import type { Lang } from "../lib/share";
@@ -25,29 +25,6 @@ function BrandMark() {
       <text x="16" y="21" textAnchor="middle" fontSize="14" fontWeight={700} fill="#fff">H</text>
     </svg>
   );
-}
-
-// Hero 节点网交互：经 <svg> 事件委托（hover 高亮对应分类卡片 / click 切分类筛选）
-function bindHeroInteractions(svg: SVGSVGElement | null) {
-  if (!svg) return;
-  const catOf = (t: EventTarget | null) => (t as Element | null)?.getAttribute?.("data-cat") || "";
-  const highlight = (cat: string, on: boolean) =>
-    document.querySelectorAll<HTMLElement>("#grid .card").forEach((card) => {
-      if (card.dataset.cat === cat) card.classList.toggle("pulse", on);
-    });
-  svg.addEventListener("mouseover", (e) => { const c = catOf(e.target); if (c) highlight(c, true); });
-  svg.addEventListener("mouseout", (e) => { const c = catOf(e.target); if (c) highlight(c, false); });
-  svg.addEventListener("click", (e) => {
-    const c = catOf(e.target);
-    if (c) window.dispatchEvent(new CustomEvent("ash:cat-toggle", { detail: { cat: c } }));
-  });
-  svg.addEventListener("keydown", (e) => {
-    const c = catOf(e.target);
-    if (c && (e as KeyboardEvent).key === "Enter") {
-      e.preventDefault();
-      window.dispatchEvent(new CustomEvent("ash:cat-toggle", { detail: { cat: c } }));
-    }
-  });
 }
 
 export function AppShell({ data, version, updatedAt }: { data: SkillsData; version?: string; updatedAt?: string }) {

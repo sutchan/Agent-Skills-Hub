@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Lang } from "../lib/share";
 import type { SkillsData, Skill } from "../lib/skills";
+import { catHue } from "../lib/catHue";
 import { SkillCard } from "./skill-card";
 import { DetailModal } from "./detail-modal";
 import { SettingsPanel } from "./settings-panel";
@@ -194,6 +195,13 @@ export function SkillsExplorer({
 
   const catsAll = data.categories;
 
+  // 各分类技能计数（对齐 prototype 02-render aggregateFilters 的 agg.cats），驱动 .chip-count 展示
+  const catCounts = useMemo(() => {
+    const m: Record<string, number> = {};
+    for (const s of data.skills) m[s.category] = (m[s.category] || 0) + 1;
+    return m;
+  }, [data]);
+
   const filtered = useMemo(() => {
     const kw = q.trim().toLowerCase();
     const list = data.skills.filter((s) => {
@@ -289,7 +297,8 @@ export function SkillsExplorer({
         <div className="chips" id="categoryChips" role="group" aria-label={lang === "zh" ? "分类（单选）" : "Categories (single select)"}>
           <button
             key="all"
-            className={`chip${cat === "" ? " active" : ""}`}
+            className={`chip chip-all${cat === "" ? " active" : ""}`}
+            style={{ ["--hue" as string]: 152 }}
             aria-pressed={cat === ""}
             onClick={() => toggleCat("all")}
           >
@@ -299,10 +308,12 @@ export function SkillsExplorer({
             <button
               key={c}
               className={`chip${cat === c ? " active" : ""}`}
+              style={{ ["--hue" as string]: catHue(c) }}
               aria-pressed={cat === c}
               onClick={() => toggleCat(c)}
             >
-              {c}
+              <span>{c}</span>
+              <span className="chip-count">{catCounts[c] ?? 0}</span>
             </button>
           ))}
         </div>

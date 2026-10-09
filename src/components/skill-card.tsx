@@ -50,7 +50,7 @@ export const SkillCard = memo(function SkillCard({
           onClick={() => onOpen(skill)}
         >
           <div className="title-row">
-            <div className="avatar sm">{initials(skill.name)}</div>
+            <div className="avatar sm" style={{ ["--hue" as string]: catHue(skill.category) }}>{initials(skill.name)}</div>
             <div className="card-title">
               {showZh && <span className="zh">{skill.zh || skill.name}</span>}
               {showEn && <span className="en">{skill.name}</span>}

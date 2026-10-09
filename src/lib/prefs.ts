@@ -1,4 +1,4 @@
-// src/lib/prefs.ts v1.14.52 — 偏好惰性订阅（useSyncExternalStore）
+// src/lib/prefs.ts — 偏好惰性订阅（useSyncExternalStore）
 // 用于避免在 render 期直读 localStorage（Vercel rerender-isolate-client 实践），
 // 并消除 AppShell 巨型客户端组件因偏好变化导致的整树重渲。
 // SSR 阶段返回默认值，client 挂载后经 subscribe 同步真实值，无水合不匹配。
@@ -48,9 +48,6 @@ function subscribe(cb: () => void): () => void {
     window.removeEventListener("storage", handler);
   };
 }
-
-export function getLang(): Lang { return readLang(); }
-export function getTheme(): Theme { return readTheme(); }
 
 export function useLangPref(): Lang {
   return useSyncExternalStore(subscribe, readLang, () => "zh" as Lang);
