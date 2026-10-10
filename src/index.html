@@ -287,7 +287,7 @@ html[data-lang="zh"] .en { display: none; }
 }
 
 /* 网格与卡片容器：桌面固定三列（需求：页面显示三列卡片） */
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 24px; max-width: 1200px; margin: 0 auto; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; padding: 24px; max-width: 1200px; margin: 0 auto; }
 /* 列表视图：单列，卡片横向排布（对齐 view-toggle 的 list 态） */
 .grid.list { grid-template-columns: 1fr; max-width: 860px; }
 .grid.list .card { flex-direction: row; align-items: center; gap: 14px; }
@@ -499,7 +499,7 @@ html[data-lang="zh"] .en { display: none; }
    无障碍：累加态无法用 aria-pressed 表达（pressed 为二值语义），改由 data-voted 供样式区分，
    当前计数由 aria-label 播报。 */
 .vote-btn {
-  display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 6px 12px; min-width: 44px; min-height: 44px; border-radius: 999px;
   background: transparent; color: var(--text-2); border: 1px solid var(--border);
   font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums;
   transition: color .15s ease, background .15s ease, border-color .15s ease;
@@ -537,7 +537,7 @@ html[data-lang="zh"] .en { display: none; }
 
 .fav-btn {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px; border-radius: 8px;
+  width: 44px; height: 44px; border-radius: 8px;
   background: transparent; color: var(--text-2); border: 1px solid var(--border);
   cursor: pointer; transition: color .15s, background .15s, border-color .15s; flex: none;
 }
@@ -738,6 +738,7 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
 </script>
 </head>
 <body>
+  <div id="aria-feedback" class="sr-only" aria-live="polite"></div>
   <!-- 品牌图形单一来源 symbol（与 brand/hub.svg 内容一致，currentColor 驱动；DESIGN §8.2） -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <symbol id="ash-hub" viewBox="0 0 32 32">
@@ -1368,6 +1369,7 @@ function syncFavUI(name) {
     btn.setAttribute("aria-label", (fav ? "取消收藏" : "收藏") + " " + name);
     btn.setAttribute("title", fav ? "取消收藏" : "收藏");
   });
+  document.getElementById("aria-feedback").textContent = (fav ? "已收藏 " : "已移除收藏 ") + name;
   if (state.favoritesOnly) {
     renderGrid();
   }
@@ -2730,6 +2732,7 @@ function syncVoteUI(name) {
     if (c.up > 0 && !undo) row.insertAdjacentHTML("beforeend", undoButtonHTML(name));
     else if (c.up === 0 && undo) undo.remove();
   });
+  document.getElementById("aria-feedback").textContent = name + " 投票已更新，当前票数 " + c.up;
 }
 
 // 事件绑定：委托到 document，覆盖后续动态插入的卡片与弹窗内的投票行
