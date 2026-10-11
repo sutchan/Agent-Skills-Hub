@@ -207,87 +207,100 @@ html[data-lang="zh"] .en { display: none; }
 .brand-sub { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Hero 区：签名节点网（对齐 app AppShell，DESIGN §4.1.1）；独立卡片，限宽居中与网格对齐 */
-.hero { position: relative; overflow: hidden; width: 100%; max-width: var(--maxw); margin: 8px auto 28px; padding: 44px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .10), hsl(var(--node) / .14)); border: 1px solid var(--border); border-radius: 18px; }
-.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .68; pointer-events: none; transition: opacity .3s ease; }
-.hero:hover .hero-net { opacity: .9; }
-.hero-net .hub-node { transform-box: fill-box; transform-origin: center; transition: fill .3s ease, r .3s ease, opacity .3s ease; cursor: pointer; animation: nodeFloat 5.5s ease-in-out infinite; }
-/* 方案 A：节点 hover 放大 + 发光，作为可交互技能星座 */
+/* Hero 区：双列紧凑布局（左侧文案与特性，右侧微型知识拓扑网与盲盒抽卡），缩减垂直高度，首屏露卡 */
+.hero { position: relative; overflow: hidden; width: 100%; max-width: var(--maxw); margin: 12px auto 20px; padding: 28px 32px; background: linear-gradient(135deg, hsl(var(--primary) / .08), hsl(var(--node) / .12)); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow-xs); }
+.hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; align-items: center; position: relative; z-index: 2; }
+.hero-left { min-width: 0; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: hsl(var(--primary)); margin-bottom: 8px; }
+.hero-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--node); box-shadow: 0 0 0 4px hsl(var(--node) / .25); }
+.hero h1 { margin: 0 0 8px; font-family: var(--font-display); font-size: clamp(24px, 3.2vw, 36px); line-height: 1.16; letter-spacing: -.01em; color: hsl(var(--foreground)); }
+.hero h1 .accent { color: hsl(var(--primary)); }
+.hero p { margin: 0; color: var(--text-2); font-size: 14.5px; line-height: 1.5; max-width: 52ch; }
+.hero-features { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
+.hero-features li { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 500; line-height: 1.4; color: var(--text-2); background: hsl(var(--card) / 0.7); border: 1px solid var(--border); border-radius: 8px; padding: 5px 12px; backdrop-filter: blur(4px); box-shadow: var(--shadow-xs); transition: border-color .15s ease, transform .15s ease; }
+.hero-features li:hover { border-color: hsl(var(--primary) / 0.5); transform: translateY(-1px); }
+.hero-features .feat-icon { font-size: 13px; line-height: 1; }
+
+/* 右侧知识拓扑卡片与盲盒 */
+.hero-right { position: relative; min-width: 0; }
+.hero-visual-card { position: relative; overflow: hidden; height: 210px; background: hsl(var(--surface) / 0.75); border: 1px solid var(--border); border-radius: 14px; backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.1); }
+.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .75; pointer-events: none; transition: opacity .3s ease; }
+.hero:hover .hero-net { opacity: 1; }
+.hero-net .hub-node { transform-box: fill-box; transform-origin: center; transition: fill .3s ease, r .3s ease, opacity .3s ease; cursor: pointer; pointer-events: auto; animation: nodeFloat 5.5s ease-in-out infinite; }
 .hero-net .hub-node:hover { r: 14; filter: drop-shadow(0 0 6px hsl(var(--node) / .9)); }
 .hero-net .hub-node.active { r: 16; fill: hsl(var(--primary)); filter: drop-shadow(0 0 8px hsl(var(--primary) / .9)); }
 .hero-net .hub-core { transform-box: fill-box; transform-origin: center; transition: r .3s ease, fill .3s ease; animation: corePulse 2.6s ease-in-out infinite; fill: hsl(var(--core-hue, 152) 65% 38%) !important; }
-/* 低开销动效：纯 transform/opacity（GPU 合成），不触发逐帧重排；节点错峰浮动由内联 --i 相位控制（renderHeroNodes 注入，仅一次） */
 .hub-core { animation: corePulse 2.6s ease-in-out infinite; }
-.hero-net .hub-core::after { content: ""; } /* 兼容占位，真实光环由 .hub-glow 实现 */
+.hero-net .hub-core::after { content: ""; }
 .hub-glow { transform-box: fill-box; transform-origin: center; animation: coreGlow 3.4s ease-in-out infinite; fill: hsl(var(--core-hue, 152) 65% 38%); }
 @keyframes corePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
 @keyframes coreGlow { 0% { transform: scale(1); opacity: .35; } 50% { transform: scale(1.9); opacity: 0; } 100% { transform: scale(1); opacity: 0; } }
 @keyframes nodeFloat { 0%, 100% { transform: translateY(0); opacity: .82; } 50% { transform: translateY(-4px); opacity: 1; } }
-/* 连线常态极慢信号起伏，hover 时增强（不逐帧重排） */
 .hero-net .net-line { animation: netBreathe 4.8s ease-in-out infinite; }
 @keyframes netBreathe { 0%, 100% { opacity: .5; } 50% { opacity: .85; } }
-/* 连线上缓慢移动的圆点（SMIL animateMotion 驱动，沿 core→节点路径流动） */
 .hero-net .net-dot { fill: hsl(var(--primary)); opacity: .85; pointer-events: none; }
-/* 窄屏：收敛 hero 内边距，避免节点网过高挤压文案（P1-4） */
-@media (max-width: 640px) {
-  .hero { padding: 28px 18px; margin: 4px auto 20px; }
-  .hero-net { opacity: .5; }
-}
-/* 搜索激活态：节点浮动暂停，保留连线脉冲（netPulse），突出"正在检索"语义 */
-.hero-net.searching .hub-node { animation: none; }
-.hero-net.searching .hub-core { animation: none; }
-.hero-net.searching .hub-glow { animation: none; }
-/* 方案 A：筛选/搜索激活时节点网点亮联动 */
-.hero-net.filtering .hub-node { fill: hsl(var(--primary)); }
-.hero-net.filtering .hub-core { r: 20; }
-.hero-net.searching .net-line { stroke: hsl(var(--primary) / .85); stroke-width: 3; animation: netPulse 1.6s ease-in-out infinite; }
-@keyframes netPulse { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) {
-  .hero-net .hub-core { animation: none; }
-  .hero-net .hub-glow { animation: none; }
-  .hero-net .net-dot { display: none; }
-  .hero-net .hub-node { animation: none; }
-  .hero-net .net-line { animation: none; }
-  .hero-net.searching .net-line { animation: none; }
-}
-.hero-inner { position: relative; z-index: 1; max-width: 720px; }
-.hero-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: hsl(var(--primary)); margin-bottom: 12px; }
-.hero-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--node); box-shadow: 0 0 0 4px hsl(var(--node) / .25); }
-.hero h1 { margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); line-height: 1.12; letter-spacing: -.01em; color: hsl(var(--foreground)); }
-.hero h1 .accent { color: hsl(var(--primary)); }
-.hero p { margin: 0; color: var(--text-2); font-size: 15px; max-width: 56ch; }
-.hero-features { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
-.hero-features li { font-size: 12.5px; line-height: 1.5; color: var(--text-2); background: hsl(var(--secondary)); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
-/* 方案 B：骰子按钮（彩蛋） */
-.hero-dice { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-.btn-dice { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; border: 1px solid hsl(var(--primary)); background: hsl(var(--primary) / .12); color: hsl(var(--primary)); font-size: 14px; font-weight: 600; cursor: pointer; transition: transform .12s ease, box-shadow .2s ease, background .2s ease; }
-.btn-dice:hover { background: hsl(var(--primary) / .2); box-shadow: 0 4px 14px hsl(var(--primary) / .3); }
-.btn-dice:active { transform: scale(.96) rotate(-4deg); }
-.btn-dice .dice-face { font-size: 16px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
-.btn-dice:active .dice-face { transform: rotate(360deg); }
-.dice-hint { font-size: 12.5px; color: var(--text-2); }
-@media (prefers-reduced-motion: reduce) { .btn-dice:active .dice-face { transform: none; } }
 
-/* 控制区（搜索 + 排序 + 分类）：背景全宽，内容限宽居中（与网格 --maxw 对齐） */
-/* top 偏移由 JS 量取顶栏高度注入 --topbar-h，避免顶栏换行时硬编码 52px 错位（P2-1） */
-.controls { position: sticky; top: var(--topbar-h, 52px); z-index: 20; background: var(--surface); border-bottom: 1px solid var(--border); }
-.controls-inner { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 14px 24px; }
-.search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
-.search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 15px; color: var(--text); }
-.search .icon { opacity: .6; }
-/* 结果计数（搜索/筛选后的条数播报与展示，aria-live 提供读屏反馈） */
-.result-count { margin-left: auto; font-size: 12.5px; color: var(--text-2); white-space: nowrap; }
-/* 筛选条（分类）布局：桌面换行，移动端横向可滚动（DESIGN §5）；
-   内容限宽居中与网格对齐；统一垂直节奏。基类 .filter-scroll 由分类复用（v1.20.18 合并）。 */
+.hero-dice-card { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: hsl(var(--card) / 0.85); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; backdrop-filter: blur(8px); box-shadow: var(--shadow-sm); }
+.dice-info { display: flex; flex-direction: column; min-width: 0; }
+.dice-title { font-size: 13.5px; font-weight: 600; color: var(--text); }
+.dice-hint { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+.btn-dice { flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px; border: 1px solid hsl(var(--primary)); background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-size: 13px; font-weight: 600; cursor: pointer; transition: transform .12s ease, box-shadow .2s ease, opacity .2s ease; }
+.btn-dice:hover { opacity: .92; box-shadow: 0 3px 10px hsl(var(--primary) / .35); }
+.btn-dice:active { transform: scale(.96) rotate(-3deg); }
+.btn-dice .dice-face { font-size: 14px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.btn-dice:active .dice-face { transform: rotate(360deg); }
+
+/* 响应式收敛 */
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 20px; }
+  .hero-visual-card { height: 170px; }
+  .hero { padding: 22px 20px; }
+}
+@media (max-width: 640px) {
+  .hero { margin: 6px auto 14px; border-radius: 14px; }
+  .hero-visual-card { height: 150px; padding: 10px; }
+  .hero-features { gap: 6px; }
+}
+
+/* 控制区：一体化高聚合控制台，微毛玻璃粘性吸顶 */
+.controls { position: sticky; top: var(--topbar-h, 52px); z-index: 25; background: hsl(var(--surface) / 0.92); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--border); box-shadow: 0 4px 16px hsl(var(--shadow-color) / 0.04); transition: box-shadow .2s ease; }
+.controls-inner { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 12px 24px; }
+.search-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; width: 100%; }
+
+.search { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); box-shadow: inset 0 1px 2px hsl(var(--shadow-color) / 0.04); transition: border-color .15s ease, box-shadow .15s ease, background .15s ease; position: relative; }
+.search:focus-within { border-color: hsl(var(--primary)); background: var(--surface); box-shadow: 0 0 0 3px hsl(var(--primary) / 0.16); }
+.search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 14px; color: var(--text); min-width: 140px; }
+.search .icon { opacity: .6; flex: none; transition: opacity .15s ease, color .15s ease; }
+.search:focus-within .icon { opacity: 1; color: hsl(var(--primary)); }
+.search-kbd { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 4px; border: 1px solid var(--border); background: var(--card); font-size: 11px; font-weight: 600; color: var(--text-2); pointer-events: none; }
+
+/* 快捷过滤药丸 */
+.quick-filters { display: inline-flex; align-items: center; gap: 6px; }
+.qf-btn { display: inline-flex; align-items: center; gap: 5px; height: 38px; padding: 0 13px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s ease; user-select: none; }
+.qf-btn:hover { background: var(--surface); border-color: hsl(var(--primary) / .4); transform: translateY(-1px); }
+.qf-btn.active { background: hsl(var(--primary) / .12); border-color: hsl(var(--primary)); color: hsl(var(--primary)); font-weight: 600; box-shadow: 0 1px 6px hsl(var(--primary) / .2); }
+
+/* 激活态过滤标签条 */
+.active-filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 6px 0 2px; border-top: 1px dashed var(--border); font-size: 12.5px; }
+.af-label { color: var(--text-2); font-weight: 500; }
+.af-tags { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.af-tag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; background: hsl(var(--primary) / .12); border: 1px solid hsl(var(--primary) / .25); color: hsl(var(--primary)); font-size: 12px; font-weight: 500; }
+.af-tag-remove { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border: 0; background: transparent; cursor: pointer; color: inherit; padding: 0; opacity: .7; border-radius: 50%; }
+.af-tag-remove:hover { opacity: 1; background: hsl(var(--primary) / .2); }
+.af-clear-btn { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; padding: 3px 8px; border-radius: 6px; border: 0; background: transparent; color: var(--text-2); font-size: 12px; cursor: pointer; transition: color .15s ease; }
+.af-clear-btn:hover { color: hsl(var(--destructive, 0 80% 60%)); text-decoration: underline; }
+
+.result-count { font-size: 13px; font-weight: 500; color: var(--text-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .filter-scroll { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 6px 24px; }
 .cats { width: 100%; overflow: hidden; }
-/* 移动端：筛选条改为横向可滚动，隐藏滚动条 */
 @media (max-width: 640px) {
+  .controls-inner { padding: 10px 14px; }
   .filter-scroll { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
   .filter-scroll::-webkit-scrollbar { display: none; }
 }
 
 /* 网格与卡片容器：桌面固定三列（需求：页面显示三列卡片） */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; padding: 24px; max-width: 1200px; margin: 0 auto; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; padding: 24px; max-width: var(--maxw); margin: 0 auto; }
 /* 列表视图：单列，卡片横向排布（对齐 view-toggle 的 list 态） */
 .grid.list { grid-template-columns: 1fr; max-width: 860px; }
 .grid.list .card { flex-direction: row; align-items: center; gap: 14px; }
@@ -376,49 +389,286 @@ html[data-lang="zh"] .en { display: none; }
 
 /* prototype/src/styles/components.css v1.14.81 — 可复用组件样式（卡片 / 分类 chip / 头像 / 按钮 / 弹窗操作区 / 赞踩行） */
 
+/* ===== 分类占比环形图组件 (Category Donut Chart) ===== */
+.cat-chart-section {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 12px auto 6px;
+  padding: 0 24px;
+}
+.cat-chart-wrapper {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s ease, border-color .2s ease;
+}
+.cat-chart-wrapper:hover {
+  box-shadow: var(--shadow-md);
+  border-color: color-mix(in srgb, hsl(var(--primary)) 30%, var(--border));
+}
+.cat-chart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cat-chart-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cat-chart-icon {
+  color: hsl(var(--primary));
+  flex-shrink: 0;
+}
+.cat-chart-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: var(--font-display);
+  letter-spacing: -.01em;
+}
+.cat-chart-hint {
+  font-size: 12px;
+  color: var(--text-2);
+  margin-left: 4px;
+}
+.cat-chart-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.cat-chart-toggle:hover {
+  color: var(--text);
+  background: hsl(var(--secondary) / 0.9);
+  border-color: var(--text-3, var(--border));
+}
+.cat-chart-toggle .toggle-arrow {
+  transition: transform .25s ease;
+}
+.cat-chart-wrapper.collapsed .cat-chart-toggle .toggle-arrow {
+  transform: rotate(-90deg);
+}
+.cat-chart-body {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+  transition: max-height .3s ease, opacity .25s ease, margin .3s ease;
+}
+.cat-chart-wrapper.collapsed .cat-chart-body {
+  display: none;
+}
+/* 环形图 SVG 容器 */
+.cat-donut-container {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cat-donut-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 2px 6px hsl(var(--shadow-color) / .08));
+}
+.cat-donut-slice {
+  cursor: pointer;
+  transition: transform .18s cubic-bezier(0.16, 1, 0.3, 1), opacity .18s ease, stroke-width .18s ease, filter .18s ease;
+  transform-origin: 0 0;
+  stroke: var(--surface);
+  stroke-width: 2px;
+}
+.cat-donut-slice:hover,
+.cat-donut-slice:focus-visible {
+  transform: scale(1.06);
+  filter: brightness(1.1) drop-shadow(0 4px 10px rgba(0,0,0,.2));
+  opacity: 1;
+}
+.cat-donut-slice.dimmed {
+  opacity: 0.35;
+  filter: grayscale(20%);
+}
+.cat-donut-slice.active {
+  stroke: hsl(var(--primary));
+  stroke-width: 3.5px;
+  transform: scale(1.08);
+  filter: drop-shadow(0 4px 12px hsl(var(--primary) / .4));
+}
+.cat-donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+}
+.donut-center-num {
+  font-size: 20px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: var(--text);
+  font-family: var(--font-mono);
+}
+.donut-center-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-2);
+  margin-top: 2px;
+  white-space: nowrap;
+  max-width: 86px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 图例网格区 */
+.cat-legend-wrap {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 8px 12px;
+  max-height: 170px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.cat-legend-wrap::-webkit-scrollbar {
+  width: 4px;
+}
+.cat-legend-wrap::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+.cat-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: var(--surface-2);
+  cursor: pointer;
+  text-align: left;
+  transition: all .15s ease;
+  user-select: none;
+  font-size: 12.5px;
+}
+.cat-legend-item:hover {
+  background: hsl(var(--secondary) / .9);
+  border-color: var(--border);
+  transform: translateY(-1px);
+}
+.cat-legend-item.active {
+  background: color-mix(in srgb, hsl(var(--hue) 78% 44%) 16%, var(--surface));
+  border-color: hsl(var(--hue) 78% 44%);
+  box-shadow: 0 1px 6px hsl(var(--hue) 78% 44% / .2);
+}
+.cat-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.cat-legend-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  color: var(--text);
+}
+.cat-legend-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+.cat-legend-count {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text);
+}
+.cat-legend-pct {
+  font-size: 10.5px;
+  color: var(--text-2);
+}
+
+@media (max-width: 768px) {
+  .cat-chart-section { padding: 0 16px; margin: 8px auto 4px; }
+  .cat-chart-body { flex-direction: column; gap: 16px; align-items: stretch; }
+  .cat-donut-container { align-self: center; width: 150px; height: 150px; }
+  .cat-legend-wrap { max-height: 190px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
+
 /* 分类 chip（筛选器）：默认中性灰，选中态才用 --hue 派生彩色（对齐 app，catHue 算法驱动） */
+/* 分类 chip（筛选器）：现代圆角设计（8px），默认中性次级表面，选中态由 catHue 色相精准驱动 */
 .chip {
   --hue: 220;
-  display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px;
   background: var(--surface-2);
   border: 1px solid var(--border);
   color: var(--text-2);
-  font-size: 13px; cursor: pointer; transition: background .15s, color .15s, border-color .15s, transform .15s ease, filter .15s ease;
+  font-size: 13px; font-weight: 500; cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease, transform .15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .15s ease;
 }
-/* 默认态：hover 仅中性轻弹，不改变色相（不缩放，避免亚像素模糊） */
-.chip:hover { border-color: var(--text-3); color: var(--text); transform: translateY(-2px); }
-/* 选中态：保持各自分类色相（--hue），以「彩色实心底 + 上浮」强调，
-   让被选中的分类背景直接呈现该分类的彩色（hue 由 catHue 派生）；
-   亮度 46% 让色相醒目，白字对比度仍满足 ≥4.5:1；无阴影；
-   「全部」中性筛选器仍用主色绿（见 .chip-all.active），避免异色相混淆全量语义 */
+.chip:hover { border-color: var(--text-3); color: var(--text); background: hsl(var(--secondary) / 0.8); transform: translateY(-1px); }
+.chip:active { transform: scale(0.97); }
+/* 选中态：以高饱和彩色实心底与轻柔彩色阴影强化，层级鲜明 */
 .chip.active {
-  background: hsl(var(--hue) 82% 46%);
+  background: hsl(var(--hue) 78% 44%);
   color: hsl(0 0% 100%);
-  border-color: hsl(var(--hue) 90% 66%);
+  border-color: hsl(var(--hue) 82% 40%);
+  box-shadow: 0 2px 8px hsl(var(--hue) 80% 40% / 0.35);
   transform: translateY(-1px);
 }
-.chip.active:hover { color: hsl(0 0% 100%); transform: translateY(-2px); }
-.chip-count { font-size: 11px; opacity: .8; font-variant-numeric: tabular-nums; }
+.chip.active:hover { color: hsl(0 0% 100%); background: hsl(var(--hue) 82% 40%); }
+.chip-count { font-size: 11.5px; opacity: .85; font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
 .chip.active .chip-count { opacity: 1; }
-/* 窄屏长分类名省略为色点 + 计数（保留色相辨识） */
+/* 窄屏长分类名优化 */
 @media (max-width: 640px) {
-  .chip { padding: 6px 10px; max-width: 132px; }
+  .chip { padding: 6px 12px; max-width: 140px; border-radius: 7px; }
   .chip > span:not(.chip-count) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
-/* 「全部」chip：选中态回落到单一主色绿（中性全量筛选器语义），无阴影保持视觉权重一致 */
+/* 「全部」chip：主色高亮 */
 .chip-all.active {
   background: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
   border-color: hsl(var(--primary));
+  box-shadow: 0 2px 8px hsl(var(--primary) / 0.35);
   transform: translateY(-1px);
 }
-.chip-all.active:hover { color: hsl(var(--primary-foreground)); transform: translateY(-2px); }
+.chip-all.active:hover { color: hsl(var(--primary-foreground)); background: var(--primary-strong); }
 
-/* 技能卡片：与 app SkillsExplorer 结构对齐（cat-bar + card-open[title-row + card-title/sub/cat] + 赞/踩行）
-   v1.14.81 起为 <div> 容器（不可聚焦，键盘可达性由 .card-open 承担），故不再需要 button 的字体/对齐复位 */
-.card { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
-.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); border-color: color-mix(in srgb, hsl(var(--hue, 152) 55% 50%) 45%, var(--border)); background: color-mix(in srgb, hsl(var(--hue, 152) 55% 50% / .04), var(--surface)); }
-/* 方案 D（收敛）：移除径向光斑噪音，hover 仅保留上浮 + 彩色边框 + 极轻同色 tint，质感更克制高级 */
+/* 技能卡片：结构对齐（cat-bar + card-open + 独立右上角 fav-btn + 赞行） */
+.card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 18px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .18s cubic-bezier(0.16, 1, 0.3, 1), border-color .18s ease; }
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, hsl(var(--hue, 152) 55% 45%) 40%, var(--border)); }
 /* 方案 A：节点 hover 时对应分类卡片脉冲高亮 */
 .card.pulse { animation: cardPulse 1s ease-in-out infinite; box-shadow: 0 0 0 2px hsl(var(--hue, 152) 65% 50% / .6), var(--shadow-pop); }
 @keyframes cardPulse { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
@@ -427,7 +677,7 @@ html[data-lang="zh"] .en { display: none; }
 /* 首屏骨架屏：结构与 .card 一致，条块 shimmer 占位，JS 渲染后整体替换 */
 .skeleton {
   position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--border);
-  background: var(--surface); padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 134px;
+  background: var(--surface); padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 140px;
 }
 .skeleton .cat-bar { position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--border); }
 .skeleton .sk-top { display: flex; align-items: center; gap: 10px; }
@@ -444,105 +694,89 @@ html[data-lang="zh"] .en { display: none; }
 }
 @keyframes shimmer { 100% { transform: translateX(100%); } }
 @media (prefers-reduced-motion: reduce) { .skeleton::after { animation: none; display: none; } }
-/* 焦点态与 hover 区分：键盘焦点用主色描边+偏移，避免与 hover 的边框变色混淆（C4）
-   注：.card 已改为 <div> 容器（不可聚焦），焦点环落在 .card-open 上；
-   .card 有 overflow:hidden，故用负 offset 把描边画在内部，避免被裁切。 */
+
 .card-open:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; border-radius: 10px; }
 /* 内容包裹层：列表态作为横向排布的主内容列，网格态仅作普通容器 */
 .card-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
-/* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），任意分类均有色，不限于固定色板 */
-.card .cat-bar { height: 6px; border-radius: 999px; background: hsl(var(--hue, 152) 50% 52%); margin: -16px -16px 0; transition: filter .2s ease, box-shadow .2s ease; }
-.card:hover .cat-bar { filter: saturate(1.15) brightness(1.05); box-shadow: 0 2px 10px hsl(var(--hue, 152) 55% 50% / .45); }
-/* 方案 D：头像按分类 hue 渐变（同 cat-bar 色），让每张卡片有一抹个性色 */
-.avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, hsl(var(--hue, 152) 70% 46%), hsl(var(--hue, 152) 65% 38%)); color: #fff; display: grid; place-items: center; font-weight: 700; box-shadow: 0 2px 8px hsl(var(--hue, 152) 60% 40% / .35); }
-.avatar.sm { width: 30px; height: 30px; font-size: 13px; flex: none; }
-.title-row { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; font-size: 16px; line-height: 1.3; letter-spacing: -.005em; }
-/* 标题双语言显示（v1.18.1 起，v1.19.6 引入 nameMode）：
-   默认双显：中文态中文名为主、英文原名作弱化副标题（覆盖 base 的 data-lang=zh .en 隐藏）；英文态仅英文原名
-   名称显示策略 nameMode（<html data-name-mode>）：
-     both（默认）：中文态双显，英文态仅英文（原行为）
-     zh：两态都仅中文名
-     en：两态都仅英文原名 */
-.card-title .zh { display: block; }
-.card-title .en { display: block; font-size: 16px; font-weight: 400; color: var(--text-2); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; }
-/* 双显 + 中文态：强制显示英文原名副标题（特异性高于 base 的 html[data-lang=zh] .en 隐藏） */
+/* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），统一高度为 4px 更加优雅克制 */
+.card .cat-bar { height: 4px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 48%); margin: -18px -18px 4px; transition: filter .2s ease, box-shadow .2s ease; }
+.card:hover .cat-bar { filter: saturate(1.15) brightness(1.05); box-shadow: 0 1px 8px hsl(var(--hue, 152) 55% 50% / .45); }
+/* 头像按分类 hue 渐变，字重强化，尺寸与圆角精确呼应 */
+.avatar { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, hsl(var(--hue, 152) 68% 46%), hsl(var(--hue, 152) 65% 38%)); color: #fff; display: grid; place-items: center; font-weight: 700; box-shadow: 0 2px 8px hsl(var(--hue, 152) 60% 40% / .3); }
+.avatar.sm { width: 32px; height: 32px; font-size: 13px; flex: none; }
+.title-row { display: flex; align-items: center; gap: 10px; min-width: 0; padding-right: 32px; }
+.card-title { font-family: var(--font-display); font-weight: 600; min-width: 0; font-size: 16px; line-height: 1.35; letter-spacing: -.01em; }
+/* 标题双语言显示 */
+.card-title .zh { display: block; color: var(--text); }
+.card-title .en { display: block; font-size: 12.5px; font-weight: 400; color: var(--text-2); margin-top: 2px; letter-spacing: .01em; overflow-wrap: break-word; word-break: break-word; font-family: var(--font-sans); }
 :root[data-name-mode="both"][data-lang="zh"] .card-title .en { display: block; }
 :root[data-lang="en"] .card-title .en { font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
-/* 仅中文：隐藏英文名 */
 :root[data-name-mode="zh"] .card-title .en { display: none; }
 :root[data-name-mode="zh"] .card-title .zh { display: block; font-weight: 600; }
-/* 仅英文：隐藏中文名，英文原名升为主标题 */
 :root[data-name-mode="en"] .card-title .zh { display: none; }
 :root[data-name-mode="en"] .card-title .en { display: block; font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
-/* 卡片描述：只显示当前语言的描述（.zh/.en 互斥），最多 3 行截断 */
-.card-desc { color: color-mix(in srgb, var(--text) 68%, var(--text-2)); font-size: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+/* 卡片描述：增加阅读对比度与行间距，舒适阅读 */
+.card-desc { color: var(--text-2); font-size: 13px; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-top: 2px; }
 .card-desc > span { display: block; }
-.card-cat { color: hsl(var(--primary)); font-size: 12px; margin-top: 2px; }
+/* 分类徽标指示：带有微彩色圆点，排版更具设计感 */
+.card-cat { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: hsl(var(--primary)); margin-top: 4px; }
+.cat-indicator { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex: none; }
 
-/* ===== 卡片打开触发区 =====
-   .card 为 <div> 容器（承载 cat-bar / 投票行），不可聚焦；
-   .card-open 承担「打开详情」的语义与键盘可达性，其内部纵向排布即原卡片内容。
-   button 的字体/边框/背景/颜色由 tokens.css 的全局 button 复位规则提供，此处只补布局。 */
+/* ===== 卡片打开触发区 ===== */
 .card-open { display: flex; flex-direction: column; gap: 8px; width: 100%; min-width: 0; padding: 0; text-align: left; color: inherit; }
 
-/* ===== 赞行（累加制 + 独立撤销）=====
-   语义：点击赞为累加（up + 1），可反复点击表达「它对我有多有用」；
-   up > 0 时出现独立「撤销」按钮把计数归零。踩已于v1.14.85 移除（负向反馈改由提Issue 承接）。
-   排版：与内容区以 1px 细线分隔（承袭页脚台账的细线语言），网格态居底、列表态居右。 */
-.card-vote { display: flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); }
+/* ===== 赞行（累加制 + 独立撤销）===== */
+.card-vote { display: flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
 /* 列表态：投票行移到卡片右侧，分隔线由横转竖 */
-.grid.list .card-vote { margin-top: 0; margin-left: auto; padding-top: 0; padding-left: 16px; border-top: 0; border-left: 1px solid var(--border); }
+.grid.list .card-vote { margin-top: 0; margin-left: auto; padding-top: 0; padding-left: 18px; border-top: 0; border-left: 1px solid var(--border); }
 
-/* 计数按钮：小药丸。描边常驻（非激活时透明底+浅描边），
-   使激活态只换色不换尺寸，卡片高度与内部布局不跳动。
-   无障碍：累加态无法用 aria-pressed 表达（pressed 为二值语义），改由 data-voted 供样式区分，
-   当前计数由 aria-label 播报。 */
+/* 计数按钮：精致胶囊与高可达性触控区 */
 .vote-btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 6px 12px; min-width: 44px; min-height: 44px; border-radius: 999px;
-  background: transparent; color: var(--text-2); border: 1px solid var(--border);
-  font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums;
-  transition: color .15s ease, background .15s ease, border-color .15s ease;
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 6px 14px; min-width: 44px; min-height: 40px; border-radius: 999px;
+  background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border);
+  font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums;
+  transition: color .15s ease, background .15s ease, border-color .15s ease, transform .1s ease;
 }
-.vote-btn:hover { color: var(--text); border-color: var(--text-3); }
+.vote-btn:hover { color: var(--text); border-color: var(--text-3); background: hsl(var(--secondary) / 0.8); }
+.vote-btn:active { transform: scale(0.96); }
 .vote-btn svg { flex: none; }
-/* 预留两位数字宽度，避免 0→1 时按钮宽度变化导致抖动 */
 .vote-count { min-width: 2ch; text-align: center; }
-/* 已投赞：主色实心（取代原 aria-pressed 选中态） */
-.vote-up[data-voted="true"] { color: hsl(var(--primary-foreground)); background: hsl(var(--primary)); border-color: hsl(var(--primary)); }
-/* 撤销：仅在有赞时出现，弱化为幽灵按钮，避免与主赞按钮争视觉权重 */
-.vote-undo { padding: 3px 7px; font-size: 12px; line-height: 1; }
-.vote-undo:hover { color: hsl(var(--destructive)); border-color: hsl(var(--destructive)); }
+.vote-up[data-voted="true"] { color: hsl(var(--primary-foreground)); background: hsl(var(--primary)); border-color: hsl(var(--primary)); box-shadow: 0 2px 6px hsl(var(--primary) / 0.3); }
+.vote-undo { padding: 4px 8px; font-size: 13px; line-height: 1; border-radius: 8px; }
+.vote-undo:hover { color: hsl(var(--destructive)); border-color: hsl(var(--destructive)); background: hsl(var(--destructive) / 0.08); }
 
-/* 紧凑密度（设置项切换）：缩小卡片内边距与色条外边距，缩短行高，提升单位屏信息量 */
-:root[data-density="compact"] .card { padding: 11px; gap: 6px; }
-:root[data-density="compact"] .card .cat-bar { margin: -11px -11px 0; }
-:root[data-density="compact"] .card .card-desc { font-size: 11px; line-height: 1.4; -webkit-line-clamp: 2; line-clamp: 2; }
-:root[data-density="compact"] .grid { gap: 10px; }
+/* 紧凑密度（设置项切换） */
+:root[data-density="compact"] .card { padding: 13px; gap: 7px; }
+:root[data-density="compact"] .card .cat-bar { margin: -13px -13px 2px; }
+:root[data-density="compact"] .card .card-desc { font-size: 12px; line-height: 1.45; -webkit-line-clamp: 2; line-clamp: 2; }
+:root[data-density="compact"] .grid { gap: 12px; }
 :root[data-density="compact"] .card-vote { padding-top: 8px; }
-:root[data-density="compact"] .vote-btn { padding: 2px 7px; font-size: 11px; }
+:root[data-density="compact"] .vote-btn { padding: 4px 10px; font-size: 11.5px; min-height: 36px; }
 
-/* UI 元素显隐（设置项切换）：关闭时按范围隐藏描述 / 分类标签 / 分类色条
-   列表态色条为绝对定位装饰条，关闭后一并隐藏 */
+/* UI 元素显隐（设置项切换） */
 :root[data-show-desc="off"] .card-desc { display: none; }
 :root[data-show-cat="off"] .card-cat { display: none; }
 :root[data-show-bar="off"] .grid:not(.list) .cat-bar { display: none; }
 :root[data-show-bar="off"] .grid.list .cat-bar { display: none; }
 
-/* 通用图标按钮（语言/主题/设置/弹窗关闭）：统一尺寸与垂直对齐，修复顶部栏按钮参差 */
-.icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; padding: 0; border-radius: 9px; color: var(--text-2); transition: background .15s, color .15s; line-height: 1; font-size: 14px; }
+/* 通用图标按钮 */
+.icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border-radius: 10px; color: var(--text-2); transition: background .15s, color .15s; line-height: 1; font-size: 14px; }
 .icon-btn:hover { background: hsl(var(--secondary)); color: var(--text); }
 .icon-btn:active { transform: translateY(0); }
 .icon-btn[aria-pressed="true"] { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
 
+/* 收藏按钮：右上角独立绝对定位，避免挤占标题区域 */
 .fav-btn {
+  position: absolute; top: 14px; right: 14px; z-index: 2;
   display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border-radius: 8px;
-  background: transparent; color: var(--text-2); border: 1px solid var(--border);
-  cursor: pointer; transition: color .15s, background .15s, border-color .15s; flex: none;
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border);
+  cursor: pointer; transition: color .15s, background .15s, border-color .15s, transform .1s; flex: none;
 }
-.fav-btn:hover { color: hsl(var(--primary)); border-color: hsl(var(--primary)); background: hsl(var(--secondary)); }
-.fav-btn.bookmarked { color: hsl(var(--primary)); background: hsl(var(--primary) / .12); border-color: hsl(var(--primary)); }
+.fav-btn:hover { color: hsl(var(--primary)); border-color: hsl(var(--primary)); background: hsl(var(--secondary)); transform: scale(1.08); }
+.fav-btn.bookmarked { color: hsl(var(--primary)); background: hsl(var(--primary) / .14); border-color: hsl(var(--primary)); }
+.fav-btn:active { transform: scale(0.95); }
+.grid.list .fav-btn { position: static; width: 36px; height: 36px; }
 
 /* 主题按钮图标：浅色模式显示月亮（可切到深色），深色模式显示太阳（可切到浅色） */
 [data-theme="light"] .theme-sun { display: none; }
@@ -578,21 +812,21 @@ html[data-lang="zh"] .en { display: none; }
 .icon-btn:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
 
-/* 视图切换（网格/列表）：图标按钮，active 态主色高亮 */
-.view-toggle { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
-.view-btn { width: 34px; height: 34px; border-radius: 7px; display: grid; place-items: center; color: var(--text-2); transition: background .15s, color .15s; }
-.view-btn:hover { color: var(--text); }
-.view-btn.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
-/* 排序下拉（v1.19.8）：与 view-toggle 同高，靠右侧；select 原生控件，统一边框/圆角/字号 */
+/* 视图切换（网格/列表）：现代分段图标按钮，active 态主色高亮 */
+.view-toggle { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); height: 38px; align-items: center; }
+.view-btn { width: 32px; height: 32px; border-radius: 7px; display: grid; place-items: center; color: var(--text-2); transition: background .15s ease, color .15s ease, transform .1s ease; }
+.view-btn:hover { color: var(--text); background: hsl(var(--card) / 0.5); }
+.view-btn.active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); box-shadow: 0 1px 4px hsl(var(--primary) / 0.3); }
+/* 排序下拉：与 view-toggle 同为 38px 高度，定制原生微质感 */
 .sort-wrap { display: inline-flex; align-items: center; }
-.sort-wrap select { height: 34px; padding: 0 28px 0 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); color: var(--text); font-size: 13px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+.sort-wrap select { height: 38px; padding: 0 32px 0 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); color: var(--text); font-size: 13.5px; font-weight: 500; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; transition: border-color .15s ease, box-shadow .15s ease; }
 .sort-wrap select:hover { border-color: hsl(var(--primary)); }
 .sort-wrap select:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 1px; }
 
 /* 弹窗操作按钮（GitHub / 复制 / 关闭） */
-.btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font-size: 14px; text-decoration: none; transition: all .15s ease; }
-.btn:hover { border-color: var(--primary); color: var(--primary); }
-.btn.primary { background: var(--primary); border-color: var(--primary); color: hsl(var(--primary-foreground)); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 16px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer; font-size: 13.5px; font-weight: 500; text-decoration: none; transition: all .15s ease; }
+.btn:hover { border-color: var(--primary); color: var(--primary); background: hsl(var(--secondary) / 0.8); }
+.btn.primary { background: var(--primary); border-color: var(--primary); color: hsl(var(--primary-foreground)); font-weight: 600; box-shadow: 0 2px 8px hsl(var(--primary) / 0.3); }
 .btn.primary:hover { background: var(--primary-strong); color: hsl(var(--primary-foreground)); }
 .btn-ghost { background: transparent; color: var(--text-2); }
 .btn-ghost:hover { border-color: var(--text-3); color: var(--text); }
@@ -631,76 +865,76 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
 .detail-close { width: 34px; height: 34px; flex: none; border-radius: 10px; border: 1px solid var(--border); background: hsl(var(--muted)); color: var(--text-2); font-size: 20px; line-height: 1; cursor: pointer; transition: background .15s, color .15s; }
 .detail-close:hover { background: hsl(var(--muted) / .7); color: var(--text); }
 .detail-head { display: flex; align-items: flex-start; gap: 12px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); position: relative; }
-.d-title { margin: 0; font-family: var(--font-display); font-weight: 700; line-height: 1.3; flex: 1; min-width: 0; font-size: 19px; }
-.d-title .zh { display: block; }
-.d-title .en { display: block; font-size: 12px; font-weight: 400; color: var(--text-2); margin-top: 3px; word-break: break-word; }
-.d-actions { display: flex; align-items: center; gap: 8px; flex: none; }
-.copy-tip { font-size: 12px; color: hsl(var(--primary)); opacity: 0; transform: translateY(-2px); transition: opacity .2s, transform .2s; }
+.d-title { margin: 0; font-family: var(--font-display); font-weight: 700; line-height: 1.35; flex: 1; min-width: 0; font-size: 21px; letter-spacing: -.01em; }
+.d-title .zh { display: block; color: var(--text); }
+.d-title .en { display: block; font-size: 13.5px; font-weight: 400; color: var(--text-2); margin-top: 4px; word-break: break-word; font-family: var(--font-sans); }
+.d-actions { display: flex; align-items: center; gap: 10px; flex: none; }
+.d-actions .fav-btn { position: static; width: 36px; height: 36px; }
+.copy-tip { font-size: 12px; font-weight: 500; color: hsl(var(--primary)); opacity: 0; transform: translateY(-2px); transition: opacity .2s, transform .2s; }
 .copy-tip.show { opacity: 1; transform: translateY(0); }
 
 /* 元信息区：2 列表格式（作者 / 协议 / 版本 / GitHub 目录） */
 .detail-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-bottom: 1px solid var(--border); }
-.meta-row { display: flex; flex-direction: column; gap: 3px; padding: 11px 22px; background: var(--surface); }
-.meta-k { font-size: 11.5px; color: var(--text-3); letter-spacing: .02em; }
-.meta-v { font-size: 13.5px; color: var(--text); font-weight: 500; word-break: break-word; overflow-wrap: anywhere; }
-.meta-v.link { color: hsl(var(--primary)); text-decoration: none; }
+.meta-row { display: flex; flex-direction: column; gap: 4px; padding: 13px 24px; background: var(--surface); }
+.meta-k { font-size: 11.5px; font-weight: 500; color: var(--text-3); letter-spacing: .03em; text-transform: uppercase; }
+.meta-v { font-size: 13.5px; color: var(--text); font-weight: 500; word-break: break-word; overflow-wrap: anywhere; line-height: 1.4; }
+.meta-v.link { color: hsl(var(--primary)); text-decoration: none; font-weight: 600; }
 .meta-v.link:hover { text-decoration: underline; }
 
 /* 详情派生指标：大小 / 文件数 / 热度 */
-.detail-metrics { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 22px; background: hsl(var(--muted)); border-bottom: 1px solid var(--border); }
-.metric { display: flex; flex-direction: column; gap: 4px; min-width: 92px; }
-.metric-k { font-size: 11px; color: var(--text-3); letter-spacing: .02em; }
-.metric-v { font-size: 14px; font-weight: 600; color: var(--text); }
-.metric-pop-wrap { min-width: 150px; }
-.metric-pop { display: flex; flex-direction: column; gap: 5px; }
-.heat-bars { display: flex; gap: 3px; }
-.heat-bars i { width: 16px; height: 6px; border-radius: 3px; background: var(--border); transition: background .15s; }
+.detail-metrics { display: flex; flex-wrap: wrap; gap: 16px; padding: 16px 24px; background: hsl(var(--muted) / 0.6); border-bottom: 1px solid var(--border); }
+.metric { display: flex; flex-direction: column; gap: 4px; min-width: 96px; }
+.metric-k { font-size: 11.5px; font-weight: 500; color: var(--text-3); letter-spacing: .03em; text-transform: uppercase; }
+.metric-v { font-size: 14.5px; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+.metric-pop-wrap { min-width: 160px; }
+.metric-pop { display: flex; flex-direction: column; gap: 6px; }
+.heat-bars { display: flex; gap: 4px; }
+.heat-bars i { width: 18px; height: 6px; border-radius: 3px; background: var(--border); transition: background .15s; }
 .heat-bars i.on { background: hsl(var(--primary)); }
-.pop-label { font-size: 11.5px; color: var(--text-3); }
+.pop-label { font-size: 12px; color: var(--text-3); }
 
 /* 整张详情卡由外层 .detail 统一滚动，body 不再单独出现滚动条（v1.19.30） */
-.detail-body { padding: 18px 22px 22px; overflow: visible; display: flex; flex-direction: column; gap: 16px; flex: none; }
-.d-desc { margin: 0; line-height: 1.75; color: var(--text); white-space: pre-line; }
-.d-tools h4, .d-related h4, .d-vote h4 { margin: 0 0 9px; font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: .02em; }
-.tool-chips { display: flex; flex-wrap: wrap; gap: 7px; }
-.tool-chip { font-family: var(--font-mono); font-size: 12px; padding: 3px 9px; border-radius: 7px; background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border: 1px solid var(--border); }
-.related-list { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-.related-card { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: hsl(var(--muted)); cursor: pointer; text-align: left; font: inherit; color: inherit; transition: border-color .15s, transform .15s; }
-.related-card:hover { border-color: hsl(var(--primary)); transform: translateY(-1px); }
-.rc-cat { font-size: 11px; color: hsl(var(--primary)); }
-.rc-name { font-size: 13.5px; font-weight: 600; }
+.detail-body { padding: 22px 24px 28px; overflow: visible; display: flex; flex-direction: column; gap: 20px; flex: none; }
+.d-desc { margin: 0; line-height: 1.8; color: var(--text); font-size: 14.5px; white-space: pre-line; }
+.d-tools h4, .d-related h4, .d-vote h4 { margin: 0 0 10px; font-size: 12.5px; font-weight: 600; color: var(--text-3); letter-spacing: .03em; text-transform: uppercase; }
+.tool-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tool-chip { font-family: var(--font-mono); font-size: 12px; padding: 4px 10px; border-radius: 8px; background: hsl(var(--secondary)); color: var(--text); border: 1px solid var(--border); }
+.related-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.related-card { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); cursor: pointer; text-align: left; font: inherit; color: inherit; transition: border-color .15s, transform .15s, box-shadow .15s; }
+.related-card:hover { border-color: hsl(var(--primary)); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.rc-cat { font-size: 11.5px; font-weight: 500; color: hsl(var(--primary)); }
+.rc-name { font-size: 14px; font-weight: 600; color: var(--text); }
 
-/* 弹窗投票区（v1.14.85）：赞 + 口径说明 + 导出/反馈入口。
-   放在描述之后、相关技能之前，表态应在读完内容之后。
-   .card-vote 在此复用卡片内的样式，但取消上边框（区块间距已由 .detail-body 的 gap 提供）。 */
-.d-vote { display: flex; flex-direction: column; gap: 9px; padding-top: 16px; border-top: 1px solid var(--border); }
+/* 弹窗投票区（v1.14.85） */
+.d-vote { display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 1px solid var(--border); }
 .d-vote-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
 .d-vote-head h4 { margin: 0; }
-.d-vote-total { font-size: 11.5px; color: hsl(var(--primary)); font-variant-numeric: tabular-nums; }
+.d-vote-total { font-size: 12px; color: hsl(var(--primary)); font-variant-numeric: tabular-nums; }
 .d-vote .card-vote { margin-top: 0; padding-top: 0; border-top: 0; }
-.d-vote-note { margin: 0; font-size: 12px; line-height: 1.6; color: var(--text-3); }
+.d-vote-note { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--text-3); }
 .d-vote-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .d-vote-actions .btn { padding: 7px 12px; font-size: 13px; }
 .d-vote-actions .btn[disabled] { opacity: .45; cursor: not-allowed; }
 .d-vote-actions .btn[disabled]:hover { border-color: var(--border); color: var(--text); }
 
-/* 安装命令区（v1.19.18）：复制即用 */
-.d-install { border-top: 1px solid var(--border); padding: 16px 22px; }
-.d-install h4 { margin: 0 0 9px; font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: .02em; }
+/* 安装命令区（v1.19.18）：终端风格代码框 */
+.d-install { border-top: 1px solid var(--border); padding: 18px 24px; background: hsl(var(--muted) / 0.3); }
+.d-install h4 { margin: 0 0 10px; font-size: 12.5px; font-weight: 600; color: var(--text-3); letter-spacing: .03em; text-transform: uppercase; }
 .cmd-row { display: flex; align-items: stretch; gap: 8px; }
-.cmd-text { flex: 1; min-width: 0; font-family: var(--font-mono); font-size: 12.5px; padding: 9px 11px; border-radius: 8px; background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
+.cmd-text { flex: 1; min-width: 0; font-family: var(--font-mono); font-size: 13px; padding: 10px 14px; border-radius: 10px; background: hsl(var(--secondary)); color: var(--text); border: 1px solid var(--border); overflow-x: auto; white-space: nowrap; line-height: 1.4; }
 .d-install .btn.ghost { flex: none; }
 .d-install .copy-tip { display: block; margin-top: 6px; }
 
-/* 分页器（v1.19.18）：每页 100 条，数字翻页 + 上下页 */
-.pager { display: none; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin: 28px auto 8px; padding: 0 16px; }
+/* 分页器：每页 36 条，高对比度数字翻页 */
+.pager { display: none; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin: 32px auto 12px; padding: 0 16px; }
 .pager.show { display: flex; }
-.pg-btn { min-width: 34px; height: 34px; padding: 0 9px; border-radius: 9px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; cursor: pointer; transition: border-color .15s, background .15s, color .15s; }
-.pg-btn:hover:not(:disabled) { border-color: hsl(var(--primary)); }
-.pg-btn.num.active { background: hsl(var(--primary)); border-color: hsl(var(--primary)); color: #fff; font-weight: 600; }
-.pg-btn:disabled { opacity: .4; cursor: not-allowed; }
-.pg-ellipsis { color: var(--text-3); padding: 0 2px; user-select: none; }
-.pg-info { font-size: 12.5px; color: var(--text-3); margin-left: 8px; white-space: nowrap; }
+.pg-btn { min-width: 38px; height: 38px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13.5px; font-weight: 500; cursor: pointer; transition: border-color .15s ease, background .15s ease, color .15s ease, transform .1s ease; box-shadow: var(--shadow-xs); }
+.pg-btn:hover:not(:disabled) { border-color: hsl(var(--primary)); background: var(--surface-2); transform: translateY(-1px); }
+.pg-btn:active:not(:disabled) { transform: scale(0.96); }
+.pg-btn.num.active { background: hsl(var(--primary)); border-color: hsl(var(--primary)); color: #fff; font-weight: 700; box-shadow: 0 2px 8px hsl(var(--primary) / 0.35); }
+.pg-btn:disabled { opacity: .35; cursor: not-allowed; box-shadow: none; }
+.pg-ellipsis { color: var(--text-3); padding: 0 4px; user-select: none; font-size: 14px; }
+.pg-info { font-size: 13px; font-weight: 500; color: var(--text-3); margin-left: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 /* prototype/src/styles/responsive.css v1.20.38 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则；页脚断点内聚于 layout.css） */
 
@@ -803,65 +1037,143 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
   </header>
 
   <section class="hero" id="hero" aria-labelledby="heroTitle">
-    <svg class="hero-net" id="heroNet" viewBox="0 0 800 240" preserveAspectRatio="xMidYMid slice" overflow="visible" aria-hidden="true">
-      <g id="netLines" stroke="hsl(var(--line))" stroke-width="1.4" opacity=".6"></g>
-      <!-- 方案 A：节点由 JS 按分类计数动态生成（半径随技能数变化），核心右移避免与左侧文字重叠 -->
-      <g id="netNodes" fill="hsl(var(--node))"></g>
-      <circle class="hub-glow" cx="600" cy="120" r="13" fill="hsl(var(--primary))" opacity="0" />
-      <circle class="hub-node hub-core" cx="600" cy="120" r="16" fill="hsl(var(--primary))" />
-    </svg>
-    <div class="hero-inner">
-      <span class="hero-eyebrow zh" data-i18n="hero.eyebrow">Agent 技能枢纽</span>
-      <span class="hero-eyebrow en" data-i18n="hero.eyebrow">Agent Skills Hub</span>
-      <h1 class="zh" id="heroTitle">零散的 agent 技能，<br><span class="accent">汇聚</span>成一处可检索的枢纽</h1>
-      <h1 class="en" id="heroTitleEn" aria-hidden="true">Scattered agent skills,<br> <span class="accent">unified</span> into one searchable hub</h1>
-      <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
-      <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
-      <ul class="hero-features" aria-label="Highlights">
-        <li class="zh">⚙️ 零维护清单 · 构建自动生成</li><li class="en">⚙️ Zero-maintenance, auto-generated</li>
-        <li class="zh">🌏 中文本地化 · 开箱即用</li><li class="en">🌏 Chinese-localized, ready to use</li>
-        <li class="zh">🚀 离线可用 · 无框架依赖</li><li class="en">🚀 Works offline, framework-free</li>
-      </ul>
-      <!-- 方案 B：随机骰子，把浏览变开盲盒 -->
-      <div class="hero-dice">
-        <button type="button" id="diceBtn" class="btn-dice" aria-label="随机抽一个技能">
-          <span class="dice-face" aria-hidden="true">🎲</span>
-          <span class="zh" data-i18n="dice.btn">今天学点什么</span>
-          <span class="en" data-i18n="dice.btn">Learn something</span>
-        </button>
-        <span class="dice-hint zh" data-i18n="dice.hint">不知道从哪开始？让骰子决定。</span>
-        <span class="dice-hint en" data-i18n="dice.hint">Not sure where to start? Let the dice decide.</span>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <span class="hero-eyebrow zh" data-i18n="hero.eyebrow">Agent 技能枢纽</span>
+        <span class="hero-eyebrow en" data-i18n="hero.eyebrow">Agent Skills Hub</span>
+        <h1 class="zh" id="heroTitle">零散的 agent 技能，<br><span class="accent">汇聚</span>成一处可检索的枢纽</h1>
+        <h1 class="en" id="heroTitleEn" aria-hidden="true">Scattered agent skills,<br> <span class="accent">unified</span> into one searchable hub</h1>
+        <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
+        <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
+        <ul class="hero-features" aria-label="Highlights">
+          <li class="zh"><span class="feat-icon">⚙️</span> 零维护清单 · 构建自动生成</li><li class="en"><span class="feat-icon">⚙️</span> Zero-maintenance, auto-generated</li>
+          <li class="zh"><span class="feat-icon">🌏</span> 中文本地化 · 开箱即用</li><li class="en"><span class="feat-icon">🌏</span> Chinese-localized, ready to use</li>
+          <li class="zh"><span class="feat-icon">🚀</span> 离线可用 · 纯原生高性能</li><li class="en"><span class="feat-icon">🚀</span> Works offline, framework-free</li>
+        </ul>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-visual-card">
+          <svg class="hero-net" id="heroNet" viewBox="0 0 500 240" preserveAspectRatio="xMidYMid slice" overflow="visible" aria-hidden="true">
+            <g id="netLines" stroke="hsl(var(--line))" stroke-width="1.4" opacity=".6"></g>
+            <g id="netNodes" fill="hsl(var(--node))"></g>
+            <circle class="hub-glow" cx="250" cy="110" r="13" fill="hsl(var(--primary))" opacity="0" />
+            <circle class="hub-node hub-core" cx="250" cy="110" r="16" fill="hsl(var(--primary))" />
+          </svg>
+          <div class="hero-dice-card">
+            <div class="dice-info">
+              <span class="dice-title zh">🎲 探索灵感盲盒</span>
+              <span class="dice-title en">🎲 Surprise Discovery</span>
+              <span class="dice-hint zh" data-i18n="dice.hint">不知道从哪开始？让骰子决定。</span>
+              <span class="dice-hint en" data-i18n="dice.hint">Not sure where to start? Let the dice decide.</span>
+            </div>
+            <button type="button" id="diceBtn" class="btn-dice" aria-label="随机抽一个技能">
+              <span class="dice-face" aria-hidden="true">🎲</span>
+              <span class="zh" data-i18n="dice.btn">今天学点什么</span>
+              <span class="en" data-i18n="dice.btn">Learn something</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- 探索与筛选控制台一体化 -->
   <div class="controls" id="searchControls">
     <div class="controls-inner" id="searchControlsInner">
-      <form class="search" id="searchBox" role="search" onsubmit="return false">
-        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
-        <label class="sr-only" for="searchInput">搜索技能 / Search skills</label>
-        <input id="searchInput" type="search" placeholder="搜索技能名称或描述…" />
-      </form>
-      <div class="view-toggle" id="viewToggle">
-        <button class="view-btn active" data-view="grid" title="网格">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
-        </button>
-        <button class="view-btn" data-view="list" title="列表">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg>
+      <div class="search-row">
+        <form class="search" id="searchBox" role="search" onsubmit="return false">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+          <label class="sr-only" for="searchInput">搜索技能 / Search skills</label>
+          <input id="searchInput" type="search" placeholder="搜索技能名称或描述… (按 / 聚焦)" />
+          <kbd class="search-kbd" title="按快捷键 / 聚焦搜索">/</kbd>
+        </form>
+
+        <!-- 快捷过滤锚点药丸 -->
+        <div class="quick-filters" id="quickFilters" role="toolbar" aria-label="Quick Filters">
+          <button type="button" class="qf-btn" id="qfPopular" aria-pressed="false" title="最多点赞技能">
+            <span>🔥</span> <span class="zh">最多赞</span><span class="en">Popular</span>
+          </button>
+          <button type="button" class="qf-btn" id="qfFavs" aria-pressed="false" title="仅查看我的收藏">
+            <span>⭐</span> <span class="zh">我的收藏</span><span class="en">Saved</span>
+          </button>
+        </div>
+
+        <div class="view-toggle" id="viewToggle">
+          <button class="view-btn active" data-view="grid" title="网格">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+          </button>
+          <button class="view-btn" data-view="list" title="列表">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg>
+          </button>
+        </div>
+
+        <label class="sort-wrap" id="sortWrap">
+          <span class="sr-only" id="sortLabel">排序 / Sort</span>
+          <select id="sortSelect" aria-labelledby="sortLabel">
+            <option value="name" data-i18n="sort.name">名称 A-Z</option>
+            <option value="name-desc" data-i18n="sort.nameDesc">名称 Z-A</option>
+            <option value="votes">按点赞数 ↓</option>
+            <option value="cat" data-i18n="sort.cat">按分类</option>
+            <option value="zh" data-i18n="sort.zh">按中文名</option>
+          </select>
+        </label>
+        <span class="result-count" id="resultCount" aria-live="polite"></span>
+      </div>
+
+      <!-- 激活态过滤标签条（带一键清除） -->
+      <div class="active-filter-bar" id="activeFilterBar" style="display: none;">
+        <span class="af-label zh">当前筛选：</span>
+        <span class="af-label en">Filters:</span>
+        <div class="af-tags" id="afTags"></div>
+        <button type="button" class="af-clear-btn" id="afClearAll">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          <span class="zh">清空全部</span><span class="en">Clear all</span>
         </button>
       </div>
-      <label class="sort-wrap" id="sortWrap">
-        <span class="sr-only" id="sortLabel">排序 / Sort</span>
-        <select id="sortSelect" aria-labelledby="sortLabel">
-          <option value="name" data-i18n="sort.name">名称 A-Z</option>
-          <option value="name-desc" data-i18n="sort.nameDesc">名称 Z-A</option>
-          <option value="cat" data-i18n="sort.cat">按分类</option>
-          <option value="zh" data-i18n="sort.zh">按中文名</option>
-        </select>
-      </label>
-      <span class="result-count" id="resultCount" aria-live="polite"></span>
     </div>
   </div>
+
+  <!-- 分类占比环形图区（分类导航上方） -->
+  <section class="cat-chart-section" id="catChartSection" aria-label="分类技能分布占比 / Category Distribution">
+    <div class="cat-chart-wrapper" id="catChartWrapper">
+      <div class="cat-chart-head">
+        <div class="cat-chart-title-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cat-chart-icon"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10h-10z"/></svg>
+          <h3 class="cat-chart-title">
+            <span class="zh" data-i18n="chart.title">分类技能占比分布</span>
+            <span class="en" data-i18n="chart.title">Category Distribution</span>
+          </h3>
+          <span class="cat-chart-hint">
+            <span class="zh" data-i18n="chart.hint">点击任意扇区或图例可快速筛选</span>
+            <span class="en" data-i18n="chart.hint">Click any slice or legend item to filter</span>
+          </span>
+        </div>
+        <button type="button" class="cat-chart-toggle" id="catChartToggle" aria-expanded="true" aria-controls="catChartBody" aria-label="收起或展开分类图表">
+          <span class="toggle-text zh">收起图表</span>
+          <span class="toggle-text en">Collapse</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="toggle-arrow"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </div>
+
+      <div class="cat-chart-body" id="catChartBody">
+        <div class="cat-donut-container" id="catDonutContainer">
+          <!-- 环形图 SVG 由 JavaScript 动态绘制（D3 规范极坐标几何计算） -->
+          <svg class="cat-donut-svg" id="catDonutSvg" viewBox="0 0 200 200" role="img" aria-label="各类别技能分布环形图">
+            <g id="catDonutSlices" transform="translate(100, 100)"></g>
+          </svg>
+          <div class="cat-donut-center" id="catDonutCenter" aria-hidden="true">
+            <div class="donut-center-num" id="donutCenterNum">171</div>
+            <div class="donut-center-label" id="donutCenterLabel">全部技能</div>
+          </div>
+        </div>
+
+        <div class="cat-legend-wrap" id="catLegendWrap" role="list" aria-label="技能类别分布列表">
+          <!-- 图例卡片项由 JS 动态生成，支持键盘 focus 与点击触发筛选 -->
+        </div>
+      </div>
+    </div>
+  </section>
 
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="filter-scroll" id="cats"></div></nav>
 
@@ -1032,6 +1344,10 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       "dice.btn": "今天学点什么",
       "dice.title": "为你抽中的技能",
       "dice.hint": "不知道从哪开始？让骰子决定。",
+      "filter.popular": "🔥 最多点赞",
+      "filter.favs": "⭐ 我的收藏",
+      "filter.all": "全部",
+      "filter.clearActive": "清除当前筛选",
       "sort.name": "名称 A-Z",
       "sort.nameDesc": "名称 Z-A",
       "sort.cat": "按分类",
@@ -1075,10 +1391,18 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
         "🚀 Agent Skills Hub：{n} 精选 Agent 技能，按分类浏览、搜索、看详情，提升你的 AI 编码效率。",
         "💡 想让你的 Coding Agent 更强？来 Agent Skills Hub 逛逛，{n} 技能即插即用，开源免费！"
       ],
+      "chart.title": "分类技能占比分布",
+      "chart.hint": "点击任意扇区或图例可快速筛选",
+      "chart.total": "个技能",
+      "chart.all": "全部",
       "footer.desc": "开源免费 · MIT 协议",
       "footer.star": "给仓库点个 Star"
     },
     en: {
+      "chart.title": "Category Distribution",
+      "chart.hint": "Click any slice or legend item to filter",
+      "chart.total": "skills",
+      "chart.all": "All",
       "brand.subtitle": "Curated agent skill library",
       "lang.toggle": "中 / EN",
       "theme.toggle": "主题 / Theme",
@@ -1119,6 +1443,10 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       "dice.btn": "Learn something",
       "dice.title": "Your skill draw",
       "dice.hint": "Not sure where to start? Let the dice decide.",
+      "filter.popular": "🔥 Most Upvoted",
+      "filter.favs": "⭐ Bookmarks",
+      "filter.all": "All",
+      "filter.clearActive": "Reset Filters",
       "sort.name": "Name A-Z",
       "sort.nameDesc": "Name Z-A",
       "sort.cat": "By category",
@@ -1369,7 +1697,8 @@ function syncFavUI(name) {
     btn.setAttribute("aria-label", (fav ? "取消收藏" : "收藏") + " " + name);
     btn.setAttribute("title", fav ? "取消收藏" : "收藏");
   });
-  document.getElementById("aria-feedback").textContent = (fav ? "已收藏 " : "已移除收藏 ") + name;
+  const feedbackEl = document.getElementById("aria-feedback");
+  if (feedbackEl) feedbackEl.textContent = (fav ? "已收藏 " : "已移除收藏 ") + name;
   if (state.favoritesOnly) {
     renderGrid();
   }
@@ -1460,19 +1789,121 @@ function renderCats(agg) {
   // "全部"chip 用中性 hue，置于分类项之前
   const allBtn = `<button class="chip chip-all${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`;
   const container = $("#cats");
-  if (!container) return;
-  container.innerHTML = allBtn + items.map((it) => {
-    const active = state.cats === it.key;
-    return `<button class="chip${active ? " active" : ""}" data-cat="${esc(it.key)}" style="--hue:${it.hue}" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
-  }).join("");
+  if (container) {
+    container.innerHTML = allBtn + items.map((it) => {
+      const active = state.cats === it.key;
+      return `<button class="chip${active ? " active" : ""}" data-cat="${esc(it.key)}" style="--hue:${it.hue}" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
+    }).join("");
+  }
+  // 联动渲染分类占比环形图
+  renderCategoryChart(items);
 }
 
-// 排序比较器：name（英文原名 A-Z）/ name-desc（Z-A）/ cat（按分类字典序）/ zh（按中文名）
+// 分类占比环形图（遵循 D3 极坐标圆弧投影规范构建轻量 SVG 环形图与图例）
+function renderCategoryChart(items) {
+  const slicesG = $("#catDonutSlices");
+  const legendWrap = $("#catLegendWrap");
+  const centerNum = $("#donutCenterNum");
+  const centerLabel = $("#donutCenterLabel");
+  if (!slicesG || !legendWrap) return;
+
+  const total = items.reduce((sum, it) => sum + it.count, 0);
+  if (centerNum) {
+    centerNum.textContent = String(total);
+  }
+  if (centerLabel) {
+    centerLabel.textContent = state.cats ? esc(state.cats) : (I18N.getLang() === "zh" ? "全部技能" : "Total Skills");
+  }
+
+  // 极坐标几何参数
+  const outerR = 92;
+  const innerR = 60;
+  const padAngle = 0.022; // 扇区弧度间距 (D3 padAngle)
+
+  let curAngle = -Math.PI / 2; // 起始角度：12 点钟方向
+  let slicePaths = [];
+  let legendHTML = [];
+
+  items.forEach((it) => {
+    const frac = total > 0 ? it.count / total : 0;
+    const sweep = frac * Math.PI * 2;
+    const startA = curAngle + padAngle / 2;
+    const endA = curAngle + sweep - padAngle / 2;
+    curAngle += sweep;
+
+    const isActive = state.cats === it.key;
+    const hasFilter = Boolean(state.cats);
+    const isDimmed = hasFilter && !isActive;
+
+    // 计算圆弧内外径端点 (D3 arc generator 规范)
+    let d = "";
+    if (endA > startA) {
+      const cos1 = Math.cos(startA), sin1 = Math.sin(startA);
+      const cos2 = Math.cos(endA), sin2 = Math.sin(endA);
+      const largeArc = (endA - startA) > Math.PI ? 1 : 0;
+
+      const p0x = (outerR * cos1).toFixed(2), p0y = (outerR * sin1).toFixed(2);
+      const p1x = (outerR * cos2).toFixed(2), p1y = (outerR * sin2).toFixed(2);
+      const p2x = (innerR * cos2).toFixed(2), p2y = (innerR * sin2).toFixed(2);
+      const p3x = (innerR * cos1).toFixed(2), p3y = (innerR * sin1).toFixed(2);
+
+      d = `M ${p0x} ${p0y} A ${outerR} ${outerR} 0 ${largeArc} 1 ${p1x} ${p1y} L ${p2x} ${p2y} A ${innerR} ${innerR} 0 ${largeArc} 0 ${p3x} ${p3y} Z`;
+    }
+
+    const pctText = (frac * 100).toFixed(1) + "%";
+    const titleText = `${it.zh} · ${it.count} 个 (${pctText})`;
+
+    if (d) {
+      slicePaths.push(`
+        <path class="cat-donut-slice${isActive ? " active" : ""}${isDimmed ? " dimmed" : ""}"
+              d="${d}"
+              fill="hsl(${it.hue} 75% 45%)"
+              data-cat="${esc(it.key)}"
+              tabindex="0"
+              role="button"
+              aria-label="${esc(titleText)}"
+              aria-pressed="${isActive ? "true" : "false"}">
+          <title>${esc(titleText)}</title>
+        </path>
+      `);
+    }
+
+    // 图例卡片
+    legendHTML.push(`
+      <div class="cat-legend-item${isActive ? " active" : ""}"
+           data-cat="${esc(it.key)}"
+           role="button"
+           tabindex="0"
+           aria-pressed="${isActive ? "true" : "false"}"
+           style="--hue:${it.hue}">
+        <span class="cat-legend-dot" style="background:hsl(${it.hue} 75% 45%)"></span>
+        <span class="cat-legend-name">
+          <span class="zh">${esc(it.zh)}</span>
+          <span class="en">${esc(it.en)}</span>
+        </span>
+        <span class="cat-legend-meta">
+          <span class="cat-legend-count">${it.count}</span>
+          <span class="cat-legend-pct">(${pctText})</span>
+        </span>
+      </div>
+    `);
+  });
+
+  slicesG.innerHTML = slicePaths.join("");
+  legendWrap.innerHTML = legendHTML.join("");
+}
+
+// 排序比较器：name / name-desc / votes（按点赞数降序）/ cat / zh
 function sortSkills(list) {
   const arr = list.slice();
   const cmp = {
     name: (a, b) => String(a.name).localeCompare(String(b.name)),
     "name-desc": (a, b) => String(b.name).localeCompare(String(a.name)),
+    votes: (a, b) => {
+      const va = (voteCounts(a.name) || {}).up || 0;
+      const vb = (voteCounts(b.name) || {}).up || 0;
+      return vb - va || String(a.name).localeCompare(String(b.name));
+    },
     cat: (a, b) => String(a.category).localeCompare(String(b.category), "zh") || String(a.name).localeCompare(String(b.name)),
     zh: (a, b) => String(a.zh || a.name).localeCompare(String(b.zh || b.name), "zh"),
   }[state.sort] || ((a, b) => String(a.name).localeCompare(String(b.name)));
@@ -1496,28 +1927,29 @@ function cardHTML(s) {
   const fav = isFavorite(s.name);
   return `<div class="card" id="skill-${skillSlug(s.name)}" tabindex="0" data-name="${esc(s.name)}" data-cat="${esc(s.category)}">
     <div class="cat-bar" style="--hue:${catHue(s.category)}" aria-hidden="true"></div>
+    <button type="button" id="fav-${skillSlug(s.name)}" class="fav-btn${fav ? " bookmarked" : ""}" data-fav-name="${esc(s.name)}" aria-label="${fav ? "取消收藏" : "收藏"} ${esc(s.name)} (按 F 键快速收藏)" title="${fav ? "取消收藏" : "收藏"} (按 F 键快速收藏)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="${fav ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </button>
     <div class="card-body">
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-        <button type="button" class="card-open" aria-label="${esc(label)}" style="flex: 1;">
-          <div class="title-row">
-            <div class="avatar sm" style="--hue:${catHue(s.category)}">${initials(s.name)}</div>
-            <div class="card-title">
-              <span class="zh">${esc(s.zh || s.name)}</span>
-              <span class="en">${esc(s.name)}</span>
-            </div>
+      <button type="button" class="card-open" aria-label="${esc(label)}">
+        <div class="title-row">
+          <div class="avatar sm" style="--hue:${catHue(s.category)}">${initials(s.name)}</div>
+          <div class="card-title">
+            <span class="zh">${esc(s.zh || s.name)}</span>
+            <span class="en">${esc(s.name)}</span>
           </div>
-          <div class="card-desc">
-            <span class="zh">${esc(descZh)}</span>
-            <span class="en">${esc(s.enDescription || "")}</span>
-          </div>
-          <div class="card-cat"><span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span></div>
-        </button>
-        <button type="button" id="fav-${skillSlug(s.name)}" class="fav-btn${fav ? " bookmarked" : ""}" data-fav-name="${esc(s.name)}" aria-label="${fav ? "取消收藏" : "收藏"} ${esc(s.name)} (按 F 键快速收藏)" title="${fav ? "取消收藏" : "收藏"} (按 F 键快速收藏)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="${fav ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-          </svg>
-        </button>
-      </div>
+        </div>
+        <div class="card-desc">
+          <span class="zh">${esc(descZh)}</span>
+          <span class="en">${esc(s.enDescription || "")}</span>
+        </div>
+        <div class="card-cat">
+          <span class="cat-indicator" style="background: hsl(${catHue(s.category)} 65% 48%)" aria-hidden="true"></span>
+          <span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span>
+        </div>
+      </button>
     </div>
     ${voteHTML(s.name)}
   </div>`;
@@ -1552,6 +1984,44 @@ function queryTerms(q) {
   return terms;
 }
 
+// 渲染当前激活的过滤项标签（关键词、分类、收藏、热榜）并提供一键移除
+function renderActiveFilterBar() {
+  const bar = $("#activeFilterBar");
+  const container = $("#afTags");
+  if (!bar || !container) return;
+  const tags = [];
+  if (state.query.trim()) {
+    tags.push(`<span class="af-tag"><span>关键词: "${esc(state.query.trim())}"</span><button type="button" class="af-tag-remove" data-clear="query" aria-label="移除搜索词">&times;</button></span>`);
+  }
+  if (state.cats) {
+    tags.push(`<span class="af-tag"><span>分类: ${esc(state.cats)}</span><button type="button" class="af-tag-remove" data-clear="cat" aria-label="移除分类">&times;</button></span>`);
+  }
+  if (state.favoritesOnly) {
+    tags.push(`<span class="af-tag"><span>⭐ 仅收藏</span><button type="button" class="af-tag-remove" data-clear="favs" aria-label="取消仅看收藏">&times;</button></span>`);
+  }
+  if (state.sort === "votes") {
+    tags.push(`<span class="af-tag"><span>🔥 最多赞</span><button type="button" class="af-tag-remove" data-clear="sort" aria-label="取消热度排序">&times;</button></span>`);
+  }
+  if (tags.length) {
+    container.innerHTML = tags.join("");
+    bar.style.display = "flex";
+  } else {
+    container.innerHTML = "";
+    bar.style.display = "none";
+  }
+  const qfFavs = $("#qfFavs");
+  if (qfFavs) {
+    qfFavs.classList.toggle("active", Boolean(state.favoritesOnly));
+    qfFavs.setAttribute("aria-pressed", String(state.favoritesOnly));
+  }
+  const qfPop = $("#qfPopular");
+  if (qfPop) {
+    const isPop = state.sort === "votes";
+    qfPop.classList.toggle("active", isPop);
+    qfPop.setAttribute("aria-pressed", String(isPop));
+  }
+}
+
 function renderGrid() {
   const q = state.query.trim();
   const terms = queryTerms(q);
@@ -1566,6 +2036,7 @@ function renderGrid() {
   list = sortSkills(list);
   const agg = aggregateFilters(); // 单次遍历聚合分类计数
   renderCats(agg);
+  renderActiveFilterBar(); // 同步活动筛选状态栏与标签
   // 分页：每页 PAGE_SIZE 条，page 为 0 基
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   if (state.page > totalPages - 1) state.page = totalPages - 1; // 筛选后页码越界回钳
@@ -2083,6 +2554,78 @@ function bind() {
       track("favorites_filter_toggle", { active: state.favoritesOnly });
     });
   }
+
+  // 快捷过滤药丸绑定：最多赞 & 我的收藏
+  on("#qfPopular", "click", () => {
+    state.sort = state.sort === "votes" ? "name" : "votes";
+    state.page = 0;
+    renderGrid();
+    track("quick_filter_popular", { active: state.sort === "votes" });
+  });
+
+  on("#qfFavs", "click", () => {
+    state.favoritesOnly = !state.favoritesOnly;
+    state.page = 0;
+    if (favToggleBtn) {
+      favToggleBtn.classList.toggle("active", state.favoritesOnly);
+      favToggleBtn.setAttribute("aria-pressed", String(state.favoritesOnly));
+    }
+    renderGrid();
+    track("quick_filter_favorites", { active: state.favoritesOnly });
+  });
+
+  // 激活标签条单个移除与全部清除
+  on("#afTags", "click", (e) => {
+    const btn = e.target.closest(".af-tag-remove");
+    if (!btn) return;
+    const type = btn.dataset.clear;
+    if (type === "query") {
+      state.query = "";
+      const si = $("#searchInput");
+      if (si) si.value = "";
+    } else if (type === "cat") {
+      state.cats = "";
+      updateHeroNet();
+    } else if (type === "favs") {
+      state.favoritesOnly = false;
+      if (favToggleBtn) {
+        favToggleBtn.classList.remove("active");
+        favToggleBtn.setAttribute("aria-pressed", "false");
+      }
+    } else if (type === "sort") {
+      state.sort = "name";
+    }
+    state.page = 0;
+    renderGrid();
+  });
+
+  on("#afClearAll", "click", () => {
+    state.query = "";
+    state.cats = "";
+    state.favoritesOnly = false;
+    state.sort = "name";
+    state.page = 0;
+    const si = $("#searchInput");
+    if (si) si.value = "";
+    if (favToggleBtn) {
+      favToggleBtn.classList.remove("active");
+      favToggleBtn.setAttribute("aria-pressed", "false");
+    }
+    updateHeroNet();
+    renderGrid();
+  });
+
+  // 全局快捷键 '/' 聚焦搜索输入框
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && document.activeElement && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) {
+      e.preventDefault();
+      const si = $("#searchInput");
+      if (si) {
+        si.focus();
+        si.select();
+      }
+    }
+  });
   // 视图切换
   $$(".view-btn").forEach((b) => {
     b.addEventListener("click", () => {
@@ -2106,6 +2649,74 @@ function bind() {
     updateHeroNet();
     renderGrid();
   });
+
+  // 分类环形图点击与键盘交互（扇区与图例均可触发）
+  const triggerCatFilter = (val) => {
+    state.cats = !val || state.cats === val ? "" : val;
+    track("filter_category", { category: state.cats, source: "donut_chart" });
+    state.page = 0;
+    renderCats(aggregateFilters());
+    updateHeroNet();
+    renderGrid();
+  };
+
+  on("#catDonutSlices", "click", (e) => {
+    const slice = e.target.closest(".cat-donut-slice");
+    if (!slice) return;
+    triggerCatFilter(slice.dataset.cat || "");
+  });
+
+  on("#catDonutSlices", "keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      const slice = e.target.closest(".cat-donut-slice");
+      if (slice) {
+        e.preventDefault();
+        triggerCatFilter(slice.dataset.cat || "");
+      }
+    }
+  });
+
+  on("#catLegendWrap", "click", (e) => {
+    const item = e.target.closest(".cat-legend-item");
+    if (!item) return;
+    triggerCatFilter(item.dataset.cat || "");
+  });
+
+  on("#catLegendWrap", "keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      const item = e.target.closest(".cat-legend-item");
+      if (item) {
+        e.preventDefault();
+        triggerCatFilter(item.dataset.cat || "");
+      }
+    }
+  });
+
+  // 分类图表展开/收起切换
+  const chartWrapper = $("#catChartWrapper");
+  const chartToggle = $("#catChartToggle");
+  const LS_CHART_COLLAPSED = "ash-chart-collapsed";
+  if (chartWrapper && chartToggle) {
+    if (loadPref(LS_CHART_COLLAPSED, "false") === "true") {
+      chartWrapper.classList.add("collapsed");
+      chartToggle.setAttribute("aria-expanded", "false");
+      const zhSpan = chartToggle.querySelector(".toggle-text.zh");
+      const enSpan = chartToggle.querySelector(".toggle-text.en");
+      if (zhSpan) zhSpan.textContent = "展开图表";
+      if (enSpan) enSpan.textContent = "Expand";
+    }
+    chartToggle.addEventListener("click", () => {
+      const isCollapsed = chartWrapper.classList.toggle("collapsed");
+      chartToggle.setAttribute("aria-expanded", String(!isCollapsed));
+      savePref(LS_CHART_COLLAPSED, String(isCollapsed));
+      const zhSpan = chartToggle.querySelector(".toggle-text.zh");
+      const enSpan = chartToggle.querySelector(".toggle-text.en");
+      if (zhSpan) zhSpan.textContent = isCollapsed ? "展开图表" : "收起图表";
+      if (enSpan) enSpan.textContent = isCollapsed ? "Expand" : "Collapse";
+      track("toggle_chart", { collapsed: isCollapsed });
+    });
+  }
+
   // 卡片点击打开详情（事件委托）
   // .card 为容器、.card-open 为触发按钮；鼠标点击卡片任意处与键盘 Enter/Space 均冒泡至 #grid 统一处理
   // 投票行整体豁免：点击赞/踩只切换计数，不打开详情
@@ -2211,7 +2822,7 @@ function renderHeroNodes() {
   const cats = SKILLS_DATA.categories;
   const vals = cats.map((c) => counts.get(c) || 0);
   const min = Math.min(...vals), max = Math.max(...vals);
-  const cx = 600, cy = 120; // 核心坐标（右移，避开左侧文字）
+  const cx = 250, cy = 110; // 核心坐标（居中于 500x240 viewBox）
   const n = cats.length;
   g.innerHTML = "";
   // 动态生成核心→节点连线（随随机分布变化，替代 index.html 静态 line）
@@ -2223,13 +2834,12 @@ function renderHeroNodes() {
       ln.setAttribute("class", "net-line");
       ln.setAttribute("x1", cx); ln.setAttribute("y1", cy);
       ln.setAttribute("stroke", "hsl(var(--line))");
-      ln.setAttribute("stroke-width", "2.4");
+      ln.setAttribute("stroke-width", "2.0");
       lineG.appendChild(ln);
     });
   }
-  // 确定性布局：按分类序号均匀环绕核心排布 + 基于分类名的稳定抖动，
-  // 刷新与 init/兜底 rAF 两次渲染位置一致，避免随机跳变（C7）
-  const ringR = 92; // 环绕半径（viewBox 空间），留出核心区
+  // 确定性布局：按分类序号均匀环绕核心排布 + 基于分类名的稳定抖动
+  const ringR = 76; // 环绕半径（viewBox 空间），留出核心区与外围间距
   cats.forEach((c, idx) => {
     const h = catHash(c);
     const ang = (idx / n) * Math.PI * 2 - Math.PI / 2 + (((h % 11) - 5) * 0.025);
@@ -2732,7 +3342,8 @@ function syncVoteUI(name) {
     if (c.up > 0 && !undo) row.insertAdjacentHTML("beforeend", undoButtonHTML(name));
     else if (c.up === 0 && undo) undo.remove();
   });
-  document.getElementById("aria-feedback").textContent = name + " 投票已更新，当前票数 " + c.up;
+  const feedbackEl = document.getElementById("aria-feedback");
+  if (feedbackEl) feedbackEl.textContent = name + " 投票已更新，当前票数 " + c.up;
 }
 
 // 事件绑定：委托到 document，覆盖后续动态插入的卡片与弹窗内的投票行
