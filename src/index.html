@@ -667,8 +667,8 @@ html[data-lang="zh"] .en { display: none; }
 .chip-all.active:hover { color: hsl(var(--primary-foreground)); background: var(--primary-strong); }
 
 /* 技能卡片：结构对齐（cat-bar + card-open + 独立右上角 fav-btn + 赞行） */
-.card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 18px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform .18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .18s cubic-bezier(0.16, 1, 0.3, 1), border-color .18s ease; }
-.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: hsl(var(--primary) / .3); }
+.card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 18px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1); border-color: hsl(var(--primary) / .3); }
 /* 方案 A：节点 hover 时对应分类卡片脉冲高亮 */
 .card.pulse { animation: cardPulse 1s ease-in-out infinite; box-shadow: 0 0 0 2px hsl(var(--hue, 152) 65% 50% / .6), var(--shadow-pop); }
 @keyframes cardPulse { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
@@ -700,7 +700,7 @@ html[data-lang="zh"] .en { display: none; }
 .card-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex: 1; }
 /* 分类色条：--hue 由 catHue(category) 派生（与 chip 同分类同色），统一高度为 4px 更加优雅克制 */
 .card .cat-bar { height: 4px; border-radius: 999px; background: hsl(var(--hue, 152) 55% 48%); margin: -18px -18px 4px; transition: filter .2s ease, box-shadow .2s ease; }
-.card:hover .cat-bar { filter: saturate(1.15) brightness(1.05); box-shadow: 0 1px 8px hsl(var(--hue, 152) 55% 50% / .45); }
+.card:hover .cat-bar { filter: saturate(1.15) brightness(1.2); box-shadow: 0 1px 8px hsl(var(--hue, 152) 55% 50% / .45); }
 /* 头像按分类 hue 渐变，字重强化，尺寸与圆角精确呼应 */
 .avatar { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, hsl(var(--hue, 152) 68% 46%), hsl(var(--hue, 152) 65% 38%)); color: #fff; display: grid; place-items: center; font-weight: 700; box-shadow: 0 2px 8px hsl(var(--hue, 152) 60% 40% / .3); }
 .avatar.sm { width: 32px; height: 32px; font-size: 13px; flex: none; }
