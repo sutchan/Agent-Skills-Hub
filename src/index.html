@@ -520,24 +520,47 @@ html[data-lang="zh"] .en { display: none; }
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 90px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  transition: background .2s ease, transform .15s ease, box-shadow .2s ease;
+  user-select: none;
+  z-index: 5;
+}
+.cat-donut-center:hover {
+  background: hsl(var(--secondary) / .6);
+  transform: translate(-50%, -50%) scale(1.04);
+}
+.cat-donut-center:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px hsl(var(--primary) / .5);
+}
+.cat-donut-center.has-active {
+  background: color-mix(in srgb, hsl(var(--primary)) 8%, var(--surface));
+  border: 1px dashed color-mix(in srgb, hsl(var(--primary)) 35%, transparent);
+}
+.cat-donut-center.has-active:hover {
+  background: color-mix(in srgb, hsl(var(--primary)) 16%, var(--surface));
+  border-color: hsl(var(--primary));
 }
 .donut-center-num {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
   color: var(--text);
   font-family: var(--font-mono);
+  transition: color .2s ease;
 }
 .donut-center-label {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-2);
   margin-top: 2px;
   white-space: nowrap;
@@ -545,14 +568,22 @@ html[data-lang="zh"] .en { display: none; }
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.donut-center-hint {
+  font-size: 9.5px;
+  font-weight: 500;
+  color: hsl(var(--primary));
+  opacity: .9;
+  margin-top: 2px;
+  line-height: 1;
+}
 
-/* 图例网格区 */
+/* 图例数据占比明细区（与环形图呼应，展现各分类真实占比，去除冗余按钮感） */
 .cat-legend-wrap {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
   gap: 8px 12px;
-  max-height: 170px;
+  max-height: 180px;
   overflow-y: auto;
   padding-right: 4px;
 }
@@ -569,30 +600,58 @@ html[data-lang="zh"] .en { display: none; }
   gap: 8px;
   padding: 6px 10px;
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
   background: var(--surface-2);
   cursor: pointer;
   text-align: left;
   transition: all .15s ease;
   user-select: none;
-  font-size: 12.5px;
+  font-size: 12px;
 }
 .cat-legend-item:hover {
-  background: hsl(var(--secondary) / .9);
-  border-color: var(--border);
+  background: hsl(var(--secondary) / .95);
+  border-color: color-mix(in srgb, hsl(var(--hue) 78% 44%) 45%, var(--border));
   transform: translateY(-1px);
+}
+.cat-legend-item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px hsl(var(--primary) / .5);
+}
+.cat-legend-item.dimmed {
+  opacity: 0.45;
+  filter: grayscale(20%);
+}
+.cat-legend-item.dimmed:hover {
+  opacity: 0.9;
+  filter: none;
 }
 .cat-legend-item.active {
   background: color-mix(in srgb, hsl(var(--hue) 78% 44%) 16%, var(--surface));
   border-color: hsl(var(--hue) 78% 44%);
-  box-shadow: 0 1px 6px hsl(var(--hue) 78% 44% / .2);
+  box-shadow: 0 1px 6px hsl(var(--hue) 78% 44% / .22);
+  opacity: 1;
+  filter: none;
 }
 .cat-legend-dot {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 3px;
   flex-shrink: 0;
   box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.cat-legend-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cat-legend-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
 }
 .cat-legend-name {
   flex: 1;
@@ -606,19 +665,31 @@ html[data-lang="zh"] .en { display: none; }
 .cat-legend-meta {
   display: flex;
   align-items: baseline;
-  gap: 4px;
+  gap: 3px;
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
   font-family: var(--font-mono);
 }
 .cat-legend-count {
   font-weight: 700;
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--text);
 }
 .cat-legend-pct {
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--text-2);
+}
+.cat-legend-bar-bg {
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--border) 60%, transparent);
+  overflow: hidden;
+}
+.cat-legend-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width .3s ease;
 }
 
 @media (max-width: 768px) {
@@ -639,6 +710,7 @@ html[data-lang="zh"] .en { display: none; }
   font-size: 13px; font-weight: 500; cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease, transform .15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .15s ease;
 }
 .chip:hover { border-color: var(--text-3); color: var(--text); background: hsl(var(--secondary) / 0.8); transform: translateY(-1px); }
+.chip:focus-visible { outline: none; box-shadow: 0 0 0 4px hsl(var(--primary) / 0.5); }
 .chip:active { transform: scale(0.97); }
 /* 选中态：以高饱和彩色实心底与轻柔彩色阴影强化，层级鲜明 */
 .chip.active {
@@ -668,7 +740,7 @@ html[data-lang="zh"] .en { display: none; }
 
 /* 技能卡片：结构对齐（cat-bar + card-open + 独立右上角 fav-btn + 赞行） */
 .card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 18px; width: 100%; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: inherit; cursor: pointer; overflow: hidden; box-shadow: var(--shadow-card); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-.card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1); border-color: hsl(var(--primary) / .3); }
+.card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05); border-color: hsl(var(--primary) / .3); }
 /* 方案 A：节点 hover 时对应分类卡片脉冲高亮 */
 .card.pulse { animation: cardPulse 1s ease-in-out infinite; box-shadow: 0 0 0 2px hsl(var(--hue, 152) 65% 50% / .6), var(--shadow-pop); }
 @keyframes cardPulse { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
@@ -1162,9 +1234,10 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
           <svg class="cat-donut-svg" id="catDonutSvg" viewBox="0 0 200 200" role="img" aria-label="各类别技能分布环形图">
             <g id="catDonutSlices" transform="translate(100, 100)"></g>
           </svg>
-          <div class="cat-donut-center" id="catDonutCenter" aria-hidden="true">
+          <div class="cat-donut-center" id="catDonutCenter" role="button" tabindex="0" aria-label="分类概览与重置">
             <div class="donut-center-num" id="donutCenterNum">171</div>
             <div class="donut-center-label" id="donutCenterLabel">全部技能</div>
+            <div class="donut-center-hint" id="donutCenterHint">点击分类筛选</div>
           </div>
         </div>
 
@@ -1787,12 +1860,13 @@ function renderCats(agg) {
   const allActive = !state.cats;
   const items = buildFilterItems(agg).catItems;
   // "全部"chip 用中性 hue，置于分类项之前
-  const allBtn = `<button class="chip chip-all${allActive ? " active" : ""}" data-cat="" style="--hue:152" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`;
+  const allBtn = `<button class="chip chip-all${allActive ? " active" : ""}" id="catChip-all" data-cat="" style="--hue:152" tabindex="0" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`;
   const container = $("#cats");
   if (container) {
     container.innerHTML = allBtn + items.map((it) => {
       const active = state.cats === it.key;
-      return `<button class="chip${active ? " active" : ""}" data-cat="${esc(it.key)}" style="--hue:${it.hue}" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
+      const safeKey = it.key.replace(/[^a-zA-Z0-9\u4e00-\u9fa5_-]/g, "");
+      return `<button class="chip${active ? " active" : ""}" id="catChip-${safeKey}" data-cat="${esc(it.key)}" style="--hue:${it.hue}" tabindex="0" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
     }).join("");
   }
   // 联动渲染分类占比环形图
@@ -1805,14 +1879,42 @@ function renderCategoryChart(items) {
   const legendWrap = $("#catLegendWrap");
   const centerNum = $("#donutCenterNum");
   const centerLabel = $("#donutCenterLabel");
+  const centerHint = $("#donutCenterHint");
+  const centerBox = $("#catDonutCenter");
   if (!slicesG || !legendWrap) return;
 
   const total = items.reduce((sum, it) => sum + it.count, 0);
+  const activeItem = state.cats ? items.find((it) => it.key === state.cats) : null;
+  const isZh = I18N.getLang() === "zh";
+
   if (centerNum) {
-    centerNum.textContent = String(total);
+    centerNum.textContent = activeItem ? String(activeItem.count) : String(total);
   }
   if (centerLabel) {
-    centerLabel.textContent = state.cats ? esc(state.cats) : (I18N.getLang() === "zh" ? "全部技能" : "Total Skills");
+    if (activeItem) {
+      centerLabel.textContent = isZh ? activeItem.zh : activeItem.en;
+    } else {
+      centerLabel.textContent = isZh ? "全部技能" : "Total Skills";
+    }
+  }
+  if (centerHint) {
+    if (activeItem && total > 0) {
+      const activePct = ((activeItem.count / total) * 100).toFixed(1) + "%";
+      centerHint.textContent = `${activePct} · ${isZh ? "点击重置" : "Reset"}`;
+    } else {
+      centerHint.textContent = isZh ? "点击分类筛选" : "Click to filter";
+    }
+  }
+  if (centerBox) {
+    centerBox.classList.toggle("has-active", Boolean(activeItem));
+    if (activeItem) {
+      const activePct = total > 0 ? ((activeItem.count / total) * 100).toFixed(1) + "%" : "0%";
+      centerBox.setAttribute("title", isZh ? `当前筛选：${activeItem.zh} (${activeItem.count} 个 · ${activePct})，点击重置为全部` : `Filtered: ${activeItem.en} (${activeItem.count} · ${activePct}), click to reset`);
+      centerBox.setAttribute("aria-label", isZh ? `${activeItem.zh} (${activeItem.count}个 · ${activePct})，点击重置为全部` : `${activeItem.en} (${activeItem.count} · ${activePct}), click to reset`);
+    } else {
+      centerBox.setAttribute("title", isZh ? `共 ${total} 个技能，点击扇区或图例进行分类筛选` : `${total} skills total, click slice or legend to filter`);
+      centerBox.setAttribute("aria-label", isZh ? `全部技能共 ${total} 个` : `Total skills: ${total}`);
+    }
   }
 
   // 极坐标几何参数
@@ -1834,6 +1936,7 @@ function renderCategoryChart(items) {
     const isActive = state.cats === it.key;
     const hasFilter = Boolean(state.cats);
     const isDimmed = hasFilter && !isActive;
+    const safeKey = it.key.replace(/[^a-zA-Z0-9\u4e00-\u9fa5_-]/g, "");
 
     // 计算圆弧内外径端点 (D3 arc generator 规范)
     let d = "";
@@ -1851,11 +1954,12 @@ function renderCategoryChart(items) {
     }
 
     const pctText = (frac * 100).toFixed(1) + "%";
-    const titleText = `${it.zh} · ${it.count} 个 (${pctText})`;
+    const titleText = `${it.zh} (${it.en}) · ${it.count} 个 (${pctText})`;
 
     if (d) {
       slicePaths.push(`
         <path class="cat-donut-slice${isActive ? " active" : ""}${isDimmed ? " dimmed" : ""}"
+              id="catSlice-${safeKey}"
               d="${d}"
               fill="hsl(${it.hue} 75% 45%)"
               data-cat="${esc(it.key)}"
@@ -1868,23 +1972,31 @@ function renderCategoryChart(items) {
       `);
     }
 
-    // 图例卡片
+    // 图例数据明细行（带微型占比进度条，强化数据可视化属性）
     legendHTML.push(`
-      <div class="cat-legend-item${isActive ? " active" : ""}"
+      <div class="cat-legend-item${isActive ? " active" : ""}${isDimmed ? " dimmed" : ""}"
+           id="catLegend-${safeKey}"
            data-cat="${esc(it.key)}"
            role="button"
            tabindex="0"
            aria-pressed="${isActive ? "true" : "false"}"
            style="--hue:${it.hue}">
         <span class="cat-legend-dot" style="background:hsl(${it.hue} 75% 45%)"></span>
-        <span class="cat-legend-name">
-          <span class="zh">${esc(it.zh)}</span>
-          <span class="en">${esc(it.en)}</span>
-        </span>
-        <span class="cat-legend-meta">
-          <span class="cat-legend-count">${it.count}</span>
-          <span class="cat-legend-pct">(${pctText})</span>
-        </span>
+        <div class="cat-legend-content">
+          <div class="cat-legend-top">
+            <span class="cat-legend-name">
+              <span class="zh">${esc(it.zh)}</span>
+              <span class="en">${esc(it.en)}</span>
+            </span>
+            <span class="cat-legend-meta">
+              <span class="cat-legend-count">${it.count}</span>
+              <span class="cat-legend-pct">${pctText}</span>
+            </span>
+          </div>
+          <div class="cat-legend-bar-bg" aria-hidden="true">
+            <div class="cat-legend-bar-fill" style="width:${pctText}; background:hsl(${it.hue} 75% 45%)"></div>
+          </div>
+        </div>
       </div>
     `);
   });
@@ -2574,6 +2686,26 @@ function bind() {
     track("quick_filter_favorites", { active: state.favoritesOnly });
   });
 
+  // 统一分类筛选中枢：消除重复调用与状态不一致，自动平滑联动各处组件
+  function setCategory(val, source = "unknown") {
+    // 单选逻辑：点「全部」、清空或再次点击当前项即取消筛选回到全部
+    const nextCat = !val || state.cats === val ? "" : val;
+    state.cats = nextCat;
+    state.page = 0; // 筛选变化统一回到第 1 页
+    track("filter_category", { category: state.cats, source });
+    updateHeroNet();
+    renderGrid(); // renderGrid 内部单次调用 renderCats(agg)，消除重复渲染与重排
+
+    // 联动滚动：无论从环形图扇区、图例明细还是节点网触发，分类 chip 自动平滑居中显示
+    requestAnimationFrame(() => {
+      const activeChip = $("#cats .chip.active") || $("#cats #catChip-all");
+      if (activeChip && typeof activeChip.scrollIntoView === "function") {
+        activeChip.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }
+    });
+  }
+  window.setCategory = setCategory;
+
   // 激活标签条单个移除与全部清除
   on("#afTags", "click", (e) => {
     const btn = e.target.closest(".af-tag-remove");
@@ -2584,8 +2716,8 @@ function bind() {
       const si = $("#searchInput");
       if (si) si.value = "";
     } else if (type === "cat") {
-      state.cats = "";
-      updateHeroNet();
+      setCategory("", "af_tag_clear");
+      return;
     } else if (type === "favs") {
       state.favoritesOnly = false;
       if (favToggleBtn) {
@@ -2601,7 +2733,6 @@ function bind() {
 
   on("#afClearAll", "click", () => {
     state.query = "";
-    state.cats = "";
     state.favoritesOnly = false;
     state.sort = "name";
     state.page = 0;
@@ -2611,8 +2742,7 @@ function bind() {
       favToggleBtn.classList.remove("active");
       favToggleBtn.setAttribute("aria-pressed", "false");
     }
-    updateHeroNet();
-    renderGrid();
+    setCategory("", "af_clear_all");
   });
 
   // 全局快捷键 '/' 聚焦搜索输入框
@@ -2636,34 +2766,18 @@ function bind() {
       renderGrid();
     });
   });
-  // 分类导航（事件委托，单选）
+  // 分类导航 Chip 点击
   on("#cats", "click", (e) => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
-    const val = chip.dataset.cat || "";
-    // 单选：点「全部」或再次点击当前项即取消筛选（回到全部）
-    state.cats = !val || state.cats === val ? "" : val;
-    track("filter_category", { category: state.cats });
-    state.page = 0; // 筛选变化回到第一页
-    renderCats(aggregateFilters()); // 重渲分类 chips，刷新 active 态（彩色选中背景依赖此）
-    updateHeroNet();
-    renderGrid();
+    setCategory(chip.dataset.cat || "", "chip");
   });
 
-  // 分类环形图点击与键盘交互（扇区与图例均可触发）
-  const triggerCatFilter = (val) => {
-    state.cats = !val || state.cats === val ? "" : val;
-    track("filter_category", { category: state.cats, source: "donut_chart" });
-    state.page = 0;
-    renderCats(aggregateFilters());
-    updateHeroNet();
-    renderGrid();
-  };
-
+  // 分类环形图扇区点击与键盘交互
   on("#catDonutSlices", "click", (e) => {
     const slice = e.target.closest(".cat-donut-slice");
     if (!slice) return;
-    triggerCatFilter(slice.dataset.cat || "");
+    setCategory(slice.dataset.cat || "", "donut_slice");
   });
 
   on("#catDonutSlices", "keydown", (e) => {
@@ -2671,15 +2785,28 @@ function bind() {
       const slice = e.target.closest(".cat-donut-slice");
       if (slice) {
         e.preventDefault();
-        triggerCatFilter(slice.dataset.cat || "");
+        setCategory(slice.dataset.cat || "", "donut_slice");
       }
     }
   });
 
+  // 分类环形图中心徽章（点击/按键重置为全部）
+  on("#catDonutCenter", "click", () => {
+    setCategory("", "donut_center_reset");
+  });
+
+  on("#catDonutCenter", "keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setCategory("", "donut_center_reset");
+    }
+  });
+
+  // 分类占比数据明细项点击与键盘交互
   on("#catLegendWrap", "click", (e) => {
     const item = e.target.closest(".cat-legend-item");
     if (!item) return;
-    triggerCatFilter(item.dataset.cat || "");
+    setCategory(item.dataset.cat || "", "donut_legend");
   });
 
   on("#catLegendWrap", "keydown", (e) => {
@@ -2687,7 +2814,7 @@ function bind() {
       const item = e.target.closest(".cat-legend-item");
       if (item) {
         e.preventDefault();
-        triggerCatFilter(item.dataset.cat || "");
+        setCategory(item.dataset.cat || "", "donut_legend");
       }
     }
   });
@@ -2737,7 +2864,15 @@ function bind() {
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") { state.query = ""; state.cats = ""; state.sort = "name"; state.page = 0; const si = $("#searchInput"); if (si) si.value = ""; const ss = $("#sortSelect"); if (ss) ss.value = "name"; updateHeroNet(); renderGrid(); }
+    if (e.target && e.target.id === "clearFilters") {
+      state.query = "";
+      state.favoritesOnly = false;
+      state.sort = "name";
+      state.page = 0;
+      const si = $("#searchInput"); if (si) si.value = "";
+      const ss = $("#sortSelect"); if (ss) ss.value = "name";
+      setCategory("", "clear_filters_btn");
+    }
   });
   // 弹窗遮罩点击关闭
   on("#overlay", "click", (e) => { if (e.target.id === "overlay") closeDetail(); });
@@ -2898,12 +3033,14 @@ function highlightCatCards(cat, on) {
 
 // 方案 A：节点 click → 切换该分类筛选（单选；再次点击同一节点即取消）
 function toggleHeroCat(cat) {
-  state.cats = state.cats === cat ? "" : cat;
-  state.page = 0;
-  renderCats(aggregateFilters());
-  updateHeroNet();
-  renderGrid();
-  track("hero_node_filter", { cat, active: state.cats === cat });
+  if (typeof setCategory === "function") {
+    setCategory(cat, "hero_node");
+  } else {
+    state.cats = state.cats === cat ? "" : cat;
+    state.page = 0;
+    updateHeroNet();
+    renderGrid();
+  }
 }
 
 // 方案 B：随机抽一个技能（翻牌动画开盲盒）

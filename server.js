@@ -18,8 +18,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/data', express.static(path.join(__dirname, 'data')));
 app.use('/skills', express.static(path.join(__dirname, 'skills')));
 
-// Edge KV Store simulation (Tencent Cloud EdgeOne Edge KV)
+// Edge KV Store simulation (Tencent Cloud EdgeOne Edge KV) with Atomic Write & Whitelist
 const STORE_FILE = path.join(__dirname, 'data', 'kv-store.json');
+const SKILLS_FILE = path.join(__dirname, 'data', 'skills-data.json');
+
+let validSkillNames = new Set();
+try {
+  if (fs.existsSync(SKILLS_FILE)) {
+    const skillsData = JSON.parse(fs.readFileSync(SKILLS_FILE, 'utf-8'));
+    if (Array.isArray(skillsData.skills)) {
+      skillsData.skills.forEach(s => {
+        if (s.name) validSkillNames.add(s.name);
+      });
+    }
+  }
+} catch (e) {
+  console.error('Failed to load valid skill names whitelist:', e);
+}
 
 function loadKvStore() {
   try {
@@ -30,15 +45,47 @@ function loadKvStore() {
   return { votes: {}, favorites: {} };
 }
 
-function saveKvStore(store) {
-  try {
-    const dataDir = path.dirname(STORE_FILE);
-    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
-    fs.writeFileSync(STORE_FILE, JSON.stringify(store, null, 2), 'utf-8');
-  } catch (e) {}
+let saveTimer = null;
+function saveKvStoreAtomic(store) {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      const dataDir = path.dirname(STORE_FILE);
+      if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+      const tmpFile = STORE_FILE + '.tmp';
+      fs.writeFileSync(tmpFile, JSON.stringify(store, null, 2), 'utf-8');
+      fs.renameSync(tmpFile, STORE_FILE);
+    } catch (e) {
+      console.error('Failed to atomic save kv-store:', e);
+    }
+  }, 100);
 }
 
 let kvStore = loadKvStore();
+
+// Simple in-memory rate limiting map
+const rateLimitMap = new Map();
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const windowMs = 60000; // 1 minute
+  const maxRequests = 120; // 120 requests per minute per IP
+  let record = rateLimitMap.get(ip);
+  if (!record || now - record.start > windowMs) {
+    record = { start: now, count: 1 };
+    rateLimitMap.set(ip, record);
+    return true;
+  }
+  record.count++;
+  return record.count <= maxRequests;
+}
+
+app.use((req, res, next) => {
+  const ip = req.ip || req.socket.remoteAddress || 'unknown';
+  if (!checkRateLimit(ip)) {
+    return res.status(429).json({ error: 'Too many requests, please slow down.' });
+  }
+  next();
+});
 
 app.get('/api/votes', (req, res) => {
   res.json(kvStore.votes || {});
@@ -46,17 +93,23 @@ app.get('/api/votes', (req, res) => {
 
 app.post('/api/votes', (req, res) => {
   const { name, action } = req.body;
-  if (!name) return res.status(400).json({ error: 'Missing skill name' });
+  if (!name || typeof name !== 'string') {
+    return res.status(400).json({ error: 'Missing or invalid skill name' });
+  }
+  if (validSkillNames.size > 0 && !validSkillNames.has(name)) {
+    return res.status(400).json({ error: 'Skill name not found in whitelist' });
+  }
+
   if (!kvStore.votes) kvStore.votes = {};
   if (!kvStore.votes[name]) kvStore.votes[name] = { up: 0 };
   
   if (action === 'undo') {
     delete kvStore.votes[name];
-    saveKvStore(kvStore);
+    saveKvStoreAtomic(kvStore);
     return res.json({ name, up: 0 });
   } else {
     kvStore.votes[name].up += 1;
-    saveKvStore(kvStore);
+    saveKvStoreAtomic(kvStore);
     return res.json({ name, ...kvStore.votes[name] });
   }
 });
@@ -67,7 +120,13 @@ app.get('/api/favorites', (req, res) => {
 
 app.post('/api/favorites', (req, res) => {
   const { name, action } = req.body;
-  if (!name) return res.status(400).json({ error: 'Missing skill name' });
+  if (!name || typeof name !== 'string') {
+    return res.status(400).json({ error: 'Missing or invalid skill name' });
+  }
+  if (validSkillNames.size > 0 && !validSkillNames.has(name)) {
+    return res.status(400).json({ error: 'Skill name not found in whitelist' });
+  }
+
   if (!kvStore.favorites) kvStore.favorites = {};
   let isFav;
   if (action === 'add') {
@@ -82,7 +141,7 @@ app.post('/api/favorites', (req, res) => {
   } else {
     delete kvStore.favorites[name];
   }
-  saveKvStore(kvStore);
+  saveKvStoreAtomic(kvStore);
   res.json({ name, bookmarked: isFav, favorites: Object.keys(kvStore.favorites) });
 });
 
