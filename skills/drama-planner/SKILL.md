@@ -6,14 +6,7 @@ en_description: |-
 zh_displayName: 短剧策划方案
 category: 品牌与设计
 en_category: Brand & Design
-version: 2.1.0
-last_updated: 2026-01-11
 license: MIT
-compatibility: Claude Code 1.0+
-maintainer: 宫凡
-allowed-tools: 
-model: opus
-changelog: 
 ---
 # 竖屏短剧策划师
 
@@ -98,22 +91,7 @@ changelog:
 - 确保所有策划内容符合竖屏短剧的特点和用户需求。
 - 商业化卡点设计需兼顾用户体验和盈利目标。
 
-## 示例
+## 参考资料
 
-请参见 `{baseDir}/references/examples.md` 获取详细策划示例。该文件包含了多种类型（如都市逆袭、甜宠爱情、悬疑推理等）的完整策划方案示例和分析说明。
-
-## 详细文档
-
-参见 `{baseDir}/references/` 目录获取更多文档:
-- `guide.md` - 完整策划指南和理论体系
-- `examples.md` - 更多场景策划示例
-
----
-
-## 版本历史
-
-| 版本 | 日期 | 变更 |
-|------|------|------|
-| 2.1.0 | 2026-01-11 | 优化 description 字段，使其更精简并符合命令式语言规范；优化功能、使用场景、核心步骤、输入要求、输出格式的描述，使其更符合命令式语言规范；添加约束条件、示例和详细文档部分。 |
-| 2.0.0 | 2026-01-11 | 按官方规范重构，添加 references 结构 |
-| 1.0.0 | 2026-01-10 | 初始版本 |
+- [examples.md](references/examples.md)
+- [guide.md](references/guide.md)

@@ -2,7 +2,7 @@
 name: limrun-xcode
 description: 在远程 Xcode 上构建 iOS/Apple 应用（用 `lim xcode build` 替代本地 xcodebuild）、用 `lim xcode run` 运行项目命令，或用 `lim xcode test` 运行其 XCTest 测试套件——可从任意环境（Linux、Windows、macOS、VM、容器）发起。
 en_description: |-
-  Build iOS / Apple apps on remote Xcode with `lim xcode build`, run with `lim xcode run`, or test with `lim xcode test` — from any environment (Linux, Windows, macOS, VM, container).
+  "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, run project commands with `lim xcode run`, or run its XCTest suites with `lim xcode test`, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects (an `.xcodeproj` / `.xcworkspace`, an XcodeGen `project.yml` with a gitignored project, React Native / Expo native build) when the user wants to build, compile, run code generation or Make targets, test, inspect build logs, reload, produce a preview build, or ship a signed device IPA. To run, tap, screenshot, or otherwise interact with the result on a simulator, use limrun-ios-simulator. For Bazel workspaces, use limrun-xcode-bazel."
 zh_displayName: Limrun 远程 Xcode 构建
 category: 移动端开发
 en_category: Mobile Dev
@@ -20,7 +20,7 @@ and verified on a Limrun simulator.
 
 For driving the app once it's running (tap, type, element tree, screenshot,
 record), use the **`limrun-ios-simulator`** skill. For Bazel workspaces, use
-**`limrun-xcode-bazel`** instead of this skill.
+**`limrun-bazel`** instead of this skill.
 
 ## Auth and CLI
 
@@ -175,6 +175,20 @@ save key if snapshots were already enabled; it does not restore or enable them.
 
 See the [disk snapshot guide](https://docs.limrun.com/docs/ios/snapshots) for skipped
 saves, cold builds, and SDK usage.
+
+## Private dependency credentials
+
+Copy existing credential files with `--additional-file`, also supported by `sync`:
+
+```bash
+lim xcode build . \
+  --additional-file "$HOME/.npmrc=~/.npmrc" \
+  --additional-file "$HOME/.netrc=~/.netrc"
+```
+
+Remote `~/` targets the sandbox home; other destinations are workspace-relative.
+Repeat the flags on later syncs to retain the files. Pass `--env` for environment
+variables referenced by the configuration.
 
 ## Developer tool versions
 
@@ -506,6 +520,11 @@ have automatic distribution enabled (create-only setting) and the compliance
 key above must be set; then no post-upload steps exist at all.
 
 ## Preview builds
+
+For repeatable previews on pull requests, prefer the packaged
+[iOS preview action](https://github.com/limrun-inc/ios-preview-action).
+It builds and uploads the app, updates the PR preview comment, and cleans up the
+builder; see the repository for inputs and workflow examples.
 
 Only create a reusable preview asset when the user asks for a preview build or
 when you're opening a PR. Build and upload:

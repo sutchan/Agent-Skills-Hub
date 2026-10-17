@@ -9,6 +9,7 @@
 - 对 162 个 SKILL.md 全量审计（契约 6 字段 / name=目录名 / 重名 / 14 类合法 / 中文描述 / 中文显示名 / 正文完整度 / CRLF）：**159 完全合规**。
 - **P0 修复 `stripe-best-practices`**：会话间隙被外部并发改回 CRLF stub（缺 en_description/zh_displayName/category/en_category、英文 description）。以 `git show HEAD:data/skills-data.json`（后端与平台）回填契约字段并规范为 LF；data/inline 中该技能本已完整（展示未受影响），此次使磁盘权威源恢复一致。
 - **误报澄清**：`grill-me`/`grill-with-docs` 正文仅 1 行，实为**有意的薄转发壳**（分别转发至 `grilling` / `grilling`+`domain-modeling`），frontmatter 完整合规，非缺陷。
+- 重建 `tools/ensure-lf.mjs` 修复 pre-commit hook：外部重构删除 `tools/` 后，`.git/hooks/pre-commit` 仍引用已不存在的 `tools/ensure-lf.mjs`，导致所有提交被中止；按 `.gitignore` 的 `!tools/**/*.mjs` 意图重建（提交前把暂存文本源文件 CRLF→LF）。
 - 复核：磁盘=data=内联=162、0 退化、0 CRLF、0 差集。bump 1.14.90→1.14.91。
 
 ### fix: 对齐应用与原型视觉规范（令牌纪律修复）

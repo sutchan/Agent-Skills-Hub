@@ -6,7 +6,7 @@ en_description: |-
 zh_displayName: 对话交接
 category: 工程实践与质量
 en_category: Engineering Practice & Quality
-argument-hint: "What will the next session be used for?"
+argument-hint: "\"What will the next session be used for?\""
 disable-model-invocation: true
 ---
 Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS (`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows) - not the current workspace.

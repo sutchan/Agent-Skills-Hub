@@ -2,7 +2,7 @@
 name: limrun-ios-simulator
 description: 驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、读取应用日志与模拟器系统日志、截图、录屏、将应用连接到本机服务、模拟摄像头、设置剪贴板，并运行定时动作链。
 en_description: |-
-  Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, screenshot, record video, connect to local services, mock camera, set clipboard, and run timed action chains.
+  "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, read app logs and simulator syslog, screenshot, record video, connect the app to local services or a private tunnel, play a video file as the camera, send all traffic through the user's proxy and trust its CA, set the clipboard, read and write user defaults, post notifications, and run timed action chains. Use after a build (from any builder) when the user wants to see, test, or interact with their app on a simulator, or says 'show me a screenshot', 'tap', 'run the UI test', 'record a video', 'read the logs', 'connect localhost', 'reach my local server from the simulator', 'route all traffic through my proxy', 'trust my CA', 'mock the camera', 'paste into the app', 'change the language', 'simulate Face ID', or 'launch on simulator'. To build the app first, use limrun-xcode-bazel (Bazel workspaces) or limrun-xcode (xcodebuild projects)."
 zh_displayName: Limrun iOS 模拟器
 category: 移动端开发
 en_category: Mobile Dev
@@ -14,7 +14,7 @@ effort: high
 Interact with an app running on a Limrun cloud iOS simulator, from any
 environment (Linux, Windows, macOS, VM, container). This skill is build-agnostic:
 it assumes the app was already built and installed by a build skill
-(`limrun-xcode-bazel` for Bazel, `limrun-xcode` for xcodebuild). Keep build
+(`limrun-bazel` for Bazel, `limrun-xcode` for xcodebuild). Keep build
 concerns in those skills; this one is about driving the running simulator.
 
 Never use local Xcode, local simulators, or local macOS tools.
@@ -211,6 +211,73 @@ CA, so **apps with certificate pinning fail through inspected selectors**:
 leave the pinned host out of the selectors or pass `--no-inspect` to keep TLS
 end to end (no summaries, HAR, or persistence).
 
+## Reaching services in a private network through a private tunnel
+
+An organization can run a private tunnel: a connector inside its network,
+created by an admin with `lim tunnel create` or in the console (Network) and
+run with `lim tunnel run`, that serves every instance naming it. When the user names one, pass it at
+create time instead of starting a tunnel yourself:
+
+```bash
+lim ios create --tunnel <tunnel-name>
+```
+
+The app reaches the tunnel's selectors, such as `localhost:3000` or
+`*.internal.example`, at those addresses. They resolve on the connector's
+machine, not on yours. The tunnel takes the instance's one destination
+tunnel, so do not start or stop `lim ios tunnel` on it.
+
+Creation checks the tunnel and fails when it is not usable:
+
+- `tunnel <name> does not exist`: the name is wrong or the tunnel was not
+  created. Ask the user for the right name.
+- `tunnel <name> is offline`: no connector is running. Ask the user to
+  start it.
+- `did not attach within 30s`: the connector cannot attach the instance.
+  Ask the user to check the connector's output.
+
+Retrying the create in a loop does not help in any of these cases.
+
+The tunnel's token belongs on the connector's machine. Never ask the user to
+paste it into the conversation.
+
+## Send all device traffic through a proxy
+
+Tunnels carry only declared destinations; there is no catch-all selector. When
+the user wants all traffic, Safari included, to leave through their proxy (for
+example a recording proxy), point the simulator's system proxy at a proxy the
+tunnel reaches. Tunnel inspection passes requests meant for the proxy through as
+sent.
+
+```bash
+lim ios tunnel --selector localhost:3128 --detach --id <ios-instance-id>
+lim ios proxy set localhost:3128 --id <ios-instance-id>
+# later, before stopping the tunnel:
+lim ios proxy clear --id <ios-instance-id>
+```
+
+With a private tunnel whose selector is the proxy, only `lim ios proxy set` is
+needed. A proxy elsewhere in the user's network works the same way:
+`--selector proxy.example.internal` and `lim ios proxy set
+proxy.example.internal:3128`. Requests to `localhost` stay direct. New
+connections use the proxy at once; apps keep connections they opened before
+until relaunched. `lim ios proxy clear` restores the previous settings.
+
+## Trust a CA certificate
+
+Add a PEM CA certificate to the simulator's trusted roots, for example the CA
+of the user's recording proxy, so the proxy can read HTTPS traffic:
+
+```bash
+lim ios ca add ./proxy-ca.pem --id <ios-instance-id>
+```
+
+Safari and apps trust it on their next connection, with no restart, for the
+life of the instance. Only one CA certificate per file; leaf certificates are
+rejected. Apps that pin certificates, and the simulator's Apple services,
+still reject it. To look at the app's traffic without a proxy of the user's
+own, use tunnel inspection (above) instead.
+
 ## Launching the app
 
 The build skills reinstall and relaunch the app after every successful build,
@@ -220,10 +287,16 @@ fresh attach to an old build, or after a terminate), launch it by bundle ID:
 ```bash
 lim ios launch-app <bundle-id>                            # foregrounds it if already running
 lim ios launch-app <bundle-id> --mode RelaunchIfRunning   # restart for a clean state
+lim ios launch-app <bundle-id> --env API_URL=https://api.example.com --env FEATURE_FLAG=1
 lim ios terminate-app <bundle-id>                         # stop it, e.g. to reset app state
 ```
 
 If you don't know the bundle ID, run `lim ios list-apps`.
+
+`--env KEY=VALUE` is repeatable and restarts the app so the variables take effect.
+An explicit `--mode ForegroundIfRunning` with variables is rejected. Use `KEY=`
+for an empty value; the last occurrence of a key wins. Managed Detox launches
+can combine `--runtime detox` with `--env`.
 
 `launch-app` streams the app's logs and returns when the app exits or the
 command is interrupted. Pass `--detach` to launch and return immediately.
@@ -353,7 +426,11 @@ Screenshot takes a **positional path** (not `-o`):
 ```bash
 lim ios screenshot screenshot.png
 lim ios screenshot screenshot.png --id <ios-instance-id>
+lim ios screenshot app-store.png --format png --size full --id <ios-instance-id>
 ```
+
+Use `--format png --size full` for a full-resolution PNG without alpha, including screenshots intended for store uploads. Combine it with `--display inner` or `--display outer` on Duo. The SDK equivalent is `client.screenshot({ format: 'png', size: 'full' })`; it returns base64 PNG data and pixel dimensions. `--format` accepts `jpeg` or `png` and defaults to `jpeg`. `--size` accepts `scaled` or `full` and defaults to `scaled`. Choose them independently. `scaled` uses point dimensions; `full` preserves native pixel resolution. Tap coordinates remain in points, so use `tapWithScreenSize` for coordinates measured in a native screenshot.
+
 
 Use the element tree for functional assertions (element existence, labels, state
 changes) and screenshots only for visual properties. For anything involving
@@ -472,11 +549,25 @@ echo "https://console.limrun.com/preview?asset=${ASSET_NAME}&platform=ios"
 ```
 
 Once the command finishes, you can give the following URL to the user to
-click to see a simulator where this bundle is pre-installed.
+click to open a simulator stream while the console installs this bundle.
 
 ```
 https://console.limrun.com/preview?asset=${ASSET_NAME}&platform=ios
 ```
+
+For nonsecret iOS app configuration, append repeatable URL-encoded `env=KEY=VALUE`
+parameters, for example `&env=FEATURE_FLAG%3D1&env=API_URL%3Dhttps%3A%2F%2Fapi.example.com`.
+Use `URLSearchParams.append("env", "KEY=VALUE")` when constructing links. The app
+receives these variables on its first launch. Values are visible in the link
+and browser history.
+
+Add `openUrl` to open a URL or app deep link after launch, for example
+`&openUrl=myapp%3A%2F%2Fcheckout`. Use `URLSearchParams.set("openUrl", url)` to
+encode the full URL and its query string. This works with or without `env`;
+the stream stays visible while the app installs, launches, and opens the URL.
+An `Installing <asset name>` overlay shows installation progress and disappears
+when the preview is ready.
+
 
 ## Cleanup
 
@@ -506,4 +597,4 @@ lim ios delete
 - **Bundle ID discovery.** If you don't know the bundle ID, run
   `lim ios list-apps` after a successful install.
 - **Build errors are the build skill's job.** If the app isn't installing, the
-  failure is upstream; go back to `limrun-xcode-bazel` / `limrun-xcode`.
+  failure is upstream; go back to `limrun-bazel` / `limrun-xcode`.

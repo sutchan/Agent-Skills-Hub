@@ -6,7 +6,7 @@ en_description: |-
 zh_displayName: WordPress 沙箱蓝图
 category: WordPress 与 CMS
 en_category: WordPress & CMS
-compatibility: "WordPress 7.0+, PHP 7.4.0+. Optionally Playground CLI or a browser"
+compatibility: "\"WordPress 7.0+, PHP 7.4.0+. Optionally Playground CLI or a browser\""
 ---
 # WordPress Playground Blueprints
 

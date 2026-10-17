@@ -2,7 +2,7 @@
 name: agent-development
 description: 构建与开发 AI 智能体的方法与最佳实践
 en_description: |-
-  Build and develop AI agents with patterns and best practices. Use when the user asks to create an agent, add an agent, write a subagent, agent frontmatter, agent examples, agent tools, or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices.
+  This skill should be used when the user asks to "create an agent", "add an agent", "write a subagent", "agent frontmatter", "when to use description", "agent examples", "agent tools", "agent colors", "autonomous agent", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.
 zh_displayName: 智能体开发
 category: AI 与智能体
 en_category: AI & Agents

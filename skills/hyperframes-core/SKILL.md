@@ -2,7 +2,7 @@
 name: hyperframes-core
 description: HyperFrames 合成契约构建可渲染项目
 en_description: |-
-  The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class=\"clip\"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Also covers Tailwind projects and the STORYBOARD.md / SCRIPT.md plan formats. Read before writing composition HTML.
+  The HyperFrames composition contract — build one renderable project. Use for composition structure, the `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, deterministic-render rules, and validation. Read before writing composition HTML.
 zh_displayName: HyperFrames 合成核心
 category: 音视频与多媒体
 en_category: Media & Multimedia
@@ -91,6 +91,9 @@ Surfaced here; full rationale in the linked reference. Do not violate:
 - Match existing composition IDs and timeline keys.
 - Adding a clip: set its `data-start`/`data-duration` intentionally against the clips around it. `data-track-index` is a Studio display lane, not a timing constraint, so it does not need to be free.
 - A clip that ends past the root `data-duration` is cut off: extend the root `data-duration` to the clip's end in the same edit (`lint` warns `clip_ends_past_root_duration`).
+- A clip nested inside another timed element counts its `data-start` from the composition, not from that
+  element, and shows only while that element shows. `timeline` lists it under its parent and warns
+  `never visible` when the windows miss (`lint` reports `nested_clip_never_visible`).
 - `data-hidden` on any composition element hides it in BOTH preview and render, overriding its time window; it is non-destructive/reversible and toggled by Studio's timeline eye icon.
 - Adding a sub-composition: verify its internal `data-composition-id` before wiring the host.
 

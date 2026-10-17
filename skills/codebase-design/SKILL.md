@@ -2,7 +2,7 @@
 name: codebase-design
 description: 用于设计或改进深层模块设计的共享词汇与方法，帮助构建高内聚、可维护的代码结构。
 en_description: |-
-  Shared vocabulary for designing deep modules. Use when the user wants to design or improve a codebase's module structure.
+  Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.
 zh_displayName: 代码库设计
 category: 工程实践与质量
 en_category: Engineering Practice & Quality

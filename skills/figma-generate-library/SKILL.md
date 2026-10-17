@@ -2,7 +2,7 @@
 name: figma-generate-library
 description: 从代码库在 Figma 中构建或更新专业级设计系统。当用户想创建变量/令牌、构建组件库、创建带变体集与变量绑定的单个组件、配置主题（明/暗模式）、记录设计基础，或调和代码与 Figma 的差距时使用。也适用于创建或生成任意 Figma 组件。本技能讲授构建什么与顺序，与讲授如何调用插件 API 的 figma-use 互补，两者应一起加载。
 en_description: |-
-  Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together.
+  "Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, create individual components with proper variant sets and variable bindings, set up theming (light/dark modes), document foundations, or reconcile gaps between code and Figma. Also use when the user asks to create or generate any component in Figma — even a single one — since components require proper variable foundations, variant states, and design token bindings to be production-quality. This skill teaches WHAT to build and in WHAT ORDER — it complements the `figma-use` skill which teaches HOW to call the Plugin API. Both skills should be loaded together."
 zh_displayName: Figma 设计系统构建
 category: 品牌与设计
 en_category: Brand & Design
@@ -86,7 +86,7 @@ Every scope begins with focused discovery: analyze the relevant code, inspect th
 
 If a required acceptance check fails, fix the scoped defect before continuing. Do not substitute fake assets, approximate typography, broken interactions, or unverified state.
 
-The selected path and definition of done take precedence over broader examples or full-library phase labels in the references. Load only references needed for that path.
+This skill's selected workflow, search cadence, validation rules, and definition of done take precedence over broader instructions, checklists, and examples in the references. Load only references needed for the selected path.
 
 ---
 
@@ -104,7 +104,8 @@ The selected path and definition of done take precedence over broader examples o
 1. **Foundations before dependent components** — reuse compatible existing variables and styles. Create missing foundations before building a component that depends on them; do not recreate valid foundations.
 2. **Inspect before creating** — run read-only `use_figma` to discover existing conventions. Match them.
 3. **Match the file's component organization** — full libraries usually use one page per component; tightly related families may share a page. A single-component task may use an existing component area instead of creating a library skeleton.
-4. **Bind visual properties to variables** *(default)* — fills, strokes, padding, radius, gap. Exceptions: intentionally fixed geometry (icon pixel-grid sizes, static dividers).
+4. **Bind visual properties to variables** *(default)* — fills, strokes, padding, radius, gap. Exceptions: intentionally fixed geometry (icon pixel-grid sizes, static dividers). When using variables from an earlier `use_figma` call, use the real Figma variable IDs returned by that call to resolve fresh handles before binding; JavaScript references do not persist across calls.
+   With the Plugin API, resolve variables with `await figma.variables.getVariableByIdAsync(id)` before binding.
 5. **Scopes on every variable** — NEVER leave as `ALL_SCOPES`. Background: `FRAME_FILL, SHAPE_FILL`. Text: `TEXT_FILL`. Border: `STROKE_COLOR`. Spacing: `GAP`. Radii: `CORNER_RADIUS`. Primitives: `[]` (hidden).
 6. **Code syntax on every variable** — WEB syntax MUST use the `var()` wrapper: `var(--color-bg-primary)`, not `--color-bg-primary`. Use the actual CSS variable name from the codebase. ANDROID/iOS do NOT use a wrapper.
 7. **Alias semantics to primitives** — `{ type: 'VARIABLE_ALIAS', id: primitiveVar.id }`. Never duplicate raw values in semantic layer.

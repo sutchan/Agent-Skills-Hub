@@ -2,7 +2,7 @@
 name: dart-build-cli-app
 description: 命令行工具的入口结构、退出码与跨平台脚本编写规范。
 en_description: |-
-  Entrypoint structure, exit codes, cross-platform scripts. Use when building command line utilities, scripts, or applications.
+  Architectural patterns, entrypoint structure, exit codes, stream routing, and subprocess spawning for Dart command-line interface (CLI) applications. Use when building CLI tools, console utilities, scripts, argument parsing with `package:args` (ArgParser or CommandRunner), handling exit codes, configuring executables in pubspec.yaml, spawning Dart subprocesses, or compiling native CLI binaries. Don't use for Flutter UI widgets, web applications, or standalone HTTP backend servers.
 zh_displayName: Dart CLI 应用构建
 category: 移动端开发
 en_category: Mobile Dev

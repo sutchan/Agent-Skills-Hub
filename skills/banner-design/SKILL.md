@@ -2,11 +2,11 @@
 name: banner-design
 description: 为社媒、广告与网页设计横幅素材
 en_description: |-
-  Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with AI-generated visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage. Uses ui-ux-pro-max, frontend-design, ai-artist, ai-multimodal skills.
+  "Design banners for social media, ads, website heroes, creative assets, and print. Multiple art direction options with optional generated or supplied visuals. Actions: design, create, generate banner. Platforms: Facebook, Twitter/X, LinkedIn, YouTube, Instagram, Google Display, website hero, print. Styles: minimalist, gradient, bold typography, photo-based, illustrated, geometric, retro, glassmorphism, 3D, neon, duotone, editorial, collage."
 zh_displayName: 横幅广告设计
 category: 品牌与设计
 en_category: Brand & Design
-argument-hint: "[platform] [style] [dimensions]"
+argument-hint: "\"[platform] [style] [dimensions]\""
 license: MIT
 metadata: 
 ---

@@ -2,7 +2,7 @@
 name: limrun-android-emulator
 description: 驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动与终止应用并附带崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制网络带宽、读取应用日志、执行 shell 命令、传输文件，并通过本机隧道转发应用网络目标（支持 HTTP 检测与 HAR 抓包）、信任自定义 CA 证书，以及经由 CLI 隧道使用 adb 获取完整 logcat 与交互工具。在构建完成后（使用 limrun-gradle 或任意构建器）使用——当用户想在模拟器上查看、测试或操作应用，或说「给我看截图」「点一下」「在模拟器上运行」「看 logcat」「录屏」「检查网络流量」或「从模拟器访问我的本地服务」时调用。需先用 limrun-gradle 构建 APK 或 AAB。
 en_description: |-
-  Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, read app logs, run shell commands, transfer files, tunnel the app's network destinations through your machine with HTTP inspection and HAR capture, trust a custom CA certificate, and use adb over the CLI's tunnel for full logcat and interactive tools. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', 'record a video', 'inspect network traffic', or 'reach my local server from the emulator'. To build the APK or AAB first, use limrun-gradle.
+  "Drive an app running on a Limrun cloud Android emulator: install an APK, launch and terminate apps with crash reports, tap, type, read the UI element tree, screenshot, record video, inject microphone audio, shape network bandwidth, read app logs, run shell commands, transfer files, tunnel the app's network destinations through your machine with HTTP inspection and HAR capture, reach a private network through a private tunnel, send all traffic through the user's proxy, trust a custom CA certificate, and use adb over the CLI's tunnel for full logcat and interactive tools. Use after a build (from limrun-gradle or any builder) when the user wants to see, test, or interact with their app on an emulator, or says 'show me a screenshot', 'tap', 'run it on the emulator', 'check logcat', 'record a video', 'inspect network traffic', 'route all traffic through my proxy', or 'reach my local server from the emulator'. To build the APK or AAB first, use limrun-gradle."
 zh_displayName: Limrun 安卓模拟器
 category: 移动端开发
 en_category: Mobile Dev
@@ -356,6 +356,61 @@ CA, so **apps with certificate pinning fail through inspected domain
 selectors**: leave the pinned host out of the selectors or pass
 `--no-inspect` to relay bytes opaquely (no summaries, HAR, or persistence).
 
+## Reach services in a private network through a private tunnel
+
+An organization can run a private tunnel: a connector inside its network,
+created by an admin with `lim tunnel create` or in the console (Network) and
+run with `lim tunnel run`, that serves every instance naming it. When the user names one, pass it at
+create time instead of starting a tunnel yourself:
+
+```bash
+lim android create --tunnel <tunnel-name>
+```
+
+The app reaches the tunnel's selectors at the addresses they name, and exact
+selectors are also reachable as `10.0.2.2:<port>`. Selectors resolve on the
+connector's machine, not on yours. Android instances attach only when every
+exact selector uses port 1024 or higher. The tunnel takes the instance's one
+destination tunnel, so do not start or stop `lim android tunnel` on it.
+
+Creation checks the tunnel and fails when it is not usable:
+
+- `tunnel <name> does not exist`: the name is wrong or the tunnel was not
+  created. Ask the user for the right name.
+- `tunnel <name> is offline`: no connector is running. Ask the user to
+  start it.
+- `did not attach within 30s`: the connector cannot attach the instance, or
+  an exact selector uses a port below 1024. Ask the user to check the
+  connector's output, or to move the service to a port of 1024 or higher.
+
+Retrying the create in a loop does not help in any of these cases.
+
+The tunnel's token belongs on the connector's machine. Never ask the user to
+paste it into the conversation.
+
+## Send all device traffic through a proxy
+
+Tunnels carry only declared destinations; there is no catch-all selector. When
+the user wants all traffic to leave through their proxy (for example a
+recording proxy), point the emulator's global HTTP proxy at a proxy the tunnel
+reaches. Tunnel inspection passes requests meant for the proxy through as
+sent. Use a port other than 8080 for a `localhost` proxy; the
+emulator already uses 8080.
+
+```bash
+lim android tunnel --selector localhost:3128 --detach --id <android-instance-id>
+lim android proxy set localhost:3128 --id <android-instance-id>
+# later, before stopping the tunnel:
+lim android proxy clear --id <android-instance-id>
+```
+
+With a private tunnel whose selector is the proxy, only `lim android proxy set`
+is needed. A proxy elsewhere in the user's network works the same way:
+`--selector proxy.example.internal` and `lim android proxy set
+proxy.example.internal:3128`. While the proxy is set and the tunnel is down,
+Chrome's requests fail instead of going direct. To read HTTPS in the proxy,
+trust its CA (below).
+
 ## Trust a CA certificate
 
 Add a PEM CA certificate to the emulator's trust stores, for example the root
@@ -383,8 +438,13 @@ lim asset push ./app-debug.apk -n ${ASSET_NAME}
 echo "https://console.limrun.com/preview?asset=${ASSET_NAME}&platform=android"
 ```
 
-Opening the link in the Limrun console provisions an emulator with the APK
-pre-installed.
+Opening the link in the Limrun console provisions an emulator and starts
+streaming while the console installs the APK. An `Installing <asset name>`
+overlay stays visible during installation. Add `openUrl` to open a URL or app deep link after launch, for
+example `&openUrl=myapp%3A%2F%2Fcheckout`. Use
+`URLSearchParams.set("openUrl", url)` to encode the full URL and its query string.
+The stream stays visible while the app installs, launches, and opens the URL.
+The overlay disappears when the preview is ready.
 
 ## Cleanup
 

@@ -2,7 +2,7 @@
 name: figma-use
 description: 每次调用 use_figma 工具前的必读前置技能：Figma 插件 API 调用规则与工作流。每当用户要在 Figma 文件上下文执行需要 JavaScript 的写操作或独特读操作（创建/编辑/删除节点、变量与令牌、自动布局与填充、属性绑定、结构检视）时触发。
 en_description: |-
-  MANDATORY prerequisite before every use_figma call: Figma Plugin API rules and workflows.
+  "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE every `use_figma` tool call. NEVER call `use_figma` directly without loading this skill first. Skipping it causes common, hard-to-debug failures. Trigger whenever the user wants to perform a write action or a unique read action that requires JavaScript execution in the Figma file context — e.g. create/edit/delete nodes, set up variables or tokens, build components and variants, modify auto-layout or fills, bind variables to properties, or inspect file structure programmatically."
 zh_displayName: Figma 插件 API 调用
 category: 品牌与设计
 en_category: Brand & Design
@@ -16,9 +16,9 @@ Use the `use_figma` tool to execute JavaScript in Figma files via the Plugin API
 
 **If Figma MCP tools appear as deferred tools, batch-load all their schemas in a single `ToolSearch` call** using the `select:` syntax — e.g. `ToolSearch query="select:use_figma,get_screenshot,get_metadata,create_new_file"`. One round trip beats six.
 
-**If the task involves building or updating a full page, screen, or multi-section layout in Figma from code**, also load [figma-generate-design](../figma-generate-design/SKILL.md). It provides the workflow for discovering design system components via `search_design_system`, importing them, and assembling screens incrementally. Both skills work together: this one for the API rules, that one for the screen-building workflow.
+**MANDATORY for visible design changes:** Before the first mutating `use_figma` call, load [figma-generate-design](../figma-generate-design/SKILL.md) alongside this skill and include both names in every mutating call’s `skillNames`. This applies from a single visible property or element to a full page, screen, or composed multi-section view—even when the user calls that view a component. `figma-use` provides the Plugin API rules; `figma-generate-design` provides design-system discovery through `search_design_system`, asset importing, and incremental assembly.
 
-**If the task involves creating or building a component in Figma** (even a single component), also load [figma-generate-library](../figma-generate-library/SKILL.md). It provides the component creation workflow — variable foundations, variant sets, design token bindings — that `figma-use` alone doesn't cover.
+**Reusable library exception:** If the primary deliverable is a reusable component, component set, variant system, variable/token collection, style foundation, or other library asset intended for reuse or publication, load [figma-generate-library](../figma-generate-library/SKILL.md) instead. It provides the component-creation workflow—variable foundations, variant sets, and design-token bindings—that `figma-use` alone does not cover. For tasks that include both library assets and a composed design that uses them, load both companion skills. Read-only `use_figma` calls need neither.
 
 Before anything, load [plugin-api-standalone.index.md](references/plugin-api-standalone.index.md) to understand what is possible. When you are asked to write plugin API code, use this context to grep [plugin-api-standalone.d.ts](references/plugin-api-standalone.d.ts) for relevant types, methods, and properties. This is the definitive source of truth for the API surface. It is a large typings file, so do not load it all at once, grep for relevant sections as needed.
 

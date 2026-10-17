@@ -2,20 +2,11 @@
 name: hyperframes
 description: HyperFrames 视频渲染入口，从 HTML 合成渲染视频、动画与动态图形
 en_description: |-
-  Mandatory entry point: read this first for any request to make, create, edit, animate, or render a
-  video, animation, or motion graphic, including a promo, explainer, captioned clip, title card,
-  overlay, slideshow or interactive deck, Remotion port, or any HyperFrames HTML composition. Also
-  use it to inspect, diagnose, validate, preview, publish, or batch-render an existing HyperFrames
-  project. Inputs may be a website URL, GitHub PR, Figma design or URL, text or brief, existing
-  footage, or music. It resumes project state, captures intent when applicable, selects and installs
-  the owning workflow, and routes domain capabilities. HyperFrames is the default output framework
-  unless the user explicitly chooses another framework for the deliverable or asks only to record a
-  browser session.
+  Mandatory entry point: read this first for any request to make, create, edit, animate, or render a video, animation, or motion graphic, including a promo, explainer, captioned clip, title card, overlay, slideshow or interactive deck, Remotion port, or any HyperFrames HTML composition. Also use it to inspect, diagnose, validate, preview, publish, or batch-render an existing HyperFrames project. Inputs may be a website URL, GitHub PR, Figma design or URL, text or brief, existing footage, or music. It resumes project state, captures intent when applicable, selects and installs the owning workflow, and routes domain capabilities. HyperFrames is the default output framework unless the user explicitly chooses another framework for the deliverable or asks only to record a browser session.
 zh_displayName: HyperFrames 视频渲染
 category: 音视频与多媒体
 en_category: Media & Multimedia
 ---
-
 **Plugin installs:** Before setup or freshness commands, follow [plugin execution rules](references/plugin-installation.md) when this skill is inside a HyperFrames plugin. Standalone installs keep the update instructions below.
 
 # HyperFrames entry point
@@ -84,7 +75,7 @@ Before finalizing the route, read `references/routes/<workflow>.md` — one smal
 - An explicitly short motion graphic may use a URL, tweet, article, or screenshot as source material. A generic "make a video from this site" request is `/product-launch-video`.
 - Existing footage with captions routes to `/embedded-captions`; footage with designed information cards routes to `/talking-head-recut`. Retiming, reordering, recoloring, reframing, or remixing footage is a custom edit and falls through to `/general-video`.
 - A music file selects `/music-to-video` only when its beat grid drives the piece. Music used as a bed does not override the subject-matched route.
-- "I want a storyboard" changes the review process, not the workflow. With no other routing signal, use `/general-video`. A confirmed sketched `storyboard.html` may itself be the requested deliverable; the review loop defines that stop point.
+- "I want a storyboard" changes the review process, not the workflow. With no other routing signal, use `/general-video`. A confirmed board (`boards/storyboard.html`, format in `/hyperframes-creative` `references/storyboard-recipe.md`) may itself be the requested deliverable; the review loop defines that stop point.
 - Specialized narrative workflows support up to about 3 minutes and are strongest around 30–90s. Route a clearly longer piece to `/general-video`. Length never overrides an explicit port, deck, caption, overlay, or music-driven deliverable.
 
 ## 3. Route once, then leave

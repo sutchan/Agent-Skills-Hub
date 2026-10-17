@@ -2,7 +2,7 @@
 name: luma
 description: Luma AI 工艺技能——用 Luma 的 AI 模型（Dream Machine / Ray / 图生视频）生成与编辑视频。当用户想要 AI 生成视频、图生视频、镜头运动控制，或了解 Luma 的生成档位与权利时使用。智能体撰写简报并在已连接时驱动 API；人工评判输出。须披露 AI 生成画面。
 en_description: |-
-  The Luma AI craft skill — generate and edit video with Luma's AI models (Dream Machine / Ray / image-to-video). Use when someone wants AI-generated video, image-to-video, camera-motion control, or Luma's generation tiers and rights. The agent writes the brief and can drive the API where connected; the human judges the output. Disclose AI-generated footage.
+  The Luma Dream Machine craft skill — generate cinematic AI video shots (Ray3: text-to-video, image-to-video, keyframes, character reference, Modify V2V, HDR) with draft-first economics and the right rights. Use when someone wants to generate video with Luma/Dream Machine/Ray3, animate a still into video, keep a character consistent across shots, restyle real footage, control credit burn, pick a Luma model or plan, or build a multi-shot AI brand film. Uses the DREAM framework. Reads ai-video + brand-profile + short-form-video-script first. The agent writes shot briefs and can drive the API where connected; the HUMAN judges every clip; WoopSocial publishes. Generations are shots not films (no native audio); Draft Mode first, HDR only for finals; verify tiers in-app. Never use unpermitted likeness, generate fake-event footage, or state credit rates as fact. Distinct from ai-video, veo-3/kling/runway, flux (the stills this animates), heygen/synthesia, and capcut.
 zh_displayName: Luma AI 视频生成
 category: 音视频与多媒体
 en_category: Media & Multimedia

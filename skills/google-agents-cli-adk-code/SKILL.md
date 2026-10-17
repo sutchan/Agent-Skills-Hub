@@ -2,7 +2,7 @@
 name: google-agents-cli-adk-code
 description: 使用 Google ADK（智能体开发套件）编写智能体代码——智能体类型、工具定义、回调、状态管理、Workflow API 模式及代码示例。
 en_description: |-
-  Write agent code with Google ADK (Agent Development Kit) — agent types, tool definitions, callbacks, state management, Workflow API patterns and code examples.
+  This skill should be used when the user wants to "write agent code", "build an agent with ADK", "add a tool", "create a callback", "define an agent", "use state management" — in a project that needs ADK (Agent Development Kit) API patterns and code examples. It provides a quick reference for agent types, tool definitions, orchestration patterns, callbacks, state management, the graph Workflow API, and reference recipes to study. Do NOT use for scaffolding (use google-agents-cli-scaffold) or deployment (use google-agents-cli-deploy).
 zh_displayName: Google ADK 代码模式
 category: AI 与智能体
 en_category: AI & Agents
