@@ -2,6 +2,52 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.91] - 2026-10-17
+
+### chore: 审查所有 skill 并修复 stripe-best-practices 并发退化
+
+- 对 162 个 SKILL.md 全量审计（契约 6 字段 / name=目录名 / 重名 / 14 类合法 / 中文描述 / 中文显示名 / 正文完整度 / CRLF）：**159 完全合规**。
+- **P0 修复 `stripe-best-practices`**：会话间隙被外部并发改回 CRLF stub（缺 en_description/zh_displayName/category/en_category、英文 description）。以 `git show HEAD:data/skills-data.json`（后端与平台）回填契约字段并规范为 LF；data/inline 中该技能本已完整（展示未受影响），此次使磁盘权威源恢复一致。
+- **误报澄清**：`grill-me`/`grill-with-docs` 正文仅 1 行，实为**有意的薄转发壳**（分别转发至 `grilling` / `grilling`+`domain-modeling`），frontmatter 完整合规，非缺陷。
+- 复核：磁盘=data=内联=162、0 退化、0 CRLF、0 差集。bump 1.14.90→1.14.91。
+
+### fix: 对齐应用与原型视觉规范（令牌纪律修复）
+
+- 修正 `src/index.html` 内联样式偏离原型规约（DESIGN.md / wireframes.html）的 6 处令牌纪律泄漏：
+  - 网格最小列宽 `minmax(320px,1fr)` → `minmax(260px,1fr)`（对齐 DESIGN §3 / wireframes 260px）。
+  - 卡片圆角硬编码 `14px` → `var(--radius)`（对齐 wireframes 卡片圆角令牌）。
+  - 分类 chip 圆角 `8px` → `999px` 胶囊（对齐 DESIGN §2.4 rounded-full）。
+  - 选中 chip 由分类色相改为**主色** `hsl(var(--primary))`（对齐 DESIGN §2.1 色彩纪律与 `.chip-all`）。
+  - `body` 补 `font-size:15px` 基线（对齐 DESIGN §2.2）。
+  - 卡片 hover 阴影由硬编码 `rgba(0,0,0,…)` 改为 `hsl(var(--shadow-color)/…)`，修复暗色模式下阴影色相失效。
+- 同步 `src/index.html` 头注释版本号至 1.14.91。
+
+[1.14.91]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.91
+
+## [1.14.90] - 2026-10-17
+
+### feat: 继续更新 skill 数据（新增 10 技能 + 内联同步）
+
+- 外部在会话间隙又新增 10 个技能（均为上一轮被删、现又回插的旧技能，全为英文 stub）：`systematic-debugging`/`test-driven-development`/`webapp-testing`/`writing-plans`（工程实践与质量）、`video-editing`（音视频与多媒体）、`wp-abilities-audit`/`wp-abilities-verify`/`wp-patterns`/`wp-playground`/`wp-plugin-directory-guidelines`（WordPress 与 CMS）。
+- 回填源改用 **`git show HEAD:data/skills-data.json`（提交态 172 全量）**——工作区 data 已被上轮重建裁至 152，而这 10 个删除技能的中文/分类/tags 仍完整保留在 HEAD 提交态中；据此回填契约字段（保留上游英文正文）。
+- 重建 `data/skills-data.json`（152→**162**，total 151→161，hidden=agent-browser）与 `skills-metrics.json`（size/files 实算）；同步 `src/index.html` 内联 `SKILLS_DATA`（152→162、14 类框架、readback 验证）。
+- 自写校验：**162 技能 frontmatter 全合规、磁盘=data=内联=162、0 退化、0 差集**；13 活跃类（桌面与客户端仍 0）。
+- 同步 README.en 摘要/亮点/分类表（152→162；WordPress 1→6、工程实践与质量 26→30、音视频 22→23）+ README 徽章；bump 1.14.89→**1.14.90**。
+
+[1.14.90]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.90
+
+## [1.14.89] - 2026-10-17
+
+### feat: 更新所有 skills（大规模技能集刷新 + 中文本地化重建）
+
+- 外部在会话间隙对技能集执行大规模更新：技能数 172→152（删除 wp-* / short-drama-* / video-* / winui-* / remotion 等 34 个，新增 rust-best-practices / rust-patterns / security-review / fix-errors 等），且绝大多数 SKILL.md 被重写为仅 `name`+英文 `description` 的 stub（丢失中文本地化与分类）。
+- 以旧 `data/skills-data.json` 为中文本地化权威源，回填全部退化 SKILL.md 的契约字段（`description`中 / `en_description` / `zh_displayName` / `category` / `en_category`），保留上游英文正文；新增 4 技能按语义归类（rust-* → 后端与平台、security-review → 安全、fix-errors → 工程实践与质量）。
+- 重建 `data/skills-data.json`（152 技能，total 151，hidden=agent-browser）与 `data/skills-metrics.json`（size/files 实算）；自写校验确认 **152 技能 frontmatter 全部规范、13 活跃分类、无「其他」类**（桌面与客户端因 winui 删除暂为 0）。
+- 同步 README.en 摘要/亮点/分类表计数（172→152、各域按实算更新）；README（中文）已由外部重构为无具体计数的表述，仅同步版本徽章。
+- 观察：外部 skills-manager 在更新期间仍高频并发写 `skills/`（142→152 竞态），最终快照收敛于 152。
+
+[1.14.89]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.89
+
 ## [1.14.88] - 2026-10-09
 
 ### fix(a11y): 原型无障碍与健壮性改进
