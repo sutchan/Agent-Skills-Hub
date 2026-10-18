@@ -8,9 +8,10 @@
 #
 # 发布模式（标签触发，可追溯 / 可重复 / 风险低）：
 #   你手动 bump 版本 + 更新 CHANGELOG → 打 vX.Y.Z 标签并推送 → 本流水线在末尾 Release 阶段
-#   构建 data/*.json 与 prototype.html 作为产物附件，并提取对应 CHANGELOG 小节作为发行说明。
+#   构建 data/*.json 作为产物附件，并提取对应 CHANGELOG 小节作为发行说明。
 #   校验阶段检查「package.json 版本 == 最新 CHANGELOG 小节 == git tag」一致性，不一致直接阻断。
 #
+# 包管理器：Bun（仓库无 pnpm/npm 锁文件，使用 bun.lock 由 Bun 在 CI 内生成；如需完全可复现可在仓库提交 bun.lock）
 # 部署平台：EdgeOne Pages（Next.js standalone，消费 .next 目录）
 # 前置 Secret：EDGEONE_API_TOKEN（Settings → Secrets and variables → Actions）；缺省时跳过部署并提示。
 
@@ -43,7 +44,6 @@ permissions:
 
 env:
   NODE_VERSION: "22"
-  PNPM_VERSION: "11.24.0"
   NEXT_TELEMETRY_DISABLED: "1"
   HAS_TOKEN: ${{ secrets.EDGEONE_API_TOKEN != '' }}
 
@@ -57,25 +57,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 安装 pnpm
-        uses: pnpm/action-setup@v4
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          version: ${{ env.PNPM_VERSION }}
+          bun-version: "latest"
 
-      - name: 安装 Node.js
+      - name: 安装 Node.js（供 npx/node 步骤使用）
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
 
       - name: 安装依赖
-        run: pnpm install --frozen-lockfile
+        run: bun install
 
       - name: 类型检查
-        run: pnpm exec tsc --noEmit
+        run: bun run lint
 
       - name: 单元测试 + 集成测试
-        run: pnpm test
+        run: bun run test
 
       - name: 版本 / CHANGELOG / Tag 一致性校验
         run: node tools/check-version.mjs
@@ -88,39 +87,37 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 安装 pnpm
-        uses: pnpm/action-setup@v4
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          version: ${{ env.PNPM_VERSION }}
+          bun-version: "latest"
 
-      - name: 安装 Node.js
+      - name: 安装 Node.js（供 npx/node 步骤使用）
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
 
       - name: 安装依赖
-        run: pnpm install --frozen-lockfile
+        run: bun install
 
       - name: 恢复 Next.js 构建缓存
         uses: actions/cache@v4
         with:
           path: .next/cache
-          key: ${{ runner.os }}-next-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
+          key: ${{ runner.os }}-next-${{ hashFiles('bun.lock', 'package.json', 'src/**/*.ts', 'src/**/*.tsx') }}
           restore-keys: |
             ${{ runner.os }}-next-
 
       - name: 生产构建
-        run: pnpm build
+        run: bun run build
 
-      - name: 上传构建产物（数据 + 自包含原型页）
+      - name: 上传构建产物（数据）
         uses: actions/upload-artifact@v4
         with:
           name: release-assets-${{ github.sha }}
           path: |
             data/skills-data.json
             data/skills-metrics.json
-            prototype/prototype.html
           retention-days: 7
           if-no-files-found: error
 
@@ -132,28 +129,27 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 安装 pnpm
-        uses: pnpm/action-setup@v4
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          version: ${{ env.PNPM_VERSION }}
+          bun-version: "latest"
 
-      - name: 安装 Node.js
+      - name: 安装 Node.js（供 npx/node 步骤使用）
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
 
       - name: 安装依赖
-        run: pnpm install --frozen-lockfile
+        run: bun install
 
       - name: 安装 Playwright 浏览器（chromium）
-        run: pnpm exec playwright install --with-deps chromium
+        run: bunx playwright install --with-deps chromium
 
       - name: 生产构建（供 e2e 起服务）
-        run: pnpm build
+        run: bun run build
 
       - name: E2E 测试
-        run: pnpm e2e
+        run: bun run e2e
 
       - name: 上传 Playwright 报告（失败留存）
         if: ${{ failure() }}
@@ -174,30 +170,29 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 安装 pnpm
-        uses: pnpm/action-setup@v4
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          version: ${{ env.PNPM_VERSION }}
+          bun-version: "latest"
 
-      - name: 安装 Node.js
+      - name: 安装 Node.js（供 npx/node 步骤使用）
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
 
       - name: 安装依赖
-        run: pnpm install --frozen-lockfile
+        run: bun install
 
       - name: 恢复 Next.js 构建缓存
         uses: actions/cache@v4
         with:
           path: .next/cache
-          key: ${{ runner.os }}-next-${{ hashFiles('pnpm-lock.yaml', 'src/**/*.ts', 'src/**/*.tsx') }}
+          key: ${{ runner.os }}-next-${{ hashFiles('bun.lock', 'package.json', 'src/**/*.ts', 'src/**/*.tsx') }}
           restore-keys: |
             ${{ runner.os }}-next-
 
       - name: 生产构建
-        run: pnpm build
+        run: bun run build
 
       - name: 解析部署目标
         id: target
@@ -315,4 +310,3 @@ jobs:
           files: |
             data/skills-data.json
             data/skills-metrics.json
-            prototype/prototype.html
