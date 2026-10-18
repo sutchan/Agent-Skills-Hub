@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.97] - 2026-10-18
+
+### fix: 补全全部技能的英文摘要 enDescription
+
+- 实查发现 `data/skills-data.json` 中 162 个技能的 `enDescription` 均为 `|-` 空值（此前重建 data 时多行块解析失败导致），而 `skills/*/SKILL.md` 的 `en_description` 均有真实英文长描述。前端英文态卡片摘要/详情（`src/index.html` L2060/L2303 用 `enDescription`）因此全部为空。
+- 修正 frontmatter 多行块解析，重建 `data/skills-data.json` / `skills-metrics.json`，并把英文摘要同步进 `src/index.html` 内联 `SKILLS_DATA`（162 全量补全，`enDescription` 不再为空）。
+- 版本 1.14.96→1.14.97，同步 README/README.en 徽章。
+
+[1.14.97]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.97
+
 ## [1.14.96] - 2026-10-18
 
 ### fix: 修复 orca-cli 中文显示名并重建技能数据
