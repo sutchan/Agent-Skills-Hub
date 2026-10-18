@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.96] - 2026-10-18
+
+### fix: 修复 orca-cli 中文显示名并重建技能数据
+
+- 审计 162 技能发现 `orca-cli` 的 `zh_displayName` 为纯英文「Orca CLI」（缺中文本地化）；`grill-me`/`grill-with-docs` 正文 1 行为有意薄转发壳（非缺陷）。
+- 补 `orca-cli` 中文显示名「Orca CLI 工具」，重建 `data/skills-data.json`/`skills-metrics.json` 与 `src/index.html` 内联 `SKILLS_DATA`（162 / total 161 一致）。
+- 版本 1.14.95→1.14.96，同步 README/README.en 徽章。
+
+[1.14.96]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.96
+
 ## [1.14.95] - 2026-10-18
 
 ### feat: 重建测试体系与发布 tag 流程，收口版本漂移评估
