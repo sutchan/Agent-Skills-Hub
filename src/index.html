@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.91 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.14.92 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -163,6 +163,8 @@ body.no-scroll { overflow: hidden; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   /* 回到顶部 / 分享提示：禁用位移动画，仅保留淡入，避免 reduced-motion 下瞬跳位移 */
   .to-top, .toast { transform: none !important; }
+  /* 卡片 hover 抬升/缩放：reduced-motion 下完全移除位移与阴影变化，仅保留静态描边（诊断迭代六 #3） */
+  .card:hover { transform: none !important; box-shadow: var(--shadow-card) !important; border-color: var(--border) !important; }
 }
 
 /* 回到顶部按钮：默认隐藏，滚动超阈值后淡入 */

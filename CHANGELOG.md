@@ -2,6 +2,13 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.92] - 2026-10-18
+
+### fix: 收口详情弹窗无障碍（迭代六 #3）
+
+- `src/index.html` 详情弹窗无障碍已具备：焦点陷阱（Tab/Shift+Tab 在弹窗内循环）、ESC 关闭、背景滚动锁定（`body.no-scroll`）、打开聚焦关闭按钮 / 关闭归还触发焦点。
+- 补上 reduced-motion 最后缺口：全局 `prefers-reduced-motion` 规则已用 `transition-duration:.001ms` 消除过渡 motion，但 `.card:hover` 的 `translateY(-6px) scale(1.01)` 位移未彻底移除；按既有 `.to-top,.toast{transform:none}` 模式新增 `.card:hover{transform:none;box-shadow:var(--shadow-card);border-color:var(--border)}`，使减弱动效下卡片完全静态（闭合诊断迭代六 #3）。
+
 ## [1.14.91] - 2026-10-17
 
 ### chore: 审查所有 skill 并修复 stripe-best-practices 并发退化
@@ -24,6 +31,7 @@
 - 同步 `src/index.html` 头注释版本号至 1.14.91。
 
 [1.14.91]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.91
+[1.14.92]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.92
 
 ## [1.14.90] - 2026-10-17
 
