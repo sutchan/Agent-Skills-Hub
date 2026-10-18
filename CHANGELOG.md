@@ -2,6 +2,14 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.94] - 2026-10-18
+
+### chore: 清理 src/ 冗余与孤儿文件
+
+- 删除 `src/` 下与 `prototype/` 字节完全一致的重复文件：`DESIGN.md` `COMPONENTS.md` `IMPROVEMENT-SPEC.md` `states.html` `wireframes.html`（设计规范事实来源统一收敛至 `prototype/`）。
+- 删除孤儿文件 `src/i18n.js`（其代码已内联进 `src/index.html` 第 1364 行 `<script>`，全仓无任何 include/link 引用）与 `src/prototype.html`（引用已删除的 `build.mjs` 且 `index.html` 已是现原型），二者均无任何加载引用。
+- 同步版本展示位：README/README.en 徽章、`src/index.html` 页眉注释与页脚版本、本 CHANGELOG。
+
 ## [1.14.93] - 2026-10-18
 
 ### docs: 任务文档归档与剩余任务重排
