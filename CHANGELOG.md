@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.95] - 2026-10-18
+
+### feat: 重建测试体系与发布 tag 流程，收口版本漂移评估
+
+- #8 修复 `npm test`：原脚本指向已删 `tools/lib/*.test.mjs` 空转；重建 `tools/lib/` 并新增 `skills-data.test.mjs`（技能数据契约回归：字段完整性 / name 唯一 / githubDir 一致性 / total 对齐）与 `kv-store.test.mjs`（KV 与投票 JSON 合法性），7/7 通过。
+- #15 新增 `scripts/tag-release.mjs` + `npm run tag`：基于 `package.json.version` 幂等创建注解 `v*` tag（不自动推送），补齐仓库缺失的 `v1.14.x` 发布 tag 流程。
+- #16 评估文件头注释版本漂移：核实 `next.config.mjs` 实际无版本头注释（原记录已过时）、`taxonomy.mjs` 不存在（幽灵引用）、内联子模块头注释（如 i18n.js v1.20.37）按全局规则禁止批量改写；结论为不批量刷新，仅更新被改文件头注释。
+- #17 确认本地重复构建被 IDE safe-delete 守卫拦截属环境限制，规避=构建前清空 `.next` 或依赖 CI，仅文档记录（不修复）。
+- 同步版本展示位：README/README.en 徽章、`src/index.html` 页眉与页脚版本、本 CHANGELOG。
+
 ## [1.14.94] - 2026-10-18
 
 ### chore: 清理 src/ 冗余与孤儿文件

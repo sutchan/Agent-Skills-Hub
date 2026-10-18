@@ -1,7 +1,7 @@
 # 任务清单（已完成归档）— Agent Skills Hub
 
 > 本文件归档已完成的迭代任务。进行中 / 待处理的任务见 `docs/tasks.md`。
-> 归档时间：2026-10-18（截至 v1.14.92）。
+> 归档时间：2026-10-18（截至 v1.14.95）。
 
 ---
 
@@ -127,3 +127,16 @@
 | 11 | 分析 commit 998370c 来源并建立防护机制 | P1 | ✅ 已完成 | ci.yml `validate-skills` job 改为硬门禁（去 `continue-on-error`） |
 | 12 | 检查 998370c 是否还有其他破坏性变更 | P2 | ✅ 已完成 | `git show --stat 998370c`：仅 frontmatter 覆盖 + 新增 vercel-react 技能 |
 | 13 | 验证 `npm run build` 的 Next.js 完整构建产物 | P3 | ✅ 已完成 | 2026-10-04 本地实测全绿：编译 + 类型检查 + 173/173 静态生成 |
+
+---
+
+## 迭代六（续）/ 后续迭代（续）：测试重建、发布 tag、版本漂移评估（v1.14.95，已完成）
+
+**触发**：`npm test` 脚本空转、仓库缺失 `v*` 发布 tag、文件头注释版本漂移待评估。对应 tasks.md 原 #8 / #15 / #16 / #17。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 8 | 修复 `npm test` 测试命令并补充核心回归用例 | P2 | ✅ 已完成 | 重建 `tools/lib/`：`skills-data.test.mjs`（字段完整性 / name 唯一 / githubDir 一致 / total 对齐）+ `kv-store.test.mjs`（KV 与投票 JSON 合法性）；`npm test` 7/7 通过；脚本由失效的 `tools/lib/*.test.mjs` 修正为 `node --test tools/lib/*.test.mjs` |
+| 15 | 建立 `v*` 发布 tag 流程 | P2 | ✅ 已完成 | 新增 `scripts/tag-release.mjs` + `npm run tag`：基于 `package.json.version` 幂等创建注解 `v*` tag（不自动推送），补齐缺失的 `v1.14.x` 发布 tag |
+| 16 | 修正文件头注释版本漂移 | P3 | ✅ 已完成（评估结论） | 核实 `next.config.mjs` 实际无版本头注释（原记录已过时）、`taxonomy.mjs` 不存在（幽灵引用）、内联子模块头注释按全局规则禁止批量改写；结论为不批量刷新，仅更新被改文件头注释 |
+| 17 | 处理本地重复构建被 IDE safe-delete 守卫拦截 | P3 | ✅ 已完成（已知限制 / 不修复） | 属工具环境限制；规避=构建前清空 `.next` 或依赖 CI ubuntu `build` job；仅文档记录 |
