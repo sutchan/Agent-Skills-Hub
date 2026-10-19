@@ -144,13 +144,12 @@
   .ledger .stat + .stat{border-left:1px solid var(--border)}
   .ledger .lbl{font-size:11.5px;color:hsl(var(--muted-foreground))}
   .ledger .num{font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1.05;letter-spacing:-.015em;font-variant-numeric:tabular-nums}
-  /* 赞/踩行：描边常驻，激活只换色不换尺寸 */
+  /* 投票行：描边常驻，激活只换色不换尺寸 */
   .vote-row{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
   .vote-btn{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border:1px solid var(--border);border-radius:999px;background:transparent;color:hsl(var(--muted-foreground));font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer;transition:.15s}
   .vote-btn:hover{color:hsl(var(--foreground))}
   .vote-btn .n{min-width:2ch;text-align:center}
   .vote-up[aria-pressed="true"]{background:hsl(var(--primary));border-color:hsl(var(--primary));color:hsl(var(--primary-foreground))}
-  .vote-down[aria-pressed="true"]{background:hsl(var(--destructive));border-color:hsl(var(--destructive));color:hsl(var(--destructive-foreground))}
   /* Toast 轻提示 */
   .toast-demo{display:inline-flex;align-items:center;padding:10px 18px;border-radius:10px;background:hsl(var(--popover));color:hsl(var(--popover-foreground));box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:14px;font-weight:500}
   /* 空状态 */
@@ -206,7 +205,7 @@
       <a href="#switch">Switch / Segmented</a>
       <a href="#pager">Pagination 分页</a>
       <a href="#ledger">StatLedger 统计台账</a>
-      <a href="#vote">Vote 赞踩</a>
+      <a href="#vote">Vote 赞</a>
       <a href="#toast">Toast 轻提示</a>
       <a href="#empty">EmptyState 空态</a>
       <div class="grp">业务组件</div>
@@ -287,8 +286,8 @@
           <div class="skel" style="width:90%"></div>
           <div class="skel" style="width:80%"></div>
         </div>
-        <p class="note zh"><code>animate-pulse</code> 占位，首屏载入 9 个。Source <code>components/ui/skeleton.tsx</code>。</p>
-        <p class="note en">animate-pulse placeholder, 9 on first paint. Source components/ui/skeleton.tsx.</p>
+        <p class="note zh"><code>animate-pulse</code> 占位，首屏载入 <strong>12</strong> 个（与下方状态表一致）。Source <code>components/ui/skeleton.tsx</code>。</p>
+        <p class="note en">animate-pulse placeholder, <strong>12</strong> on first paint (consistent with the state table below). Source components/ui/skeleton.tsx.</p>
       </section>
 
       <section id="separator">
@@ -352,14 +351,16 @@
             <span class="pg-info">第 1 / 5 页</span>
           </div>
         </div>
-        <p class="note zh">每页 <strong>36</strong> 条。窗口为「当前页 ±2 + 首尾必显」，中间以 <code>…</code> 省略；首页禁用「‹」、末页禁用「›」（<code>disabled</code> 而非隐藏）。翻页后 <code>window.scrollTo({top:0,behavior:"smooth"})</code> 回到网格顶部；<code>data-page</code> 为 0 基。<strong>筛选/搜索/排序变化时页码重置为 0</strong>。Source <code>parts/02-render.js renderPager()</code>。</p>
-        <p class="note en">36/page; window = current ±2 plus first/last; disabled (not hidden) arrows at bounds; scroll to top on page change; reset to 0 when filters change. Source renderPager().</p>
+        <p class="note zh">每页 <strong>36</strong> 条。窗口为「当前页 ±2 + 首尾必显」，中间以 <code>…</code> 省略；首页禁用「‹」、末页禁用「›」（<code>disabled</code> 而非隐藏）。翻页后 <code>window.scrollTo({top:0,behavior:"smooth"})</code> 回到网格顶部；<code>data-page</code> 为 0 基。<strong>筛选/搜索/排序变化时页码重置为 0</strong>。<strong>注意</strong>：筛选/搜索/排序变化<strong>不会</strong>自动滚动视口回顶（仅显式翻页会回顶）；用户停留在深滚动位置时，可点右下角「回到顶部」浮动按钮（<code>window.scrollTo</code>）手动回顶。Source <code>parts/02-render.js renderPager()</code>。</p>
+        <p class="note en">36/page; window = current ±2 plus first/last; disabled (not hidden) arrows at bounds; scroll to top on page change; reset to 0 when filters change. Note: changing filter/search/sort does NOT auto-scroll the viewport to top (only explicit page navigation does); a floating "back to top" button (window.scrollTo) is provided. Source renderPager().</p>
+        <p class="note zh"><strong>URL 深链（hash）</strong>：筛选（<code>#cat=</code>）/ 搜索（<code>#q=</code>）/ 排序（<code>#sort=</code>）/ 页码（<code>#page=</code>）写入地址栏 hash，<strong>可分享、刷新可还原、浏览器前进/后退可还原</strong>（<code>01-state.js</code> 解析 + <code>restoreDeepLink()</code>）。<strong>未实现</strong>：<code>/skills/[slug]/</code> 形式的技能详情自动弹窗深链——详情弹窗仅由用户点击卡片打开，URL 仅承载筛选/搜索/排序/页码深链，无独立详情路由。</p>
+        <p class="note en"><strong>URL deep link (hash)</strong>: filter (#cat=) / search (#q=) / sort (#sort=) / page (#page=) are written to the URL hash — shareable, restorable on refresh and back/forward. Not implemented: a /skills/[slug]/ style deep link that auto-opens a skill detail popup; the detail modal opens only on card click, and the URL carries only filter/search/sort/page deep links with no dedicated detail route.</p>
       </section>
 
       <section id="ledger">
-        <h2 class="sec">StatLedger 统计台账</h2>
+        <h2 class="sec">StatLedger 统计台账 <span class="zh">（已移除 · v1.14.86）</span><span class="en">(removed · v1.14.86)</span></h2>
         <div class="demo" style="flex-direction:column;align-items:stretch">
-          <div class="ledger-head">全库统计</div>
+          <div class="ledger-head">全库统计（历史示意）</div>
           <div class="ledger">
             <div class="stat"><span class="lbl">技能总数</span><span class="num">171</span></div>
             <div class="stat"><span class="lbl">分类</span><span class="num">14</span></div>
@@ -367,27 +368,24 @@
             <div class="stat"><span class="lbl">支持语言</span><span class="num">2</span></div>
           </div>
         </div>
-        <p class="note zh">表头<strong>实线细线</strong> + 竖向分栏细线的「规格表」读法，<strong>标签在上、数字在下</strong>；竖线只落在栏与栏之间，首尾不设线。数字用 <code>--font-display</code> 衬线 + <code>tabular-nums</code>。<strong>必须标注「全库统计」</strong>——数字恒为仓库全量，不随筛选变化，需与控制区随筛选变化的 <code>resultCount</code> 明确区分，否则用户会误读。Source <code>parts/02-render.js renderStats()</code>。</p>
-        <p class="note en">Solid hairline header + vertical column rules; label above figure; figures in display serif with tabular-nums. Must be labelled "Full catalog" to distinguish from the live filtered resultCount. Source renderStats().</p>
+        <p class="note zh"><strong>已从应用与页脚移除（v1.14.86 精简，见 DESIGN.md）</strong>：页脚全库统计台账（footer-stats 四项：技能总数 / 分类 / 英文描述覆盖 / 支持语言）已随页脚精简一同去除，原型与 app 保持同步。下方「标签在上、数字在下 + 实线细线 + tabular-nums」仍作为<strong>统计类数字的视觉语言规范</strong>保留供参考。当前「全库统计」的真实载体是<strong>分类环形图中心数字</strong>（全部技能数）与<strong>标签云 Top28 计数</strong>，二者均随数据动态更新、恒定反映仓库全量。Source <code>parts/02-render.js renderCats()</code>（原 renderStats() 已删）。</p>
+        <p class="note en"><strong>Removed from the app and footer (v1.14.86 simplify, see DESIGN.md)</strong>: the footer full-catalog stats ledger (four metrics: total skills / categories / English-description coverage / supported languages) was removed with the footer simplification, keeping prototype and app in sync. The "label-above-figure + hairline + tabular-nums" remains as the visual-language spec for stats figures. The live "full catalog" surfaces are now the category donut center number and the Top28 tag-cloud counts, both dynamic and reflecting the whole repo. Source renderCats() (renderStats() deleted).</p>
       </section>
 
       <section id="vote">
-        <h2 class="sec">Vote 赞 / 踩</h2>
-        <h3 class="comp zh">未投票 / 已赞 / 已踩</h3><h3 class="comp en">None / Up / Down</h3>
+        <h2 class="sec">Vote 赞（点赞）</h2>
+        <h3 class="comp zh">未投票 / 已赞（可撤销）</h3><h3 class="comp en">None / Up (undoable)</h3>
         <div class="demo">
-          <div class="vote-row" style="margin-top:0;border-top:0;padding-top:0;width:180px">
+          <div class="vote-row" style="margin-top:0;border-top:0;padding-top:0;width:200px">
             <button class="vote-btn" aria-pressed="false" aria-label="赞 ad-creative"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg><span class="n" aria-hidden="true">0</span></button>
-            <button class="vote-btn" aria-pressed="false" aria-label="踩 ad-creative"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><span class="n" aria-hidden="true">0</span></button>
-          </div>
-          <div class="vote-row" style="margin-top:0;border-top:0;padding-top:0;width:180px">
             <button class="vote-btn vote-up" aria-pressed="true" aria-label="赞 banner-design"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg><span class="n" aria-hidden="true">3</span></button>
-            <button class="vote-btn vote-down" aria-pressed="true" aria-label="踩 banner-design"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><span class="n" aria-hidden="true">1</span></button>
+            <button class="vote-btn vote-undo" aria-label="撤销 banner-design（已赞 3）"><span aria-hidden="true">↺</span></button>
           </div>
         </div>
-        <p class="note zh">语义：<strong>赞与踩各自独立计数、互不抵消、可同时为正</strong>；再点同一项即取消该项。存储 <code>localStorage["ash-votes"]</code>，结构 <code>{name:{up,down}}</code>，原型 <code>06-votes.js</code> 与应用 <code>lib/votes.ts</code> 键名与结构一致。无后端聚合，数值仅代表本浏览器累计。</p>
+        <p class="note zh">语义：<strong>仅「点赞」（upvote）单一维度</strong>，可累加、再点同一项即<strong>撤销</strong>（↺）；<strong>已移除「踩 / downvote」</strong>。<strong>双存储</strong>：本地 <code>localStorage["ash-votes"]</code>（结构 <code>{name:{up}}</code>）+ 后端聚合（<code>POST /api/votes</code> 落 <code>server.js</code> 的 <code>kv-store.json</code>，<code>initCloudSync</code> 拉取全站票数）。「收藏」（favorite）为<strong>独立维度</strong>：<code>localStorage</code> + <code>/api/favorites</code> 后端双向同步。Source <code>parts/06-votes.js</code> 与应用 <code>lib/votes.ts</code>。</p>
         <p class="note zh">样式：描边<strong>常驻</strong>（未激活时透明底 + 浅描边），使激活态<strong>只换色不换尺寸</strong>，卡片不抖动；计数 <code>min-width:2ch</code> 预留两位数字宽度。</p>
-        <p class="note zh">无障碍：颜色<strong>不是唯一区分手段</strong>——上下箭头形状不同，且 <code>aria-pressed</code> 同步状态；计数标 <code>aria-hidden</code>（对读屏而言 pressed 已表达「我是否投过」）。<strong>点击投票不得触发卡片打开</strong>，须在 <code>#grid</code> 委托中豁免 <code>[data-vote-row]</code>。</p>
-        <p class="note en">Independent up/down counters (not cancelling), toggle off on re-click, persisted in localStorage under "ash-votes". Border always present so activation changes colour only. Shape + aria-pressed carry state, not colour alone. Clicks must not open the card.</p>
+        <p class="note zh">无障碍：颜色<strong>不是唯一区分手段</strong>——点赞用拇指上扬图标、撤销用 ↺ 图标，形状不同，且 <code>aria-pressed</code> 同步状态；计数标 <code>aria-hidden</code>（对读屏而言 pressed 已表达「我是否投过」）。<strong>点击投票 / 收藏不得触发卡片打开</strong>，须在 <code>#grid</code> 委托中豁免 <code>[data-vote-row]</code>。</p>
+        <p class="note en">Single upvote dimension (no downvote); re-click undoes (↺). Dual storage: localStorage (ash-votes, {name:{up}}) + backend aggregation (POST /api/votes → server.js kv-store.json; initCloudSync pulls global counts). Favorites are a separate dimension: localStorage + /api/favorites two-way sync. Border always present so activation changes colour only; icon shape + aria-pressed carry state, not colour alone. Clicks must not open the card.</p>
       </section>
 
       <section id="toast">
@@ -452,7 +450,7 @@
         <div class="demo" style="flex-direction:column;align-items:stretch">
           <button class="skill-card list"><span class="cat">品牌与设计</span><span class="nm">ad-creative</span><span class="ds">付费广告创意生成：为任意付费广告平台生成、迭代或规模化广告创意…</span></button>
         </div>
-        <p class="note zh">卡片为 <code>&lt;div class="card"&gt;</code> <strong>容器</strong>（v1.14.81 起）：打开详情由内嵌 <code>&lt;button class="card-open"&gt;</code> 承担，赞/踩为其后<strong>同级</strong>独立按钮行——避免「按钮内嵌按钮」的无效 HTML 与读屏无法区分。鼠标点卡片任意处与键盘 Enter/Space 均经 <code>#grid</code> 委托处理；<code>[data-vote-row]</code> 整行豁免，投票不会误开详情。</p>
+        <p class="note zh">卡片为 <code>&lt;div class="card"&gt;</code> <strong>容器</strong>（v1.14.81 起）：打开详情由内嵌 <code>&lt;button class="card-open"&gt;</code> 承担，赞/收藏为其后<strong>同级</strong>独立按钮行——避免「按钮内嵌按钮」的无效 HTML 与读屏无法区分。鼠标点卡片任意处与键盘 Enter/Space 均经 <code>#grid</code> 委托处理；<code>[data-vote-row]</code> 整行豁免，投票不会误开详情。</p>
         <p class="note en">Card is a div container; a nested button.card-open opens detail, votes are sibling buttons (no nested interactive elements). Source components/skill-card.tsx / parts/02-render.js cardHTML().</p>
       </section>
 
@@ -522,11 +520,11 @@
             </tr>
             <tr>
               <td>卡片内打开详情</td><td><code>&lt;button class="card-open"&gt;</code></td><td>整张卡片套按钮</td>
-              <td>整卡套按钮后无处安放赞/踩等次级按钮（会造成嵌套可交互元素）</td>
+              <td>整卡套按钮后无处安放赞/收藏等次级按钮（会造成嵌套可交互元素）</td>
             </tr>
             <tr>
-              <td>表达「我赞过/踩过」</td><td><code>Vote 赞踩行</code></td><td>星级评分 / 净分</td>
-              <td>赞踩是两个独立维度，净分会掩盖「赞多但踩也多」的真实分歧</td>
+              <td>表达「我赞过」</td><td><code>Vote 赞行</code></td><td>星级评分 / 净分</td>
+              <td>赞是唯一投票维度（可撤销），收藏为独立维度；净分会掩盖真实分歧</td>
             </tr>
             <tr>
               <td>四舍五入的全库数字</td><td><code>StatLedger</code> + 「全库统计」标注</td><td>与筛选结果混排</td>
@@ -557,7 +555,7 @@
           <span class="cell"><span class="dot" style="background:hsl(var(--primary))"></span>已激活（主色填充）</span>
           <span class="cell"><span class="dot" style="background:hsl(var(--border))"></span>常态（浅描边）</span>
           <span class="cell"><span class="dot" style="background:hsl(var(--muted-foreground))"></span>弱化 / 禁用</span>
-          <span class="cell"><span class="dot" style="background:hsl(var(--destructive))"></span>破坏性 / 踩</span>
+          <span class="cell"><span class="dot" style="background:hsl(var(--destructive))"></span>破坏性 / 危险操作</span>
         </div>
         <p class="note zh">颜色<strong>永远不是唯一的状态载体</strong>：须同时具备形状差异（上下箭头 / 填充 vs 描边）或 <code>aria-pressed</code> / <code>aria-checked</code>，以满足色觉障碍与读屏用户。</p>
       </section>
@@ -628,7 +626,7 @@
     if(all||wasActive) document.querySelector('#chip .chip').classList.add('active');
     else c.classList.add('active');
   }));
-  // 演示用赞/踩交互（双计数独立、互不抵消，再次点击取消该项）
+  // 演示用赞交互（再次点击取消/撤销，踩已移除）
   document.querySelectorAll('.vote-btn').forEach(b=>b.addEventListener('click',()=>{
     const on=b.getAttribute('aria-pressed')==='true';
     b.setAttribute('aria-pressed',on?'false':'true');
