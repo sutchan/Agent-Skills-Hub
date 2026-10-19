@@ -1252,6 +1252,8 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
 
   <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="filter-scroll" id="cats"></div></nav>
 
+  <nav class="cats" id="tagNav" aria-label="技能标签 / Tags"><div class="filter-scroll" id="tagChips"></div></nav>
+
   <main class="grid" id="grid" aria-label="技能列表" aria-live="off">
     <!-- 首屏骨架占位：JS 渲染前避免白屏，renderGrid 会用真实卡片整体替换此容器 -->
     <div class="skeleton" aria-hidden="true">
@@ -1422,6 +1424,8 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       "filter.popular": "🔥 最多点赞",
       "filter.favs": "⭐ 我的收藏",
       "filter.all": "全部",
+      "filter.tags": "标签",
+      "empty.suggest": "没有匹配？试试这些热门标签：",
       "filter.clearActive": "清除当前筛选",
       "sort.name": "名称 A-Z",
       "sort.nameDesc": "名称 Z-A",
@@ -1521,6 +1525,8 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       "filter.popular": "🔥 Most Upvoted",
       "filter.favs": "⭐ Bookmarks",
       "filter.all": "All",
+      "filter.tags": "Tags",
+      "empty.suggest": "No match? Try these popular tags:",
       "filter.clearActive": "Reset Filters",
       "sort.name": "Name A-Z",
       "sort.nameDesc": "Name Z-A",
@@ -1725,6 +1731,8 @@ const state = {
   // 当前页码（0 基），切换筛选/搜索/排序时重置为 0
   page: 0,
   favoritesOnly: false,
+  // 标签多选筛选（与分类交叉：标签间 OR，标签与分类 AND）
+  tags: [],
 };
 
 const LS_FAV = "ash-favorites";
@@ -1836,10 +1844,23 @@ let SKILL_MAP = new Map();
 // 搜索匹配：名称 / 描述 / 分类（不区分大小写）
 // 支持多词 AND：terms 为预切分的小写词表（由 02-render.queryTerms 缓存传入，避免每张卡重复 split）
 // 预聚合小写检索串缓存在 s._hay（见 05-main init），避免每次输入重复拼接+小写化
+// 子序列模糊匹配：term 字符按序出现在 hay 中即命中（仅对中文词启用，避免英文/拼音过度召回）
+function isSubseq(term, hay) {
+  let i = 0;
+  for (let j = 0; j < hay.length && i < term.length; j++) {
+    if (hay[j] === term[i]) i++;
+  }
+  return i === term.length;
+}
+
 function matches(s, terms) {
   if (!terms || !terms.length) return true;
   const hay = s._hay != null ? s._hay : (s.name + " " + s.zh + " " + s.description + " " + (s.enDescription || "") + " " + s.category + " " + (s.enCategory || "")).toLowerCase();
-  return terms.every((term) => hay.includes(term));
+  return terms.every((term) => {
+    if (hay.includes(term)) return true;
+    if (/[^\x00-\xff]/.test(term)) return isSubseq(term, hay); // 仅中文词启用子序列模糊
+    return false;
+  });
 }
 
 // prototype/src/parts/02-render.js v1.20.60 — 列表/网格渲染
@@ -1873,6 +1894,25 @@ function renderCats(agg) {
   }
   // 联动渲染分类占比环形图
   renderCategoryChart(items);
+}
+
+// 标签多选筛选 chips：聚合可见技能标签频次（取前 28），选中态与 state.tags 对齐（标签间 OR，与分类 AND）
+function renderTags() {
+  const container = $("#tagChips");
+  if (!container) return;
+  const counts = new Map();
+  SKILLS_DATA.skills.forEach((s) => {
+    if (s.hidden) return;
+    (s.tags || []).forEach((t) => counts.set(t, (counts.get(t) || 0) + 1));
+  });
+  const tags = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 28);
+  const allActive = state.tags.length === 0;
+  const allBtn = `<button class="chip chip-all${allActive ? " active" : ""}" id="tagChip-all" data-tag="" style="--hue:270" tabindex="0" aria-pressed="${allActive}">${I18N.t("filter.tags")} · ${I18N.t("filter.all")}</button>`;
+  container.innerHTML = allBtn + tags.map(([t, c]) => {
+    const active = state.tags.includes(t);
+    const safe = t.replace(/[^a-zA-Z0-9一-龥_-]/g, "");
+    return `<button class="chip${active ? " active" : ""}" id="tagChip-${safe}" data-tag="${esc(t)}" style="--hue:270" tabindex="0" aria-pressed="${active}"><span class="zh">${esc(t)}</span> <span class="chip-count">${c}</span></button>`;
+  }).join("");
 }
 
 // 分类占比环形图（遵循 D3 极坐标圆弧投影规范构建轻量 SVG 环形图与图例）
@@ -2007,9 +2047,36 @@ function renderCategoryChart(items) {
   legendWrap.innerHTML = legendHTML.join("");
 }
 
-// 排序比较器：name / name-desc / votes（按点赞数降序）/ cat / zh
+// 字段加权评分：名称/中文名命中权重最高，其次标签与分类，描述最低；用于查询时结果排序
+function scoreSkill(s, terms) {
+  if (!terms || !terms.length) return 0;
+  const name = (s.name || "").toLowerCase();
+  const zh = (s.zh || "").toLowerCase();
+  const cat = (s.category || "").toLowerCase();
+  const desc = ((s.description || "") + " " + (s.enDescription || "")).toLowerCase();
+  const tags = (s.tags || []).join(" ").toLowerCase();
+  let score = 0;
+  for (const t of terms) {
+    if (name.includes(t)) score += 10;
+    if (zh.includes(t)) score += 8;
+    if (tags.includes(t)) score += 5;
+    if (cat.includes(t)) score += 4;
+    if (desc.includes(t)) score += 2;
+  }
+  return score;
+}
+
+// 排序比较器：name / name-desc / votes（按点赞数降序）/ cat / zh；查询态下改为按加权相关性降序
 function sortSkills(list) {
   const arr = list.slice();
+  // 查询态：按加权相关性降序排序（再按名称稳定化）
+  const terms = queryTerms(state.query);
+  if (terms && terms.length) {
+    return arr
+      .map((s) => ({ s, sc: scoreSkill(s, terms) }))
+      .sort((a, b) => b.sc - a.sc || String(a.s.name).localeCompare(String(b.s.name)))
+      .map((x) => x.s);
+  }
   const cmp = {
     name: (a, b) => String(a.name).localeCompare(String(b.name)),
     "name-desc": (a, b) => String(b.name).localeCompare(String(a.name)),
@@ -2070,6 +2137,18 @@ function cardHTML(s) {
 }
 
 function emptyHTML() {
+  // 空结果智能推荐：聚合可见技能高频标签，提供一键直达筛选
+  const counts = new Map();
+  SKILLS_DATA.skills.forEach((s) => {
+    if (s.hidden) return;
+    (s.tags || []).forEach((t) => counts.set(t, (counts.get(t) || 0) + 1));
+  });
+  const top = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+  const suggest = top.length
+    ? `<div class="empty-suggest" style="margin-top:18px"><span class="empty-suggest-label">${I18N.t("empty.suggest")}</span><div class="empty-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;justify-content:center">` +
+      top.map(([t]) => `<button type="button" class="chip chip-tag" data-tag="${esc(t)}" style="--hue:270">${esc(t)}</button>`).join("") +
+      `</div></div>`
+    : "";
   return `<div id="emptyState" class="empty-state" aria-live="polite">
     <svg class="empty-net" viewBox="0 0 160 100" aria-hidden="true">
       <g class="en-line">
@@ -2085,6 +2164,7 @@ function emptyHTML() {
     <div class="empty-title">${I18N.t("empty.title")}</div>
     <div class="empty-desc">${I18N.t("empty.desc")}</div>
     <button id="clearFilters" class="btn btn-ghost">${I18N.t("empty.clear")}</button>
+    ${suggest}
   </div>`;
 }
 
@@ -2113,6 +2193,9 @@ function renderActiveFilterBar() {
   if (state.favoritesOnly) {
     tags.push(`<span class="af-tag"><span>⭐ 仅收藏</span><button type="button" class="af-tag-remove" data-clear="favs" aria-label="取消仅看收藏">&times;</button></span>`);
   }
+  state.tags.forEach((tg) => {
+    tags.push(`<span class="af-tag"><span>🏷 ${esc(tg)}</span><button type="button" class="af-tag-remove" data-clear="tag" data-tag="${esc(tg)}" aria-label="移除标签">&times;</button></span>`);
+  });
   if (state.sort === "votes") {
     tags.push(`<span class="af-tag"><span>🔥 最多赞</span><button type="button" class="af-tag-remove" data-clear="sort" aria-label="取消热度排序">&times;</button></span>`);
   }
@@ -2145,11 +2228,13 @@ function renderGrid() {
     if (!matches(s, terms)) return false;
     if (state.cats && s.category !== state.cats) return false;
     if (state.favoritesOnly && !isFavorite(s.name)) return false;
+    if (state.tags.length && !(s.tags || []).some((t) => state.tags.includes(t))) return false;
     return true;
   });
   list = sortSkills(list);
   const agg = aggregateFilters(); // 单次遍历聚合分类计数
   renderCats(agg);
+  renderTags();
   renderActiveFilterBar(); // 同步活动筛选状态栏与标签
   // 分页：每页 PAGE_SIZE 条，page 为 0 基
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
@@ -2708,6 +2793,21 @@ function bind() {
   }
   window.setCategory = setCategory;
 
+  // 标签多选切换：空串 = 重置全部标签
+  function toggleTag(val) {
+    if (!val) {
+      state.tags = [];
+    } else {
+      const i = state.tags.indexOf(val);
+      if (i >= 0) state.tags.splice(i, 1);
+      else state.tags.push(val);
+    }
+    state.page = 0;
+    renderGrid();
+    track("filter_tag", { tag: val, active: state.tags.includes(val) });
+  }
+  window.toggleTag = toggleTag;
+
   // 激活标签条单个移除与全部清除
   on("#afTags", "click", (e) => {
     const btn = e.target.closest(".af-tag-remove");
@@ -2726,6 +2826,8 @@ function bind() {
         favToggleBtn.classList.remove("active");
         favToggleBtn.setAttribute("aria-pressed", "false");
       }
+    } else if (type === "tag") {
+      state.tags = state.tags.filter((t) => t !== btn.dataset.tag);
     } else if (type === "sort") {
       state.sort = "name";
     }
@@ -2737,6 +2839,7 @@ function bind() {
     state.query = "";
     state.favoritesOnly = false;
     state.sort = "name";
+    state.tags = [];
     state.page = 0;
     const si = $("#searchInput");
     if (si) si.value = "";
@@ -2773,6 +2876,19 @@ function bind() {
     const chip = e.target.closest(".chip");
     if (!chip) return;
     setCategory(chip.dataset.cat || "", "chip");
+  });
+
+  // 标签多选 Chip 点击（含「全部」重置）
+  on("#tagChips", "click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip || (chip.id !== "tagChip-all" && !chip.dataset.tag)) return;
+    toggleTag(chip.dataset.tag || "");
+  });
+
+  // 空结果推荐标签点击 → 直接筛选该标签
+  document.addEventListener("click", (e) => {
+    const tc = e.target.closest(".empty-tags .chip");
+    if (tc && tc.dataset.tag) toggleTag(tc.dataset.tag);
   });
 
   // 分类环形图扇区点击与键盘交互
@@ -2870,6 +2986,7 @@ function bind() {
       state.query = "";
       state.favoritesOnly = false;
       state.sort = "name";
+      state.tags = [];
       state.page = 0;
       const si = $("#searchInput"); if (si) si.value = "";
       const ss = $("#sortSelect"); if (ss) ss.value = "name";
