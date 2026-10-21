@@ -1,21 +1,17 @@
 ---
 name: figma-generate-design
-description: 与 figma-use 配合，将应用页面、视图或多区块布局翻译为 Figma。触发词：写入 Figma、从代码在 Figma 创建、推送页面到 Figma、把应用/页面在 Figma 中构建、创建屏幕、在 Figma 构建落地页、更新 Figma 屏幕以匹配代码、将弹窗/抽屉/面板转为 Figma。优先工作流技能，用于从代码或描述在 Figma 构建/更新整页、模态、抽屉、侧栏或组合多区块视图。
-en_description: |-
-  "Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma', 'create in Figma from code', 'push page to Figma', 'take this app/page and build it in Figma', 'create a screen', 'build a landing page in Figma', 'update the Figma screen to match code', 'convert this modal/dialog/drawer/panel to Figma'. This is the preferred workflow skill whenever the user wants to build or update a full page, modal, dialog, drawer, sidebar, panel, form, dashboard, list, table, card, header, message preview, or other composed product UI in Figma from code or a description—even when the user calls that composed UI a component. Discovers design system components, variables, and styles from Code Connect files, existing screens, and library search, then imports them and assembles views incrementally section-by-section using design system tokens instead of hardcoded values."
-zh_displayName: Figma 设计生成
-category: 品牌与设计
-en_category: Brand & Design
+description: "Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma', 'create in Figma from code', 'push page to Figma', 'take this app/page and build it in Figma', 'create a screen', 'build a landing page in Figma', 'update the Figma screen to match code', 'convert this modal/dialog/drawer/panel to Figma'. This is the preferred workflow skill whenever the user wants to build or update a full page, modal, dialog, drawer, sidebar, panel, form, dashboard, list, table, card, header, message preview, or other composed product UI in Figma from code or a description—even when the user calls that composed UI a component. Discovers design system components, variables, and styles from Code Connect files, existing screens, and library search, then imports them and assembles views incrementally section-by-section using design system tokens instead of hardcoded values."
 disable-model-invocation: false
 ---
 # Build / Update Screens and Views from Design System
-
 **Hard deliverable gate:** Code-to-design output must recreate the UI as editable text, components, icons, and hierarchy.
 Treat any screenshot or flattened rendering of the complete UI only as a visual reference: never upload or import it into the deliverable, including as the wrapper fill or a child node, even if it exists in the repository or appears more pixel-accurate. Before completion, inspect the result; if the UI is not primarily represented by editable layers, rebuild it semantically or report failure.
 
 Use this skill to create or update **screens, views, and multi-section UI containers** in Figma by **reusing the published design system** — components, variables, and styles — rather than drawing primitives with hardcoded values. This includes full pages, modals, dialogs, drawers, sidebars, panels, and any composed view with multiple sections. The key insight: the Figma file likely has a published design system with components, color/spacing variables, and text/effect styles that correspond to the codebase's UI components and tokens. Find and use those instead of drawing boxes with hex colors.
 
 **MANDATORY**: You MUST also load [figma-use](../figma-use/SKILL.md) before any `use_figma` call. That skill contains critical rules (color ranges, font loading, etc.) that apply to every script you write.
+
+When available, call `create_session` with `fileKey` and `description` before file reads or edits (create the file first if needed), then pass the returned `sessionId` unchanged to every call that accepts it, including follow-ups and work across files.
 
 **Always include `figma-generate-design` in the comma-separated `skillNames` parameter when calling `use_figma` as part of this skill. If this skill was loaded via an MCP resource, you MUST prefix the name with `resource:` (e.g. `resource:figma-generate-design`).** This is a logging parameter — it does not affect execution.
 
@@ -412,7 +408,7 @@ If you ran `generate_figma_design` in parallel, transfer only discrete content a
 
 #### Generating placeholder images
 
-Reuse available source, captured, or library images first. If placeholders remain, tell the user how many images need to be generated using the Figma `generate_image` tool. Ask permission, noting that this tool uses Figma AI credits. After consent, call `generate_image` with the requisite params.
+Reuse available source, captured, or library images first. If placeholders remain, call the Figma `generate_image` tool. After generating the images, inform the user that Figma AI credits were used to generate them.
 
 If Figma AI is unavailable or its AI credit limit is reached, confirm with the user if alternative image generation tools can be used. Upload only these alternative-provider images with `upload_assets`.
 

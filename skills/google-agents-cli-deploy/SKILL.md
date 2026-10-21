@@ -1,13 +1,25 @@
 ---
 name: google-agents-cli-deploy
-description: 将 ADK 智能体部署到 Cloud Run 或 GKE——部署工作流、服务账号、回滚、密钥管理及生产基础设施指引。
-en_description: |-
-  This skill should be used when the user wants to "deploy an agent", "deploy my ADK agent", "set up CI/CD", "configure secrets", "troubleshoot a deployment", or needs guidance on Agent Runtime, Cloud Run, or GKE deployment targets, or binding an agent to an Agent Gateway. Covers deployment workflows, service accounts, rollback, and production infrastructure. Applies to any framework agents-cli deploys (ADK, LangChain, ...). Part of the agents-cli skills suite. Do NOT use for agent API code patterns (ADK: use google-agents-cli-adk-code), evaluation (use google-agents-cli-eval), or project scaffolding (use google-agents-cli-scaffold).
-zh_displayName: Google ADK 部署
-category: AI 与智能体
-en_category: AI & Agents
-metadata: 
+description: >
+  This skill should be used when the user wants to "deploy an agent",
+  "deploy my ADK agent", "set up CI/CD", "configure secrets",
+  "troubleshoot a deployment", or needs guidance on Agent Runtime,
+  Cloud Run, or GKE deployment targets, or binding an agent to an Agent Gateway.
+  Covers deployment workflows, service accounts, rollback, and production infrastructure.
+  Applies to any framework agents-cli deploys (ADK, LangChain, ...).
+  Part of the agents-cli skills suite.
+  Do NOT use for agent API code patterns (ADK: use google-agents-cli-adk-code), evaluation
+  (use google-agents-cli-eval), or project scaffolding (use google-agents-cli-scaffold).
+metadata:
+  author: Google
+  license: Apache-2.0
+  version: 1.11.0
+  requires:
+    bins:
+      - agents-cli
+    install: "uv tool install google-agents-cli"
 ---
+
 # Deployment Guide
 
 > **Requires:** `agents-cli` (`uv tool install google-agents-cli`) — [install uv](https://docs.astral.sh/uv/getting-started/installation/index.md) first if needed.
@@ -387,7 +399,7 @@ so the image must trust the gateway's root CA. That setup is opt-in at scaffold 
 creating a new project, pass `--agent-gateway` flag to `agents-cli create`:
 
 ```bash
-agents-cli create my-agent -d agent_runtime --agent-gateway
+agents-cli create my-agent --agent adk -d agent_runtime --agent-gateway
 ```
 
 Alternatively, you can pass the same flag to `agents-cli scaffold enhance` to upgrade an

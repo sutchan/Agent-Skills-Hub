@@ -1,13 +1,25 @@
 ---
 name: google-agents-cli-adk-code
-description: 使用 Google ADK（智能体开发套件）编写智能体代码——智能体类型、工具定义、回调、状态管理、Workflow API 模式及代码示例。
-en_description: |-
-  This skill should be used when the user wants to "write agent code", "build an agent with ADK", "add a tool", "create a callback", "define an agent", "use state management" — in a project that needs ADK (Agent Development Kit) API patterns and code examples. It provides a quick reference for agent types, tool definitions, orchestration patterns, callbacks, state management, the graph Workflow API, and reference recipes to study. Do NOT use for scaffolding (use google-agents-cli-scaffold) or deployment (use google-agents-cli-deploy).
-zh_displayName: Google ADK 代码模式
-category: AI 与智能体
-en_category: AI & Agents
-metadata: 
+description: >
+  This skill should be used when the user wants to "write agent code",
+  "build an agent with ADK", "add a tool", "create a callback", "define an agent",
+  "use state management" — in a project that needs ADK (Agent Development Kit) API
+  patterns and code examples.
+  It provides a quick reference for agent types, tool definitions, orchestration
+  patterns, callbacks, state management, the graph Workflow API, and reference
+  recipes to study.
+  Do NOT use for scaffolding (use google-agents-cli-scaffold) or deployment
+  (use google-agents-cli-deploy).
+metadata:
+  author: Google
+  license: Apache-2.0
+  version: 1.11.0
+  requires:
+    bins:
+      - agents-cli
+    install: "uv tool install google-agents-cli"
 ---
+
 # ADK Code Reference
 
 Activate `/google-agents-cli-workflow` first for required development phases and scaffolding steps.
@@ -27,7 +39,7 @@ clone the repo and read the one matching the capability you need before implemen
 Do NOT write agent code until a project is scaffolded.
 
 1. Verify project: run `agents-cli info` (proceed if config exists).
-2. New project: run `agents-cli scaffold create <name>` — add `--agent adk_go` for Go.
+2. New project: run `agents-cli scaffold create <name> --agent adk --deployment-target <target>` — use `--agent adk_go` for Go.
 3. Existing code: run `agents-cli scaffold enhance .`.
 
 ## Quick Reference — Most Common Patterns
