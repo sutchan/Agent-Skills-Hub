@@ -185,7 +185,7 @@ type SkillsData = {
 > 以下为当前真实存在、待后续迭代处理的问题，**不影响上述契约的事实性**，但改动相关区域前须先知悉。
 
 - **8.1 部署产物错位**：`output:"export"` 产物在 `out/`，CI 却上传/部署 `.next`（`ci.yml` 已标注待确认）。对静态托管，`.next` 可能不是可服务站点根。
-- **8.2 数据管线断裂**：无任何脚本从 `SKILL.md` 再生 `data/*.json`；`npm run build` 不碰 `data/`；数据全手工维护，易与 `skills/` 漂移。
+- **8.2 数据管线断裂**：无任何脚本从 `SKILL.md` 再生 `data/*.json`；`npm run build` 不碰 `data/`；数据全手工维护，易与 `skills/` 漂移。复现/回填：数据由外部 skills-manager 基于 `skills/*/SKILL.md` 的 §2 六字段 frontmatter 生成；新增/修改技能须先满足 §2 契约（`tools/validate-skills.mjs` 软门禁会提示缺失字段），再经 skills-manager 提交 `data/`；仓库内不保留自动构建脚本，避免与「手工维护」契约冲突（见 #5）。
 - **8.3 frontmatter 校验降级**：`validate-skills.mjs` 已移除，改为校验 data JSON 的 `skills-data.test.mjs`；**SKILL.md 与 data 之间无自动一致性校验**。
 - **8.4 e2e 空跑**：`playwright.config.ts` 指向 `./e2e`，但仓库无 `e2e/` 目录/测试，`bun run e2e` 会因无测试失败。
 - **8.5 Bun 无 lock**：CI 全程用 `bun`，仓库无 `bun.lock`，构建不可完全复现。

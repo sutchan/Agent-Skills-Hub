@@ -1,6 +1,10 @@
 ---
 name: playwright-cli
-description: Automate browser interactions, test web pages and work with Playwright tests.
+description: "通过 Playwright CLI 进行端到端自动化测试的技能。"
+en_description: "End-to-end automation testing via the Playwright CLI."
+zh_displayName: "Playwright 命令行"
+category: "工程实践与质量"
+en_category: "Engineering Practice & Quality"
 allowed-tools: Bash(playwright-cli:*) Bash(npx playwright:*) Bash(npx --no-install playwright:*)
 ---
 

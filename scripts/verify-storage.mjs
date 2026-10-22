@@ -35,7 +35,7 @@ async function runTests() {
 
     // 2. 测试点赞累加
     console.log('\n--- 测试 2: 点赞 (Upvote) 累加与更新 ---');
-    const testSkill = 'test-verification-skill';
+    const testSkill = 'ad-creative';
     
     // 第一次点赞
     const upRes1 = await fetch(`${BASE_URL}/api/votes`, {
@@ -77,8 +77,8 @@ async function runTests() {
 
     // 4. 测试收藏 (Favorites) 添加
     console.log('\n--- 测试 4: 收藏 (Favorites) 写入与查询 ---');
-    const favSkill1 = 'react-best-practices';
-    const favSkill2 = 'tailwind-patterns';
+    const favSkill1 = 'ads-creative';
+    const favSkill2 = 'ai-image-generation';
 
     const favRes1 = await fetch(`${BASE_URL}/api/favorites`, {
       method: 'POST',

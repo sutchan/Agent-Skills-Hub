@@ -2,6 +2,25 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.14.99] - 2026-10-22
+
+### fix: 收口 2026-10-22 审计的 CI/数据/安全/文档技术债
+
+- #2 修正部署产物错位：`ci.yml` 构建/部署统一改用 `out/`（对齐 `next.config.mjs` 的 `output:"export"`），移除误用的 `.next` 上传与部署（spec §8.1）。
+- #1 补齐 E2E：新增 `e2e/smoke.spec.ts` 冒烟用例（首页渲染技能卡片 + 搜索过滤），解除 `playwright.config.ts` 指向 `./e2e` 却无目录导致的 e2e job 空跑失败（spec §8.4）。
+- #4 重建 frontmatter 契约软门禁：新增 `tools/validate-skills.mjs`（校验 `name/description/name==dir` 为硬失败，`en_description/zh_displayName/category/en_category` 缺漏仅警告，避免一次性强约束打挂 CI），并在 `ci.yml` validate job 加入校验步骤，关闭技术债 8.3。
+- #3 收录缺失的 6 个技能到 `data/skills-data.json`（`canvas-design/pdf/playwright-cli/pptx/rust-skills/skill-creator`）：根因其 `SKILL.md` 缺 §2 字段，已补全 §2 六字段并刷新 `total=167`（spec §8.2）。
+- #5 文档化数据外部生成：在 `spec.md` §8.2 明确 skills-manager 基于 §2 frontmatter 生成 `data/` 的可复现步骤，仓库内不重建自动构建管线（与「手工维护」契约一致）。
+- #8 清理 `skills/RecycleBin~1e76.ffs_tmp` 垃圾目录（无 SKILL.md）。
+- #9 修正 `scripts/verify-storage.mjs` 投票/收藏测试所用的技能名（改用真实存在的 `ad-creative/ads-creative/ai-image-generation`），避免被白名单 400 拒绝。
+- #11 收敛 `server.js` 的 `/data` 静态暴露：仅放行公开数据 `skills-data.json`/`skills-metrics.json`，不再直出含投票/收藏的 `kv-store.json`，降低数据泄露面。
+- #12 核实 `/api/favorites` 响应形状：客户端已分别处理 `GET`（对象，遍历 `Object.keys`）与 `POST`（数组 `data.favorites`），设计自洽，无需改动（强行统一反而破坏 GET 消费逻辑）。
+- #13 核实 `src/parts/03-detail.js` 为 `src/index.html` 内联详情弹窗的源（spec §8.9），并非死代码，未删除；双应用（`src/app` 壳 + `src/index.html`）为既定设计。
+- #14 修正 `prototype/wireframes.html` 页脚版本漂移 `v1.14.85 → v1.14.99`（`docs/spec.md`/`CONTRIBUTING.md` 经核实早已为 1.14.98，审计指控不实）。
+- #6/#7 经核实 `spec.md`/`CONTRIBUTING.md` 已为 1.14.98 且对被删工具（validate-skills/build-skills-data/taxonomy/prototype.html/src/lib）的引用均为「已移除」说明或 §8 技术债登记，非断链，无需大改。
+- #10 可复现构建：因本地无 `bun`，`bun.lock` 未能本地生成（CI 或用户侧 `bun install` 即可补齐）；第三方 action 已钉 major 版本标签，完整 commit-SHA 钉定需 `git ls-remote` 取当前 SHA（需网络），本轮仅记录步骤。
+- #15/#16 交互增强（回顶/深链弹窗）与限流持久化均标记为可选/评估项，本轮未擅改。
+
 ## [1.14.98] - 2026-10-19
 
 ### feat: 多维标签复合筛选与模糊加权搜索

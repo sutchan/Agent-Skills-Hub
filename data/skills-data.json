@@ -1,5 +1,5 @@
 {
-  "total": 161,
+  "total": 167,
   "skills": [
     {
       "name": "ad-creative",
@@ -2778,6 +2778,90 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
       "githubDir": "skills/writing-plans"
+    },
+    {
+      "name": "canvas-design",
+      "description": "在画布上设计与排版视觉稿的技能。",
+      "enDescription": "Design and lay out visual drafts on a canvas.",
+      "zh": "画布设计",
+      "category": "品牌与设计",
+      "enCategory": "Brand & Design",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/canvas-design",
+      "githubDir": "skills/canvas-design"
+    },
+    {
+      "name": "pdf",
+      "description": "创建、解析与转换 PDF 文档的技能。",
+      "enDescription": "Create, parse and convert PDF documents.",
+      "zh": "PDF 处理",
+      "category": "文件与格式处理",
+      "enCategory": "File & Format Handling",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/pdf",
+      "githubDir": "skills/pdf"
+    },
+    {
+      "name": "playwright-cli",
+      "description": "通过 Playwright CLI 进行端到端自动化测试的技能。",
+      "enDescription": "End-to-end automation testing via the Playwright CLI.",
+      "zh": "Playwright 命令行",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/playwright-cli",
+      "githubDir": "skills/playwright-cli"
+    },
+    {
+      "name": "pptx",
+      "description": "生成与编辑 PowerPoint 演示文稿的技能。",
+      "enDescription": "Generate and edit PowerPoint presentations.",
+      "zh": "PPTX 处理",
+      "category": "文件与格式处理",
+      "enCategory": "File & Format Handling",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/pptx",
+      "githubDir": "skills/pptx"
+    },
+    {
+      "name": "rust-skills",
+      "description": "使用 Rust 进行系统级与高性能编程的技能。",
+      "enDescription": "Systems and high-performance programming with Rust.",
+      "zh": "Rust 技能",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/rust-skills",
+      "githubDir": "skills/rust-skills"
+    },
+    {
+      "name": "skill-creator",
+      "description": "辅助创建与规范化 Agent 技能的技能。",
+      "enDescription": "Author and standardize agent skills.",
+      "zh": "技能创建器",
+      "category": "工程实践与质量",
+      "enCategory": "Engineering Practice & Quality",
+      "homepage": "",
+      "allowedTools": [],
+      "tags": [],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/skill-creator",
+      "githubDir": "skills/skill-creator"
     }
   ]
 }

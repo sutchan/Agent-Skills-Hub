@@ -26,9 +26,8 @@
 # 部署平台：EdgeOne Pages
 # 前置 Secret：EDGEONE_API_TOKEN（Settings → Secrets and variables → Actions）；缺省时跳过部署并提示。
 #
-# ⚠️ 已知待确认项：next.config.mjs 为 output:"export"（静态导出），站点静态产物落在 `out/`，
-#    而下方部署步骤上传的是 `./.next`。请确认 EdgeOne CLI 期望的目录；若应为静态站点根目录，
-#    需把部署目标改为 `./out`（改动前请在预览环境验证，避免影响生产部署）。
+# 部署产物目录：next.config.mjs 为 output:"export"（静态导出），站点静态产物落在 `out/`，
+# 下方部署步骤上传并部署 `./out`（已修正此前误用 `.next` 的错位，见 tasks.md #2 / spec §8.1）。
 
 name: CI/CD
 
@@ -85,6 +84,9 @@ jobs:
       - name: 单元测试 + 集成测试
         run: bun run test
 
+      - name: 校验 SKILL.md frontmatter 契约（§2）
+        run: node tools/validate-skills.mjs
+
       - name: 版本 / CHANGELOG / Tag 一致性校验
         run: node tools/check-version.mjs
 
@@ -118,11 +120,11 @@ jobs:
       - name: 生产构建
         run: bun run build
 
-      - name: 上传部署构件（.next，供 deploy 复用）
+      - name: 上传部署构件（out/，供 deploy 复用）
         uses: actions/upload-artifact@v4
         with:
-          name: next-build-${{ github.sha }}
-          path: .next
+          name: out-build-${{ github.sha }}
+          path: out
           retention-days: 1
           if-no-files-found: error
 
@@ -192,21 +194,21 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: 下载构建构件（.next）
+      - name: 下载构建构件（out）
         uses: actions/download-artifact@v4
         with:
-          name: next-build-${{ github.sha }}
-          path: .next-artifact
+          name: out-build-${{ github.sha }}
+          path: out-artifact
 
-      - name: 还原构建产物至 .next
+      - name: 还原构建产物至 ./out
         run: |
-          # 兼容构件保留 / 不保留顶层目录名两种情况，统一还原为 ./.next
-          if [ -d .next-artifact/.next ]; then
-            rm -rf .next && mv .next-artifact/.next .next
+          # output:"export" 产物落于 out/，统一还原为 ./out
+          if [ -d out-artifact/out ]; then
+            rm -rf out && mv out-artifact/out out
           else
-            rm -rf .next && mv .next-artifact .next
+            rm -rf out && mv out-artifact out
           fi
-          test -d .next && echo "✓ 已还原 .next"
+          test -d out && echo "✓ 已还原 out/"
 
       - name: 解析部署目标
         id: target
@@ -234,7 +236,7 @@ jobs:
         run: |
           set -o pipefail
           # npx 每次从 npm 拉取 latest；如需稳定性请固定版本号（例如 edgeone@1.2.3）。
-          npx --yes edgeone@latest pages deploy ./.next \
+          npx --yes edgeone@latest pages deploy ./out \
             -n "$DEPLOY_NAME" \
             -t "$EDGEONE_API_TOKEN" \
             -e "$DEPLOY_ENV" 2>&1 | tee deploy.log

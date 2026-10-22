@@ -15,7 +15,9 @@ app.use(express.json());
 // Serve static assets from src, public, data, skills
 app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/data', express.static(path.join(__dirname, 'data')));
+// 仅对外暴露公开数据（技能目录与指标）；投票/收藏等敏感 KV（kv-store.json）不直出，避免数据泄露（#11）
+app.get('/data/skills-data.json', (req, res) => res.sendFile(path.join(__dirname, 'data', 'skills-data.json')));
+app.get('/data/skills-metrics.json', (req, res) => res.sendFile(path.join(__dirname, 'data', 'skills-metrics.json')));
 app.use('/skills', express.static(path.join(__dirname, 'skills')));
 
 // Edge KV Store simulation (Tencent Cloud EdgeOne Edge KV) with Atomic Write & Whitelist
