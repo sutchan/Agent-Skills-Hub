@@ -1,0 +1,48 @@
+name: setup-env
+description: 安装 Bun / Node.js、恢复依赖缓存并安装依赖（CI 各 job 共用，集中管理版本与缓存策略）
+
+# 复合 action 不能在 runs 内部执行 actions/checkout —— 本地 action 需先 checkout 才能被加载，
+# 因此调用方必须先 `uses: actions/checkout@v4`，再引用 `./.github/actions/setup-env`。
+
+inputs:
+  bun-version:
+    description: Bun 版本
+    required: false
+    default: "latest"
+  node-version:
+    description: Node.js 版本（供 npx / node 步骤使用）
+    required: false
+    default: "22"
+  install:
+    description: 是否安装依赖
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - name: 安装 Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ inputs.bun-version }}
+
+    - name: 安装 Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: 恢复 Bun 依赖缓存
+      if: inputs.install == 'true'
+      uses: actions/cache@v4
+      with:
+        # 仓库当前未提交 bun.lock，故以 package.json 作为缓存键来源；
+        # 一旦提交 bun.lock，请在此 hashFiles 中加入 bun.lock 以获得精确键。
+        path: ~/.bun/install/cache
+        key: ${{ runner.os }}-bun-${{ hashFiles('package.json', 'bun.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-bun-
+
+    - name: 安装依赖
+      if: inputs.install == 'true'
+      shell: bash
+      run: bun install

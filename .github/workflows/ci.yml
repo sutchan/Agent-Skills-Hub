@@ -8,12 +8,27 @@
 #
 # 发布模式（标签触发，可追溯 / 可重复 / 风险低）：
 #   你手动 bump 版本 + 更新 CHANGELOG → 打 vX.Y.Z 标签并推送 → 本流水线在末尾 Release 阶段
-#   构建 data/*.json 作为产物附件，并提取对应 CHANGELOG 小节作为发行说明。
+#   以 data/*.json 作为发布附件，并提取对应 CHANGELOG 小节作为发行说明。
 #   校验阶段检查「package.json 版本 == 最新 CHANGELOG 小节 == git tag」一致性，不一致直接阻断。
 #
-# 包管理器：Bun（仓库无 pnpm/npm 锁文件，使用 bun.lock 由 Bun 在 CI 内生成；如需完全可复现可在仓库提交 bun.lock）
-# 部署平台：EdgeOne Pages（Next.js standalone，消费 .next 目录）
+# 设计要点：
+#   1) 构建一次、多处复用：`build` job 产出 .next 并上传为构件，`deploy` 直接下载复用，
+#      避免原先 build / e2e / deploy 各自重复执行 next build（由 3 次降为 1 次）。
+#   2) 缓存：Bun 依赖缓存（~/.bun/install/cache）、Next.js 构建缓存（.next/cache）、
+#      Playwright 浏览器缓存（~/.cache/ms-playwright）。
+#   3) 并发分组：校验/构建/测试同组可取消；部署与发布独占不可取消组，避免新提交
+#      打断进行中的部署导致半成品（原先所有 job 共用一个 cancel-in-progress:true 组）。
+#   4) run 脚本一律通过 env 传值再引用 "$VAR"，不直接插值 ${{ }}，收敛命令注入面。
+#   5) 每个 job 显式 timeout-minutes，避免外部命令/CLI 挂起长期占用 runner。
+#
+# 包管理器：Bun（BUN_VERSION 建议固定为具体版本以获得可复现构建；仓库暂无 bun.lock，
+#           若希望完全可复现，请本地 `bun install` 提交 bun.lock）
+# 部署平台：EdgeOne Pages
 # 前置 Secret：EDGEONE_API_TOKEN（Settings → Secrets and variables → Actions）；缺省时跳过部署并提示。
+#
+# ⚠️ 已知待确认项：next.config.mjs 为 output:"export"（静态导出），站点静态产物落在 `out/`，
+#    而下方部署步骤上传的是 `./.next`。请确认 EdgeOne CLI 期望的目录；若应为静态站点根目录，
+#    需把部署目标改为 `./out`（改动前请在预览环境验证，避免影响生产部署）。
 
 name: CI/CD
 
@@ -34,41 +49,35 @@ on:
           - production
           - preview
 
-# 校验 / 构建 / 测试阶段可取消进行中的运行；部署与发布单独分组，避免中断产生半成品。
-concurrency:
-  group: cicd-${{ github.ref }}
-  cancel-in-progress: true
-
 permissions:
   contents: read
 
 env:
   NODE_VERSION: "22"
+  BUN_VERSION: "latest"
   NEXT_TELEMETRY_DISABLED: "1"
   HAS_TOKEN: ${{ secrets.EDGEONE_API_TOKEN != '' }}
 
 jobs:
+  # ───────────────────────── 校验 ─────────────────────────
   validate:
     name: 校验（类型 + 单元/集成测试 + 版本一致性）
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: 安装 Bun
-        uses: oven-sh/setup-bun@v2
+      - name: 环境准备（Bun + Node + 依赖）
+        uses: ./.github/actions/setup-env
         with:
-          bun-version: "latest"
-
-      - name: 安装 Node.js（供 npx/node 步骤使用）
-        uses: actions/setup-node@v4
-        with:
+          bun-version: ${{ env.BUN_VERSION }}
           node-version: ${{ env.NODE_VERSION }}
-
-      - name: 安装依赖
-        run: bun install
 
       - name: 类型检查
         run: bun run lint
@@ -79,74 +88,76 @@ jobs:
       - name: 版本 / CHANGELOG / Tag 一致性校验
         run: node tools/check-version.mjs
 
+  # ───────────────────────── 构建（全流程唯一一次） ─────────────────────────
   build:
     name: 生产构建
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     needs: [validate]
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 安装 Bun
-        uses: oven-sh/setup-bun@v2
+      - name: 环境准备（Bun + Node + 依赖）
+        uses: ./.github/actions/setup-env
         with:
-          bun-version: "latest"
-
-      - name: 安装 Node.js（供 npx/node 步骤使用）
-        uses: actions/setup-node@v4
-        with:
+          bun-version: ${{ env.BUN_VERSION }}
           node-version: ${{ env.NODE_VERSION }}
-
-      - name: 安装依赖
-        run: bun install
 
       - name: 恢复 Next.js 构建缓存
         uses: actions/cache@v4
         with:
           path: .next/cache
-          key: ${{ runner.os }}-next-${{ hashFiles('bun.lock', 'package.json', 'src/**/*.ts', 'src/**/*.tsx') }}
+          key: ${{ runner.os }}-next-${{ hashFiles('package.json', 'bun.lock', 'src/**/*', 'data/**/*.json') }}
           restore-keys: |
             ${{ runner.os }}-next-
 
       - name: 生产构建
         run: bun run build
 
-      - name: 上传构建产物（数据）
+      - name: 上传部署构件（.next，供 deploy 复用）
         uses: actions/upload-artifact@v4
         with:
-          name: release-assets-${{ github.sha }}
-          path: |
-            data/skills-data.json
-            data/skills-metrics.json
-          retention-days: 7
+          name: next-build-${{ github.sha }}
+          path: .next
+          retention-days: 1
           if-no-files-found: error
 
+  # ───────────────────────── E2E 冒烟 ─────────────────────────
+  # 说明：应用本体由 express `server.js` 提供（src/index.html 静态站 + /api/votes、/api/favorites），
+  # 见 playwright.config.ts 的 webServer.command（`bun run start`）。因此 e2e 无需重建，
+  # 且 next.config.mjs 为 output:"export"，不可使用 next start。
   e2e:
     name: E2E 冒烟（Playwright）
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     needs: [build]
+    concurrency:
+      group: ci-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 安装 Bun
-        uses: oven-sh/setup-bun@v2
+      - name: 环境准备（Bun + Node + 依赖）
+        uses: ./.github/actions/setup-env
         with:
-          bun-version: "latest"
-
-      - name: 安装 Node.js（供 npx/node 步骤使用）
-        uses: actions/setup-node@v4
-        with:
+          bun-version: ${{ env.BUN_VERSION }}
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: 安装依赖
-        run: bun install
+      - name: 恢复 Playwright 浏览器缓存
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
 
       - name: 安装 Playwright 浏览器（chromium）
         run: bunx playwright install --with-deps chromium
-
-      - name: 生产构建（供 e2e 起服务）
-        run: bun run build
 
       - name: E2E 测试
         run: bun run e2e
@@ -159,62 +170,74 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
+  # ───────────────────────── 部署 ─────────────────────────
   deploy:
     name: 部署（EdgeOne Pages）
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     needs: [e2e]
     permissions:
       contents: read
       pull-requests: write
+    # 独占且不可取消：确保进行中的部署不被后续 push 打断，避免半成品部署。
+    concurrency:
+      group: deploy-${{ github.ref }}
+      cancel-in-progress: false
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 安装 Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: "latest"
-
-      - name: 安装 Node.js（供 npx/node 步骤使用）
+      - name: 安装 Node.js（供 edgeone CLI）
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: 安装依赖
-        run: bun install
-
-      - name: 恢复 Next.js 构建缓存
-        uses: actions/cache@v4
+      - name: 下载构建构件（.next）
+        uses: actions/download-artifact@v4
         with:
-          path: .next/cache
-          key: ${{ runner.os }}-next-${{ hashFiles('bun.lock', 'package.json', 'src/**/*.ts', 'src/**/*.tsx') }}
-          restore-keys: |
-            ${{ runner.os }}-next-
+          name: next-build-${{ github.sha }}
+          path: .next-artifact
 
-      - name: 生产构建
-        run: bun run build
+      - name: 还原构建产物至 .next
+        run: |
+          # 兼容构件保留 / 不保留顶层目录名两种情况，统一还原为 ./.next
+          if [ -d .next-artifact/.next ]; then
+            rm -rf .next && mv .next-artifact/.next .next
+          else
+            rm -rf .next && mv .next-artifact .next
+          fi
+          test -d .next && echo "✓ 已还原 .next"
 
       - name: 解析部署目标
         id: target
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_ENV: ${{ github.event.inputs.environment }}
+          PROJECT_NAME: ${{ vars.EDGEONE_PROJECT_NAME }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "env=${{ github.event.inputs.environment }}" >> "$GITHUB_OUTPUT"
-          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "env=${INPUT_ENV:-production}" >> "$GITHUB_OUTPUT"
+          elif [ "$EVENT_NAME" = "pull_request" ]; then
             echo "env=preview" >> "$GITHUB_OUTPUT"
           else
             echo "env=production" >> "$GITHUB_OUTPUT"
           fi
-          echo "name=${{ vars.EDGEONE_PROJECT_NAME || 'agent-skills-hub' }}" >> "$GITHUB_OUTPUT"
+          echo "name=${PROJECT_NAME:-agent-skills-hub}" >> "$GITHUB_OUTPUT"
 
       - name: 部署到 EdgeOne Pages
         id: deploy
         if: env.HAS_TOKEN == 'true'
+        env:
+          EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
+          DEPLOY_NAME: ${{ steps.target.outputs.name }}
+          DEPLOY_ENV: ${{ steps.target.outputs.env }}
         run: |
           set -o pipefail
+          # npx 每次从 npm 拉取 latest；如需稳定性请固定版本号（例如 edgeone@1.2.3）。
           npx --yes edgeone@latest pages deploy ./.next \
-            -n "${{ steps.target.outputs.name }}" \
+            -n "$DEPLOY_NAME" \
             -t "$EDGEONE_API_TOKEN" \
-            -e "${{ steps.target.outputs.env }}" 2>&1 | tee deploy.log
+            -e "$DEPLOY_ENV" 2>&1 | tee deploy.log
           url=$(grep -o 'EDGEONE_DEPLOY_URL=.*' deploy.log | head -1 | cut -d'=' -f2-)
           pid=$(grep -o 'EDGEONE_PROJECT_ID=.*' deploy.log | head -1 | cut -d'=' -f2-)
           echo "url=${url}" >> "$GITHUB_OUTPUT"
@@ -224,10 +247,8 @@ jobs:
             echo ""
             echo "| 项目 | 环境 | 链接 |"
             echo "|---|---|---|"
-            echo "| ${{ steps.target.outputs.name }} | ${{ steps.target.outputs.env }} | ${url:-（CLI 未返回链接）} |"
+            echo "| $DEPLOY_NAME | $DEPLOY_ENV | ${url:-（CLI 未返回链接）} |"
           } >> "$GITHUB_STEP_SUMMARY"
-        env:
-          EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
 
       - name: 提示未配置部署密钥
         if: env.HAS_TOKEN != 'true'
@@ -275,31 +296,38 @@ jobs:
               await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number, body });
             }
 
+  # ───────────────────────── 发布 GitHub Release ─────────────────────────
   release:
     name: 发布 GitHub Release
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: [deploy]
     if: startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: write
+    concurrency:
+      group: release-${{ github.ref }}
+      cancel-in-progress: false
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: 安装 Node.js（固定版本，避免依赖 runner 自带 Node）
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
       - name: 解析版本号
         id: meta
         run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_ENV"
 
-      - name: 下载构建产物
-        uses: actions/download-artifact@v4
-        with:
-          name: release-assets-${{ github.sha }}
-          path: .
-
+      # data/*.json 由 git 跟踪且构建不重新生成，直接取本次检出的文件作为发布附件，无需构件往返。
       - name: 提取发行说明（CHANGELOG 对应小节）
-        run: node tools/extract-release-notes.mjs ${{ env.version }} CHANGELOG.md release-notes.md
+        run: node tools/extract-release-notes.mjs "$VERSION" CHANGELOG.md release-notes.md
+        env:
+          VERSION: ${{ env.version }}
 
       - name: 发布 GitHub Release
         uses: softprops/action-gh-release@v2
