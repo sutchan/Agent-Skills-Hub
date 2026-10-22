@@ -53,7 +53,7 @@ permissions:
 
 env:
   NODE_VERSION: "22"
-  BUN_VERSION: "latest"
+  BUN_VERSION: "1.4.3"
   NEXT_TELEMETRY_DISABLED: "1"
   HAS_TOKEN: ${{ secrets.EDGEONE_API_TOKEN != '' }}
 
@@ -68,7 +68,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
 
@@ -101,7 +101,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
       - name: 环境准备（Bun + Node + 依赖）
         uses: ./.github/actions/setup-env
@@ -110,7 +110,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: 恢复 Next.js 构建缓存
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: .next/cache
           key: ${{ runner.os }}-next-${{ hashFiles('package.json', 'bun.lock', 'src/**/*', 'data/**/*.json') }}
@@ -121,7 +121,7 @@ jobs:
         run: bun run build
 
       - name: 上传部署构件（out/，供 deploy 复用）
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: out-build-${{ github.sha }}
           path: out
@@ -142,7 +142,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
       - name: 环境准备（Bun + Node + 依赖）
         uses: ./.github/actions/setup-env
@@ -151,7 +151,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: 恢复 Playwright 浏览器缓存
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('package.json') }}
@@ -166,7 +166,7 @@ jobs:
 
       - name: 上传 Playwright 报告（失败留存）
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: playwright-report-${{ github.sha }}
           path: playwright-report/
@@ -187,15 +187,15 @@ jobs:
       cancel-in-progress: false
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
       - name: 安装 Node.js（供 edgeone CLI）
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: 下载构建构件（out）
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: out-build-${{ github.sha }}
           path: out-artifact
@@ -235,8 +235,8 @@ jobs:
           DEPLOY_ENV: ${{ steps.target.outputs.env }}
         run: |
           set -o pipefail
-          # npx 每次从 npm 拉取 latest；如需稳定性请固定版本号（例如 edgeone@1.2.3）。
-          npx --yes edgeone@latest pages deploy ./out \
+          # 固定 edgeone CLI 版本以获得可复现部署（#10）；升级时同步更新下方版本号。
+          npx --yes edgeone@1.6.45 pages deploy ./out \
             -n "$DEPLOY_NAME" \
             -t "$EDGEONE_API_TOKEN" \
             -e "$DEPLOY_ENV" 2>&1 | tee deploy.log
@@ -267,7 +267,7 @@ jobs:
           env.HAS_TOKEN == 'true' &&
           github.event_name == 'pull_request' &&
           steps.deploy.outputs.url != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b
         env:
           DEPLOY_URL: ${{ steps.deploy.outputs.url }}
           PROJECT_ID: ${{ steps.deploy.outputs.project_id }}
@@ -312,12 +312,12 @@ jobs:
       cancel-in-progress: false
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
 
       - name: 安装 Node.js（固定版本，避免依赖 runner 自带 Node）
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -332,7 +332,7 @@ jobs:
           VERSION: ${{ env.version }}
 
       - name: 发布 GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65
         with:
           tag_name: ${{ github.ref_name }}
           name: v${{ env.version }}

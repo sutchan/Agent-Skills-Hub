@@ -2,9 +2,9 @@
 
 本项目所有重要变更均记录于此文件。
 
-## [1.14.99] - 2026-10-22
+## [1.15.0] - 2026-10-22
 
-### fix: 收口 2026-10-22 审计的 CI/数据/安全/文档技术债
+### chore: 收口 2026-10-22 审计 + 可复现构建/深链/限流持久化收尾
 
 - #2 修正部署产物错位：`ci.yml` 构建/部署统一改用 `out/`（对齐 `next.config.mjs` 的 `output:"export"`），移除误用的 `.next` 上传与部署（spec §8.1）。
 - #1 补齐 E2E：新增 `e2e/smoke.spec.ts` 冒烟用例（首页渲染技能卡片 + 搜索过滤），解除 `playwright.config.ts` 指向 `./e2e` 却无目录导致的 e2e job 空跑失败（spec §8.4）。
@@ -16,10 +16,13 @@
 - #11 收敛 `server.js` 的 `/data` 静态暴露：仅放行公开数据 `skills-data.json`/`skills-metrics.json`，不再直出含投票/收藏的 `kv-store.json`，降低数据泄露面。
 - #12 核实 `/api/favorites` 响应形状：客户端已分别处理 `GET`（对象，遍历 `Object.keys`）与 `POST`（数组 `data.favorites`），设计自洽，无需改动（强行统一反而破坏 GET 消费逻辑）。
 - #13 核实 `src/parts/03-detail.js` 为 `src/index.html` 内联详情弹窗的源（spec §8.9），并非死代码，未删除；双应用（`src/app` 壳 + `src/index.html`）为既定设计。
-- #14 修正 `prototype/wireframes.html` 页脚版本漂移 `v1.14.85 → v1.14.99`（`docs/spec.md`/`CONTRIBUTING.md` 经核实早已为 1.14.98，审计指控不实）。
+- #14 修正 `prototype/wireframes.html` 页脚版本漂移 `v1.14.85 → v1.15.0`（`docs/spec.md`/`CONTRIBUTING.md` 经核实早已为 1.14.98，审计指控不实）。
 - #6/#7 经核实 `spec.md`/`CONTRIBUTING.md` 已为 1.14.98 且对被删工具（validate-skills/build-skills-data/taxonomy/prototype.html/src/lib）的引用均为「已移除」说明或 §8 技术债登记，非断链，无需大改。
-- #10 可复现构建：因本地无 `bun`，`bun.lock` 未能本地生成（CI 或用户侧 `bun install` 即可补齐）；第三方 action 已钉 major 版本标签，完整 commit-SHA 钉定需 `git ls-remote` 取当前 SHA（需网络），本轮仅记录步骤。
-- #15/#16 交互增强（回顶/深链弹窗）与限流持久化均标记为可选/评估项，本轮未擅改。
+- #10 可复现构建收尾：全部第三方 action 钉定 commit SHA（`actions/checkout/cache/setup-node/upload-artifact/download-artifact/github-script/action-gh-release` 及 `setup-env` 内 `setup-bun`），`BUN_VERSION` 固定 `1.4.3`、`edgeone` CLI 固定 `1.6.45`，关闭供应链漂移；`bun.lock` 因本地无 `bun` 仍待用户/CI `bun install` 补齐（不阻塞）。
+- #15 实现详情深链：`#skill=<name>` 在加载与浏览器前进/后退时自动弹出对应技能详情（`init`/`hashchange` 于 `SKILL_MAP` 就绪后解析打开），补齐交互增强。
+- #16 实现限流持久化：启动时从 `data/ratelimit.json` 恢复计数、运行时周期落盘、进程退出前强制落盘，解决重启/多实例失效（多实例仍受限于共享卷，需外部共享存储）。
+
+[1.15.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.15.0
 
 ## [1.14.98] - 2026-10-19
 

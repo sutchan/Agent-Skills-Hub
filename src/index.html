@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.14.99 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.15.0 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="app-version" content="1.14.99" />
+  <meta name="app-version" content="1.15.0" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
   <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 167 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
@@ -1332,7 +1332,7 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
       </div>
       <div class="footer-meta" id="footerMeta">
         <!-- 构建元数据：版本与日期为机器可读字段，用等宽字体并以留白分栏（不用间隔号） -->
-        <span class="footer-ver" id="footerVer">v1.14.99</span>
+        <span class="footer-ver" id="footerVer">v1.15.0</span>
         <span class="footer-date" id="footerDate"><span class="zh">更新于 </span><span class="en">Updated </span><span class="date-val">2026-10-22</span></span>
       </div>
       <div class="footer-cta" id="footerCta">
@@ -3334,6 +3334,8 @@ function writeHash() {
   // 仅当不同时才改写，避免触发多余 hashchange
   if (location.hash !== h) history.replaceState(null, "", h || location.pathname + location.search);
 }
+// 详情深链：#skill=<name> 可在加载/前进后退时自动弹出对应技能详情（#15）
+let pendingSkill = null;
 // 解析 hash 写回 state；返回是否发生变更（供 init 决定是否重渲）
 function parseHash() {
   const raw = location.hash.replace(/^#/, "");
@@ -3360,6 +3362,11 @@ function parseHash() {
   // 同步搜索框 / 排序框 DOM（刷新后 DOM 需回显）
   const si = $("#searchInput"); if (si && state.query) si.value = state.query;
   const ss = $("#sortSelect"); if (ss && state.sort) ss.value = state.sort;
+  // 详情深链：仅记录技能名，待 SKILL_MAP 构建后由 init / hashchange 解析打开（#15）
+  if (params.has("skill")) {
+    const name = decodeURIComponent(params.get("skill"));
+    if (name) pendingSkill = name;
+  }
   return changed;
 }
 
@@ -3390,12 +3397,17 @@ function init() {
   applyLang(); // 内部触发 I18N.setLang -> syncDOM 填充全站文案
   bind();
   // 浏览器前进/后退或外部修改 hash 时还原深链并刷新
-  window.addEventListener("hashchange", () => { if (parseHash()) renderGrid(); });
+  window.addEventListener("hashchange", () => {
+    if (parseHash()) renderGrid();
+    if (pendingSkill) { const s = SKILL_MAP.get(pendingSkill); if (s) openDetail(s); pendingSkill = null; }
+  });
   renderHeroNodes(); // 方案 A：按分类动态生成可交互节点网
   // 兜底：若节点网因数据迟于渲染而为空，下一帧重建（防御性，当前 init 顺序已保证数据先就绪）
   const nn = document.getElementById("netNodes");
   if (nn && nn.children.length === 0) requestAnimationFrame(renderHeroNodes);
   renderGrid();
+  // 详情深链：init 末尾于 SKILL_MAP 就绪后打开 hash 指定的技能详情（#15）
+  if (pendingSkill) { const s = SKILL_MAP.get(pendingSkill); if (s) openDetail(s); pendingSkill = null; }
   // 量取顶栏高度注入 --topbar-h，供 .controls sticky 偏移使用（P2-1），并监听 resize 更新
   const setTopbarH = () => {
     const h = document.getElementById("appHeader") || document.getElementById("siteHeader");

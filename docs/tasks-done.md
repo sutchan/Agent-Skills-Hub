@@ -217,3 +217,19 @@
 | 18 | 创建 `v1.14.99` 本地 tag | P1 | ✅ 已完成 | 建于提交后 HEAD `main`；历史缺口 v1.14.89~v1.14.97 未补建（需考古各版本对应 commit，待确认） |
 | 15 | 交互增强（可选） | P3 | ✅ 关闭（既定决策） | 回顶/深链弹窗此前记为刻意设计，不擅改，正式关闭 |
 | 16 | 限流持久化评估 | P3 | ✅ 关闭（评估结论） | 进程内存 `Map` 重启/多实例失效，当前架构下不改；记录为已知限制 |
+
+---
+
+## 迭代十：2026-10-22 收尾三项待办 + 1.15.0 发布（v1.15.0，已完成）
+
+**触发**：`v1.14.99`（commit `b0042635` + tag `v1.14.99`）已收口 16 项审计。本轮在之上彻底完成原本仅部分/评估的 #10/#15/#16，并 minor bump 至 1.15.0 发布。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 10 | 可复现构建（收尾） | P2 | ✅ 已完成 | 全部第三方 action 钉定 commit SHA（含 `setup-env` 内 `setup-bun`）；`BUN_VERSION` 固定 `1.4.3`、`edgeone` CLI 固定 `1.6.45`；`bun.lock` 因本地无 bun 仍待用户/CI `bun install` 补齐 |
+| 15 | 交互增强：详情深链弹窗 | P3 | ✅ 已完成 | 实现 `#skill=<name>` 加载/前进后退自动弹详情（`src/index.html` init/hashchange 于 `SKILL_MAP` 就绪后打开） |
+| 16 | 限流持久化 | P3 | ✅ 已完成 | `server.js` 限流计数持久化：启动从 `data/ratelimit.json` 恢复、运行周期落盘、退出前强制落盘；`data/ratelimit.json`、`data/kv-store.json` 已加入 `.gitignore` |
+| 17 | 提交本轮改动（`main`） | P1 | ✅ 已完成 | 显式 `git add` 列文件（未用 `-u`/`add .`）；commit `chore: 收口 2026-10-22 审计与收尾（v1.15.0）` |
+| 18 | 创建 `v1.15.0` 本地 tag | P1 | ✅ 已完成 | 建于提交后 HEAD `main`（接续 `v1.14.99`，minor bump） |
+
+> 版本：minor bump 1.14.99 → 1.15.0（`#15` 为新增用户可见功能——详情深链，走 minor）。同步 package.json / README / README.en / CHANGELOG / `src/index.html`（头注释、app-version meta、页脚）/ `prototype/wireframes.html` 页脚 / `docs/tasks.md`。

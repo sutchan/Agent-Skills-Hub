@@ -57,6 +57,10 @@ prototype/out/_next/
 .env.local
 *.ffs_db
 
+# 服务端运行时状态（投票/收藏 KV 与限流计数，非源码禁止入库）
+data/kv-store.json
+data/ratelimit.json
+
 # 注意：切勿用 *.txt / *.mjs / *.md 这类宽泛通配忽略"临时脚本"，
 # 会误伤技能 LICENSE.txt、next.config.mjs（部署必需）、skills/**/*.mjs（技能脚本）、技能文档。
 # 改为仅精确忽略根目录下以下划线开头的临时脚本与各类日志。

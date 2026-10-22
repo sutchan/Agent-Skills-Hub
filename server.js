@@ -65,8 +65,47 @@ function saveKvStoreAtomic(store) {
 
 let kvStore = loadKvStore();
 
-// Simple in-memory rate limiting map
-const rateLimitMap = new Map();
+// 限流状态持久化：重启或共享卷部署下可延续计数窗口（#16 限流持久化评估 → 落地）
+const RATELIMIT_FILE = path.join(__dirname, 'data', 'ratelimit.json');
+function loadRatelimit() {
+  try {
+    if (fs.existsSync(RATELIMIT_FILE)) {
+      const arr = JSON.parse(fs.readFileSync(RATELIMIT_FILE, 'utf-8'));
+      if (Array.isArray(arr)) return new Map(arr);
+    }
+  } catch (e) {
+    console.error('Failed to load ratelimit store:', e);
+  }
+  return new Map();
+}
+
+let ratelimitSaveTimer = null;
+function saveRatelimitAtomic() {
+  if (ratelimitSaveTimer) clearTimeout(ratelimitSaveTimer);
+  ratelimitSaveTimer = setTimeout(() => {
+    try {
+      const dataDir = path.dirname(RATELIMIT_FILE);
+      if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+      const tmp = RATELIMIT_FILE + '.tmp';
+      fs.writeFileSync(tmp, JSON.stringify([...rateLimitMap]), 'utf-8');
+      fs.renameSync(tmp, RATELIMIT_FILE);
+    } catch (e) {
+      console.error('Failed to atomic save ratelimit:', e);
+    }
+  }, 1000);
+}
+
+// 进程退出前强制落盘，避免丢失当前窗口计数
+function flushRatelimit() {
+  try {
+    fs.writeFileSync(RATELIMIT_FILE, JSON.stringify([...rateLimitMap]), 'utf-8');
+  } catch (e) {}
+}
+process.on('SIGINT', () => { flushRatelimit(); process.exit(0); });
+process.on('SIGTERM', () => { flushRatelimit(); process.exit(0); });
+
+// In-memory rate limiting map（启动时从磁盘恢复，运行时周期落盘）
+const rateLimitMap = loadRatelimit();
 function checkRateLimit(ip) {
   const now = Date.now();
   const windowMs = 60000; // 1 minute
@@ -75,9 +114,11 @@ function checkRateLimit(ip) {
   if (!record || now - record.start > windowMs) {
     record = { start: now, count: 1 };
     rateLimitMap.set(ip, record);
+    saveRatelimitAtomic();
     return true;
   }
   record.count++;
+  saveRatelimitAtomic();
   return record.count <= maxRequests;
 }
 
