@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.15.1] - 2026-10-22
+
+### chore: 提交 bun.lock 并启用 frozen-lockfile，彻底收口可复现构建（#10）
+
+- 新增 `bun.lock`（bun 1.4.3 生成，96 包 / 451 解析项），依赖版本终态固化，解决此前「无锁文件」导致 `bun install` 结果不可复现的问题。
+- `setup-env` 安装命令改为 `bun install --frozen-lockfile`：锁文件与 `package.json` 不一致时 CI 直接失败，杜绝静默漂移。
+- 更新 `setup-env` 缓存键注释（原注释称「未提交 bun.lock」，现已提交且 `hashFiles` 本就包含它，缓存键得以精确命中）。
+
+[1.15.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.15.1
+
 ## [1.15.0] - 2026-10-22
 
 ### chore: 收口 2026-10-22 审计 + 可复现构建/深链/限流持久化收尾

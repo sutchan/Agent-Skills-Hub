@@ -236,6 +236,23 @@
 
 ---
 
+## 迭代十一：2026-10-22 提交 bun.lock 并启用 frozen-lockfile（v1.15.1，已完成）
+
+**触发**：迭代十虽完成 action 钉定与版本固定，但 #10 仍留残余——本地无 `bun` 导致 `bun.lock` 未生成，CI `bun install` 结果仍非完全可复现。本轮安装 CI 同版本 bun 彻底收口。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 10 | 提交 `bun.lock`（收尾） | P2 | ✅ 已完成 | 安装 `bun@1.4.3`（与 `ci.yml` `BUN_VERSION` 对齐）后执行 `bun install` 生成 `bun.lock`（96 包 / 451 解析项）并入库；`.gitignore` 未忽略该文件 |
+| 10b | 启用 `--frozen-lockfile` | P2 | ✅ 已完成 | `setup-env` 安装步骤改为 `bun install --frozen-lockfile`，锁文件与 `package.json` 不一致时 CI 直接失败，杜绝静默漂移 |
+| 10c | 修正过期缓存注释 | P3 | ✅ 已完成 | `setup-env` 原注释称「仓库未提交 bun.lock」（且 `hashFiles` 本已含 `bun.lock`），已更新为反映锁文件已提交、缓存键可精确命中 |
+| 17 | 提交本轮改动（`main`） | P1 | ✅ 已完成 | 显式 `git add` 列文件；commit `chore: 提交 bun.lock 并启用 frozen-lockfile（v1.15.1）` |
+| 18 | 创建 `v1.15.1` 本地 tag | P1 | ✅ 已完成 | 建于提交后 HEAD `main`（接续 `v1.15.0`，patch bump） |
+
+> 版本：patch bump 1.15.0 → 1.15.1（构建工具链收口）。同步 package.json / README / README.en / CHANGELOG / `src/index.html`（头注释、app-version meta、页脚）/ `prototype/wireframes.html` 页脚 / `docs/tasks.md`。
+> **里程碑**：至本迭代结束，2026-10-22 审计 16 项（#1–#16）与全部收尾任务**无一剩余**，`docs/tasks.md` 已无未完成项。
+
+---
+
 ## 迭代十一：实证复核 + 历史 tag 回填（2026-10-22 20:45，已完成）
 
 **触发**：v1.15.0（`d9a29c23`）声称 16 项审计 + #10/#15/#16 收尾全部完成并归档。本轮实证复核（不轻信文档声明）+ 完成遗留 tag 缺口。
