@@ -1,9 +1,9 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.16.0
+> 路径：`docs/spec.md` · 版本：1.16.1
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
-> ⚠️ 本 spec 反映**截至 v1.16.0 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / validate-skills / sync-* / src/lib / prototype.html」等描述已被后续迭代移除，见 §8 已知技术债。
+> ⚠️ 本 spec 反映**截至 v1.16.1 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / validate-skills / sync-* / src/lib / prototype.html」等描述已被后续迭代移除，见 §8 已知技术债。
 
 ---
 
@@ -12,7 +12,7 @@
 - **项目定位**：Agent 技能集合仓库。技能内容权威 = 磁盘 `skills/<name>/SKILL.md`；展示数据 = 提交态 `data/skills-data.json`（**手工维护，二者间无自动构建桥接**）。
 - **应用形态**：自包含静态单页 `src/index.html`（原生 JS、内联 `window.SKILLS_DATA` + CSS）为站点本体；`src/app/`（Next.js 16 App Router）仅为将 `/` 重定向到 `/index.html` 的存根；`server.js`（Express）提供本地静态托管与投票/收藏 API；`edge-worker.js`（EdgeOne Edge KV）承接生产侧投票/收藏。
 - **设计规范权威源**：`prototype/`（`DESIGN.md` / `COMPONENTS.md` 等）；设计令牌历史上源自 `prototype/src/styles/tokens.css`，现随产物**内联进 `src/index.html`**。
-- **版本权威源**：根 `package.json` 的 `version`（当前 **1.16.0**）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之一致。
+- **版本权威源**：根 `package.json` 的 `version`（当前 **1.16.1**）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之一致。
 
 ---
 

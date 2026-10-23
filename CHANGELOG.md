@@ -2,6 +2,14 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.1] - 2026-10-23
+
+### Changed
+- CI 规范化（`.github/workflows/ci.yml`）：所有 `actions/checkout` 增加 `persist-credentials: false`（流水线不通过 git 推送，避免 GITHUB_TOKEN 凭据残留，降低供应链风险）；修正头部注释（bun.lock 已提交，`--frozen-lockfile` 保证可复现）；`release` job 版本号改用 step `outputs` 而非 `$GITHUB_ENV`。
+
+### Fixed
+- 修正 CI 头部注释对 bun.lock 的过时描述（"仓库暂无 bun.lock"）。
+
 ## [1.16.0] - 2026-10-23
 
 ### Fixed

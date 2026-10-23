@@ -12,7 +12,7 @@
 #   校验阶段检查「package.json 版本 == 最新 CHANGELOG 小节 == git tag」一致性，不一致直接阻断。
 #
 # 设计要点：
-#   1) 构建一次、多处复用：`build` job 产出 .next 并上传为构件，`deploy` 直接下载复用，
+#   1) 构建一次、多处复用：`build` job 产出 out/ 并上传为构件，`deploy` 直接下载复用，
 #      避免原先 build / e2e / deploy 各自重复执行 next build（由 3 次降为 1 次）。
 #   2) 缓存：Bun 依赖缓存（~/.bun/install/cache）、Next.js 构建缓存（.next/cache）、
 #      Playwright 浏览器缓存（~/.cache/ms-playwright）。
@@ -20,9 +20,11 @@
 #      打断进行中的部署导致半成品（原先所有 job 共用一个 cancel-in-progress:true 组）。
 #   4) run 脚本一律通过 env 传值再引用 "$VAR"，不直接插值 ${{ }}，收敛命令注入面。
 #   5) 每个 job 显式 timeout-minutes，避免外部命令/CLI 挂起长期占用 runner。
+#   6) 所有 actions/checkout 设 persist-credentials:false（流水线不通过 git 推送，避免 GITHUB_TOKEN
+#      凭据残留在 git 配置中，降低供应链风险）。
 #
-# 包管理器：Bun（BUN_VERSION 建议固定为具体版本以获得可复现构建；仓库暂无 bun.lock，
-#           若希望完全可复现，请本地 `bun install` 提交 bun.lock）
+# 包管理器：Bun（BUN_VERSION 固定为具体版本；仓库已提交 bun.lock，
+#           `bun install --frozen-lockfile` 保证可复现构建，依赖不一致直接失败）。
 # 部署平台：EdgeOne Pages
 # 前置 Secret：EDGEONE_API_TOKEN（Settings → Secrets and variables → Actions）；缺省时跳过部署并提示。
 #
@@ -71,6 +73,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: 环境准备（Bun + Node + 依赖）
         uses: ./.github/actions/setup-env
@@ -102,6 +105,8 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
 
       - name: 环境准备（Bun + Node + 依赖）
         uses: ./.github/actions/setup-env
@@ -147,6 +152,8 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
 
       - name: 环境准备（Bun + Node + 依赖）
         uses: ./.github/actions/setup-env
@@ -192,6 +199,8 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
 
       - name: 安装 Node.js（供 edgeone CLI）
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -319,6 +328,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: 安装 Node.js（固定版本，避免依赖 runner 自带 Node）
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -327,19 +337,19 @@ jobs:
 
       - name: 解析版本号
         id: meta
-        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_ENV"
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
       # data/*.json 由 git 跟踪且构建不重新生成，直接取本次检出的文件作为发布附件，无需构件往返。
       - name: 提取发行说明（CHANGELOG 对应小节）
         run: node tools/extract-release-notes.mjs "$VERSION" CHANGELOG.md release-notes.md
         env:
-          VERSION: ${{ env.version }}
+          VERSION: ${{ steps.meta.outputs.version }}
 
       - name: 发布 GitHub Release
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65
         with:
           tag_name: ${{ github.ref_name }}
-          name: v${{ env.version }}
+          name: v${{ steps.meta.outputs.version }}
           body_path: release-notes.md
           files: |
             data/skills-data.json
