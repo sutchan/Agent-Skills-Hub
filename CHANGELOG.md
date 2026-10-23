@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.15.2] - 2026-10-22
+
+### docs: 任务文档重构对齐 + #22 推送条款精确化
+
+- `docs/tasks.md` 回归「仅保存**未完成**任务」结构（已采纳前序重构的设计）：所有已完成项统一归档于 `docs/tasks-done.md`，两份文档不再重复。
+- 原 #21「生成 `bun.lock`」已于 v1.15.1 完成并从未完成清单移除，相关处置归档至迭代十一。
+- #22「推送至远端」条款依据实测精确化：本地 `main` 领先 `origin/main` 1 个提交；远端**无任何 tag**，本地 27 个 `v*` tag 待推送；并明确 **24 个 `sm-v-*` skills-manager 备份标签不得推送**，须用 `git push origin "refs/tags/v*"` 精确推送（若误用 `git push --tags` 会污染远端）。
+
+[1.15.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.15.2
+
 ## [1.15.1] - 2026-10-22
 
 ### chore: 提交 bun.lock 并启用 frozen-lockfile，彻底收口可复现构建（#10）
