@@ -363,3 +363,26 @@
 | 34 | 版本同步至 v1.15.5 | P2 | ✅ 已完成 | package.json / README / README.en / CHANGELOG / `src/index.html`（头注释、app-version meta、页脚）/ `prototype/wireframes.html` 页脚 / `docs/tasks.md` 全部同步 |
 
 > **结论：`docs/tasks.md` 未完成清单仍仅剩 #22b（推送最后 1 个提交 + `v1.15.3`/`v1.15.4` tag）**，属外部动作，需用户确认后执行。
+
+---
+
+## 迭代十八：#22b 推送完成，未完成任务清零（v1.15.6，已完成）
+
+**触发**：用户确认「推送分支 + v\* tag（推荐）」。执行 `git push origin main` + `git push origin "refs/tags/v*"`。
+
+**推送实测（2026-10-23）**
+
+| 项 | 推送前 | 推送后（实测） |
+|---|---|---|
+| 远端 `origin/main` | `0373badc`（落后本地 2 提交） | **`61d714f0`**，`git log origin/main..main` 为空 → 完全同步 ✅ |
+| 远端 `v*` tag | 28 | **31**（新增 `v1.15.3` / `v1.15.4` / `v1.15.5`） |
+| 远端 `sm-v*` 备份标签 | 0 | **0**（零污染，`sm-v-*` 排除策略全程有效 ✅） |
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 22b | 推送 `main` 分支与剩余 tag 至远端 | P1 | ✅ 已完成 | `git push origin main`（`0373badc..61d714f0`）+ `git push origin "refs/tags/v*"`（新增 `v1.15.3`/`v1.15.4`/`v1.15.5` 三个 tag）；`sm-v-*` 未推 |
+| 35 | 归档 #22b 并清空 `tasks.md` 未完成清单 | P1 | ✅ 已完成 | `docs/tasks.md` 未完成任务改为「（无）」，本迭代记录推送实测 |
+| 36 | 版本同步至 v1.15.6 | P2 | ✅ 已完成 | package.json / README / README.en / CHANGELOG / `src/index.html`（头注释、app-version meta、页脚）/ `prototype/wireframes.html` 页脚 / `docs/tasks.md` 同步 |
+| 17 | 提交并推送本轮改动 | P1 | ✅ 已完成 | commit `chore: 推送分支与剩余 tag，#22b 完成、未完成任务清零（v1.15.6）` + 注解 tag `v1.15.6`，二者均已推送 |
+
+> **里程碑：`docs/tasks.md` 未完成任务清零。** 2026-10-22 全面体检审计 16 项（#1–#16）、#10 可复现构建（含 `bun.lock` + `--frozen-lockfile`）、#15 详情深链、#16 限流持久化、#21 `bun.lock` 生成、#22 tag 与分支推送——**全部完成并归档，无任何剩余项**。

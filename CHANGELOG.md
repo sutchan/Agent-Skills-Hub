@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.15.6] - 2026-10-23
+
+### chore: 推送分支与剩余 tag，#22b 完成、未完成任务清零
+
+- 按用户确认执行 `git push origin main` + `git push origin "refs/tags/v*"`。实测：`origin/main` 推进至 `61d714f0`，`git log origin/main..main` 为空（本地与远端完全同步）。
+- 远端 `v*` tag 由 28 → **31**（新增 `v1.15.3`/`v1.15.4`/`v1.15.5`）；远端 `sm-v*` 备份标签保持 **0**（零污染）。
+- `docs/tasks.md` 未完成任务**清零**；#22b 处置归档至 `docs/tasks-done.md` 迭代十八。
+
+[1.15.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.15.6
+
 ## [1.15.5] - 2026-10-23
 
 ### docs: 远端进展复核与任务文档事实刷新（#22b 更新）
