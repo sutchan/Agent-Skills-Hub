@@ -2,13 +2,22 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.15.3] - 2026-10-22
+
+### docs: #22 推送备注改为不写死提交数（消除漂移）
+
+- `docs/tasks.md` 中 #22 原写死「领先 origin/main 1 个提交」，但本地每新增提交该数字即失效（新增 `a7586e5e` 后实为 2）。已改为稳健表述：不再写死数量，注明推送前以 `git log origin/main..main` 实查为准，避免数字随提交持续漂移。
+- 同时明确远端当前无任何 tag、本地 27 个 `v*` tag 待推，且 24 个 `sm-v-*` 备份标签不得推送（须用 `git push origin "refs/tags/v*"`）。
+
+[1.15.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.15.3
+
 ## [1.15.2] - 2026-10-22
 
 ### docs: 任务文档重构对齐 + #22 推送条款精确化
 
 - `docs/tasks.md` 回归「仅保存**未完成**任务」结构（已采纳前序重构的设计）：所有已完成项统一归档于 `docs/tasks-done.md`，两份文档不再重复。
 - 原 #21「生成 `bun.lock`」已于 v1.15.1 完成并从未完成清单移除，相关处置归档至迭代十一。
-- #22「推送至远端」条款依据实测精确化：本地 `main` 领先 `origin/main` 1 个提交；远端**无任何 tag**，本地 27 个 `v*` tag 待推送；并明确 **24 个 `sm-v-*` skills-manager 备份标签不得推送**，须用 `git push origin "refs/tags/v*"` 精确推送（若误用 `git push --tags` 会污染远端）。
+- #22「推送至远端」条款依据实测精确化：本地 `main` 领先 `origin/main` 1 个提交；远端**原无任何 tag**，本地 27 个 `v*` 发布 tag 待推送；并明确 **24 个 `sm-v-*` skills-manager 备份标签不得推送**，须用 `git push origin "refs/tags/v*"` 精确推送（若误用 `git push --tags` 会污染远端）。**该推送已于 2026-10-22 执行完毕**：27 个版本 tag（v1.14.73~v1.14.99、v1.15.0、v1.15.1）已推送至 origin，`sm-v-*` 快照标签全部排除。
 
 [1.15.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.15.2
 
