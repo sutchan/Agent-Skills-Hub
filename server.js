@@ -10,10 +10,23 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 
+// 经反代（EdgeOne / CDN）部署时，从 X-Forwarded-For 取真实客户端 IP；
+// 否则 req.ip 为边缘节点 IP，限流会按全站共用一个桶计数，极易误伤全员 429（代码审查 #2）。
+app.set('trust proxy', 1);
+
+// 基础安全响应头（无外部依赖）
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
+
 app.use(express.json());
 
-// Serve static assets from src, public, data, skills
-app.use(express.static(path.join(__dirname, 'src')));
+// Serve static assets from public and skills.
+// 注意：src/index.html 由 GET / 显式返回，不通过静态中间件暴露整个 src/ 源码目录
+// （避免泄露 src/parts 死代码、Next 壳等无关文件，代码审查 #3）。
 app.use(express.static(path.join(__dirname, 'public')));
 // 仅对外暴露公开数据（技能目录与指标）；投票/收藏等敏感 KV（kv-store.json）不直出，避免数据泄露（#11）
 app.get('/data/skills-data.json', (req, res) => res.sendFile(path.join(__dirname, 'data', 'skills-data.json')));
@@ -190,14 +203,31 @@ app.post('/api/favorites', (req, res) => {
 
 // 本地 / 预览：将 GA 衡量 ID 占位符替换为环境变量（缺省回退原 ID，保证本地 GA 可用）
 const GA_TOKEN = '__GA_MEASUREMENT_ID__';
-app.get('/', (req, res) => {
+function sendIndex(res) {
   const file = path.join(__dirname, 'src', 'index.html');
   fs.readFile(file, 'utf-8', (err, html) => {
     if (err) return res.status(500).send('Internal Server Error');
     const gaId = process.env.GA_MEASUREMENT_ID || 'G-WQDDVB14PF';
     res.type('html').send(html.split(GA_TOKEN).join(gaId));
   });
+}
+
+app.get('/', (req, res) => sendIndex(res));
+
+// JSON 404：未知的 /api/* 返回结构化错误，而非 express 默认 HTML（代码审查 #8）
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'Not found', path: req.path });
 });
+
+// 全局错误兜底（避免未捕获异常泄露堆栈）
+app.use((err, req, res, next) => {
+  if (res.headersSent) return next(err);
+  console.error('Unhandled error:', err);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+// SPA 回退：非 /api 未知路由返回首页（支持详情深链 skills/<name>/），同样注入 GA ID
+app.use((req, res) => sendIndex(res));
 
 app.listen(PORT, HOST, () => {
   console.log(`Agent Skills Hub server running at http://${HOST}:${PORT}`);
