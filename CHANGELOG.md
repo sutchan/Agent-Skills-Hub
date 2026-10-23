@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.15.7] - 2026-10-23
+
+### chore: GA4 衡量 ID 改为读取部署平台环境变量
+
+- `src/index.html` 中硬编码的 GA4 衡量 ID（`G-WQDDVB14PF`）替换为占位符 `__GA_MEASUREMENT_ID__`，不再写死于源码。
+- 新增 `scripts/inject-ga.mjs`：构建期（`next build && cp` 之后）将占位符替换为环境变量 `GA_MEASUREMENT_ID` 的值并写入 `out/index.html`；变量缺失时回退原 ID，保证本地预览 GA 仍可用。
+- `server.js` 本地预览（`/`）按 `process.env.GA_MEASUREMENT_ID` 注入，缺省回退原 ID。
+- CI `build` job 通过 `vars.GA_MEASUREMENT_ID` 注入该变量；**部署前需在仓库 Settings → Variables 中配置 `GA_MEASUREMENT_ID`**（非密钥，GA 衡量 ID 本就公开）。EdgeOne 侧若采用平台构建， likewise 设置同名环境变量即可。
+
+[1.15.7]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.15.7
+
 ## [1.15.6] - 2026-10-23
 
 ### chore: 推送分支与剩余 tag，#22b 完成、未完成任务清零

@@ -118,6 +118,10 @@ jobs:
             ${{ runner.os }}-next-
 
       - name: 生产构建
+        env:
+          # GA 衡量 ID 由部署平台环境变量注入（仓库 Settings → Variables 设置 GA_MEASUREMENT_ID），
+          # 构建期由 scripts/inject-ga.mjs 写入 out/index.html，避免硬编码泄露/耦合。
+          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
         run: bun run build
 
       - name: 上传部署构件（out/，供 deploy 复用）

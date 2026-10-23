@@ -188,8 +188,15 @@ app.post('/api/favorites', (req, res) => {
   res.json({ name, bookmarked: isFav, favorites: Object.keys(kvStore.favorites) });
 });
 
+// 本地 / 预览：将 GA 衡量 ID 占位符替换为环境变量（缺省回退原 ID，保证本地 GA 可用）
+const GA_TOKEN = '__GA_MEASUREMENT_ID__';
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src', 'index.html'));
+  const file = path.join(__dirname, 'src', 'index.html');
+  fs.readFile(file, 'utf-8', (err, html) => {
+    if (err) return res.status(500).send('Internal Server Error');
+    const gaId = process.env.GA_MEASUREMENT_ID || 'G-WQDDVB14PF';
+    res.type('html').send(html.split(GA_TOKEN).join(gaId));
+  });
 });
 
 app.listen(PORT, HOST, () => {
