@@ -1,9 +1,9 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.14.98
+> 路径：`docs/spec.md` · 版本：1.16.0
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
-> ⚠️ 本 spec 反映**截至 v1.14.98 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / validate-skills / sync-* / src/lib / prototype.html」等描述已被后续迭代移除，见 §8 已知技术债。
+> ⚠️ 本 spec 反映**截至 v1.16.0 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / validate-skills / sync-* / src/lib / prototype.html」等描述已被后续迭代移除，见 §8 已知技术债。
 
 ---
 
@@ -12,7 +12,7 @@
 - **项目定位**：Agent 技能集合仓库。技能内容权威 = 磁盘 `skills/<name>/SKILL.md`；展示数据 = 提交态 `data/skills-data.json`（**手工维护，二者间无自动构建桥接**）。
 - **应用形态**：自包含静态单页 `src/index.html`（原生 JS、内联 `window.SKILLS_DATA` + CSS）为站点本体；`src/app/`（Next.js 16 App Router）仅为将 `/` 重定向到 `/index.html` 的存根；`server.js`（Express）提供本地静态托管与投票/收藏 API；`edge-worker.js`（EdgeOne Edge KV）承接生产侧投票/收藏。
 - **设计规范权威源**：`prototype/`（`DESIGN.md` / `COMPONENTS.md` 等）；设计令牌历史上源自 `prototype/src/styles/tokens.css`，现随产物**内联进 `src/index.html`**。
-- **版本权威源**：根 `package.json` 的 `version`（当前 **1.14.98**）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之一致。
+- **版本权威源**：根 `package.json` 的 `version`（当前 **1.16.0**）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之一致。
 
 ---
 
@@ -191,8 +191,8 @@ type SkillsData = {
 - **8.5 Bun 无 lock**：CI 全程用 `bun`，仓库无 `bun.lock`，构建不可完全复现。
 - **8.6 静态站与 Next 并存**：`src/index.html`（真实应用）与 `src/app`（重定向壳）双层并存，仅一层有用。
 - **8.7 边缘产物未入部署**：`edge-worker.js` / `edgeone.config.json` 在仓库根，`next build`/`cp` 不把它们纳入 `out/`，其随 EdgeOne 部署的保证未在流水线中明确。
-- **8.8 技能数量口径不一**：`src/index.html` `<meta>` 文案写 171，内联 `total` 为 161（以实算为准）。
-- **8.9 过期引用残留**：`.gitignore` 放行不存在的 `!prototype/build-skills-data.mjs`；`src/index.html` 注释称 `banner-og.svg` "由 build.mjs 复制"（build.mjs 不存在）；`src/parts/03-detail.js` 与 `index.html` 内容重复（已内联，不再加载）。
+- **8.8 技能数量口径不一**（已修复，v1.16.0）：原 `<meta>` 文案 171 / 内联 `total` 161 的口径问题，已通过 `npm run sync:data` 从 `data/skills-data.json` 重建内联数据消除；现 meta、内联 `total` 与 data 文件三处均为实算值 167（spec §3.4）。
+- **8.9 过期引用残留**（部分已修复，v1.16.0）：`src/parts/03-detail.js` 死代码已删除（规范 §7.10 内联单文件应用豁免拆分）；`.gitignore` 与 `banner-og.svg` 注释中仍引用不存在的 `build.mjs`/`build-skills-data.mjs`，属低优先级待清理项。
 
 ---
 

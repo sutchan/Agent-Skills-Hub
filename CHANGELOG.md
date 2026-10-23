@@ -2,6 +2,27 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.0] - 2026-10-23
+
+### Fixed
+- 修复前端内联数据与权威 `data/skills-data.json` 漂移（161→167）：新增 `scripts/sync-inline-data.mjs` 与 `npm run sync:data`，从权威数据重建 `window.SKILLS_DATA`（spec §3.4/§8.8）。
+- 修复限流在生产反代（EdgeOne）下误伤全站：server.js 增加 `app.set('trust proxy', 1)`，从 `X-Forwarded-For` 取真实客户端 IP（代码审查 #2）。
+- 修复 SPA 深链与未知 API 返回不当内容：server.js 增加 `/api` JSON 404、全局错误兜底、非 `/api` 路由 SPA 回退（返回首页并注入 GA ID）（代码审查 #8）。
+- 修复卡片无障碍语义：技能卡片补充 `role="button"` 与 `aria-label`（代码审查 #6）。
+- 修复云端同步失败静默无反馈：投票/收藏同步失败时给出 toast 提示（代码审查 #7）。
+- 修复页脚「最后更新」依赖硬编码字面量 `2026-10-09` 的脆弱替换，改为运行时直接填充当前日期（代码审查 #12）。
+- 弱化不实的「离线可用」文案（原型未声称离线），改为「纯静态」（代码审查 #4）。
+
+### Changed
+- server.js 收窄静态目录：移除对整个 `src/` 的静态挂载，仅暴露 `public/` 与 `/skills`，避免泄露死代码与 Next 壳（代码审查 #3）。
+- server.js 增加基础安全响应头（X-Content-Type-Options / X-Frame-Options / Referrer-Policy）。
+
+### Removed
+- 删除死代码 `src/parts/03-detail.js`（285 行，规范 §8.9 已记录「不再加载」），同步清理空目录。
+
+### Added
+- 新增 `npm run sync:data` 脚本，自动化内联数据同步。
+
 ## [1.15.7] - 2026-10-23
 
 ### chore: GA4 衡量 ID 改为读取部署平台环境变量

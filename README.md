@@ -26,7 +26,7 @@ npm install
 npm run dev      # 启动静态服务，默认 http://localhost:3000
 ```
 
-技能数据维护于 `data/skills-data.json`（稳定元数据）与 `data/skills-metrics.json`（派生指标）。
+技能数据维护于 `data/skills-data.json`（稳定元数据）与 `data/skills-metrics.json`（派生指标）。改完数据后运行 `npm run sync:data` 将最新技能同步进 `src/index.html` 的内联 `window.SKILLS_DATA`，保持前端展示与权威数据一致。
 
 ## 安装方式
 
