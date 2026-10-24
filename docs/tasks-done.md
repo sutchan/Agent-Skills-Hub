@@ -419,3 +419,32 @@
 - 版本 1.15.7 → 1.16.0（package.json / index.html 头注释与 meta / README 徽章 / CHANGELOG / spec 头）。
 - CHANGELOG 新增 v1.16.0；spec §8.8 / §8.9 标记修复、版本引用对齐 1.16.0。
 - 新增 `scripts/sync-inline-data.mjs`。
+
+---
+
+## 迭代二十：server.js 模块化拆分（v1.16.2，已完成）
+
+> 日期 2026-10-23。来源：用户要求「拆分所有超过 200 行的源代码文件」。合规复核发现 `server.js` 因上一轮新增 trust proxy / 安全响应头 / JSON 404 / SPA 回退而涨至 **235 行**，超出「源码单文件 ≤200 行」红线。
+
+### 拆分结果
+| 文件 | 职责 | 行数 |
+|---|---|---|
+| `server/config.js` | 路径/环境常量（ROOT_DIR / PORT / HOST / GA / data 文件路径） | 24 |
+| `server/fs-util.js` | JSON 读取 + 原子写（含尾随换行） | 29 |
+| `server/store.js` | KV 内存态 + 防抖原子落盘 + 技能白名单 | 35 |
+| `server/ratelimit.js` | 限流持久化 + rateLimitMiddleware + 退出前强制落盘 | 67 |
+| `server/api.js` | 投票/收藏路由 + 入参与白名单校验 | 66 |
+| `server/pages.js` | 静态资源与公开数据、首页、SPA 回退 | 32 |
+| `server.js`（根） | 仅装配（中间件顺序 + 路由挂载） | 45 |
+
+### 关键约束（拆分时最易踩的坑）
+- **挂载顺序必须保持**：静态与公开数据在限流**之前**（不占 API 配额）；其后为 `mountApi` → `mountHome` → `/api` JSON 404 → 全局错误兜底 → `mountSpaFallback`。若 SPA 回退早于 `/api` 404 挂载，未知 API 会被回退成 HTML，JSON 404 即失效。
+- 与原实现的差异仅两处且均为等价/改良：原子写补尾随换行（消除无谓 diff）；限流 Map 在模块内先初始化再定义函数（消除原对 TDZ 的隐式依赖）。
+
+### 验证
+- `node --check`：7 个文件全部通过。
+- 冒烟（端口 3100，避开被 WSL 占用的 3000）：`GET /` 200 HTML；`/api/votes`、`/api/favorites` 200；`/data/*.json` 200（total 167）；**`/api/nope` → 404 JSON**（顺序敏感项已确认保持）；深链 `/skills/x/` → 200 首页；`/favicon.svg` 200；POST 投票 200、undo 200、非法技能名 400（白名单拦截）；收藏 add/remove 200。
+- `npm test` 7/7 通过；版本 1.16.1 → 1.16.2，全展示位一致。
+
+### 说明
+- `skills/`（168 个上游 vendored 技能及其自带脚本）不属本项目源码拆分范围，故未扫描/拆分。
