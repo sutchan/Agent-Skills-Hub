@@ -1,12 +1,8 @@
 ---
 name: manage-skills
-description: 通过 skills-manager-cli 管理共享智能体技能库——按 agent 安装、更新、删除、部署技能，管理预设、组织标签、搜索和采纳现有技能。
-en_description: |-
-  Manage the user's shared agent-skill library via skills-manager-cli — install, update, remove, deploy or undeploy skills per agent, manage presets, organize tags, search, and adopt existing skills. Use this whenever the user wants Claude Code, Codex, Cursor, or another agent to gain or lose a skill, wants to organize the central library, or asks what is installed or deployed. Prefer this over direct agent-folder installs because Skills Manager preserves source metadata, preset membership, updates, and cross-agent deployment state.
-zh_displayName: 技能管理
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: Manage the user's shared agent-skill library via skills-manager-cli — install, update, remove, deploy or undeploy skills per agent, manage presets, organize tags, search, and adopt existing skills. Use this whenever the user wants Claude Code, Codex, Cursor, or another agent to gain or lose a skill, wants to organize the central library, or asks what is installed or deployed. Prefer this over direct agent-folder installs because Skills Manager preserves source metadata, preset membership, updates, and cross-agent deployment state.
 ---
+
 ## Before doing anything
 
 1. **Resolve the CLI first, then use the path it prints.** Run this once (POSIX
@@ -137,7 +133,7 @@ Each result has `install_ref` (paste straight into `skills install`), `installs`
 "$SM" skills check --all
 ```
 
-`check` is the dry-run partner of `update`. Local-only skills (no git source) are reported as `skipped: true`.
+`check` is the dry-run partner of `update`. A skill installed from a local folder is compared with that folder, not with any Git remote: `update_available` means the folder changed since it was imported, and `source_missing` means the folder is gone. This check always runs; the cache that spares Git remotes a round-trip within an hour (bypass it with `--force`) does not apply to it. Website skills have nothing to compare against and come back `skipped: true`.
 
 **An update replaces the skill's directory wholesale**, so anything written inside it that the new version does not have would be destroyed. When the CLI detects that, it applies nothing and reports the paths instead:
 
