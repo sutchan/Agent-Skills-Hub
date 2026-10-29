@@ -448,3 +448,24 @@
 
 ### 说明
 - `skills/`（168 个上游 vendored 技能及其自带脚本）不属本项目源码拆分范围，故未扫描/拆分。
+
+---
+
+## 迭代二十一：GA4 衡量 ID 环境变量化（v1.15.7，已完成，本轮补录）
+
+> 来源：用户请求「把谷歌分析的衡量ID代码转换成部署平台的环境变量」。原提交 `16e7907c`（v1.15.7）已完成代码改造，但当时未登记至任务文档；本轮在多轮 v1.16.x 重构后复核机制完好，补录归档。
+
+### 变更与验证
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | `src/index.html` 硬编码 GA 衡量 ID 改为占位符 | P1 | ✅ 已完成 | `G-WQDDVB14PF` → `__GA_MEASUREMENT_ID__`（gtag js src 与 config 两处） |
+| 2 | 新增 `scripts/inject-ga.mjs` 构建期注入 | P1 | ✅ 已完成 | 读取 `process.env.GA_MEASUREMENT_ID`（缺省回退 `G-WQDDVB14PF`）替换 `out/index.html` 占位符 |
+| 3 | `server.js`（后拆分至 `server/`）本地预览按 env 注入 | P1 | ✅ 已完成 | `server/config.js` 导出 `GA_TOKEN`/`GA_ID`，`server/pages.js` 首页渲染时替换占位符 |
+| 4 | `package.json` build 脚本追加注入步骤 | P2 | ✅ 已完成 | `next build && cp src/index.html out/index.html && node scripts/inject-ga.mjs` |
+| 5 | CI `build` job 注入 `vars.GA_MEASUREMENT_ID` | P2 | ✅ 已完成 | `.github/workflows/ci.yml` 设 `GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}` |
+| 6 | README 补充「环境变量（部署）」小节 | P3 | ✅ 已完成 | 说明变量名 / 默认值与配置位置 |
+| 7 | 经 v1.16.x 重构复核机制完好 | P1 | ✅ 已完成 | 实测：`src/index.html` 占位符、`inject-ga.mjs`、`server/config.js` GA_TOKEN/GA_ID、`server/pages.js` 注入、`ci.yml` 变量均保留 |
+
+### 说明
+- 部署前须在仓库 **Settings → Variables** 配置 `GA_MEASUREMENT_ID`（非密钥，GA 衡量 ID 公开）；EdgeOne 平台构建同理设同名变量。
+- 模拟 `cp` + 注入验证：注入前 2 占位符 → 注入后 0 占位符、2 个环境变量值，机制有效。

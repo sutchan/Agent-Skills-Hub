@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.3] - 2026-10-29
+
+### docs: 任务文档同步 + 版本漂移纠正（全局 bump 1.16.2 → 1.16.3）
+
+- 补录此前遗漏登记的「GA4 衡量 ID 环境变量化」任务（v1.15.7 完成，详见 `docs/tasks-done.md` 迭代二十一）：`src/index.html` 占位符 + `scripts/inject-ga.mjs` 构建期注入 + `server/`（GA_TOKEN/GA_ID）与 CI `vars.GA_MEASUREMENT_ID`，经 v1.16.x 重构验证机制完好。
+- 纠正版本漂移：README.en 徽章、src/index.html 页脚、prototype/wireframes.html 页脚此前停留在 v1.15.7，本次统一同步至 v1.16.3；tasks.md 头注释/版本展示由 v1.16.0 刷新。
+- `docs/tasks.md` 未完成任务仍为「（无）」；所有历史任务均已归档 `docs/tasks-done.md`。
+
+[1.16.3]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.3
+
 ## [1.16.2] - 2026-10-23
 
 ### Changed
