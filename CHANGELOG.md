@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0] - 2026-10-30
+
+### Added
+- Add ChatSPSS v0.2.2 as a MIT-0 licensed, local statistical analysis skill with its 22-task script, pinned dependencies, scope references, and preserved NOTICE. It recognizes advanced-model requests without claiming those methods are implemented.
+
+[1.17.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.17.0
+
 本项目所有重要变更均记录于此文件。
 
 ## [1.16.3] - 2026-10-29

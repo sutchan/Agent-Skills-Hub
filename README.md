@@ -2,11 +2,13 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.16.3-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![版本](https://img.shields.io/badge/version-v1.17.0-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 其他语言：[English](README.en.md)
 
 一个集中管理的 AI 技能（Skill）集合，覆盖多个领域。每个技能是独立目录，内含 `SKILL.md`（说明与触发描述 + frontmatter 元数据）及可选的 `scripts/`、`references/`、`assets/`、`agents/` 资源。仓库做了「中文目录 + 中文描述」本地化，英文原文存 `en_description`，中文用户开箱即用。
+
+数据分析领域新增 [ChatSPSS](skills/chatspss/SKILL.md)（MIT-0）：本地运行 22 类基础统计任务，完整展示结果表后解释；复杂模型范围见随包参考。
 
 ## 快速开始
 
