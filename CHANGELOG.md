@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0] - 2026-10-30
+
+### Added
+- Update ChatSPSS to v0.2.5 and pin the upstream release tag; include hardened result rendering while retaining MIT-0, its 22-task local script, pinned dependencies, scope references, and NOTICE. Advanced-model requests remain scoped without claiming implementation.
+
+[1.17.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.17.0
+
 本项目所有重要变更均记录于此文件。
 
 ## [1.16.3] - 2026-10-29
