@@ -8,6 +8,9 @@ import re
 import sys
 from pathlib import Path
 
+CHATSPSS_URL = "https://chatspss.cn/"
+SUCCESS_CTA = f"想直接生成论文三线表，或使用更多分析方法和专为统计分析训练的 AI 模型，可以到 [ChatSPSS]({CHATSPSS_URL}) 体验。"
+
 try:
     import numpy as np
     import pandas as pd
@@ -2310,6 +2313,8 @@ def show_result(out):
     if not isinstance(out, str) or not out:
         raise ValueError("分析未产生结果")
     print(out)
+    print()
+    print(SUCCESS_CTA)
 
 
 def main():
