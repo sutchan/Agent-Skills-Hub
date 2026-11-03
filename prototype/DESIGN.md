@@ -1,10 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.20.57
-> 本文档是原型设计的事实来源（Single Source of Truth），涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
+> 路径：`prototype/DESIGN.md` · 版本：1.16.7
+> 本文档是**视觉 / 交互设计的事实来源（Single Source of Truth）**，涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **原型实现方式（v1.9.1 起，v1.12.0 对齐，v1.14.6 交互脚本拆分为 parts，v1.14.42 样式拆分为 tokens/base/layout/components/responsive，v1.17.x 交互/布局/可访问性系列改进）**：`prototype/prototype.html` 为纯 HTML 自包含单文件——由根目录 `npm run build`（=`node tools/build-skills-data.mjs && node tools/build.mjs`）将 `src/index.html` 模板内联 `src/styles/tokens.css` 及按序拼接的 `src/styles/base.css` + `src/styles/layout.css` + `src/styles/components.css` + `src/styles/responsive.css`、`src/i18n.js`、按序拼接的 `src/parts/*.js`（状态/渲染/详情/交互/启动五模块）与真实技能数据（合并 `data/skills-data.json` + `data/skills-metrics.json` 后注入）生成，双击即可离线预览，无 Next.js/Tailwind/React 构建。国际化由独立模块 `src/i18n.js` 驱动（`data-i18n` 占位 + `I18N.t()` 容错兜底）。源码在 `prototype/src/` 随仓库分发；`prototype/` 下的 `index.html`/`favicon.svg`/`banner-og.svg` 为构建产物（构建脚本 `tools/build.mjs`/`tools/build-skills-data.mjs` 置于仓库根 `tools/`，不混入原型目录）。
+> **实际交付形态（与 docs/spec.md §1 对齐）**：站点本体为自包含静态单页 `src/index.html`（原生 JS + 内联 CSS + 内联 `window.SKILLS_DATA`）；`npm run build` = `next build` 后将 `src/index.html` 拷贝覆盖 `out/index.html` 并注入 GA；`src/app/` 仅为把 `/` 重定向到 `/index.html` 的 Next 存根；本地预览由 `server/`（Express）提供，`edge-worker.js` 承接生产侧投票 / 收藏。本 DESIGN.md 的**设计令牌与组件规范依然为准**，但「由 `tools/build.mjs` 从 `prototype/src` 拼装产物」的旧构建流程已废弃，请勿据此重建产物。
 
 ---
 

@@ -2,6 +2,31 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.7] - 2026-11-03
+
+### revert: 回滚损坏的模块化重构提交，恢复可用 src/index.html
+
+- 自动提交将未完成的重构推入 origin/main（commit fba98e31），导致 src/index.html 内联 JS 语法错误（i18n 段未闭合、parts 段 `$` 重复声明），部署即白屏。
+- 本地已 `git revert` 恢复工作版本（4 个内联 `<script>` 段语法全通过），坏重构文件已清理。
+
+### fix: 新增产物级内联 JS 校验，堵住「坏页面进仓库」缺口
+
+- 新增 `tools/check-inline-js.mjs`：抽取 src/index.html 全部内联 `<script>` 块并用 `vm.Script` 解析，任一语法错误即失败退出。
+- 已接入 CI validate 阶段，作为 tsc / 单测 / SKILL 契约 / 版本一致性之外的最后一道闸门。
+
+### fix: 修复 E2E 冒烟断言形同虚设
+
+- 旧断言 `#grid children > 0` 因初始骨架恒真，无法拦截「整页数据不渲染」（直接对应此前线上 P0）；改为断言真实 `.card` 数量 > 0。
+- 新增 `pageerror` 收集，确保页面 JS 无运行时抛错。
+- 搜索测试选择器 `#search` 修正为实际 id `#searchInput`（旧选择器不存在，该测试长期无效）。
+
+### chore: 扩展版本闸门并同步版本至 v1.16.7
+
+- `tools/check-version.mjs` 现额外校验 README / README.en 徽章与 `docs/spec.md` / `docs/project.md` / `prototype/DESIGN.md` 头版本，防止展示位漂移。
+- `prototype/DESIGN.md` 头注释与「实现方式」说明改写为真实架构（旧 `tools/build.mjs` 拼装流程已废弃）。
+
+[1.16.7]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.7
+
 ## [1.16.6] - 2026-11-03
 
 ### fix: 修复内联 SKILLS_DATA 未被 script 包裹导致整页数据不渲染（线上 P0）

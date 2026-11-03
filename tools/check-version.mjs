@@ -34,6 +34,32 @@ if (tagVersion && tagVersion !== pkgVersion) {
   errors.push(`git tag 版本(v${tagVersion}) 与 package.json 版本(${pkgVersion}) 不一致`);
 }
 
+// 扩展（1.16.7）：额外校验 README 徽章与文档头版本与 package.json 一致，防止展示位漂移。
+const docChecks = [
+  { file: 'README.md', re: /version-v(\d+\.\d+\.\d+)-blue/ },
+  { file: 'README.en.md', re: /version-v(\d+\.\d+\.\d+)-blue/ },
+  { file: 'docs/spec.md', re: /^>\s*路径：.*版本：(\d+\.\d+\.\d+)/m },
+  { file: 'docs/project.md', re: /^>\s*路径：.*版本：(\d+\.\d+\.\d+)/m },
+  { file: 'prototype/DESIGN.md', re: /^>\s*路径：.*版本：(\d+\.\d+\.\d+)/m },
+];
+for (const { file, re: r } of docChecks) {
+  let content;
+  try {
+    content = readFileSync(file, 'utf8');
+  } catch {
+    errors.push(`${file} 读取失败`);
+    continue;
+  }
+  const mm = content.match(r);
+  if (!mm) {
+    errors.push(`${file} 未找到版本标注`);
+    continue;
+  }
+  if (mm[1] !== pkgVersion) {
+    errors.push(`${file} 版本(${mm[1]}) 与 package.json(${pkgVersion}) 不一致`);
+  }
+}
+
 if (errors.length) {
   console.error('✗ 版本一致性校验失败：');
   errors.forEach((e) => console.error('  - ' + e));

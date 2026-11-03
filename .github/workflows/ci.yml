@@ -93,6 +93,9 @@ jobs:
       - name: 版本 / CHANGELOG / Tag 一致性校验
         run: node tools/check-version.mjs
 
+      - name: 产物级校验（解析 src/index.html 内联脚本）
+        run: node tools/check-inline-js.mjs
+
   # ───────────────────────── 构建（全流程唯一一次） ─────────────────────────
   build:
     name: 生产构建
