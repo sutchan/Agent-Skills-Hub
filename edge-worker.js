@@ -55,9 +55,10 @@ async function handleRequest(request) {
       if (request.method === "GET") {
         const keys = kv ? await kv.list({ prefix: "vote:" }) : { keys: [] };
         const votes = {};
+        // EdgeOne KV list() 返回 keys: Array<ListKey>（ListKey 为含 key 属性的对象，非字符串）
         for (const k of keys.keys || []) {
-          const name = k.replace("vote:", "");
-          const val = await kv.get(k, { type: "json" });
+          const name = k.key.replace("vote:", "");
+          const val = await kv.get(k.key, { type: "json" });
           if (val) votes[name] = val;
         }
         return new Response(JSON.stringify(votes), { headers: corsHeaders });
@@ -91,7 +92,7 @@ async function handleRequest(request) {
         const keys = kv ? await kv.list({ prefix: "fav:" }) : { keys: [] };
         const favs = {};
         for (const k of keys.keys || []) {
-          favs[k.replace("fav:", "")] = true;
+          favs[k.key.replace("fav:", "")] = true;
         }
         return new Response(JSON.stringify(favs), { headers: corsHeaders });
       }
@@ -121,7 +122,7 @@ async function handleRequest(request) {
           }
         }
         const keys = kv ? await kv.list({ prefix: "fav:" }) : { keys: [] };
-        const allFavs = (keys.keys || []).map((k) => k.replace("fav:", ""));
+        const allFavs = (keys.keys || []).map((k) => k.key.replace("fav:", ""));
         return new Response(
           JSON.stringify({ name, bookmarked: isFav, favorites: allFavs }),
           { headers: corsHeaders }

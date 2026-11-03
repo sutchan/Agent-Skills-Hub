@@ -35,4 +35,4 @@ export const SKILLS_DIR = path.join(ROOT_DIR, 'skills');
 export const SKILLS_FILE = path.join(ROOT_DIR, 'data', 'skills-data.json');
 export const METRICS_FILE = path.join(ROOT_DIR, 'data', 'skills-metrics.json');
 export const STORE_FILE = path.join(ROOT_DIR, 'data', 'kv-store.json');
-export const RATELIMIT_FILE = path.join(ROOT_DIR, 'data', 'ratelimit.json');
+export const RATELIMIT_FILE = process.env.RATELIMIT_FILE || path.join(ROOT_DIR, 'data', 'ratelimit.json');

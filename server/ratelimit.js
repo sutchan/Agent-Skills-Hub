@@ -5,10 +5,23 @@ import { readJsonFile, writeJsonAtomic } from './fs-util.js';
 
 const WINDOW_MS = 60_000; // 计数窗口：1 分钟
 const MAX_REQUESTS = 120; // 每 IP 每窗口上限
+const MAX_RATELIMIT_ENTRIES = 50_000; // 限流表条目上限：防止伪造 XFF 或海量唯一 IP 导致内存/磁盘无限膨胀
 
 /** IP → { start, count }；启动时从磁盘恢复上次采样值 */
 const stored = readJsonFile(RATELIMIT_FILE, []);
-const rateLimitMap = new Map(Array.isArray(stored) ? stored : []);
+export const rateLimitMap = new Map(Array.isArray(stored) ? stored : []);
+
+/** 清理已过期窗口：超出一个窗口的计数已无意义，可安全删除 */
+function sweepExpiredEntries() {
+  const now = Date.now();
+  for (const [ip, record] of rateLimitMap) {
+    if (now - record.start > WINDOW_MS) rateLimitMap.delete(ip);
+  }
+}
+
+// 周期清理过期条目，避免 rateLimitMap 随唯一 IP 数量持续增长（内存 + ratelimit.json 膨胀）；
+// unref 确保该定时器不阻塞进程退出
+setInterval(sweepExpiredEntries, WINDOW_MS).unref();
 
 let ratelimitSaveTimer = null;
 
@@ -51,6 +64,13 @@ export function checkRateLimit(ip) {
   const now = Date.now();
   const record = rateLimitMap.get(ip);
   if (!record || now - record.start > WINDOW_MS) {
+    // 超上限时先清过期、再淘汰最旧条目（Map 迭代序 = 插入序），保证内存/磁盘有界
+    if (rateLimitMap.size >= MAX_RATELIMIT_ENTRIES) {
+      sweepExpiredEntries();
+      if (rateLimitMap.size >= MAX_RATELIMIT_ENTRIES) {
+        rateLimitMap.delete(rateLimitMap.keys().next().value);
+      }
+    }
     rateLimitMap.set(ip, { start: now, count: 1 });
     saveRatelimitAtomic();
     return true;
