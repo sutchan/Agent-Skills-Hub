@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.16.4 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.16.5 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="app-version" content="1.16.4" />
+  <meta name="app-version" content="1.16.5" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
   <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 167 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
@@ -354,12 +354,11 @@ html[data-lang="zh"] .en { display: none; }
 .footer-name { font-weight: 700; color: hsl(var(--foreground)); }
 .footer-desc { color: var(--text-2); font-size: 13px; }
 
-/* 构建元数据：版本 + 更新日期，等宽字体机器可读，以间隔号分栏 */
+/* 构建元数据：版本 + 构建号，等宽字体机器可读 */
 .footer-meta { display: flex; align-items: baseline; gap: 10px; font-size: 12px; color: var(--text-2); font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
 .footer-ver, .footer-version { font-weight: 600; color: hsl(var(--foreground)); }
-.footer-date { color: var(--text-2); }
-.footer-date::before { content: "·"; margin-right: 10px; opacity: .5; }
-.footer-date .date-val { font-variant-numeric: tabular-nums; }
+.footer-build { color: var(--text-2); }
+.footer-build::before { content: "·"; margin-right: 10px; opacity: .5; }
 
 /* 动作区：Star 为唯一实心主动作，Share 降为文字链（无药丸/描边，下划线自左侧展开） */
 .footer-cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
@@ -1321,8 +1320,8 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
   <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
 
   <!-- 页脚区：定位为「目录版权页」—— 识别与动作 / 构建元数据两区，单行 flex 收敛（对齐 app #appFooter）
-       脚本契约（勿改 id）：#footerVer/#footerDate 由 05-main 做占位符字面量兜底；#starBtn/#shareBtn 绑定交互。
-       注意：build.mjs 只替换模板中首个版本/日期占位符；本模板的注释与文案中切勿出现版本、日期占位符字面量，否则会抢占替换使页脚残留未替换文本。 -->
+       脚本契约（勿改 id）：#footerVer 版本 / #footerBuild 构建号 由 inject-ga.mjs 构建期与 server/pages.js 本地服务注入；#starBtn/#shareBtn 绑定交互。
+       约定：版本取自 package.json（占位符 __APP_VERSION__，构建/本地服务替换），构建号 = yyyymmddhhmm（占位符 __BUILD_ID__）；不再展示更新日期。 -->
   <footer class="site-footer" id="siteFooter">
     <div class="footer-inner" id="footerInner">
       <div class="footer-info" id="footerInfo">
@@ -1331,9 +1330,9 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
         <span class="footer-desc en" id="footerDescEn" data-i18n="footer.desc">Open source · MIT License</span>
       </div>
       <div class="footer-meta" id="footerMeta">
-        <!-- 构建元数据：版本与日期为机器可读字段，用等宽字体并以留白分栏（不用间隔号） -->
-        <span class="footer-ver" id="footerVer">v1.16.4</span>
-        <span class="footer-date" id="footerDate"><span class="zh">更新于 </span><span class="en">Updated </span><span class="date-val">2026-10-22</span></span>
+        <!-- 构建元数据：版本（__APP_VERSION__）+ 构建号（__BUILD_ID__），机器可读等宽字体 -->
+        <span class="footer-ver" id="footerVer">v__APP_VERSION__</span>
+        <span class="footer-build" id="footerBuild">build __BUILD_ID__</span>
       </div>
       <div class="footer-cta" id="footerCta">
         <a class="star-btn" id="starBtn" href="https://github.com/sutchan/Agent-Skills-Hub/stargazers" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
@@ -3415,18 +3414,13 @@ function init() {
   };
   setTopbarH();
   window.addEventListener("resize", setTopbarH);
-  // 页脚版本号兜底：若 build 未替换 1.14.88 字面量，运行时回退到真实版本（F 改进）
+  // 页脚版本兜底：若构建/本地服务未注入 __APP_VERSION__（裸开 src/index.html），回退到 <meta name="app-version"> 真实版本
   const fv = $("#footerVer");
-  // 兜底：若 index.html 未经 build 注入（仍含占位符 {{...}}），取 <meta name="app-version"> 的真实版本，
-  // 避免展示裸露占位符或硬编码陈旧版本号（B4）；双保险仍失败才回退常量
-  if (fv && fv.textContent.includes("{{")) {
+  if (fv && fv.textContent.includes("__APP_VERSION__")) {
     const meta = document.querySelector('meta[name="app-version"]');
-    const v = (meta && meta.content && !meta.content.includes("{{")) ? meta.content : "1.14.49";
-    fv.textContent = "v" + v;
+    const v = meta && meta.content ? meta.content : "";
+    if (v) fv.textContent = "v" + v;
   }
-  // 页脚更新日期：直接以当前日期填充（数据文件无 updatedAt 字段，运行时填充避免硬编码字面量漂移）
-  const fd = $("#footerDate");
-  if (fd) fd.textContent = new Date().toISOString().slice(0, 10);
   initCloudSync();
 }
 

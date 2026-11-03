@@ -2,13 +2,17 @@
 // 静态资源与页面路由：public/、公开数据 JSON、skills/、首页（注入 GA）与 SPA 深链回退。
 import fs from 'node:fs';
 import express from 'express';
-import { GA_ID, GA_TOKEN, INDEX_FILE, METRICS_FILE, PUBLIC_DIR, SKILLS_DIR, SKILLS_FILE } from './config.js';
+import { APP_VERSION, APP_VERSION_TOKEN, BUILD_ID, BUILD_ID_TOKEN, GA_ID, GA_TOKEN, INDEX_FILE, METRICS_FILE, PUBLIC_DIR, SKILLS_DIR, SKILLS_FILE } from './config.js';
 
-/** 读取 index.html 并把 GA 占位符替换为当前环境的衡量 ID */
+/** 读取 index.html 并把 GA 衡量 ID / 应用版本 / 构建号占位符替换为当前环境的值（本地服务等价构建期注入） */
 function sendIndex(res) {
   fs.readFile(INDEX_FILE, 'utf-8', (err, html) => {
     if (err) return res.status(500).send('Internal Server Error');
-    res.type('html').send(html.split(GA_TOKEN).join(GA_ID));
+    const out = html
+      .split(GA_TOKEN).join(GA_ID)
+      .split(APP_VERSION_TOKEN).join(APP_VERSION)
+      .split(BUILD_ID_TOKEN).join(BUILD_ID);
+    res.type('html').send(out);
   });
 }
 

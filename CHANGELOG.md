@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.5] - 2026-11-03
+
+### feat: 页脚展示版本号 + 构建号（遵循全局编码规范 · 页脚构建号）
+
+- `src/index.html` 页脚（`#siteFooter`）改为展示「版本号 + 构建号」：移除更新日期；版本取自 package.json（`__APP_VERSION__` 占位符注入，不再硬编码），构建号 `yyyymmddhhmm` 由构建期 / 本地服务注入（`__BUILD_ID__`）。
+- `scripts/inject-ga.mjs` 扩展为统一注入：GA 衡量 ID + 应用版本 + 构建号，写入 `out/index.html`。
+- `server/config.js` 新增 `APP_VERSION` / `BUILD_ID`（启动时生成）与占位符常量；`server/pages.js` 本地服务 `sendIndex` 同步注入。
+- `prototype/wireframes.html` 页脚版本同步至 v1.16.5。
+- 全局版本展示位 bump 1.16.4 → 1.16.5。
+
+[1.16.5]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.5
+
 ## [1.16.4] - 2026-11-03
 
 ### docs: 任务文档同步 + 补录 v1.16.3 后收尾（全局 bump 1.16.3 → 1.16.4）
