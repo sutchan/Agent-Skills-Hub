@@ -88,22 +88,22 @@
 </style>
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" id="prototypeHeader">
     <div class="brand">状态高保真稿</div>
     <div class="spacer"></div>
     <button class="icon-btn" id="langBtn" title="语言">中</button>
     <button class="icon-btn" id="themeBtn" title="主题">🌗</button>
   </header>
 
-  <div class="wrap">
+  <div class="wrap" id="statesWrap">
     <h1 class="doc zh">状态型高保真稿 · States</h1>
     <h1 class="doc en">High-Fidelity State Specs</h1>
-    <p class="sub zh">覆盖原型关键状态的视觉与交互快照：加载、空结果、详情弹窗、设置弹窗、错误、Toast、移动端 Sheet，以及<strong>极值与边界</strong>（超长内容截断、极值计数、字段缺失、分页边界、降级态）。与 <code>prototype/prototype.html</code> 同源。</p>
-    <p class="sub en">Visual + interaction snapshots of key prototype states: loading, empty, detail, settings, error, toast, mobile sheet, plus <strong>extremes and boundaries</strong> (overflow truncation, extreme counts, missing fields, pagination bounds, degraded). Sourced from prototype/prototype.html.</p>
+    <p class="sub zh">覆盖原型关键状态的视觉与交互快照：加载、空结果、详情弹窗、设置弹窗、错误、Toast、移动端 Sheet，以及<strong>极值与边界</strong>（超长内容截断、极值计数、字段缺失、分页边界、降级态）。与 <code>src/index.html</code> 同源。</p>
+    <p class="sub en">Visual + interaction snapshots of key prototype states: loading, empty, detail, settings, error, toast, mobile sheet, plus <strong>extremes and boundaries</strong> (overflow truncation, extreme counts, missing fields, pagination bounds, degraded). Sourced from src/index.html.</p>
 
-    <div class="grid">
+    <div class="grid" id="statesGrid">
       <!-- 加载骨架 -->
-      <div class="state-card">
+      <div class="state-card" id="stateLoading">
         <div class="lab zh">加载骨架 · Loading</div><div class="lab en">Loading Skeleton</div>
         <div class="body">
           <div class="skel" style="width:70%"></div>
@@ -115,7 +115,7 @@
       </div>
 
       <!-- 空状态 -->
-      <div class="state-card">
+      <div class="state-card" id="stateEmpty">
         <div class="lab zh">空状态 · Empty</div><div class="lab en">Empty State</div>
         <div class="body"><div class="empty">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="16" r="3"/></svg>
@@ -126,7 +126,7 @@
       </div>
 
       <!-- 详情弹窗态 -->
-      <div class="state-card">
+      <div class="state-card" id="stateDetail">
         <div class="lab zh">详情弹窗 · Detail</div><div class="lab en">Detail Dialog</div>
         <div class="body"><div class="dialog-demo">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div class="av">AC</div><div><div style="font-family:var(--font-display);font-weight:600;font-size:16px">ad-creative</div><span style="font-size:12px;color:hsl(var(--muted-foreground))">品牌与设计</span></div></div>
@@ -136,7 +136,7 @@
       </div>
 
       <!-- 设置弹窗态 -->
-      <div class="state-card">
+      <div class="state-card" id="stateSettings">
         <div class="lab zh">设置弹窗 · Settings</div><div class="lab en">Settings Dialog</div>
         <div class="body"><div class="dialog-demo">
           <div style="font-family:var(--font-display);font-weight:700;font-size:17px;margin-bottom:8px">设置</div>
@@ -148,7 +148,7 @@
       </div>
 
       <!-- 错误态 -->
-      <div class="state-card">
+      <div class="state-card" id="stateError">
         <div class="lab zh">错误态 · Error</div><div class="lab en">Error State</div>
         <div class="body"><div class="err">
           <div class="code">!</div>
@@ -159,7 +159,7 @@
       </div>
 
       <!-- 移动端模拟 -->
-      <div class="state-card">
+      <div class="state-card" id="stateMobile">
         <div class="lab zh">移动端 · Mobile</div><div class="lab en">Mobile Sheet</div>
         <div class="body" style="display:flex;justify-content:center">
           <div class="phone">
@@ -174,14 +174,14 @@
       </div>
 
       <!-- Toast -->
-      <div class="state-card">
+      <div class="state-card" id="stateToast">
         <div class="lab zh">Toast 反馈</div><div class="lab en">Toast Feedback</div>
         <div class="body" style="position:relative;min-height:120px;display:flex;align-items:center;justify-content:center">
           <div class="toast">已复制链接 ✓</div>
         </div>
       </div>
       <!-- ===== 极值 / 边界态 ===== -->
-      <div class="state-card">
+      <div class="state-card" id="stateOverflow">
         <div class="lab zh">超长内容 · Overflow</div><div class="lab en">Overflow &amp; Truncation</div>
         <div class="body">
           <div class="scard" style="border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px">
@@ -203,7 +203,7 @@
         </div>
       </div>
 
-      <div class="state-card">
+      <div class="state-card" id="stateExtreme">
         <div class="lab zh">极值计数 · Extreme Values</div><div class="lab en">Extreme Values</div>
         <div class="body">
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
@@ -220,7 +220,7 @@
         </div>
       </div>
 
-      <div class="state-card">
+      <div class="state-card" id="stateMissing">
         <div class="lab zh">字段缺失 · Missing Fields</div><div class="lab en">Missing Fields</div>
         <div class="body">
           <div class="scard" style="border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px">
@@ -237,7 +237,7 @@
         </div>
       </div>
 
-      <div class="state-card">
+      <div class="state-card" id="statePagination">
         <div class="lab zh">分页边界 · Pagination Bounds</div><div class="lab en">Pagination Bounds</div>
         <div class="body">
           <div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
@@ -254,7 +254,7 @@
         </div>
       </div>
 
-      <div class="state-card">
+      <div class="state-card" id="stateDegraded">
         <div class="lab zh">离线 / 数据缺失 · Degraded</div><div class="lab en">Degraded / Offline</div>
         <div class="body">
           <div class="err">

@@ -2,6 +2,24 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.8] - 2026-11-03
+
+### fix: 加固边缘/本地 API 安全与健壮性
+
+- `edge-worker.js`：请求体解析失败返回 400（不再把异常抛成 500 泄露堆栈）；`name` 强制 kebab-case 格式校验（长度 ≤ 100），防止任意 KV key 注入 / 伪造技能刷计数；错误信息泛化；补充 `X-Content-Type-Options: nosniff`。
+- `server.js`：`express.json({ limit: '10kb' })`，限制请求体大小，避免超大 payload 占用内存。
+
+### chore: 对齐原型文档与真实架构
+
+- `prototype/DESIGN.md` / `COMPONENTS.md` / `IMPROVEMENT-SPEC.md`：将数据架构、技术栈、代码位置段改写为真实形态——站点本体为单体 `src/index.html`（内联 CSS/JS/`window.SKILLS_DATA`），数据由 `tools/sync-inline-data.mjs` 注入，构建为 `next build && cp src/index.html out/index.html && inject-ga`；废弃的 `build.mjs` / `prototype/src` / `prototype/prototype.html` / `src/parts` 流程标注为已废弃。
+- `prototype/states.html`：为 12 个状态卡与容器补充语义化 ID（`stateLoading` / `stateEmpty` / `stateDetail` … `stateDegraded`、`prototypeHeader` / `statesGrid` / `statesWrap`），并修正对已废弃 `prototype.html` 的引用。
+
+### chore: 版本同步至 v1.16.8
+
+- 同步 `package.json`、内联元信息、README 双语文档徽章、`docs/spec.md` / `docs/project.md` / `prototype/DESIGN.md` 头版本至 v1.16.8。
+
+[1.16.8]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.8
+
 ## [1.16.7] - 2026-11-03
 
 ### revert: 回滚损坏的模块化重构提交，恢复可用 src/index.html

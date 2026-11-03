@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.16.7
+> 路径：`prototype/DESIGN.md` · 版本：1.16.8
 > 本文档是**视觉 / 交互设计的事实来源（Single Source of Truth）**，涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -123,7 +123,7 @@
 
 ### 3.1 基础组件（Base）— `components/ui/*`（构建期源码映射）
 
-> 以下组件为**原型源码结构映射**（源码在 `prototype/src/` 随仓库分发，由 `build.mjs` 内联为静态产物 `prototype/prototype.html`）；此处列出供理解静态产物的实现结构与评审对齐。注：当前实现为原生 HTML/CSS/JS（非 React 组件文件），交互脚本已按职责拆分到 `src/parts/`（01-state / 02-render / 03-detail / 04-interactions / 05-main），以下按职责对应到对应 parts 模块的渲染/交互函数。
+> 以下组件为**设计参考清单**（视觉/交互规范以本表为准）；其实现均位于单体文件 `src/index.html` 的内联脚本中（非独立组件文件）。旧文档曾将实现映射到 `prototype/src/` + `build.mjs` + `src/parts/*`，该构建流程已废弃，请勿据此重建产物。
 
 | 组件 | 文件 | 变体/状态 |
 |------|------|-----------|
@@ -133,9 +133,9 @@
 | Card | `card.tsx` | `Card/CardHeader/CardTitle/CardContent` |
 | Skeleton | `skeleton.tsx` | `animate-pulse` 占位 |
 | Separator | `separator.tsx` | horizontal / vertical |
-| Tabs | `parts/05-main.js` 视图切换 | 原生实现（Radix Tabs 风格的可访问性模式，无 Radix 依赖） |
-| Dialog | `parts/03-detail.js` `openDetail()` | 原生实现（Radix Dialog 风格焦点陷阱 + `aria-modal`，无 Radix 依赖） |
-| Sheet | `layout.css` 预留 `.sheet` | 移动端详情**复用居中 Dialog**（未启用独立抽屉；`.sheet`/`.sheet-grip` 为预留样式，标注保留未启用，无对应 DOM/JS） |
+| Tabs | `src/index.html`（内联）视图切换 | 原生实现（Radix Tabs 风格的可访问性模式，无 Radix 依赖） |
+| Dialog | `src/index.html`（内联）`openDetail()` | 原生实现（Radix Dialog 风格焦点陷阱 + `aria-modal`，无 Radix 依赖） |
+| Sheet | `src/index.html` 预留 `.sheet` | 移动端详情**复用居中 Dialog**（未启用独立抽屉；`.sheet`/`.sheet-grip` 为预留样式，标注保留未启用，无对应 DOM/JS） |
 
 ### 3.2 复合/业务组件（对应 `src/app.js` 渲染函数）
 
@@ -231,7 +231,7 @@
 
 ## 6. 数据架构（Data Contract）
 
-- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → 根目录 `build-skills-data.mjs`（生成 `data/skills-data.json`）→ 根目录 `build.mjs`（注入 `src/index.html` 模板）→ 预渲染进 `prototype/prototype.html` 静态产物（仓库已入库 `prototype/`，如需更新数据重跑两脚本即可）。
+- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → `tools/sync-inline-data.mjs`（合并 `data/skills-data.json` + `data/skills-metrics.json` 并注入 `src/index.html` 的 `window.SKILLS_DATA` 块）→ 自包含静态单页 `src/index.html`（数据内联，**非运行时 fetch**）。
 - 数据 Schema（实际为扁平结构）：`{ total:number, categories: string[], categoryEn: Record<string,string>, skills: Skill[] }`，其中 `Skill{ name, category, enCategory, zh, description, enDescription, allowedTools, hidden }`：
   - `name`：技能唯一标识（英文 slug）。
   - `category`：中文分类名；`enCategory`：该分类的英文名。
@@ -239,19 +239,19 @@
   - `description`：**中文描述**；`enDescription`：英文描述。
   - `allowedTools`：授权工具列表；`hidden`：是否隐藏（`renderGrid` 过滤）。
   - `categoryEn`（根级）：分类中文→英文映射对象。
-- 分类计数由 `02-render.js` 的 `catCounts()` 预聚合为 `Map`，搜索由 `matches(s, terms)`（预切分词表缓存）实现。
-- 注意：`src/` 是项目**可运行 Web 应用**源码工作区，与 `prototype/`（预构建静态原型）分层；两者数据源均为磁盘 `skills/<name>/SKILL.md`（构建时由 `tools/build-skills-data.mjs` 生成 `data/skills-data.json` + `data/skills-metrics.json`）。
-- 红色底线：数据契约须与 `tools/build-skills-data.mjs`/`tools/build.mjs`、`docs/spec.md` 严格一致。
+- 分类计数由 `src/index.html` 内联脚本的 `catCounts()` 预聚合为 `Map`，搜索由 `matches(s, terms)`（预切分词表缓存）实现。
+- 注意：`src/index.html` 是项目**可运行 Web 应用**唯一源码（单体文件）；`prototype/` 仅存放设计文档与设计稿，不再包含可运行构建产物。
+- 红色底线：数据契约须与 `tools/sync-inline-data.mjs`、`docs/spec.md` 严格一致。
 
 ---
 
-## 7. 技术栈（构建期，产物已预渲染）
+## 7. 技术栈与构建（实际形态，与 `docs/spec.md` 对齐）
 
-- 原型为**纯静态原生实现**：`src/index.html`（HTML 模板）+ `src/styles/tokens.css` + `src/styles/base.css`/`layout.css`/`components.css`/`responsive.css`（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind/HSL）+ `src/i18n.js`（独立国际化模块）+ `src/parts/*.js`（原生 JS 渲染与交互，按职责拆分 01-state / 02-render / 03-detail / 04-interactions / 05-main，无 React/Next.js/Radix）。
-- 构建：根目录 `build.mjs` 将 CSS/JS/数据内联进 `src/index.html` 生成自包含 `prototype/prototype.html`；无任何 npm 运行时依赖（仅 Node 内置模块）。
-- 数据源：`skills/<name>/SKILL.md` → `build-skills-data.mjs` 生成 `data/skills-data.json` → `build.mjs` 注入并预渲染进 `prototype/prototype.html`。
-- 分发形态：仓库保留 `prototype/src/` 源码与其构建产物 `prototype/prototype.html`、设计文档（`DESIGN.md` / `COMPONENTS.md`）。
-- 部署：静态托管（以 `prototype/` 为站点根目录，`buildCommand` 执行 `npm run build` 重新生成产物；无运行时依赖，直接托管 `prototype/prototype.html` 即可）。
+- 站点本体为**纯静态原生实现**单体文件 `src/index.html`：内联 CSS（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind）+ 内联 JS（原生渲染与交互，无 React/Next.js/Radix）+ 内联 `window.SKILLS_DATA`。
+- 构建：`npm run build` = `next build`（`src/app/page.tsx` 仅把 `/` 重定向到 `/index.html`）后将 `src/index.html` 拷贝覆盖 `out/index.html` 并注入 GA；无前端运行时依赖。
+- 数据源：`skills/<name>/SKILL.md` → `tools/sync-inline-data.mjs` 合并生成并注入 `src/index.html` 内联数据块。
+- 分发形态：仓库保留 `src/index.html`（唯一可运行产物）与 `prototype/`（设计文档与设计稿，不再含可运行构建产物）。
+- 本地预览：`server/`（Express）提供静态服务与投票/收藏 API；生产部署由 `edge-worker.js` 在边缘承接投票/收藏 API（Edge KV）。静态托管服务 `out/`。
 
 ---
 

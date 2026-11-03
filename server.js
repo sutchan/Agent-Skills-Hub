@@ -22,7 +22,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
+// 限制 JSON 请求体大小，避免超大 payload 占用内存（投票/收藏接口只需 name/action）
+app.use(express.json({ limit: "10kb" }));
 
 // 静态与公开数据：挂在限流之前，不占用 API 配额
 mountStatic(app);
