@@ -41,7 +41,8 @@
 Agent-Skills-Hub/
 ├── skills/            # 技能目录（每个技能一个子目录，含 SKILL.md）
 ├── src/index.html     # 高保真原型 / 站点前端（单文件内联）
-├── server.js          # 本地预览静态服务（Express）
+├── server/            # 本地预览服务模块化实现（config/fs-util/store/ratelimit/api/pages）
+├── server.js          # 本地预览服务入口（Express，薄装配层）
 ├── data/              # skills-data.json（权威元数据）/ skills-metrics.json（派生指标）
 ├── scripts/           # sync-inline-data.mjs（内联数据同步）/ tag-release.mjs（打 tag）
 ├── tools/             # check-version / ensure-lf / validate-skills / extract-release-notes

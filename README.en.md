@@ -41,7 +41,8 @@
 Agent-Skills-Hub/
 ├── skills/            # Skill directories (one subdir per skill, with SKILL.md)
 ├── src/index.html     # High-fidelity prototype / site frontend (single-file inline)
-├── server.js          # Local preview static server (Express)
+├── server/            # Local preview server modules (config/fs-util/store/ratelimit/api/pages)
+├── server.js          # Local preview server entry (Express, thin assembly)
 ├── data/              # skills-data.json (source of truth) / skills-metrics.json (derived)
 ├── scripts/           # sync-inline-data.mjs (inline sync) / tag-release.mjs (tagging)
 ├── tools/             # check-version / ensure-lf / validate-skills / extract-release-notes
