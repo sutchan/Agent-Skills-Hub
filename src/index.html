@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.16.5 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.16.6 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="app-version" content="1.16.5" />
+  <meta name="app-version" content="1.16.6" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
   <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 167 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
@@ -12,12 +12,13 @@
   <meta property="og:site_name" content="Agent Skills Hub" />
   <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
   <meta property="og:description" content="集中管理 167+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
-  <meta property="og:image" content="banner-og.svg" />
-  <meta property="og:url" content="https://github.com/sutchan/Agent-Skills-Hub" />
+  <meta property="og:image" content="https://skills.ewuse.com/banner-og.svg" />
+  <meta property="og:url" content="https://skills.ewuse.com/" />
+  <link rel="canonical" href="https://skills.ewuse.com/" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
   <meta name="twitter:description" content="集中管理 167+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
-  <meta name="twitter:image" content="banner-og.svg" />
+  <meta name="twitter:image" content="https://skills.ewuse.com/banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -3320,7 +3321,7 @@ function showToast(msg) {
   _toastTimer = setTimeout(() => el.classList.remove("show"), 1800);
 }
 
-// prototype/src/parts/05-main.js v1.14.88 — 应用启动编排
+// prototype/src/parts/05-main.js v1.16.6 — 应用启动编排
 // URL hash 深链：筛选/搜索/排序/页码可分享、刷新可还原（P0-1）
 // 序列化规则：#cat=docs&q=xxx&sort=name&page=2，无筛选时清空 hash（分类为单选，仅一个值）
 function writeHash() {
@@ -3424,27 +3425,38 @@ function init() {
   initCloudSync();
 }
 
+// 安全拉取 JSON：仅当响应确为 application/json 才解析。静态托管（无后端）时
+// /api/* 走 SPA 兜底返回整页 HTML（200 text/html），此时抛 'no-cloud-api' 静默降级——
+// 云端同步本就是可选增强（localStorage 本地优先），不应每次加载弹「同步失败」toast。
+function fetchJson(url) {
+  return fetch(url).then((r) => {
+    const ct = r.headers.get('content-type') || '';
+    if (!ct.includes('application/json')) throw new Error('no-cloud-api');
+    return r.json();
+  });
+}
+
 function initCloudSync() {
-  fetch('/api/votes').then(r => r.json()).then(data => {
+  fetchJson('/api/votes').then((data) => {
     if (data && typeof data === 'object') {
       const all = ensureVotes();
       Object.assign(all, data);
       saveVotes();
-      SKILLS_DATA.skills.forEach(s => syncVoteUI(s.name));
+      SKILLS_DATA.skills.forEach((s) => syncVoteUI(s.name));
     }
-  }).catch(() => showToast(state.lang === 'zh' ? '云端同步失败，已使用本地数据' : 'Cloud sync failed; using local data'));
+  }).catch((e) => { if (e && e.message !== 'no-cloud-api') showToast(state.lang === 'zh' ? '云端同步失败，已使用本地数据' : 'Cloud sync failed; using local data'); });
 
-  fetch('/api/favorites').then(r => r.json()).then(data => {
+  fetchJson('/api/favorites').then((data) => {
     if (data && typeof data === 'object') {
       const keys = Object.keys(data);
       if (keys.length) {
         const cur = getFavorites();
-        keys.forEach(k => cur.add(k));
+        keys.forEach((k) => cur.add(k));
         saveFavorites(cur);
-        SKILLS_DATA.skills.forEach(s => syncFavUI(s.name));
+        SKILLS_DATA.skills.forEach((s) => syncFavUI(s.name));
       }
     }
-  }).catch(() => showToast(state.lang === 'zh' ? '云端同步失败，已使用本地数据' : 'Cloud sync failed; using local data'));
+  }).catch((e) => { if (e && e.message !== 'no-cloud-api') showToast(state.lang === 'zh' ? '云端同步失败，已使用本地数据' : 'Cloud sync failed; using local data'); });
 }
 
 document.addEventListener("DOMContentLoaded", init);

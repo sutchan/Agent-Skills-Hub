@@ -2,6 +2,27 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.6] - 2026-11-03
+
+### fix: 修复内联 SKILLS_DATA 未被 script 包裹导致整页数据不渲染（线上 P0）
+
+- 根因：`scripts/sync-inline-data.mjs` 重写数据行时只输出 `window.SKILLS_DATA = ...;`，未包裹 `<script>`，且未转义 `<>&`；数据块被浏览器当纯文本渲染、全局从未定义，所有依赖脚本抛 `SKILLS_DATA is not defined`，技能列表/图表/搜索全失效。
+- 修复：脚本改为输出单行 `<script>window.SKILLS_DATA = {...};</script>`，并对 JSON 转义 `<>&`（防 `</script>` 提前闭合）；解析时兼容已有 script 包裹（幂等）。重新 `npm run sync:data` 同步。
+- 验证：Playwright 渲染 `pageErrors: []`、数据长度 168、卡片正常渲染、移动端无横向溢出。
+
+### fix: 修复静态托管无后端时每次加载弹「云端同步失败」toast
+
+- `initCloudSync()` 对 `/api/votes` / `/api/favorites` 直接 `r.json()`；静态部署无后端时该路由走 SPA 兜底返回整页 HTML（200 text/html），解析失败→每加载弹错误 toast。
+- 新增 `fetchJson()` 校验 `content-type` 为 `application/json` 才解析；非 JSON（无云端 API）静默降级（本地 localStorage 优先），仅真实失败才提示。
+
+### fix: 修正社交分享 / SEO 元数据
+
+- `og:url` 由 GitHub 仓库地址改为站点 `https://skills.ewuse.com/`；`og:image` / `twitter:image` 由相对路径改为绝对 URL；新增 `<link rel="canonical">`。
+
+### chore: 全局版本展示位 bump 1.16.5 → 1.16.6
+
+[1.16.6]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.6
+
 ## [1.16.5] - 2026-11-03
 
 ### feat: 页脚展示版本号 + 构建号（遵循全局编码规范 · 页脚构建号）
