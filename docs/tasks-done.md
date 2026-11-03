@@ -469,3 +469,36 @@
 ### 说明
 - 部署前须在仓库 **Settings → Variables** 配置 `GA_MEASUREMENT_ID`（非密钥，GA 衡量 ID 公开）；EdgeOne 平台构建同理设同名变量。
 - 模拟 `cp` + 注入验证：注入前 2 占位符 → 注入后 0 占位符、2 个环境变量值，机制有效。
+
+---
+
+## 迭代二十二：修复内联数据同步脚本 + 新增实时预览页（v1.16.4，已完成）
+
+> 来源：commit `85287d00`（fix: 修复同步内联数据脚本的脚本包裹和转义问题）。迭代十九新增的 `scripts/sync-inline-data.mjs` 在生成内联 `window.SKILLS_DATA` 时未对 JSON 特殊字符转义、且对单行自带 `<script>` 包裹格式不兼容，会导致数据被错误渲染 / 提前闭合脚本标签。本轮修复并配套新增实时预览页。
+
+### 变更与验证
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | `scripts/sync-inline-data.mjs` 转义与单行 script 兼容 | P1 | ✅ 已完成 | 兼容单行 `<script>` 包裹格式；对 JSON 数据特殊字符转义，避免 `</script>` 提前闭合 |
+| 2 | 重生成 `src/index.html` 内联 `SKILLS_DATA` | P1 | ✅ 已完成 | 同步脚本重新注入（2 行 diff），转义后数据正确渲染 |
+| 3 | 新增 `live_page.html` 实时预览页 | P2 | ✅ 已完成 | 3636 行预览页 + `scripts/_local_desktop.png`、`_review_desktop.png`、`_review_mobile.png` 截图 |
+| 4 | 验证内联数据不被破坏 | P2 | ✅ 已完成 | 转义后 `window.SKILLS_DATA` 可正常解析，无提前闭合 |
+
+### 说明
+- 该修复保障了「权威数据（`data/skills-data.json`）→ 内联数据（`src/index.html`）」同步链在含特殊字符（如 `</script>`、引号、emoji）技能描述下的健壮性。
+
+---
+
+## 迭代二十三：README / README.en 优化（v1.16.4，已完成）
+
+> 来源：commit `6a6ae1be`（docs: 优化仓库页面 README）。根 README 与英文 README 需更清晰地呈现项目特性、技能规模、目录结构与 CI 状态。
+
+### 变更与验证
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | 扩充 README.md / README.en.md 内容 | P2 | ✅ 已完成 | 特性、技能规模、目录结构说明（README +41 行 / README.en +54 行） |
+| 2 | 新增 CI 工作流徽章 | P3 | ✅ 已完成 | README 与 README.en 头部加 `actions/workflows/ci.yml` 状态徽章 |
+| 3 | 版本徽章保持同步 | P3 | ✅ 已完成 | 徽章仍为 v1.16.3，本轮随全局 bump 统一至 v1.16.4 |
+
+### 说明
+- 纯文档增强，无代码逻辑变更；未新增/修改功能。

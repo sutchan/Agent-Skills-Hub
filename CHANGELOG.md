@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.4] - 2026-11-03
+
+### docs: 任务文档同步 + 补录 v1.16.3 后收尾（全局 bump 1.16.3 → 1.16.4）
+
+- 补录 v1.16.3 之后的两项已完成工作至 `docs/tasks-done.md`：
+  - 迭代二十二：修复 `scripts/sync-inline-data.mjs` 转义与单行 script 包裹兼容（`85287d00`），并新增 `live_page.html` 预览页与截图、同步更新 `src/index.html` 内联 `SKILLS_DATA`。
+  - 迭代二十三：优化 README / README.en（特性 / 规模 / 目录结构 / CI 徽章，`6a6ae1be`）。
+- `docs/tasks.md` 时间戳刷新至 2026-11-03；未完成任务仍为「（无）」。
+- 全局版本展示位统一同步至 v1.16.4。
+
+[1.16.4]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.4
+
 ## [1.16.3] - 2026-10-29
 
 ### docs: 任务文档同步 + 版本漂移纠正（全局 bump 1.16.2 → 1.16.3）
