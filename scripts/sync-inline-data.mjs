@@ -40,9 +40,12 @@ try {
   existing = {};
 }
 
+// total 改为基于「当前可见技能数」实算，而非直接采用 data.total 字段，
+// 避免新增/隐藏技能后 data.total 忘记同步导致内联展示数量漂移（单一来源原则）。
+const visible = data.skills.filter((s) => !s.hidden).length;
 const next = {
   ...existing,
-  total: data.total,
+  total: visible,
   categories: catOrder,
   categoryEn: catEn,
   skills: data.skills,
@@ -56,7 +59,6 @@ const json = JSON.stringify(next)
 lines[idx] = `<script>window.SKILLS_DATA = ${json};</script>`;
 fs.writeFileSync(htmlPath, lines.join('\n'), 'utf8');
 
-const visible = data.skills.filter((s) => !s.hidden).length;
 console.log(
   `✓ 已同步内联 SKILLS_DATA：total=${next.total}（可见 ${visible}），skills=${next.skills.length}，categories=${next.categories.length}，categoryEn=${Object.keys(next.categoryEn).length}`
 );

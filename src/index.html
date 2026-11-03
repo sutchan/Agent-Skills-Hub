@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.16.10 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.16.11 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="app-version" content="1.16.10" />
+  <meta name="app-version" content="1.16.11" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
   <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 167 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
@@ -1111,8 +1111,8 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
   </header>
 
   <section class="hero" id="hero" aria-labelledby="heroTitle">
-    <div class="hero-grid">
-      <div class="hero-left">
+    <div class="hero-grid" id="heroGrid">
+      <div class="hero-left" id="heroLeft">
         <span class="hero-eyebrow zh" data-i18n="hero.eyebrow">Agent 技能枢纽</span>
         <span class="hero-eyebrow en" data-i18n="hero.eyebrow">Agent Skills Hub</span>
         <h1 class="zh" id="heroTitle">零散的 agent 技能，<br><span class="accent">汇聚</span>成一处可检索的枢纽</h1>
@@ -1126,15 +1126,15 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
         </ul>
       </div>
 
-      <div class="hero-right">
-        <div class="hero-visual-card">
+      <div class="hero-right" id="heroRight">
+        <div class="hero-visual-card" id="heroVisual">
           <svg class="hero-net" id="heroNet" viewBox="0 0 500 240" preserveAspectRatio="xMidYMid slice" overflow="visible" aria-hidden="true">
             <g id="netLines" stroke="hsl(var(--line))" stroke-width="1.4" opacity=".6"></g>
             <g id="netNodes" fill="hsl(var(--node))"></g>
             <circle class="hub-glow" cx="250" cy="110" r="13" fill="hsl(var(--primary))" opacity="0" />
             <circle class="hub-node hub-core" cx="250" cy="110" r="16" fill="hsl(var(--primary))" />
           </svg>
-          <div class="hero-dice-card">
+          <div class="hero-dice-card" id="heroDice">
             <div class="dice-info">
               <span class="dice-title zh">🎲 探索灵感盲盒</span>
               <span class="dice-title en">🎲 Surprise Discovery</span>

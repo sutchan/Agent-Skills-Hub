@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.11] - 2026-11-03
+
+### chore: 强化原型可观测性与数据单一来源
+
+- `src/index.html`：为 hero 主要容器补充语义化 id（`heroGrid` / `heroLeft` / `heroRight` / `heroVisual` / `heroDice`），便于调试定位与 E2E 选择器精确命中。
+- `scripts/sync-inline-data.mjs`：内联 `window.SKILLS_DATA.total` 改为基于「可见技能数」实算，去除对 `data/skills-data.json` 中 `total` 字段的硬依赖，消除新增 / 隐藏技能后数量展示漂移的风险（对齐单一来源原则）。
+- 代码审查：通读 `src/index.html` 内联脚本（i18n / state / render / detail / interactions / votes）与 `server/*`、`edge-worker.js`、`tools/*`；`node --check` 语法校验全绿、单元测试 7/7 通过。既有防护（XSS 转义、输入法 composition 拦截、限流 + 技能白名单、JSON 原子写、隐私模式 try/catch）经验证 intact。
+- 版本 1.16.10→1.16.11，同步 `package.json`、内联元信息 / 头注释、README 双语文档徽章、`prototype/DESIGN.md` 头版本。
+
+[1.16.11]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.11
+
 ## [1.16.10] - 2026-11-03
 
 ### fix: 移除重复的分类筛选入口（去重 UI）
