@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.9] - 2026-11-03
+
+### fix: 补全 10 个技能的本地化 frontmatter 字段
+
+- 审查发现 10 个技能（implement-spec、improve-codebase-architecture、insforge-cli、limrun-android-emulator、limrun-ios-simulator、limrun-xcode、orca-cli、playwright-cli、review-animations、ui-ux-pro-max）的 SKILL.md frontmatter 缺 `en_description`/`zh_displayName`/`category`/`en_category` 本地化字段，与 data 层不对称。已从 data 回填这些字段（当前英文 description 映射为 en_description），重建 data/skills-data.json、skills-metrics.json 与内联 SKILLS_DATA，对齐磁盘↔data↔inline。
+- 另发现部分已本地化技能（如 bailian-web-search）的 HEAD frontmatter 带有历史游离缩行瑕疵（功能无害，未改动）；英文摘要 enDescription 全部非空。
+- 版本 1.16.8→1.16.9，同步 README/README.en 徽章。
+
+[1.16.9]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.7
+
 ## [1.16.8] - 2026-11-03
 
 ### fix: 加固边缘/本地 API 安全与健壮性

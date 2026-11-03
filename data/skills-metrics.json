@@ -971,6 +971,42 @@
       "popularity": 0,
       "size": 10533,
       "files": 1
+    },
+    "canvas-design": {
+      "name": "canvas-design",
+      "popularity": 0,
+      "size": 404,
+      "files": 1
+    },
+    "pdf": {
+      "name": "pdf",
+      "popularity": 0,
+      "size": 380,
+      "files": 1
+    },
+    "playwright-cli": {
+      "name": "playwright-cli",
+      "popularity": 0,
+      "size": 485,
+      "files": 1
+    },
+    "pptx": {
+      "name": "pptx",
+      "popularity": 0,
+      "size": 391,
+      "files": 1
+    },
+    "rust-skills": {
+      "name": "rust-skills",
+      "popularity": 0,
+      "size": 434,
+      "files": 1
+    },
+    "skill-creator": {
+      "name": "skill-creator",
+      "popularity": 0,
+      "size": 421,
+      "files": 1
     }
   }
 }

@@ -1,6 +1,10 @@
 ---
 name: implement-spec
-description: "Implement the result of /to-spec and /to-tickets in code."
+description: "将规格说明实现为代码，在用户要求按规范落地功能时使用。"
+en_description: "Implement the result of /to-spec and /to-tickets in code."
+zh_displayName: "规格实现"
+category: "工程实践与质量"
+en_category: "Engineering Practice & Quality"
 disable-model-invocation: true
 ---
 
