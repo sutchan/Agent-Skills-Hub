@@ -502,3 +502,22 @@
 
 ### 说明
 - 纯文档增强，无代码逻辑变更；未新增/修改功能。
+
+---
+
+## 迭代二十四：页脚展示版本号 + 构建号（v1.16.5，已完成）
+
+> 来源：全局编码规范 · 页脚构建号。所有前端 / Web 应用页脚须展示「版本号 + 构建号（yyyymmddhhmm，构建时注入）」，不再展示更新日期；版本号取自单一版本源、禁止硬编码；footer 容器带语义化 id；每次改动按 patch bump。对应提交 `79b3de04`（feat: 全局版本同步至 v1.16.5，更新页脚与构建注入逻辑）+ `bc947953`（docs: 更新文档结构与版本号，重构本地服务说明）。
+
+### 变更与验证
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | `src/index.html` 页脚改为「版本 + 构建号」并移除更新日期 | P1 | ✅ 已完成 | `#siteFooter` 内 `#footerVer`→`v__APP_VERSION__`、`#footerBuild`→`build __BUILD_ID__`；移除 `.footer-date` |
+| 2 | 版本取自 package.json（占位符 `__APP_VERSION__`，不再硬编码） | P1 | ✅ 已完成 | `server/config.js` 导出 `APP_VERSION`；`inject-ga.mjs` 与 `server/pages.js` 注入 |
+| 3 | 构建号 `yyyymmddhhmm` 由构建流程注入（`__BUILD_ID__`） | P1 | ✅ 已完成 | `inject-ga.mjs` 计算本地构建时间到分钟；`server/config.js` `BUILD_ID` 本地服务启动时生成 |
+| 4 | footer 容器语义化 id | P3 | ✅ 已完成 | 沿用既有 `id="siteFooter"`（语义化，符合 site-footer / app-footer 约定） |
+| 5 | 全局版本展示位同步 bump 1.16.4 → 1.16.5 | P2 | ✅ 已完成 | package.json / README·README.en 徽章 / src 头注释·meta / wireframes 页脚 / CHANGELOG |
+
+### 说明
+- 注入链沿用既有 GA 机制：`scripts/inject-ga.mjs` 在 `next build && cp` 之后替换 `out/index.html` 的 `__APP_VERSION__` 与 `__BUILD_ID__`；`server/pages.js` 本地服务 `sendIndex` 等价注入。
+- 裸开 `src/index.html`（未注入）时，JS 兜底读取 `<meta name="app-version">` 真实版本；构建号占位符保留亦无碍。
