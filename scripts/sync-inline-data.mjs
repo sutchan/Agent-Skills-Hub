@@ -31,7 +31,8 @@ if (idx === -1) throw new Error('未找到 window.SKILLS_DATA 赋值行');
 // 解析现有内联对象以保留其它顶层键（若有）
 let existing = {};
 const eq = lines[idx].indexOf('=');
-let body = lines[idx].slice(eq + 1).trim();
+// 兼容「单行自带 <script> 包裹」格式：剔除尾部 </script> 再解析
+let body = lines[idx].slice(eq + 1).replace(/<\/script>\s*$/i, '').trim();
 if (body.endsWith(';')) body = body.slice(0, -1);
 try {
   existing = JSON.parse(body);
@@ -47,7 +48,12 @@ const next = {
   skills: data.skills,
 };
 
-lines[idx] = `window.SKILLS_DATA = ${JSON.stringify(next)};`;
+// 关键：必须用 <script> 包裹并转义 <>&，否则数据块被当作文本渲染、且 </script> 会提前闭合脚本
+const json = JSON.stringify(next)
+  .replace(/</g, '\\u003c')
+  .replace(/>/g, '\\u003e')
+  .replace(/&/g, '\\u0026');
+lines[idx] = `<script>window.SKILLS_DATA = ${json};</script>`;
 fs.writeFileSync(htmlPath, lines.join('\n'), 'utf8');
 
 const visible = data.skills.filter((s) => !s.hidden).length;
