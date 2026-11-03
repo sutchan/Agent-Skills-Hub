@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.10] - 2026-11-03
+
+### fix: 移除重复的分类筛选入口（去重 UI）
+
+- 页面中同 13 个分类此前出现两遍：环形图图例（可点击筛选）+ 其下分类 chips 行，功能完全重叠。移除冗余的分类 chips 行（`#categoryNav`），图表图例成为唯一分类筛选入口（已具备扇区/图例点击筛选、激活态与无障碍支持）。
+- 清理相关死代码：`renderCats` 不再渲染 chips、移除 `#cats` 点击绑定与 `setCategory` 的 chip 滚动联动；标签筛选、URL hash（`#cat=`）、Hero 节点网等其余分类入口不受影响。
+- 数据层实查无重复：13 分类 × 每技能恰 1 个、12 个标签无空格/大小写变体，重复纯属 UI 冗余。
+- 版本 1.16.9→1.16.10，同步 README/README.en 徽章；并纠正 src/index.html 头注释/meta（1.16.8）与 tasks.md 头部（v1.16.5）的版本漂移。
+
+[1.16.10]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.10
+
 ## [1.16.9] - 2026-11-03
 
 ### fix: 补全 10 个技能的本地化 frontmatter 字段
@@ -10,7 +21,7 @@
 - 另发现部分已本地化技能（如 bailian-web-search）的 HEAD frontmatter 带有历史游离缩行瑕疵（功能无害，未改动）；英文摘要 enDescription 全部非空。
 - 版本 1.16.8→1.16.9，同步 README/README.en 徽章。
 
-[1.16.9]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.7
+[1.16.9]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.9
 
 ## [1.16.8] - 2026-11-03
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.16.8 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.16.10 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="app-version" content="1.16.8" />
+  <meta name="app-version" content="1.16.10" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
   <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 167 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
@@ -1250,8 +1250,6 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
     </div>
   </section>
 
-  <nav class="cats" id="categoryNav" aria-label="技能分类 / Categories"><div class="filter-scroll" id="cats"></div></nav>
-
   <nav class="cats" id="tagNav" aria-label="技能标签 / Tags"><div class="filter-scroll" id="tagChips"></div></nav>
 
   <main class="grid" id="grid" aria-label="技能列表" aria-live="off">
@@ -1878,21 +1876,9 @@ function buildFilterItems(agg) {
   return { catItems };
 }
 
-// 分类 chips（单选）：state.cats 为空串 = 全部，选中项与 state.cats 相等；数据来自 aggregateFilters 实况
+// 分类筛选聚合（图例即唯一筛选入口）：state.cats 单选语义不变，数据来自 aggregateFilters 实况
 function renderCats(agg) {
-  const allActive = !state.cats;
   const items = buildFilterItems(agg).catItems;
-  // "全部"chip 用中性 hue，置于分类项之前
-  const allBtn = `<button class="chip chip-all${allActive ? " active" : ""}" id="catChip-all" data-cat="" style="--hue:152" tabindex="0" aria-pressed="${allActive}">${I18N.t("filter.all")}</button>`;
-  const container = $("#cats");
-  if (container) {
-    container.innerHTML = allBtn + items.map((it) => {
-      const active = state.cats === it.key;
-      const safeKey = it.key.replace(/[^a-zA-Z0-9\u4e00-\u9fa5_-]/g, "");
-      return `<button class="chip${active ? " active" : ""}" id="catChip-${safeKey}" data-cat="${esc(it.key)}" style="--hue:${it.hue}" tabindex="0" aria-pressed="${active}"><span class="zh">${esc(it.zh)}</span><span class="en">${esc(it.en)}</span> <span class="chip-count">${it.count}</span></button>`;
-    }).join("");
-  }
-  // 联动渲染分类占比环形图
   renderCategoryChart(items);
 }
 
@@ -2782,14 +2768,6 @@ function bind() {
     track("filter_category", { category: state.cats, source });
     updateHeroNet();
     renderGrid(); // renderGrid 内部单次调用 renderCats(agg)，消除重复渲染与重排
-
-    // 联动滚动：无论从环形图扇区、图例明细还是节点网触发，分类 chip 自动平滑居中显示
-    requestAnimationFrame(() => {
-      const activeChip = $("#cats .chip.active") || $("#cats #catChip-all");
-      if (activeChip && typeof activeChip.scrollIntoView === "function") {
-        activeChip.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-      }
-    });
   }
   window.setCategory = setCategory;
 
@@ -2870,12 +2848,6 @@ function bind() {
       track("toggle_view", { view: state.view });
       renderGrid();
     });
-  });
-  // 分类导航 Chip 点击
-  on("#cats", "click", (e) => {
-    const chip = e.target.closest(".chip");
-    if (!chip) return;
-    setCategory(chip.dataset.cat || "", "chip");
   });
 
   // 标签多选 Chip 点击（含「全部」重置）

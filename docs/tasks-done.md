@@ -521,3 +521,21 @@
 ### 说明
 - 注入链沿用既有 GA 机制：`scripts/inject-ga.mjs` 在 `next build && cp` 之后替换 `out/index.html` 的 `__APP_VERSION__` 与 `__BUILD_ID__`；`server/pages.js` 本地服务 `sendIndex` 等价注入。
 - 裸开 `src/index.html`（未注入）时，JS 兜底读取 `<meta name="app-version">` 真实版本；构建号占位符保留亦无碍。
+
+---
+
+## 迭代二十五：移除重复的分类筛选入口（v1.16.10，已完成）
+
+> 来源：用户反馈「优化重复的分类问题」并附页面截图。页面中同 13 个分类出现两遍：环形图图例（可点击筛选）与其下分类 chips 行，功能完全重叠。数据层实查无重复（13 分类 × 每技能恰 1 个、12 个标签无空格/大小写变体、无技能内重复），重复纯属 UI 冗余。
+
+### 变更与验证
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | 移除分类 chips 行 `#categoryNav` | P1 | ✅ 已完成 | 图表图例成为唯一分类筛选入口（扇区/图例点击筛选、激活态、aria 均已具备） |
+| 2 | 清理 chips 死代码 | P1 | ✅ 已完成 | `renderCats` 仅聚合 + 渲染图表；移除 `#cats` 点击绑定与 `setCategory` 的 chip 滚动联动 |
+| 3 | 其余分类入口保持可用 | P1 | ✅ 已完成 | 标签筛选、URL hash `#cat=`、Hero 节点网、详情弹窗分类展示均不受影响；`filter.all` i18n 仍被「标签·全部」使用故保留 |
+| 4 | 版本 bump 1.16.9 → 1.16.10 | P2 | ✅ 已完成 | package.json / README·README.en 徽章 / src 头注释·meta（纠正 1.16.8 漂移）/ CHANGELOG（并修正 [1.16.9] 链接误指 v1.16.7）/ wireframes 页脚（纠正 v1.16.5 漂移） |
+
+### 说明
+- 收起图表时分类筛选随图例隐藏，重新展开即可——原 chips 与图例本就同源同态，无功能损失。
+- 同步纠正外部提交遗留的版本漂移：src/index.html 头注释/meta（1.16.8）、tasks.md 头部（v1.16.5）、wireframes 页脚（v1.16.5）。
