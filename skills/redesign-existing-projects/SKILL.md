@@ -1,6 +1,10 @@
 ---
 name: redesign-existing-projects
-description: "Retired: redesigns, restyles and design reviews are part of design-taste-frontend. Runs only when called by name."
+description: "将现有网站与应用升级至高级品质，审计当前设计、识别问题并交付改进方案。"
+en_description: "Retired: redesigns, restyles and design reviews are part of design-taste-frontend. Runs only when called by name."
+zh_displayName: "现有项目重设计"
+category: "品牌与设计"
+en_category: "Brand & Design"
 disable-model-invocation: true
 ---
 

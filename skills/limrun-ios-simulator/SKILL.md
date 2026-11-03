@@ -1,14 +1,10 @@
 ---
 name: limrun-ios-simulator
-description: 驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、读取应用日志与模拟器系统日志、截图、录屏、将应用连接到本机服务、模拟摄像头、设置剪贴板，并运行定时动作链。
-en_description: |-
-  "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, read app logs and simulator syslog, screenshot, record video, connect the app to local services or a private tunnel, play a video file as the camera, send all traffic through the user's proxy and trust its CA, set the clipboard, read and write user defaults, post notifications, and run timed action chains. Use after a build (from any builder) when the user wants to see, test, or interact with their app on a simulator, or says 'show me a screenshot', 'tap', 'run the UI test', 'record a video', 'read the logs', 'connect localhost', 'reach my local server from the simulator', 'route all traffic through my proxy', 'trust my CA', 'mock the camera', 'paste into the app', 'change the language', 'simulate Face ID', or 'launch on simulator'. To build the app first, use limrun-xcode-bazel (Bazel workspaces) or limrun-xcode (xcodebuild projects)."
-zh_displayName: Limrun iOS 模拟器
-category: 移动端开发
-en_category: Mobile Dev
+description: "Drive an app running on a Limrun cloud iOS simulator: launch, tap, type, read the accessibility element tree, read app logs and simulator syslog, screenshot, record video, connect the app to local services or a private tunnel, play a video file as the camera, send all traffic through the user's proxy and trust its CA, set the clipboard, read and write user defaults, post notifications, and run timed action chains. Use after a build (from any builder) when the user wants to see, test, or interact with their app on a simulator, or says 'show me a screenshot', 'tap', 'run the UI test', 'record a video', 'read the logs', 'connect localhost', 'reach my local server from the simulator', 'route all traffic through my proxy', 'trust my CA', 'mock the camera', 'paste into the app', 'change the language', 'simulate Face ID', or 'launch on simulator'. To build the app first, use limrun-xcode-bazel (Bazel workspaces) or limrun-xcode (xcodebuild projects)."
 user-invocable: true
 effort: high
 ---
+
 # Limrun iOS Simulator
 
 Interact with an app running on a Limrun cloud iOS simulator, from any
@@ -25,6 +21,16 @@ Install if needed: `npm install --global lim`. Auth is `lim login` or
 `LIM_API_KEY` (it may already be set in the user's environment even when `.env` and the shell do not show it; check before asking for it). The CLI is the source of truth:
 the commands in this skill are verified, but if a flag errors or you need one
 not shown here, check `lim ios <subcommand> --help` instead of guessing.
+
+## Choose the device model and iOS version
+
+`lim ios create` takes `--model iphone|iphone-duo|ipad|watch` (default
+`iphone`) and `--os-version 26|27`. iPhone and iPad run both versions, iPhone
+Duo runs 27, and Apple Watch runs 26; the default is 26, or 27 on iPhone Duo.
+
+```bash
+lim ios create --model ipad --os-version 27
+```
 
 ## Installing an app bundle
 
@@ -59,6 +65,11 @@ skips opening the URL locally and still prints it for sharing.
 `lim xcode get` prints a Limrun console URL instead. It opens the same live
 view but requires a console login, so prefer the signed stream URL for sharing.
 If the console URL is all you have, share it and mention it needs login.
+
+Signed links open the shared device workspace without login. Full instance tokens
+show Inspect, Connect, and the logs, events, and network inspector. Stream-only
+tokens show the screen and input controls without those tools. Stop and app
+selection require the authenticated console.
 
 ### Install app from local
 
@@ -310,9 +321,22 @@ the report's `Binary Images` lines).
 
 A React Native or Expo red error screen is not an exit: the app process keeps
 running, so nothing is reported. In the TypeScript SDK, `launchApp`'s
-`onExit(logs, info)` gets the same report, and `watchApp(bundleId, onExit)`
-reports the next exit of an app you did not launch, for example one opened
-with `lim ios open-url`.
+`onExit(logs, info)` gets the same report, and
+`monitorApp(bundleId, { onExit })` reports every exit of an app you did not
+launch, for example one opened with `lim ios open-url` or relaunched by a test
+runner, until `stop()`. `watchApp`, which reports only the next exit, is
+deprecated.
+
+While the app runs, `launch-app` also prints each main-thread hang: a hang
+starts once the main thread hasn't answered for 1 second, and each report
+gives its age, the thread's state and CPU time, and the top of its stack.
+`running` with CPU time close to the age means the app kept its main thread
+busy; `waiting` with little CPU time means it waited, and the top frame shows
+on what. The hang's end gives its length. Hangs explain an app that freezes
+or automation calls that stall, since reading the screen waits for the main
+thread. In the TypeScript SDK, `launchApp`'s `onHang` gets the same reports,
+and `monitorApp(bundleId, { onHang })` reports every hang of the app, across
+relaunches, until `stop()`.
 
 ## App logs
 

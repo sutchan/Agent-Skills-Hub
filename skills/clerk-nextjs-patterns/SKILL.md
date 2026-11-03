@@ -1,6 +1,10 @@
 ---
 name: clerk-nextjs-patterns
-description: Advanced Next.js patterns - middleware, Server Actions, caching with
+description: "高级 Next.js 模式——middleware、Server Actions、缓存等，帮助在 Clerk + Next.js 应用中落地稳健的认证与集成模式。"
+en_description: "Advanced Next.js patterns - middleware, Server Actions, caching with"
+zh_displayName: "Clerk 认证模式"
+category: "安全"
+en_category: "Security"
   Clerk.
 license: MIT
 allowed-tools: WebFetch

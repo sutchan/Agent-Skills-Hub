@@ -1,6 +1,18 @@
 ---
 name: google-agents-cli-workflow
-description: >
+description: "完整的 ADK 开发生命周期：脚手架、构建、评估、部署、发布、监控。使用 Agent Development Kit 构建智能体的入口。"
+en_description: |-
+  This skill should be used when the user wants to "develop an agent",
+  "build an agent using ADK", "run the agent locally", "debug agent code",
+  "test an agent", "deploy an agent", "publish an agent", "monitor an agent",
+  or needs the ADK (Agent Development Kit) development lifecycle and coding
+  guidelines. Entrypoint for building ADK agents.
+  Always active — provides the full workflow (scaffold, build, evaluate,
+  deploy, publish, observe), code preservation rules, model selection
+  guidance, and troubleshooting steps for ADK or any agent development.
+zh_displayName: "Google ADK 开发工作流"
+category: "AI 与智能体"
+en_category: "AI & Agents"
   This skill should be used when the user wants to "develop an agent",
   "build an agent using ADK", "run the agent locally", "debug agent code",
   "test an agent", "deploy an agent", "publish an agent", "monitor an agent",

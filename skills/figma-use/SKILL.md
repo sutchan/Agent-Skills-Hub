@@ -1,6 +1,10 @@
 ---
 name: figma-use
-description: "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE every `use_figma` tool call. NEVER call `use_figma` directly without loading this skill first. Skipping it causes common, hard-to-debug failures. Trigger whenever the user wants to perform a write action or a unique read action that requires JavaScript execution in the Figma file context — e.g. create/edit/delete nodes, set up variables or tokens, build components and variants, modify auto-layout or fills, bind variables to properties, or inspect file structure programmatically."
+description: "每次调用 use_figma 工具前的必读前置技能：Figma 插件 API 调用规则与工作流。每当用户要在 Figma 文件上下文执行需要 JavaScript 的写操作或独特读操作（创建/编辑/删除节点、变量与令牌、自动布局与填充、属性绑定、结构检视）时触发。"
+en_description: "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE every `use_figma` tool call. NEVER call `use_figma` directly without loading this skill first. Skipping it causes common, hard-to-debug failures. Trigger whenever the user wants to perform a write action or a unique read action that requires JavaScript execution in the Figma file context — e.g. create/edit/delete nodes, set up variables or tokens, build components and variants, modify auto-layout or fills, bind variables to properties, or inspect file structure programmatically."
+zh_displayName: "Figma 插件 API 调用"
+category: "品牌与设计"
+en_category: "Brand & Design"
 disable-model-invocation: false
 ---
 # use_figma — Figma Plugin API Skill

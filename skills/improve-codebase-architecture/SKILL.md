@@ -1,13 +1,9 @@
 ---
 name: improve-codebase-architecture
-description: 扫描代码库寻找深化机会，以可视化 HTML 报告呈现，并经访谈推动架构改进。
-en_description: |-
-  Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
-zh_displayName: 代码库架构优化
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
 disable-model-invocation: true
 ---
+
 # Improve Codebase Architecture
 
 Surface architectural friction and propose **deepening opportunities**: refactors that turn shallow modules into deep ones. The aim is testability and AI-navigability.
@@ -28,7 +24,7 @@ This command is _informed_ by the project's domain model and built on a shared d
 
 Read the project's domain glossary (`GLOSSARY.md`) and any ADRs in the area you're touching first.
 
-Then spawn a sub-agent to walk the codebase. Don't follow rigid heuristics; explore organically and note where you experience friction:
+Then spawn a sub-agent with a fresh context window to walk the codebase. Don't follow rigid heuristics; explore organically and note where you experience friction:
 
 - Where does understanding one concept require bouncing between many small modules?
 - Where are modules **shallow**, with an interface nearly as complex as the implementation?

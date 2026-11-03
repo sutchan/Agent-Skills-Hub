@@ -1,6 +1,22 @@
 ---
 name: stripe-best-practices
-description: >-
+description: "指导 Stripe 集成决策，涵盖开发与测试环境规划（独立沙箱 vs 共享测试模式沙箱）、API 选择（Checkout Sessions vs PaymentIntents）、Connect 平台搭建、计费订阅、税务、Treasury 金融账户、集成选项与安全最佳实践。"
+en_description: |-
+  Guides Stripe integration decisions across development and test environment
+  planning (separate sandboxes vs the shared test mode sandbox), API selection
+  (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2,
+  controller properties), billing/subscriptions, tax and registrations (Stripe
+  Tax, automatic_tax, product tax codes), Treasury financial accounts,
+  integration options (Checkout, Payment Element), migrating from deprecated
+  Stripe APIs, and security best practices (API key management, API key
+  permissions, webhooks, OAuth). Use when planning, building, modifying,
+  testing, or reviewing any Stripe integration, including choosing a development
+  environment, accepting payments, building marketplaces, integrating Stripe,
+  processing payments, setting up subscriptions, collecting sales tax, VAT, or
+  GST, creating connected accounts, or implementing secure key handling.
+zh_displayName: "Stripe 最佳实践"
+category: "后端与平台"
+en_category: "Backend & Platform"
   Guides Stripe integration decisions across development and test environment
   planning (separate sandboxes vs the shared test mode sandbox), API selection
   (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2,

@@ -1,14 +1,10 @@
 ---
 name: limrun-xcode
-description: 在远程 Xcode 上构建 iOS/Apple 应用（用 `lim xcode build` 替代本地 xcodebuild）、用 `lim xcode run` 运行项目命令，或用 `lim xcode test` 运行其 XCTest 测试套件——可从任意环境（Linux、Windows、macOS、VM、容器）发起。
-en_description: |-
-  "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, run project commands with `lim xcode run`, or run its XCTest suites with `lim xcode test`, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects (an `.xcodeproj` / `.xcworkspace`, an XcodeGen `project.yml` with a gitignored project, React Native / Expo native build) when the user wants to build, compile, run code generation or Make targets, test, inspect build logs, reload, produce a preview build, or ship a signed device IPA. To run, tap, screenshot, or otherwise interact with the result on a simulator, use limrun-ios-simulator. For Bazel workspaces, use limrun-xcode-bazel."
-zh_displayName: Limrun 远程 Xcode 构建
-category: 移动端开发
-en_category: Mobile Dev
+description: "Build an iOS / Apple app on remote Xcode with `lim xcode build` instead of local xcodebuild, run project commands with `lim xcode run`, or run its XCTest suites with `lim xcode test`, from any environment (Linux, Windows, macOS, VM, container). Use for non-Bazel projects (an `.xcodeproj` / `.xcworkspace`, an XcodeGen `project.yml` with a gitignored project, React Native / Expo native build) when the user wants to build, compile, run code generation or Make targets, test, inspect build logs, reload, produce a preview build, or ship a signed device IPA. To run, tap, screenshot, or otherwise interact with the result on a simulator, use limrun-ios-simulator. For Bazel workspaces, use limrun-xcode-bazel."
 user-invocable: true
 effort: high
 ---
+
 # Remote Xcode build
 
 Build Apple projects on Limrun's remote Xcode, from any environment (Linux,
@@ -227,6 +223,8 @@ lim xcode run --env API_ENV=development -- npm run generate
 lim xcode run --no-sync -- make api
 ```
 
+Wait for sync to succeed before executing. If you get `workspace sync is still in progress`, retry after sync succeeds.
+
 The sandbox includes Node, Ruby, CMake, Mint, mise, and Homebrew. Tool installs
 made with mise, Mint, or Homebrew stay in the instance's sandbox home and
 remain available on later commands on that instance:
@@ -238,6 +236,16 @@ lim xcode run -- brew install tree
 ```
 
 Commands are one-shot and non-interactive. There is no TTY or stdin channel.
+
+Use the remote `$TMPDIR` for temporary files instead of `/tmp` or `/private/tmp`.
+
+## Download sandbox files
+
+Use `lim xcode pull-file <remote-path> [destination] --id <instance-ID>`.
+Paths can be absolute or relative to the synced project root.
+Never use build or run logs to transfer files, including text, binary, or base64 content.
+Wait for the command writing the file to finish. Archive directories first,
+and download before deleting the instance.
 
 ## Generated Xcode projects (XcodeGen)
 
@@ -306,21 +314,40 @@ project has test targets). `--xcode-version 27` builds the tests with that
 major's GA (`27.1` selects the beta); the simulator keeps the fleet default
 runtime, so the run warns and proceeds (runtime-dependent failures are possible).
 
-Select a subset with xcodebuild's identifier format
-`Target[/Class[/method]]`; repeat the flag for multiple entries. The two flags
-are mutually exclusive:
+`--model` (`iphone`, `iphone-duo`, `ipad`) and `--os-version` (`26`, `27`)
+choose the simulator the run creates; iPhone and iPad run both versions,
+iPhone Duo runs 27. Either flag creates a fresh sandbox and simulator instead
+of reusing the last ones, and neither combines with `--id` or `--build-only`:
+
+```bash
+lim xcode test . --model ipad --os-version 27
+```
+
+Select a subset with xcodebuild's identifier format:
+`Target[/Class[/method]]` for XCTest, `Target/Suite[/test()]` for Swift
+Testing. Repeat the flag for multiple entries. The two flags are mutually
+exclusive:
 
 ```bash
 lim xcode test . --only-testing MyAppTests/LoginTests/testValidLogin
+lim xcode test . --only-testing MyAppTests/CartSuite
+lim xcode test . --only-testing 'MyAppTests/CartSuite/addsItem()'
 lim xcode test . --skip-testing MyAppUITests
 ```
 
-A bare target name selects or skips that whole target. An `--only-testing`
+A Swift Testing suite selects its nested suites too. A function needs its
+parentheses, with argument labels for a parameterized test
+(`addsItems(count:)`); without them it matches nothing. A selection that
+matches nothing runs zero cases and still passes, so check the summary
+counts. A bare target name selects or skips that whole target. An `--only-testing`
 entry naming a target the build did not produce fails the run instead of
 silently running everything.
 
-For machine consumption, `--json` streams the raw per-case events as NDJSON
-and ends with a `{"exitCode": N}` record:
+A failed case prints its first failure as `file:line: message`, with the file
+relative to the synced project; a failure without a location (a crash) shows
+only the message. For machine consumption, `--json` streams the raw per-case
+events as NDJSON (failed cases carry `failureMessage`, `failureFile` and
+`failureLine`) and ends with a `{"exitCode": N}` record:
 
 ```bash
 lim xcode test . --json > results.ndjson
@@ -544,7 +571,7 @@ Then construct the preview link and include it in your last message (and in the
 PR, if you're opening one):
 
 ```
-https://console.limrun.com/preview?asset=${ASSET_NAME}&platform=ios
+https://console.limrun.com/stream?asset=${ASSET_NAME}&platform=ios
 ```
 
 ## Gotchas
@@ -557,9 +584,11 @@ https://console.limrun.com/preview?asset=${ASSET_NAME}&platform=ios
   works. If it doesn't, add a `mise.limrun.toml` beside it listing only the
   build's tools (for example node and pnpm); in that directory Limrun reads it
   instead of the other mise files.
-- **The embedded Xcode sandbox is gone.** The TypeScript SDK (0.54.0+) and
-  `lim` (0.35.0+) no longer create an Xcode sandbox inside an iOS instance.
-  Symptoms after an upgrade: `'sandbox' does not exist in type 'Spec'` on
+- **The embedded Xcode sandbox is gone.** The API rejects an iOS create with
+  `spec.sandbox.xcode.enabled` (`400 The embedded Xcode sandbox
+  (spec.sandbox.xcode) was removed`), and the TypeScript SDK (0.54.0+) and
+  `lim` (0.35.0+) no longer offer it. If an old `lim` sent the request,
+  upgrade it. Other symptoms: `'sandbox' does not exist in type 'Spec'` on
   `iosInstances.create`, `Property 'sandbox' does not exist on type 'Status'`
   where code reads `status.sandbox.xcode.url`, or `Expected an Xcode instance
   (sandbox_...), got ios_...` from a `lim xcode` command. Create the Xcode
@@ -568,7 +597,7 @@ https://console.limrun.com/preview?asset=${ASSET_NAME}&platform=ios
   simulator; in the SDK, `xcodeInstances.create` then `attachNewSimulator()` or
   `attachSimulator(iosInstance)` on its client. Pass the `sandbox_` ID to
   `lim xcode` commands and the `ios_` ID to `lim ios` commands. Details:
-  https://docs.limrun.com/docs/ios/build-with-xcode#moving-off-the-embedded-xcode-sandbox
+  https://docs.limrun.com/docs/ios/build-with-xcode#move-off-the-embedded-xcode-sandbox
 - **Instance ID for `lim ios` commands.** They resolve the current instance
   from the git worktree of your cwd and can fail with `No instance ID provided
   and no recent ios instance found`. Get the ID from `lim xcode get` and pass

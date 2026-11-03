@@ -1,13 +1,9 @@
 ---
 name: review-animations
-description: 依据源自 Emil Kowalski 作品的高水准动效标准评审动画与动效代码。当用户希望动效更顺滑、有质感、符合高级动效规范时使用。
-en_description: |-
-  Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.
-zh_displayName: 动效评审
-category: 品牌与设计
-en_category: Brand & Design
+description: Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.
 disable-model-invocation: true
 ---
+
 # Reviewing Animations
 
 ## Initial Response
@@ -44,7 +40,7 @@ Every animation in the diff is measured against these. A violation is a finding.
 
 6. **Interruptibility.** Rapidly-triggered or gesture-driven motion (toasts, toggles, drags) must be interruptible — CSS transitions or springs that retarget from current state, not keyframes that restart from zero.
 
-7. **GPU-only properties.** Animate `transform` and `opacity` only. Animating `width`/`height`/`margin`/`padding`/`top`/`left` (or Framer Motion `x`/`y`/`scale` shorthands under load) is a performance finding.
+7. **GPU-only properties.** Animate `transform` and `opacity` only. Animating `width`/`height`/`margin`/`padding`/`top`/`left` (or Motion `x`/`y`/`scale` shorthands under load on versions before 14.2) is a performance finding.
 
 8. **Accessibility.** `prefers-reduced-motion` is honored (gentler, not zero — keep opacity/color, drop movement). Hover animations are gated behind `@media (hover: hover) and (pointer: fine)`.
 
@@ -64,7 +60,7 @@ Flag these on sight, hard:
 - `transform-origin: center` on a trigger-anchored popover/dropdown/tooltip
 - Keyframes on toasts, toggles, or anything added/triggered rapidly
 - Animating layout properties (`width`/`height`/`margin`/`padding`/`top`/`left`)
-- Framer Motion `x`/`y`/`scale` props on motion that runs while the page is busy
+- Motion `x`/`y`/`scale` props (before `motion` 14.2) or layout animations on motion that runs while the page is busy
 - Updating a CSS variable on a parent to drive a child transform (style recalc storm)
 - Missing `prefers-reduced-motion` handling on movement
 - Ungated `:hover` motion
@@ -80,7 +76,7 @@ When proposing fixes, prefer earlier moves over later ones:
 3. **Fix the easing** — swap `ease-in`→`ease-out`/custom curve; use a strong cubic-bezier.
 4. **Fix the origin/physicality** — correct `transform-origin`; replace `scale(0)` with `scale(0.95)`+opacity.
 5. **Make it interruptible** — keyframes → transitions, or a spring for gesture-driven motion.
-6. **Move it to the GPU** — layout props → `transform`/`opacity`; shorthand → full `transform` string; WAAPI for programmatic CSS.
+6. **Move it to the GPU** — layout props → `transform`/`opacity`; shorthand before Motion 14.2 → upgrade or full `transform` string; WAAPI for programmatic CSS.
 7. **Asymmetric timing** — slow the deliberate phase, snap the response.
 8. **Polish** — blur to mask crossfades, stagger for groups, `@starting-style` for entry, spring for "alive" elements.
 9. **Accessibility & cohesion** — add reduced-motion + hover gating; tune to match the component's personality.
