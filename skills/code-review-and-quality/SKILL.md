@@ -1,12 +1,8 @@
 ---
 name: code-review-and-quality
-description: 多维度代码审查保障合并质量
-en_description: |-
-  Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch. Use when asked to review a diff or a pull request, even when the diff is pasted inline.
-zh_displayName: 代码审查与质量
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch. Use when asked to review a diff or a pull request, even when the diff is pasted inline.
 ---
+
 # Code Review and Quality
 
 ## Overview
@@ -181,6 +177,8 @@ For each file changed:
 ```
 
 ### Step 4: Categorize Findings
+
+Before reporting a finding, check it against the callers, guards and tests that reach the changed code, and drop it if they rule it out. Label defects that already exist in the base separately from regressions this change introduces. Zero findings is a valid result; do not invent one.
 
 Label every comment with its severity so the author knows what's required vs optional:
 

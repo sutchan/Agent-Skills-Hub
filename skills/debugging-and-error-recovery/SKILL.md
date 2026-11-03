@@ -1,12 +1,8 @@
 ---
 name: debugging-and-error-recovery
-description: 系统化根因调试与错误恢复
-en_description: |-
-  Guides systematic root-cause debugging. Use when tests fail, builds break, something that worked yesterday broke, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need to figure out what broke and why — a systematic approach to finding and fixing the root cause rather than guessing.
-zh_displayName: 调试与错误恢复
-category: 工程实践与质量
-en_category: Engineering Practice & Quality
+description: Guides systematic root-cause debugging. Use when tests fail, builds break, something that worked yesterday broke, behavior doesn't match expectations, or you encounter any unexpected error. Use when you need to figure out what broke and why — a systematic approach to finding and fixing the root cause rather than guessing.
 ---
+
 # Debugging and Error Recovery
 
 ## Overview
@@ -85,7 +81,7 @@ npm test -- --grep "test name"
 npm test -- --verbose
 
 # Run in isolation (rules out test pollution)
-npm test -- --testPathPattern="specific-file" --runInBand
+npm test -- specific-file --runInBand
 ```
 
 ### Step 2: Localize
