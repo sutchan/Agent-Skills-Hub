@@ -19,10 +19,10 @@ export const GA_ID = process.env.GA_MEASUREMENT_ID || 'G-WQDDVB14PF';
 /** 应用版本：取自 package.json（单一版本源），供本地服务注入页脚与 meta */
 export const APP_VERSION = JSON.parse(fs.readFileSync(path.join(ROOT_DIR, 'package.json'), 'utf-8')).version;
 
-/** 构建号：本地服务启动时生成 yyyymmddhhmm（等同构建期注入） */
+/** 构建号：本地服务启动时生成 yymmddhhmm（10 位 · 2 位数年份，等同构建期注入） */
 const _bd = new Date();
 const _pad = (n) => String(n).padStart(2, '0');
-export const BUILD_ID = `${_bd.getFullYear()}${_pad(_bd.getMonth() + 1)}${_pad(_bd.getDate())}${_pad(_bd.getHours())}${_pad(_bd.getMinutes())}`;
+export const BUILD_ID = `${String(_bd.getFullYear()).slice(2)}${_pad(_bd.getMonth() + 1)}${_pad(_bd.getDate())}${_pad(_bd.getHours())}${_pad(_bd.getMinutes())}`;
 
 /** 页脚占位符：__APP_VERSION__ / __BUILD_ID__ 由构建期 inject-ga.mjs 与本地服务 server/pages.js 注入 */
 export const APP_VERSION_TOKEN = '__APP_VERSION__';

@@ -5,7 +5,7 @@
 // - GA 衡量 ID：部署平台（GitHub Actions build job / EdgeOne 构建环境）通过 env 传入
 //   GA_MEASUREMENT_ID；缺失时回退到内置 ID，保证本地无环境变量时 GA 仍可用。
 // - 应用版本：取自 package.json（单一版本源），替换 __APP_VERSION__。
-// - 构建号：本地构建时间到分钟 yyyymmddhhmm，替换 __BUILD_ID__（遵循全局编码规范 · 页脚构建号）。
+// - 构建号：本地构建时间到分钟 yymmddhhmm（10 位 · 2 位数年份），替换 __BUILD_ID__（遵循全局编码规范 · 页脚构建号）。
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,7 +22,7 @@ const APP_VERSION = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 
 const BUILD_ID_TOKEN = '__BUILD_ID__';
 const d = new Date();
 const p = (n) => String(n).padStart(2, '0');
-const BUILD_ID = `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}${p(d.getHours())}${p(d.getMinutes())}`;
+const BUILD_ID = `${String(d.getFullYear()).slice(2)}${p(d.getMonth() + 1)}${p(d.getDate())}${p(d.getHours())}${p(d.getMinutes())}`;
 
 const TARGET = path.join(ROOT, 'out', 'index.html');
 if (!fs.existsSync(TARGET)) {

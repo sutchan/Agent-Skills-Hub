@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- prototype/src/index.html v1.16.13 — Agent Skills Hub 高保真原型模板 -->
+<!-- prototype/src/index.html v1.16.14 — Agent Skills Hub 高保真原型模板 -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="app-version" content="1.16.13" />
+  <meta name="app-version" content="1.16.14" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
   <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，包含 167 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 由 build.mjs 复制到 prototype/ 根） -->
@@ -358,8 +358,21 @@ html[data-lang="zh"] .en { display: none; }
 /* 构建元数据：版本 + 构建号，等宽字体机器可读 */
 .footer-meta { display: flex; align-items: baseline; gap: 10px; font-size: 12px; color: var(--text-2); font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
 .footer-ver, .footer-version { font-weight: 600; color: hsl(var(--foreground)); }
-.footer-build { color: var(--text-2); }
+.footer-ver { transition: color .15s ease; }
+.footer-ver:is(:hover, :focus-visible) { color: hsl(var(--primary)); text-decoration: underline; text-underline-offset: 3px; }
+.footer-build {
+  color: var(--text-2); background: none; border: 0; padding: 0;
+  font: inherit; font-variant-numeric: tabular-nums; font-family: var(--font-mono); cursor: pointer;
+  transition: color .15s ease;
+}
+.footer-build:is(:hover, :focus-visible) { color: hsl(var(--foreground)); }
 .footer-build::before { content: "·"; margin-right: 10px; opacity: .5; }
+
+/* 识别区链接化 hover：名称变色强调，协议声明下划线提示可点 */
+.footer-name { text-decoration: none; transition: color .15s ease; }
+.footer-name:is(:hover, :focus-visible) { color: hsl(var(--primary)); }
+.footer-desc { text-decoration: none; }
+.footer-desc:is(:hover, :focus-visible) { text-decoration: underline; text-underline-offset: 3px; }
 
 /* 动作区：Star 为唯一实心主动作，Share 降为文字链（无药丸/描边，下划线自左侧展开） */
 .footer-cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
@@ -383,7 +396,10 @@ html[data-lang="zh"] .en { display: none; }
 
 @media (max-width: 640px) {
   .site-footer { padding: 20px 16px; margin-top: 20px; }
-  .footer-cta { width: 100%; }
+  /* 移动端堆叠顺序：品牌 → 动作 → 构建元数据，各占整行，避免 meta 被挤压换行截断 */
+  .footer-info { width: 100%; }
+  .footer-cta { width: 100%; order: 2; }
+  .footer-meta { width: 100%; order: 3; }
   .star-btn, .share-btn { flex: 1 1 auto; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1320,20 +1336,21 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
 
   <!-- 页脚区：定位为「目录版权页」—— 识别与动作 / 构建元数据两区，单行 flex 收敛（对齐 app #appFooter）
        脚本契约（勿改 id）：#footerVer 版本 / #footerBuild 构建号 由 inject-ga.mjs 构建期与 server/pages.js 本地服务注入；#starBtn/#shareBtn 绑定交互。
-       约定：版本取自 package.json（占位符 __APP_VERSION__，构建/本地服务替换），构建号 = yyyymmddhhmm（占位符 __BUILD_ID__）；不再展示更新日期。 -->
+       约定：版本取自 package.json（占位符 __APP_VERSION__，构建/本地服务替换），构建号 = yymmddhhmm（10 位 · 2 位数年份，占位符 __BUILD_ID__）；不再展示更新日期。
+       v1.16.14：仓库名/协议声明/版本号链接化（releases），#footerBuild 为按钮（悬浮显示构建时间、点击复制版本信息），CTA 区包裹 nav 提升无障碍。 -->
   <footer class="site-footer" id="siteFooter">
     <div class="footer-inner" id="footerInner">
       <div class="footer-info" id="footerInfo">
-        <span class="footer-name">Agent Skills Hub</span>
-        <span class="footer-desc zh" id="footerDescZh" data-i18n="footer.desc">开源免费 · MIT 协议</span>
-        <span class="footer-desc en" id="footerDescEn" data-i18n="footer.desc">Open source · MIT License</span>
+        <a class="footer-name" id="footerName" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener" aria-label="访问 GitHub 仓库 / Visit GitHub repo">Agent Skills Hub</a>
+        <a class="footer-desc zh" id="footerDescZh" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">开源免费 · MIT 协议</a>
+        <a class="footer-desc en" id="footerDescEn" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">Open source · MIT License</a>
       </div>
       <div class="footer-meta" id="footerMeta">
-        <!-- 构建元数据：版本（__APP_VERSION__）+ 构建号（__BUILD_ID__），机器可读等宽字体 -->
-        <span class="footer-ver" id="footerVer">v__APP_VERSION__</span>
-        <span class="footer-build" id="footerBuild">build __BUILD_ID__</span>
+        <!-- 构建元数据：版本（__APP_VERSION__，链接至 releases）+ 构建号（__BUILD_ID__，按钮可复制），机器可读等宽字体 -->
+        <a class="footer-ver" id="footerVer" href="https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v__APP_VERSION__" target="_blank" rel="noopener" title="查看该版本更新说明 / View release notes">v__APP_VERSION__</a>
+        <button class="footer-build" id="footerBuild" type="button">build __BUILD_ID__</button>
       </div>
-      <div class="footer-cta" id="footerCta">
+      <nav class="footer-cta" id="footerCta" aria-label="页脚动作 / Footer actions">
         <a class="star-btn" id="starBtn" href="https://github.com/sutchan/Agent-Skills-Hub/stargazers" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9L12 2.5z"/></svg>
           <span class="zh" data-i18n="footer.star">给仓库点个 Star</span>
@@ -1344,7 +1361,7 @@ html[data-lang="en"] .icon-btn::after { content: attr(data-tip-en); }
           <span class="zh" data-i18n="share.btn">分享</span>
           <span class="en" data-i18n="share.btn">Share</span>
         </button>
-      </div>
+      </nav>
     </div>
   </footer>
 
@@ -3389,10 +3406,35 @@ function init() {
   window.addEventListener("resize", setTopbarH);
   // 页脚版本兜底：若构建/本地服务未注入 __APP_VERSION__（裸开 src/index.html），回退到 <meta name="app-version"> 真实版本
   const fv = $("#footerVer");
-  if (fv && fv.textContent.includes("__APP_VERSION__")) {
-    const meta = document.querySelector('meta[name="app-version"]');
-    const v = meta && meta.content ? meta.content : "";
-    if (v) fv.textContent = "v" + v;
+  if (fv) {
+    if (fv.textContent.includes("__APP_VERSION__")) {
+      const meta = document.querySelector('meta[name="app-version"]');
+      const v = meta && meta.content ? meta.content : "";
+      if (v) {
+        fv.textContent = "v" + v;
+        fv.setAttribute("href", "https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v" + v);
+      } else {
+        fv.removeAttribute("href"); // 无法确定版本时不渲染死链
+      }
+    }
+  }
+  // 页脚构建号增强（v1.16.14）：悬浮显示可读构建时间，点击复制完整版本信息（报 bug 时便于粘贴环境）
+  const fb = $("#footerBuild");
+  if (fb) {
+    const m = (fb.textContent.match(/(\d{10})/) || [])[1];
+    if (m) {
+      const bt = "20" + m.slice(0, 2) + "-" + m.slice(2, 4) + "-" + m.slice(4, 6) + " " + m.slice(6, 8) + ":" + m.slice(8, 10);
+      fb.title = "构建时间 / Build time: " + bt + "（点击复制版本信息 / click to copy）";
+      fb.addEventListener("click", () => {
+        const fv2 = $("#footerVer");
+        const info = (fv2 ? fv2.textContent.trim() : "") + " · build " + m;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(info).then(() => showToast("已复制版本信息 / Version info copied"), () => showToast(info));
+        } else {
+          showToast(info);
+        }
+      });
+    }
   }
   initCloudSync();
 }
