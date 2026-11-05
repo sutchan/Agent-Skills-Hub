@@ -539,3 +539,27 @@
 ### 说明
 - 收起图表时分类筛选随图例隐藏，重新展开即可——原 chips 与图例本就同源同态，无功能损失。
 - 同步纠正外部提交遗留的版本漂移：src/index.html 头注释/meta（1.16.8）、tasks.md 头部（v1.16.5）、wireframes 页脚（v1.16.5）。
+
+---
+
+## 迭代二十六：修复上游同步导致的 14 个技能 frontmatter 契约破损并同步展示数据（v1.16.12，已完成）
+
+> 来源：用户指令「处理所有更新了的 skill 数据」。会话间隙上游同步覆盖了 14 个 `skills/*/SKILL.md` 的 frontmatter（丢弃 `en_description` / `zh_displayName` / `category` / `en_category`，部分把中文 `description` 换成英文原文），磁盘与 `data/` 层脱节、`validate-skills.mjs` 出现 4 类软警告。
+
+### 变更与验证
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | 逐技能比对 HEAD 与上游 frontmatter 及 data 条目 | P0 | ✅ 已完成 | 14 个技能 frontmatter 全变；8 个上游英文原文未变、6 个变更（`bailian-web-search` 扩写中文 / `football-data` / `ui-ux-pro-max` 英文改写 / `short-drama-storyboard`·`video-prompts`·`write` 仅丢英文段） |
+| 2 | 按 spec §2 重建六字段 frontmatter | P0 | ✅ 已完成 | 顺序固定 `name`→`description`→`en_description`→`zh_displayName`→`category`→`en_category`；中文描述取提交态译文、英文取上游最新版；上游 `license` / `version` / `user-invocable` / `allowed-tools` / `hooks` / `metadata` 原文保留且 `metadata` 居末 |
+| 3 | 统一描述书写格式与换行符 | P1 | ✅ 已完成 | 描述改用 `|-` 块标量（避免双引号单行转义风险）；14 个文件规范为 LF，符合 `.gitattributes` 的 `skills/** text eol=lf` |
+| 4 | 同步 `data/skills-data.json` | P0 | ✅ 已完成 | 14 个技能的 `description` / `enDescription` 与磁盘契约字段对齐；`total` 由可见技能数实算（167） |
+| 5 | 刷新 `data/skills-metrics.json` | P1 | ✅ 已完成 | 仅刷新 14 个更新技能的 `size` / `files`（磁盘实算），`popularity` 沿用原值；其余技能指标与「桌面与客户端」空分类登记为后续任务（tasks.md #1–#3） |
+| 6 | 重建内联数据 | P1 | ✅ 已完成 | `npm run sync:data` → total=167 / skills=168 / 13 个活跃分类，data 与内联口径一致 |
+| 7 | 版本 bump 1.16.11 → 1.16.12 | P2 | ✅ 已完成 | package.json / README·README.en 徽章 / src 头注释·meta / DESIGN.md 头版本 / wireframes 页脚 / CHANGELOG；并纠正 spec.md·project.md 头版本（1.16.10）与 tasks.md 头部（v1.16.10）漂移 |
+| 8 | 门禁校验 | P0 | ✅ 已完成 | `validate-skills.mjs` 168 技能零软警告 · `npm test` 7/7 · `check-inline-js.mjs` 4/4 · `check-version.mjs` 通过；`tsc --noEmit` 因本机无 `node_modules` 未执行（待 CI） |
+
+### 说明
+- 上游同步只负责技能正文与资源，`skills/<name>/SKILL.md` 的 §2 六字段属本仓库契约，故恢复契约字段而不回退上游正文改动。
+- `bailian-web-search` 上游为纯中文技能（无英文原文），沿用仓库既有惯例（`browser-automation` / `cloudbase` 同）以中文原文填充 `en_description`，data 层 `enDescription` 同步为上游扩展后的完整中文（563 字符）。
+- `short-drama-write` 采用上游修正后的中文措辞（「保留作者原文并规范化」），英文段沿用提交态原文（上游未提供英文）。
+- 恢复过程使用一次性临时脚本（已删除），未向仓库引入 `SKILL.md`→data 生成脚本，保持 spec §8.2 的既定设计取舍。

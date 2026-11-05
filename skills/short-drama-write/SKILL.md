@@ -1,7 +1,9 @@
 ---
 name: short-drama-write
-description: "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文地规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。"
-en_description: "Write or revise shootable Chinese short-drama / comic episode scripts, and normalize provided scripts while preserving the author's original wording."
+description: |-
+  编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文并规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。
+en_description: |-
+  Write or revise shootable Chinese short-drama / comic episode scripts, and normalize provided scripts while preserving the author's original wording.
 zh_displayName: "短剧剧本编写"
 category: "音视频与多媒体"
 en_category: "Media & Multimedia"
@@ -52,7 +54,7 @@ license: MIT
 - 已建立的代价、不可逆后果、关键持物、空间和知识状态要进入可追溯的退出状态；结尾可推进、留白、反讽、安静收束、形成余韵或让既有动作变义，不强制追加外部事件；已接受节奏档案的 `end_on_peak` 为 `true` 时，停在峰值上，不接余韵（见[项目节奏档案](references/script-craft.md#65-项目节奏档案)）。
 - `[连续性]` 只交接由前文动作已经建立、又容易在下游丢失的状态；不能用作者标签证明镜头外从未发生某事，也不复述正文已清楚呈现的结果。
 - 交稿前静默检查冗余：是否增加了输入没有要求的精确数字或记录链，是否用标签/对白重复动作，是否在回报后堆了多个同方向后果。删去没有新作用的内容，保留本集需要的选择、证据、时限、人物与连续性事实。
-- 输入给出目标时长时按真实表演、动作和停顿通读压稿，先删重复验证、解释和同义收尾；不用统一字数、镜头数或节拍数填模板。
+- 输入给出目标时长时按真实表演、动作和停顿通读压稿，先删重复验证、解释和同义收尾；峰值上有铺垫的爆发、紧跟其后的宣判句和收住这一拍的动作不算同义收尾，压稿前先读[经济性遍](references/script-craft.md#910-经济性遍)里的 `SCR-23`。不用统一字数、镜头数或节拍数填模板。
 - 用户原文优先；“去 AI 味”是定点修订，不抹平作者个性。
 
 ## 按需知识
@@ -65,6 +67,7 @@ license: MIT
 - 项目特有的制作稿方言：[制作格式方言](references/production-format-dialect.md)
 - 输入含[核心选择](references/script-craft.md#35-把一拍写成艰难选择时两个方向都要活着)、[有限次数/轮次/呼吸/节拍](references/script-craft.md#64-有限单位按完成状态计数)、[精确倒计时](references/script-craft.md#63-倒计时先算动作不要只写数字)或[会改变人物判断的关键物证](references/script-craft.md#53-证据先改变判断再改变关系)：[剧作手艺](references/script-craft.md)
 - 过去关系必须通过对白进入，或关键人物容易只剩说明功能：[对白手艺](references/dialogue-craft.md)
+- 台词要用中文以外的语言写，或要把中文剧本改成另一种语言：[非中文台词](references/dialogue-craft.md#63-非中文台词从场景直接写不逐句翻译)
 - 声源、留白与 sound bridge：[场景声音戏剧](references/scene-sound-dramaturgy.md)
 - 同一故事义务的不同可拍实现：[可替代实现](references/substitutable-realization.md)
 - 长单集跨上下文时的最小交接：[场景交接摘要](references/scene-handoff-capsule.md)，只留在上下文
@@ -76,8 +79,9 @@ license: MIT
 用户问时长，或项目已接受节奏档案、需要核对 VO 占比时，才把索引写入系统临时目录。先用 Python 查询跨平台临时目录，把第一条命令打印的完整
 路径原样替换进后两条命令的引号内。以下每条都是一行完整命令，不依赖 shell 变量或续行符；Windows
 没有 `python3` 命令时使用 `py -3`。`--speaker` 的示例值必须替换为本集实际说话者。
-项目配置存在时，可在第三条命令末尾加 `--project short-drama.json`。只有
-`duration_estimate.py` 接受这个参数，第二条索引命令不接受：
+项目配置存在时，可在第三条命令末尾加 `--project short-drama.json`；分集地图给这一集单独定了目标时长
+（例如首集加长）时，再加 `--target-seconds <秒数>`，按这一集的目标对照。只有 `duration_estimate.py`
+接受这两个参数，第二条索引命令不接受：
 
 ```text
 python3 -c "from pathlib import Path; import tempfile, uuid; print(Path(tempfile.gettempdir()) / ('short-drama-' + uuid.uuid4().hex + '.jsonl'))"
@@ -91,9 +95,13 @@ python3 "{技能目录}/scripts/duration_estimate.py" "剧集/EP001/剧本.md" -
 加 `--no-previous`，也可以回到第一条命令另取一个临时路径。
 
 估时前区分计数口径：`dialogue_characters` 包含标点，用于 `[VO]` 占比；`voiced_characters` 去掉标点，
-脚本按它和语速换算秒数。数字和缩写仍按实际读法另行估计，不把两个计数混用。
+脚本按它和语速换算秒数。英文等以空格分词的台词按词计入 `voiced_words`，按项目的每秒词数换算；
+中英混排的一句各按各的单位计（`OK，走吧` 是 1 词 2 字）。项目没声明某个单位的语速时，那部分列在
+`untimed_speech`，不在秒数里。数字和缩写仍按实际读法另行估计，不把两个计数混用。
 项目已接受节奏档案、上限有效且本集有台词时，输出增加 `vo_share`：`[VO]` 字数占全部台词字数的比例、档案上限，以及是否超过。`[OS]` 计入全部台词，不计入 `[VO]`。
 `[画面文字]`、`[SFX]`、`[转场]` 占用画面时间，但不在秒数里，输出的 `untimed` 列出它们的行数。
+所有台词都有语速可算时，输出另给 `speech_seconds` 与 `speech_share`：估算里有人说话的秒数和它占全集估算的比例。
+漫剧项目怎样读这个数，见 [漫剧靠声音往前推](references/script-craft.md#45-漫剧靠声音往前推)。
 项目在 `format.pacing` 里另声明了 `on_screen_text_characters_per_second`（观众每秒读几个字）时，
 `[画面文字]` 标签后的全部文字（含载体名）按它计入秒数（`on_screen_text_seconds`）。唱段按说话语速计时，实际通常更长。
 画面文字多、唱段长的集，估算明显低于成片，要按这几项另加读字和停留时间再对照目标。

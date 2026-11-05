@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.12] - 2026-11-05
+
+### fix: 修复 14 个上游同步技能丢失的 frontmatter 契约字段并同步展示数据
+
+- 根因：上游技能同步覆盖了 14 个 `skills/*/SKILL.md` 的 frontmatter——丢失 `en_description` / `zh_displayName` / `category` / `en_category` 四个 §2 契约字段，且部分把中文 `description` 直接替换为英文原文（`brainstorming` / `dart-migrate-to-checks-package` / `executing-plans` / `football-data` / `google-agents-cli-deploy` / `google-agents-cli-workflow` / `planning-with-files` / `remotion-best-practices` / `stripe-best-practices` / `ui-ux-pro-max`），造成「中英共存」契约破损、data 层与磁盘脱节。
+- `skills/*/SKILL.md`（14 个）：按 `docs/spec.md` §2 重建六字段（`name` → `description` → `en_description` → `zh_displayName` → `category` → `en_category`），中文描述取提交态译文、英文描述取上游最新版原文，上游其余字段（`license` / `version` / `user-invocable` / `allowed-tools` / `hooks` / `metadata`）原文保留且 `metadata` 仍居末位；描述统一以 `|-` 块标量书写，全部文件规范为 LF（`.gitattributes` 的 `skills/** text eol=lf`）。
+- `data/skills-data.json`：同步 14 个技能的 `description` / `enDescription`（`bailian-web-search` 补齐上游扩展后的中文描述 50→563 字符；`short-drama-write` 采用上游修正「保留作者原文并规范化」措辞；`football-data` / `ui-ux-pro-max` 换用上游最新版英文原文）；`total` 由可见技能数实算（167）。
+- `data/skills-metrics.json`：刷新本次更新 14 个技能的 `size` / `files`（磁盘实算），`popularity` 沿用原值。
+- `src/index.html`：运行 `npm run sync:data` 重建内联 `window.SKILLS_DATA`（total=167 / skills=168 / 13 个活跃分类），与 data 层口径一致。
+- 门禁：`node tools/validate-skills.mjs` 通过（168 个技能零软警告，六字段已全量补齐）、`npm test` 7/7 通过、`node tools/check-inline-js.mjs` 4 个内联脚本解析通过、`node tools/check-version.mjs` 通过；`tsc --noEmit` 因本机未安装依赖（无 `node_modules`）未执行，待 CI 验证。
+- 版本 1.16.11→1.16.12，同步 `package.json`、README 双语文档徽章、`src/index.html` 头注释 / meta、`prototype/DESIGN.md` 头版本、`prototype/wireframes.html` 页脚；并纠正 `docs/spec.md` / `docs/project.md` 头版本（1.16.10）与 `docs/tasks.md` 头部（v1.16.10）的历史漂移。
+
+[1.16.12]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.12
+
 ## [1.16.11] - 2026-11-03
 
 ### chore: 强化原型可观测性与数据单一来源

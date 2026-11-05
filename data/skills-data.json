@@ -228,8 +228,8 @@
     },
     {
       "name": "bailian-web-search",
-      "description": "阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。",
-      "enDescription": "阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。 先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为 `token-plan.<region>.maas.aliyuncs.com`）→ 模型自带搜索 （`bl text chat --api responses --tool '{\\\\\"type\\\\\":\\\\\"web_search\\\\\"}'`）；其他 / 默认 → Bailian MCP（`bl search web`）；仅在 MCP 鉴权失败、未开通或传输失败时兜底一次到模型自带搜索。 Token Plan 联网搜索失败、两条路径鉴权混淆的排查也走本技能。 反触发：宿主可完成的 普通问答 / 编程 / 写作 → 不触发；知识库 RAG → bailian-cli （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune； agents.yaml → bailian-managed-agent。 共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。",
+      "description": "阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。 先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为 `token-plan.<region>.maas.aliyuncs.com`）→ 模型自带搜索 （`bl text chat --api responses --tool '{\"type\":\"web_search\"}'`）；其他 / 默认 → Bailian MCP（`bl search web`）；仅在 MCP 鉴权失败、未开通或传输失败时兜底一次到模型自带搜索。 Token Plan 联网搜索失败、两条路径鉴权混淆的排查也走本技能。 反触发：宿主可完成的 普通问答 / 编程 / 写作 → 不触发；知识库 RAG → bailian-cli （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune； agents.yaml → bailian-managed-agent。 共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。",
+      "enDescription": "阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。 先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为 `token-plan.<region>.maas.aliyuncs.com`）→ 模型自带搜索 （`bl text chat --api responses --tool '{\"type\":\"web_search\"}'`）；其他 / 默认 → Bailian MCP（`bl search web`）；仅在 MCP 鉴权失败、未开通或传输失败时兜底一次到模型自带搜索。 Token Plan 联网搜索失败、两条路径鉴权混淆的排查也走本技能。 反触发：宿主可完成的 普通问答 / 编程 / 写作 → 不触发；知识库 RAG → bailian-cli （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune； agents.yaml → bailian-managed-agent。 共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。",
       "zh": "百炼联网搜索",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
@@ -1523,7 +1523,7 @@
     {
       "name": "football-data",
       "description": "覆盖全球主要足球联赛的数据——积分榜、赛程、比赛统计、预期进球（xG）、转会、球员档案、历史交锋、球队实力（Elo）与比赛预测。零配置、无需 API Key。涵盖英超、西甲、德甲、意甲、法甲、美职联、欧冠、世界杯、英冠、荷甲、葡超、巴甲、俄超、苏超/比甲/土超顶级联赛、欧洲杯等（调用 get_competitions 获取实时列表）。",
-      "enDescription": "Football (soccer) data across the world's major leagues — standings, schedules, match stats, xG, transfers, player profiles, head-to-head history, team strength (Elo), and match forecasts. Zero config, no API keys. Covers Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, Champions League, World Cup, Championship, Serie B, Eredivisie, Primeira Liga, Serie A Brazil, Russian Premier League, Scottish/Belgian/Turkish top flights, European Championship, and more (call get_competitions for the live list).\n\nUse when: user asks about football/soccer standings, fixtures, match stats, xG, lineups, player values, transfers, injury news, league tables, daily fixtures, player profiles, head-to-head records, team strength/Elo ratings, or match odds/forecasts.\nDon't use when: user asks about American football/NFL (use nfl-data), college football (use cfb-data), NBA (use nba-data), WNBA (use wnba-data), college basketball (use cbb-data), NHL (use nhl-data), MLB (use mlb-data), tennis (use tennis-data), golf (use golf-data), cricket (use cricket-data), Formula 1 (use fastf1), or betting odds (use polymarket or kalshi). Don't use for live/real-time scores — data updates post-match. Don't use get_season_leaders or get_missing_players for non-Premier League leagues (they return empty). Don't use get_event_xg for leagues outside the top 5 (EPL, La Liga, Bundesliga, Serie A, Ligue 1).",
+      "enDescription": "Football (soccer) data — standings, schedules, match stats, xG, transfers, player profiles, head-to-head, Elo, and forecasts. No API keys. Covers Premier League, La Liga, Bundesliga, Serie A, Ligue 1, MLS, Champions League, World Cup, and more (see get_competitions). Use when: user asks about soccer standings, fixtures, match stats, xG, lineups, transfers, player values or profiles, injuries, head-to-head, Elo ratings, or match forecasts. Don't use when: user asks about American football/NFL (use nfl-data), college football (cfb-data), NBA (nba-data), WNBA (wnba-data), college basketball (cbb-data), NHL (nhl-data), MLB (mlb-data), tennis (tennis-data), golf (golf-data), cricket (cricket-data), Formula 1 (fastf1), or betting odds (polymarket or kalshi). Don't use for live/real-time scores — data updates post-match. get_season_leaders and get_missing_players are Premier League only (empty elsewhere); get_event_xg is top-5 leagues only (EPL, La Liga, Bundesliga, Serie A, Ligue 1).",
       "zh": "足球数据",
       "category": "数据分析与可视化",
       "enCategory": "Data Analysis & Visualization",
@@ -1592,7 +1592,7 @@
     {
       "name": "google-agents-cli-deploy",
       "description": "将 ADK 智能体部署到 Cloud Run 或 GKE——部署工作流、服务账号、回滚、密钥管理及生产基础设施指引。",
-      "enDescription": "This skill should be used when the user wants to \"deploy an agent\",\n\"deploy my ADK agent\", \"set up CI/CD\", \"configure secrets\",\n\"troubleshoot a deployment\", or needs guidance on Agent Runtime,\nCloud Run, or GKE deployment targets, or binding an agent to an Agent Gateway.\nCovers deployment workflows, service accounts, rollback, and production infrastructure.\nApplies to any framework agents-cli deploys (ADK, LangChain, ...).\nPart of the agents-cli skills suite.\nDo NOT use for agent API code patterns (ADK: use google-agents-cli-adk-code), evaluation\n(use google-agents-cli-eval), or project scaffolding (use google-agents-cli-scaffold).",
+      "enDescription": "This skill should be used when the user wants to \"deploy an agent\", \"deploy my ADK agent\", \"set up CI/CD\", \"configure secrets\", \"troubleshoot a deployment\", or needs guidance on Agent Runtime, Cloud Run, or GKE deployment targets, or binding an agent to an Agent Gateway. Covers deployment workflows, service accounts, rollback, and production infrastructure. Applies to any framework agents-cli deploys (ADK, LangChain, ...). Part of the agents-cli skills suite. Do NOT use for agent API code patterns (ADK: use google-agents-cli-adk-code), evaluation (use google-agents-cli-eval), or project scaffolding (use google-agents-cli-scaffold).",
       "zh": "Google ADK 部署",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
@@ -1610,7 +1610,7 @@
     {
       "name": "google-agents-cli-workflow",
       "description": "完整的 ADK 开发生命周期：脚手架、构建、评估、部署、发布、监控。使用 Agent Development Kit 构建智能体的入口。",
-      "enDescription": "This skill should be used when the user wants to \"develop an agent\",\n\"build an agent using ADK\", \"run the agent locally\", \"debug agent code\",\n\"test an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\",\nor needs the ADK (Agent Development Kit) development lifecycle and coding\nguidelines. Entrypoint for building ADK agents.\nAlways active — provides the full workflow (scaffold, build, evaluate,\ndeploy, publish, observe), code preservation rules, model selection\nguidance, and troubleshooting steps for ADK or any agent development.",
+      "enDescription": "This skill should be used when the user wants to \"develop an agent\", \"build an agent using ADK\", \"run the agent locally\", \"debug agent code\", \"test an agent\", \"deploy an agent\", \"publish an agent\", \"monitor an agent\", or needs the ADK (Agent Development Kit) development lifecycle and coding guidelines. Entrypoint for building ADK agents. Always active — provides the full workflow (scaffold, build, evaluate, deploy, publish, observe), code preservation rules, model selection guidance, and troubleshooting steps for ADK or any agent development.",
       "zh": "Google ADK 开发工作流",
       "category": "AI 与智能体",
       "enCategory": "AI & Agents",
@@ -2590,7 +2590,7 @@
     },
     {
       "name": "short-drama-write",
-      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文地规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。",
+      "description": "编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文并规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。",
       "enDescription": "Write or revise shootable Chinese short-drama / comic episode scripts, and normalize provided scripts while preserving the author's original wording.",
       "zh": "短剧剧本编写",
       "category": "音视频与多媒体",
@@ -2623,7 +2623,7 @@
     {
       "name": "stripe-best-practices",
       "description": "指导 Stripe 集成决策，涵盖开发与测试环境规划（独立沙箱 vs 共享测试模式沙箱）、API 选择（Checkout Sessions vs PaymentIntents）、Connect 平台搭建、计费订阅、税务、Treasury 金融账户、集成选项与安全最佳实践。",
-      "enDescription": "Guides Stripe integration decisions across development and test environment\nplanning (separate sandboxes vs the shared test mode sandbox), API selection\n(Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2,\ncontroller properties), billing/subscriptions, tax and registrations (Stripe\nTax, automatic_tax, product tax codes), Treasury financial accounts,\nintegration options (Checkout, Payment Element), migrating from deprecated\nStripe APIs, and security best practices (API key management, API key\npermissions, webhooks, OAuth). Use when planning, building, modifying,\ntesting, or reviewing any Stripe integration, including choosing a development\nenvironment, accepting payments, building marketplaces, integrating Stripe,\nprocessing payments, setting up subscriptions, collecting sales tax, VAT, or\nGST, creating connected accounts, or implementing secure key handling.",
+      "enDescription": "Guides Stripe integration decisions across development and test environment planning (separate sandboxes vs the shared test mode sandbox), API selection (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2, controller properties), billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax, product tax codes), Treasury financial accounts, integration options (Checkout, Payment Element), migrating from deprecated Stripe APIs, and security best practices (API key management, API key permissions, webhooks, OAuth). Use when planning, building, modifying, testing, or reviewing any Stripe integration, including choosing a development environment, accepting payments, building marketplaces, integrating Stripe, processing payments, setting up subscriptions, collecting sales tax, VAT, or GST, creating connected accounts, or implementing secure key handling.",
       "zh": "Stripe 最佳实践",
       "category": "后端与平台",
       "enCategory": "Backend & Platform",
@@ -2708,7 +2708,7 @@
     {
       "name": "ui-ux-pro-max",
       "description": "面向 Web、移动端与桌面的 UI/UX 设计智能。在构建设计、评审、优化界面体验时使用。",
-      "enDescription": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
+      "enDescription": "UI/UX design intelligence for web, mobile, and desktop. This skill should be used when designing, building, reviewing, or fixing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 80 searchable styles (51 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
       "zh": "UI/UX 设计智能",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",

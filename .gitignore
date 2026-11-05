@@ -83,3 +83,4 @@ sync.ffs_lock
 *.out.txt
 *.sync-conflict-*
 _*.mjs
+*/tmp-*.*

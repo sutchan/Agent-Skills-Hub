@@ -75,7 +75,7 @@
     "bailian-web-search": {
       "name": "bailian-web-search",
       "popularity": 0,
-      "size": 7759,
+      "size": 9341,
       "files": 1
     },
     "banner-creator": {
@@ -105,7 +105,7 @@
     "brainstorming": {
       "name": "brainstorming",
       "popularity": 0,
-      "size": 83274,
+      "size": 80688,
       "files": 8
     },
     "brand-guidelines": {
@@ -255,7 +255,7 @@
     "dart-migrate-to-checks-package": {
       "name": "dart-migrate-to-checks-package",
       "popularity": 0,
-      "size": 19426,
+      "size": 19531,
       "files": 1
     },
     "dart-resolve-package-conflicts": {
@@ -387,7 +387,7 @@
     "executing-plans": {
       "name": "executing-plans",
       "popularity": 0,
-      "size": 23362,
+      "size": 21770,
       "files": 3
     },
     "fastify-best-practices": {
@@ -531,7 +531,7 @@
     "football-data": {
       "name": "football-data",
       "popularity": 0,
-      "size": 46099,
+      "size": 48034,
       "files": 6
     },
     "frontend-design": {
@@ -555,13 +555,13 @@
     "google-agents-cli-deploy": {
       "name": "google-agents-cli-deploy",
       "popularity": 0,
-      "size": 76403,
+      "size": 78920,
       "files": 9
     },
     "google-agents-cli-workflow": {
       "name": "google-agents-cli-workflow",
       "popularity": 0,
-      "size": 45612,
+      "size": 46457,
       "files": 7
     },
     "google-mobile-ads-banner": {
@@ -813,8 +813,8 @@
     "planning-with-files": {
       "name": "planning-with-files",
       "popularity": 0,
-      "size": 465352,
-      "files": 32
+      "size": 541358,
+      "files": 34
     },
     "prototype": {
       "name": "prototype",
@@ -837,8 +837,8 @@
     "remotion-best-practices": {
       "name": "remotion-best-practices",
       "popularity": 0,
-      "size": 1210049,
-      "files": 143
+      "size": 1215772,
+      "files": 147
     },
     "requesting-code-review": {
       "name": "requesting-code-review",
@@ -873,25 +873,25 @@
     "short-drama-storyboard": {
       "name": "short-drama-storyboard",
       "popularity": 1,
-      "size": 172111,
-      "files": 19
+      "size": 147186,
+      "files": 15
     },
     "short-drama-video-prompts": {
       "name": "short-drama-video-prompts",
       "popularity": 1,
-      "size": 238766,
-      "files": 23
+      "size": 206986,
+      "files": 15
     },
     "short-drama-write": {
       "name": "short-drama-write",
       "popularity": 0,
-      "size": 214226,
-      "files": 15
+      "size": 212270,
+      "files": 14
     },
     "stripe-best-practices": {
       "name": "stripe-best-practices",
       "popularity": 0,
-      "size": 72749,
+      "size": 71614,
       "files": 7
     },
     "systematic-debugging": {
@@ -921,8 +921,8 @@
     "ui-ux-pro-max": {
       "name": "ui-ux-pro-max",
       "popularity": 0,
-      "size": 3646999,
-      "files": 63
+      "size": 3668323,
+      "files": 64
     },
     "video-editing": {
       "name": "video-editing",

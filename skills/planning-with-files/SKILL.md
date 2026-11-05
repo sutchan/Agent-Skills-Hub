@@ -1,7 +1,9 @@
 ---
 name: planning-with-files
-description: "Manus 式持久化基于文件的规划，为 AI 编码智能体在磁盘保留 task_plan.md、findings.md、progress.md，使工作在上下文丢失与 /clear 后仍能存活。当用户要求规划、拆分或组织多步骤项目、研究任务或任何需要 5+ 工具调用的工作时使用。支持 /clear 后自动会话恢复。"
-en_description: "Persistent file-based planning for multi-step AI-agent work. Keeps task_plan.md, findings.md, and progress.md on disk; lifecycle hooks inject selected project planning context. Automatic recovery reads project planning files only. Explicit session-catchup.py --metadata reads same-project local agent session records and emits aggregate counts only; --replay may emit bounded nonce-framed excerpts. Optional gated mode can request continuation only when the host supports it and never runs commands declared in Markdown. The skill has no network upload path. Use for research or work needing 5+ tool calls."
+description: |-
+  Manus 式持久化基于文件的规划，为 AI 编码智能体在磁盘保留 task_plan.md、findings.md、progress.md，使工作在上下文丢失与 /clear 后仍能存活。当用户要求规划、拆分或组织多步骤项目、研究任务或任何需要 5+ 工具调用的工作时使用。支持 /clear 后自动会话恢复。
+en_description: |-
+  Persistent file-based planning for multi-step AI-agent work. Keeps task_plan.md, findings.md, and progress.md on disk; lifecycle hooks inject selected project planning context. Automatic recovery reads project planning files only. Explicit session-catchup.py --metadata reads same-project local agent session records and emits aggregate counts only; --replay may emit bounded nonce-framed excerpts. Optional gated mode can request continuation only when the host supports it and never runs commands declared in Markdown. The skill has no network upload path. Use for research or work needing 5+ tool calls.
 zh_displayName: "文件规划助手"
 category: "工程实践与质量"
 en_category: "Engineering Practice & Quality"
@@ -32,7 +34,7 @@ hooks:
         - type: command
           command: "[ -n \"${CLAUDE_PLUGIN_ROOT:-}\" ] && exit 0; SH=\"${CLAUDE_SKILL_DIR}/scripts/skill-hook.sh\"; [ -f \"$SH\" ] || SH=$(ls \"$HOME/.claude/skills/planning-with-files/scripts/skill-hook.sh\" \"$HOME/.claude/plugins/marketplaces/planning-with-files/scripts/skill-hook.sh\" 2>/dev/null | head -1); [ -n \"$SH\" ] && [ -f \"$SH\" ] && sh \"$SH\" --event=precompact; exit 0"
 metadata:
-  version: "3.25.0"
+  version: "3.28.0"
 ---
 
 # Planning with Files
@@ -83,12 +85,28 @@ Metadata mode may report that same-project session activity exists, but it emits
 
 Before a complex task:
 
-1. **Resolve or initialize the task directory.** Reuse the selected plan when resuming. For a separate task, run `scripts/init-session.sh "Task Name"` and use the printed `PLAN_ID` to pin its host.
-2. **Create missing planning files only.** Use [templates/task_plan.md](templates/task_plan.md), [templates/findings.md](templates/findings.md), and [templates/progress.md](templates/progress.md) in that directory. Preserve existing work.
+1. **Restore before creating.** Reuse the selected plan when resuming. For a new task, run the installed initializer before implementation; follow the creation contract below and pin the host with its printed `PLAN_ID` when using a named plan.
+2. **Preserve the initialized structure.** Fill in the selected plan and notes without replacing the native phase/status markers. Existing planning files must not be overwritten.
 3. **Re-read the selected plan before decisions.** Update progress after each phase.
 4. **Assign one plan owner.** The orchestrator owns `task_plan.md` and shared summaries. Workers report through their own ledgers or assigned files; they do not independently rewrite the shared planning files.
 
 > Planning files belong to the selected task directory in the project. The installation directory contains the scripts and templates.
+
+## New plan creation contract
+
+For a new task, use the installed initializer before implementation. Set `PWF_SKILL_DIR` to the directory containing the SKILL.md you just read, then run from the project root:
+
+```sh
+sh "$PWF_SKILL_DIR/scripts/init-session.sh"
+# After filling in the selected plan, validate its explicit path:
+sh "$PWF_SKILL_DIR/scripts/check-complete.sh" --validate path/to/task_plan.md
+```
+
+PowerShell equivalents are `init-session.ps1` and `check-complete.ps1 -Validate -PlanFile path/to/task_plan.md`. A named task may use the initializer's name argument and printed `PLAN_ID`.
+
+Keep each phase as `### Phase N: Name` with exactly one `**Status:** pending`, `**Status:** in_progress`, or `**Status:** complete` line. A `## Phases` checklist or numbered summary alone is not trackable. Preserve these markers when tailoring the generated plan; do not replace the skeleton with a compact custom format. Validation must succeed before substantive work and after changing phase structure. This checks format, not task completion or attestation.
+
+Reuse existing plans without overwriting them. If an existing plan fails validation, report the issue for its owner to review; do not automatically rewrite it. If helpers cannot run, copy the shipped template exactly and state that native validation is unavailable.
 
 ## The Core Pattern
 
@@ -236,9 +254,13 @@ Helper scripts for automation:
 
 ### List saved plans
 
+For agent-readable paths and state, add `--json` (PowerShell: `-Json`) to the listing command. This optional read-only mode includes root files, selection uncertainty and bounded paging. See [the inventory schema and worker handoff](plan-inventory.md). It never runs during ordinary activation.
+
 To find a task before resuming it, run `sh "<skill-dir>/scripts/set-active-plan.sh" --list` or, in Windows PowerShell, `& "<skill-dir>/scripts/set-active-plan.ps1" -List`. Replace `<skill-dir>` with this installed skill directory and keep your current directory at the project root.
 
 This read-only command lists named plans and phase progress under the current directory's `.planning/`. `[active]` marks the shared default pointer; it does not bind a session. Concurrent tasks still require each host's `PLAN_ID` or separate worktrees.
+
+When hooks report that multiple plans are available, or every phase of a named plan is complete, run the listing command and tell the user which plans look finished. Archive only the plans the user approves: `--archive <id>` (PowerShell: `-Archive <id>`) previews the move to `.planning/.archive/`, `--yes` (`-Yes`) applies it, and `--restore <id>` (`-Restore <id>`) moves it back. Never archive on age or completion alone.
 
 ### Parallel task workflow
 

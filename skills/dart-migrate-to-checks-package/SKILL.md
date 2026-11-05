@@ -1,13 +1,18 @@
 ---
 name: dart-migrate-to-checks-package
-description: 将 package:matcher 的 expect 等用法替换为 package:checks 等价写法。
+description: |-
+  将 package:matcher 的 expect 等用法替换为 package:checks 等价写法。
 en_description: |-
-  Replace the usage of `expect` and similar functions from `package:matcher` to `package:checks` equivalents.
-zh_displayName: Dart 迁移至 checks 包
-category: 移动端开发
-en_category: Mobile Dev
-metadata: 
+  Replace the usage of `expect` and similar functions from `package:matcher`
+  to `package:checks` equivalents.
+zh_displayName: "Dart 迁移至 checks 包"
+category: "移动端开发"
+en_category: "Mobile Dev"
+metadata:
+  model: models/gemini-3.1-pro-preview
+  last_modified: Tue, 09 Jun 2026 19:30:00 GMT
 ---
+
 # Migrating Dart Tests to Package Checks
 
 Use this skill when you need to migrate a Dart test suite from the legacy
@@ -172,7 +177,7 @@ For any target test file:
       ..has((e) => e.message, 'message').equals('invalid input');
 
     // NO (Passing a callback to sync throws will cause a compiler error!)
-    check(() => triggerSync").throws<ArgumentError>((it) => ...); // ERROR!
+    check(() => triggerSyncError()).throws<ArgumentError>((it) => ...); // ERROR!
     ```
   - **Asynchronous** (`Subject<Future<T>>`): `.throws<E>()` returns
     `Future<void>`. Because you cannot chain directly off a `Future<void>`, this

@@ -1,30 +1,16 @@
 ---
 name: google-agents-cli-workflow
-description: "完整的 ADK 开发生命周期：脚手架、构建、评估、部署、发布、监控。使用 Agent Development Kit 构建智能体的入口。"
+description: |-
+  完整的 ADK 开发生命周期：脚手架、构建、评估、部署、发布、监控。使用 Agent Development Kit 构建智能体的入口。
 en_description: |-
-  This skill should be used when the user wants to "develop an agent",
-  "build an agent using ADK", "run the agent locally", "debug agent code",
-  "test an agent", "deploy an agent", "publish an agent", "monitor an agent",
-  or needs the ADK (Agent Development Kit) development lifecycle and coding
-  guidelines. Entrypoint for building ADK agents.
-  Always active — provides the full workflow (scaffold, build, evaluate,
-  deploy, publish, observe), code preservation rules, model selection
-  guidance, and troubleshooting steps for ADK or any agent development.
+  This skill should be used when the user wants to "develop an agent", "build an agent using ADK", "run the agent locally", "debug agent code", "test an agent", "deploy an agent", "publish an agent", "monitor an agent", or needs the ADK (Agent Development Kit) development lifecycle and coding guidelines. Entrypoint for building ADK agents. Always active — provides the full workflow (scaffold, build, evaluate, deploy, publish, observe), code preservation rules, model selection guidance, and troubleshooting steps for ADK or any agent development.
 zh_displayName: "Google ADK 开发工作流"
 category: "AI 与智能体"
 en_category: "AI & Agents"
-  This skill should be used when the user wants to "develop an agent",
-  "build an agent using ADK", "run the agent locally", "debug agent code",
-  "test an agent", "deploy an agent", "publish an agent", "monitor an agent",
-  or needs the ADK (Agent Development Kit) development lifecycle and coding
-  guidelines. Entrypoint for building ADK agents.
-  Always active — provides the full workflow (scaffold, build, evaluate,
-  deploy, publish, observe), code preservation rules, model selection
-  guidance, and troubleshooting steps for ADK or any agent development.
 metadata:
   author: Google
   license: Apache-2.0
-  version: 1.12.0
+  version: 1.13.0
   requires:
     bins:
       - agents-cli
@@ -38,8 +24,8 @@ metadata:
 > **Before writing agent code, make sure a scaffolded project exists (see Phase 2).** Skipping scaffolding loses eval boilerplate, CI/CD config, and project conventions.
 
 
-> Requires: google-agents-cli ~= 1.12.0
-> If version is behind, run: uv tool install "google-agents-cli~=1.12.0"
+> Requires: google-agents-cli ~= 1.13.0
+> If version is behind, run: uv tool install "google-agents-cli~=1.13.0"
 
 > Check version: agents-cli info
 > [Install uv](https://docs.astral.sh/uv/getting-started/installation/index.md) first if needed.
@@ -119,7 +105,7 @@ Once you have a clear understanding, proceed to **Phase 1**.
 > credentials · OAuth consent to reach a user's own data · delegating to sub-agents with isolated
 > context · speaking A2A to other agents · reacting to events or a schedule · researching a topic
 > online and reporting it with citations · generating images or video · monitoring a deployed
-> agent's quality from its production traces — then a recipe already
+> agent's quality from its production traces · talking to the agent by voice in real time — then a recipe already
 > implements it. Look it up **before you commit to an implementation.**
 >
 > This list covers the same capabilities as the topic index in `/google-agents-cli-adk-code` → `references/recipes.md`. If you extend one, extend the other.
@@ -192,7 +178,7 @@ It contains the dataset schema, config format, and critical gotchas. Do NOT skip
 3. Discuss results with the user
 4. Fix issues and iterate on the core cases first
 5. Only after core cases pass, add edge cases and new scenarios
-6. Repeat until every case meets the bar you agreed with the user (`eval run` exits 0 whatever the scores are, so read them)
+6. Repeat until every case meets the bar you agreed with the user. Record that bar as `thresholds` in the eval config: `eval run` then ends with `RESULT: PASS` or `RESULT: FAIL (...)` and exits 1 on a miss or an errored case
 
 **Expect 5-10+ iterations here.**
 

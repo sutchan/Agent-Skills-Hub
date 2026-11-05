@@ -1,11 +1,13 @@
 ---
 name: remotion-best-practices
-description: "Remotion 技能的总入口与最佳实践路由。在创建程序化视频、React 视频动画时使用。"
-en_description: "Router for all Remotion skills"
+description: |-
+  Remotion 技能的总入口与最佳实践路由。在创建程序化视频、React 视频动画时使用。
+en_description: |-
+  Router for all Remotion skills
 zh_displayName: "Remotion 最佳实践"
 category: "音视频与多媒体"
 en_category: "Media & Multimedia"
-version: 4.0.537
+version: 4.0.541
 ---
 
 ## Preserve user changes
@@ -107,6 +109,10 @@ Use the [Remotion SaaS skill](./remotion-saas/REFERENCE.md) for knowledge about 
 ## Looking up Remotion APIs and documentation
 
 To find and read current Remotion documentation, load [Remotion Docs](./remotion-docs/REFERENCE.md).
+
+## Licensing
+
+For Remotion license information, FAQs, terms, or buying a license, load [Remotion License](./remotion-license/REFERENCE.md).
 
 ## Upgrading
 
