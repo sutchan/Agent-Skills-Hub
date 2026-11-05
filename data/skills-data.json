@@ -1,5 +1,5 @@
 {
-  "total": 167,
+  "total": 168,
   "skills": [
     {
       "name": "ad-creative",
@@ -40,7 +40,7 @@
     {
       "name": "agent-browser",
       "description": "为 AI 智能体提供浏览器自动化操作能力",
-      "enDescription": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \\\"open a website\\\", \\\"fill out a form\\\", \\\"click a button\\\", \\\"take a screenshot\\\", \\\"scrape data from a page\\\", \\\"test this web app\\\", \\\"login to a site\\\", \\\"automate browser actions\\\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
+      "enDescription": "Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to \"open a website\", \"fill out a form\", \"click a button\", \"take a screenshot\", \"scrape data from a page\", \"test this web app\", \"login to a site\", \"automate browser actions\", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.",
       "zh": "浏览器自动化",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
@@ -384,8 +384,8 @@
     },
     {
       "name": "browser-automation",
-      "description": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。",
-      "enDescription": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
+      "description": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
+      "enDescription": "统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。\n浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。\n桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。\n触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。",
       "zh": "浏览器与桌面自动化",
       "category": "自动化与集成",
       "enCategory": "Automation & Integration",
@@ -518,7 +518,7 @@
     {
       "name": "clerk-nextjs-patterns",
       "description": "高级 Next.js 模式——middleware、Server Actions、缓存等，帮助在 Clerk + Next.js 应用中落地稳健的认证与集成模式。",
-      "enDescription": "Advanced Next.js patterns - middleware, Server Actions, caching with",
+      "enDescription": "Advanced Next.js patterns - middleware, Server Actions, caching with Clerk.",
       "zh": "Clerk 认证模式",
       "category": "安全",
       "enCategory": "Security",
@@ -555,7 +555,7 @@
     {
       "name": "code-review",
       "description": "围绕既定基准（提交、分支、标签或合并基点）从规范与规格两个维度审查代码改动。",
-      "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \\\\\"review since X\\\\\".",
+      "enDescription": "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\".",
       "zh": "代码审查",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -2527,7 +2527,7 @@
     {
       "name": "rust-skills",
       "description": "使用 Rust 进行系统级与高性能编程的技能。",
-      "enDescription": "Systems and high-performance programming with Rust.",
+      "enDescription": "Comprehensive Rust coding guidelines with 265 rules across 26 categories.\nUse when writing, reviewing, or refactoring Rust code. Covers ownership,\nerror handling, async patterns, concurrency, unsafe code, API design, memory\noptimization, performance, numeric safety, conversions, serde, pattern\nmatching, macros, closures, observability, testing, and common anti-patterns.\nInvoke with /rust-skills.",
       "zh": "Rust 技能",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -2862,6 +2862,24 @@
       "hidden": false,
       "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/writing-plans",
       "githubDir": "skills/writing-plans"
+    },
+    {
+      "name": "wordpress-pro",
+      "description": "WordPress 专业开发：开发自定义主题与插件、注册 Gutenberg 区块与区块模式、配置 WooCommerce 商店、\n实现 WordPress REST API 端点，并通过 nonce 校验、输入净化、输出转义与能力检查做安全加固，\n用缓存与查询调优做性能优化。适用于编写 WordPress 主题、开发插件、自定义 Gutenberg 区块、\n扩展 WooCommerce、使用 ACF、调用 WordPress REST API、使用钩子与过滤器，或改进 WordPress 性能与安全的场景。",
+      "enDescription": "Develops custom WordPress themes and plugins, creates and registers Gutenberg blocks and block\npatterns, configures WooCommerce stores, implements WordPress REST API endpoints, applies security\nhardening (nonces, sanitization, escaping, capability checks), and optimizes performance through\ncaching and query tuning. Use when building WordPress themes, writing plugins, customizing Gutenberg\nblocks, extending WooCommerce, working with ACF, using the WordPress REST API, applying hooks and\nfilters, or improving WordPress performance and security.",
+      "zh": "WordPress 主题与插件开发",
+      "category": "WordPress 与 CMS",
+      "enCategory": "WordPress & CMS",
+      "homepage": "https://github.com/Jeffallan",
+      "allowedTools": [],
+      "tags": [
+        "wordpress",
+        "web-frontend",
+        "security"
+      ],
+      "hidden": false,
+      "installCommand": "npx skills add sutchan/Agent-Skills-Hub/skills/wordpress-pro",
+      "githubDir": "skills/wordpress-pro"
     }
   ]
 }

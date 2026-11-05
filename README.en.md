@@ -2,11 +2,11 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.16.12-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Version](https://img.shields.io/badge/version-v1.16.13-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Other languages: [中文文档](README.md)
 
-**A centrally managed, browsable, and searchable catalog of AI agent skills** — spanning 14 domains with 168 skills (1 hidden), offering Chinese descriptions alongside English originals, ready to use for Chinese-speaking agent users.
+**A centrally managed, browsable, and searchable catalog of AI agent skills** — spanning 14 domains with 169 skills (1 hidden), offering Chinese descriptions alongside English originals, ready to use for Chinese-speaking agent users.
 
 ## ✨ Features
 
@@ -21,8 +21,8 @@
 
 | Metric | Value |
 |---|---|
-| Total skills | 168 (1 hidden) |
-| Visible skills | 167 |
+| Total skills | 169 (1 hidden) |
+| Visible skills | 168 |
 | Categories | 14 (13 currently active) |
 | License | MIT overall (per-skill licenses in each dir) |
 

@@ -15,7 +15,7 @@
     "agent-browser": {
       "name": "agent-browser",
       "popularity": 0,
-      "size": 3632,
+      "size": 3417,
       "files": 1
     },
     "agent-development": {
@@ -129,7 +129,7 @@
     "browser-automation": {
       "name": "browser-automation",
       "popularity": 1,
-      "size": 21937,
+      "size": 21957,
       "files": 3
     },
     "bun": {
@@ -171,8 +171,8 @@
     "clerk-nextjs-patterns": {
       "name": "clerk-nextjs-patterns",
       "popularity": 0,
-      "size": 30910,
-      "files": 12
+      "size": 37078,
+      "files": 13
     },
     "cloudbase": {
       "name": "cloudbase",
@@ -183,7 +183,7 @@
     "code-review": {
       "name": "code-review",
       "popularity": 1,
-      "size": 6711,
+      "size": 7068,
       "files": 2
     },
     "code-review-and-quality": {
@@ -549,7 +549,7 @@
     "google-agents-cli-adk-code": {
       "name": "google-agents-cli-adk-code",
       "popularity": 0,
-      "size": 149268,
+      "size": 149480,
       "files": 7
     },
     "google-agents-cli-deploy": {
@@ -609,7 +609,7 @@
     "hyperframes": {
       "name": "hyperframes",
       "popularity": 0,
-      "size": 155778,
+      "size": 159657,
       "files": 31
     },
     "hyperframes-core": {
@@ -711,7 +711,7 @@
     "logo-designer": {
       "name": "logo-designer",
       "popularity": 0,
-      "size": 45772,
+      "size": 46322,
       "files": 3
     },
     "luma": {
@@ -999,14 +999,20 @@
     "rust-skills": {
       "name": "rust-skills",
       "popularity": 0,
-      "size": 434,
-      "files": 1
+      "size": 1020531,
+      "files": 284
     },
     "skill-creator": {
       "name": "skill-creator",
       "popularity": 0,
       "size": 421,
       "files": 1
+    },
+    "wordpress-pro": {
+      "name": "wordpress-pro",
+      "popularity": 0,
+      "size": 140864,
+      "files": 6
     }
   }
 }

@@ -1,6 +1,20 @@
 ---
 name: wordpress-pro
-description: Develops custom WordPress themes and plugins, creates and registers Gutenberg blocks and block patterns, configures WooCommerce stores, implements WordPress REST API endpoints, applies security hardening (nonces, sanitization, escaping, capability checks), and optimizes performance through caching and query tuning. Use when building WordPress themes, writing plugins, customizing Gutenberg blocks, extending WooCommerce, working with ACF, using the WordPress REST API, applying hooks and filters, or improving WordPress performance and security.
+description: |-
+  WordPress 专业开发：开发自定义主题与插件、注册 Gutenberg 区块与区块模式、配置 WooCommerce 商店、
+  实现 WordPress REST API 端点，并通过 nonce 校验、输入净化、输出转义与能力检查做安全加固，
+  用缓存与查询调优做性能优化。适用于编写 WordPress 主题、开发插件、自定义 Gutenberg 区块、
+  扩展 WooCommerce、使用 ACF、调用 WordPress REST API、使用钩子与过滤器，或改进 WordPress 性能与安全的场景。
+en_description: |-
+  Develops custom WordPress themes and plugins, creates and registers Gutenberg blocks and block
+  patterns, configures WooCommerce stores, implements WordPress REST API endpoints, applies security
+  hardening (nonces, sanitization, escaping, capability checks), and optimizes performance through
+  caching and query tuning. Use when building WordPress themes, writing plugins, customizing Gutenberg
+  blocks, extending WooCommerce, working with ACF, using the WordPress REST API, applying hooks and
+  filters, or improving WordPress performance and security.
+zh_displayName: "WordPress 主题与插件开发"
+category: "WordPress 与 CMS"
+en_category: "WordPress & CMS"
 license: MIT
 metadata:
   author: https://github.com/Jeffallan

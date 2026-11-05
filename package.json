@@ -1,6 +1,6 @@
 {
   "name": "agent-skills-hub",
-  "version": "1.16.12",
+  "version": "1.16.13",
   "private": true,
   "description": "Agent Skills Hub — 高质量 agent 技能目录与高保真原型（纯静态站点）",
   "type": "module",
@@ -10,6 +10,7 @@
     "lint": "tsc --noEmit",
     "start": "node server.js",
     "sync:data": "node scripts/sync-inline-data.mjs",
+    "validate:yaml": "bun run tools/check-skill-yaml.mjs",
     "test": "node --test tools/lib/*.test.mjs",
     "tag": "node scripts/tag-release.mjs",
     "e2e": "playwright test"

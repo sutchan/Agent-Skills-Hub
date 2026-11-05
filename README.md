@@ -2,11 +2,11 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.16.12-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![版本](https://img.shields.io/badge/version-v1.16.13-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 其他语言：[English](README.en.md)
 
-**一个集中管理、可浏览、可检索的 AI Agent 技能目录** —— 覆盖 14 大领域、168 个技能（含 1 个隐藏），提供中文描述与英文原文，中文用户开箱即用。
+**一个集中管理、可浏览、可检索的 AI Agent 技能目录** —— 覆盖 14 大领域、169 个技能（含 1 个隐藏），提供中文描述与英文原文，中文用户开箱即用。
 
 ## ✨ 特性
 
@@ -21,8 +21,8 @@
 
 | 指标 | 数值 |
 |---|---|
-| 技能总数 | 168（含 1 个隐藏） |
-| 可见技能 | 167 |
+| 技能总数 | 169（含 1 个隐藏） |
+| 可见技能 | 168 |
 | 分类 | 14 类（当前活跃 13 类） |
 | 许可证 | 整体 MIT（各技能许可证见其目录） |
 
