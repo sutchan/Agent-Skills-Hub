@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.13] - 2026-11-05
+
+### fix: 修复 7 个技能 frontmatter 的非法 YAML、新增 wordpress-pro 并补齐 YAML 校验门禁
+
+- 全量审计 169 个技能（真实 YAML 解析 + §2 六字段 + data 层比对）发现 **7 个技能的 frontmatter 是非法 YAML**，标准解析器（skills 平台 / IDE 插件）加载即失败，而此前 `validate-skills.mjs` 的宽松行解析未能发现：
+  - `rust-skills`：`en_description` 被截断为短句，完整英文描述变成 `en_category` 之后的孤立缩进块 → 恢复 `en_description` 为完整英文原文（265 条规则 / 26 类）。
+  - `logo-designer` / `hyperframes` / `google-agents-cli-adk-code`：`en_description` 块在 `en_category` 后被重复粘贴一份孤立缩进块 → 删除冗余块。
+  - `clerk-nextjs-patterns`：`en_description` 被行尾截断（`caching with` + 孤立行 `Clerk.`）→ 合并为完整句 `... caching with Clerk.`。
+  - `browser-automation`：`description` 为顶格续行的多行 plain scalar（非法），`en_description` 块内是字面量 `\n` 转义 → 两者统一改写为 `|-` 块标量并使用真实换行。
+  - `code-review`：`en_description` 双引号标量内 `\\"` 过度转义（提前闭合标量）→ 修正为 `\"`。
+- **新技能收录**：`wordpress-pro`（WordPress 主题 / 插件 / Gutenberg 区块 / WooCommerce / REST API / 性能与安全加固，6 文件 145 KB）——补齐 §2 六字段后收录进 `data/skills-data.json`（`WordPress 与 CMS` 类，标签 `wordpress` + `web-frontend` + `security`）与 `data/skills-metrics.json`。
+- **数据层同步**：`rust-skills`（英文描述 51→398 字符）、`clerk-nextjs-patterns`（68→75）、`browser-automation`（中文描述 59→274，英文 277→274）、`code-review`（英文 421→417）、`agent-browser`（英文描述落后于磁盘，941→925）按磁盘权威源对齐；`total` 由可见技能数实算（168），技能总数 169（1 隐藏）。
+- `src/index.html`：运行 `npm run sync:data` 重建内联 `window.SKILLS_DATA`（total=168 / skills=169 / 13 个活跃分类）。
+- **新增门禁** `tools/check-skill-yaml.mjs`（`npm run validate:yaml`）：以 Bun.YAML **真实解析**每个 `skills/*/SKILL.md` 的 frontmatter，校验 YAML 合法性、六字段齐备、`name`==目录名、`category` 属于 14 大领域、`en_category` 与 `category` 匹配、文件为 LF；已接入 CI `validate` job，堵住此类「静默损坏」复发。
+- 文档同步：`docs/spec.md` §2 校验现状由两层扩为三层；`docs/project.md` 工具清单补充新校验脚本。
+- 门禁：`validate-skills.mjs` 169 技能零软警告 · `check-skill-yaml.mjs` 169/169 通过 · `npm test` 7/7 · `check-inline-js.mjs` 4/4 · `check-version.mjs` 通过；`tsc --noEmit` 因本机未安装依赖（无 `node_modules`）未执行，待 CI 验证。
+- 版本 1.16.12→1.16.13，同步 `package.json`、README 双语徽章与技能规模数字（168→169 / 167→168）、`src/index.html` 头注释 / meta、`prototype/DESIGN.md` 头版本、`prototype/wireframes.html` 页脚、`docs/spec.md`·`docs/project.md` 头版本。
+
+[1.16.13]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.13
+
 ## [1.16.12] - 2026-11-05
 
 ### fix: 修复 14 个上游同步技能丢失的 frontmatter 契约字段并同步展示数据

@@ -23,7 +23,7 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | `server.js` | 本地服务入口（Express 薄装配，仅挂载 `server/` 各模块、维持中间件顺序） | ◻️ 低频 |
 | `edge-worker.js` + `edgeone.config.json` | 生产边缘函数（Edge KV 命名空间 `ASH_KV`）：投票/收藏键 `vote:<name>`/`fav:<name>`，API 契约与 `server/` 对齐；`*/api/*` 路由指向边缘函数 | ◻️ 低频 |
 | `prototype/` | 高保真**设计规范**事实来源：`DESIGN.md` / `COMPONENTS.md` / `wireframes.html` / `states.html` 等；**不参与构建、非运行产物** | ◻️ 低频 |
-| `tools/` | 仓库级脚本：`check-version.mjs`（版本/CHANGELOG/tag 一致性）、`ensure-lf.mjs`（LF 归一）、`extract-release-notes.mjs`（抽取发行说明）、`validate-skills.mjs`（校验 `skills/*/SKILL.md` frontmatter，硬失败/软警告）；`tools/lib/` 为 Node 内置测试（`skills-data.test.mjs` 校验 data JSON、`kv-store.test.mjs`） | ◻️ 低频 |
+| `tools/` | 仓库级脚本：`check-version.mjs`（版本/CHANGELOG/tag 一致性）、`ensure-lf.mjs`（LF 归一）、`extract-release-notes.mjs`（抽取发行说明）、`validate-skills.mjs`（校验 `skills/*/SKILL.md` frontmatter，硬失败/软警告）、`check-skill-yaml.mjs`（Bun 真实 YAML 解析校验 frontmatter，`npm run validate:yaml`）；`tools/lib/` 为 Node 内置测试（`skills-data.test.mjs` 校验 data JSON、`kv-store.test.mjs`） | ◻️ 低频 |
 | `scripts/` | `tag-release.mjs`（按 `package.json` 版本幂等创建 `vX.Y.Z` 注解 tag）、`verify-storage.mjs`（votes/favorites API 端到端验证）、`sync-inline-data.mjs`（`npm run sync:data`：从 `data/skills-data.json` 重建 `src/index.html` 内联 `window.SKILLS_DATA`）、`inject-ga.mjs`（构建期将 GA 占位符替换为环境变量 `GA_MEASUREMENT_ID` 写入 `out/index.html`） | ◻️ 低频 |
 | `data/` | 提交态数据：`skills-data.json`（技能元数据，权威源）、`skills-metrics.json`（派生指标）、`kv-store.json`（本地投票/收藏真源）、`ratelimit.json`（限流持久化）、`skills-votes.json`（已弃用，空 `{}`） | ✅ 中频 |
 | `public/` | 品牌资产（banner / favicon / og 图等），随静态服务对外提供 | ◻️ 低频 |

@@ -35,8 +35,9 @@
 
 **禁止字段**：不得出现 `description_zh` / `description_en` 等冲突键；中文译文统一写 `description`，英文原文写 `en_description`。
 
-**校验现状（两层）**：
+**校验现状（三层）**：
 - `tools/validate-skills.mjs`：**校验源 `skills/*/SKILL.md` frontmatter**。硬失败（exit 1）= 缺 `name`/`description`、`name≠目录名`、`category` 非法；软警告（exit 0）= 缺 `en_description`/`zh_displayName`/`category`/`en_category`。CI `validate` job 调用。
+- `tools/check-skill-yaml.mjs`（Bun，`npm run validate:yaml`）：**以真实 YAML 解析器解析 frontmatter**并校验六字段齐备、`name`==目录名、`category` 属于 §2.1、`en_category` 与 `category` 匹配、文件为 LF。用于兜住宽松行解析发现不了的破坏（孤立缩进块、双引号标量过度转义、plain scalar 顶格续行等）——这类破坏会让标准 YAML 解析器（skills 平台 / IDE 插件）直接加载失败。CI `validate` job 调用。
 - `tools/lib/skills-data.test.mjs`：**校验 `data/skills-data.json`**（字段完整性 / `name` 唯一 / `githubDir` 一致 / `total` == 可见数）。二者互补，SKILL.md 与 data 均有自动校验覆盖。
 
 ### 2.1 14 大领域（稳定分类键）

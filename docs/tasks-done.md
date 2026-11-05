@@ -563,3 +563,27 @@
 - `bailian-web-search` 上游为纯中文技能（无英文原文），沿用仓库既有惯例（`browser-automation` / `cloudbase` 同）以中文原文填充 `en_description`，data 层 `enDescription` 同步为上游扩展后的完整中文（563 字符）。
 - `short-drama-write` 采用上游修正后的中文措辞（「保留作者原文并规范化」），英文段沿用提交态原文（上游未提供英文）。
 - 恢复过程使用一次性临时脚本（已删除），未向仓库引入 `SKILL.md`→data 生成脚本，保持 spec §8.2 的既定设计取舍。
+
+---
+
+## 迭代二十七：修复非法 YAML frontmatter、收录 wordpress-pro 并新增 YAML 校验门禁（v1.16.13，已完成）
+
+> 来源：用户指令「更新所有skill」。对磁盘全部 169 个技能做真实 YAML 解析 + §2 六字段 + data 层三项全量审计，发现 7 个技能的 frontmatter **是非法 YAML**（标准解析器加载即失败）、1 个新技能未收录、8 个技能 data 层与磁盘脱节——此前 `validate-skills.mjs` 的宽松行解析无法发现此类损坏。
+
+### 变更与验证
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | 全量审计 169 个技能 | P0 | ✅ 已完成 | 真实 YAML 解析 + 六字段齐备 + `name`==目录名 + 分类合法性 + data 逐字比对；发现 7 非法 YAML / 1 未收录 / 8 处脱节 |
+| 2 | 修复 7 个非法 YAML frontmatter | P0 | ✅ 已完成 | `rust-skills`（英文描述截断成孤立块）· `logo-designer`·`hyperframes`·`google-agents-cli-adk-code`（重复孤立块）· `clerk-nextjs-patterns`（行尾截断）· `browser-automation`（顶格多行 plain scalar + 字面 `\n`）· `code-review`（双引号标量 `\\"` 过度转义） |
+| 3 | 收录新技能 `wordpress-pro` | P0 | ✅ 已完成 | 补齐 §2 六字段（中文描述 + 英文原文 + 分类 `WordPress 与 CMS`），收录进 `data/skills-data.json`（标签 `wordpress`/`web-frontend`/`security`）与 `data/skills-metrics.json`（6 文件 / 144983 字节） |
+| 4 | 同步 data 层与磁盘 | P0 | ✅ 已完成 | `rust-skills` 51→398 · `clerk-nextjs-patterns` 68→75 · `browser-automation` 59→274 / 277→274 · `code-review` 421→417 · `agent-browser` 941→925；`total` 实算 168（总技能 169，1 隐藏） |
+| 5 | 重建内联数据 | P1 | ✅ 已完成 | `npm run sync:data` → total=168 / skills=169 / 13 个活跃分类 |
+| 6 | 新增 `tools/check-skill-yaml.mjs` 门禁 | P0 | ✅ 已完成 | `npm run validate:yaml`：Bun.YAML 真实解析 + 六字段 + 分类映射 + LF 检查；已接入 CI `validate` job，堵住「静默损坏」复发 |
+| 7 | 文档同步 | P2 | ✅ 已完成 | `docs/spec.md` §2 校验现状两层→三层 · `docs/project.md` 工具清单补新脚本 · README/README.en 徽章与规模数字（168→169 / 167→168） |
+| 8 | 版本 bump 1.16.12 → 1.16.13 | P2 | ✅ 已完成 | package.json / README 双语徽章 / src 头注释·meta / DESIGN.md 头版本 / wireframes 页脚 / CHANGELOG |
+| 9 | 门禁校验 | P0 | ✅ 已完成 | `validate-skills.mjs` 169 技能零软警告 · `check-skill-yaml.mjs` 169/169 · `npm test` 7/7 · `check-inline-js.mjs` 4/4 · `check-version.mjs` 通过；`tsc --noEmit` 因本机无 `node_modules` 未执行（待 CI） |
+
+### 说明
+- 损坏根因是上游同步 / 历史手工编辑产生的**孤立缩进块**（块标量内容与其键分离）与**转义过度**；宽松行解析只看「键是否存在」，故长期未被发现——本轮以真实 YAML 解析器兜底并接入 CI。
+- `browser-automation` 与 `bailian-web-search` 同属纯中文上游技能，沿用仓库惯例以中文原文填充 `en_description`；其 `en_description` 中原先的字面量 `\n` 改为真实换行，data 层同步。
+- `data/skills-data.json` 仍为手工维护（spec §8.2 既定取舍），本轮未引入 `SKILL.md`→data 生成脚本；逐字一致性复核与残留引号清理登记为后续任务（tasks.md #4–#5）。

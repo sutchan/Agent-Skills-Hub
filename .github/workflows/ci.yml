@@ -90,6 +90,9 @@ jobs:
       - name: 校验 SKILL.md frontmatter 契约（§2）
         run: node tools/validate-skills.mjs
 
+      - name: 校验 SKILL.md frontmatter YAML 合法性（真实 YAML 解析）
+        run: bun run tools/check-skill-yaml.mjs
+
       - name: 版本 / CHANGELOG / Tag 一致性校验
         run: node tools/check-version.mjs
 
