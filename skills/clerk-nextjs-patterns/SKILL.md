@@ -1,11 +1,10 @@
 ---
 name: clerk-nextjs-patterns
 description: "高级 Next.js 模式——middleware、Server Actions、缓存等，帮助在 Clerk + Next.js 应用中落地稳健的认证与集成模式。"
-en_description: "Advanced Next.js patterns - middleware, Server Actions, caching with"
+en_description: "Advanced Next.js patterns - middleware, Server Actions, caching with Clerk."
 zh_displayName: "Clerk 认证模式"
 category: "安全"
 en_category: "Security"
-  Clerk.
 license: MIT
 allowed-tools: WebFetch
 compatibility: Requires NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY. For manual JWT verification (standalone API servers without Clerk middleware), additionally requires CLERK_JWT_KEY or CLERK_PEM_PUBLIC_KEY.

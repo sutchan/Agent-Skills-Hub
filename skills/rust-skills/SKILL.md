@@ -1,16 +1,16 @@
 ---
 name: rust-skills
 description: "使用 Rust 进行系统级与高性能编程的技能。"
-en_description: "Systems and high-performance programming with Rust."
-zh_displayName: "Rust 技能"
-category: "工程实践与质量"
-en_category: "Engineering Practice & Quality"
+en_description: |-
   Comprehensive Rust coding guidelines with 265 rules across 26 categories.
   Use when writing, reviewing, or refactoring Rust code. Covers ownership,
   error handling, async patterns, concurrency, unsafe code, API design, memory
   optimization, performance, numeric safety, conversions, serde, pattern
   matching, macros, closures, observability, testing, and common anti-patterns.
   Invoke with /rust-skills.
+zh_displayName: "Rust 技能"
+category: "工程实践与质量"
+en_category: "Engineering Practice & Quality"
 license: MIT
 metadata:
   author: leonardomso
