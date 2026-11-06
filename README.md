@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.16.15-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![版本](https://img.shields.io/badge/version-v1.16.16-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 其他语言：[English](README.en.md)
 
