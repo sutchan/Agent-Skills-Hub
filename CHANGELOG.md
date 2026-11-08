@@ -2,6 +2,46 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.18] - 2026-11-07
+
+### feat: CI 全绿后自动发布 GitHub Releases
+
+- 项目规范落地：**GitHub Actions 所有工作流 job 全绿以后，自动发布 Releases**——bump 版本 + 更新 CHANGELOG → push main，`validate` → `build` → `e2e` → `deploy` 全部通过后 `release` job 自动执行
+- `release` job 触发条件由仅 `refs/tags/v*` 扩展为「`v*` 标签 **或** main 分支」；main 触发时经 GitHub API（action-gh-release）自动创建 `v{package.json version}` 注解 tag（`target_commitish` = 本次 HEAD，与部署同一提交）并发布
+- **幂等发布**：发布前按 tag 查询既有 Release，已存在则整体跳过——版本未 bump 的普通 push 不会重复发版，标签重跑也不会覆盖既有 Release
+- `tag_name` 改由 `package.json` 解析（main 触发时 `ref_name` 无 tag 名）；建 tag 走 API，保持 `persist-credentials: false` 不回退 git 凭据
+- 手动补发路径保留：`npm run tag` + 推送 `v*` 标签；规范文档同步（docs/AGENTS.md、docs/spec.md §4、CONTRIBUTING「发布」）
+
+### docs: 全量文档一致性审查修正
+
+- **「data 是否构建产物」矛盾统一**：SUPPORT.md FAQ 与 PR 模板此前声称 `data/skills-data.json` 为构建产物（与 spec §3/§8.2「手工维护」直接矛盾），已统一改为「手工编辑 + `npm run sync:data`」
+- **分类口径统一**：README 双语简介「14 大领域」改为 13 个分类（契约 14 大领域、「桌面与客户端」暂无技能），CONTRIBUTING 分类键与 spec §2.1/§3.4、project.md 术语表同步加注「当前活跃 13 类」
+- **失效引用清理**：README 双语 `skill-creator/LICENSE.txt` 断链修正；AGENTS.md 失效技能 `openspec-implementation` 引用移除；spec §8.3 / project.md 目录表的 `live_page.html`（已删除）标注失效；`.gitignore` 清理 `prototype/node_modules`、`prototype/out/_next/`、`!prototype/build-skills-data.mjs` 幽灵规则
+- **架构描述纠偏**：spec §2.1/§3.3 修正「categories/categoryEn 固化于 data JSON」为「内联数据派生注入」（data JSON 仅 `total`+`skills`）；DESIGN.md「build-skills-data.mjs 生成 / build.mjs 注入」改为手工维护 + sync:data 现状；DESIGN/COMPONENTS 全部 `src/parts/*.js`、`prototype/src/*`、`src/components/*.tsx`、`tools/sync-inline-data.mjs` 过时路径改为内联实现与 `scripts/` 正确路径，并标注历史层已移除
+- **数字修正**：`src/index.html` meta description / og / twitter 的「167（+）」更正为 168（可见技能数）；头注释路径标签 `prototype/src/index.html` 改为 `src/index.html`
+- **README 双语目录树**补全 `scripts/`（inject-ga）、`tools/`（check-skill-yaml/check-inline-js）、`docs/`（AGENTS/project）；「已对接 GitHub Pages」改为仅 EdgeOne Pages（待人工确认 GH Pages）
+- **CHANGELOG**：补 1.16.0/1.16.1/1.16.2/1.14.94/1.14.95 五个 release 锚点；旧双轨体系（2026-08 的 1.16.x、1.20.x）重复锚点定义去重
+- **SUPPORT.md**：README 章节名引用（使用方式→快速开始/安装方式）、新增技能步骤（build→sync:data）修正
+
+[1.16.18]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.18
+
+## [1.16.17] - 2026-11-07
+
+### feat: 国际化升级为三语（简体中文 > 繁体中文 > 英语）
+
+- 语言优先级确立为全局规范：默认简体中文（zh），第二繁体中文（tw，html lang=`zh-Hant`），第三英语（en）；`SUPPORTED` 与回退链同步（tw/en 缺失词条回退 zh）
+- 新增繁体全量词条（约 106 键，台湾用语习惯：設定/搜尋/網格/檔案/複製/匯入等），与 zh/en 键位一一对应
+- 补全 en 字典此前缺失的 5 个详情页键（license/version/stars/firstSeen/unknown），英文态不再回退显示中英混合文案
+- 去除 zh/en 字典重复的 `filter.all` 键；`language.zh` 明确为「简体中文」并新增 `language.tw`
+- 顶栏语言按钮改为三语循环（中 → 繁 → EN），按钮短标与 aria 提示随语言切换；语言偏好读取改用枚举校验（`loadEnum`）
+- 静态文案补齐 `.tw` 节点：Hero（眉题/双标题/副标题/特性列表）、盲盒、快捷筛选、筛选条、占比图、页脚、设置面板全部分组与开关
+- 图标按钮提示补 `data-tip-tw`（语言/主题/收藏夹/设置）；CSS 三语互斥显隐规则重写，繁体态卡片与详情标题回退「简体名 + 英文副标题」（技能数据暂无繁体名）
+- 设置面板语言选项加入「繁體中文」，`aria-labelledby` 补 `settingsTitleTw`；Hero 三标题 aria-hidden 三态互斥
+- toast 类硬编码提示（收藏/导出/云端同步）繁体态回退中文文案
+- **全量文档同步**：README 双语简介/特性补三语说明；docs 五份（tasks/tasks-done/spec/project/AGENTS）更新头版本与三语契约（spec §5 新增三语界面、§7 红线第 11 条，tasks-done 归档迭代二十八至三十一）；prototype 三份规范（DESIGN/COMPONENTS/IMPROVEMENT-SPEC）同步三语与页脚现状、wireframes 页脚版本与 build 占位；.github/CONTRIBUTING 与 PR 模板补三语词条及全量版本展示位清单；本文件补齐 1.16.14–1.16.17 的 release tag 锚点；4 份 `.github` 社区文档头版本统一至 1.16.17，`SUPPORT.md` 失效的 `prototype/index.html` 链接改为 `src/index.html`
+
+[1.16.17]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.17
+
 ## [1.16.16] - 2026-11-06
 
 ### feat: 页脚升级为三段式版权页布局
@@ -14,6 +54,8 @@
 - 响应式新增 900px 断点（辅助导航整行下沉）；≤640px 品牌版权区与辅助链接居中，三段按「品牌版权 → 辅助导航 → 动作」纵向堆叠
 - 桌面端页脚内边距 `28px 24px` → `32px 24px 36px`，段间距 16/24 → 20/32px
 
+[1.16.16]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.16
+
 ## [1.16.15] - 2026-11-05
 
 ### style: 修正 UI 布局与元素对齐问题
@@ -22,6 +64,8 @@
 - **控制台工具栏**：搜索框改为固定 38px 高（与筛选按钮、视图切换、排序下拉完全等高）；搜索框圆角/内边距、快捷筛选按钮圆角统一为 10px，组间距统一 8px；结果计数 `margin-left: auto` 右对齐到栅格边界
 - **分类占比图**：图例去掉 `max-height:180px + overflow-y:auto` 内部滚动（原先会把最后一行分类裁切出半个卡片）；改 `grid-auto-rows: 1fr` + 行内等高 42px，占比条加粗至 4px 并提高底色对比
 - **技能卡片**：描述固定 2 行（`line-clamp: 2` + `min-height`），同行卡片的分类徽标与底部分隔线严格水平对齐；列表视图保持单行；收藏按钮 top/right 由 14px 调整为 18px 与头像顶边同轴，标题区预留 44px 防重叠；赞行上间距 12→10px，投票按钮高度 40→34px 收敛底栏
+
+[1.16.15]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.15
 
 ## [1.16.14] - 2026-11-05
 
@@ -33,6 +77,8 @@
 - 移动端页脚堆叠顺序优化：品牌 → 动作 → 构建元数据，各占整行，避免构建元数据被挤压换行截断
 - CTA 动作区由 div 改为 `<nav aria-label>`，提升无障碍语义
 - 构建号统一为 10 位 `yymmddhhmm`（2 位数年份），构建期 `inject-ga.mjs` 与本地服务 `server/config.js` 同步修正，对齐全局页脚规范
+
+[1.16.14]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.14
 
 ## [1.16.13] - 2026-11-05
 
@@ -208,6 +254,8 @@
 ### Fixed
 - 修复 `server.js` 因此前新增 trust proxy / 安全响应头 / JSON 404 / SPA 回退后涨至 235 行、违反源码单文件 ≤200 行规范的问题。
 
+
+[1.16.2]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.2
 ## [1.16.1] - 2026-10-23
 
 ### Changed
@@ -216,6 +264,8 @@
 ### Fixed
 - 修正 CI 头部注释对 bun.lock 的过时描述（"仓库暂无 bun.lock"）。
 
+
+[1.16.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.1
 ## [1.16.0] - 2026-10-23
 
 ### Fixed
@@ -237,6 +287,8 @@
 ### Added
 - 新增 `npm run sync:data` 脚本，自动化内联数据同步。
 
+
+[1.16.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.0
 ## [1.15.7] - 2026-10-23
 
 ### chore: GA4 衡量 ID 改为读取部署平台环境变量
@@ -373,6 +425,8 @@
 - #17 确认本地重复构建被 IDE safe-delete 守卫拦截属环境限制，规避=构建前清空 `.next` 或依赖 CI，仅文档记录（不修复）。
 - 同步版本展示位：README/README.en 徽章、`src/index.html` 页眉与页脚版本、本 CHANGELOG。
 
+
+[1.14.95]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.95
 ## [1.14.94] - 2026-10-18
 
 ### chore: 清理 src/ 冗余与孤儿文件
@@ -381,6 +435,8 @@
 - 删除孤儿文件 `src/i18n.js`（其代码已内联进 `src/index.html` 第 1364 行 `<script>`，全仓无任何 include/link 引用）与 `src/prototype.html`（引用已删除的 `build.mjs` 且 `index.html` 已是现原型），二者均无任何加载引用。
 - 同步版本展示位：README/README.en 徽章、`src/index.html` 页眉注释与页脚版本、本 CHANGELOG。
 
+
+[1.14.94]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.94
 ## [1.14.93] - 2026-10-18
 
 ### docs: 任务文档归档与剩余任务重排
@@ -1151,7 +1207,6 @@
 - 对齐 prototype：原型已于 v1.20.28 完整移除标签筛选 UI 与过滤逻辑，app 侧此前滞后未删，本次补齐删除。
 - 数据契约 `skills.ts` 的 `tags?` 字段保留（build-skills-data.mjs 仍生成，原型数据层亦保留，非 UI 功能本身）。
 
-[1.20.55]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.55
 
 ## [1.20.54] - 2026-08-24
 
@@ -1449,7 +1504,6 @@
 - 筛选现仅保留分类多维（多选 OR）+ 关键词 + 排序；动效/搜索/Hero 不受影响。无 lint 错误。
 - 根 `package.json` version 升至 v1.20.28（01-state.js/04-interactions.js 头注释由滞后 v1.20.22/v1.20.26 同步至 v1.20.28）
 
-[1.20.28]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.20.28
 
 ## [1.20.29] - 2026-08-23
 
@@ -2330,6 +2384,7 @@
 - **app 展示**：`skills.ts` 类型加 `enCategory`/`categoryEn`，`SkillsExplorer` chip、`skill-card`、`skill-detail` 英文态显示英文分类名
 - **版本同步**：`package.json` 升至 v1.16.2，README/README.en 徽章、CHANGELOG 顶部对齐
 
+
 ## [1.16.1] - 2026-08-21
 
 ### refactor: SKILL.md description 中文化，默认展示中文
@@ -2342,6 +2397,7 @@
 - **文档同步**：README/README.en、`.github/CONTRIBUTING`、`PULL_REQUEST_TEMPLATE`、`openspec/spec`、`openspec/project` 更新 frontmatter 字段说明
 - **版本同步**：`package.json` 升至 v1.16.1，README/README.en 徽章、CHANGELOG 顶部对齐
 
+
 ## [1.16.0] - 2026-08-21
 
 ### fix: 修复卡片技能描述误入技能名称的 bug
@@ -2351,6 +2407,7 @@
 - **数据重建**：`node build-skills-data.mjs` 重建 `data/skills-data.json`
 - **约定明确**：修正 `build-skills-data.mjs` 头注释，明确 `zh`=简短中文名称、`zh-desc`=中文描述，防止再次误填
 - **版本同步**：`package.json` 为权威源 v1.16.0，README/README.en 版本徽章、CHANGELOG 顶部对齐
+
 
 ## [1.14.72] - 2026-08-20
 
@@ -3500,7 +3557,6 @@
 [1.14.42]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.42
 [1.14.44]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.44
 [1.14.43]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.43
-[1.14.44]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.44
 [1.14.45]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.45
 [1.14.46]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.46
 [1.14.47]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.47
@@ -3512,12 +3568,6 @@
 [1.14.53]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.53
 [1.14.54]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.54
 [1.14.55]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.55
-[1.14.56]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.56
-[1.14.57]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.57
-[1.14.58]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.58
-[1.14.59]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.59
-[1.14.60]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.60
-[1.14.61]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.61
 [1.14.62]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.62
 [1.14.63]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.63
 [1.14.64]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.14.64

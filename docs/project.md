@@ -1,6 +1,6 @@
 # 仓库约定（Project Conventions）
 
-> 路径：`docs/project.md` · 版本：1.16.13
+> 路径：`docs/project.md` · 版本：1.16.18
 > 本文件定义目录结构、变更工作流与术语表。能力契约（frontmatter/数据/红线）的唯一权威源是 [spec.md](spec.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)。
 
 ---
@@ -28,7 +28,7 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | `data/` | 提交态数据：`skills-data.json`（技能元数据，权威源）、`skills-metrics.json`（派生指标）、`kv-store.json`（本地投票/收藏真源）、`ratelimit.json`（限流持久化）、`skills-votes.json`（已弃用，空 `{}`） | ✅ 中频 |
 | `public/` | 品牌资产（banner / favicon / og 图等），随静态服务对外提供 | ◻️ 低频 |
 | `e2e/` | Playwright 冒烟测试（`smoke.spec.ts`，验证 `#grid` 渲染与 `#search` 过滤），CI `e2e` job 真实运行 | ◻️ 低频 |
-| `live_page.html` | `src/index.html` 的并行自包含预览快照（同源、内联 `window.SKILLS_DATA`），但 `sync:data` **不覆盖**它，存在版本漂移风险 | ◻️ 低频 |
+| ~~`live_page.html`~~ | **已移除**（v1.16.x）：曾为并行自包含快照，存在版本漂移风险，已从仓库删除；现仅 `src/index.html` 单一站点本体 | — |
 | `docs/` | 项目文档：`project.md`（约定）、`spec.md`（能力基线/权威契约）、`AGENTS.md`（协作指引）、`tasks.md` / `tasks-done.md`（任务清单） | ✅ 本目录 |
 | `.github/` | Community Health Files（`CONTRIBUTING.md` 等）、Issue/PR 模板、CI 工作流（`ci.yml`，Bun + EdgeOne Pages + `bun.lock`） | ◻️ 低频 |
 
@@ -72,8 +72,10 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | 派生指标 | `data/skills-metrics.json`：以 `name` 为 key 的 map（popularity/size/files 等），同为提交态、手工维护 |
 | 投票/收藏真源 | 本地 `data/kv-store.json`（`server/` 原子写）；生产 Edge KV |
 | 原型 | `prototype/`：高保真设计规范事实来源（`DESIGN.md` 等），非运行产物 |
-| 14 大领域 | 稳定中文分类键（见 [spec.md §2.1](spec.md)），固化于 `src/index.html` 与 `data/skills-data.json` |
-| frontmatter 契约 | `name`/`description`(中)/`en_description`(英)/`zh_displayName`/`category`(14类键)/`en_category` 六必备字段，顺序固定 |
+| 14 大领域 | 稳定中文分类键契约（见 [spec.md §2.1](spec.md)），运行数据固化于 `src/index.html` 内联数据（sync:data 派生注入，当前 13 键活跃） |
+| frontmatter 契约 | `name`/`description`(中)/`en_description`(英)/`zh_displayName`/`category`(14类键，当前活跃13类)/`en_category` 六必备字段，顺序固定 |
+| 界面语言优先级 | 简体中文 `zh`（默认）> 繁体中文 `tw`（`html lang="zh-Hant"`）> 英语 `en`；`src/index.html` 内联 `translations` 三份字典键位一一对应 |
+| 技能数据语言 | 技能名称/描述仅有简体中文与英文原文两版（`description` / `enDescription`）；繁体界面下回退简体名 + 英文副标题，待数据级繁体化 |
 | 数据型数字 | README/应用内技能总数与领域表计数，须以 `data/skills-data.json` 实算，禁止手填 |
 | 红线 | 本仓库强制约束（见 [spec.md §7](spec.md)），违反即导致数据/展示失真或破坏契约 |
 

@@ -2,7 +2,7 @@
 
 感谢你愿意为 **Agent Skills Hub** 贡献！本指南帮助你在不破坏数据管线与规范的前提下，新增或更新技能、修复文档、提交变更。
 
-> 路径：`.github/CONTRIBUTING.md` · 版本：1.16.4
+> 路径：`.github/CONTRIBUTING.md` · 版本：1.16.18
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 > 能力契约（frontmatter/数据/红线）的唯一权威源是 [docs/spec.md](./docs/spec.md)；仓库约定见 [docs/project.md](./docs/project.md)。
 
@@ -64,7 +64,7 @@ name: <kebab-case 技能名，与目录名一致>
 description: <中文完整描述，默认展示语言>
 en_description: <英文原文描述，处理技能时保留>
 zh_displayName: <中文一句话简介>
-category: <14 大稳定领域之一，中文稳定键>
+category: <14 大稳定领域之一，中文稳定键（当前活跃 13 类，「桌面与客户端」暂无技能）>
 en_category: <对应英文分类名，英文态展示>
 # 以下为可选字段（平台/工具元数据），原样保留即可：
 # version / compatibility / license / author / homepage
@@ -74,12 +74,12 @@ en_category: <对应英文分类名，英文态展示>
 ---
 ```
 
-**分类键（14 大领域）**：`品牌与设计` / `文档与内容` / `数据分析与可视化` / `前端开发` / `后端与平台` / `移动端开发` / `WordPress 与 CMS` / `工程实践与质量` / `文件与格式处理` / `自动化与集成` / `AI 与智能体` / `音视频与多媒体` / `桌面与客户端` / `安全`（英文映射与「其他」违规类说明见 [spec.md §2.1](./docs/spec.md)）。
+**分类键（14 大领域，当前活跃 13 类，「桌面与客户端」暂无技能）**：`品牌与设计` / `文档与内容` / `数据分析与可视化` / `前端开发` / `后端与平台` / `移动端开发` / `WordPress 与 CMS` / `工程实践与质量` / `文件与格式处理` / `自动化与集成` / `AI 与智能体` / `音视频与多媒体` / `桌面与客户端` / `安全`（英文映射与「其他」违规类说明见 [spec.md §2.1](./docs/spec.md)）。
 
 **关键约束**：
 - `zh_displayName` 是一句话摘要，`description` 是完整中文描述；`en_description` 为英文原文描述（默认展示中文，英文态展示英文）。
 - 不得出现 `description_zh` / `description_en` 等冲突键。
-- **两层自动校验**：`tools/validate-skills.mjs` 校验 `skills/*/SKILL.md` 源 frontmatter（硬失败=缺 name/description、name≠目录名、category 非法；软警告=缺 en_description/zh_displayName/category/en_category）；`tools/lib/skills-data.test.mjs` 校验 `data/skills-data.json` 字段完整性 / `name` 唯一 / `githubDir` 一致 / `total` 对齐。提交前二者均须通过。
+- **三层自动校验**：① `tools/validate-skills.mjs` 校验 `skills/*/SKILL.md` 源 frontmatter（硬失败=缺 name/description、name≠目录名、category 非法；软警告=缺 en_description/zh_displayName/category/en_category）；② `tools/check-skill-yaml.mjs`（Bun 真实 YAML 解析，六字段齐备 / category 合法 / LF）兜住宽松解析破坏；③ `tools/lib/skills-data.test.mjs` 校验 `data/skills-data.json` 字段完整性 / `name` 唯一 / `githubDir` 一致 / `total` 对齐。提交前三者均须通过。
 
 ## 文件换行符规范（强制）
 
@@ -97,7 +97,7 @@ npm run sync:data # = node scripts/sync-inline-data.mjs（data/*.json → src/in
 npm test         # = node --test tools/lib/*.test.mjs（data JSON 回归）
 npm run lint     # = tsc --noEmit
 npm run e2e      # = playwright test（e2e/smoke.spec.ts）
-npm run tag      # = node scripts/tag-release.mjs（创建 vX.Y.Z 注解 tag）
+npm run tag      # = node scripts/tag-release.mjs（手动创建 vX.Y.Z 注解 tag；自动发版见下方「发布」）
 ```
 
 - **`data/*.json` 为提交态、手工维护**（无 `SKILL.md`→data 生成脚本）；改技能展示须**手工编辑 `data/*.json` + 运行 `npm run sync:data`** 重建 `src/index.html` 内联数据（单向同步）。
@@ -117,9 +117,16 @@ npm run tag      # = node scripts/tag-release.mjs（创建 vX.Y.Z 注解 tag）
 
 **版本展示位**（均须等于根 `package.json` 的 `version`）：
 - README.md / README.en.md 版本徽章（`img.shields.io/badge/version-vX.Y.Z`）
-- CHANGELOG.md 顶部最新小节标题与底部 `[x.y.z]:` 锚点
-- docs/AGENTS.md、docs/project.md、docs/spec.md 头注释 `· 版本：x.y.z`
+- CHANGELOG.md 顶部最新小节标题与对应 `[x.y.z]:` 锚点
+- docs/AGENTS.md、docs/project.md、docs/spec.md、docs/tasks.md 头注释 `· 版本：x.y.z` / `vX.Y.Z`
+- prototype/DESIGN.md、prototype/COMPONENTS.md 头注释，prototype/IMPROVEMENT-SPEC.md 版本基线
+- prototype/wireframes.html 页脚 `#footerVer`、src/index.html 头注释与 `meta[name=app-version]`
 - .github/CONTRIBUTING.md 头注释
+
+**国际化词条**（新增/修改 UI 文案时）：
+- `src/index.html` 内联 `translations` 的 `zh` / `tw` / `en` 三份字典键位必须一一对应（简体中文 > 繁体中文 > 英语）
+- 静态双语文案节点需同时具备 `.zh` / `.tw` / `.en` 三类并带 `data-i18n`；图标提示需有 `data-tip-tw`
+- 繁体词条采用台湾用语习惯；缺失词条由 `I18N.t()` 回退 zh，但不得作为交付态
 
 **数据型数字**（须以脚本实算，禁止手填）：
 - README/应用内「技能总数」与领域表计数（以 `data/skills-data.json` 实算）
@@ -134,7 +141,7 @@ node -e "const d=require('./data/skills-data.json');const m={};for(const s of d.
 
 - **EdgeOne Pages（部署）**：CI（`.github/workflows/ci.yml`，Bun + `bun.lock` `--frozen-lockfile`）串行执行 校验 → 构建（导出 `out/`）→ e2e → 部署（`npx edgeone pages deploy ./out`）→ 发布；需 Secret `EDGEONE_API_TOKEN`（缺省跳过部署并提示）。
 - **边缘 API**：`edge-worker.js`（Edge KV 命名空间 `ASH_KV`）承接 `/api/votes`、`/api/favorites`，`edgeone.config.json` 将 `*/api/*` 路由指向它。
-- **发布**：tag `vX.Y.Z` 触发 `release` job，抽 CHANGELOG 小节作发行说明，附 `data/skills-data.json` / `data/skills-metrics.json`。
+- **发布（v1.16.18 起自动）**：push 到 main 且校验 / 构建 / E2E / 部署全部通过后，`release` job 幂等检查 `v{package.json version}` 的 Release——不存在则自动创建注解 tag（GitHub API，基于本次 HEAD）并发布（抽 CHANGELOG 小节作发行说明，附 `data/skills-data.json` / `data/skills-metrics.json`）；已存在则跳过，版本未 bump 的普通 push 不会重复发版。手动补发：推送 `v*` tag 同样触发。
 - **本地预览**：`npm run dev`（`server.js`，默认 `:3000`）。
 - **GA4**：构建/运行期读取环境变量 `GA_MEASUREMENT_ID`（本地回退 `G-WQDDVB14PF`）；GitHub Actions 在仓库 **Settings → Variables** 配置该变量，`inject-ga.mjs` 写入 `out/index.html`。
 

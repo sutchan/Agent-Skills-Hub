@@ -2,20 +2,20 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.16.16-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Version](https://img.shields.io/badge/version-v1.16.18-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Other languages: [中文文档](README.md)
 
-**A centrally managed, browsable, and searchable catalog of AI agent skills** — spanning 14 domains with 169 skills (1 hidden), offering Chinese descriptions alongside English originals, ready to use for Chinese-speaking agent users.
+**A centrally managed, browsable, and searchable catalog of AI agent skills** — spanning 13 categories with 169 skills (1 hidden), offering Chinese descriptions alongside English originals. The UI supports three languages: Simplified Chinese (default), Traditional Chinese, and English.
 
 ## ✨ Features
 
 - 🔍 **Search & filter**: filter and search skills by domain, keyword, and tag in real time
 - ⭐ **Vote & favorite**: vote and bookmark your most-used / most-promising skills, and sort by popularity
-- 🌐 **Bilingual**: ready out of the box for Chinese users, with English originals in `en_description`
+- 🌐 **Trilingual UI**: Simplified Chinese (default) → Traditional Chinese → English in one click; skill data keeps Chinese + English descriptions, with English originals in `en_description`
 - 📦 **One-click install**: copy `skills/<name>/`, or use [skills-manager](https://github.com/xingkongliang/skills-manager) for batch management
 - 🧩 **Standardized spec**: based on `SKILL.md` (`name`/`description`/`category`, etc.); skills auto-trigger via `description`
-- 📊 **Pure static site**: `output: "export"` static export, wired for EdgeOne Pages / GitHub Pages — easy to deploy
+- 📊 **Pure static site**: `output: "export"` static export, wired for EdgeOne Pages auto-deploy via CI — easy to deploy
 
 ## 📊 Scale
 
@@ -23,7 +23,7 @@
 |---|---|
 | Total skills | 169 (1 hidden) |
 | Visible skills | 168 |
-| Categories | 14 (13 currently active) |
+| Categories | 13 (14-domain taxonomy; "Desktop & Clients" currently empty) |
 | License | MIT overall (per-skill licenses in each dir) |
 
 ## 🚀 Quick Start
@@ -44,10 +44,10 @@ Agent-Skills-Hub/
 ├── server/            # Local preview server modules (config/fs-util/store/ratelimit/api/pages)
 ├── server.js          # Local preview server entry (Express, thin assembly)
 ├── data/              # skills-data.json (source of truth) / skills-metrics.json (derived)
-├── scripts/           # sync-inline-data.mjs (inline sync) / tag-release.mjs (tagging)
-├── tools/             # check-version / ensure-lf / validate-skills / extract-release-notes
+├── scripts/           # sync-inline-data / inject-ga / tag-release (sync · build inject · release)
+├── tools/             # check-version / check-skill-yaml / check-inline-js / validate-skills etc.
 ├── e2e/               # Playwright smoke tests
-├── docs/              # spec.md / tasks.md / tasks-done.md
+├── docs/              # AGENTS.md / project.md / spec.md / tasks.md / tasks-done.md
 └── .github/           # CI workflows and contributing guide
 ```
 
@@ -87,7 +87,7 @@ cd Agent-Skills-Hub
 
 ## License
 
-Per-skill licenses are in each directory's `LICENSE` file (e.g. [`skill-creator/LICENSE.txt`](skill-creator/LICENSE.txt)). The project itself is [MIT](LICENSE).
+Per-skill licenses are in each directory's `LICENSE` file (e.g. [`skill-creator/LICENSE.txt`](skills/skill-creator/LICENSE.txt)). The project itself is [MIT](LICENSE).
 
 ## Related Documents
 

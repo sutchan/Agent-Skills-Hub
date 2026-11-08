@@ -1,9 +1,9 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.16.13
+> 路径：`docs/spec.md` · 版本：1.16.18
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
-> ⚠️ 本 spec 反映**截至 v1.16.13 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / sync-* / src/lib / prototype.html」等描述已被后续迭代移除。
+> ⚠️ 本 spec 反映**截至 v1.16.18 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / sync-* / src/lib / prototype.html」等描述已被后续迭代移除。
 
 ---
 
@@ -12,7 +12,7 @@
 - **项目定位**：Agent 技能集合仓库。技能内容权威 = 磁盘 `skills/<name>/SKILL.md`；展示数据 = 提交态 `data/skills-data.json`（**手工维护，无从 `SKILL.md` 自动生成脚本**）。
 - **应用形态**：自包含静态单页 `src/index.html`（原生 JS、内联 `window.SKILLS_DATA` + CSS）为站点本体；`src/app/`（Next.js 16 App Router）仅为将 `/` 重定向到 `/index.html` 的存根；`server/`（Express，薄装配 `server.js`）提供本地静态托管与投票/收藏 API；`edge-worker.js`（EdgeOne Edge KV）承接生产侧投票/收藏。
 - **设计规范权威源**：`prototype/`（`DESIGN.md` / `COMPONENTS.md` 等）；设计令牌历史上源自 `prototype/src/styles/tokens.css`，现随产物**内联进 `src/index.html`**。
-- **版本权威源**：根 `package.json` 的 `version`（当前 **1.16.13**）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之一致。
+- **版本权威源**：根 `package.json` 的 `version`（当前 **1.16.18**）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之一致。
 
 ---
 
@@ -42,7 +42,7 @@
 
 ### 2.1 14 大领域（稳定分类键）
 
-固化于 `src/index.html`（分类渲染）与 `data/skills-data.json`（`categories` / `categoryEn`）。历史上由 `tools/lib/taxonomy.mjs` 维护，该文件**已移除**。未知分类会被归为末位「其他」类（**属违规，须为零**）。
+分类键契约固化于 [CONTRIBUTING.md](.github/CONTRIBUTING.md)；运行数据固化于 `src/index.html` 内联数据（`categories` / `categoryEn`，由 `npm run sync:data` 从 `skills[].category` 派生注入，**当前 13 键活跃**，「桌面与客户端」暂无技能）。历史上由 `tools/lib/taxonomy.mjs` 维护，该文件**已移除**。未知分类会被归为末位「其他」类（**属违规，须为零**）。
 
 | 中文键 | 英文 |
 |---|---|
@@ -107,7 +107,9 @@ type SkillMetrics = {
 };
 ```
 
-### 3.3 顶层结构（SkillsData）
+### 3.3 顶层结构（SkillsData，即内联 `window.SKILLS_DATA`）
+
+> 注：`categories` / `categoryEn` 仅存在于**内联数据**（由 `npm run sync:data` 派生注入）；`data/skills-data.json` 文件本身只有 `total` + `skills` 两个顶层键。
 
 ```ts
 type SkillsData = {
@@ -120,9 +122,9 @@ type SkillsData = {
 
 ### 3.4 一致性规则
 
-- `category` 必须是 **14 大稳定中文分类键**之一；`en_category` 为对应英文名；未知分类归「其他」类（须为零）。
+- `category` 必须是 **14 大稳定中文分类键**之一（当前活跃 13 键）；`en_category` 为对应英文名；未知分类归「其他」类（须为零）。
 - **中英共存**：每技能同时提供中文 `description` 与英文 `en_description`。
-- **改技能展示的同步流程**：① 手工编辑 `data/skills-data.json`（+ 需要时 `skills-metrics.json`）；② 运行 `npm run sync:data` **自动**重建 `src/index.html` 内联 `window.SKILLS_DATA`。`live_page.html` 需手动保持一致（见 §8）。
+- **改技能展示的同步流程**：① 手工编辑 `data/skills-data.json`（+ 需要时 `skills-metrics.json`）；② 运行 `npm run sync:data` **自动**重建 `src/index.html` 内联 `window.SKILLS_DATA`。
 - **`skills-votes.json` 已弃用**：现为空 `{}`，无写入方；投票/收藏真源为本地 `data/kv-store.json` / 生产 Edge KV。
 - **数据型数字**：README/应用内技能总数与领域表计数须以 `data/skills-data.json` 实算，**禁止手填**。
 
@@ -133,8 +135,8 @@ type SkillsData = {
 - **本地**：`npm run dev` / `npm run start` = `node server.js`（Express，默认 `http://localhost:3000`），`GET /` 返回 `src/index.html`，并提供 `/api/votes`、`/api/favorites`。
 - **构建**：`npm run build` = `NODE_ENV=production next build && cp src/index.html out/index.html && node scripts/inject-ga.mjs`。`next.config.mjs` 为 `output:"export"`（纯静态，产物落 `out/`）。由于 `src/app` 仅导出一个重定向占位页，随后被 `cp` 用真正的静态应用**覆盖** `out/index.html`，故 **Next 层对最终页面无实质贡献**，真实可部署物 = `src/index.html` + `public/` + `data/` + `skills/` + `out/` 导出壳。`inject-ga.mjs` 将 `out/index.html` 中 `__GA_MEASUREMENT_ID__` 占位符替换为环境变量 `GA_MEASUREMENT_ID`（缺省回退 `G-WQDDVB14PF`）。
 - **生产 API**：`edge-worker.js`（Edge KV `ASH_KV`）实现投票/收藏，`edgeone.config.json` 将 `*/api/*` 路由指向它；键 `vote:<name>`（`{up}`）/ `fav:<name>`，契约与 `server/` 对齐。
-- **CI/CD**（`.github/workflows/ci.yml`，**Bun + `bun.lock`** `--frozen-lockfile`）：串行流水线 `validate`（`tsc --noEmit` + `node --test tools/lib` + `tools/validate-skills.mjs` + `tools/check-version.mjs`）→ `build`（导出 `out/`、上传构件）→ `e2e`（Playwright，`webServer` = `bun run start`，跑 `e2e/smoke.spec.ts`）→ `deploy`（`npx edgeone pages deploy ./out` 到 EdgeOne Pages）→ `release`（仅 `refs/tags/v*` 触发，抽 CHANGELOG 发行说明，附 `data/*.json`）。
-- **发版步骤**：bump `package.json` version → 更新 `CHANGELOG.md` → `npm run tag`（创建 `vX.Y.Z` 注解 tag）→ 推送 tag 触发 CI 部署与 Release。
+- **CI/CD**（`.github/workflows/ci.yml`，**Bun + `bun.lock`** `--frozen-lockfile`）：串行流水线 `validate`（`tsc --noEmit` + `bun run test`（node --test tools/lib）+ `tools/validate-skills.mjs` + `tools/check-skill-yaml.mjs` + `tools/check-version.mjs` + `tools/check-inline-js.mjs`）→ `build`（导出 `out/`、上传构件）→ `e2e`（Playwright，`webServer` = `bun run start`，跑 `e2e/smoke.spec.ts`）→ `deploy`（`npx edgeone pages deploy ./out` 到 EdgeOne Pages）→ `release`（`refs/tags/v*` 或 main 分支触发，抽 CHANGELOG 发行说明，附 `data/*.json`）。
+- **发版（v1.16.18 起自动，规范：所有工作流全绿后自动发布 Releases）**：bump `package.json` version → 更新 `CHANGELOG.md` → push main；`validate`/`build`/`e2e`/`deploy` 全部通过后，`release` job 幂等检查 `v{version}` Release——不存在则经 GitHub API 自动创建注解 tag（基于本次 HEAD，与部署同一提交）并发布；已存在则跳过（版本未 bump 的普通 push 不重复发版）。手动补发路径：`npm run tag` + 推送 `v*` tag。
 
 ---
 
@@ -150,6 +152,7 @@ type SkillsData = {
 - **详情弹窗**：语义化 `id` + `aria-modal` + `aria-labelledby`，展示中英描述、分类、allowedTools、安装命令/复制、相关技能；含焦点陷阱、ESC 关闭、背景滚动锁定、`prefers-reduced-motion` 适配。
 - **投票 / 收藏**：`localStorage`（`ash-votes` / `ash-favorites`）+ `initCloudSync()` 与 `/api/votes`、`/api/favorites` 云同步；赞为累加制 + 独立撤销，无「踩」。
 - **语义化 id**：主要容器/弹窗均加 kebab-case 语义化 `id` 与 ARIA 属性（便于调试/无障碍/e2e 定位）。
+- **三语界面（v1.16.17）**：语言优先级 = 简体中文 `zh`（默认）> 繁体中文 `tw` > 英语 `en`；`SUPPORTED` / 回退链（tw、en 缺词回退 zh）/ 顶栏三语循环 / 设置面板三选项 / `loadEnum(LS_LANG, …)` 枚举校验均已落地。`html lang` 映射为 `zh` / `zh-Hant` / `en`；静态文案用 `.zh`/`.tw`/`.en` + `data-i18n` 三节点互斥显隐，图标提示另配 `data-tip-tw`。技能数据本身仅有简体中文名与英文原文（**暂无繁体数据**），繁体界面下卡片/详情标题回退「简体名 + 英文副标题」，数据级繁体化为后续任务。
 
 ---
 
@@ -157,8 +160,8 @@ type SkillsData = {
 
 技能详情点击「分享」复制**分析链接**（技能详情页 URL `skills/<name>/`）：
 
-1. 剪贴板 = 链接 + 一条**随机**宣传文案（中/英各 ≥3 条，按当前语言随机取 1 条），二者以空行分隔，纯文本。
-2. 文案统一定义于 `src/index.html` 内联 i18n 的 `share.promos`（zh/en），不重复定义。
+1. 剪贴板 = 链接 + 一条**随机**宣传文案（简中/繁中/英各 3 条，按当前语言随机取 1 条），二者以空行分隔，纯文本。
+2. 文案统一定义于 `src/index.html` 内联 i18n 的 `share.promos`（zh/tw/en），不重复定义。
 3. 链接构造：优先 `location.origin + 根 path + skills/<name>/`，离线回退相对路径。
 4. 复制容错：`navigator.clipboard.writeText` → 降级 `execCommand('copy')` → 明确失败提示。
 5. 反馈：轻量 toast（`role="status"` / `aria-live="polite"`，3 秒消失、可键盘关闭）；分享按钮带 `aria-label`。
@@ -179,6 +182,7 @@ type SkillsData = {
 8. **语义化 id**：应用主要容器加 kebab-case 语义化 `id`（见 §5）。
 9. **提交信息**：遵循 `<type>: <描述>`（Conventional Commits，详见 CONTRIBUTING「提交规范」）。
 10. **单文件应用例外**：源码 >200 行拆分规则**仅适用于可拆分代码**；`src/index.html` 为有意维持的内联单文件应用，豁免拆分，但新增逻辑须模块化、加语义化 id 与注释。
+11. **三语词条齐全**：`translations.zh` / `translations.tw` / `translations.en` 键位必须一一对应；静态文案三类节点与 `data-tip-tw` 同步补齐；禁止以「回退 zh」作为繁体/英文态的交付结果（详见 §5）。
 
 ---
 
@@ -188,8 +192,8 @@ type SkillsData = {
 
 - **8.1 Next 壳冗余**：`src/index.html`（真实应用）与 `src/app`（重定向壳）双层并存，仅一层有用；`src/app` 仅导出占位页随后被 `cp` 覆盖。候选清理：删除 `src/app` 或改 `next.config` 直接以 `src/index.html` 为入口。
 - **8.2 无 `SKILL.md`→`data` 生成器**：`data/*.json` 由外部 skills-manager 基于 §2 六字段 frontmatter 生成并手工提交仓库；仓库内不保留反向生成脚本，**属已确认设计取舍**（非 bug）。新增/修改技能须先满足 §2 契约（`validate-skills.mjs` 软门禁提示缺失字段），再经 skills-manager 落 `data/`。
-- **8.3 `live_page.html` 漂移**：`live_page.html` 是 `src/index.html` 的并行自包含快照，`npm run sync:data` **只**更新 `src/index.html`、不覆盖它，已出现版本号漂移（快照头 `1.16.3` vs 当前 `1.16.4`）。建议：让 `sync:data` 一并覆盖，或二者合并/删一。
-- **8.4 过期引用残留**：`.gitignore` 与 `banner-og.svg` 注释仍引用不存在的 `build.mjs` / `build-skills-data.mjs`；低优先级待清理。
+- **8.3 `live_page.html`（已失效）**：该并行快照文件已从仓库移除，本条仅存档；`npm run sync:data` 现只更新 `src/index.html`（唯一站点本体），若未来恢复快照文件需重新评估同步策略。
+- **8.4 过期引用残留（v1.16.18 部分清理）**：`src/index.html` 头注释与 og 注释、`.gitignore` 幽灵规则已清理；历史 CHANGELOG 中旧双轨版本号（1.20.x / 2026-08 的 1.16.x 与现行体系重名）仅存档不动。
 - **8.5 边缘产物部署保证**：`edge-worker.js` / `edgeone.config.json` 在仓库根，`next build`/`cp` 不把它们纳入 `out/`；其随 EdgeOne 部署的保证未在流水线中明确，待确认。
 
 **历史已修复（记录备查，勿再标为问题）**：

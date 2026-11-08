@@ -37,18 +37,15 @@ skills/scenarios/
 __pycache__/
 *.pyc
 
-# Node 依赖与构建产物（prototype 静态展示原型）
+# Node 依赖与构建产物
 node_modules/
-prototype/node_modules/
+*.tsbuildinfo
 
 # app/ 子项目（独立 Next.js 应用）：依赖与构建产物均不入库
 app/node_modules/
 app/.next/
 # EO 以根目录(./)部署时复制出的根 .next（Next 构建产物，不入库）
 .next/
-# 注意：prototype/out/ 为预构建 HTML 高保真原型，属交付物，已入库（不忽略）
-# 但 out/_next/ 是 Next.js 瞬时构建产物（哈希化 JS/CSS），每次 build 都会变更，应忽略
-prototype/out/_next/
 *.tsbuildinfo
 
 # 密钥 / 凭证（禁止入库）
@@ -72,7 +69,6 @@ _*.mjs
 !tools/**/*.mjs
 !tools/lib/
 !tools/lib/*.mjs
-!prototype/build-skills-data.mjs
 # 技能自带脚本与许可证、文档均为交付内容，必须入库
 !skills/**/*.mjs
 !skills/**/*.txt

@@ -1,7 +1,7 @@
 # 任务清单（已完成归档）— Agent Skills Hub
 
 > 本文件归档已完成的迭代任务。进行中 / 待处理的任务见 `docs/tasks.md`。
-> 归档时间：2026-10-19（截至 v1.14.98）。
+> 归档时间：2026-11-07（截至 v1.16.18，迭代一至三十三）。
 
 ---
 
@@ -587,3 +587,104 @@
 - 损坏根因是上游同步 / 历史手工编辑产生的**孤立缩进块**（块标量内容与其键分离）与**转义过度**；宽松行解析只看「键是否存在」，故长期未被发现——本轮以真实 YAML 解析器兜底并接入 CI。
 - `browser-automation` 与 `bailian-web-search` 同属纯中文上游技能，沿用仓库惯例以中文原文填充 `en_description`；其 `en_description` 中原先的字面量 `\n` 改为真实换行，data 层同步。
 - `data/skills-data.json` 仍为手工维护（spec §8.2 既定取舍），本轮未引入 `SKILL.md`→data 生成脚本；逐字一致性复核与残留引号清理登记为后续任务（tasks.md #4–#5）。
+
+---
+
+## 迭代二十八：页脚链接化与构建号格式统一（v1.16.14，已完成）
+
+> 来源：用户指令「记住并更新项目规范：页脚区增加/修改版本号和 build 编号」「优化页脚区的设计」「继续改进」。全局规范同时写入项目记忆（页脚唯一版本展示位 + 10 位 `yymmddhhmm` 构建号）。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | 页脚识别区链接化 | P2 | ✅ 已完成 | 仓库名 → GitHub 仓库、MIT 协议 → LICENSE、版本号 → `/releases/tag/vX.Y.Z` |
+| 2 | 构建号按钮化 | P2 | ✅ 已完成 | 悬浮显示可读构建时间、点击复制完整版本信息并 toast 反馈 |
+| 3 | 构建号格式统一 10 位 | P1 | ✅ 已完成 | `scripts/inject-ga.mjs` 与 `server/config.js` 由 `yyyymmddhhmm` 改为 `yymmddhhmm`（2 位数年份） |
+| 4 | 移动端堆叠与 a11y | P2 | ✅ 已完成 | 品牌 → 动作 → 构建元数据各占整行；CTA 区改 `<nav aria-label>` |
+| 5 | 版本 bump 1.16.13 → 1.16.14 | P2 | ✅ 已完成 | package.json / README 双语徽章 / src 头注释·meta / CHANGELOG |
+
+---
+
+## 迭代二十九：UI 布局与元素对齐修正（v1.16.15，已完成）
+
+> 来源：用户提交页面截图「发现现有应用 UI 存在问题，改进 UI 布局设计，对齐元素等」。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | Hero 两栏等高与插图裁切 | P2 | ✅ 已完成 | `align-items: stretch`；`preserveAspectRatio` 改 `xMidYMin meet` + 底部渐隐遮罩 |
+| 2 | 工具栏控件等高对齐 | P2 | ✅ 已完成 | 搜索框固定 38px、圆角统一 10px、结果计数右对齐栅格边界 |
+| 3 | 占比图图例裁切修复 | P1 | ✅ 已完成 | 移除 `max-height:180px` 内部滚动，改 `grid-auto-rows:1fr` 等高行 |
+| 4 | 卡片内部对齐 | P2 | ✅ 已完成 | 描述固定 2 行、收藏按钮与头像同轴、投票按钮 40→34px |
+| 5 | 版本 bump 1.16.14 → 1.16.15 | P2 | ✅ 已完成 | package.json / README 双语徽章 / src 头注释·meta / CHANGELOG |
+
+---
+
+## 迭代三十：页脚三段式版权页布局（v1.16.16，已完成）
+
+> 来源：用户指令「优化页脚区布局设计，给出改进建议」「实施改进」「提交推送」；提交 `c0eba092` 已推送 `origin/main`。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | 左栏 colophon 三行 | P2 | ✅ 已完成 | 品牌 + 协议 + `© 年份 · vX.Y.Z · build yymmddhhmm`，年份动态生成 |
+| 2 | 辅助导航补齐入口 | P2 | ✅ 已完成 | 关于 / 更新日志 / 提交 Issue，中英字典同步新增 3 键 |
+| 3 | 交互与可访问性 | P2 | ✅ 已完成 | Star 上浮阴影、统一 `:focus-visible` 焦点环、`#footerBuild` 运行时 aria-label 含构建号 |
+| 4 | 响应式与间距 | P2 | ✅ 已完成 | 新增 900px 断点；≤640px 居中堆叠；桌面内边距 32/36px |
+| 5 | 版本 bump 1.16.15 → 1.16.16 | P2 | ✅ 已完成 | package.json / README 双语徽章 / src 头注释·meta / CHANGELOG |
+
+---
+
+## 迭代三十一：国际化三语升级 + 全量文档同步（v1.16.17，已完成）
+
+> 来源：用户指令「完善国际化的所有字符串」「更新全局项目规范：默认简体中文，第二繁体中文，第三英语」「继续推进剩余任务。更新项目里的所有文档」。全局语言优先级规范已写入项目记忆。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | 三语 i18n 核心 | P1 | ✅ 已完成 | `SUPPORTED=[zh,tw,en]`、回退链、`html lang=zh-Hant`、三语循环、`loadEnum` 校验 |
+| 2 | 字典全量补齐 | P1 | ✅ 已完成 | 新增繁体 99 键（zh/tw/en 键位 99/99/99 校验通过）；补 en 缺失 5 键；去重 `filter.all` |
+| 3 | 静态文案与 CSS 三语 | P1 | ✅ 已完成 | `.zh`/`.tw`/`.en` 三节点互斥显隐、`data-tip-tw`、卡片/详情繁体态回退规则 |
+| 4 | 设置面板与 a11y | P2 | ✅ 已完成 | 语言三选项、`aria-labelledby` 补 tw、Hero 三标题 aria-hidden 三态 |
+| 5 | 全量文档同步 | P2 | ✅ 已完成 | README 双语 · docs 五份（tasks/tasks-done/spec/project/AGENTS）· prototype 三份规范 + wireframes 页脚 · .github 两份协作文档 · CHANGELOG 补 4 个 release 锚点 |
+| 6 | 版本 bump 1.16.16 → 1.16.17 | P2 | ✅ 已完成 | package.json / README 双语徽章 / src 头注释·meta / CHANGELOG / 全量文档头版本 |
+
+### 说明
+- 技能数据层（`data/skills-data.json`）仅有简体中文名与英文原文，**暂无繁体技能数据**；繁体界面下卡片/详情标题回退「简体名 + 英文副标题」，数据级繁体化（构建期转换）登记为后续可选任务。
+- `docs/tasks.md` 的 5 项 P3 数据工程任务（补录「桌面与客户端」技能、全量重算 `size/files`、收敛 `popularity` 口径、清理描述残留引号、复核 data 与磁盘逐字一致性）仍为**未完成**，属数据层独立迭代，本轮文档线未改动数据。
+
+---
+
+## 迭代三十二：CI 全绿自动发布 Releases（v1.16.18，已完成）
+
+> 来源：用户指令「更新项目规范：在 Github Actions 所有工作流全绿以后，自动发布 Releases」。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | `ci.yml` release job 改造 | P1 | ✅ 已完成 | 触发扩展为 `refs/tags/v*` **或** `refs/heads/main`；main 全绿后经 GitHub API 自动创建 `v{version}` 注解 tag（`target_commitish` = 本次 HEAD，与部署同提交）并发布 |
+| 2 | 幂等闸门 | P0 | ✅ 已完成 | 发布前 `getReleaseByTag` 查询，已存在即整体跳过——版本未 bump 的普通 push 不重复发版，标签重跑不覆盖 |
+| 3 | 安全边界 | P2 | ✅ 已完成 | 建 tag 走 action-gh-release（API），保持 `persist-credentials: false` 不回退 git 凭据；`tag_name` 由 `package.json` 解析而非 `ref_name`（main 触发时 ref 无 tag 名） |
+| 4 | 规范文档同步 | P2 | ✅ 已完成 | `docs/AGENTS.md`（发版 + 质量门禁）· `docs/spec.md` §4 · `.github/CONTRIBUTING.md`（`npm run tag` 降级为手动补发路径 + 发布章节） |
+| 5 | 版本 bump 1.16.17 → 1.16.18 | P2 | ✅ 已完成 | package.json / src 头注释·meta / README 双语徽章 / docs 四份头版本 / prototype 三份 + wireframes 页脚 / CHANGELOG |
+
+### 说明
+- 「所有工作流全绿」当前由单一流水线 `ci.yml` 的 `needs` 链保证（validate → build → e2e → deploy → release）；release 位于链尾，即等价于全绿后发布。若未来新增独立 workflow，需改用 `workflow_run` 聚合或多工作流 `needs`，届时同步本节。
+- 部署 job 在未配置 `EDGEONE_API_TOKEN` 时为跳过（成功态），不阻断自动发布。
+
+---
+
+## 迭代三十三：全量文档一致性审查修正（并入 v1.16.18，已完成）
+
+> 来源：用户指令「全面审查并更新项目中所有文档……输出一份变更清单」。审查基准：代码库实态（13 分类 / 169 技能（1 隐藏）/ total 168 / API 契约 / v1.16.18 CI）。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | 矛盾统一：「data 构建产物」说法 | P0 | ✅ 已完成 | SUPPORT.md FAQ、PR 模板与 spec §3/§8.2 矛盾，统一为「手工维护 + sync:data」 |
+| 2 | 分类口径统一（14 vs 13） | P1 | ✅ 已完成 | README 双语简介/规模表、CONTRIBUTING、spec、project.md 统一「契约 14 类、活跃 13 类」 |
+| 3 | 失效引用清理 | P1 | ✅ 已完成 | README 断链、AGENTS `openspec-implementation`、`live_page.html`、`.gitignore` 幽灵规则 |
+| 4 | 架构描述纠偏 | P1 | ✅ 已完成 | spec §2.1/§3.3 内联派生注入；DESIGN/COMPONENTS 过时路径全部改为内联实现 + `scripts/` |
+| 5 | 数字修正 | P2 | ✅ 已完成 | `src/index.html` meta/og/twitter 167→168、头注释路径标签 |
+| 6 | CHANGELOG 锚点 | P2 | ✅ 已完成 | 补 5 个缺失锚点 + 旧双轨体系重复定义去重（12 个） |
+| 7 | 术语与引用统一 | P2 | ✅ 已完成 | 「双语」残留→三语、README 章节名引用、两层→三层校验、build→sync:data |
+
+### 遗留待人工确认（不擅改）
+1. README「已对接 GitHub Pages」——仓库无 GH Pages 工作流/配置，已改为仅 EdgeOne Pages，如确有站外 GH Pages 请回改；
+2. CHANGELOG 旧双轨版本体系（1.20.x 与 2026-08 的 1.16.x）与现行 1.16.x **tag 名冲突**（同名 tag 对应两个历史小节），属历史治理决策，本轮仅去重锚点定义、保留全部历史记录；
+3. `prototype/DESIGN.md` 中 v1.19/v1.20 历史版本注记（§4.5/§6/§8）——已对关键段落加「历史注/已移除」标注，其余存档原文保留，是否深度重写待定；
+4. spec §8.5「edge-worker.js 随部署保证」维持原「待确认」状态。

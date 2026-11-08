@@ -1,6 +1,6 @@
 # AI 协作指引（AGENTS）
 
-> 路径：`docs/AGENTS.md` · 版本：1.16.4
+> 路径：`docs/AGENTS.md` · 版本：1.16.18
 > 本文件供 AI 编码助手（如 CodeBuddy / Claude）在处理本仓库变更时遵循。能力契约见 [spec.md](spec.md)，仓库约定见 [project.md](project.md)，贡献操作见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 
 ---
@@ -26,20 +26,21 @@
 - **无嵌套副本**：新技能只能落在 `skills/<name>/`，不得创建 `skills/<x>/skills/<name>/` 之类嵌套。
 - **数据型数字**：README/应用内技能总数与领域表计数须以 `data/skills-data.json` 实算，禁止手填。
 - **单文件应用例外**：`src/index.html` 为有意维持的内联单文件，豁免「>200 行拆分」规则；新增逻辑须模块化、加语义化 id 与注释。
+- **三语国际化**：界面语言优先级固定为简体中文 `zh`（默认）> 繁体中文 `tw` > 英语 `en`；新增/修改 UI 文案须同步 `translations` 三份字典（键位一一对应）、静态 `.zh`/`.tw`/`.en` 节点、`data-tip-tw` 与 `html lang`（繁体为 `zh-Hant`）；繁体词条用台湾用语习惯，禁止以回退 zh 作为交付态。
 
 ---
 
 ## 与本仓库技能的关系
 
-仓库 `skills/` 下的 `skill-creator` / `openspec-implementation` 等技能提供创建/评估与工作流落地实现，其 `SKILL.md` 含逐步指令，涉及相关工作流可调用。
+仓库 `skills/` 下的 `skill-creator` 等技能提供创建/评估能力，其 `SKILL.md` 含逐步指令，涉及相关工作流可调用。
 
 ---
 
 ## 质量门禁
 
 - 涉及展示效果的改动须对齐 `prototype/DESIGN.md`（配色令牌、响应式、可访问性）；改后确认 `src/index.html` 内联产物一致，并运行 `npm run sync:data` 同步内联数据。
-- 提交前运行 `node tools/validate-skills.mjs`（校验 `skills/*/SKILL.md` frontmatter：硬失败=缺 name/description、name≠目录名、category 非法；软警告=缺 en_description/zh_displayName/category/en_category）+ `node --test tools/lib/*.test.mjs`（data JSON 回归）；`tsc --noEmit` 过类型；`node tools/check-version.mjs` 校验 `package.json` == 最新 CHANGELOG == git tag。
+- 提交前运行 `node tools/validate-skills.mjs`（校验 `skills/*/SKILL.md` frontmatter：硬失败=缺 name/description、name≠目录名、category 非法；软警告=缺 en_description/zh_displayName/category/en_category）+ `node --test tools/lib/*.test.mjs`（data JSON 回归）；`tsc --noEmit` 过类型；`node tools/check-version.mjs` 校验 `package.json` == 最新 CHANGELOG（== git tag，仅标签触发时）。
 - 提交信息遵循 `<type>: <描述>` 规范（Conventional Commits，详见 CONTRIBUTING「提交规范」）。
 - 变更完成后更新 `CHANGELOG.md`（新增版本小节，含 release tag 锚点）。
 - 任何修改都 bump 最小版本号，仅更新被改文件的头注释版本号（禁止全仓库批量刷写）。
-- 发版用 `npm run tag` 创建 `vX.Y.Z` 注解 tag，推送 tag 触发 CI 部署（EdgeOne Pages）与 GitHub Release。
+- **发版（v1.16.18 起自动）**：bump 版本 + 更新 CHANGELOG → push main → CI 全绿后 `release` job 自动按 `package.json` 版本创建 `vX.Y.Z` 注解 tag 并发布 GitHub Release（幂等：该版本已发布则跳过，普通 push 不重复发版）；`npm run tag` + 推送 tag 保留为手动补发路径。

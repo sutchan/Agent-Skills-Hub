@@ -2,20 +2,20 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.16.16-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![版本](https://img.shields.io/badge/version-v1.16.18-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 其他语言：[English](README.en.md)
 
-**一个集中管理、可浏览、可检索的 AI Agent 技能目录** —— 覆盖 14 大领域、169 个技能（含 1 个隐藏），提供中文描述与英文原文，中文用户开箱即用。
+**一个集中管理、可浏览、可检索的 AI Agent 技能目录** —— 覆盖 13 个分类、169 个技能（含 1 个隐藏），提供中文描述与英文原文，界面支持简体中文 / 繁体中文 / 英语三语切换，中文用户开箱即用。
 
 ## ✨ 特性
 
 - 🔍 **检索与筛选**：按领域、关键词、标签实时筛选、搜索技能
 - ⭐ **投票与收藏**：为常用 / 看好的技能投票、收藏，并查看热度排序
-- 🌐 **中英双语**：中文用户开箱即用，英文原文存于 `en_description`
+- 🌐 **三语界面**：简体中文（默认）→ 繁体中文 → 英语一键循环切换；技能描述中英共存，英文原文存于 `en_description`
 - 📦 **一键安装**：复制 `skills/<name>/` 目录，或用 [skills-manager](https://github.com/xingkongliang/skills-manager) 批量管理
 - 🧩 **标准化规范**：基于 `SKILL.md`（`name`/`description`/`category` 等），技能靠 `description` 自动触发
-- 📊 **纯静态站点**：`output: "export"` 纯静态导出，已对接 EdgeOne Pages / GitHub Pages，部署简单
+- 📊 **纯静态站点**：`output: "export"` 纯静态导出，已对接 EdgeOne Pages 自动部署（CI），部署简单
 
 ## 📊 规模
 
@@ -23,7 +23,7 @@
 |---|---|
 | 技能总数 | 169（含 1 个隐藏） |
 | 可见技能 | 168 |
-| 分类 | 14 类（当前活跃 13 类） |
+| 分类 | 13 类（契约 14 大领域，「桌面与客户端」暂无技能） |
 | 许可证 | 整体 MIT（各技能许可证见其目录） |
 
 ## 🚀 快速开始
@@ -44,10 +44,10 @@ Agent-Skills-Hub/
 ├── server/            # 本地预览服务模块化实现（config/fs-util/store/ratelimit/api/pages）
 ├── server.js          # 本地预览服务入口（Express，薄装配层）
 ├── data/              # skills-data.json（权威元数据）/ skills-metrics.json（派生指标）
-├── scripts/           # sync-inline-data.mjs（内联数据同步）/ tag-release.mjs（打 tag）
-├── tools/             # check-version / ensure-lf / validate-skills / extract-release-notes
+├── scripts/           # sync-inline-data / inject-ga / tag-release（同步·构建注入·发版）
+├── tools/             # check-version / check-skill-yaml / check-inline-js / validate-skills 等
 ├── e2e/               # Playwright 冒烟测试
-├── docs/              # spec.md / tasks.md / tasks-done.md
+├── docs/              # AGENTS.md / project.md / spec.md / tasks.md / tasks-done.md
 └── .github/           # CI 工作流与贡献指南
 ```
 
@@ -87,7 +87,7 @@ cd Agent-Skills-Hub
 
 ## 许可证
 
-各技能许可证见其目录内 `LICENSE` 文件（如 [`skill-creator/LICENSE.txt`](skill-creator/LICENSE.txt)）。项目整体采用 [MIT](LICENSE) 协议。
+各技能许可证见其目录内 `LICENSE` 文件（如 [`skill-creator/LICENSE.txt`](skills/skill-creator/LICENSE.txt)）。项目整体采用 [MIT](LICENSE) 协议。
 
 ## 相关文档
 

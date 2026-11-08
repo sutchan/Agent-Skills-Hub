@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.16.13
+> 路径：`prototype/DESIGN.md` · 版本：1.16.18
 > 本文档是**视觉 / 交互设计的事实来源（Single Source of Truth）**，涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -15,14 +15,14 @@
 | 极简（Minimal） | 克制的视觉语言，留白即设计；单一主色，避免渐变滥用与装饰性元素 |
 | 层级清晰（Hierarchy） | 通过字号、字重、色彩对比建立明确的信息层级，首屏 3 秒可读懂核心 |
 | 一致（Consistent） | 所有间距、圆角、阴影、动效遵循统一 Token，视觉基线参考 shadcn/ui（**仅为设计风格参考，原型无 shadcn/Tailwind/Radix 运行时**） |
-| 真实（Real Data） | 原型数据为构建期从磁盘 `skills/<name>/SKILL.md` 由根目录 `build-skills-data.mjs` 生成 `data/skills-data.json`，再由根目录 `build.mjs` 注入并预渲染进 `prototype/`，非占位假数据 |
+| 真实（Real Data） | 原型数据为手工维护的 `data/skills-data.json` 经 `scripts/sync-inline-data.mjs`（`npm run sync:data`）注入 `src/index.html` 内联 `window.SKILLS_DATA`（无 SKILL.md 自动生成脚本，spec §8.2 既定取舍），非占位假数据 |
 | 无障碍（Accessible） | 对比度 ≥ WCAG AA，键盘可达，支持 `prefers-reduced-motion` |
 
 ---
 
 ## 2. 设计系统（Design Tokens）
 
-设计 Token 以 **shadcn/ui CSS 变量（HSL 通道）** 定义在 `prototype/src/styles/tokens.css` 的 `:root`（浅色）与 `html[data-theme="dark"]`（深色，主题由 `<html data-theme>` 切换）中，由 `prototype/src/styles/base.css`/`layout.css`/`components.css`/`responsive.css` 直接消费（原型为纯原生 CSS，无 Tailwind/React 运行时）。这是全局唯一来源。
+设计 Token 以 **shadcn/ui CSS 变量（HSL 通道）** 内联定义在 `src/index.html` 的 `:root`（浅色）与 `html[data-theme="dark"]`（深色，主题由 `<html data-theme>` 切换）中（历史上位于 `prototype/src/styles/*.css`，v1.16.x 随产物内联，旧文件已移除）。这是全局唯一来源。
 
 ### 2.1 色彩（HSL 通道，语义化命名）
 
@@ -96,7 +96,7 @@
 
 ### 2.6 图标
 
-- 使用 **本地内联 SVG 图标集**（定义在 `prototype/src/index.html` 模板中，随 `prototype/src/` 源码分发），零外部依赖，统一 `24x24 viewBox` + `currentColor` 描边，等价于 lucide 风格。
+- 使用 **本地内联 SVG 图标集**（定义在 `src/index.html` 模板中），零外部依赖，统一 `24x24 viewBox` + `currentColor` 描边，等价于 lucide 风格。
 - 图标尺寸统一 `16-20px`（`h-4 w-4` / `h-5 w-5`），颜色继承 `currentColor` 随状态变化。
 - 业务图标语义：搜索 `Search`、主题 `Sun/Moon`、视图 `LayoutGrid/Rows3`、资源 `FileCode2/BookOpen/FolderOpen`、外链 `ExternalLink`、空态 `SlidersHorizontal`、品牌 `Boxes`、GitHub `Github`、关闭 `X`。
 
@@ -137,25 +137,27 @@
 | Dialog | `src/index.html`（内联）`openDetail()` | 原生实现（Radix Dialog 风格焦点陷阱 + `aria-modal`，无 Radix 依赖） |
 | Sheet | `src/index.html` 预留 `.sheet` | 移动端详情**复用居中 Dialog**（未启用独立抽屉；`.sheet`/`.sheet-grip` 为预留样式，标注保留未启用，无对应 DOM/JS） |
 
-### 3.2 复合/业务组件（对应 `src/app.js` 渲染函数）
+### 3.2 复合/业务组件（全部内联于 `src/index.html`）
 
-| 职责 | 实现 | 说明 |
+> 旧 `src/parts/01~05-*.js` 分模块实现已于 v1.16.x 合并为单体文件，下表「实现」均为 `src/index.html` 内联函数。
+
+| 职责 | 实现（内联函数） | 说明 |
 |------|------|------|
-| ThemeToggle | `04-interactions.js` 的 `applyTheme()` | 深浅主题切换，写根节点 `data-theme` |
-| LangToggle | `i18n.js` 的 `I18N.toggleLang()` | 中英切换（受控），`I18N.syncDOM()` 同步 `data-lang` 与 `<html lang>` |
-| ViewToggle | `01-state.js` 的 `state.view` + `02-render.js` 的 `renderGrid()` | 网格/列表切换（受控） |
-| ShareButton | `03-detail.js` 的 `shareSkill(name)` | 技能详情弹窗内的「分享」按钮；点击复制「技能链接 + 随机宣传文案」并 toast 反馈 |
-| SkillCard | `02-render.js` 的 `cardHTML()` | 网格/列表共用；**渲染为原生 `<button type="button" class="card">`**（a11y 语义，Enter/Space 原生触发，点击经 `#grid` 委托打开详情）；双语描述与分类标签 |
-| SkillDetail | `03-detail.js` 的 `openDetail()` | 弹窗内容体；含中英文描述、分类、授权工具、本地仓库链接 |
-| SettingsButton | `03-detail.js` 的 `openSettings()` | 顶部栏右上角齿轮按钮 `#settingsBtn`；复用 Dialog 框架承载语言/主题/视图模式/显示密度四组切换（就地刷新文案，不重建弹窗） |
-| 主页面 | `05-main.js` 的 `init()` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式弹窗调度 |
+| ThemeToggle | `applyTheme()` | 深浅主题切换，写根节点 `data-theme` |
+| LangToggle | `I18N.toggleLang()` | **三语循环**切换（简体 `zh` → 繁体 `tw` → 英语 `en`，受控），`I18N.syncDOM()` 同步 `data-lang` 与 `<html lang>`（`tw` → `zh-Hant`） |
+| ViewToggle | `state.view` + `renderGrid()` | 网格/列表切换（受控） |
+| ShareButton | `shareSkill(name)` | 技能详情弹窗内的「分享」按钮；点击复制「技能链接 + 随机宣传文案」并 toast 反馈 |
+| SkillCard | `cardHTML()` | 网格/列表共用；**渲染为原生 `<button type="button" class="card">`**（a11y 语义，Enter/Space 原生触发，点击经 `#grid` 委托打开详情）；中英双语描述与分类标签（界面另支持繁体回退） |
+| SkillDetail | `openDetail()` | 弹窗内容体；含中英文描述、分类、授权工具、本地仓库链接 |
+| SettingsButton | `openSettings()` | 顶部栏右上角齿轮按钮 `#settingsBtn`；复用 Dialog 框架承载语言/主题/视图模式/显示密度四组切换（就地刷新文案，不重建弹窗） |
+| 主页面 | `init()` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式弹窗调度 |
 
 ### 3.3 业务数据契约
 
 | 组件 | 数据来源（`skills-data.json` 扁平结构） |
 |------|----------|
 | SkillCard / SkillDetail | `skill{name, category, enCategory, zh, description(中文), enDescription(英文), allowedTools}`（`name` 为权威标识；`description` 为中文描述，`enDescription` 为英文描述） |
-| CategoryFilter（Chip） | `categories[](string)` + `categoryEn{}`（分类中文→英文映射）+ 内置「全部」；计数由 `02-render.js` 预聚合 `catCounts` |
+| CategoryFilter（Chip） | `categories[](string)` + `categoryEn{}`（分类中文→英文映射）+ 内置「全部」；计数由内联 `catCounts()` 预聚合 |
 | 语言/主题 | 根节点 `data-lang` / `data-theme` 属性 |
 
 ---
@@ -167,7 +169,7 @@
 - **单一主任务流**：浏览 → 搜索/筛选 → 查看详情（弹窗/抽屉）→ 跳转仓库。无多级路由，详情用模态而非新页面（保持原型轻量）。
 - **响应式详情载体**：当前实现桌面与移动端**均用居中 Dialog**（`.sheet` 抽屉为预留样式未启用，v1.17.2 暂未接入）。
 - **即时筛选**：搜索与分类筛选为受控状态、实时过滤，无需提交按钮。
-- **双语即时切换**：语言切换即时重渲 UI 文案与分类英文名，不刷新。
+- **三语即时切换**：语言切换（简体中文 → 繁体中文 → 英语）即时重渲 UI 文案与分类英文名，不刷新；缺失词条回退简体中文，技能数据繁体态回退「简体名 + 英文副标题」。
 
 ### 4.2 反馈（Feedback）
 
@@ -185,11 +187,11 @@
 - 原型为只读展示，无表单提交错误。
 - 边界情况：技能 `zh`/`description` 缺失时由 `esc()` 安全降级为空串，i18n 缺失 key 时由 `I18N.t()` 回退 zh / key 原文，均不崩溃。
 - 仓库内 Markdown 文档（README / CONTRIBUTING 等）的技能链接使用相对路径 `skills/<name>/`，由 GitHub 自动解析，避免硬编码用户名。
-- 原型站点详情弹窗的"查看技能"使用绝对 GitHub 链接 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>/`，由 `prototype/src/parts/03-detail.js` 的 `REPO_SKILLS_TREE` 常量维护；src 层 `src/components/detail-modal.tsx` 同样硬编码 `githubDir`（`src/lib/skills.ts`）指向该常量，两层保持一致。
+- 站点详情弹窗的"查看技能"使用绝对 GitHub 链接 `https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/<name>/`，与数据字段 `githubDir`（`data/skills-data.json`）一致，内联实现（历史 React 层 `src/components/*.tsx` 已于 v1.16.x 移除）。
 
 ### 4.4 空状态（Empty）
 
-- 搜索/筛选无结果时显示空状态区（`#emptyState`）：图标 + 双语标题「未找到匹配的技能」+ 描述 + 「清除筛选」按钮（`#clearFilters`，点击重置 `q`/`cat` 并重渲染）。
+- 搜索/筛选无结果时显示空状态区（`#emptyState`）：图标 + 三语标题「未找到匹配的技能」+ 描述 + 「清除筛选」按钮（`#clearFilters`，点击重置 `q`/`cat` 并重渲染）。
 - 不显示空白页；保持布局稳定。
 
 ### 4.5 键盘与可达性
@@ -199,18 +201,18 @@
 - 分类 chip 用 `aria-pressed` 反映选中态。
 - 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
 - 顶部栏图标按钮统一 `.icon-btn`（34px、flex 居中、`aria-pressed`/`aria-label`），`#settingsBtn` 带 `aria-label`（v1.17.2 补齐样式，修复按钮参差对齐）。
-- **src 层对齐（v1.20.6）**：`src/components/skill-card.tsx` 卡片根已改为原生 `<button>`（依赖原生 Enter/Space）；`src/components/detail-modal.tsx` 自带 Esc 关闭 + 焦点陷阱（`keydown` 监听，无独立 `ui/dialog.tsx`）；顶栏（`AppShell.tsx`）已含 `#langBtn` 语言切换与 `#themeBtn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`）；`SkillsExplorer.tsx` 顶栏含网格/列表视图切换（`#viewBtn`）与 `#settingsBtn` 齿轮按钮，打开 `src/components/settings-panel.tsx` 设置弹窗（聚合「界面元素 / 名称显示 / 显示密度」三组，无独立 `ui/settings-dialog.tsx`）；视图（`ash-view`）、密度（`ash-density`，写 `data-density` + globals.css `:root[data-density="compact"]` 生效）、界面元素、名称显示均持久化；搜索框新增 120ms 防抖 + 输入法 composition 拦截（对齐原型 `DEBOUNCE_MS`）；结果计数 `#resultCount`（aria-live）；滚动超 300px 显示回到顶部 `#toTop`（`.to-top.show` 样式）；`AppShell.tsx` 渲染 `<section class="hero" id="hero">` 节点网 Hero（按分类计数动态生成 `#netNodes`，双语标题/副标题/特性标签 + 方案 B 随机骰子 `#diceBtn`，点击派发 `ash:open-skill` 由 `SkillsExplorer.tsx` 打开 `detail-modal.tsx`，样式同源 `src/globals.css`）。
+- **历史注（v1.20.6 src React 层，已移除）**：本条所述 `src/components/*.tsx` 组件层已随 v1.16.x 单体化移除；所述行为（原生 `<button>` 卡片、Esc 关闭 + 焦点陷阱、顶栏语言/主题/视图/设置切换、设置弹窗持久化、搜索防抖 + 输入法拦截、结果计数 aria-live、回到顶部）均已内联实现于 `src/index.html`。原始记录：`src/components/skill-card.tsx` 卡片根已改为原生 `<button>`（依赖原生 Enter/Space）；`src/components/detail-modal.tsx` 自带 Esc 关闭 + 焦点陷阱（`keydown` 监听，无独立 `ui/dialog.tsx`）；顶栏（`AppShell.tsx`）已含 `#langBtn` 语言切换与 `#themeBtn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`）；`SkillsExplorer.tsx` 顶栏含网格/列表视图切换（`#viewBtn`）与 `#settingsBtn` 齿轮按钮，打开 `src/components/settings-panel.tsx` 设置弹窗（聚合「界面元素 / 名称显示 / 显示密度」三组，无独立 `ui/settings-dialog.tsx`）；视图（`ash-view`）、密度（`ash-density`，写 `data-density` + globals.css `:root[data-density="compact"]` 生效）、界面元素、名称显示均持久化；搜索框新增 120ms 防抖 + 输入法 composition 拦截（对齐原型 `DEBOUNCE_MS`）；结果计数 `#resultCount`（aria-live）；滚动超 300px 显示回到顶部 `#toTop`（`.to-top.show` 样式）；`AppShell.tsx` 渲染 `<section class="hero" id="hero">` 节点网 Hero（按分类计数动态生成 `#netNodes`，三语标题/副标题/特性标签 + 方案 B 随机骰子 `#diceBtn`，点击派发 `ash:open-skill` 由 `SkillsExplorer.tsx` 打开 `detail-modal.tsx`，样式同源 `src/globals.css`）。
 
 ### 4.6 页脚区（Footer）
 
 - 位于技能网格 `<main>` 之后、`overlay` 之前，作为页面收尾区块（语义化 `<footer id="siteFooter">`，app 侧 `id="appFooter"`）。
-- 结构收敛为单行 flex 的 `footer-inner`，含三块（原型与 app 同源同构）：
-  - **品牌识别**（`footer-info`）：名称 `footer-name` + 协议说明 `footer-desc`（即 MIT 文案「开源免费 · MIT 协议」）。
-  - **构建元数据**（`footer-meta`）：项目版本 `footer-ver`/`footer-version`（来自根 `package.json`，由 `build.mjs` 注入 `{{VERSION}}` / app 经 `page.tsx` 读取传入）+ 间隔号 + 更新日期 `footer-date`（注入 `{{BUILD_DATE}}` / app 传入 `updatedAt`），均为等宽字体机器可读字段。
-  - **动作区**（`footer-cta`）：Star 为唯一实心主动作 `star-btn`（外链 stargazers）；Share 已降为**文字链** `share-btn`（无药丸/描边，下划线自左侧展开），点击经剪贴板复制仓库分享文案。
-- **已移除**（v1.14.86 精简）：全库统计台账（`footer-stats` 四项：技能总数/分类/英文描述覆盖/支持语言）、GitHub·README 外链（`footer-links`）、目录简介长句。原型与 app 同步去除，保持两者一致。
-- 文案遵循全局 i18n：原型层 `footer.desc` / `footer.star` / `share.btn` 用 `data-i18n` + `.zh`/`.en` 类随语言切换；`src/` 层以 `lang` 条件渲染。
-- 样式在 `prototype/src/styles/layout.css` 与 `src/app/layout-shared.css`（经 `tools/sync-css.mjs` 同源同步）/ `src/app/globals.css` 维护，主色与令牌同源；移动端 `footer-inner` 竖向堆叠、`footer-cta` 占满整行。
+- v1.16.16 起结构为**三段式版权页**（`footer-inner` flex，桌面两端对齐）：
+  - **左栏 colophon**（`footer-info`）：品牌名 → MIT 协议声明 → `© 年份 · vX.Y.Z · build yymmddhhmm` 三行；版本号链接 Releases，构建号按钮悬浮显示构建时间、点击复制完整版本信息。
+  - **中段辅助导航**（`footer-links`，`nav[aria-label]`）：关于 / 更新日志 / 提交 Issue（v1.16.16 重新引入外链入口；v1.14.86 精简掉的 `footer-stats` 全库统计台账不再恢复）。
+  - **右段动作区**（`footer-cta`，`nav[aria-label]`）：Star 为唯一实心主动作 `star-btn`（外链 stargazers）；Share 降为**文字链** `share-btn`（无药丸/描边，下划线自左侧展开），点击复制仓库分享文案。
+- **不再展示更新日期**：版本元数据为 `v主.次.修 · build yymmddhhmm`（10 位 · 2 位数年份），构建期 `inject-ga.mjs` 与本地服务 `server/config.js` 注入；裸开页面由 `meta[name=app-version]` 兜底，版本无法确定时移除死链。
+- 文案遵循全局 i18n **三语**：静态节点 `.zh`/`.tw`/`.en` + `data-i18n` 互斥显隐；页脚全部交互元素有统一 `:focus-visible` 焦点环。
+- 样式在 `src/index.html` 内联 CSS 维护，主色与令牌同源；≤900px 辅助导航整行下沉右对齐，≤640px 按「品牌版权（居中）→ 辅助导航 → 动作」纵向堆叠、按钮占满整行。
 
 ---
 
@@ -231,7 +233,7 @@
 
 ## 6. 数据架构（Data Contract）
 
-- **单一事实来源**：磁盘 `skills/<name>/SKILL.md` → `tools/sync-inline-data.mjs`（合并 `data/skills-data.json` + `data/skills-metrics.json` 并注入 `src/index.html` 的 `window.SKILLS_DATA` 块）→ 自包含静态单页 `src/index.html`（数据内联，**非运行时 fetch**）。
+- **单一事实来源**：磁盘 `skills/<name>/SKILL.md`（六字段契约）→ 手工维护 `data/skills-data.json`（含 `skills-metrics.json` 派生指标，均提交态）→ `scripts/sync-inline-data.mjs`（`npm run sync:data`，**仅读** `skills-data.json`，派生 `categories`/`categoryEn`/`total` 并注入 `src/index.html` 的 `window.SKILLS_DATA` 块）→ 自包含静态单页 `src/index.html`（数据内联，**非运行时 fetch**）。
 - 数据 Schema（实际为扁平结构）：`{ total:number, categories: string[], categoryEn: Record<string,string>, skills: Skill[] }`，其中 `Skill{ name, category, enCategory, zh, description, enDescription, allowedTools, hidden }`：
   - `name`：技能唯一标识（英文 slug）。
   - `category`：中文分类名；`enCategory`：该分类的英文名。
@@ -241,7 +243,7 @@
   - `categoryEn`（根级）：分类中文→英文映射对象。
 - 分类计数由 `src/index.html` 内联脚本的 `catCounts()` 预聚合为 `Map`，搜索由 `matches(s, terms)`（预切分词表缓存）实现。
 - 注意：`src/index.html` 是项目**可运行 Web 应用**唯一源码（单体文件）；`prototype/` 仅存放设计文档与设计稿，不再包含可运行构建产物。
-- 红色底线：数据契约须与 `tools/sync-inline-data.mjs`、`docs/spec.md` 严格一致。
+- 红色底线：数据契约须与 `scripts/sync-inline-data.mjs`、`docs/spec.md` 严格一致。
 
 ---
 
@@ -249,7 +251,7 @@
 
 - 站点本体为**纯静态原生实现**单体文件 `src/index.html`：内联 CSS（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind）+ 内联 JS（原生渲染与交互，无 React/Next.js/Radix）+ 内联 `window.SKILLS_DATA`。
 - 构建：`npm run build` = `next build`（`src/app/page.tsx` 仅把 `/` 重定向到 `/index.html`）后将 `src/index.html` 拷贝覆盖 `out/index.html` 并注入 GA；无前端运行时依赖。
-- 数据源：`skills/<name>/SKILL.md` → `tools/sync-inline-data.mjs` 合并生成并注入 `src/index.html` 内联数据块。
+- 数据源：磁盘 `skills/<name>/SKILL.md`（六字段契约）→ 手工维护 `data/skills-data.json` → `scripts/sync-inline-data.mjs`（仅读 skills-data.json）派生注入 `src/index.html` 内联数据块。
 - 分发形态：仓库保留 `src/index.html`（唯一可运行产物）与 `prototype/`（设计文档与设计稿，不再含可运行构建产物）。
 - 本地预览：`server/`（Express）提供静态服务与投票/收藏 API；生产部署由 `edge-worker.js` 在边缘承接投票/收藏 API（Edge KV）。静态托管服务 `out/`。
 
