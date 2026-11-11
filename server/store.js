@@ -25,14 +25,25 @@ export const kvStore = readJsonFile(STORE_FILE, { votes: {}, favorites: {} });
 
 let saveTimer = null;
 
+/** 取消待执行的防抖并立即落盘（进程退出时避免丢失最后 100ms 的投票/收藏） */
+export function flushKvStore() {
+  if (saveTimer) {
+    clearTimeout(saveTimer);
+    saveTimer = null;
+  }
+  try {
+    writeJsonAtomic(STORE_FILE, kvStore);
+  } catch (e) {
+    console.error('Failed to flush kv-store:', e);
+  }
+}
+
 /** 100ms 防抖后落盘，把高频写入合并成一次磁盘 IO */
 export function saveKvStoreAtomic() {
   if (saveTimer) clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    try {
-      writeJsonAtomic(STORE_FILE, kvStore);
-    } catch (e) {
-      console.error('Failed to atomic save kv-store:', e);
-    }
-  }, 100);
+  saveTimer = setTimeout(flushKvStore, 100);
 }
+
+// 'exit' 中只允许同步操作，writeJsonAtomic 为同步实现；
+// ratelimit.js 的 SIGINT/SIGTERM 处理器调用 process.exit 时同样会触发此钩子。
+process.on('exit', flushKvStore);

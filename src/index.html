@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- src/index.html v1.16.18 — Agent Skills Hub 自包含静态单页应用（站点本体） -->
+<!-- src/index.html v1.16.19 — Agent Skills Hub 自包含静态单页应用（站点本体） -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="app-version" content="1.16.18" />
+  <meta name="app-version" content="1.16.19" />
   <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
   <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，收录 168 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
   <!-- Open Graph / 社交分享卡片（banner-og.svg 位于 public/，随静态部署发布） -->
@@ -21,7 +21,8 @@
   <meta name="twitter:image" content="https://skills.ewuse.com/banner-og.svg" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <!-- v1.16.19：移除 href="favicon.svg" 冗余外链（src/favicon.svg 已在 v1.16.18 清理，裸开 file:// 时会产生 404）；
+       仅保留上面的 data-URI 内联 favicon，保证自包含单页双击即开；部署平台仍可用 public/favicon.svg。 -->
   <link rel="apple-touch-icon" href="favicon.svg" />
   <style>/* prototype/src/styles/tokens.css v1.14.52 — 设计令牌 + reset（DESIGN.md §2 事实来源）
  *
@@ -1089,7 +1090,7 @@ html[data-lang="tw"] .d-title .en { display: block; }
 </head>
 <body>
   <div id="aria-feedback" class="sr-only" aria-live="polite"></div>
-  <!-- 品牌图形单一来源 symbol（与 brand/hub.svg 内容一致，currentColor 驱动；DESIGN §8.2） -->
+  <!-- 品牌图形 symbol（内联于本文件，currentColor 驱动；DESIGN §8.2） -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <symbol id="ash-hub" viewBox="0 0 32 32">
       <g fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
@@ -1108,9 +1109,9 @@ html[data-lang="tw"] .d-title .en { display: block; }
       <stop offset="1" stop-color="hsl(146 52% 60%)" />
     </linearGradient>
   </svg>
-  <header class="topbar" id="appHeader" data-alias="siteHeader">
-    <div class="topbar-inner" id="topbarInner">
-      <a class="brand" id="brandLink" href="#">
+  <header class="topbar" id="app-header">
+    <div class="topbar-inner" id="topbar-inner">
+      <a class="brand" id="brand-link" href="#">
         <svg class="logo" viewBox="0 0 32 32" role="img" aria-label="Agent Skills Hub">
           <rect width="32" height="32" rx="8" fill="url(#ash-grad)" />
           <use href="#ash-hub" xlink:href="#ash-hub" width="32" height="32" color="#fff" />
@@ -1120,16 +1121,16 @@ html[data-lang="tw"] .d-title .en { display: block; }
           <small class="brand-sub" data-i18n="brand.subtitle">高质量 Agent 技能库</small>
         </span>
       </a>
-      <div class="topbar-actions" id="topbarActions">
-        <button class="icon-btn" id="langBtn" data-tip-zh="语言" data-tip-tw="語言" data-tip-en="Language" aria-label="切换语言 / Switch language" aria-pressed="false">
+      <div class="topbar-actions" id="topbar-actions">
+        <button class="icon-btn" id="lang-btn" data-tip-zh="语言" data-tip-tw="語言" data-tip-en="Language" aria-label="切换语言 / Switch language" aria-pressed="false">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="9"></circle>
             <path d="M3 12h18"></path>
             <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"></path>
           </svg>
         </button>
-        <button class="icon-btn" id="themeBtn" data-tip-zh="主题" data-tip-tw="主題" data-tip-en="Theme" aria-label="切换主题 / Switch theme" aria-pressed="false">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="themeIcon">
+        <button class="icon-btn" id="theme-btn" data-tip-zh="主题" data-tip-tw="主題" data-tip-en="Theme" aria-label="切换主题 / Switch theme" aria-pressed="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="theme-icon">
             <g class="theme-sun">
               <circle cx="12" cy="12" r="4"></circle>
               <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
@@ -1137,12 +1138,12 @@ html[data-lang="tw"] .d-title .en { display: block; }
             <path class="theme-moon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
           </svg>
         </button>
-        <button class="icon-btn" id="favToggleBtn" data-tip-zh="收藏夹" data-tip-tw="收藏夾" data-tip-en="Favorites" aria-label="收藏夹 / Favorites" aria-pressed="false">
+        <button class="icon-btn" id="fav-toggle-btn" data-tip-zh="收藏夹" data-tip-tw="收藏夾" data-tip-en="Favorites" aria-label="收藏夹 / Favorites" aria-pressed="false">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
           </svg>
         </button>
-        <button class="icon-btn" id="settingsBtn" data-tip-zh="设置" data-tip-tw="設定" data-tip-en="Settings" aria-label="打开设置 / Open settings">
+        <button class="icon-btn" id="settings-btn" data-tip-zh="设置" data-tip-tw="設定" data-tip-en="Settings" aria-label="打开设置 / Open settings">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
@@ -1152,18 +1153,18 @@ html[data-lang="tw"] .d-title .en { display: block; }
     </div>
   </header>
 
-  <section class="hero" id="hero" aria-labelledby="heroTitle">
-    <div class="hero-grid" id="heroGrid">
-      <div class="hero-left" id="heroLeft">
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <div class="hero-grid" id="hero-grid">
+      <div class="hero-left" id="hero-left">
         <span class="hero-eyebrow zh" data-i18n="hero.eyebrow">Agent 技能枢纽</span>
         <span class="hero-eyebrow tw" data-i18n="hero.eyebrow">Agent 技能樞紐</span>
         <span class="hero-eyebrow en" data-i18n="hero.eyebrow">Agent Skills Hub</span>
-        <h1 class="zh" id="heroTitle">零散的 agent 技能，<br><span class="accent">汇聚</span>成一处可检索的枢纽</h1>
-        <h1 class="tw" id="heroTitleTw">零散的 agent 技能，<br><span class="accent">匯聚</span>成一座可檢索的樞紐</h1>
-        <h1 class="en" id="heroTitleEn" aria-hidden="true">Scattered agent skills,<br> <span class="accent">unified</span> into one searchable hub</h1>
-        <p class="zh" id="heroSubtitleZh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
-        <p class="tw" id="heroSubtitleTw" data-i18n="hero.subtitle">按分類瀏覽、搜尋，或檢視技能詳情——為你的編碼 agent 即取即用。</p>
-        <p class="en" id="heroSubtitleEn" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
+        <h1 class="zh" id="hero-title">零散的 agent 技能，<br><span class="accent">汇聚</span>成一处可检索的枢纽</h1>
+        <h1 class="tw" id="hero-title-tw">零散的 agent 技能，<br><span class="accent">匯聚</span>成一座可檢索的樞紐</h1>
+        <h1 class="en" id="hero-title-en" aria-hidden="true">Scattered agent skills,<br> <span class="accent">unified</span> into one searchable hub</h1>
+        <p class="zh" id="hero-subtitle-zh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
+        <p class="tw" id="hero-subtitle-tw" data-i18n="hero.subtitle">按分類瀏覽、搜尋，或檢視技能詳情——為你的編碼 agent 即取即用。</p>
+        <p class="en" id="hero-subtitle-en" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
         <ul class="hero-features" aria-label="Highlights">
           <li class="zh"><span class="feat-icon">⚙️</span> 零维护清单 · 构建自动生成</li><li class="tw"><span class="feat-icon">⚙️</span> 零維護清單 · 建置自動產生</li><li class="en"><span class="feat-icon">⚙️</span> Zero-maintenance, auto-generated</li>
           <li class="zh"><span class="feat-icon">🌏</span> 中文本地化 · 开箱即用</li><li class="tw"><span class="feat-icon">🌏</span> 中文本地化 · 開箱即用</li><li class="en"><span class="feat-icon">🌏</span> Chinese-localized, ready to use</li>
@@ -1171,15 +1172,15 @@ html[data-lang="tw"] .d-title .en { display: block; }
         </ul>
       </div>
 
-      <div class="hero-right" id="heroRight">
-        <div class="hero-visual-card" id="heroVisual">
-          <svg class="hero-net" id="heroNet" viewBox="0 0 500 240" preserveAspectRatio="xMidYMin meet" overflow="visible" aria-hidden="true">
-            <g id="netLines" stroke="hsl(var(--line))" stroke-width="1.4" opacity=".6"></g>
-            <g id="netNodes" fill="hsl(var(--node))"></g>
+      <div class="hero-right" id="hero-right">
+        <div class="hero-visual-card" id="hero-visual">
+          <svg class="hero-net" id="hero-net" viewBox="0 0 500 240" preserveAspectRatio="xMidYMin meet" overflow="visible" aria-hidden="true">
+            <g id="net-lines" stroke="hsl(var(--line))" stroke-width="1.4" opacity=".6"></g>
+            <g id="net-nodes" fill="hsl(var(--node))"></g>
             <circle class="hub-glow" cx="250" cy="110" r="13" fill="hsl(var(--primary))" opacity="0" />
             <circle class="hub-node hub-core" cx="250" cy="110" r="16" fill="hsl(var(--primary))" />
           </svg>
-          <div class="hero-dice-card" id="heroDice">
+          <div class="hero-dice-card" id="hero-dice">
             <div class="dice-info">
               <span class="dice-title zh">🎲 探索灵感盲盒</span>
               <span class="dice-title tw">🎲 探索靈感盲盒</span>
@@ -1188,7 +1189,7 @@ html[data-lang="tw"] .d-title .en { display: block; }
               <span class="dice-hint tw" data-i18n="dice.hint">不知道從哪開始？讓骰子決定。</span>
               <span class="dice-hint en" data-i18n="dice.hint">Not sure where to start? Let the dice decide.</span>
             </div>
-            <button type="button" id="diceBtn" class="btn-dice" aria-label="随机抽一个技能">
+            <button type="button" id="dice-btn" class="btn-dice" aria-label="随机抽一个技能">
               <span class="dice-face" aria-hidden="true">🎲</span>
               <span class="zh" data-i18n="dice.btn">今天学点什么</span>
               <span class="tw" data-i18n="dice.btn">今天學點什麼</span>
@@ -1201,27 +1202,27 @@ html[data-lang="tw"] .d-title .en { display: block; }
   </section>
 
   <!-- 探索与筛选控制台一体化 -->
-  <div class="controls" id="searchControls">
-    <div class="controls-inner" id="searchControlsInner">
+  <div class="controls" id="search-controls">
+    <div class="controls-inner" id="search-controls-inner">
       <div class="search-row">
-        <form class="search" id="searchBox" role="search" onsubmit="return false">
+        <form class="search" id="search-box" role="search" onsubmit="return false">
           <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
-          <label class="sr-only" for="searchInput">搜索技能 / Search skills</label>
-          <input id="searchInput" type="search" placeholder="搜索技能名称或描述… (按 / 聚焦)" />
+          <label class="sr-only" for="search-input">搜索技能 / Search skills</label>
+          <input id="search-input" type="search" placeholder="搜索技能名称或描述… (按 / 聚焦)" />
           <kbd class="search-kbd" title="按快捷键 / 聚焦搜索">/</kbd>
         </form>
 
         <!-- 快捷过滤锚点药丸 -->
-        <div class="quick-filters" id="quickFilters" role="toolbar" aria-label="Quick Filters">
-          <button type="button" class="qf-btn" id="qfPopular" aria-pressed="false" title="最多点赞技能">
+        <div class="quick-filters" id="quick-filters" role="toolbar" aria-label="Quick Filters">
+          <button type="button" class="qf-btn" id="qf-popular" aria-pressed="false" title="最多点赞技能">
             <span>🔥</span> <span class="zh">最多赞</span><span class="tw">最多讚</span><span class="en">Popular</span>
           </button>
-          <button type="button" class="qf-btn" id="qfFavs" aria-pressed="false" title="仅查看我的收藏">
+          <button type="button" class="qf-btn" id="qf-favs" aria-pressed="false" title="仅查看我的收藏">
             <span>⭐</span> <span class="zh">我的收藏</span><span class="tw">我的收藏</span><span class="en">Saved</span>
           </button>
         </div>
 
-        <div class="view-toggle" id="viewToggle">
+        <div class="view-toggle" id="view-toggle">
           <button class="view-btn active" data-view="grid" title="网格">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
           </button>
@@ -1230,9 +1231,9 @@ html[data-lang="tw"] .d-title .en { display: block; }
           </button>
         </div>
 
-        <label class="sort-wrap" id="sortWrap">
-          <span class="sr-only" id="sortLabel">排序 / Sort</span>
-          <select id="sortSelect" aria-labelledby="sortLabel">
+        <label class="sort-wrap" id="sort-wrap">
+          <span class="sr-only" id="sort-label">排序 / Sort</span>
+          <select id="sort-select" aria-labelledby="sort-label">
             <option value="name" data-i18n="sort.name">名称 A-Z</option>
             <option value="name-desc" data-i18n="sort.nameDesc">名称 Z-A</option>
             <option value="votes">按点赞数 ↓</option>
@@ -1240,16 +1241,16 @@ html[data-lang="tw"] .d-title .en { display: block; }
             <option value="zh" data-i18n="sort.zh">按中文名</option>
           </select>
         </label>
-        <span class="result-count" id="resultCount" aria-live="polite"></span>
+        <span class="result-count" id="result-count" aria-live="polite"></span>
       </div>
 
       <!-- 激活态过滤标签条（带一键清除） -->
-      <div class="active-filter-bar" id="activeFilterBar" style="display: none;">
+      <div class="active-filter-bar" id="active-filter-bar" style="display: none;">
         <span class="af-label zh">当前筛选：</span>
         <span class="af-label tw">目前篩選：</span>
         <span class="af-label en">Filters:</span>
-        <div class="af-tags" id="afTags"></div>
-        <button type="button" class="af-clear-btn" id="afClearAll">
+        <div class="af-tags" id="af-tags"></div>
+        <button type="button" class="af-clear-btn" id="af-clear-all">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
           <span class="zh">清空全部</span><span class="tw">清空全部</span><span class="en">Clear all</span>
         </button>
@@ -1258,8 +1259,8 @@ html[data-lang="tw"] .d-title .en { display: block; }
   </div>
 
   <!-- 分类占比环形图区（分类导航上方） -->
-  <section class="cat-chart-section" id="catChartSection" aria-label="分类技能分布占比 / Category Distribution">
-    <div class="cat-chart-wrapper" id="catChartWrapper">
+  <section class="cat-chart-section" id="cat-chart-section" aria-label="分类技能分布占比 / Category Distribution">
+    <div class="cat-chart-wrapper" id="cat-chart-wrapper">
       <div class="cat-chart-head">
         <div class="cat-chart-title-wrap">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cat-chart-icon"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10h-10z"/></svg>
@@ -1274,7 +1275,7 @@ html[data-lang="tw"] .d-title .en { display: block; }
             <span class="en" data-i18n="chart.hint">Click any slice or legend item to filter</span>
           </span>
         </div>
-        <button type="button" class="cat-chart-toggle" id="catChartToggle" aria-expanded="true" aria-controls="catChartBody" aria-label="收起或展开分类图表">
+        <button type="button" class="cat-chart-toggle" id="cat-chart-toggle" aria-expanded="true" aria-controls="cat-chart-body" aria-label="收起或展开分类图表">
           <span class="toggle-text zh">收起图表</span>
           <span class="toggle-text tw">收合圖表</span>
           <span class="toggle-text en">Collapse</span>
@@ -1282,27 +1283,27 @@ html[data-lang="tw"] .d-title .en { display: block; }
         </button>
       </div>
 
-      <div class="cat-chart-body" id="catChartBody">
-        <div class="cat-donut-container" id="catDonutContainer">
+      <div class="cat-chart-body" id="cat-chart-body">
+        <div class="cat-donut-container" id="cat-donut-container">
           <!-- 环形图 SVG 由 JavaScript 动态绘制（D3 规范极坐标几何计算） -->
-          <svg class="cat-donut-svg" id="catDonutSvg" viewBox="0 0 200 200" role="img" aria-label="各类别技能分布环形图">
-            <g id="catDonutSlices" transform="translate(100, 100)"></g>
+          <svg class="cat-donut-svg" id="cat-donut-svg" viewBox="0 0 200 200" role="img" aria-label="各类别技能分布环形图">
+            <g id="cat-donut-slices" transform="translate(100, 100)"></g>
           </svg>
-          <div class="cat-donut-center" id="catDonutCenter" role="button" tabindex="0" aria-label="分类概览与重置">
-            <div class="donut-center-num" id="donutCenterNum">168</div>
-            <div class="donut-center-label" id="donutCenterLabel">全部技能</div>
-            <div class="donut-center-hint" id="donutCenterHint">点击分类筛选</div>
+          <div class="cat-donut-center" id="cat-donut-center" role="button" tabindex="0" aria-label="分类概览与重置">
+            <div class="donut-center-num" id="donut-center-num">168</div>
+            <div class="donut-center-label" id="donut-center-label">全部技能</div>
+            <div class="donut-center-hint" id="donut-center-hint">点击分类筛选</div>
           </div>
         </div>
 
-        <div class="cat-legend-wrap" id="catLegendWrap" role="list" aria-label="技能类别分布列表">
+        <div class="cat-legend-wrap" id="cat-legend-wrap" role="list" aria-label="技能类别分布列表">
           <!-- 图例卡片项由 JS 动态生成，支持键盘 focus 与点击触发筛选 -->
         </div>
       </div>
     </div>
   </section>
 
-  <nav class="cats" id="tagNav" aria-label="技能标签 / Tags"><div class="filter-scroll" id="tagChips"></div></nav>
+  <nav class="cats" id="tag-nav" aria-label="技能标签 / Tags"><div class="filter-scroll" id="tag-chips"></div></nav>
 
   <main class="grid" id="grid" aria-label="技能列表" aria-live="off">
     <!-- 首屏骨架占位：JS 渲染前避免白屏，renderGrid 会用真实卡片整体替换此容器 -->
@@ -1371,39 +1372,39 @@ html[data-lang="tw"] .d-title .en { display: block; }
   <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
 
   <!-- 页脚区：定位为「目录版权页」—— 左栏品牌/协议/版权元数据，中段辅助导航，右段动作区（v1.16.16 三段式）
-       脚本契约（勿改 id）：#footerVer 版本 / #footerBuild 构建号 由 inject-ga.mjs 构建期与 server/pages.js 本地服务注入；#starBtn/#shareBtn 绑定交互。
+       脚本契约（勿改 id）：#footer-ver 版本 / #footer-build 构建号 由 inject-ga.mjs 构建期与 server/pages.js 本地服务注入；#star-btn/#share-btn 绑定交互。
        约定：版本取自 package.json（占位符 __APP_VERSION__，构建/本地服务替换），构建号 = yymmddhhmm（10 位 · 2 位数年份，占位符 __BUILD_ID__）；不再展示更新日期。
-       版权年份由 JS 动态写入 #footerCopy；meta 与辅助链接均为静态节点，语言切换靠 .zh/.en 互斥显示。 -->
-  <footer class="site-footer" id="siteFooter">
-    <div class="footer-inner" id="footerInner">
-      <div class="footer-info" id="footerInfo">
-        <a class="footer-name" id="footerName" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener" aria-label="访问 GitHub 仓库 / Visit GitHub repo">Agent Skills Hub</a>
-        <a class="footer-desc zh" id="footerDescZh" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">开源免费 · MIT 协议</a>
-        <a class="footer-desc tw" id="footerDescTw" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">開源免費 · MIT 授權</a>
-        <a class="footer-desc en" id="footerDescEn" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">Open source · MIT License</a>
-        <div class="footer-meta" id="footerMeta">
+       版权年份由 JS 动态写入 #footer-copy；meta 与辅助链接均为静态节点，语言切换靠 .zh/.en 互斥显示。 -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-inner" id="footer-inner">
+      <div class="footer-info" id="footer-info">
+        <a class="footer-name" id="footer-name" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener" aria-label="访问 GitHub 仓库 / Visit GitHub repo">Agent Skills Hub</a>
+        <a class="footer-desc zh" id="footer-desc-zh" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">开源免费 · MIT 协议</a>
+        <a class="footer-desc tw" id="footer-desc-tw" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">開源免費 · MIT 授權</a>
+        <a class="footer-desc en" id="footer-desc-en" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">Open source · MIT License</a>
+        <div class="footer-meta" id="footer-meta">
           <!-- 版权年份 + 版本（__APP_VERSION__，链接至 releases）+ 构建号（__BUILD_ID__，按钮可复制） -->
-          <span class="footer-copy" id="footerCopy">© 2026</span>
+          <span class="footer-copy" id="footer-copy">© 2026</span>
           <span class="footer-sep" aria-hidden="true">·</span>
-          <a class="footer-ver" id="footerVer" href="https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v__APP_VERSION__" target="_blank" rel="noopener" title="查看该版本更新说明 / View release notes">v__APP_VERSION__</a>
+          <a class="footer-ver" id="footer-ver" href="https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v__APP_VERSION__" target="_blank" rel="noopener" title="查看该版本更新说明 / View release notes">v__APP_VERSION__</a>
           <span class="footer-sep" aria-hidden="true">·</span>
-          <button class="footer-build" id="footerBuild" type="button" aria-label="复制版本信息 / Copy version info">build __BUILD_ID__</button>
+          <button class="footer-build" id="footer-build" type="button" aria-label="复制版本信息 / Copy version info">build __BUILD_ID__</button>
         </div>
       </div>
       <!-- 辅助导航：补齐页脚此前缺失的内容入口（关于 / 更新日志 / 反馈） -->
-      <nav class="footer-links" id="footerLinks" aria-label="页脚导航 / Footer navigation">
+      <nav class="footer-links" id="footer-links" aria-label="页脚导航 / Footer navigation">
         <a href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener"><span class="zh" data-i18n="footer.about">关于</span><span class="tw" data-i18n="footer.about">關於</span><span class="en" data-i18n="footer.about">About</span></a>
         <a href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/CHANGELOG.md" target="_blank" rel="noopener"><span class="zh" data-i18n="footer.changelog">更新日志</span><span class="tw" data-i18n="footer.changelog">更新日誌</span><span class="en" data-i18n="footer.changelog">Changelog</span></a>
         <a href="https://github.com/sutchan/Agent-Skills-Hub/issues" target="_blank" rel="noopener"><span class="zh" data-i18n="footer.issue">提交 Issue</span><span class="tw" data-i18n="footer.issue">提交 Issue</span><span class="en" data-i18n="footer.issue">Report an issue</span></a>
       </nav>
-      <nav class="footer-cta" id="footerCta" aria-label="页脚动作 / Footer actions">
-        <a class="star-btn" id="starBtn" href="https://github.com/sutchan/Agent-Skills-Hub/stargazers" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
+      <nav class="footer-cta" id="footer-cta" aria-label="页脚动作 / Footer actions">
+        <a class="star-btn" id="star-btn" href="https://github.com/sutchan/Agent-Skills-Hub/stargazers" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9L12 2.5z"/></svg>
           <span class="zh" data-i18n="footer.star">给仓库点个 Star</span>
           <span class="tw" data-i18n="footer.star">給倉庫點個 Star</span>
           <span class="en" data-i18n="footer.star">Star this repo</span>
         </a>
-        <button class="share-btn" id="shareBtn" type="button" aria-label="分享 / Share">
+        <button class="share-btn" id="share-btn" type="button" aria-label="分享 / Share">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
           <span class="zh" data-i18n="share.btn">分享</span>
           <span class="tw" data-i18n="share.btn">分享</span>
@@ -1418,7 +1419,7 @@ html[data-lang="tw"] .d-title .en { display: block; }
   </div>
 
   <!-- 回到顶部按钮：长列表滚动后出现，提升长页面导航效率（id 供脚本精确选取） -->
-  <button class="to-top" id="toTop" aria-label="回到顶部 / Back to top" title="回到顶部 / Back to top">
+  <button class="to-top" id="to-top" aria-label="回到顶部 / Back to top" title="回到顶部 / Back to top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
   </button>
 
@@ -2070,7 +2071,7 @@ function renderCats(agg) {
 
 // 标签多选筛选 chips：聚合可见技能标签频次（取前 28），选中态与 state.tags 对齐（标签间 OR，与分类 AND）
 function renderTags() {
-  const container = $("#tagChips");
+  const container = $("#tag-chips");
   if (!container) return;
   const counts = new Map();
   SKILLS_DATA.skills.forEach((s) => {
@@ -2079,22 +2080,22 @@ function renderTags() {
   });
   const tags = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 28);
   const allActive = state.tags.length === 0;
-  const allBtn = `<button class="chip chip-all${allActive ? " active" : ""}" id="tagChip-all" data-tag="" style="--hue:270" tabindex="0" aria-pressed="${allActive}">${I18N.t("filter.tags")} · ${I18N.t("filter.all")}</button>`;
+  const allBtn = `<button class="chip chip-all${allActive ? " active" : ""}" id="tag-chip-all" data-tag="" style="--hue:270" tabindex="0" aria-pressed="${allActive}">${I18N.t("filter.tags")} · ${I18N.t("filter.all")}</button>`;
   container.innerHTML = allBtn + tags.map(([t, c]) => {
     const active = state.tags.includes(t);
     const safe = t.replace(/[^a-zA-Z0-9一-龥_-]/g, "");
-    return `<button class="chip${active ? " active" : ""}" id="tagChip-${safe}" data-tag="${esc(t)}" style="--hue:270" tabindex="0" aria-pressed="${active}"><span class="zh">${esc(t)}</span> <span class="chip-count">${c}</span></button>`;
+    return `<button class="chip${active ? " active" : ""}" id="tag-chip-${safe}" data-tag="${esc(t)}" style="--hue:270" tabindex="0" aria-pressed="${active}"><span class="zh">${esc(t)}</span> <span class="chip-count">${c}</span></button>`;
   }).join("");
 }
 
 // 分类占比环形图（遵循 D3 极坐标圆弧投影规范构建轻量 SVG 环形图与图例）
 function renderCategoryChart(items) {
-  const slicesG = $("#catDonutSlices");
-  const legendWrap = $("#catLegendWrap");
-  const centerNum = $("#donutCenterNum");
-  const centerLabel = $("#donutCenterLabel");
-  const centerHint = $("#donutCenterHint");
-  const centerBox = $("#catDonutCenter");
+  const slicesG = $("#cat-donut-slices");
+  const legendWrap = $("#cat-legend-wrap");
+  const centerNum = $("#donut-center-num");
+  const centerLabel = $("#donut-center-label");
+  const centerHint = $("#donut-center-hint");
+  const centerBox = $("#cat-donut-center");
   if (!slicesG || !legendWrap) return;
 
   const total = items.reduce((sum, it) => sum + it.count, 0);
@@ -2173,7 +2174,7 @@ function renderCategoryChart(items) {
     if (d) {
       slicePaths.push(`
         <path class="cat-donut-slice${isActive ? " active" : ""}${isDimmed ? " dimmed" : ""}"
-              id="catSlice-${safeKey}"
+              id="cat-slice-${safeKey}"
               d="${d}"
               fill="hsl(${it.hue} 75% 45%)"
               data-cat="${esc(it.key)}"
@@ -2189,7 +2190,7 @@ function renderCategoryChart(items) {
     // 图例数据明细行（带微型占比进度条，强化数据可视化属性）
     legendHTML.push(`
       <div class="cat-legend-item${isActive ? " active" : ""}${isDimmed ? " dimmed" : ""}"
-           id="catLegend-${safeKey}"
+           id="cat-legend-${safeKey}"
            data-cat="${esc(it.key)}"
            role="button"
            tabindex="0"
@@ -2321,7 +2322,7 @@ function emptyHTML() {
       top.map(([t]) => `<button type="button" class="chip chip-tag" data-tag="${esc(t)}" style="--hue:270">${esc(t)}</button>`).join("") +
       `</div></div>`
     : "";
-  return `<div id="emptyState" class="empty-state" aria-live="polite">
+  return `<div id="empty-state" class="empty-state" aria-live="polite">
     <svg class="empty-net" viewBox="0 0 160 100" aria-hidden="true">
       <g class="en-line">
         <line x1="40" y1="30" x2="80" y2="55" /><line x1="80" y1="55" x2="120" y2="35" />
@@ -2335,7 +2336,7 @@ function emptyHTML() {
     </svg>
     <div class="empty-title">${I18N.t("empty.title")}</div>
     <div class="empty-desc">${I18N.t("empty.desc")}</div>
-    <button id="clearFilters" class="btn btn-ghost">${I18N.t("empty.clear")}</button>
+    <button id="clear-filters" class="btn btn-ghost">${I18N.t("empty.clear")}</button>
     ${suggest}
   </div>`;
 }
@@ -2352,8 +2353,8 @@ function queryTerms(q) {
 
 // 渲染当前激活的过滤项标签（关键词、分类、收藏、热榜）并提供一键移除
 function renderActiveFilterBar() {
-  const bar = $("#activeFilterBar");
-  const container = $("#afTags");
+  const bar = $("#active-filter-bar");
+  const container = $("#af-tags");
   if (!bar || !container) return;
   const tags = [];
   if (state.query.trim()) {
@@ -2378,12 +2379,12 @@ function renderActiveFilterBar() {
     container.innerHTML = "";
     bar.style.display = "none";
   }
-  const qfFavs = $("#qfFavs");
+  const qfFavs = $("#qf-favs");
   if (qfFavs) {
     qfFavs.classList.toggle("active", Boolean(state.favoritesOnly));
     qfFavs.setAttribute("aria-pressed", String(state.favoritesOnly));
   }
-  const qfPop = $("#qfPopular");
+  const qfPop = $("#qf-popular");
   if (qfPop) {
     const isPop = state.sort === "votes";
     qfPop.classList.toggle("active", isPop);
@@ -2418,12 +2419,12 @@ function renderGrid() {
   grid.className = "grid " + state.view;
   grid.innerHTML = pageList.length ? pageList.map(cardHTML).join("") : emptyHTML();
   // 同步排序下拉当前值（切换语言或重置时保持一致）
-  const ss = $("#sortSelect");
+  const ss = $("#sort-select");
   if (ss) ss.value = state.sort;
   // 分页器（数字翻页 + 上下页）
   renderPager(list.length, totalPages);
   // 结果计数 live 区：搜索/筛选后只播报数量，避免读屏朗读整网格（随当前语言）
-  const rc = $("#resultCount");
+  const rc = $("#result-count");
   if (rc) rc.textContent = list.length
     ? I18N.t("result.count").replace("{n}", list.length)
     : I18N.t("result.empty");
@@ -2498,55 +2499,67 @@ function popularityHTML(pop) {
   return `<div class="metric-pop"><span class="heat-bars">${bars}</span><span class="pop-label">${esc(label)}</span></div>`;
 }
 
-// 复制技能名到剪贴板（提示已复制）
-function copySkillName(name) {
-  const done = () => {
-    const tip = $("#copyTip");
-    if (tip) {
-      tip.textContent = I18N.t("detail.copied");
-      tip.classList.add("show");
-      setTimeout(() => tip.classList.remove("show"), 1400);
-    }
-  };
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(name).then(done).catch(() => fallbackCopy(name, done));
-  } else {
-    fallbackCopy(name, done);
+// 复制反馈：成功时显示弹窗内提示，失败统一 toast，杜绝「复制失败却提示已复制」
+function showCopyTip(selector, ok) {
+  if (!ok) { showToast(I18N.t("share.failed")); return; }
+  const tip = $(selector);
+  if (tip) {
+    tip.textContent = I18N.t("detail.copied");
+    tip.classList.add("show");
+    setTimeout(() => tip.classList.remove("show"), 1400);
   }
 }
-function fallbackCopy(text, done) {
+
+// 复制技能名到剪贴板
+function copySkillName(name) {
+  copyText(name)
+    .then((ok) => showCopyTip("#copy-tip", ok))
+    .catch(() => showToast(I18N.t("share.failed")));
+}
+
+/** execCommand 降级复制：返回是否真的复制成功，且无论结果都清理临时 textarea */
+function fallbackCopy(text) {
   const ta = document.createElement("textarea");
   ta.value = text;
   ta.style.position = "fixed";
   ta.style.opacity = "0";
   document.body.appendChild(ta);
-  ta.select();
-  try { document.execCommand("copy"); done(); } catch { /* 忽略 */ }
-  document.body.removeChild(ta);
+  let ok = false;
+  try {
+    ta.select();
+    ok = document.execCommand("copy") !== false;
+  } catch {
+    ok = false;
+  } finally {
+    document.body.removeChild(ta);
+  }
+  return ok;
 }
 
-// 复制安装命令：读取按钮 data-cmd，提示到该弹窗内 #copyCmdTip（区别于复制名称的 #copyTip）
+// 复制安装命令：读取按钮 data-cmd，提示到该弹窗内 #copy-cmd-tip（区别于复制名称的 #copy-tip）
 function copyCmdButton(btn) {
   const cmd = btn.getAttribute("data-cmd") || "";
-  const done = () => {
-    const tip = $("#copyCmdTip");
-    if (tip) {
-      tip.textContent = I18N.t("detail.copied");
-      tip.classList.add("show");
-      setTimeout(() => tip.classList.remove("show"), 1400);
-    }
-  };
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(cmd).then(done).catch(() => fallbackCopy(cmd, done));
-  } else {
-    fallbackCopy(cmd, done);
+  copyText(cmd)
+    .then((ok) => showCopyTip("#copy-cmd-tip", ok))
+    .catch(() => showToast(I18N.t("share.failed")));
+}
+
+/** 仅放行 http/https 外链，阻断 javascript:/data: 等协议注入 */
+function safeExternalUrl(value) {
+  try {
+    const u = new URL(String(value), location.href);
+    return u.protocol === "https:" || u.protocol === "http:" ? u.href : "";
+  } catch {
+    return "";
   }
 }
 
 function metaRow(label, value, isLink) {
   if (!value) return "";
   if (isLink) {
-    return `<div class="meta-row"><span class="meta-k">${esc(label)}</span><a class="meta-v link" href="${esc(value)}" target="_blank" rel="noopener">${esc(value.replace(/^https?:\/\//, ""))}</a></div>`;
+    const url = safeExternalUrl(value);
+    if (!url) return `<div class="meta-row"><span class="meta-k">${esc(label)}</span><span class="meta-v">${esc(value)}</span></div>`;
+    return `<div class="meta-row"><span class="meta-k">${esc(label)}</span><a class="meta-v link" href="${esc(url)}" target="_blank" rel="noopener">${esc(String(value).replace(/^https?:\/\//, ""))}</a></div>`;
   }
   return `<div class="meta-row"><span class="meta-k">${esc(label)}</span><span class="meta-v">${esc(value)}</span></div>`;
 }
@@ -2562,15 +2575,17 @@ function detailHTML(skill) {
   const titleEn = skill.name;
   const fav = isFavorite(skill.name);
 
-  // 名称显示策略（与卡片一致）
-  let titleHTML = "";
+  // 名称显示策略（与卡片一致）：id 用单一常量，避免互斥分支重复定义同名 id
+  const detailTitleId = "detail-title";
+  let titleInner = "";
   if (st.nameMode === "en") {
-    titleHTML = `<h2 class="d-title" id="d-title"><span class="en">${esc(titleEn)}</span></h2>`;
+    titleInner = `<span class="en">${esc(titleEn)}</span>`;
   } else if (st.nameMode === "zh") {
-    titleHTML = `<h2 class="d-title" id="d-title"><span class="zh">${esc(titleZh)}</span></h2>`;
+    titleInner = `<span class="zh">${esc(titleZh)}</span>`;
   } else {
-    titleHTML = `<h2 class="d-title" id="d-title"><span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span></h2>`;
+    titleInner = `<span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span>`;
   }
+  const titleHTML = `<h2 class="d-title" id="${detailTitleId}">${titleInner}</h2>`;
 
   // 元信息区：技能名称 / 分类 / 主页 / GitHub 目录
   // 仅渲染 data 中真实存在的字段（author/stars/license/version/firstSeen 在数据源中不存在，已移除对应死代码）
@@ -2593,11 +2608,11 @@ function detailHTML(skill) {
     <div class="d-install">
       <h4>${I18N.t("detail.install")}</h4>
       <div class="cmd-row">
-        <code class="cmd-text" id="installCmd">${esc(cmd)}</code>
-        <button id="copyCmdBtn" class="btn ghost" data-cmd="${esc(cmd)}" aria-label="${I18N.t("detail.copyCmd")}">${I18N.t("detail.copyCmd")}</button>
+        <code class="cmd-text" id="install-cmd">${esc(cmd)}</code>
+        <button id="copy-cmd-btn" class="btn ghost" data-cmd="${esc(cmd)}" aria-label="${I18N.t("detail.copyCmd")}">${I18N.t("detail.copyCmd")}</button>
       </div>
-      <span id="copyCmdTip" class="copy-tip"></span>
-      <a id="skillManagerBtn" class="btn primary open-ext" href="${SKILLS_MANAGER_URL}" target="_blank" rel="noopener noreferrer" title="${I18N.t("detail.importWithManagerHint")}">
+      <span id="copy-cmd-tip" class="copy-tip"></span>
+      <a id="skill-manager-btn" class="btn primary open-ext" href="${SKILLS_MANAGER_URL}" target="_blank" rel="noopener noreferrer" title="${I18N.t("detail.importWithManagerHint")}">
         ${I18N.t("detail.importWithManager")}
       </a>
     </div>`;
@@ -2631,7 +2646,7 @@ function detailHTML(skill) {
     : "";
 
   return `
-  <div id="detailDialog" class="detail" role="dialog" aria-modal="true" aria-label="${esc(titleZh)}">
+  <div id="detail-dialog" class="detail" role="dialog" aria-modal="true" aria-label="${esc(titleZh)}">
     <div class="detail-head">
       ${titleHTML}
       <div class="d-actions">
@@ -2640,10 +2655,10 @@ function detailHTML(skill) {
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
           </svg>
         </button>
-        <button id="copyNameBtn" class="btn ghost" data-name="${esc(skill.name)}">${I18N.t("detail.copyName")}</button>
-        <span id="copyTip" class="copy-tip"></span>
+        <button id="copy-name-btn" class="btn ghost" data-name="${esc(skill.name)}">${I18N.t("detail.copyName")}</button>
+        <span id="copy-tip" class="copy-tip"></span>
       </div>
-      <button id="detailClose" class="detail-close" aria-label="${I18N.t("detail.close")}">×</button>
+      <button id="detail-close" class="detail-close" aria-label="${I18N.t("detail.close")}">×</button>
     </div>
     <div class="detail-meta">${metaRows}</div>
     ${installHTML}
@@ -2651,7 +2666,7 @@ function detailHTML(skill) {
     <div class="detail-body">
       <p class="d-desc">${esc(desc || "")}</p>
       ${toolsHTML}
-      <div class="d-vote" id="detailVote"><div class="d-vote-head"><h4>${I18N.t("vote.title")}</h4><div style="display:inline-flex;gap:8px;align-items:center;"><button type="button" id="exportVotesBtn" class="btn ghost sm" style="font-size:12px;padding:3px 8px;">导出反馈</button><a id="reportIssueLink" href="https://github.com/sutchan/Agent-Skills-Hub/issues/new" target="_blank" rel="noopener noreferrer" class="btn ghost sm open-ext" style="font-size:12px;padding:3px 8px;text-decoration:none;">反馈问题</a></div></div>${voteHTML(skill.name)}<p class="d-vote-note">${I18N.t("vote.note")}</p></div>
+      <div class="d-vote" id="detail-vote"><div class="d-vote-head"><h4>${I18N.t("vote.title")}</h4><div style="display:inline-flex;gap:8px;align-items:center;"><button type="button" id="export-votes-btn" class="btn ghost sm" style="font-size:12px;padding:3px 8px;">导出反馈</button><a id="report-issue-link" href="https://github.com/sutchan/Agent-Skills-Hub/issues/new" target="_blank" rel="noopener noreferrer" class="btn ghost sm open-ext" style="font-size:12px;padding:3px 8px;text-decoration:none;">反馈问题</a></div></div>${voteHTML(skill.name)}<p class="d-vote-note">${I18N.t("vote.note")}</p></div>
       ${relatedHTML}
     </div>
   </div>`;
@@ -2670,23 +2685,23 @@ function openDetail(arg) {
   const isSheet = window.matchMedia("(max-width: 640px)").matches;
   dialog.classList.toggle("sheet", isSheet);
   dialog.classList.toggle("modal", !isSheet);
-  // 无障碍：弹窗标题由详情动态渲染的 #d-title 提供（避免指向不存在的静态 id）
-  dialog.setAttribute("aria-labelledby", "d-title");
+  // 无障碍：弹窗标题由详情动态渲染的 #detail-title 提供（避免指向不存在的静态 id）
+  dialog.setAttribute("aria-labelledby", "detail-title");
   overlay.classList.add("show");
   dialog.classList.add("show"); // #dialog 默认 display:none，需 .show 才可见
   document.body.classList.add("no-scroll");
 
-  $("#detailClose").addEventListener("click", closeDetail);
+  $("#detail-close").addEventListener("click", closeDetail);
   // 无障碍：打开后把焦点移入弹窗（聚焦关闭按钮），关闭时归还触发元素（见 closeDetail / A1）
-  const dc = $("#detailClose");
+  const dc = $("#detail-close");
   if (dc) dc.focus();
-  const copyBtn = $("#copyNameBtn");
+  const copyBtn = $("#copy-name-btn");
   if (copyBtn) copyBtn.addEventListener("click", () => copySkillName(skill.name));
   // 复制安装命令
-  const copyCmdBtn = $("#copyCmdBtn");
+  const copyCmdBtn = $("#copy-cmd-btn");
   if (copyCmdBtn) copyCmdButton(copyCmdBtn);
 
-  const exportBtn = $("#exportVotesBtn");
+  const exportBtn = $("#export-votes-btn");
   if (exportBtn) {
     exportBtn.addEventListener("click", () => {
       const data = JSON.stringify(ensureVotes(), null, 2);
@@ -2798,7 +2813,7 @@ let _lastFocus = null;
 // prototype/src/parts/04-interactions.js v1.14.88 — 主题/语言/视图/密度/UI元素/名称显示/分类单选/排序/分页 切换与事件绑定 + Hero 搜索联动
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", state.theme);
-  const btn = $("#themeBtn");
+  const btn = $("#theme-btn");
   if (btn) {
     btn.setAttribute("aria-label", I18N.t("theme.toggle"));
     // aria-pressed 表示当前是否处于深色（按钮状态语义）
@@ -2838,7 +2853,7 @@ function applyNameMode() {
 
 function applyLang() {
   I18N.setLang(state.lang);
-  const btn = $("#langBtn");
+  const btn = $("#lang-btn");
   if (btn) {
     // 方案 A：按钮文本显示「当前语言」（中/EN），与可见文本一致；
     // aria-pressed 表示当前是否 en（语义稳定），aria-label 明确当前语言与切换意图
@@ -2854,13 +2869,13 @@ function applyLang() {
     btn.setAttribute("aria-pressed", state.lang === "en" ? "true" : "false");
   }
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
-  const si = $("#searchInput");
+  const si = $("#search-input");
   if (si) si.placeholder = I18N.t("search.placeholder");
   // hero 区 aria-labelledby 指向当前可见语言的标题（en 模式 zh 标题被 CSS 隐藏，需切换引用）
   const hero = $("#hero");
-  if (hero) hero.setAttribute("aria-labelledby", state.lang === "en" ? "heroTitleEn" : (state.lang === "tw" ? "heroTitleTw" : "heroTitle"));
+  if (hero) hero.setAttribute("aria-labelledby", state.lang === "en" ? "hero-title-en" : (state.lang === "tw" ? "hero-title-tw" : "hero-title"));
   // 三 h1 视觉互斥：隐藏的加 aria-hidden，避免读屏重复朗读多个标题（P3）
-  const hZh = $("#heroTitle"), hTw = $("#heroTitleTw"), hEn = $("#heroTitleEn");
+  const hZh = $("#hero-title"), hTw = $("#hero-title-tw"), hEn = $("#hero-title-en");
   if (hZh) hZh.setAttribute("aria-hidden", state.lang === "zh" ? "false" : "true");
   if (hTw) hTw.setAttribute("aria-hidden", state.lang === "tw" ? "false" : "true");
   if (hEn) hEn.setAttribute("aria-hidden", state.lang === "en" ? "false" : "true");
@@ -2877,13 +2892,13 @@ function on(sel, evt, fn, root) {
 
 function bind() {
   // 主题（用户主动点击才记录；不随 applyTheme 在 init 误上报）
-  on("#themeBtn", "click", () => {
+  on("#theme-btn", "click", () => {
     state.theme = state.theme === "light" ? "dark" : "light";
     savePref(LS_THEME, state.theme);
     applyTheme();
   });
   // 语言：简体 → 繁体 → 英文 循环
-  on("#langBtn", "click", () => {
+  on("#lang-btn", "click", () => {
     const order = ["zh", "tw", "en"];
     state.lang = order[(order.indexOf(state.lang) + 1) % order.length] || "zh";
     savePref(LS_LANG, state.lang);
@@ -2893,20 +2908,20 @@ function bind() {
   // 中文/日文等输入法 composition 期间不触发筛选，避免拼音输入过程狂刷网格
   let t;
   let composing = false;
-  on("#searchInput", "compositionstart", () => { composing = true; clearTimeout(t); });
-  on("#searchInput", "compositionend", (e) => {
+  on("#search-input", "compositionstart", () => { composing = true; clearTimeout(t); });
+  on("#search-input", "compositionend", (e) => {
     composing = false;
     const v = e.target.value;
     t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
-  on("#searchInput", "input", (e) => {
+  on("#search-input", "input", (e) => {
     if (composing) return; // 输入法组合中，跳过
     clearTimeout(t);
     const v = e.target.value;
     t = setTimeout(() => { state.query = v; state.page = 0; renderGrid(); if (v) track("search", { query: v }); }, DEBOUNCE_MS);
   });
   // 方案 B：骰子按钮
-  const diceBtn = $("#diceBtn");
+  const diceBtn = $("#dice-btn");
   if (diceBtn) diceBtn.addEventListener("click", rollDice);
   // 收藏按钮点击委托
   document.addEventListener("click", (e) => {
@@ -2923,7 +2938,7 @@ function bind() {
   });
 
   // 顶栏收藏夹切换
-  const favToggleBtn = $("#favToggleBtn");
+  const favToggleBtn = $("#fav-toggle-btn");
   if (favToggleBtn) {
     favToggleBtn.addEventListener("click", () => {
       state.favoritesOnly = !state.favoritesOnly;
@@ -2936,14 +2951,14 @@ function bind() {
   }
 
   // 快捷过滤药丸绑定：最多赞 & 我的收藏
-  on("#qfPopular", "click", () => {
+  on("#qf-popular", "click", () => {
     state.sort = state.sort === "votes" ? "name" : "votes";
     state.page = 0;
     renderGrid();
     track("quick_filter_popular", { active: state.sort === "votes" });
   });
 
-  on("#qfFavs", "click", () => {
+  on("#qf-favs", "click", () => {
     state.favoritesOnly = !state.favoritesOnly;
     state.page = 0;
     if (favToggleBtn) {
@@ -2982,13 +2997,13 @@ function bind() {
   window.toggleTag = toggleTag;
 
   // 激活标签条单个移除与全部清除
-  on("#afTags", "click", (e) => {
+  on("#af-tags", "click", (e) => {
     const btn = e.target.closest(".af-tag-remove");
     if (!btn) return;
     const type = btn.dataset.clear;
     if (type === "query") {
       state.query = "";
-      const si = $("#searchInput");
+      const si = $("#search-input");
       if (si) si.value = "";
     } else if (type === "cat") {
       setCategory("", "af_tag_clear");
@@ -3008,13 +3023,13 @@ function bind() {
     renderGrid();
   });
 
-  on("#afClearAll", "click", () => {
+  on("#af-clear-all", "click", () => {
     state.query = "";
     state.favoritesOnly = false;
     state.sort = "name";
     state.tags = [];
     state.page = 0;
-    const si = $("#searchInput");
+    const si = $("#search-input");
     if (si) si.value = "";
     if (favToggleBtn) {
       favToggleBtn.classList.remove("active");
@@ -3027,7 +3042,7 @@ function bind() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "/" && document.activeElement && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) {
       e.preventDefault();
-      const si = $("#searchInput");
+      const si = $("#search-input");
       if (si) {
         si.focus();
         si.select();
@@ -3046,9 +3061,9 @@ function bind() {
   });
 
   // 标签多选 Chip 点击（含「全部」重置）
-  on("#tagChips", "click", (e) => {
+  on("#tag-chips", "click", (e) => {
     const chip = e.target.closest(".chip");
-    if (!chip || (chip.id !== "tagChip-all" && !chip.dataset.tag)) return;
+    if (!chip || (chip.id !== "tag-chip-all" && !chip.dataset.tag)) return;
     toggleTag(chip.dataset.tag || "");
   });
 
@@ -3059,13 +3074,13 @@ function bind() {
   });
 
   // 分类环形图扇区点击与键盘交互
-  on("#catDonutSlices", "click", (e) => {
+  on("#cat-donut-slices", "click", (e) => {
     const slice = e.target.closest(".cat-donut-slice");
     if (!slice) return;
     setCategory(slice.dataset.cat || "", "donut_slice");
   });
 
-  on("#catDonutSlices", "keydown", (e) => {
+  on("#cat-donut-slices", "keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") {
       const slice = e.target.closest(".cat-donut-slice");
       if (slice) {
@@ -3076,11 +3091,11 @@ function bind() {
   });
 
   // 分类环形图中心徽章（点击/按键重置为全部）
-  on("#catDonutCenter", "click", () => {
+  on("#cat-donut-center", "click", () => {
     setCategory("", "donut_center_reset");
   });
 
-  on("#catDonutCenter", "keydown", (e) => {
+  on("#cat-donut-center", "keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       setCategory("", "donut_center_reset");
@@ -3088,13 +3103,13 @@ function bind() {
   });
 
   // 分类占比数据明细项点击与键盘交互
-  on("#catLegendWrap", "click", (e) => {
+  on("#cat-legend-wrap", "click", (e) => {
     const item = e.target.closest(".cat-legend-item");
     if (!item) return;
     setCategory(item.dataset.cat || "", "donut_legend");
   });
 
-  on("#catLegendWrap", "keydown", (e) => {
+  on("#cat-legend-wrap", "keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") {
       const item = e.target.closest(".cat-legend-item");
       if (item) {
@@ -3105,8 +3120,8 @@ function bind() {
   });
 
   // 分类图表展开/收起切换
-  const chartWrapper = $("#catChartWrapper");
-  const chartToggle = $("#catChartToggle");
+  const chartWrapper = $("#cat-chart-wrapper");
+  const chartToggle = $("#cat-chart-toggle");
   const LS_CHART_COLLAPSED = "ash-chart-collapsed";
   if (chartWrapper && chartToggle) {
     if (loadPref(LS_CHART_COLLAPSED, "false") === "true") {
@@ -3140,7 +3155,7 @@ function bind() {
     if (s) openDetail(s);
   });
   // 排序下拉（v1.19.8）
-  on("#sortSelect", "change", (e) => {
+  on("#sort-select", "change", (e) => {
     const el = e.target;
     state.sort = el.value || "name";
     state.page = 0; // 排序变化回到第一页
@@ -3149,14 +3164,14 @@ function bind() {
   });
   // 空状态清除筛选（document 级兜底）
   document.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "clearFilters") {
+    if (e.target && e.target.id === "clear-filters") {
       state.query = "";
       state.favoritesOnly = false;
       state.sort = "name";
       state.tags = [];
       state.page = 0;
-      const si = $("#searchInput"); if (si) si.value = "";
-      const ss = $("#sortSelect"); if (ss) ss.value = "name";
+      const si = $("#search-input"); if (si) si.value = "";
+      const ss = $("#sort-select"); if (ss) ss.value = "name";
       setCategory("", "clear_filters_btn");
     }
   });
@@ -3173,16 +3188,16 @@ function bind() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
   // 设置按钮：打开设置弹窗（复用 dialog 框架）
-  on("#settingsBtn", "click", () => openSettings());
+  on("#settings-btn", "click", () => openSettings());
   // 分享按钮：随机文案 + 完整 GitHub URL，复制到剪贴板并 toast（v1.20.9）
-  const shareBtn = $("#shareBtn");
+  const shareBtn = $("#share-btn");
   if (shareBtn) shareBtn.addEventListener("click", () => shareRepo());
   // Star 按钮：外链跳转前记录意图埋点（D 改进：指向 /stargazers 并上报）
-  const starBtn = $("#starBtn");
+  const starBtn = $("#star-btn");
   if (starBtn) starBtn.addEventListener("click", () => track("star_click", { repo: "Agent-Skills-Hub" }));
   // 回到顶部：滚动超阈值后显示按钮（.show），并监听 scroll/resize 更新
   // 使用 passive 监听避免阻塞滚动（Vercel: client-passive-event-listeners）
-  const toTop = document.getElementById("toTop");
+  const toTop = document.getElementById("to-top");
   const TO_TOP_THRESHOLD = 400;
   const updateToTop = () => {
     if (!toTop) return;
@@ -3206,7 +3221,7 @@ function bind() {
 
 // 方案 A：搜索/筛选时点亮节点网核心，节点随查询激活（视觉联动反馈）
 function updateHeroNet() {
-  const net = $("#heroNet");
+  const net = $("#hero-net");
   if (!net) return;
   const active = Boolean(state.query) || Boolean(state.cats);
   net.classList.toggle("filtering", active);
@@ -3235,7 +3250,7 @@ function catHash(s) {
 
 // 方案 A：按分类动态生成节点（半径随技能数变化），环绕核心排布，可交互
 function renderHeroNodes() {
-  const g = $("#netNodes");
+  const g = $("#net-nodes");
   if (!g || !SKILLS_DATA.categories) return;
   // 统计各分类技能数（categories 为分类名字符串数组，计数需从 skills 聚合）
   const counts = new Map();
@@ -3247,7 +3262,7 @@ function renderHeroNodes() {
   const n = cats.length;
   g.innerHTML = "";
   // 动态生成核心→节点连线（随随机分布变化，替代 index.html 静态 line）
-  const lineG = document.getElementById("netLines");
+  const lineG = document.getElementById("net-lines");
   if (lineG) {
     lineG.innerHTML = "";
     cats.forEach(() => {
@@ -3362,12 +3377,12 @@ function openSettings() {
     `<button type="button" class="switch${on ? " on" : ""}" data-switch="${key}" role="switch" aria-checked="${on}" aria-label="${esc(t(key))}"><span class="knob"></span></button>`;
 
   dialog.innerHTML = `
-  <div class="settings-panel" id="settingsPanel" role="document">
+  <div class="settings-panel" id="settings-panel" role="document">
     <div class="settings-head">
-      <h2 class="zh" data-i18n="settings.title" id="settingsTitleZh">设置</h2>
-      <h2 class="tw" data-i18n="settings.title" id="settingsTitleTw">設定</h2>
-      <h2 class="en" data-i18n="settings.title" id="settingsTitleEn">Settings</h2>
-      <button type="button" class="icon-btn close-x" id="settingsClose" aria-label="${esc(t("settings.done"))}">&times;</button>
+      <h2 class="zh" data-i18n="settings.title" id="settings-title-zh">设置</h2>
+      <h2 class="tw" data-i18n="settings.title" id="settings-title-tw">設定</h2>
+      <h2 class="en" data-i18n="settings.title" id="settings-title-en">Settings</h2>
+      <button type="button" class="icon-btn close-x" id="settings-close" aria-label="${esc(t("settings.done"))}">&times;</button>
     </div>
     <div class="settings-body">
       <div class="settings-group">
@@ -3445,19 +3460,19 @@ function openSettings() {
       applyUI();
     });
   });
-  const closeBtn = $("#settingsClose");
+  const closeBtn = $("#settings-close");
   if (closeBtn) { closeBtn.addEventListener("click", closeDetail); closeBtn.focus(); }
 }
 
-// 复制文本到剪贴板：优先 Clipboard API，失败降级 execCommand；返回是否成功
+// 复制文本到剪贴板：优先 Clipboard API，失败降级 execCommand；返回是否成功（永不 reject）
 function copyText(text) {
   return new Promise((resolve) => {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => resolve(true)).catch(() => {
-        try { fallbackCopy(text, () => resolve(true)); } catch { resolve(false); }
-      });
+      navigator.clipboard.writeText(text)
+        .then(() => resolve(true))
+        .catch(() => resolve(fallbackCopy(text)));
     } else {
-      try { fallbackCopy(text, () => resolve(true)); } catch { resolve(false); }
+      resolve(fallbackCopy(text));
     }
   });
 }
@@ -3471,10 +3486,12 @@ function shareRepo() {
   const total = (SKILLS_DATA && SKILLS_DATA.skills) ? SKILLS_DATA.skills.filter((s) => !s.hidden).length : 0;
   const shareUrl = (typeof location !== "undefined" && location.href) ? location.href : REPO_FALLBACK;
   const text = `${tpl.replace(/\{n\}/g, total)}\n${shareUrl}`;
-  copyText(text).then((ok) => {
-    showToast(ok ? I18N.t("share.copied") : I18N.t("share.failed"));
-    if (ok) track("share_repo", { promoted: tpl });
-  });
+  copyText(text)
+    .then((ok) => {
+      showToast(ok ? I18N.t("share.copied") : I18N.t("share.failed"));
+      if (ok) track("share_repo", { promoted: tpl });
+    })
+    .catch(() => showToast(I18N.t("share.failed")));
 }
 
 // 轻量 toast：复用 .toast 节点，自动消失（v1.20.9）
@@ -3534,8 +3551,8 @@ function parseHash() {
     if (!Number.isNaN(p) && p !== state.page) { state.page = p; changed = true; }
   }
   // 同步搜索框 / 排序框 DOM（刷新后 DOM 需回显）
-  const si = $("#searchInput"); if (si && state.query) si.value = state.query;
-  const ss = $("#sortSelect"); if (ss && state.sort) ss.value = state.sort;
+  const si = $("#search-input"); if (si && state.query) si.value = state.query;
+  const ss = $("#sort-select"); if (ss && state.sort) ss.value = state.sort;
   // 详情深链：仅记录技能名，待 SKILL_MAP 构建后由 init / hashchange 解析打开（#15）
   if (params.has("skill")) {
     const name = decodeURIComponent(params.get("skill"));
@@ -3577,23 +3594,23 @@ function init() {
   });
   renderHeroNodes(); // 方案 A：按分类动态生成可交互节点网
   // 兜底：若节点网因数据迟于渲染而为空，下一帧重建（防御性，当前 init 顺序已保证数据先就绪）
-  const nn = document.getElementById("netNodes");
+  const nn = document.getElementById("net-nodes");
   if (nn && nn.children.length === 0) requestAnimationFrame(renderHeroNodes);
   renderGrid();
   // 详情深链：init 末尾于 SKILL_MAP 就绪后打开 hash 指定的技能详情（#15）
   if (pendingSkill) { const s = SKILL_MAP.get(pendingSkill); if (s) openDetail(s); pendingSkill = null; }
   // 量取顶栏高度注入 --topbar-h，供 .controls sticky 偏移使用（P2-1），并监听 resize 更新
   const setTopbarH = () => {
-    const h = document.getElementById("appHeader") || document.getElementById("siteHeader");
+    const h = document.getElementById("app-header") || document.querySelector("header.topbar");
     if (h) document.documentElement.style.setProperty("--topbar-h", h.offsetHeight + "px");
   };
   setTopbarH();
   window.addEventListener("resize", setTopbarH);
   // 页脚版权年份：构建期不注入，按当前年份动态写入，避免每年手改
-  const fc = $("#footerCopy");
+  const fc = $("#footer-copy");
   if (fc) fc.textContent = "© " + new Date().getFullYear();
   // 页脚版本兜底：若构建/本地服务未注入 __APP_VERSION__（裸开 src/index.html），回退到 <meta name="app-version"> 真实版本
-  const fv = $("#footerVer");
+  const fv = $("#footer-ver");
   if (fv) {
     if (fv.textContent.includes("__APP_VERSION__")) {
       const meta = document.querySelector('meta[name="app-version"]');
@@ -3607,7 +3624,7 @@ function init() {
     }
   }
   // 页脚构建号增强（v1.16.14）：悬浮显示可读构建时间，点击复制完整版本信息（报 bug 时便于粘贴环境）
-  const fb = $("#footerBuild");
+  const fb = $("#footer-build");
   if (fb) {
     const m = (fb.textContent.match(/(\d{10})/) || [])[1];
     if (m) {
@@ -3616,7 +3633,7 @@ function init() {
       // aria-label 覆盖按钮文本会屏蔽 build 编号，故运行时补回编号 + 动作说明
       fb.setAttribute("aria-label", "build " + m + " · 复制版本信息 / Copy version info");
       fb.addEventListener("click", () => {
-        const fv2 = $("#footerVer");
+        const fv2 = $("#footer-ver");
         const info = (fv2 ? fv2.textContent.trim() : "") + " · build " + m;
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(info).then(() => showToast("已复制版本信息 / Version info copied"), () => showToast(info));

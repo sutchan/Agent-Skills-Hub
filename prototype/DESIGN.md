@@ -1,6 +1,6 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.16.18
+> 路径：`prototype/DESIGN.md` · 版本：1.16.19
 > 本文档是**视觉 / 交互设计的事实来源（Single Source of Truth）**，涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
@@ -149,7 +149,7 @@
 | ShareButton | `shareSkill(name)` | 技能详情弹窗内的「分享」按钮；点击复制「技能链接 + 随机宣传文案」并 toast 反馈 |
 | SkillCard | `cardHTML()` | 网格/列表共用；**渲染为原生 `<button type="button" class="card">`**（a11y 语义，Enter/Space 原生触发，点击经 `#grid` 委托打开详情）；中英双语描述与分类标签（界面另支持繁体回退） |
 | SkillDetail | `openDetail()` | 弹窗内容体；含中英文描述、分类、授权工具、本地仓库链接 |
-| SettingsButton | `openSettings()` | 顶部栏右上角齿轮按钮 `#settingsBtn`；复用 Dialog 框架承载语言/主题/视图模式/显示密度四组切换（就地刷新文案，不重建弹窗） |
+| SettingsButton | `openSettings()` | 顶部栏右上角齿轮按钮 `#settings-btn`；复用 Dialog 框架承载语言/主题/视图模式/显示密度四组切换（就地刷新文案，不重建弹窗） |
 | 主页面 | `init()` | 承载 Hero、Toolbar、Chip 过滤、结果区、响应式弹窗调度 |
 
 ### 3.3 业务数据契约
@@ -178,7 +178,7 @@
 | 输入聚焦 | 主色边框 + 2px 主色聚焦环（`focus-visible:ring-2 ring-ring`） |
 | 按钮悬停/点击 | 颜色/阴影变化，`active:scale-[0.98]` |
 | 卡片悬停 | `hover:border-primary/40 hover:shadow-md` + 轻微上浮 |
-| 筛选结果变化 | 数量文本 `#resultCount` 实时更新（`aria-live="polite"` 播报条数；`#grid` 为 `aria-live="off"`，避免读屏朗读整网格） |
+| 筛选结果变化 | 数量文本 `#result-count` 实时更新（`aria-live="polite"` 播报条数；`#grid` 为 `aria-live="off"`，避免读屏朗读整网格） |
 | 弹窗打开 | 背景 `fade` + 卡片 `pop`（桌面）/ 抽屉 `slide-in-right`（移动） |
 | 复制分享链接 | 成功 toast「已复制链接」（`role="status"` `aria-live="polite"`）；失败 toast「复制失败，请手动复制」；3s 自动消失 |
 
@@ -191,21 +191,21 @@
 
 ### 4.4 空状态（Empty）
 
-- 搜索/筛选无结果时显示空状态区（`#emptyState`）：图标 + 三语标题「未找到匹配的技能」+ 描述 + 「清除筛选」按钮（`#clearFilters`，点击重置 `q`/`cat` 并重渲染）。
+- 搜索/筛选无结果时显示空状态区（`#empty-state`）：图标 + 三语标题「未找到匹配的技能」+ 描述 + 「清除筛选」按钮（`#clear-filters`，点击重置 `q`/`cat` 并重渲染）。
 - 不显示空白页；保持布局稳定。
 
 ### 4.5 键盘与可达性
 
-- 卡片为**原生 `<button>`**，Enter/Space 原生打开；点击经 `#grid` 事件委托（v1.16.0 修复 double-open，移除冗余 keydown 委托）。
+- 卡片根节点为 `<div class="card" role="button" tabindex="0">`（v1.16.19 实态校正）：因卡片内含收藏、投票等原生按钮，**不能**嵌套原生 `<button>`；键盘可达性由 `role` + `tabindex` + Enter/Space 处理保证，点击经 `#grid` 事件委托（v1.16.0 修复 double-open）。
 - 弹窗为**原生实现**，按 Radix Dialog 风格提供 `Esc` 关闭、焦点陷阱、`aria-modal`（详见 §7，无 Radix 运行时）。
 - 分类 chip 用 `aria-pressed` 反映选中态。
 - 所有图标按钮带 `aria-label`；`DialogTitle`/`SheetTitle` 用 `sr-only` 保证可访问标题。
-- 顶部栏图标按钮统一 `.icon-btn`（34px、flex 居中、`aria-pressed`/`aria-label`），`#settingsBtn` 带 `aria-label`（v1.17.2 补齐样式，修复按钮参差对齐）。
-- **历史注（v1.20.6 src React 层，已移除）**：本条所述 `src/components/*.tsx` 组件层已随 v1.16.x 单体化移除；所述行为（原生 `<button>` 卡片、Esc 关闭 + 焦点陷阱、顶栏语言/主题/视图/设置切换、设置弹窗持久化、搜索防抖 + 输入法拦截、结果计数 aria-live、回到顶部）均已内联实现于 `src/index.html`。原始记录：`src/components/skill-card.tsx` 卡片根已改为原生 `<button>`（依赖原生 Enter/Space）；`src/components/detail-modal.tsx` 自带 Esc 关闭 + 焦点陷阱（`keydown` 监听，无独立 `ui/dialog.tsx`）；顶栏（`AppShell.tsx`）已含 `#langBtn` 语言切换与 `#themeBtn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`）；`SkillsExplorer.tsx` 顶栏含网格/列表视图切换（`#viewBtn`）与 `#settingsBtn` 齿轮按钮，打开 `src/components/settings-panel.tsx` 设置弹窗（聚合「界面元素 / 名称显示 / 显示密度」三组，无独立 `ui/settings-dialog.tsx`）；视图（`ash-view`）、密度（`ash-density`，写 `data-density` + globals.css `:root[data-density="compact"]` 生效）、界面元素、名称显示均持久化；搜索框新增 120ms 防抖 + 输入法 composition 拦截（对齐原型 `DEBOUNCE_MS`）；结果计数 `#resultCount`（aria-live）；滚动超 300px 显示回到顶部 `#toTop`（`.to-top.show` 样式）；`AppShell.tsx` 渲染 `<section class="hero" id="hero">` 节点网 Hero（按分类计数动态生成 `#netNodes`，三语标题/副标题/特性标签 + 方案 B 随机骰子 `#diceBtn`，点击派发 `ash:open-skill` 由 `SkillsExplorer.tsx` 打开 `detail-modal.tsx`，样式同源 `src/globals.css`）。
+- 顶部栏图标按钮统一 `.icon-btn`（34px、flex 居中、`aria-pressed`/`aria-label`），`#settings-btn` 带 `aria-label`（v1.17.2 补齐样式，修复按钮参差对齐）。
+- **历史注（v1.20.6 src React 层，已移除）**：本条所述 `src/components/*.tsx` 组件层已随 v1.16.x 单体化移除；所述行为（原生 `<button>` 卡片、Esc 关闭 + 焦点陷阱、顶栏语言/主题/视图/设置切换、设置弹窗持久化、搜索防抖 + 输入法拦截、结果计数 aria-live、回到顶部）均已内联实现于 `src/index.html`。原始记录：`src/components/skill-card.tsx` 卡片根已改为原生 `<button>`（依赖原生 Enter/Space）；`src/components/detail-modal.tsx` 自带 Esc 关闭 + 焦点陷阱（`keydown` 监听，无独立 `ui/dialog.tsx`）；顶栏（`AppShell.tsx`）已含 `#lang-btn` 语言切换与 `#theme-btn` 主题切换（写根节点 `data-theme` + localStorage `ash-theme`）；`SkillsExplorer.tsx` 顶栏含网格/列表视图切换（`#viewBtn`）与 `#settings-btn` 齿轮按钮，打开 `src/components/settings-panel.tsx` 设置弹窗（聚合「界面元素 / 名称显示 / 显示密度」三组，无独立 `ui/settings-dialog.tsx`）；视图（`ash-view`）、密度（`ash-density`，写 `data-density` + globals.css `:root[data-density="compact"]` 生效）、界面元素、名称显示均持久化；搜索框新增 120ms 防抖 + 输入法 composition 拦截（对齐原型 `DEBOUNCE_MS`）；结果计数 `#result-count`（aria-live）；滚动超 300px 显示回到顶部 `#to-top`（`.to-top.show` 样式）；`AppShell.tsx` 渲染 `<section class="hero" id="hero">` 节点网 Hero（按分类计数动态生成 `#net-nodes`，三语标题/副标题/特性标签 + 方案 B 随机骰子 `#dice-btn`，点击派发 `ash:open-skill` 由 `SkillsExplorer.tsx` 打开 `detail-modal.tsx`，样式同源 `src/globals.css`）。
 
 ### 4.6 页脚区（Footer）
 
-- 位于技能网格 `<main>` 之后、`overlay` 之前，作为页面收尾区块（语义化 `<footer id="siteFooter">`，app 侧 `id="appFooter"`）。
+- 位于技能网格 `<main>` 之后、`overlay` 之前，作为页面收尾区块（语义化 `<footer id="site-footer">`；v1.16.19 起全站 id 统一 kebab-case，历史 `appFooter` / `siteFooter` 等写法已废弃）。
 - v1.16.16 起结构为**三段式版权页**（`footer-inner` flex，桌面两端对齐）：
   - **左栏 colophon**（`footer-info`）：品牌名 → MIT 协议声明 → `© 年份 · vX.Y.Z · build yymmddhhmm` 三行；版本号链接 Releases，构建号按钮悬浮显示构建时间、点击复制完整版本信息。
   - **中段辅助导航**（`footer-links`，`nav[aria-label]`）：关于 / 更新日志 / 提交 Issue（v1.16.16 重新引入外链入口；v1.14.86 精简掉的 `footer-stats` 全库统计台账不再恢复）。
@@ -213,6 +213,14 @@
 - **不再展示更新日期**：版本元数据为 `v主.次.修 · build yymmddhhmm`（10 位 · 2 位数年份），构建期 `inject-ga.mjs` 与本地服务 `server/config.js` 注入；裸开页面由 `meta[name=app-version]` 兜底，版本无法确定时移除死链。
 - 文案遵循全局 i18n **三语**：静态节点 `.zh`/`.tw`/`.en` + `data-i18n` 互斥显隐；页脚全部交互元素有统一 `:focus-visible` 焦点环。
 - 样式在 `src/index.html` 内联 CSS 维护，主色与令牌同源；≤900px 辅助导航整行下沉右对齐，≤640px 按「品牌版权（居中）→ 辅助导航 → 动作」纵向堆叠、按钮占满整行。
+- 原型对齐：`prototype/template.html` 为 DOM 结构契约（含上述全部 id），`prototype/wireframes.html` 页脚为三段式线框示意；三者 id 命名一致。
+
+### 4.7 语义化 ID 契约（v1.16.19）
+
+- **命名**：全部应用与原型 id 统一 **kebab-case**；动态 id 亦用 kebab 前缀（`tag-chip-*`、`cat-slice-*`、`cat-legend-*`、`skill-*`、`fav-*`）。
+- **单一声明**：详情标题 `id="detail-title"` 只在唯一模板中声明（互斥分支只拼装内部 span），禁止在多个分支重复定义同名 id。
+- **同步范围**：改 id 时须同时更新 `src/index.html`（内联 CSS/JS 选择器、ARIA 关联）、`prototype/template.html`、`prototype/wireframes.html`、`prototype/states.html`、`e2e/smoke.spec.ts` 与本 DESIGN.md / `docs/spec.md`。
+- **兼容**：历史 camelCase 别名（如 `data-alias="siteHeader"`）已移除，不再保留第二套 id 语义。
 
 ---
 
@@ -221,12 +229,15 @@
 | 断点 | 布局 |
 |------|------|
 | `≥1024px` | 平板/桌面中间断点（v1.15.0 新增）：压缩 hero 字号与顶栏间距 |
+| `≤900px` | 页脚辅助导航整行下沉右对齐 |
+| `≤860px` | Hero 两栏改单列，右侧拓扑卡片高度收敛 |
+| `≤768px` | 环形图区改纵向堆叠，图例两列自适应 |
 | `≥640px` | 工具栏横排；详情用居中 Dialog |
-| `< 640px` | 网格单列；分类 chip 横排可滚动；工具栏纵向堆叠（`view-toggle` 隐藏） |
+| `< 640px` | 网格单列；标签 chip 横排可滚动；工具栏纵向堆叠（`view-toggle` 隐藏） |
 
 - **网格列数**：实际用 CSS Grid `grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))` **自适应**（非固定 2/3 列），由容器宽度决定列数，无需逐断点声明。
 - 移动端优先保证触控目标 ≥ 42px（按钮、图标按钮 `.icon-btn` 34px）。
-- 分类 chip 横向排列，超出可滚动（`.cats-scroll` 限宽居中）。
+- 标签 chip 横向排列，超出可滚动（`#tag-nav` > `.filter-scroll` 限宽居中；分类筛选由 `#cat-chart-section` 的扇区/图例承担）。
 - 顶栏/搜索控制/分类/页脚采用「背景全宽 + 内容限宽居中」结构（`--maxw: 1200px`），与网格同宽对齐（v1.17.1 修复大屏过宽断层）。
 
 ---
@@ -259,13 +270,16 @@
 
 ## 8. 品牌形象规范（Brand Identity）
 
-品牌资产为矢量 SVG，单一事实来源位于仓库根 [`public/`](public/) 目录：`logo.svg`（彩色主标志）、`logo-monochrome.svg`（单色版）、`favicon.svg`（网站图标）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）；图形唯一来源为 [`public/hub.svg`](public/hub.svg) 的 `<symbol id="ash-hub">`（以 `currentColor` 驱动，消费方用 `<use href="/hub.svg#ash-hub" color="...">` 控制图形色），`logo/favicon/mono/banner` 均 `<use>` 同源 symbol 保持造型单一来源。所有资产由 Next.js 以 `/` 路径提供；`public/favicon.svg` 同时作为 Next.js `/favicon.svg`。所有资产在 `README.md`「品牌资产」章节统一索引。
+品牌资产为矢量 SVG，统一位于仓库根 [`public/`](public/) 目录：`favicon.svg`（网站图标）、`hub.svg`（Hub 图形导出资产）、`banner.svg`（README 横幅）、`banner-og.svg`（社交分享横幅）。页面标志由 `src/index.html` **内联** `<symbol id="ash-hub">`（`currentColor` 驱动）渲染，不依赖外链 SVG；`src/index.html` 另有 data-URI 内联 favicon 兜底。静态资源由 `server/pages.js` 的 `express.static(PUBLIC_DIR)` 以 `/` 路径提供；`src/index.html` 的 favicon 为 **data-URI 内联**（自包含、双击即开），`public/favicon.svg` 供部署平台/书签与原型页面使用；`README.md`/`README.en.md` 头图引用 `public/banner.svg`。
 
-> 版本：v1.19.13 — 筛选增强：分类筛选由单选升级为**多选 OR**（state.cat → state.cats 数组，空=全部，点击 chip 非破坏式 toggle）；新增**排序**下拉（控制区 `#sortSelect`：名称 A-Z / 名称 Z-A / 按分类 / 按中文名，默认 A-Z）。原型 `02-render.js` 新增 `sortSkills()`、renderCats 按 `state.cats.includes` 判 active；`04-interactions.js` 分类点击改 toggle、`clearFilters` 重置 cats+sort、绑定 `#sortSelect` change；`index.html` 控制区加排序 select + `i18n.js` 加 `sort.*` 中英文案 + `components.css` 加 `.sort-wrap select` 样式。src `SkillsExplorer.tsx` 改 `cats` 多选(toggleCat)+`sort` state+排序比较器+控制区 select；`globals.css` 补 `.sort-wrap` 样式。其余同 v1.19.12（全字段规范重排 SKILL.md 头部注释）+ v1.19.7（统计迁入页脚 4 项：技能总数/分类/英文描述覆盖/支持语言）+ v1.19.6（名称显示分组 + 设置紧凑化）+ v1.19.5（界面元素分组）+ v1.19.4（src 卡片层重建、`src/components/` 最小可用 `AppShell`/`SkillsExplorer`/`skill-card`、`.card-body` 列表布局修复）+ v1.19.3（原型卡片双名/列表修复）+ v1.18.3（页眉品牌区优化、设置弹窗四组、视图/密度持久化、卡片原生 button、响应式 `--maxw` 限宽）。
+> **v1.16.18 结构清理（实态校正）**：原 `public/logo.svg`（与 `favicon.svg` 内容完全相同）与 `public/logo-monochrome.svg`（与 `hub.svg` 内容完全相同）为两组重复副本且无代码引用，已删除；`src/banner-og.svg`、`src/favicon.svg` 两份孤儿副本同步删除。本节此前描述的「`<use href="/hub.svg#ash-hub">` 外链引用」「Next.js `/favicon.svg`」「README 品牌资产章节」均为历史状态，以本段为准。
 
-> 版本：v1.19.14 — 详情弹窗重构：新增 `src/components/detail-modal.tsx`，`build-skills-data.mjs` 提取 `author`/`license`/`version`/`githubDir`；原型 `03-detail.js` 注入元信息区（作者/协议/GitHub 目录）+ 相关技能 + 复制命令；数据契约 `SkillEntry` 增 `source?` 可选字段（v1.19.18 规范补充，指向 skills.sh 生态上游溯源）。后续 v1.19.15~v1.19.18 的逐项变更见根 `CHANGELOG.md`。
-
-> 版本：v1.14.84 — 规范追平（**当前实现为准**）：分类筛选自 **v1.14.82 起由多选 OR 改回单选**（`state.cats` 数组 → 单选字符串，空串 = 全部；原型 `01-state.js`/`02-render.js` 已按单选实现，`src/components/SkillsExplorer.tsx` 同步），故上文 v1.19.13 所述「升级为多选 OR」为**历史状态、非当前实现**，阅读时以本条为准。`prototype/` 目录另新增 `states.html`（状态预览）与 `wireframes.html`（线框图预览）两个设计预览页。本轮另同步全局版本至 v1.14.84。
+> **历史版本注记（v1.16.19 整理，非当前实现）**：本节此前并列的 v1.19.x / v1.14.8x 三条长注属**旧双轨版本体系**（编号与现行 v1.16.x 不连续，且互相矛盾，如「分类多选 OR」与「改回单选」并存），仅作存档，勿据此判断当前行为。当前实现契约：
+> - 分类筛选**单选**（点「全部」或再次点击当前项复位）；标签筛选**多选 OR**，与分类以 AND 交叉过滤。
+> - 排序下拉已落地（名称 A-Z / Z-A / 按点赞数 / 按分类 / 按中文名），控制区 `#sort-select`。
+> - 详情弹窗内联于 `src/index.html`（元信息、相关技能、复制安装命令），无 React 组件层。
+> - 界面为简中 / 繁中 / 英**三语**；历史 `src/components/*`、`prototype/src/*`、`*-shared.css` 均已移除。
+> - 逐版本变更以根 `CHANGELOG.md` 为准，能力基线以 `docs/spec.md` 为准。
 
 ### 8.1 标志释义（Logo）
 
@@ -273,12 +287,11 @@
 
 | 变体 | 文件 | 用途 | 背景 |
 |------|------|------|------|
-| 彩色主标志 | `logo.svg` | 官网页眉、README 头图、文档封面 | 浅/深皆可（自身含底） |
-| 单色版 | `public/logo-monochrome.svg` | 页脚、浅色文档、印刷单色场景 | 浅色 |
-| 网站图标 | `public/favicon.svg` | 浏览器标签、书签 | 透明（纯绿图形） |
-| README 横幅 | `public/banner.svg` | `README.md`/`README.en.md` 标题下顶部 hero（1200×400，主绿渐变 + 衬线项目名/副标题） | 浅/深皆可（自身含底） |
-| 社交分享横幅 | `public/banner-og.svg` | Open Graph / 社交卡（Twitter·X、LinkedIn 等，1.91:1 = 1200×628），避免文字被裁切 | 浅/深皆可（自身含底） |
-| 应用图标 / 网站图标 | `public/favicon.svg` | Next.js `/favicon.svg` 与浏览器标签、书签（纯绿无渐变） | 透明（纯绿图形） |
+| 页面标志 | `src/index.html` 内联 `<symbol id="ash-hub">` | 页眉品牌区（30×30） | 随 `--primary` / `currentColor` |
+| 单色 / 图形资产 | `public/hub.svg` | Hub 图形导出资产（历史单色版来源） | 浅色 |
+| 网站图标 | `public/favicon.svg` | 浏览器标签、书签（纯绿无渐变） | 透明 |
+| README 横幅 | `public/banner.svg` | `README.md`/`README.en.md` 标题下顶部 hero（1200×400） | 浅/深皆可 |
+| 社交分享横幅 | `public/banner-og.svg` | Open Graph / 社交卡（1200×628，1.91:1） | 浅/深皆可 |
 
 ### 8.2 标志网格与安全区
 
@@ -297,24 +310,24 @@
 | 单色深底 | `#10231a` | `152 50% 9%` | 单色标志底、深背景反白 |
 | 反白 | `#ffffff` | `0 0% 100%` | 标志内图形、深色文字 |
 
-> 品牌主绿即设计系统 `--primary`（§2.1），两者必须保持同一 HSL 通道，禁止漂移。`logo.svg` 使用浅→深绿线性渐变（`#2e9e6b`→`#5cc98c`，端点分别对应上述两行）；`favicon.svg` 为纯 `#2e9e6b` 无渐变，保证 16px 下清晰。
+> 品牌主绿即设计系统 `--primary`（§2.1），两者必须保持同一 HSL 通道，禁止漂移。页面内联 symbol 以 `currentColor` 继承主色；`favicon.svg` 为纯 `#2e9e6b` 无渐变，保证 16px 下清晰。
 
 ### 8.4 favicon 规格
 
 - 格式：SVG（矢量，自适应任意 DPI）；如目标平台仅接受位图，由 `favicon.svg` 栅格化为 32×32 / 180×180（apple-touch）PNG。
 - 颜色：纯 `#2e9e6b` 底 + 反白图形，无渐变（保证 16px 下清晰）。
-- 部署：`prototype/favicon.svg` 由根 `build.mjs` 从 `public/favicon.svg` 复制；`src/` 通过 `src/app/layout.tsx` 的 `metadata.icons.icon = "/favicon.svg"` 引用 `public/favicon.svg`。
+- 部署：`public/favicon.svg` 由静态服务（`server/pages.js` 的 `express.static(PUBLIC_DIR)`）以 `/favicon.svg` 提供；**v1.16.19 起** `src/index.html` 仅用 data-URI 内联 favicon——随着 `src/favicon.svg` 孤儿副本清理，原先 `href="favicon.svg"` 相对外链在裸开 `file://` 时会 404，故排除该冗余声明。`src/app/layout.tsx` 仅为重定向存根，未声明 icons 元数据。
 
 ### 8.5 禁用示例（Don'ts）
 
 - ❌ 修改主绿色相（如改用蓝/紫）或降低饱和度至灰绿。
 - ❌ 拉伸、压扁、旋转标志或改动节点相对位置。
 - ❌ 在标志图形上叠加文字、阴影或额外装饰。
-- ❌ 在对比度不足的浅灰背景使用彩色标志却不保留圆角底（应优先用含底的 `logo.svg`）。
+- ❌ 在对比度不足的浅灰背景使用彩色标志却不保留圆角底（应优先用含底的 `favicon.svg` / 内联 symbol 配圆角底容器）。
 - ❌ 用等位图（JPG/PNG）替代矢量源，导致缩放失真。
 
 ### 8.6 使用约定
 
-- 页眉品牌区：标志（30×30，圆角底 + 极淡主绿光晕 `box-shadow`，hover `scale(1.06)`）+ 文字两行——主名「Agent Skills Hub」（衬线 `--font-display`，17px/700）+ 副标题（11px/`--text-2`/弱化），见 `src/components/AppShell.tsx` 的 `BrandMark()`+`.brand-text` 与原型 `prototype/src/index.html` 的 `.brand`+`.brand-text`。
-- 代码内联引用：原型用 data-URI 内联 `public/hub.svg` 的 symbol + 外链 `favicon.svg` 双重声明（见 `prototype/src/index.html` `<head>`）。
-- 品牌资产变更须同步：①本 §8 与 README「品牌资产」；②`public/hub.svg` 与 `public/*` 资产同源；③版本号 bump。
+- 页眉品牌区：标志（30×30，圆角底 + 极淡主绿光晕 `box-shadow`，hover `scale(1.06)`）+ 文字两行——主名「Agent Skills Hub」（衬线 `--font-display`，17px/700）+ 副标题（11px/`--text-2`/弱化），见 `src/index.html` 的 `.brand` + `.brand-text` 内联实现（React 组件层已于 v1.16.x 移除）。
+- 代码内联引用：`src/index.html` `<head>` 用**单一 data-URI 内联 favicon**（v1.16.19 起不再双重声明）；`<body>` 内联 `<symbol id="ash-hub">`。
+- 品牌资产变更须同步：①本 §8 与 README「品牌资产」；②`src/index.html` 内联 symbol 与 `public/*` 图形造型一致；③版本号 bump。

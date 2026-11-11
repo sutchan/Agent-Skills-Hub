@@ -686,5 +686,28 @@
 ### 遗留待人工确认（不擅改）
 1. README「已对接 GitHub Pages」——仓库无 GH Pages 工作流/配置，已改为仅 EdgeOne Pages，如确有站外 GH Pages 请回改；
 2. CHANGELOG 旧双轨版本体系（1.20.x 与 2026-08 的 1.16.x）与现行 1.16.x **tag 名冲突**（同名 tag 对应两个历史小节），属历史治理决策，本轮仅去重锚点定义、保留全部历史记录；
-3. `prototype/DESIGN.md` 中 v1.19/v1.20 历史版本注记（§4.5/§6/§8）——已对关键段落加「历史注/已移除」标注，其余存档原文保留，是否深度重写待定；
+3. `prototype/DESIGN.md` 中 v1.19/v1.20 历史版本注记（§4.5/§6/§8）——已对关键段落加「历史注/已移除」标注，其余存档原文保留，是否深度重写待定；**v1.16.19 已整理 §6 三条互相矛盾的长注为当前实现契约摘要**，其余历史段落仍存档。
 4. spec §8.5「edge-worker.js 随部署保证」维持原「待确认」状态。
+
+---
+
+## 迭代三十四：全量代码审查、规范对齐与单文件豁免复核（v1.16.19，已完成）
+
+> 来源：用户指令「审查项目代码，识别并修复代码 bug、语法错误、安全漏洞和性能问题；对齐规范文档和原型；语义化 ID；拆分 >200 行源码；测试功能完整性与鲁棒性；更新文档与项目记忆；版本 bump；提交并推送」。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | 安全修复 | P0 | ✅ 已完成 | 清除 `agent-skills-hub.code-workspace` 明文 IDE accessToken（脱敏后重新纳入版本控制，历史提交中的 token 需使用者轮换）；详情弹窗外链加 `safeExternalUrl()` http/https 协议白名单 |
+| 2 | 健壮性修复 | P1 | ✅ 已完成 | `edge-worker.js` 回源失败 502 兜底 + KV list 两种形态兼容；`server/store.js` 退出前强制落盘；`fallbackCopy` 按真实结果反馈 + `finally` 清理；`shareRepo` / `verify-storage` 补 Promise 拒绝兜底 |
+| 3 | 性能优化 | P2 | ✅ 已完成 | GET /api/votes 串行 N+1 → `Promise.all`；`server/pages.js` 首页注入结果按 `mtimeMs + size` 缓存 |
+| 4 | 构建链跨平台修复 | P1 | ✅ 已完成 | `npm run build` 去掉 Unix 专用 `NODE_ENV=production` / `cp`；`inject-ga.mjs` 从 `src/index.html` 生成 `out/index.html`，占位符残留硬失败（旧版静默跳过会部署空白页） |
+| 5 | 语义化 ID 规范化 | P1 | ✅ 已完成 | 92 个 camelCase id → kebab-case，同步 CSS/JS/ARIA/e2e/三份原型；`detail-title` 单一声明消除重复；移除 `data-alias` 双 id 语义；新增 `DESIGN.md §4.7` ID 契约 |
+| 6 | 原型与规范对齐 | P1 | ✅ 已完成 | `prototype/template.html` 重写为 DOM 结构契约（清除废弃占位符）；`wireframes.html` 页脚三段式 + build 号；`states.html` id kebab 化；三份 favicon 悬空引用修正；DESIGN/COMPONENTS/spec 矛盾条款纠正 |
+| 7 | 拆分复核 | P1 | ✅ 已完成 | 自有源码 27 个 JS/MJS 全部 ≤200 行（最大 `verify-storage.mjs` 186 行）；`src/index.html` 按 spec §7 红线 10 作为自包含单文件应用豁免；`skills/` 为上游技能包；设计稿 HTML 不拆 |
+| 8 | 测试与门禁 | P0 | ✅ 已完成 | 单测 6/6、check-version / check-inline-js / validate:yaml / tsc、27 文件语法、id/版本/资源门禁；`verify-storage` 21 项、`e2e` 2/2（本机 Edge 通道）、浏览器核心流程 13 项 0 异常、`npm run build` 产物注入校验 |
+| 9 | 文档与版本同步 | P1 | ✅ 已完成 | CHANGELOG 1.16.19、README 双语功能/验证说明、spec/project/DESIGN/COMPONENTS、tasks 头版本、项目记忆（`project_v1_16_19_audit.md`）；版本 1.16.18 → 1.16.19 |
+
+### 说明
+- `docs/tasks.md` 的 5 项 P3 数据工程任务仍为**未完成**，本轮未触碰 `data/skills-data.json` 与 `data/skills-metrics.json`。
+- `next build` 自动改写的 `tsconfig.json` / `next-env.d.ts` 已还原，不纳入提交（后者引用 `.next/types/*`，CI 仅跑 tsc 时会失败）。
+- `out/` / `test-results/` / `playwright-report/` 已加入 `.gitignore`，构建与测试产物不入库。

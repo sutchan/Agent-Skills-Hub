@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // inject-ga.mjs — 构建期将 GA 衡量 ID、应用版本、构建号注入 out/index.html。
 //
-// 静态导出产物 out/index.html 在 next build && cp 之后被替换，避免将值硬编码进源码。
+// 直接以 src/index.html 为源写入静态导出产物 out/index.html（自包含单页站点本体），
+// 不再依赖 Unix 的 cp / NODE_ENV= 语法，Windows 与 CI 行为一致；源文件缺失时立即失败而非静默跳过。
 // - GA 衡量 ID：部署平台（GitHub Actions build job / EdgeOne 构建环境）通过 env 传入
 //   GA_MEASUREMENT_ID；缺失时回退到内置 ID，保证本地无环境变量时 GA 仍可用。
 // - 应用版本：取自 package.json（单一版本源），替换 __APP_VERSION__。
@@ -24,13 +25,16 @@ const d = new Date();
 const p = (n) => String(n).padStart(2, '0');
 const BUILD_ID = `${String(d.getFullYear()).slice(2)}${p(d.getMonth() + 1)}${p(d.getDate())}${p(d.getHours())}${p(d.getMinutes())}`;
 
-const TARGET = path.join(ROOT, 'out', 'index.html');
-if (!fs.existsSync(TARGET)) {
-  console.warn(`inject: 未找到 ${TARGET}，跳过（可能未执行 cp src/index.html out/index.html）`);
-  process.exit(0);
+const SOURCE = path.join(ROOT, 'src', 'index.html');
+const OUT_DIR = path.join(ROOT, 'out');
+const TARGET = path.join(OUT_DIR, 'index.html');
+if (!fs.existsSync(SOURCE)) {
+  console.error(`inject: 源文件 ${SOURCE} 不存在，构建中止`);
+  process.exit(1);
 }
+fs.mkdirSync(OUT_DIR, { recursive: true });
 
-let html = fs.readFileSync(TARGET, 'utf-8');
+let html = fs.readFileSync(SOURCE, 'utf-8');
 const replaces = [
   [GA_TOKEN, GA_ID],
   [APP_VERSION_TOKEN, APP_VERSION],
@@ -40,4 +44,10 @@ for (const [tok, val] of replaces) {
   if (html.includes(tok)) html = html.split(tok).join(val);
 }
 fs.writeFileSync(TARGET, html, 'utf-8');
-console.log(`inject: 已注入 out/index.html（GA=${process.env.GA_MEASUREMENT_ID ? 'env' : 'default'} version=${APP_VERSION} build=${BUILD_ID}）`);
+for (const tok of [GA_TOKEN, APP_VERSION_TOKEN, BUILD_ID_TOKEN]) {
+  if (html.includes(tok)) {
+    console.error(`inject: 产物仍残留占位符 ${tok}，构建中止`);
+    process.exit(1);
+  }
+}
+console.log(`inject: 已生成 out/index.html（GA=${process.env.GA_MEASUREMENT_ID ? 'env' : 'default'} version=${APP_VERSION} build=${BUILD_ID}）`);

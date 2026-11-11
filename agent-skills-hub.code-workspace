@@ -5,7 +5,7 @@
 		}
 	],
 	"settings": {
-		"vercelVSCode.accessToken": "vcp_75Hcn0nf608mAb5dSbqO4bB7exuucG6BGjiMcTeiIVYoLEZaS12GfEEP"
+		"editor.formatOnSave": true
 	},
 	"trae": {
 		"workspaceId": "c7763f671ecbfe1eda3b06fc94682997"

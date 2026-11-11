@@ -39,22 +39,23 @@ __pycache__/
 
 # Node 依赖与构建产物
 node_modules/
-*.tsbuildinfo
 
-# app/ 子项目（独立 Next.js 应用）：依赖与构建产物均不入库
-app/node_modules/
-app/.next/
-# EO 以根目录(./)部署时复制出的根 .next（Next 构建产物，不入库）
+# 根 .next / 静态导出 / 测试报告（构建与测试产物，不入库）
 .next/
+/out/
+/test-results/
+/playwright-report/
 *.tsbuildinfo
 
-# 密钥 / 凭证（禁止入库）
+# 密钥 / 凭证（禁止入库；IDE 配置可入库但不得写入任何 token）
 .secret.key
 .env
 .env.local
 *.ffs_db
+*.code-workspace.local
 
 # 服务端运行时状态（投票/收藏 KV 与限流计数，非源码禁止入库）
+# 注：data/kv-store.json 曾误被跟踪，v1.16.18 已 git rm --cached，首次启动由 server/store.js 自建
 data/kv-store.json
 data/ratelimit.json
 
@@ -78,5 +79,4 @@ sync.ffs_lock
 *.err.txt
 *.out.txt
 *.sync-conflict-*
-_*.mjs
 */tmp-*.*

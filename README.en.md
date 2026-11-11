@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.16.18-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Version](https://img.shields.io/badge/version-v1.16.19-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Other languages: [中文文档](README.md)
 
@@ -15,6 +15,8 @@
 - 🌐 **Trilingual UI**: Simplified Chinese (default) → Traditional Chinese → English in one click; skill data keeps Chinese + English descriptions, with English originals in `en_description`
 - 📦 **One-click install**: copy `skills/<name>/`, or use [skills-manager](https://github.com/xingkongliang/skills-manager) for batch management
 - 🧩 **Standardized spec**: based on `SKILL.md` (`name`/`description`/`category`, etc.); skills auto-trigger via `description`
+- 📈 **Category donut chart**: real counts / shares for all 13 categories; click a slice or legend item to filter
+- 🧭 **Maintainable front end**: all DOM ids are kebab-case (debugging / a11y / e2e), footer shows `vX.Y.Z · build yymmddhhmm` (version links to Releases; clicking the build id copies the environment info)
 - 📊 **Pure static site**: `output: "export"` static export, wired for EdgeOne Pages auto-deploy via CI — easy to deploy
 
 ## 📊 Scale
@@ -47,6 +49,7 @@ Agent-Skills-Hub/
 ├── scripts/           # sync-inline-data / inject-ga / tag-release (sync · build inject · release)
 ├── tools/             # check-version / check-skill-yaml / check-inline-js / validate-skills etc.
 ├── e2e/               # Playwright smoke tests
+├── prototype/         # Design specs (DESIGN / COMPONENTS) + wireframe/state/structure contract HTML (not built)
 ├── docs/              # AGENTS.md / project.md / spec.md / tasks.md / tasks-done.md
 └── .github/           # CI workflows and contributing guide
 ```
@@ -61,6 +64,23 @@ npm run dev      # start the server, default http://localhost:3000
 ```
 
 Skill data is maintained in `data/skills-data.json` (stable metadata) and `data/skills-metrics.json` (derived metrics), and synced into `src/index.html`'s inline `window.SKILLS_DATA` via `npm run sync:data` to keep the UI consistent with the source of truth.
+
+## Validation & Build
+
+```bash
+npm run lint                  # TypeScript type check
+npm test                      # data contract / KV unit tests
+npm run validate:yaml         # real YAML frontmatter validation (Bun)
+node tools/check-version.mjs  # version / CHANGELOG / badges / doc headers
+node tools/check-inline-js.mjs # inline JS syntax
+npm run build                 # static export to out/ + GA/version/build injection
+npm run e2e                   # Playwright smoke tests (starts the server)
+node scripts/verify-storage.mjs # votes/favorites API + disk persistence e2e (server must be running)
+```
+
+> If Playwright's bundled chromium is not installed locally, run `PLAYWRIGHT_CHANNEL=msedge npm run e2e` to reuse an installed Edge; the CI default channel is unchanged.
+
+> `src/index.html` is a **self-contained single-file app** (inline CSS/JS/data, opens by double-click) and is exempt from the ">200 lines must be split" rule per `docs/spec.md` §7 red line 10; `prototype/template.html` is its DOM structure contract (semantic ids included), while `src/index.html` remains the single source of truth for styles and scripts.
 
 ## Installation
 

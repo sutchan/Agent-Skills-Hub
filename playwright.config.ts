@@ -13,6 +13,9 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:3000",
     headless: true,
+    // CI 默认使用 Playwright 自带 chromium；本机未下载浏览器二进制时可用
+    // PLAYWRIGHT_CHANNEL=msedge npm run e2e 复用已安装的 Edge，避免环境阻断。
+    channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
     trace: "on-first-retry",
   },
   webServer: {

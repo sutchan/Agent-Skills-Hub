@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.16.18-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![版本](https://img.shields.io/badge/version-v1.16.19-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 其他语言：[English](README.en.md)
 
@@ -15,6 +15,8 @@
 - 🌐 **三语界面**：简体中文（默认）→ 繁体中文 → 英语一键循环切换；技能描述中英共存，英文原文存于 `en_description`
 - 📦 **一键安装**：复制 `skills/<name>/` 目录，或用 [skills-manager](https://github.com/xingkongliang/skills-manager) 批量管理
 - 🧩 **标准化规范**：基于 `SKILL.md`（`name`/`description`/`category` 等），技能靠 `description` 自动触发
+- 📈 **分类占比环形图**：13 个分类的数量/占比实算可视化，点击扇区或图例直接筛选
+- 🧭 **可维护前端**：全站 DOM id 统一 kebab-case（便于调试/无障碍/e2e），页脚展示 `vX.Y.Z · build yymmddhhmm`（版本号链接 Releases，构建号点击可复制环境信息）
 - 📊 **纯静态站点**：`output: "export"` 纯静态导出，已对接 EdgeOne Pages 自动部署（CI），部署简单
 
 ## 📊 规模
@@ -47,6 +49,7 @@ Agent-Skills-Hub/
 ├── scripts/           # sync-inline-data / inject-ga / tag-release（同步·构建注入·发版）
 ├── tools/             # check-version / check-skill-yaml / check-inline-js / validate-skills 等
 ├── e2e/               # Playwright 冒烟测试
+├── prototype/         # 设计规范（DESIGN / COMPONENTS）+ 线框/状态/结构契约 HTML，不参与构建
 ├── docs/              # AGENTS.md / project.md / spec.md / tasks.md / tasks-done.md
 └── .github/           # CI 工作流与贡献指南
 ```
@@ -61,6 +64,23 @@ npm run dev      # 启动静态服务，默认 http://localhost:3000
 ```
 
 技能数据维护于 `data/skills-data.json`（稳定元数据）与 `data/skills-metrics.json`（派生指标）。改完数据后运行 `npm run sync:data` 将最新技能同步进 `src/index.html` 的内联 `window.SKILLS_DATA`，保持前端展示与权威数据一致。
+
+## 验证与构建
+
+```bash
+npm run lint                 # TypeScript 类型检查
+npm test                     # 数据契约 / KV 单测
+npm run validate:yaml        # SKILL.md frontmatter 真 YAML 校验（Bun）
+node tools/check-version.mjs # 版本、CHANGELOG、徽章、文档头一致性
+node tools/check-inline-js.mjs # src/index.html 内联 JS 语法
+npm run build                # 静态导出 out/ + 注入 GA / 版本 / 构建号
+npm run e2e                  # Playwright 冒烟测试（自动起本地服务）
+node scripts/verify-storage.mjs # 投票/收藏 API 与磁盘持久化端到端验证（需服务已启动）
+```
+
+> 本机若未下载 Playwright 自带 chromium，可用 `PLAYWRIGHT_CHANNEL=msedge npm run e2e`（PowerShell：`$env:PLAYWRIGHT_CHANNEL='msedge'; npm run e2e`）复用已安装的 Edge；CI 默认通道不变。
+
+> `src/index.html` 是**自包含单文件应用**（内联 CSS/JS/数据，双击即开），按 `docs/spec.md` §7 红线 10 豁免「单文件 >200 行拆分」规则；`prototype/template.html` 是它的 DOM 结构契约（含语义化 id），样式与脚本仍以 `src/index.html` 为唯一事实来源。
 
 ## 安装方式
 

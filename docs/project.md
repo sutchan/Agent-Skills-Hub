@@ -1,6 +1,6 @@
 # 仓库约定（Project Conventions）
 
-> 路径：`docs/project.md` · 版本：1.16.18
+> 路径：`docs/project.md` · 版本：1.16.19
 > 本文件定义目录结构、变更工作流与术语表。能力契约（frontmatter/数据/红线）的唯一权威源是 [spec.md](spec.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)。
 
 ---
@@ -22,12 +22,12 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | `server/` | 本地服务模块化实现：`config.js`（路径/环境常量）、`fs-util.js`（JSON 安全读 + 原子写）、`store.js`（KV 模拟 + 技能白名单）、`ratelimit.js`（IP 限流持久化）、`api.js`（`/api/votes`、`/api/favorites` 路由）、`pages.js`（静态资源与 SPA 回退）；根 `server.js` 为薄装配层（~54 行） | ◻️ 低频 |
 | `server.js` | 本地服务入口（Express 薄装配，仅挂载 `server/` 各模块、维持中间件顺序） | ◻️ 低频 |
 | `edge-worker.js` + `edgeone.config.json` | 生产边缘函数（Edge KV 命名空间 `ASH_KV`）：投票/收藏键 `vote:<name>`/`fav:<name>`，API 契约与 `server/` 对齐；`*/api/*` 路由指向边缘函数 | ◻️ 低频 |
-| `prototype/` | 高保真**设计规范**事实来源：`DESIGN.md` / `COMPONENTS.md` / `wireframes.html` / `states.html` 等；**不参与构建、非运行产物** | ◻️ 低频 |
+| `prototype/` | 高保真**设计规范**事实来源：`DESIGN.md` / `COMPONENTS.md` / `wireframes.html` / `states.html` / `template.html`（DOM 结构契约，v1.16.19 起无占位符）等；**不参与构建、非运行产物** | ◻️ 低频 |
 | `tools/` | 仓库级脚本：`check-version.mjs`（版本/CHANGELOG/tag 一致性）、`ensure-lf.mjs`（LF 归一）、`extract-release-notes.mjs`（抽取发行说明）、`validate-skills.mjs`（校验 `skills/*/SKILL.md` frontmatter，硬失败/软警告）、`check-skill-yaml.mjs`（Bun 真实 YAML 解析校验 frontmatter，`npm run validate:yaml`）；`tools/lib/` 为 Node 内置测试（`skills-data.test.mjs` 校验 data JSON、`kv-store.test.mjs`） | ◻️ 低频 |
-| `scripts/` | `tag-release.mjs`（按 `package.json` 版本幂等创建 `vX.Y.Z` 注解 tag）、`verify-storage.mjs`（votes/favorites API 端到端验证）、`sync-inline-data.mjs`（`npm run sync:data`：从 `data/skills-data.json` 重建 `src/index.html` 内联 `window.SKILLS_DATA`）、`inject-ga.mjs`（构建期将 GA 占位符替换为环境变量 `GA_MEASUREMENT_ID` 写入 `out/index.html`） | ◻️ 低频 |
-| `data/` | 提交态数据：`skills-data.json`（技能元数据，权威源）、`skills-metrics.json`（派生指标）、`kv-store.json`（本地投票/收藏真源）、`ratelimit.json`（限流持久化）、`skills-votes.json`（已弃用，空 `{}`） | ✅ 中频 |
+| `scripts/` | `tag-release.mjs`（按 `package.json` 版本幂等创建 `vX.Y.Z` 注解 tag）、`verify-storage.mjs`（votes/favorites API 端到端验证）、`sync-inline-data.mjs`（`npm run sync:data`：从 `data/skills-data.json` 重建 `src/index.html` 内联 `window.SKILLS_DATA`）、`inject-ga.mjs`（构建期以 `src/index.html` 为源生成 `out/index.html`，并注入 GA / 版本 / 构建号，占位符残留时硬失败） | ◻️ 低频 |
+| `data/` | 提交态数据：`skills-data.json`（技能元数据，权威源）、`skills-metrics.json`（派生指标）；运行时状态 `kv-store.json` / `ratelimit.json` 由 `server/store.js` 首次启动自建、已 gitignore（v1.16.18 起不再跟踪）；`skills-votes.json` 已删除 | ✅ 中频 |
 | `public/` | 品牌资产（banner / favicon / og 图等），随静态服务对外提供 | ◻️ 低频 |
-| `e2e/` | Playwright 冒烟测试（`smoke.spec.ts`，验证 `#grid` 渲染与 `#search` 过滤），CI `e2e` job 真实运行 | ◻️ 低频 |
+| `e2e/` | Playwright 冒烟测试（`smoke.spec.ts`，验证 `#grid` 渲染与 `#search-input` 过滤），CI `e2e` job 真实运行 | ◻️ 低频 |
 | ~~`live_page.html`~~ | **已移除**（v1.16.x）：曾为并行自包含快照，存在版本漂移风险，已从仓库删除；现仅 `src/index.html` 单一站点本体 | — |
 | `docs/` | 项目文档：`project.md`（约定）、`spec.md`（能力基线/权威契约）、`AGENTS.md`（协作指引）、`tasks.md` / `tasks-done.md`（任务清单） | ✅ 本目录 |
 | `.github/` | Community Health Files（`CONTRIBUTING.md` 等）、Issue/PR 模板、CI 工作流（`ci.yml`，Bun + EdgeOne Pages + `bun.lock`） | ◻️ 低频 |
@@ -44,7 +44,9 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 2. **实施**：按仓库规范改动。
    - 改技能展示数据：先编辑 `data/skills-data.json`（+ 需要时 `skills-metrics.json`）——二者为**提交态、手工维护**，**无从 `skills/*/SKILL.md` 自动生成脚本**；保存后运行 `npm run sync:data` 自动重建 `src/index.html` 内联 `window.SKILLS_DATA`（单向：data → 内联）。
    - 改前端交互：编辑 `src/index.html`（原生 JS，注意其为单文件内联结构，豁免 >200 行拆分）。
-3. **验收**：`node tools/validate-skills.mjs`（SKILL.md frontmatter）、`node --test tools/lib/*.test.mjs`（data JSON 回归）、`tsc --noEmit`、`node tools/check-version.mjs`；`npm run dev` 起 `server.js` 预览；`npm run e2e`（Playwright 冒烟）、必要时 `node scripts/verify-storage.mjs` 验证投票/收藏存储。
+3. **验收**：`node tools/validate-skills.mjs`（SKILL.md frontmatter）、`npm run validate:yaml`（Bun 真 YAML 解析）、`node --test tools/lib/*.test.mjs`（data JSON 回归）、`tsc --noEmit`、`node tools/check-version.mjs`、`node tools/check-inline-js.mjs`；`npm run dev` 起 `server.js` 预览；`npm run e2e`（Playwright 冒烟）、必要时 `node scripts/verify-storage.mjs` 验证投票/收藏存储。
+   - **改 id 时**：kebab-case 命名，同步 `src/index.html`（CSS/JS 选择器 + ARIA 关联）、三份 `prototype/*.html`、`e2e/smoke.spec.ts` 与 `DESIGN.md §4.7`；禁止重复 id 与 camelCase 别名。
+   - **拆分约束**：自有源码（`server/`、`tools/`、`scripts/`、`e2e/`、`src/app/`、`edge-worker.js`）均须 ≤200 行；`src/index.html` 按 [spec.md §7 红线 10](spec.md) 作为自包含单文件应用豁免；`skills/` 为上游技能包，不纳入本项目源码拆分范围；文档（含 `prototype/*.html` 设计稿）保持完整不拆分。
 4. **发版**：bump `package.json` version → 更新 `CHANGELOG.md` → `npm run tag`（创建 `vX.Y.Z` tag）→ 推送 tag 触发 CI 部署（EdgeOne Pages）与 GitHub Release。
 5. **归档**：完成后将 `tasks.md` 任务状态更新为「已完成」，移入 `docs/tasks-done.md`；无 `openspec archive` 步骤。
 

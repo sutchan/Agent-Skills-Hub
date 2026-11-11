@@ -4,15 +4,28 @@ import fs from 'node:fs';
 import express from 'express';
 import { APP_VERSION, APP_VERSION_TOKEN, BUILD_ID, BUILD_ID_TOKEN, GA_ID, GA_TOKEN, INDEX_FILE, METRICS_FILE, PUBLIC_DIR, SKILLS_DIR, SKILLS_FILE } from './config.js';
 
-/** 读取 index.html 并把 GA 衡量 ID / 应用版本 / 构建号占位符替换为当前环境的值（本地服务等价构建期注入） */
+/**
+ * 读取 index.html 并把 GA 衡量 ID / 应用版本 / 构建号占位符替换为当前环境的值。
+ * 首页与 SPA 深链共用缓存：仅在文件 mtime/size 变化时重读并重做字符串替换，
+ * 避免每个请求都读 140KB+ HTML 且重复 split/join（开发时改文件仍会即时生效）。
+ */
+let indexCache = { stamp: '', html: '' };
 function sendIndex(res) {
-  fs.readFile(INDEX_FILE, 'utf-8', (err, html) => {
-    if (err) return res.status(500).send('Internal Server Error');
-    const out = html
-      .split(GA_TOKEN).join(GA_ID)
-      .split(APP_VERSION_TOKEN).join(APP_VERSION)
-      .split(BUILD_ID_TOKEN).join(BUILD_ID);
-    res.type('html').send(out);
+  fs.stat(INDEX_FILE, (statErr, stat) => {
+    if (statErr) return res.status(500).send('Internal Server Error');
+    const stamp = `${stat.mtimeMs}:${stat.size}`;
+    if (indexCache.html && indexCache.stamp === stamp) {
+      return res.type('html').send(indexCache.html);
+    }
+    fs.readFile(INDEX_FILE, 'utf-8', (err, raw) => {
+      if (err) return res.status(500).send('Internal Server Error');
+      const out = raw
+        .split(GA_TOKEN).join(GA_ID)
+        .split(APP_VERSION_TOKEN).join(APP_VERSION)
+        .split(BUILD_ID_TOKEN).join(BUILD_ID);
+      indexCache = { stamp, html: out };
+      res.type('html').send(out);
+    });
   });
 }
 

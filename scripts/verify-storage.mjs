@@ -1,8 +1,24 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const BASE_URL = 'http://localhost:3000';
-const STORE_FILE = path.join(process.cwd(), 'data', 'kv-store.json');
+// 以脚本位置定位仓库根，避免从其他 cwd 运行时读错文件
+const STORE_FILE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'kv-store.json');
+
+/** 服务端写盘有 100ms 防抖：轮询等待磁盘落盘后再断言，消除测试竞态 */
+async function waitForDisk(predicate, timeoutMs = 1500) {
+  const start = Date.now();
+  let store = {};
+  while (Date.now() - start < timeoutMs) {
+    try {
+      store = JSON.parse(fs.readFileSync(STORE_FILE, 'utf-8'));
+      if (predicate(store)) return store;
+    } catch { /* 原子写过程中旧文件可能短暂不可读，重试 */ }
+    await new Promise((resolve) => setTimeout(resolve, 40));
+  }
+  return store;
+}
 
 async function runTests() {
   console.log('=== 开始验证点赞和收藏数据存储系统 ===\n');
@@ -58,7 +74,7 @@ async function runTests() {
     assert(upData2.up === curUp + 1, `再次点赞正确累加: ${curUp} -> ${upData2.up}`);
 
     // 验证磁盘物理文件是否同步写入
-    const diskStoreAfterVote = JSON.parse(fs.readFileSync(STORE_FILE, 'utf-8'));
+    const diskStoreAfterVote = await waitForDisk((s) => s.votes?.[testSkill]?.up === upData2.up);
     assert(diskStoreAfterVote.votes?.[testSkill]?.up === upData2.up, '磁盘 kv-store.json 成功持久化点赞数据');
 
     // 3. 测试撤销点赞
@@ -72,7 +88,7 @@ async function runTests() {
     const undoData = await undoRes.json();
     assert(undoData.up === 0, '撤销后票数归 0');
 
-    const diskStoreAfterUndo = JSON.parse(fs.readFileSync(STORE_FILE, 'utf-8'));
+    const diskStoreAfterUndo = await waitForDisk((s) => !s.votes?.[testSkill] || s.votes?.[testSkill]?.up === 0);
     assert(!diskStoreAfterUndo.votes?.[testSkill] || diskStoreAfterUndo.votes?.[testSkill]?.up === 0, '磁盘 kv-store.json 中对应条目已清理归零');
 
     // 4. 测试收藏 (Favorites) 添加
@@ -103,7 +119,7 @@ async function runTests() {
     assert(checkFavs[favSkill1] === true && checkFavs[favSkill2] === true, 'GET /api/favorites 能够正确读取所有已收藏项');
 
     // 验证磁盘持久化
-    const diskStoreAfterFav = JSON.parse(fs.readFileSync(STORE_FILE, 'utf-8'));
+    const diskStoreAfterFav = await waitForDisk((s) => s.favorites?.[favSkill1] === true && s.favorites?.[favSkill2] === true);
     assert(diskStoreAfterFav.favorites?.[favSkill1] === true && diskStoreAfterFav.favorites?.[favSkill2] === true, '磁盘 kv-store.json 成功持久化收藏数据');
 
     // 5. 测试取消收藏
@@ -159,4 +175,8 @@ async function runTests() {
   if (failed > 0) process.exit(1);
 }
 
-runTests();
+// 顶层拒绝兜底：避免 fetch/断言之外的异常变成静默的 unhandledRejection
+runTests().catch((err) => {
+  console.error('验证脚本异常终止:', err);
+  process.exit(1);
+});

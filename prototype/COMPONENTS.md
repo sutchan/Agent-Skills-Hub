@@ -1,6 +1,6 @@
 # 组件库规范（Component Library Spec）
 
-> 路径：`prototype/COMPONENTS.md` · 版本：1.16.18
+> 路径：`prototype/COMPONENTS.md` · 版本：1.16.19
 > 配套 `DESIGN.md` 设计系统。本文规定每个组件的 **Props / 状态 / 用法 / 代码位置**，供后续开发与评审对齐。
 > 原型落地为 **纯原生 HTML/CSS/JS**（非 React/Tailwind），样式由 `src/index.html` 内联 CSS 的 `:root` CSS 变量单一来源驱动，不手写重复 CSS。
 >
@@ -19,7 +19,7 @@
 > 下文文件名（`components/ui/*.tsx`）为**历史 React 层记法存档**（该层已于 v1.16.x 移除）；当前运行实现均为 `src/index.html` 内联 CSS 类（变体/尺寸/状态语义不变）。
 
 ### 1. Button 按钮
-文件：`components/ui/button.tsx`
+文件：`src/index.html` 内联 `.btn` / `.btn-dice` / `.star-btn` 等（历史 React 层 `components/ui/button.tsx` 已移除）
 | 变体 | 外观 | 用途 |
 |------|------|------|
 | `default` | 填充主色 + `shadow-xs` | 主行动（查看仓库、弹窗内跳转） |
@@ -77,7 +77,7 @@
 - 图标：`Moon`/`Sun`，`aria-label` 三语语义。
 
 ### 10. LangToggle 语言切换
-文件：`src/index.html` 内联 `applyLang()` / `I18N.toggleLang()` 与 `#langBtn`
+文件：`src/index.html` 内联 `applyLang()` / `I18N.toggleLang()` 与 `#lang-btn`
 - 受控：`state.lang: "zh" | "tw" | "en"`（优先级 简体中文 > 繁体中文 > 英语），写 `localStorage` 的 `ash-lang`（`LS_LANG`）+ 同步 `data-lang` 与 `<html lang>`（`zh` / `zh-Hant` / `en`）；读取时 `loadEnum` 枚举校验。
 - 循环：中 → 繁 → EN → 中；设置面板另有「简体中文 / 繁體中文 / English」三选一。
 - 形态：顶栏图标按钮 `.icon-btn`；**按钮文本显示「当前语言」短标**（中/繁/EN），`aria-pressed` 表示当前是否 en；`aria-label` 明确当前语言与下一次切换目标；tooltip 三语由 `data-tip-zh` / `data-tip-tw` / `data-tip-en` 驱动。
@@ -94,7 +94,7 @@ Props：
 { skill: Skill, lang: "zh"|"tw"|"en", view: "grid"|"list", onOpen: (s)=>void, catEn: string }
 ```
 渲染：分类（`category`/`enCategory`）→ 名称（`name` 英文目录名，卡片主标题）→ 中文描述（`description` 中文，`.desc.zh` 行）→ 英文描述（`enDescription`，详情页 en 视图/回退，`line-clamp-2`/列表 `line-clamp-1`）→ 授权工具（`allowedTools` 条件）。
-交互：**原生 `<button type="button" class="card">`**，Enter/Space 原生触发；点击经 `#grid` 事件委托 → `openDetail(skill)`（v1.16.0 修复 double-open，移除冗余 keydown 委托）。
+交互：根节点为 **`<div class="card" role="button" tabindex="0">`**（v1.16.19 实态校正，卡片内含收藏/投票按钮故不能嵌套原生 button）；Enter/Space 由键盘处理触发，点击经 `#grid` 事件委托 → `openDetail(skill)`（v1.16.0 修复 double-open）。
 布局：`view==="list"` 时横向；描述三级回退 `description → zh → enDescription`（v1.15.0），英文长 slug 用 `word-break` 防溢出（v1.17.0）。
 
 ### 13. SkillDetail 技能详情
@@ -116,7 +116,7 @@ Dialog 由 `#dialog`（`role="dialog"` `aria-modal="true"` `aria-labelledby="dia
 - 过滤：`state.cat` ∩ `state.q`（匹配 `name`/`zh`/`description`/`enDescription`/`category`，见内联 `matches(s, terms)`，词表预切分缓存）。
 
 ### 16. SettingsButton 设置按钮（v1.17.2 新增，文档 v1.18.0 同步）
-位置：`src/index.html` 的 `#settingsBtn`（顶部栏右上角）+ 内联 `openSettings()`。
+位置：`src/index.html` 的 `#settings-btn`（顶部栏右上角）+ 内联 `openSettings()`。
 行为：点击打开设置弹窗，**复用 `#dialog` 框架**（焦点陷阱/Esc/遮罩关闭）。
 内容：四组切换 —— ①语言（`ash-lang` 持久化，触发 `applyLang`）；②主题（`ash-theme` 持久化，触发 `applyTheme`）；③视图模式 网格/列表（`ash-view` 持久化，`init()` 恢复并同步顶栏 `.view-btn` active）；④显示密度 舒适/紧凑（`ash-density` 持久化，触发 `applyDensity`，CSS `:root[data-density="compact"]` 控制间距）。全部切换就地刷新动态文案（`refreshSettingsBody()`，不重建弹窗避免焦点陷阱监听累积）。
 样式：`.icon-btn`（34px、flex 居中、`aria-label`）；弹窗内 `.settings-row`/`.settings-label`；各切换项为 `<button aria-pressed>`。

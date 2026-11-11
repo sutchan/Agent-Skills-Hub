@@ -2,6 +2,35 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.19] - 2026-11-10
+
+### fix: 代码审查——安全、健壮性与性能问题修复
+
+- **安全**：`agent-skills-hub.code-workspace` 中硬编码的 IDE `vercelVSCode.accessToken` 明文凭证清除，文件脱敏后重新纳入版本控制（`.gitignore` 仅忽略 `*.code-workspace.local` 本地私有副本）；历史提交中曾出现该 token，使用者应自行轮换。
+- **安全**：详情弹窗 `metaRow()` 的外链新增 `safeExternalUrl()` 协议白名单，仅放行 `http/https`，阻断 `javascript:` / `data:` 注入；非安全链接降级为纯文本。
+- **健壮性**：`edge-worker.js` 的 `respondWith` 补齐 `.catch` 502 兜底（回源失败不再产生未捕获 Promise rejection）；`kvKeyName()` 兼容 KV `list()` 返回字符串或 `{name}` 对象两种形态，避免 `.replace` 抛错导致 500。
+- **健壮性**：`server/store.js` 新增 `flushKvStore()` 与 `process.on('exit')` 钩子，防止进程退出丢失防抖窗口内最后 100ms 的投票/收藏写入；`scripts/verify-storage.mjs` 顶层 Promise 补拒绝兜底。
+- **健壮性**：剪贴板降级路径 `fallbackCopy()` 按 `execCommand` 真实返回值反馈，失败时不再误报「已复制」；临时 `textarea` 用 `finally` 保证清理；`copyText` / 分享 / 复制技能名 / 复制安装命令统一走 Promise 链并补 `.catch`。
+- **性能**：`edge-worker.js` 的 `GET /api/votes` 由串行 `await kv.get` N+1 改为 `Promise.all` 并行；`server/pages.js` 首页与 SPA 回退的注入结果按文件 `mtimeMs + size` 缓存，避免每个请求重复读 140KB+ HTML 并做 3 次 `split/join`，开发期改文件仍即时生效。
+- **构建链**：`npm run build` 移除 Unix 专用 `NODE_ENV=production` / `cp`（Windows 下直接报错）；`scripts/inject-ga.mjs` 改为从 `src/index.html` 生成 `out/index.html` 并注入 GA / 版本 / 构建号，源文件缺失或占位符残留时**硬失败**（旧版静默跳过会部署 Next 空白页）。CI 仍用 `bun run build`，无需改动。
+- **测试鲁棒性**：`scripts/verify-storage.mjs` 的磁盘断言改为轮询等待 100ms 防抖落盘（原即时读取导致 2 项误报失败），并用 `import.meta.url` 定位仓库根，去除 `process.cwd()` 依赖；`playwright.config.ts` 增加可选 `PLAYWRIGHT_CHANNEL`（CI 默认 chromium 不变，本机无浏览器二进制时可用 `msedge`）。
+- **资源实态**：v1.16.18 清理 `src/favicon.svg` 孤儿副本后，`src/index.html` 仍保留 `href="favicon.svg"` 冗余外链，裸开 `file://` 会产生 404；v1.16.19 移除该声明，仅保留 data-URI 内联 favicon（符合自包含单页「双击即开」），`DESIGN.md` §8 三处描述同步，`public/favicon.svg` 仍供部署平台与原型页面使用。
+- **验证结果**：`node --test`（6/6）、`check-version` / `check-inline-js` / `validate:yaml` / `tsc --noEmit`、27 个 JS/MJS 语法检查、全站 id/版本/资源门禁全通过；`verify-storage` API 与持久化 7 组 21 项断言、`npm run e2e` 2/2、浏览器核心流程 13 项（搜索/分类筛选/详情弹窗/Escape/三语/主题/页脚版本与构建号）全通过且 0 条 JS 异常；`npm run build` 产物注入校验通过。
+
+### refactor: 语义化 ID 全量规范化（对齐 docs/spec.md 红线 8）
+
+- 应用与原型中 92 个历史 camelCase id（如 `searchInput` / `siteFooter` / `catChartSection`）统一为 kebab-case，动态前缀同步为 `tag-chip-*` / `cat-slice-*` / `cat-legend-*`；CSS 选择器、`$("#…")`、`getElementById()`、ARIA 关联、`e2e/smoke.spec.ts` 与三份原型 HTML 一次性对齐，校验无悬空引用、无重复 id。
+- 详情标题 `id="detail-title"` 改为单一模板声明（互斥分支只拼装内部 span），消除三处重复 `id`；移除无消费方的 `data-alias="site-header"` 双 id 语义与指向不存在 id 的死分支。
+- `prototype/template.html` 由残留 `{{CSS}} / {{DATA}} / {{I18N}} / {{JS}}` 占位符的废弃模板重写为 **DOM 结构契约**（与 `src/index.html` 一致，含 Hero 两栏、控制区、环形图、标签导航、三段式页脚），并补齐 kebab-case id；`prototype/wireframes.html` 页脚改三段式 + `build yymmddhhmm`，`prototype/states.html` 状态卡片 id 全量 kebab 化；三份原型的 `favicon.svg` 悬空相对引用改为 `../public/favicon.svg`。
+- **拆分结论**：项目自有源码（`server/`、`tools/`、`scripts/`、`e2e/`、`src/app/`、`edge-worker.js`）全部 ≤200 行，最大为 `scripts/verify-storage.mjs`（166 行）；唯一超 200 行的 `src/index.html` 按 `docs/spec.md` §7 红线 10「自包含单文件应用例外」保持不拆分（无打包器、双击即开）；`skills/` 为上游技能包，不属本项目源码。
+
+### docs: 规范文档一致性修正
+
+- `prototype/DESIGN.md`：卡片元素由「原生 `<button>`」纠正为 `<div role="button" tabindex="0">`（内部含收藏/投票按钮，不能嵌套 button）；页脚 id 纠正为 `#site-footer`；`.cats-scroll` 纠正为 `#tag-nav > .filter-scroll`；补齐 900/860/768 响应式断点；新增 §4.7「语义化 ID 契约」；§8 中互相矛盾的 v1.19.x / v1.14.8x 三条历史长注整理为当前实现契约摘要。
+- `prototype/COMPONENTS.md`：Button 组件路径纠正为 `src/index.html` 内联样式、卡片元素类型同步。
+- `docs/spec.md`：`live_page.html` 由「并行快照」纠正为「已移除」（与 §8.3 一致）；§5 记录 ID 迁移；§8 增列本轮已修项。`docs/project.md` 同步目录结构与 id 契约说明。
+- `README.md` / `README.en.md`：补充当前功能（三语、分类占比环形图、页脚版本+build、kebab-case id 契约）与验证/构建命令说明。
+
 ## [1.16.18] - 2026-11-07
 
 ### feat: CI 全绿后自动发布 GitHub Releases

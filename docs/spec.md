@@ -1,9 +1,9 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.16.18
+> 路径：`docs/spec.md` · 版本：1.16.19
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
-> ⚠️ 本 spec 反映**截至 v1.16.18 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / sync-* / src/lib / prototype.html」等描述已被后续迭代移除。
+> ⚠️ 本 spec 反映**截至 v1.16.19 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / sync-* / src/lib / prototype.html」等描述已被后续迭代移除。
 
 ---
 
@@ -72,7 +72,7 @@
 - `data/skills-data.json`：稳定技能元数据（`total` / `categories` / `categoryEn` / `skills[]`），**权威源**。
 - `data/skills-metrics.json`：频繁派生指标，以 `name` 为 key 的 map。
 
-二者内容经 `npm run sync:data`（读取 `data/skills-data.json`）**单向重建**进 `src/index.html` 的 `window.SKILLS_DATA`（前端唯一读取源；不 `fetch` data json）。`live_page.html` 为并行快照，**不被 sync:data 覆盖**（见 §8）。
+二者内容经 `npm run sync:data`（读取 `data/skills-data.json`）**单向重建**进 `src/index.html` 的 `window.SKILLS_DATA`（前端唯一读取源；不 `fetch` data json）。历史并行快照 `live_page.html` **已从仓库移除**（见 §8.3），`sync:data` 现只更新唯一站点本体 `src/index.html`。
 
 ### 3.1 技能条目（SkillEntry）
 
@@ -125,7 +125,7 @@ type SkillsData = {
 - `category` 必须是 **14 大稳定中文分类键**之一（当前活跃 13 键）；`en_category` 为对应英文名；未知分类归「其他」类（须为零）。
 - **中英共存**：每技能同时提供中文 `description` 与英文 `en_description`。
 - **改技能展示的同步流程**：① 手工编辑 `data/skills-data.json`（+ 需要时 `skills-metrics.json`）；② 运行 `npm run sync:data` **自动**重建 `src/index.html` 内联 `window.SKILLS_DATA`。
-- **`skills-votes.json` 已弃用**：现为空 `{}`，无写入方；投票/收藏真源为本地 `data/kv-store.json` / 生产 Edge KV。
+- **`skills-votes.json` 已删除**（v1.16.18 结构清理）：历史上为空 `{}` 且无写入方，已从仓库移除；投票/收藏真源为本地 `data/kv-store.json`（运行时生成、已停止 git 跟踪）/ 生产 Edge KV。`src/index.html` 中 `a.download = "skills-votes.json"` 仅为导出文件名，与已删文件无关。
 - **数据型数字**：README/应用内技能总数与领域表计数须以 `data/skills-data.json` 实算，**禁止手填**。
 
 ---
@@ -133,7 +133,7 @@ type SkillsData = {
 ## 4. 构建与部署
 
 - **本地**：`npm run dev` / `npm run start` = `node server.js`（Express，默认 `http://localhost:3000`），`GET /` 返回 `src/index.html`，并提供 `/api/votes`、`/api/favorites`。
-- **构建**：`npm run build` = `NODE_ENV=production next build && cp src/index.html out/index.html && node scripts/inject-ga.mjs`。`next.config.mjs` 为 `output:"export"`（纯静态，产物落 `out/`）。由于 `src/app` 仅导出一个重定向占位页，随后被 `cp` 用真正的静态应用**覆盖** `out/index.html`，故 **Next 层对最终页面无实质贡献**，真实可部署物 = `src/index.html` + `public/` + `data/` + `skills/` + `out/` 导出壳。`inject-ga.mjs` 将 `out/index.html` 中 `__GA_MEASUREMENT_ID__` 占位符替换为环境变量 `GA_MEASUREMENT_ID`（缺省回退 `G-WQDDVB14PF`）。
+- **构建**：`npm run build` = `next build && node scripts/inject-ga.mjs`（**v1.16.19 起**移除 Unix 专用 `NODE_ENV=production` / `cp` 语法，Next 构建自身设置 production；注入脚本直接以 `src/index.html` 为源写出 `out/index.html`，Windows / CI 行为一致）。`next.config.mjs` 为 `output:"export"`（纯静态，产物落 `out/`）。由于 `src/app` 仅导出一个重定向占位页，随后被注入脚本用真正的静态应用**覆盖** `out/index.html`，故 **Next 层对最终页面无实质贡献**，真实可部署物 = `src/index.html` + `public/` + `data/` + `skills/` + `out/` 导出壳。`inject-ga.mjs` 一次性替换 `__GA_MEASUREMENT_ID__`（环境变量，缺省回退 `G-WQDDVB14PF`）、`__APP_VERSION__`、`__BUILD_ID__`，并在源文件或占位符残留时**硬失败**（旧版缺产物时静默跳过会部署空白页）。
 - **生产 API**：`edge-worker.js`（Edge KV `ASH_KV`）实现投票/收藏，`edgeone.config.json` 将 `*/api/*` 路由指向它；键 `vote:<name>`（`{up}`）/ `fav:<name>`，契约与 `server/` 对齐。
 - **CI/CD**（`.github/workflows/ci.yml`，**Bun + `bun.lock`** `--frozen-lockfile`）：串行流水线 `validate`（`tsc --noEmit` + `bun run test`（node --test tools/lib）+ `tools/validate-skills.mjs` + `tools/check-skill-yaml.mjs` + `tools/check-version.mjs` + `tools/check-inline-js.mjs`）→ `build`（导出 `out/`、上传构件）→ `e2e`（Playwright，`webServer` = `bun run start`，跑 `e2e/smoke.spec.ts`）→ `deploy`（`npx edgeone pages deploy ./out` 到 EdgeOne Pages）→ `release`（`refs/tags/v*` 或 main 分支触发，抽 CHANGELOG 发行说明，附 `data/*.json`）。
 - **发版（v1.16.18 起自动，规范：所有工作流全绿后自动发布 Releases）**：bump `package.json` version → 更新 `CHANGELOG.md` → push main；`validate`/`build`/`e2e`/`deploy` 全部通过后，`release` job 幂等检查 `v{version}` Release——不存在则经 GitHub API 自动创建注解 tag（基于本次 HEAD，与部署同一提交）并发布；已存在则跳过（版本未 bump 的普通 push 不重复发版）。手动补发路径：`npm run tag` + 推送 `v*` tag。
@@ -151,7 +151,7 @@ type SkillsData = {
 - **视图**：`grid` / `list` 仅改布局，不影响过滤。
 - **详情弹窗**：语义化 `id` + `aria-modal` + `aria-labelledby`，展示中英描述、分类、allowedTools、安装命令/复制、相关技能；含焦点陷阱、ESC 关闭、背景滚动锁定、`prefers-reduced-motion` 适配。
 - **投票 / 收藏**：`localStorage`（`ash-votes` / `ash-favorites`）+ `initCloudSync()` 与 `/api/votes`、`/api/favorites` 云同步；赞为累加制 + 独立撤销，无「踩」。
-- **语义化 id**：主要容器/弹窗均加 kebab-case 语义化 `id` 与 ARIA 属性（便于调试/无障碍/e2e 定位）。
+- **语义化 id**：主要容器/弹窗均加 kebab-case 语义化 `id` 与 ARIA 属性（便于调试/无障碍/e2e 定位）。**v1.16.19 全量迁移**：应用与原型中历史的 92 个 camelCase id（如 `searchInput` / `siteFooter`）统一为 kebab-case（`search-input` / `site-footer`），动态前缀（`tag-chip-*` / `cat-slice-*` / `cat-legend-*`）同步；CSS 选择器、`$("#…")`、`getElementById()`、ARIA 关联、e2e 选择器与三份原型 HTML 一次性对齐。详情标题 `id="detail-title"` 只声明一次，消除互斥模板中的重复 id；历史 `data-alias` 双 id 语义已移除。
 - **三语界面（v1.16.17）**：语言优先级 = 简体中文 `zh`（默认）> 繁体中文 `tw` > 英语 `en`；`SUPPORTED` / 回退链（tw、en 缺词回退 zh）/ 顶栏三语循环 / 设置面板三选项 / `loadEnum(LS_LANG, …)` 枚举校验均已落地。`html lang` 映射为 `zh` / `zh-Hant` / `en`；静态文案用 `.zh`/`.tw`/`.en` + `data-i18n` 三节点互斥显隐，图标提示另配 `data-tip-tw`。技能数据本身仅有简体中文名与英文原文（**暂无繁体数据**），繁体界面下卡片/详情标题回退「简体名 + 英文副标题」，数据级繁体化为后续任务。
 
 ---
@@ -197,6 +197,7 @@ type SkillsData = {
 - **8.5 边缘产物部署保证**：`edge-worker.js` / `edgeone.config.json` 在仓库根，`next build`/`cp` 不把它们纳入 `out/`；其随 EdgeOne 部署的保证未在流水线中明确，待确认。
 
 **历史已修复（记录备查，勿再标为问题）**：
+- **v1.16.19 代码审查**：① 工作区配置中的明文 IDE accessToken 移除并脱敏后重新纳入版本控制；② `edge-worker.js` 回源失败补 502 兜底、GET /api/votes 改并行 KV 读取、兼容 KV list 两种返回形态；③ `server/store.js` 增加退出前强制落盘（防最后 100ms 投票/收藏丢失），`server/pages.js` 首页注入结果按 mtime 缓存；④ 详情外链加 http/https 协议白名单，复制降级路径按 `execCommand` 真实结果反馈；⑤ id 全量 kebab-case 化并消除重复 id；⑥ `prototype/template.html` 从残留占位符模板重写为 DOM 结构契约，三份原型的 favicon 引用与页脚结构对齐实现。
 - 内联数据漂移（161→167）：v1.16.0 起 `npm run sync:data` 从 `data/skills-data.json` 重建内联 `window.SKILLS_DATA`，meta/内联 `total`/data 三处实算一致。
 - 限流在生产反代下误伤全站：server 增加 `trust proxy` + `X-Forwarded-For` 取真实 IP。
 - SPA 深链与未知 API 返回不当内容：`/api` JSON 404、全局错误兜底、非 `/api` SPA 回退（返回首页并注入 GA ID）。

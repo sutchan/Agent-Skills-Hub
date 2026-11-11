@@ -15,10 +15,3 @@ test("kv-store.json 存在时为合法 JSON 对象", () => {
   const kv = JSON.parse(readFileSync(file, "utf8"));
   assert.ok(typeof kv === "object" && kv !== null, "kv-store 应为对象");
 });
-
-const votesFile = join(root, "data", "skills-votes.json");
-test("skills-votes.json 存在时为合法 JSON 对象", () => {
-  if (!existsSync(votesFile)) return;
-  const v = JSON.parse(readFileSync(votesFile, "utf8"));
-  assert.ok(typeof v === "object" && v !== null, "skills-votes 应为对象");
-});
