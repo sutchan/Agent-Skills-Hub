@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.22] - 2026-11-19
+
+### fix: 修复 Vercel 静态导出构建找不到输出目录
+
+- **根因**：`next.config.mjs` 采用 `output: "export"`，产物目录是 `out/`；Vercel 按 Next.js 默认约定查找 `.next`，构建实际上已成功（`out/index.html` 已由 `inject-ga.mjs` 注入完成），但部署阶段报 `STATIC_BUILD_NO_OUT_DIR`。
+- **修复**：新增 `vercel.json`，显式声明 `framework: "nextjs"`、`buildCommand: "npm run build"`（保留 `sync:seo → next build → inject-ga` 全链路）与 `outputDirectory: "out"`；同时保留 `$schema` 便于配置校验。
+- **部署约定**：若 Vercel 项目设置中曾手动填写 Output Directory，需改为 `out` 或清空以让仓库配置生效（项目设置优先级高于 `vercel.json`）；`GA_MEASUREMENT_ID` 仍通过环境变量注入，未设置时回退默认值。
+- **文档/版本**：README 双语、docs 四文档、prototype 六文件、.github 四文档头版本/徽章统一至 1.16.22；`docs/spec.md` §4 补 Vercel 部署契约，`docs/project.md` 补 `vercel.json` 目录项，协作文档与 CHANGELOG 同步。
+
 ## [1.16.21] - 2026-11-19
 
 ### docs: 全量同步项目文档至当前版本 v1.16.21
