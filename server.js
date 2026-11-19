@@ -5,6 +5,7 @@
 import express from 'express';
 import { HOST, PORT } from './server/config.js';
 import { mountApi } from './server/api.js';
+import { mountFileApi, uploadRoute } from './server/file-api.js';
 import { mountHome, mountSpaFallback, mountStatic } from './server/pages.js';
 import { rateLimitMiddleware } from './server/ratelimit.js';
 
@@ -22,6 +23,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// 文件上传走原始二进制：必须在 express.json() 之前按路径挂载，否则 body 会被 JSON 中间件消费
+app.post('/api/upload', uploadRoute);
+
 // 限制 JSON 请求体大小，避免超大 payload 占用内存（投票/收藏接口只需 name/action）
 app.use(express.json({ limit: "10kb" }));
 
@@ -32,6 +36,7 @@ mountStatic(app);
 app.use(rateLimitMiddleware);
 
 mountApi(app);
+mountFileApi(app);
 mountHome(app);
 
 // JSON 404：未知的 /api/* 返回结构化错误，而非 express 默认 HTML（代码审查 #8）
