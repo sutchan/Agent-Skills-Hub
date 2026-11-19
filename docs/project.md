@@ -19,6 +19,7 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | `skills/<name>/references/`、`scripts/`、`assets/`、`agents/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `src/index.html` | **应用本体**：自包含静态单页（原生 JS、无框架），内联 CSS + `window.SKILLS_DATA`，`server.js` 的 `GET /` 即返回它 | ✅ 高频 |
 | `src/app/` | Next.js 16 App Router **重定向存根**（`page.tsx` 将 `/` 跳转到 `/index.html`），对最终页面无实质贡献，仅占位 | ◻️ 低频 |
+| `next.config.mjs` + `vercel.json` | Next.js 纯静态导出契约：`output: "export"` → 产物 `out/`；`vercel.json` 声明 `buildCommand: "npm run build"` 与 `outputDirectory: "out"`，修复 Vercel 的 `STATIC_BUILD_NO_OUT_DIR`（项目设置优先级更高，须同步为 `out` 或留空） | ◻️ 低频 |
 | `server/` | 本地服务模块化实现：`config.js`（路径/环境常量）、`fs-util.js`（JSON 安全读 + 原子写）、`store.js`（KV 模拟 + 技能白名单）、`ratelimit.js`（IP 限流持久化）、`api.js`（`/api/votes`、`/api/favorites` 路由）、`pages.js`（静态资源与 SPA 回退）；根 `server.js` 为薄装配层（~54 行） | ◻️ 低频 |
 | `server.js` | 本地服务入口（Express 薄装配，仅挂载 `server/` 各模块、维持中间件顺序） | ◻️ 低频 |
 | `edge-worker.js` + `edgeone.config.json` | 生产边缘函数（Edge KV 命名空间 `ASH_KV`）：投票/收藏键 `vote:<name>`/`fav:<name>`，API 契约与 `server/` 对齐；`*/api/*` 路由指向边缘函数 | ◻️ 低频 |

@@ -144,6 +144,7 @@ node -e "const d=require('./data/skills-data.json');const m={};for(const s of d.
 - **发布（v1.16.18 起自动）**：push 到 main 且校验 / 构建 / E2E / 部署全部通过后，`release` job 幂等检查 `v{package.json version}` 的 Release——不存在则自动创建注解 tag（GitHub API，基于本次 HEAD）并发布（抽 CHANGELOG 小节作发行说明，附 `data/skills-data.json` / `data/skills-metrics.json`）；已存在则跳过，版本未 bump 的普通 push 不会重复发版。手动补发：推送 `v*` tag 同样触发。
 - **SEO/GEO 抓取层**：`public/robots.txt` / `sitemap.xml` / `llms.txt` / `llms-full.txt` / `data/skills-data.json` 由 `npm run sync:seo` 幂等生成，随 `out/` 一起部署；`npm run build` 与 `npm run sync:data` 会自动串联。改技能数据后须确认生成物已同步（`SEO-*:BEGIN/END` 生成区勿手改），契约见 `docs/spec.md` §4。
 - **本地预览**：`npm run dev`（`server.js`，默认 `:3000`）。
+- **Vercel（可选部署）**：`vercel.json` 声明 `outputDirectory: "out"` 与 `buildCommand: "npm run build"`；项目设置里的 Output Directory 优先级高于仓库配置，若曾手动设为 `.next` 需改为 `out` 或清空。Vercel 仅发布静态产物，`/api/*` 投票/收藏仍由 EdgeOne 边缘函数提供。
 - **GA4**：构建/运行期读取环境变量 `GA_MEASUREMENT_ID`（本地回退 `G-WQDDVB14PF`）；GitHub Actions 在仓库 **Settings → Variables** 配置该变量，`inject-ga.mjs` 写入 `out/index.html`。
 
 ## 提交规范

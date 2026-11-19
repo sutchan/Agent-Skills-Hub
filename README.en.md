@@ -146,6 +146,7 @@ The site is a pure static export (`output: "export"` in `next.config.mjs`). The 
 |---|---|---|---|
 | `GA_MEASUREMENT_ID` | GA4 measurement ID (e.g. `G-XXXXXXXXXX`) | No (falls back to `G-WQDDVB14PF`) | `G-WQDDVB14PF` |
 
+- **Vercel build**: `vercel.json` declares `buildCommand: "npm run build"` and `outputDirectory: "out"` (the output of Next.js `output: "export"`). If Output Directory was set manually in Vercel project settings, change it to `out` or clear it — otherwise `STATIC_BUILD_NO_OUT_DIR` persists. Vercel publishes static assets only; `/api/*` votes/favorites are served by the EdgeOne edge worker.
 - **GitHub Actions build**: add `GA_MEASUREMENT_ID` (your GA4 ID) under repo **Settings → Variables**. The `build` job injects it, and `scripts/inject-ga.mjs` writes it into `out/index.html` at build time.
 - **EdgeOne Pages build** (if using platform build instead of deploy-only): set the same `GA_MEASUREMENT_ID` in the EdgeOne project environment variables.
 - **Local preview**: `server.js` reads `process.env.GA_MEASUREMENT_ID` directly, falling back to the default when unset — local GA is unaffected.

@@ -722,3 +722,4 @@
 | 2 | 全量版本展示位同步 | P1 | ✅ 已完成 | 按 PR 模板清单将 README 双语、docs 四文档、prototype 六文件、.github 四文档的头版本/徽章统一至 v1.16.21；历史注记与 CHANGELOG 旧小节保持原样 |
 | 3 | 协作文档补 SEO/GEO 维护流程 | P2 | ✅ 已完成 | AGENTS 数据纪律/质量门禁、CONTRIBUTING 部署配置、PR 模板清单补充 `npm run sync:seo` 与生成区勿手改约定；IMPROVEMENT-SPEC 历史基线加当前版本指针 |
 | 4 | 生成物与门禁复核 | P1 | ✅ 已完成 | 重跑 `sync:seo`（sitemap / JSON-LD 的 `dateModified` 随版本日期）、check-version / check-inline-js / tsc / 单测 / 版本与数字一致性校验全通过 |
+| 5 | Vercel 输出目录修复 | P1 | ✅ 已完成 | 新增 `vercel.json`（framework / buildCommand / outputDirectory=out），修复 `STATIC_BUILD_NO_OUT_DIR`；全量文档与版本同步至 1.16.22 |
