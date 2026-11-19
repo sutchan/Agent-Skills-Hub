@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.16.24-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Version](https://img.shields.io/badge/version-v1.16.25-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Other languages: [中文文档](README.md)
 
@@ -148,7 +148,7 @@ The site is a pure static export (`output: "export"` in `next.config.mjs`). The 
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob read/write token (votes/favorites storage; Vercel dashboard → Storage → Blob) | Required in production; local falls back to file | — |
 | `USE_BLOB` | Force Vercel Blob locally (set to `1`); auto-enabled in production (`VERCEL=1`) | No | — |
 
-- **Vercel build**: `vercel.json` declares `framework: null` (publish as a pure static site — no Next builder, avoiding `NEXT_NO_ROUTES_MANIFEST`), `buildCommand: "npm run build"` and `outputDirectory: "out"` (the output of Next.js `output: "export"`). **Project settings override repo config**: set Framework Preset to Other / Static in the Vercel dashboard; if Output Directory was set manually, change it to `out` or clear it — otherwise `STATIC_BUILD_NO_OUT_DIR` persists. Vercel publishes the static `out/` and auto-detects root `api/` as Serverless Functions: `/api/votes` and `/api/favorites` are served by `api/*.js` + Vercel Blob (**since v1.16.24**; the EdgeOne edge worker is the legacy approach).
+- **Vercel build**: `vercel.json` declares `framework: null` (publish as a pure static site — no Next builder, avoiding `NEXT_NO_ROUTES_MANIFEST`), `buildCommand: "npm run build"` and `outputDirectory: "out"` (the output of Next.js `output: "export"`). **Project settings override repo config**: set Framework Preset to Other / Static in the Vercel dashboard; if Output Directory was set manually, change it to `out` or clear it — otherwise `STATIC_BUILD_NO_OUT_DIR` persists. Vercel publishes the static `out/` and auto-detects root `api/` as Serverless Functions: `/api/votes` and `/api/favorites` are served by `api/*.js` + Vercel Blob (**since v1.16.25**; the EdgeOne edge worker is the legacy approach).
 - **GitHub Actions build**: add `GA_MEASUREMENT_ID` (your GA4 ID) under repo **Settings → Variables**. The `build` job injects it, and `scripts/inject-ga.mjs` writes it into `out/index.html` at build time.
 - **EdgeOne Pages build** (if using platform build instead of deploy-only): set the same `GA_MEASUREMENT_ID` in the EdgeOne project environment variables.
 - **Local preview**: `server.js` reads `process.env.GA_MEASUREMENT_ID` directly, falling back to the default when unset — local GA is unaffected.

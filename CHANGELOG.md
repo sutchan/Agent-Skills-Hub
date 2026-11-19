@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.25] - 2026-11-19
+
+### feat: 通用文件存储服务（Vercel Blob 上传/读取/删除）
+
+- **核心模块** `server/file-store.js`：统一 Vercel Blob 与本地 `data/uploads/` 回退；`files/` 前缀与投票状态对象隔离；支持上传/列表/读取/下载/删除；大小上限（默认 10MB）、MIME 白名单、public/private 访问策略、CDN 缓存（public 30 天）/no-store（private）、统一错误码映射
+- **Vercel Functions**：`api/upload.js`（POST，原始二进制 body + `?name=` + `x-file-access`）与 `api/files.js`（GET 列表/读取、`?download=1` 附件、DELETE + `If-Match` 乐观锁、CORS 预检）
+- **本地 Express 等价 API**：`server/file-api.js` + `server.js` 挂载顺序（上传在 `express.json()` 之前，其余在限流之后），三环境 API 路径与行为一致
+- **文档**：新增 `docs/blob-storage.md`（Store/token 模型、环境变量、API 契约、访问控制/缓存/错误策略、三环境行为、配置与验证步骤、集成点）；README 双语与 `docs/spec.md` §4 同步
+- **验证**：新增 `scripts/verify-file-store.mjs`，覆盖 12 项（合法/超限/非法类型/路径穿越/状态隔离/private no-store/public 重定向/附件下载/乐观锁删除/二次删除 404），本地实测 **12/12 通过**
+- **版本同步**：全部展示位统一至 1.16.25
+
+[1.16.25]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.25
+
 ## [1.16.24] - 2026-11-19
 
 ### feat: 投票/收藏存储迁移至 Vercel Blob（Serverless API）

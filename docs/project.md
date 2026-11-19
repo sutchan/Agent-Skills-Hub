@@ -1,6 +1,6 @@
 # 仓库约定（Project Conventions）
 
-> 路径：`docs/project.md` · 版本：1.16.24
+> 路径：`docs/project.md` · 版本：1.16.25
 > 本文件定义目录结构、变更工作流与术语表。能力契约（frontmatter/数据/红线）的唯一权威源是 [spec.md](spec.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)。
 
 ---
@@ -20,14 +20,14 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | `src/index.html` | **应用本体**：自包含静态单页（原生 JS、无框架），内联 CSS + `window.SKILLS_DATA`，`server.js` 的 `GET /` 即返回它 | ✅ 高频 |
 | `src/app/` | Next.js 16 App Router **重定向存根**（`page.tsx` 将 `/` 跳转到 `/index.html`），对最终页面无实质贡献，仅占位 | ◻️ 低频 |
 | `next.config.mjs` + `vercel.json` | Next.js 纯静态导出契约：`output: "export"` → 产物 `out/`；`vercel.json` 声明 `buildCommand: "npm run build"` 与 `outputDirectory: "out"`，修复 Vercel 的 `STATIC_BUILD_NO_OUT_DIR`（项目设置优先级更高，须同步为 `out` 或留空） | ◻️ 低频 |
-| `server/` | 本地服务模块化实现：`config.js`（路径/环境常量）、`fs-util.js`（JSON 安全读 + 原子写）、`store.js`（技能名白名单；v1.16.24 移除内存 KV）、`blob-store.js`（**统一存储层**：Vercel Blob / 本地文件回退）、`kv-ops.js`（校验/计票共用逻辑）、`ratelimit.js`（IP 限流持久化）、`api.js`（async `/api/votes`、`/api/favorites`）、`pages.js`（静态资源与 SPA 回退）；根 `server.js` 为薄装配层 | ◻️ 低频 |
-| `api/` | **Vercel Serverless Functions**（v1.16.24 起）：`votes.js` / `favorites.js` 提供生产 `/api/*`，复用 `server/blob-store.js` + `server/kv-ops.js`，CORS + OPTIONS 预检 | ◻️ 低频 |
+| `server/` | 本地服务模块化实现：`config.js`（路径/环境常量）、`fs-util.js`（JSON 安全读 + 原子写）、`store.js`（技能名白名单；v1.16.25 移除内存 KV）、`blob-store.js`（**统一存储层**：Vercel Blob / 本地文件回退）、`kv-ops.js`（校验/计票共用逻辑）、`ratelimit.js`（IP 限流持久化）、`api.js`（async `/api/votes`、`/api/favorites`）、`pages.js`（静态资源与 SPA 回退）；根 `server.js` 为薄装配层 | ◻️ 低频 |
+| `api/` | **Vercel Serverless Functions**（v1.16.25 起）：`votes.js` / `favorites.js` 提供生产 `/api/*`，复用 `server/blob-store.js` + `server/kv-ops.js`，CORS + OPTIONS 预检 | ◻️ 低频 |
 | `server.js` | 本地服务入口（Express 薄装配，仅挂载 `server/` 各模块、维持中间件顺序） | ◻️ 低频 |
-| `edge-worker.js` + `edgeone.config.json` | 历史生产方案（Edge KV `ASH_KV`，键 `vote:<name>`/`fav:<name>`）；v1.16.24 起生产 API 改由 Vercel Functions + Blob 提供，本文件保留作回退参考 | ◻️ 低频 |
+| `edge-worker.js` + `edgeone.config.json` | 历史生产方案（Edge KV `ASH_KV`，键 `vote:<name>`/`fav:<name>`）；v1.16.25 起生产 API 改由 Vercel Functions + Blob 提供，本文件保留作回退参考 | ◻️ 低频 |
 | `prototype/` | 高保真**设计规范**事实来源：`DESIGN.md` / `COMPONENTS.md` / `wireframes.html` / `states.html` / `template.html`（DOM 结构契约，v1.16.19 起无占位符）等；**不参与构建、非运行产物** | ◻️ 低频 |
 | `tools/` | 仓库级脚本：`check-version.mjs`（版本/CHANGELOG/tag 一致性）、`ensure-lf.mjs`（LF 归一）、`extract-release-notes.mjs`（抽取发行说明）、`validate-skills.mjs`（校验 `skills/*/SKILL.md` frontmatter，硬失败/软警告）、`check-skill-yaml.mjs`（Bun 真实 YAML 解析校验 frontmatter，`npm run validate:yaml`）；`tools/lib/` 为 Node 内置测试（`skills-data.test.mjs` 校验 data JSON、`kv-store.test.mjs`） | ◻️ 低频 |
 | `scripts/` | `tag-release.mjs`（按 `package.json` 版本幂等创建 `vX.Y.Z` 注解 tag）、`verify-storage.mjs`（votes/favorites API 端到端验证）、`sync-inline-data.mjs`（`npm run sync:data`：从 `data/skills-data.json` 重建 `src/index.html` 内联 `window.SKILLS_DATA`）、`inject-ga.mjs`（构建期以 `src/index.html` 为源生成 `out/index.html`，并注入 GA / 版本 / 构建号，占位符残留时硬失败）、`sync-seo-assets.mjs`（`npm run sync:seo`：幂等生成 SEO/GEO 资产并注入页面生成区）、`seo/`（`facts` / `render-assets` / `render-page` 生成模块） | ◻️ 低频 |
-| `data/` | 提交态数据：`skills-data.json`（技能元数据，权威源）、`skills-metrics.json`（派生指标）；运行时状态 `kv-store.json` / `ratelimit.json` 已 gitignore（v1.16.18 起不再跟踪），由 `server/blob-store.js`（本地回退）/ `server/ratelimit.js` 首次写入自建；**生产真源为 Vercel Blob 对象 `kv-store.json`**（v1.16.24 起）；`skills-votes.json` 已删除 | ✅ 中频 |
+| `data/` | 提交态数据：`skills-data.json`（技能元数据，权威源）、`skills-metrics.json`（派生指标）；运行时状态 `kv-store.json` / `ratelimit.json` 已 gitignore（v1.16.18 起不再跟踪），由 `server/blob-store.js`（本地回退）/ `server/ratelimit.js` 首次写入自建；**生产真源为 Vercel Blob 对象 `kv-store.json`**（v1.16.25 起）；`skills-votes.json` 已删除 | ✅ 中频 |
 | `public/` | 品牌资产（banner / favicon / og 图等）+ **SEO/GEO 抓取层**：`robots.txt` / `sitemap.xml` / `llms.txt` / `llms-full.txt`（均由 `sync-seo-assets.mjs` 生成）+ `data/skills-data.json`（权威数据的只读发布副本，保证静态部署产物中该 URL 可达）；随静态服务与 `out/` 对外提供 | ◻️ 低频 |
 | `e2e/` | Playwright 冒烟测试（`smoke.spec.ts`，验证 `#grid` 渲染与 `#search-input` 过滤），CI `e2e` job 真实运行 | ◻️ 低频 |
 | ~~`live_page.html`~~ | **已移除**（v1.16.x）：曾为并行自包含快照，存在版本漂移风险，已从仓库删除；现仅 `src/index.html` 单一站点本体 | — |
@@ -71,10 +71,10 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | 技能（Skill） | `skills/<name>/` 目录，含 `SKILL.md`（frontmatter + 说明），本仓库最小可分发单元 |
 | 应用 / 展示应用 | `src/index.html`：自包含静态单页（原生 JS、内联 `window.SKILLS_DATA`），即站点本体 |
 | 本地服务 | `server/`（config/fs-util/store/blob-store/kv-ops/ratelimit/api/pages）+ 薄装配 `server.js`（Express）：静态托管收窄为 `public/` 与 `/skills`，提供 `/api/votes`、`/api/favorites`；无 token 时 KV 落 `data/kv-store.json`，限流持久化 `data/ratelimit.json`（120 次/分/IP） |
-| 生产后端 | Vercel Serverless Functions `api/votes.js` / `api/favorites.js` + Vercel Blob（v1.16.24 起）；`server/blob-store.js` 按 `VERCEL`/`USE_BLOB` 与 token 自动切换 Blob/本地。历史 `edge-worker.js` + Edge KV（`ASH_KV`）保留作回退参考 |
+| 生产后端 | Vercel Serverless Functions `api/votes.js` / `api/favorites.js` + Vercel Blob（v1.16.25 起）；`server/blob-store.js` 按 `VERCEL`/`USE_BLOB` 与 token 自动切换 Blob/本地。历史 `edge-worker.js` + Edge KV（`ASH_KV`）保留作回退参考 |
 | 数据源（展示数据） | `data/skills-data.json`：提交态、**手工维护**的技能元数据（**无 `SKILL.md`→data 自动生成脚本**）；`skills/*/SKILL.md` 是技能**内容**权威，二者间无自动桥接（`sync:data` 仅 data→内联单向） |
 | 派生指标 | `data/skills-metrics.json`：以 `name` 为 key 的 map（popularity/size/files 等），同为提交态、手工维护 |
-| 投票/收藏真源 | 生产 Vercel Blob 私有对象 `kv-store.json`（v1.16.24 起，`{ votes, favorites }`）；本地无 token 时回退 `data/kv-store.json`（原子写） |
+| 投票/收藏真源 | 生产 Vercel Blob 私有对象 `kv-store.json`（v1.16.25 起，`{ votes, favorites }`）；本地无 token 时回退 `data/kv-store.json`（原子写） |
 | 原型 | `prototype/`：高保真设计规范事实来源（`DESIGN.md` 等），非运行产物 |
 | 14 大领域 | 稳定中文分类键契约（见 [spec.md §2.1](spec.md)），运行数据固化于 `src/index.html` 内联数据（sync:data 派生注入，当前 13 键活跃） |
 | frontmatter 契约 | `name`/`description`(中)/`en_description`(英)/`zh_displayName`/`category`(14类键，当前活跃13类)/`en_category` 六必备字段，顺序固定 |
