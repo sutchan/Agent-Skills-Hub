@@ -1,0 +1,49 @@
+# Agent Skills Hub
+
+> 开源 AI Agent 技能目录：168 个可见技能、13 个分类，中英双语描述，MIT 协议，纯静态站点。
+
+开源 AI Agent 技能目录：按 SKILL.md 规范整理，提供分类浏览、关键词搜索、中英双语描述与一键安装路径；界面支持简体中文、繁体中文与英语，项目整体采用 MIT 协议。
+
+- 在线站点：https://skills.ewuse.com/
+- GitHub 仓库：https://github.com/sutchan/Agent-Skills-Hub
+- 界面语言：简体中文 / 繁体中文 / 英语
+- 许可证：MIT（整体）
+- 数据规模：169 条记录，其中 1 条隐藏；对外展示 168 个技能
+
+## 数据与检索
+
+- [完整技能清单（Markdown，168 条）](https://skills.ewuse.com/llms-full.txt)：按分类列出全部技能的名称、中文名、描述、安装路径与源码链接
+- [技能元数据 JSON（权威数据源）](https://skills.ewuse.com/data/skills-data.json)：机器可读的完整字段
+- [在线检索（示例：#q=wordpress）](https://skills.ewuse.com/#q=wordpress)：支持关键词、分类、标签筛选与排序
+- [站点地图](https://skills.ewuse.com/sitemap.xml)
+
+## 分类（13 类）
+
+- 品牌与设计 / Brand & Design（33 个技能）
+- AI 与智能体 / AI & Agents（9 个技能）
+- 音视频与多媒体 / Media & Multimedia（23 个技能）
+- 工程实践与质量 / Engineering Practice & Quality（33 个技能）
+- 安全 / Security（4 个技能）
+- WordPress 与 CMS / WordPress & CMS（7 个技能）
+- 自动化与集成 / Automation & Integration（4 个技能）
+- 后端与平台 / Backend & Platform（10 个技能）
+- 前端开发 / Frontend Dev（11 个技能）
+- 文档与内容 / Docs & Content（2 个技能）
+- 移动端开发 / Mobile Dev（27 个技能）
+- 数据分析与可视化 / Data Analysis & Visualization（2 个技能）
+- 文件与格式处理 / File & Format Handling（3 个技能）
+
+## 常见问题
+
+- 是什么：开源、免费、纯静态的 AI Agent 技能目录，技能按 SKILL.md 规范组织
+- 有多少：168 个可见技能 / 13 个分类，以 https://skills.ewuse.com/data/skills-data.json 为准
+- 是否免费：免费开源，项目整体 MIT 协议
+- 如何安装：复制 skills/<技能名>/ 目录到 Agent 技能目录，由 SKILL.md 的 description 自动触发
+- 是否支持中文：界面简中 / 繁中 / 英语三语，每条技能均有中文描述与英文原文
+
+## Optional
+
+- [GitHub 仓库](https://github.com/sutchan/Agent-Skills-Hub)
+- [更新日志](https://github.com/sutchan/Agent-Skills-Hub/blob/main/CHANGELOG.md)
+- [许可证](https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE)
+- [技能规范说明](https://github.com/sutchan/Agent-Skills-Hub/blob/main/docs/spec.md)

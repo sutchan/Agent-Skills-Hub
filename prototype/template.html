@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/template.html v1.16.19 — Agent Skills Hub DOM 结构契约（与 src/index.html 对齐；不参与构建） -->
+<!-- prototype/template.html v1.16.20 — Agent Skills Hub DOM 结构契约（与 src/index.html 对齐；不参与构建） -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -42,7 +42,8 @@
       <div class="hero-left" id="hero-left">
         <span class="hero-eyebrow zh" id="hero-eyebrow-zh">Agent 技能枢纽</span>
         <span class="hero-eyebrow en" id="hero-eyebrow-en">Agent Skills Hub</span>
-        <h1 id="hero-title">零散的 agent 技能，<span class="accent">汇聚</span>成一处可检索的枢纽</h1>
+        <!-- 单一 h1：三语文案为互斥显示子节点（v1.16.20 起，避免重复主标题） -->
+        <h1 id="hero-title"><span class="zh">零散的 agent 技能，<span class="accent">汇聚</span>成一处可检索的枢纽</span><span class="tw">…</span><span class="en">…</span></h1>
         <p class="zh" id="hero-subtitle-zh">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
         <p class="tw" id="hero-subtitle-tw">依分類瀏覽、搜尋，或檢視技能詳情——為你的編碼 agent 即取即用。</p>
         <p class="en" id="hero-subtitle-en">Browse by category, search, or inspect skill details.</p>
@@ -129,7 +130,17 @@
       <button type="button" id="clear-filters">清除筛选</button>
     </div>
   </main>
+  <noscript><p class="noscript-hint">未启用 JavaScript 时请查看下方技能索引。</p></noscript>
   <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
+
+  <!-- SEO/GEO 静态目录（v1.16.20）：真实 HTML 由 scripts/sync-seo-assets.mjs 生成，
+       此处仅固定 DOM 与 id 契约；JSON-LD 位于 <head> 的同名生成区。 -->
+  <section class="seo-directory" id="site-directory" aria-labelledby="site-directory-title">
+    <h2 id="site-directory-title">关于 Agent Skills Hub</h2>
+    <p class="seo-lead" id="site-directory-lead">…</p>
+    <dl class="seo-faq" id="site-faq"></dl>
+    <details class="seo-index" id="skill-index"><summary>全部技能索引</summary><div class="seo-index-body"></div></details>
+  </section>
 
   <!-- 页脚：三段式版权页（v1.16.16 起）—— 品牌/协议/版权元数据 | 辅助导航 | 动作区
        版本与构建号由 inject-ga.mjs（构建期）/ server/pages.js（本地服务）注入，不展示更新日期。 -->

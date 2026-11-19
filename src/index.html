@@ -1,24 +1,37 @@
 <!DOCTYPE html>
-<!-- src/index.html v1.16.19 — Agent Skills Hub 自包含静态单页应用（站点本体） -->
+<!-- src/index.html v1.16.20 — Agent Skills Hub 自包含静态单页应用（站点本体） -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="app-version" content="1.16.19" />
-  <title>Agent Skills Hub · 高质量 Agent 技能目录</title>
-  <meta name="description" content="一个集中管理的 AI 技能（Skill）集合，收录 168 个面向开发、设计、测试、DevOps、Agent 工程及各行业领域的技能包。按分类浏览、搜索，即取即用。" />
+  <meta name="app-version" content="1.16.20" />
+  <title>Agent Skills Hub · 开源 AI Agent 技能目录（中文可检索）</title>
+  <meta name="description" content="开源 AI Agent 技能目录：按 SKILL.md 规范整理，提供分类浏览、关键词搜索、中英双语描述与一键安装路径；界面支持简体中文、繁体中文与英语，项目整体采用 MIT 协议。" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="author" content="Agent Skills Hub" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#2e9e6b" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="hsl(224 28% 8%)" media="(prefers-color-scheme: dark)" />
+  <!-- 三语界面共用一个 URL（JS 切换 + documentElement.lang 同步），故不添加 hreflang 自引用链接，
+       避免搜索引擎收到互相冲突的等价页面；语言声明改用 og:locale 与 lang 属性表达。 -->
   <!-- Open Graph / 社交分享卡片（banner-og.svg 位于 public/，随静态部署发布） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Agent Skills Hub" />
-  <meta property="og:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta property="og:description" content="集中管理 168+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta property="og:title" content="Agent Skills Hub · 开源 AI Agent 技能目录（中文可检索）" />
+  <meta property="og:description" content="开源 AI Agent 技能目录：分类浏览、关键词搜索、中英双语描述，可一键复制技能目录即用。MIT 协议。" />
   <meta property="og:image" content="https://skills.ewuse.com/banner-og.svg" />
+  <meta property="og:image:alt" content="Agent Skills Hub — 开源 AI Agent 技能目录" />
+  <meta property="og:image:type" content="image/svg+xml" />
   <meta property="og:url" content="https://skills.ewuse.com/" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:locale:alternate" content="zh_TW" />
+  <meta property="og:locale:alternate" content="en_US" />
   <link rel="canonical" href="https://skills.ewuse.com/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Agent Skills Hub · 高质量 Agent 技能目录" />
-  <meta name="twitter:description" content="集中管理 168+ 高质量 Agent 技能：按分类浏览、搜索、即取即用。" />
+  <meta name="twitter:title" content="Agent Skills Hub · 开源 AI Agent 技能目录（中文可检索）" />
+  <meta name="twitter:description" content="开源 AI Agent 技能目录：分类浏览、关键词搜索、中英双语描述，可一键复制技能目录即用。MIT 协议。" />
   <meta name="twitter:image" content="https://skills.ewuse.com/banner-og.svg" />
+  <meta name="twitter:image:alt" content="Agent Skills Hub — 开源 AI Agent 技能目录" />
   <!-- favicon：固定浅绿底 #2e9e6b（favicon 无主题感知，属可接受的固定亮色态；非变量漂移） -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232e9e6b'/><g fill='%23fff' stroke='%23fff' stroke-width='1.4' stroke-linecap='round'><line x1='16' y1='16' x2='16' y2='7.5' opacity='.55'/><line x1='16' y1='16' x2='24.5' y2='21' opacity='.55'/><line x1='16' y1='16' x2='7.5' y2='21' opacity='.55'/><circle cx='16' cy='16' r='3.4' fill='%23fff' stroke='none'/><circle cx='16' cy='7.5' r='2.3' stroke='none'/><circle cx='24.5' cy='21' r='2.3' stroke='none'/><circle cx='7.5' cy='21' r='2.3' stroke='none'/></g></svg>" />
   <!-- v1.16.19：移除 href="favicon.svg" 冗余外链（src/favicon.svg 已在 v1.16.18 清理，裸开 file:// 时会产生 404）；
@@ -1053,6 +1066,30 @@ html[data-lang="tw"] .d-title .en { display: block; }
 .pg-ellipsis { color: var(--text-3); padding: 0 4px; user-select: none; font-size: 14px; }
 .pg-info { font-size: 13px; font-weight: 500; color: var(--text-3); margin-left: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
+/* ===== SEO / GEO 静态目录区块（DOM 由 scripts/sync-seo-assets.mjs 生成，样式在此维护） =====
+ * 区块为静态 HTML，不依赖 JS 渲染；details 折叠是可交互的合法内容，避免隐藏文本判定。 */
+.seo-directory { max-width: var(--maxw); margin: 24px auto 0; padding: 24px; border-top: 1px solid var(--border); color: var(--text-2); font-size: 13px; line-height: 1.7; }
+.seo-directory h2 { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text); margin: 0 0 8px; }
+.seo-directory .seo-lead { max-width: 90ch; margin: 0 0 14px; }
+.seo-directory a { color: hsl(var(--primary)); text-decoration: underline; text-underline-offset: 2px; }
+.seo-directory a:hover { text-decoration-thickness: 2px; }
+.seo-faq { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px 24px; margin: 0 0 14px; }
+.seo-faq > div { min-width: 0; }
+.seo-faq dt { font-weight: 600; color: var(--text); }
+.seo-faq dd { margin: 2px 0 0; }
+.seo-index { border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); padding: 10px 14px; }
+.seo-index > summary { cursor: pointer; font-weight: 600; color: var(--text); }
+.seo-index > summary:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 2px; }
+.seo-index-body { max-height: 420px; overflow-y: auto; margin-top: 12px; padding-right: 8px; }
+.seo-index-body h3 { font-size: 13.5px; font-weight: 700; color: var(--text); margin: 12px 0 6px; }
+.seo-index-body ul { margin: 0; padding-left: 18px; }
+.seo-index-body li { margin: 2px 0; }
+.noscript-hint { max-width: var(--maxw); margin: 16px auto; padding: 12px 24px; color: var(--text-2); font-size: 13px; }
+@media (max-width: 640px) {
+  .seo-directory { padding: 18px 16px; }
+  .noscript-hint { padding: 12px 16px; }
+}
+
 /* prototype/src/styles/responsive.css v1.20.38 — 响应式适配（媒体查询，必须最后加载以覆盖前述规则；页脚断点内聚于 layout.css） */
 
 /* 平板断点（P2-2）：压缩 hero 字号与顶栏间距，避免 641–1024 区间拥挤 */
@@ -1087,6 +1124,208 @@ html[data-lang="tw"] .d-title .en { display: block; }
   gtag('js', new Date());
   gtag('config', '__GA_MEASUREMENT_ID__');
 </script>
+<!-- SEO-JSONLD:BEGIN 由 scripts/sync-seo-assets.mjs 从 data/skills-data.json 生成，请勿手工编辑 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://skills.ewuse.com/#website",
+      "url": "https://skills.ewuse.com/",
+      "name": "Agent Skills Hub",
+      "alternateName": [
+        "Agent 技能枢纽",
+        "Agent Skills Hub 技能目录"
+      ],
+      "description": "开源 AI Agent 技能目录：按 SKILL.md 规范整理，提供分类浏览、关键词搜索、中英双语描述与一键安装路径；界面支持简体中文、繁体中文与英语，项目整体采用 MIT 协议。",
+      "inLanguage": [
+        "zh-CN",
+        "zh-TW",
+        "en"
+      ],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://skills.ewuse.com/#q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://skills.ewuse.com/#collection",
+      "url": "https://skills.ewuse.com/",
+      "name": "AI Agent 技能目录",
+      "description": "按 SKILL.md 规范整理的 168 个开源 AI Agent 技能，覆盖 13 个分类，支持中文检索与中英双语描述。",
+      "isPartOf": {
+        "@id": "https://skills.ewuse.com/#website"
+      },
+      "numberOfItems": 168,
+      "dateModified": "2026-11-12",
+      "inLanguage": [
+        "zh-CN",
+        "en"
+      ],
+      "hasPart": [
+        {
+          "@type": "Collection",
+          "name": "品牌与设计 / Brand & Design",
+          "numberOfItems": 33
+        },
+        {
+          "@type": "Collection",
+          "name": "AI 与智能体 / AI & Agents",
+          "numberOfItems": 9
+        },
+        {
+          "@type": "Collection",
+          "name": "音视频与多媒体 / Media & Multimedia",
+          "numberOfItems": 23
+        },
+        {
+          "@type": "Collection",
+          "name": "工程实践与质量 / Engineering Practice & Quality",
+          "numberOfItems": 33
+        },
+        {
+          "@type": "Collection",
+          "name": "安全 / Security",
+          "numberOfItems": 4
+        },
+        {
+          "@type": "Collection",
+          "name": "WordPress 与 CMS / WordPress & CMS",
+          "numberOfItems": 7
+        },
+        {
+          "@type": "Collection",
+          "name": "自动化与集成 / Automation & Integration",
+          "numberOfItems": 4
+        },
+        {
+          "@type": "Collection",
+          "name": "后端与平台 / Backend & Platform",
+          "numberOfItems": 10
+        },
+        {
+          "@type": "Collection",
+          "name": "前端开发 / Frontend Dev",
+          "numberOfItems": 11
+        },
+        {
+          "@type": "Collection",
+          "name": "文档与内容 / Docs & Content",
+          "numberOfItems": 2
+        },
+        {
+          "@type": "Collection",
+          "name": "移动端开发 / Mobile Dev",
+          "numberOfItems": 27
+        },
+        {
+          "@type": "Collection",
+          "name": "数据分析与可视化 / Data Analysis & Visualization",
+          "numberOfItems": 2
+        },
+        {
+          "@type": "Collection",
+          "name": "文件与格式处理 / File & Format Handling",
+          "numberOfItems": 3
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://skills.ewuse.com/#app",
+      "name": "Agent Skills Hub",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "url": "https://skills.ewuse.com/",
+      "description": "开源 AI Agent 技能目录：按 SKILL.md 规范整理，提供分类浏览、关键词搜索、中英双语描述与一键安装路径；界面支持简体中文、繁体中文与英语，项目整体采用 MIT 协议。",
+      "license": "https://opensource.org/licenses/MIT",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "inLanguage": [
+        "zh-CN",
+        "zh-TW",
+        "en"
+      ],
+      "sameAs": [
+        "https://github.com/sutchan/Agent-Skills-Hub"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://skills.ewuse.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Agent Skills Hub 是什么？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Agent Skills Hub 是一个开源、免费、纯静态的 AI Agent 技能（Skill）目录。技能按 SKILL.md 规范组织，站点提供分类浏览、关键词搜索、标签筛选、投票收藏与技能详情，界面支持简体中文、繁体中文和英语。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "目前收录了多少个技能、多少个分类？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "站点当前展示 168 个可见技能，覆盖 13 个分类；权威数据源 data/skills-data.json 含 169 条记录，其中 1 条标记为隐藏。数量以该文件为准。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "是否免费？使用什么许可证？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "完全免费且开源，项目整体采用 MIT 许可证；各技能自身许可证以其目录内 LICENSE 文件为准。仓库地址 https://github.com/sutchan/Agent-Skills-Hub。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "怎样安装和使用一个技能？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "把 skills/\u003c技能名>/ 整个目录复制到你的 Agent 技能目录（例如 Claude Code 的 ~/.claude/skills/），技能由 SKILL.md 中的 description 自动触发；也可用 skills-manager 批量管理。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "技能描述支持哪些语言？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "每条技能都有中文描述与英文原文（enDescription），界面可切换简体中文、繁体中文、英语三语；分类名同样提供中英对照。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "技能元数据在哪里可以机器读取？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "权威数据是站点 /data/skills-data.json，完整可读清单是 /llms-full.txt，供搜索引擎与生成式引擎引用的摘要见 /llms.txt。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "如何分享某次搜索或某个技能？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "筛选与搜索结果会同步进 URL hash，例如 #q=wordpress 可直接分享搜索结果，#skill=\u003c技能名> 会自动打开该技能详情。"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- SEO-JSONLD:END -->
 </head>
 <body>
   <div id="aria-feedback" class="sr-only" aria-live="polite"></div>
@@ -1159,9 +1398,12 @@ html[data-lang="tw"] .d-title .en { display: block; }
         <span class="hero-eyebrow zh" data-i18n="hero.eyebrow">Agent 技能枢纽</span>
         <span class="hero-eyebrow tw" data-i18n="hero.eyebrow">Agent 技能樞紐</span>
         <span class="hero-eyebrow en" data-i18n="hero.eyebrow">Agent Skills Hub</span>
-        <h1 class="zh" id="hero-title">零散的 agent 技能，<br><span class="accent">汇聚</span>成一处可检索的枢纽</h1>
-        <h1 class="tw" id="hero-title-tw">零散的 agent 技能，<br><span class="accent">匯聚</span>成一座可檢索的樞紐</h1>
-        <h1 class="en" id="hero-title-en" aria-hidden="true">Scattered agent skills,<br> <span class="accent">unified</span> into one searchable hub</h1>
+        <!-- 单一 h1：三语文案作为互斥显示的子节点，避免三个 h1 让搜索引擎收到重复主标题 -->
+        <h1 id="hero-title">
+          <span class="zh">零散的 agent 技能，<br><span class="accent">汇聚</span>成一处可检索的枢纽</span>
+          <span class="tw">零散的 agent 技能，<br><span class="accent">匯聚</span>成一座可檢索的樞紐</span>
+          <span class="en">Scattered agent skills,<br> <span class="accent">unified</span> into one searchable hub</span>
+        </h1>
         <p class="zh" id="hero-subtitle-zh" data-i18n="hero.subtitle">按分类浏览、搜索，或查看技能详情——为你的编码 agent 即取即用。</p>
         <p class="tw" id="hero-subtitle-tw" data-i18n="hero.subtitle">按分類瀏覽、搜尋，或檢視技能詳情——為你的編碼 agent 即取即用。</p>
         <p class="en" id="hero-subtitle-en" data-i18n="hero.subtitle">Browse by category, search, or inspect skill details — ready to drop into your coding agent.</p>
@@ -1368,8 +1610,237 @@ html[data-lang="tw"] .d-title .en { display: block; }
       <div class="sk-desc"><span class="bar w90"></span><span class="bar w80"></span><span class="bar w70"></span></div>
     </div>
   </main>
+  <noscript><p class="noscript-hint">当前浏览器未启用 JavaScript，技能卡片无法加载；可直接查看下方「全部技能索引」浏览全部技能。</p></noscript>
   <!-- 分页器：每页 36 条，数字翻页 + 上下页（renderPager 注入；v1.19.18） -->
   <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
+
+  <!-- SEO-DIRECTORY:BEGIN 由 scripts/sync-seo-assets.mjs 从 data/skills-data.json 生成，请勿手工编辑 -->
+  <section class="seo-directory" id="site-directory" aria-labelledby="site-directory-title">
+    <h2 id="site-directory-title">关于 Agent Skills Hub</h2>
+    <p class="seo-lead" id="site-directory-lead">开源 AI Agent 技能目录：按 SKILL.md 规范整理，提供分类浏览、关键词搜索、中英双语描述与一键安装路径；界面支持简体中文、繁体中文与英语，项目整体采用 MIT 协议。 当前展示 168 个可见技能、13 个分类；权威数据共 169 条记录，其中 1 条标记为隐藏。完整清单见 <a href="/llms-full.txt">llms-full.txt</a>，机器可读元数据见 <a href="/data/skills-data.json">skills-data.json</a>。</p>
+    <dl class="seo-faq" id="site-faq">
+      <div><dt>Agent Skills Hub 是什么？</dt><dd>Agent Skills Hub 是一个开源、免费、纯静态的 AI Agent 技能（Skill）目录。技能按 SKILL.md 规范组织，站点提供分类浏览、关键词搜索、标签筛选、投票收藏与技能详情，界面支持简体中文、繁体中文和英语。</dd></div>
+      <div><dt>目前收录了多少个技能、多少个分类？</dt><dd>站点当前展示 168 个可见技能，覆盖 13 个分类；权威数据源 data/skills-data.json 含 169 条记录，其中 1 条标记为隐藏。数量以该文件为准。</dd></div>
+      <div><dt>是否免费？使用什么许可证？</dt><dd>完全免费且开源，项目整体采用 MIT 许可证；各技能自身许可证以其目录内 LICENSE 文件为准。仓库地址 https://github.com/sutchan/Agent-Skills-Hub。</dd></div>
+      <div><dt>怎样安装和使用一个技能？</dt><dd>把 skills/&lt;技能名&gt;/ 整个目录复制到你的 Agent 技能目录（例如 Claude Code 的 ~/.claude/skills/），技能由 SKILL.md 中的 description 自动触发；也可用 skills-manager 批量管理。</dd></div>
+      <div><dt>技能描述支持哪些语言？</dt><dd>每条技能都有中文描述与英文原文（enDescription），界面可切换简体中文、繁体中文、英语三语；分类名同样提供中英对照。</dd></div>
+      <div><dt>技能元数据在哪里可以机器读取？</dt><dd>权威数据是站点 /data/skills-data.json，完整可读清单是 /llms-full.txt，供搜索引擎与生成式引擎引用的摘要见 /llms.txt。</dd></div>
+      <div><dt>如何分享某次搜索或某个技能？</dt><dd>筛选与搜索结果会同步进 URL hash，例如 #q=wordpress 可直接分享搜索结果，#skill=&lt;技能名&gt; 会自动打开该技能详情。</dd></div>
+    </dl>
+    <details class="seo-index" id="skill-index">
+      <summary>全部 168 个技能索引（按 13 个分类）</summary>
+      <div class="seo-index-body">
+        <h3>品牌与设计 / Brand &amp; Design（33）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ad-creative">ad-creative · 广告创意生成</a> — 规模化生成与迭代广告创意文案、标题与变体</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ads-creative">ads-creative · 付费广告创意审计</a> — 审计付费广告的文案、图片、视频、钩子、概念、格式覆盖、平台原生契合度、信息匹配、创意疲劳、可访问性与政策合规。适用于创意审计、广告文案评审、视频评审、图片评审或生产优先级排定。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/banner-creator">banner-creator · 横幅广告生成</a> — 用 AI 图像生成创建横幅广告素材</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/banner-design">banner-design · 横幅广告设计</a> — 为社媒、广告与网页设计横幅素材</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/brand-guidelines">brand-guidelines · Anthropic 品牌规范</a> — 将 Anthropic 官方品牌配色与字体应用到任何受益于其视觉风格的产物。当涉及品牌配色或风格指南、视觉格式化或公司设计标准时适用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/brand-operation">brand-operation · 品牌号运营</a> — 在小红书运营品牌号：建立官方品牌阵地、培育品牌社群、提升互动与增长。当用户要做品牌账号定位、内容规划、社群运营或账号涨粉时触发。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/brand-review">brand-review · 品牌声音与风格审查</a> — 根据你的品牌声音、风格指南与信息支柱审查内容，按严重程度标记偏差并给出具体的修改前后建议。适用于交付前检查草稿、审计文案的一致性、术语与语气，或筛查无根据的声明、缺失免责声明及其它法律问题。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/canvas-design">canvas-design · 画布设计</a> — 在画布上设计与排版视觉稿的技能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/compliance">compliance · 平台合规运营</a> — 理解并遵守小红书平台规则，规避违规，维护账号健康与安全。当用户需要排查限流、违规风险、社区规范解读或账号安全运营时触发。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/discover-brand">discover-brand · 品牌发现与定位</a> — 用于品牌发现与定位的技能，通过调研与梳理品牌资产、市场与目标人群，帮助建立清晰、差异化的品牌定位与视觉方向。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/drama-analyzer">drama-analyzer · 剧本故事分析</a> — 分析故事文本，提炼主要情节点并分析戏剧功能。适用于分析小说、剧本大纲、故事梗概等文本，识别关键转折点和情感节点。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/drama-creator">drama-creator · 短剧剧本创作</a> — 创作竖屏短剧剧本，包括宏观建构、剧本创作、精准优化、创意发想。适用于从零开始创作短剧、优化现有剧本、设计故事大纲和悬念钩子。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/drama-planner">drama-planner · 短剧策划方案</a> — 制定竖屏短剧专业策划方案，含情绪价值分析、黄金三秒钩子设计、三幕式结构规划等。适用于短剧项目前期策划、商业化方案设计、创作指导。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/drama-workflow">drama-workflow · 剧本分析工作流</a> — 协调情节点戏剧功能分析流程，管理文本预处理、并行分析、结果整合。适用于长文本的情节点和戏剧功能分析、需要结构化分析报告的场景。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dramatic">dramatic · 戏剧风设计系统</a> — 高对比、戏剧化的设计系统，以大胆的版式、沉浸式视觉与非常规构图抓住注意力。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/favicon">favicon · Favicon 生成</a> — 从源图生成完整的一套 favicon 并更新 HTML。用于为 Web 项目配置 favicon。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-code-connect">figma-code-connect · Figma 代码连接</a> — 创建并维护 Figma Code Connect 模板文件，将 Figma 组件映射到代码片段。当用户提到 Code Connect、Figma 组件映射、设计转代码转换，或要求创建/更新 .figma.ts / .figma.js 文件时…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-design-to-code">figma-design-to-code · Figma 设计转代码</a> — 强制前置技能——在调用 get_design_context Figma MCP 工具前必须触发。只要用户想将 Figma 设计实现、构建、移植或编写为代码即触发（如“实现这个 Figma 设计”“把 Figma 变成代码”）。提供智能体正…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-generate-design">figma-generate-design · Figma 设计生成</a> — 与 figma-use 配合，将应用页面、视图或多区块布局翻译为 Figma。触发词：写入 Figma、从代码在 Figma 创建、推送页面到 Figma、把应用/页面在 Figma 中构建、创建屏幕、在 Figma 构建落地页、更新 Fi…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-generate-library">figma-generate-library · Figma 设计系统构建</a> — 从代码库在 Figma 中构建或更新专业级设计系统。当用户想创建变量/令牌、构建组件库、创建带变体集与变量绑定的单个组件、配置主题（明/暗模式）、记录设计基础，或调和代码与 Figma 的差距时使用。也适用于创建或生成任意 Figma 组件…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-implement-design">figma-implement-design · Figma 转生产代码</a> — 将 Figma 设计稿转换为可交付的生产级应用代码，保持 1:1 视觉还原。当用户要做设计到代码的实现、提到「实现设计」「生成代码」「实现组件」、提供 Figma 链接或要求按 Figma 规范构建组件时触发；Figma 画布写操作请用 f…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-use">figma-use · Figma 插件 API 调用</a> — 每次调用 use_figma 工具前的必读前置技能：Figma 插件 API 调用规则与工作流。每当用户要在 Figma 文件上下文执行需要 JavaScript 的写操作或独特读操作（创建/编辑/删除节点、变量与令牌、自动布局与填充、属性…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flux-kontext">flux-kontext · Flux Kontext 图像生成</a> — 通过 fal.ai 上的 Flux Kontext 做图像编辑与生成——局部重绘、风格迁移、角色/物体一致性、背景替换与多种变体。当用户想用提示词编辑或生成图像、保持主体一致、做电商/社媒视觉或概念稿时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/frontend-design">frontend-design · 前端视觉设计</a> — 在构建新 UI 或重塑现有 UI 时，提供独特、有意图的视觉设计指导。帮助确定美学方向、排版，并做出不显得模板化的选择。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/logo-animation">logo-animation · Logo 动画</a> — 为品牌 logo 创建动画效果，提升视觉表现与动态识别度。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/logo-creator">logo-creator · Logo 生成</a> — 用 AI 图像生成创建 Logo</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/logo-designer">logo-designer · Logo 设计</a> — 使用 SVG 设计并迭代 Logo。当用户要求创建、设计、制作 Logo，或为项目构思 Logo、品牌图标与字标时，使用此技能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/marketing-plan">marketing-plan · 营销方案</a> — 为客户或产品制定全面营销方案</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/muapi-3d-logo-animation">muapi-3d-logo-animation · 3D Logo 动画</a> — 将 2D logo 转化为高级 3D 版本，并以专业电影级特效为其制作动画。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/muapi-logo-creator">muapi-logo-creator · 专业 Logo 设计</a> — 使用几何基元与负空间设计专业级品牌 logo——通过 muapi.ai 生成极简、可缩放的矢量风格标志。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/redesign-existing-projects">redesign-existing-projects · 现有项目重设计</a> — 将现有网站与应用升级至高级品质，审计当前设计、识别问题并交付改进方案。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/review-animations">review-animations · 动效评审</a> — 依据源自 Emil Kowalski 作品的高水准动效标准评审动画与动效代码。当用户希望动效更顺滑、有质感、符合高级动效规范时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ui-ux-pro-max">ui-ux-pro-max · UI/UX 设计智能</a> — 面向 Web、移动端与桌面的 UI/UX 设计智能。在构建设计、评审、优化界面体验时使用。</li>
+        </ul>
+        <h3>AI 与智能体 / AI &amp; Agents（9）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/agent-development">agent-development · 智能体开发</a> — 构建与开发 AI 智能体的方法与最佳实践</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-image-generation">ai-image-generation · AI 图像生成</a> — 通过 RunComfy CLI 使用 FLUX 2、GPT Image 2、Seedream、Nano Banana 等 11+ 模型生成和编辑 AI 图像。支持文生图、图生图、局部重绘、LoRA、文字渲染。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-research-reproduction">ai-research-reproduction · AI 研究复现</a> — Rigor Reproduce 兼容技能，面向 README 优先的深度学习仓库复现。当用户想按 README 复现实验结果、核对环境/依赖/随机种子、定位复现差异时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/bailian-web-search">bailian-web-search · 百炼联网搜索</a> — 阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。 先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为 `token-pl…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/brainstorming">brainstorming · 头脑风暴</a> — 在任何创意工作（创建功能、构建组件、添加功能或修改行为）之前必须使用本技能，用于在实现前探索用户意图、需求与设计。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dev-builder">dev-builder · 全栈开发工程师</a> — 全栈开发工程师技能包，依据产品需求文档与原型图实现功能代码，涵盖技术栈选择、项目初始化、功能实现与验证。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/google-agents-cli-adk-code">google-agents-cli-adk-code · Google ADK 代码模式</a> — 使用 Google ADK（智能体开发套件）编写智能体代码——智能体类型、工具定义、回调、状态管理、Workflow API 模式及代码示例。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/google-agents-cli-deploy">google-agents-cli-deploy · Google ADK 部署</a> — 将 ADK 智能体部署到 Cloud Run 或 GKE——部署工作流、服务账号、回滚、密钥管理及生产基础设施指引。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/google-agents-cli-workflow">google-agents-cli-workflow · Google ADK 开发工作流</a> — 完整的 ADK 开发生命周期：脚手架、构建、评估、部署、发布、监控。使用 Agent Development Kit 构建智能体的入口。</li>
+        </ul>
+        <h3>音视频与多媒体 / Media &amp; Multimedia（23）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-avatar-video">ai-avatar-video · AI 数字人视频</a> — 通过 inference.sh CLI 创建 AI 数字人与口播视频。推荐 P-Video-Avatar（最快最便宜、内置 TTS），另支持 OmniHuman、Fabric、PixVerse；音频可用 Inworld TTS-2、Elev…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-music">ai-music · AI 音乐生成</a> — 通过 runcomfy CLI 在 RunComfy 上生成 AI 音乐——智能路由到合适的音乐模型目录。覆盖 ElevenLabs AI 音乐生成（ premium 人声轨）与 ACE Step 开源权重模型（标签驱动作曲、多语种歌词、低…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-video-generation">ai-video-generation · AI 视频生成</a> — 通过 inference.sh CLI 使用 Google Veo、Seedance、Wan、Grok 等 40+ 模型生成 AI 视频。支持文生视频、图生视频、参考生视频、视频编辑、唇形同步、数字人动画、视频放大、拟音。适用于社媒视频、营…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-video-generation-runcomfy">ai-video-generation-runcomfy · AI 视频生成（RunComfy）</a> — 通过本地 RunComfy CLI 在 RunComfy 目录中智能路由生成 AI 视频，覆盖文生视频、图生视频、参考视频转视频以及 Veo 视频扩展。作为智能路由器，根据用户真实意图匹配最合适的视频生成模型，并附上对应模型的提示词写法。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/capcut">capcut · CapCut 短视频剪辑</a> — CapCut 剪辑工艺技能——快速安全地剪辑短视频（TikTok、Reels、Shorts）：留存节奏剪辑、自动字幕、节拍同步音效、导出。当用户想在 CapCut 中剪辑、剪 Reel/Short、设置自动字幕、使用 CapCut AI 工…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/captions-and-clipping">captions-and-clipping · 长视频切片与字幕</a> — 长视频转 Short + 静音字幕迷你技能（Opus Clip / CapCut / Submagic）。当用户想把播客/网络研讨会/长视频剪成 Short、从 YouTube 视频做 TikTok/Reels、添加字幕、将长视频改造为短内…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/descript">descript · Descript 文稿剪辑</a> — Descript 剪辑工艺技能——通过编辑转录文稿而非时间轴来编辑谈话内容（播客、访谈、口播视频）。当用户想在 Descript 中剪辑、去除填充词/静音、清理音频（Studio Sound）、无需重录修复说错的词（Overdub）、自动切…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/douyin-video">douyin-video · 抖音视频下载与文案提取</a> — 抖音无水印视频下载与文案提取工具：从抖音分享链接获取无水印视频下载地址、下载视频，并通过语音识别提取视频中的口播文案自动保存。当用户需要处理抖音视频链接或提取视频内容时触发。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/douyin-video-summary">douyin-video-summary · 抖音视频摘要</a> — 抖音视频摘要：提取音频→本地 whisper.cpp 转写→生成结构化摘要，可选同步到飞书文档。当用户分享抖音链接并希望获得视频内容的文字摘要时触发。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/hyperframes">hyperframes · HyperFrames 视频渲染</a> — HyperFrames 视频渲染入口，从 HTML 合成渲染视频、动画与动态图形</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/hyperframes-core">hyperframes-core · HyperFrames 合成核心</a> — HyperFrames 合成契约构建可渲染项目</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/hyperframes-creative">hyperframes-creative · HyperFrames 创意指导</a> — HyperFrames 视频非动画创意方向</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/image-to-video">image-to-video · 图片转视频</a> — 在 RunComfy 上让任意静态图动起来——本技能是智能路由器，将用户意图匹配到 RunComfy 目录中合适的图生视频模型。通用动画选 HappyHorse 1.0 I2V，自定义配音唇形同步选带 audio_url 的 Wan 2.7…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/luma">luma · Luma AI 视频生成</a> — Luma AI 工艺技能——用 Luma 的 AI 模型（Dream Machine / Ray / 图生视频）生成与编辑视频。当用户想要 AI 生成视频、图生视频、镜头运动控制，或了解 Luma 的生成档位与权利时使用。智能体撰写简报并在…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/manga-drama">manga-drama · 漫剧生成器</a> — 漫剧生成器——基于 Seedance 的漫画风格短剧生成工具。支持以主角图片为基础，自动生成漫剧分镜脚本并生成视频。适用于创作漫画风格的短视频、角色故事、动画。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/mcp-vods">mcp-vods · 影视点播搜索 MCP</a> — 用于追剧/追番的技能，为AI提供搜索影视播放地址的能力，并支持在小米电视上直接播放。当用户想搜索影视、动漫、短剧、综艺等节目信息或更新进度时使用此技能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/netease-music-cli">netease-music-cli · 网易云音乐 CLI</a> — 使用 ncm-cli 操作网易云音乐。当用户想播放、搜索歌曲，控制播放（暂停、上一首/下一首、调音量），管理播放队列、查看播放状态或播放歌单时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/opus-clip">opus-clip · Opus Clip 智能切片</a> — Opus Clip 流水线技能——将长视频剪成带病毒指数、自动字幕与智能重构的 Short。当用户想要 Opus Clip 专属工作流：额度、档位、批量切片或将长视频路由到短内容时使用。人工复核，导出干净（无水印）。区别于通用的 capti…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/remotion-best-practices">remotion-best-practices · Remotion 最佳实践</a> — Remotion 技能的总入口与最佳实践路由。在创建程序化视频、React 视频动画时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/short-drama-storyboard">short-drama-storyboard · 短剧分镜设计</a> — 把中文短剧剧本和视觉设定写成有戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown。用户提出“拆分镜/设计镜头/做镜头表”“场次视觉计划/调度故事板”“比较导演方案”“写首帧/关键帧提示词”或检查轴线、站位、视线、持物连续性时使用…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/short-drama-video-prompts">short-drama-video-prompts · 短剧视频提示词</a> — 把短剧分镜和冻结关键帧写成可直接复制的视频提示词 Markdown，也可按用户要求写时间线配乐/主题曲意图。用户提到文生/图生视频动作、人物表演、运镜、口型、环境运动、镜头时长、起止状态、把分镜转成视频提示词或写配乐提示词时使用；不生成媒体…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/short-drama-write">short-drama-write · 短剧剧本编写</a> — 编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文并规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/video-editing">video-editing · 视频剪辑</a> — 面向真实素材剪辑、结构化与增强的 AI 辅助视频编辑工作流，覆盖从原始采集经 FFmpeg、Remotion、ElevenLabs、fal.ai，到在 Descript 与 CapCut 中做最终润色的完整管线。</li>
+        </ul>
+        <h3>工程实践与质量 / Engineering Practice &amp; Quality（33）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/analyze-project">analyze-project · 项目分析</a> — Rigor Analyze / Rigor Audit 只读技能，用于深度学习研究仓库的深入分析。当用户想阅读并理解仓库、检查模型结构与训练/推理入口、审阅配置与插入点，或在不动代码、不跑重任务的前提下标记可疑实现模式时使用。不适用于主动执…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/architecture-blueprint-generator">architecture-blueprint-generator · 架构蓝图生成</a> — 分析代码库生成项目架构蓝图文档</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/clean-architecture">clean-architecture · 整洁架构</a> — 围绕依赖规则构建软件架构：源代码依赖从框架指向用例再指向实体。适用于讨论架构分层、依赖规则、端口与适配器、洋葱架构或解耦框架等场景。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/clean-code">clean-code · 整洁代码</a> — 通过规范命名、小函数和清晰错误处理编写可读可维护的代码。适用于讨论整洁代码、代码异味、命名规范、童子军规则、单一职责或单元测试质量等场景。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/code-review">code-review · 代码审查</a> — 围绕既定基准（提交、分支、标签或合并基点）从规范与规格两个维度审查代码改动。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/code-review-and-quality">code-review-and-quality · 代码审查与质量</a> — 多维度代码审查保障合并质量</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/codebase-design">codebase-design · 代码库设计</a> — 用于设计或改进深层模块设计的共享词汇与方法，帮助构建高内聚、可维护的代码结构。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/debugging-and-error-recovery">debugging-and-error-recovery · 调试与错误恢复</a> — 系统化根因调试与错误恢复</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/diagnosing-bugs">diagnosing-bugs · 缺陷诊断</a> — 针对疑难缺陷与性能回退的诊断循环，在用户要求排查复杂问题或诊断 bug 时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/domain-modeling">domain-modeling · 领域建模</a> — 构建并打磨项目领域模型，在讨论代码库术语、撰写领域逻辑或统一概念时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/executing-plans">executing-plans · 执行计划</a> — 当你有一份书面实现计划，需要在独立会话中执行并带评审检查点时使用</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/find-skills">find-skills · 技能发现与安装</a> — 帮助用户发现并安装可用的 agent 技能。当用户问“我该怎么做 X”“找一个做 X 的技能”“有没有能做…的技能”或表达想要扩展能力时，使用本技能来寻找可能以可安装技能形式存在的功能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/fix-errors">fix-errors · 修复构建与测试错误</a> — 修复编译错误、lint 问题与测试失败：覆盖 presubmit 检查、WASM 相关错误与运行指定测试。当遇到构建失败、clippy/fmt 报错、测试失败或需在 PR 前运行/解释 presubmit 时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/git-cleanup">git-cleanup · Git 分支清理</a> — 安全分析与清理本地 git 分支与工作树。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/grill-me">grill-me · 方案压力访谈</a> — 对用户进行 relentless 访谈，以打磨计划或设计方案的合理性。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/grill-with-docs">grill-with-docs · 带文档的深度拷问</a> — 深度拷问计划或设计，同时边进行边生成文档（ADR 和术语表）。结合 grill（拷问）和 domain-modeling（领域建模）两项技能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/grilling">grilling · 方案拷问</a> — 就计划、决策或创意对用户进行 relentless 追问，在用户希望压力测试其思路时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/handoff">handoff · 对话交接</a> — 将当前对话压缩为交接文档，供其他智能体接续处理。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/implement-spec">implement-spec · 规格实现</a> — 将规格说明实现为代码，在用户要求按规范落地功能时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/improve-codebase-architecture">improve-codebase-architecture · 代码库架构优化</a> — 扫描代码库寻找深化机会，以可视化 HTML 报告呈现，并经访谈推动架构改进。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/manage-skills">manage-skills · 技能管理</a> — 通过 skills-manager-cli 管理共享智能体技能库——按 agent 安装、更新、删除、部署技能，管理预设、组织标签、搜索和采纳现有技能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/orca-cli">orca-cli · Orca CLI 工具</a> — 用 orca CLI 管理工作树与文件夹</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/planning-with-files">planning-with-files · 文件规划助手</a> — Manus 式持久化基于文件的规划，为 AI 编码智能体在磁盘保留 task_plan.md、findings.md、progress.md，使工作在上下文丢失与 /clear 后仍能存活。当用户要求规划、拆分或组织多步骤项目、研究任务或任…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/playwright-cli">playwright-cli · Playwright 命令行</a> — 通过 Playwright CLI 进行端到端自动化测试的技能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/receiving-code-review">receiving-code-review · 接收代码评审</a> — 在收到代码评审反馈、落实建议之前使用，尤其是面对多条或相互冲突的评审意见时。引导你分类、澄清并落地评审意见。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/requesting-code-review">requesting-code-review · 请求代码评审</a> — 在完成任务、实现主要功能或合并到主分支之前请求代码评审时使用。引导你整理改动、撰写评审说明并选择合适的评审范围。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/rust-skills">rust-skills · Rust 技能</a> — 使用 Rust 进行系统级与高性能编程的技能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/skill-creator">skill-creator · 技能创建器</a> — 辅助创建与规范化 Agent 技能的技能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/systematic-debugging">systematic-debugging · 系统化调试</a> — 遇到任何 bug、测试失败或意外行为时使用，先分析再动手。引导你复现、收集证据、提出假设并验证，避免盲目修改。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/test-driven-development">test-driven-development · 测试驱动开发</a> — 实现任何功能或修复缺陷前，先写测试（测试驱动开发）。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/to-spec">to-spec · 对话转规格</a> — 将当前对话转化为规格并发布到项目问题追踪器，无需手动搬移上下文。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/webapp-testing">webapp-testing · Web 应用测试</a> — 使用 Playwright 与本地 Web 应用交互和测试的工具包。支持验证前端功能、调试 UI 行为、捕获浏览器截图和查看浏览器日志。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/writing-plans">writing-plans · 编写计划</a> — 当你有多步任务的规格或需求、在动手写代码之前使用</li>
+        </ul>
+        <h3>安全 / Security（4）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/better-auth-best-practices">better-auth-best-practices · Better Auth 最佳实践</a> — 配置 Better Auth 服务端与客户端的认证方案，搭建数据库适配器、管理会话、添加插件并处理环境变量。当用户提及 Better Auth、betterauth、auth.ts，或需要用邮箱密码、OAuth 或插件配置搭建 TypeSc…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/clerk-nextjs-patterns">clerk-nextjs-patterns · Clerk 认证模式</a> — 高级 Next.js 模式——middleware、Server Actions、缓存等，帮助在 Clerk + Next.js 应用中落地稳健的认证与集成模式。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/fix-sentry-issues">fix-sentry-issues · Sentry 问题修复</a> — 使用 Sentry MCP 发现、分类并根因修复生产问题。用于修复 Sentry 问题、分类生产错误、排查错误尖峰或清理 Sentry 噪声。需要 Sentry MCP 服务。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/security-review">security-review · 安全代码审查</a> — AI 驱动的代码库安全扫描器，像安全研究员一样推理代码：追踪数据流、理解组件交互、捕获模式匹配工具遗漏的漏洞。扫描安全漏洞、SQL 注入、XSS、命令注入、暴露的密钥、硬编码 secret、不安全依赖、访问控制问题时使用。</li>
+        </ul>
+        <h3>WordPress 与 CMS / WordPress &amp; CMS（7）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/blueprint">blueprint · WordPress 沙箱蓝图</a> — 当交付物是 WordPress Playground Blueprint JSON 或 Blueprint 包（含创建、编辑、审查、校验 schema 键、选择 steps/resources、调试 Blueprint 文件）时使用。若仅需…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-abilities-audit">wp-abilities-audit · WP 能力审计</a> — 审计 WordPress 插件的 REST 接口面，产出标准化审计文档，提议 Abilities API 注册项。生成含 YAML schema 与散文段落的 markdown 文档，供人与 agent 在规划注册推广时共同消费。适用于任意…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-abilities-verify">wp-abilities-verify · WP 能力核验</a> — 核验 WordPress 插件的 Abilities API 注册：枚举能力、检查回调行为是否与各注解声明一致（对抗式「只读却写入」检测）、校验权限与 schema，并校验 wp-abilities-audit 产出的审计文档。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-patterns">wp-patterns · WordPress 区块模式</a> — 模式：创建或更新 WordPress 区块模式（起始页、模板、模板部件、Query Loop 布局），审查模式注册、区块标记、分类、可访问性或 i18n/转义，或提升模式设计质量。自定义区块路由到 wp-block-development；…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-playground">wp-playground · WordPress 沙箱</a> — 作为 WordPress Playground 的路由包装，处理歧义 Playground 任务、本地 CLI 运行 @wp-playground/cli、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-plugin-directory-guidelines">wp-plugin-directory-guidelines · WP 插件目录规范</a> — 审查 WordPress 插件的 GPL 合规性、检查许可证头或兼容性、评估 upsell/免费增值/试用软件模式、校验插件命名或商标规则、检查插件 slug、理解插件为何被 WordPress.org 拒绝，或回答关于 18 条 Word…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wordpress-pro">wordpress-pro · WordPress 主题与插件开发</a> — WordPress 专业开发：开发自定义主题与插件、注册 Gutenberg 区块与区块模式、配置 WooCommerce 商店、 实现 WordPress REST API 端点，并通过 nonce 校验、输入净化、输出转义与能力检查做安…</li>
+        </ul>
+        <h3>自动化与集成 / Automation &amp; Integration（4）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/browser-automation">browser-automation · 浏览器与桌面自动化</a> — 统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。 浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。 桌面场景：操作 IDA/x64dbg 等 GU…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/disk-cleaner">disk-cleaner · Mac 磁盘清理助手</a> — Mac 智能磁盘清理助手，基于 Mole (https://github.com/tw93/Mole) 的用户友好包装器</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/instagram-api">instagram-api · Instagram API 替代</a> — fetcher.sh 上的 Instagram API 替代——以 USDC 按次付费（x402）或 Bearer 密钥预付费，无需登录与会话 Cookie。按 @handle 解析主页、按关键词搜用户、拉取帖子/Reels/快拍/标记帖/…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/lark-meeting">lark-meeting · 飞书会议</a> — 飞书视频会议：查询会议记录与会议产物(纪要/逐字稿/妙记)、妙记搜索/上传/下载/编辑、机器人参与会议；查询进行中的会议、实时会议内容(发言/聊天/共享文档)问答(会上/会里)、发送会中聊天/表情；基于 meeting_id、meeting…</li>
+        </ul>
+        <h3>后端与平台 / Backend &amp; Platform（10）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/bun">bun · Bun 运行时</a> — 使用 Bun 替代 Node.js、npm、pnpm 或 vite。提供命令映射、Bun 特有 API 与开发模式。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/cloudbase">cloudbase · CloudBase 全栈开发</a> — 腾讯云开发 CloudBase 全栈开发技能，覆盖 Web/小程序/uni-app 前端、云函数、云数据库、云存储与内置大模型能力，提供从接入到部署的全流程指导。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/convex-suggest">convex-suggest · Convex 组件建议</a> — 当用户手动实现 Convex 已有的模式时（定时任务、分片计数器、限流器、存储、搜索、在线状态、工作流、RAG），主动建议使用对应的 Convex 组件。被动触发，任务完成后才建议，不打断。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/eve">eve · Eve 后端智能体</a> — 用 eve 框架构建持久后端 AI 智能体</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/fastify-best-practices">fastify-best-practices · Fastify 最佳实践</a> — 指导用 TypeScript 或 JavaScript 开发 Fastify Node.js 后端服务与 REST API。在构建、配置或调试 Fastify 应用时使用——包括定义路由、实现插件、配置 JSON Schema 校验、处理错…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nestjs-best-practices">nestjs-best-practices · NestJS 最佳实践</a> — NestJS 生产级应用的最佳实践与架构模式。在编写、审查或重构 NestJS 代码，以确保模块、依赖注入、安全与性能的正确模式时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nodejs-backend-patterns">nodejs-backend-patterns · Node.js 后端模式</a> — 构建生产级 Node.js 后端服务</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/rust-best-practices">rust-best-practices · Rust 最佳实践</a> — 编写惯用 Rust 代码的最佳实践指南（基于 Apollo GraphQL 手册）：编写新代码、审查/重构既有代码、借用与克隆/所有权取舍、Result 错误处理、性能优化、编写测试与文档时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/rust-patterns">rust-patterns · Rust 开发模式</a> — 惯用 Rust 模式：所有权、错误处理、trait、并发与最佳实践，用于构建安全、高性能、可维护的应用。编写或审查 Rust 代码，涉及所有权、错误处理、trait 或并发时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/stripe-best-practices">stripe-best-practices · Stripe 最佳实践</a> — 指导 Stripe 集成决策，涵盖开发与测试环境规划（独立沙箱 vs 共享测试模式沙箱）、API 选择（Checkout Sessions vs PaymentIntents）、Connect 平台搭建、计费订阅、税务、Treasury 金…</li>
+        </ul>
+        <h3>前端开发 / Frontend Dev（11）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/chrome-webstore-release-blueprint">chrome-webstore-release-blueprint · Chrome 应用商店发布蓝图</a> — 端到端引导用户在任意仓库中搭建 Chrome Web Store API 发布自动化。用于 OAuth/CWS 凭证配置、刷新令牌创建、本地/CI 密钥设置、基于版本的发布自动化与提交状态检查。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/html-design-prototypes">html-design-prototypes · HTML 设计原型</a> — 触发条件：在向 AskUserQuestion 选项填充前，构建 HTML 设计原型。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/html-prototype">html-prototype · HTML 原型</a> — 直接调用的专家技能，产出精致、响应式、自包含的 HTML 原型。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/insforge-cli">insforge-cli · Insforge 后端 CLI</a> — 当用户需要后端，或任务通过 InsForge CLI 触及 InsForge 后端或云基础设施时使用：项目、SQL、迁移、RLS 策略、函数、存储、备份、部署、计算、密钥、配置、调度、日志、诊断、顾问扫描与抑制、导入/导出、AI/OpenR…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/insforge-debug">insforge-debug · Insforge 调试</a> — Rigor Debug / Rigor Audit 技能，面向 Insforge（即时后端/数据库服务）的调试。当用户想排查 Insforge 数据模型、CLI、本地开发或部署问题时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/next-best-practices">next-best-practices · Next.js 最佳实践</a> — Next.js 最佳实践——文件约定、RSC 边界、数据模式、异步 API、metadata、错误处理、路由处理器、图片/字体优化、打包。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nextjs-app-router-patterns">nextjs-app-router-patterns · Next.js App Router 模式</a> — 掌握 Next.js 14+ App Router 高级模式</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nextjs-code-review">nextjs-code-review · Next.js 代码审查</a> — 为 Next.js 应用提供全面代码评审，校验 Server Components、Client Components、Server Actions、缓存策略、metadata、API 路由、中间件与性能模式。在评审 Next.js App…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nextjs-react-typescript">nextjs-react-typescript · Next.js TS 专家</a> — TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家，提供相关技术栈的深入指导与最佳实践。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/prototype">prototype · 原型构建</a> — 构建一次性原型以验证设计问题，在用户希望快速验证状态模型或界面形态时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ui-animation">ui-animation · UI 动效</a> — 设计、实现、审查与逆向 UI 动效</li>
+        </ul>
+        <h3>文档与内容 / Docs &amp; Content（2）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/coding-standards">coding-standards · 跨项目编码规范基线</a> — 跨项目共享的编码约定基线，涵盖命名、可读性、不可变性与代码质量审查。在审查代码质量或命名、且没有适用的框架特定技能时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/documentation">documentation · 技术文档编写与维护</a> — 编写与维护技术文档。当用户要求“为…写文档”“记录这个”“创建 README”“编写 runbook”“编写入职指南”或需要任何形式的技术写作（API 文档、架构文档或运维手册）时触发。</li>
+        </ul>
+        <h3>移动端开发 / Mobile Dev（27）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-add-unit-test">dart-add-unit-test · Dart 单元测试编写</a> — 为函数、方法、类编写并组织单元测试（使用 package:test）。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-build-cli-app">dart-build-cli-app · Dart CLI 应用构建</a> — 命令行工具的入口结构、退出码与跨平台脚本编写规范。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-collect-coverage">dart-collect-coverage · Dart 覆盖率收集</a> — 使用 coverage 包收集覆盖率并生成 LCOV 报告。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-fix-runtime-errors">dart-fix-runtime-errors · Dart 运行时错误修复</a> — 用 get_runtime_errors 与 lsp 获取活动堆栈、定位报错行并热重载修复。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-flutter-patterns">dart-flutter-patterns · Dart/Flutter 模式</a> — 用于编写生产级 Dart/Flutter 代码的技能，涵盖面向 Flutter/Dart 的架构模式、代码组织与工程实践，帮助构建健壮、可维护的跨平台应用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-generate-test-mocks">dart-generate-test-mocks · Dart 测试桩生成</a> — 使用 package:mockito 与 build_runner 为外部依赖定义并生成 mock 对象。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-migrate-to-checks-package">dart-migrate-to-checks-package · Dart 迁移至 checks 包</a> — 将 package:matcher 的 expect 等用法替换为 package:checks 等价写法。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-resolve-package-conflicts">dart-resolve-package-conflicts · Dart 包冲突解决</a> — 修复 pub get 因版本不兼容而失败的包冲突处理流程。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-run-static-analysis">dart-run-static-analysis · Dart 静态分析</a> — 执行 dart analyze 识别警告与错误，并用 dart fix --apply 自动修复机械性问题。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-use-pattern-matching">dart-use-pattern-matching · Dart 模式匹配</a> — 在合适处使用 switch 表达式与模式匹配。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-add-integration-test">flutter-add-integration-test · Flutter 集成测试</a> — 配置 Flutter Driver 进行应用交互，并将 MCP 动作转为持久化集成测试。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-add-widget-preview">flutter-add-widget-preview · Flutter 组件预览</a> — 使用 previews.dart 系统为项目添加交互式 widget 预览。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-add-widget-test">flutter-add-widget-test · Flutter 组件测试</a> — 使用 WidgetTester 实现组件级测试，校验 UI 渲染与用户交互。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-apply-architecture-best-practices">flutter-apply-architecture-best-practices · Flutter 架构最佳实践</a> — 采用推荐的层式架构（UI、逻辑、数据）为 Flutter 应用做架构设计。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-build-responsive-layout">flutter-build-responsive-layout · Flutter 响应式布局</a> — 使用 LayoutBuilder、MediaQuery 或 Expanded/Flexible 构建自适应多屏布局。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-dart-code-review">flutter-dart-code-review · Flutter 代码审查</a> — 与框架无关的 Flutter/Dart 代码审查清单，覆盖 widget 最佳实践、状态管理模式（BLoC、Riverpod、Provider、GetX、MobX、Signals）、Dart 惯用法、性能、可访问性、安全与整洁架构。无论项目…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-fix-layout-issues">flutter-fix-layout-issues · Flutter 布局问题修复</a> — 修复 Flutter 布局错误（溢出、无界约束等）。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-implement-json-serialization">flutter-implement-json-serialization · Flutter JSON 序列化</a> — 使用 dart:convert 创建含 fromJson/toJson 的模型类。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-setup-declarative-routing">flutter-setup-declarative-routing · Flutter 声明式路由</a> — 使用 go_router 等包配置 MaterialApp.router 实现 URL 路由。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-setup-localization">flutter-setup-localization · Flutter 本地化</a> — 添加 flutter_localizations 与 intl 依赖，启用生成并创建 l10n.yaml 配置。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-use-http-package">flutter-use-http-package · Flutter HTTP 请求</a> — 使用 http 包执行 GET、POST、PUT 或 DELETE 请求。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/google-mobile-ads-banner">google-mobile-ads-banner · Google 移动广告横幅</a> — 实现与配置 Google 移动广告横幅</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-android-emulator">limrun-android-emulator · Limrun 安卓模拟器</a> — 驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动与终止应用并附带崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制网络带宽、读取应用日志、执行 shell 命令、传输文件，并通过本机隧道转发应用网…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-detox-testing">limrun-detox-testing · Limrun Detox 测试</a> — 在 Limrun iOS 模拟器上配置、运行或调试 Detox。当需要将 Limrun Detox 运行时接入应用、打通 Detox 中介连接，或经目标隧道校验应用/测试者连接时使用。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-ios-simulator">limrun-ios-simulator · Limrun iOS 模拟器</a> — 驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、读取应用日志与模拟器系统日志、截图、录屏、将应用连接到本机服务、模拟摄像头、设置剪贴板，并运行定时动作链。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-xcode">limrun-xcode · Limrun 远程 Xcode 构建</a> — 在远程 Xcode 上构建 iOS/Apple 应用（用 `lim xcode build` 替代本地 xcodebuild）、用 `lim xcode run` 运行项目命令，或用 `lim xcode test` 运行其 XCTest…</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-xcode-bazel">limrun-xcode-bazel · Limrun Bazel iOS 构建</a> — 在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用（替代本地 Mac），并安装到远程 iOS 模拟器。当项目是 Bazel 工作区（MODULE.bazel / WORKSPACE）时使…</li>
+        </ul>
+        <h3>数据分析与可视化 / Data Analysis &amp; Visualization（2）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/data-visualization">data-visualization · Python 数据可视化</a> — 用于 Python 数据可视化分析的技能，覆盖 matplotlib、seaborn、plotly 等主流库，帮助将数据转化为清晰、有洞察力的图表。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/football-data">football-data · 足球数据</a> — 覆盖全球主要足球联赛的数据——积分榜、赛程、比赛统计、预期进球（xG）、转会、球员档案、历史交锋、球队实力（Elo）与比赛预测。零配置、无需 API Key。涵盖英超、西甲、德甲、意甲、法甲、美职联、欧冠、世界杯、英冠、荷甲、葡超、巴甲、俄…</li>
+        </ul>
+        <h3>文件与格式处理 / File &amp; Format Handling（3）</h3>
+        <ul>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/docx">docx · Word 文档创建与处理</a> — 任何涉及 Word 文档（.docx）的任务都应使用本技能，包括创建、编辑、读取、解析或提取 .docx 内容，或处理需要 Word 文档输入/输出的场景。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/pdf">pdf · PDF 处理</a> — 创建、解析与转换 PDF 文档的技能。</li>
+          <li><a href="https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/pptx">pptx · PPTX 处理</a> — 生成与编辑 PowerPoint 演示文稿的技能。</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+<!-- SEO-DIRECTORY:END -->
 
   <!-- 页脚区：定位为「目录版权页」—— 左栏品牌/协议/版权元数据，中段辅助导航，右段动作区（v1.16.16 三段式）
        脚本契约（勿改 id）：#footer-ver 版本 / #footer-build 构建号 由 inject-ga.mjs 构建期与 server/pages.js 本地服务注入；#star-btn/#share-btn 绑定交互。

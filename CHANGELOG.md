@@ -2,6 +2,22 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.20] - 2026-11-12
+
+### feat: 完善 SEO 搜索引擎优化与 GEO 生成式引擎优化
+
+**背景**：站点是 JS 驱动的自包含单页应用，卡片由内联 `window.SKILLS_DATA` 渲染；不执行 JS 的搜索引擎 / AI 爬虫只能读到骨架屏，且仓库此前完全没有 `robots.txt`、`sitemap.xml`、`llms.txt` 与结构化数据。
+
+- **页面级 SEO**：重写 title / description（去掉易漂移的硬编码数字）；新增 `robots`（含 `max-snippet` / `max-image-preview`）、`author`、`color-scheme`、明暗双 `theme-color`、`og:locale` + `zh_TW` / `en_US` alternates、`og:image:alt` / `og:image:type`、`twitter:image:alt`；canonical 保持站点绝对 URL。
+- **单一主标题**：Hero 原先 3 个 `<h1>`（简中 / 繁中 / 英）合并为 1 个 `<h1>` 内三语互斥子节点，消除重复主标题；`aria-labelledby` 与三语切换行为不变。三语共用一个 URL，故**不添加 hreflang 自引用**，语言声明由 `og:locale` 与既有 `documentElement.lang` 同步承担。
+- **JSON-LD**：新增 `WebSite`（含 `SearchAction`，target 为真实 hash 路由 `/#q={search_term_string}`）、`CollectionPage`（`numberOfItems` 实算 + 13 个分类 `Collection`）、`SoftwareApplication`（免费 / MIT / Web）、`FAQPage`（7 个可核实问答）。
+- **静态可抓取内容**：页面新增 `#site-directory` 区块（关于文案 + FAQ + `<details>` 折叠的全量技能索引，按分类分组、链接真实仓库目录），HTML 静态存在、不依赖 JS；`<noscript>` 补无 JS 提示。折叠索引是可交互内容，不做隐藏文本。
+- **GEO 资产**：新增 `public/llms.txt`（标准摘要入口）、`public/llms-full.txt`（168 个技能的完整可读清单：名称 / 中文名 / 描述 / 标签 / 安装路径 / 源码 / 详情深链）、`public/robots.txt`（允许抓取公开内容，`Disallow: /api/`，`Sitemap` 指令）、`public/sitemap.xml`（仅首页；`#cat` / `#q` / `#skill` 深链返回同一首页，列入会制造重复内容）。
+- **静态部署数据可达**：新增 `public/data/skills-data.json` 只读副本，由脚本从权威 `data/skills-data.json` 同步，保证 `llms.txt` / FAQ 承诺的 `/data/skills-data.json` 在 `out/` 部署产物中真实可访问。
+- **事实单一来源**：新增 `scripts/seo/{facts,render-assets,render-page}.mjs` 与 `scripts/sync-seo-assets.mjs`，所有数量、分类、描述从权威数据实算，生成物禁止手填数字；写入幂等（内容不变不落盘），挂在 `npm run sync:seo` / `sync:data` / `build`，CI 构建不会改脏工作区。
+- **Next 附属页面**：`src/app/layout.tsx` metadata 与站点 head 对齐（`metadataBase`、canonical、robots、OG/Twitter、多语言 locale）。
+- **文档**：README / README.en 新增 SEO 与 GEO 章节，`docs/spec.md` §4 补 SEO/GEO 契约并同步构建命令，`docs/project.md` 目录约定补新资产。
+
 ## [1.16.19] - 2026-11-10
 
 ### fix: 代码审查——安全、健壮性与性能问题修复

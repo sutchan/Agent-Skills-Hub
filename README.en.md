@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.16.19-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Version](https://img.shields.io/badge/version-v1.16.20-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Other languages: [中文文档](README.md)
 
@@ -73,7 +73,8 @@ npm test                      # data contract / KV unit tests
 npm run validate:yaml         # real YAML frontmatter validation (Bun)
 node tools/check-version.mjs  # version / CHANGELOG / badges / doc headers
 node tools/check-inline-js.mjs # inline JS syntax
-npm run build                 # static export to out/ + GA/version/build injection
+npm run sync:seo              # generate robots/sitemap/llms*/JSON-LD/static index (idempotent)
+npm run build                 # sync SEO assets first, then export out/ + inject GA/version/build id
 npm run e2e                   # Playwright smoke tests (starts the server)
 node scripts/verify-storage.mjs # votes/favorites API + disk persistence e2e (server must be running)
 ```
@@ -81,6 +82,28 @@ node scripts/verify-storage.mjs # votes/favorites API + disk persistence e2e (se
 > If Playwright's bundled chromium is not installed locally, run `PLAYWRIGHT_CHANNEL=msedge npm run e2e` to reuse an installed Edge; the CI default channel is unchanged.
 
 > `src/index.html` is a **self-contained single-file app** (inline CSS/JS/data, opens by double-click) and is exempt from the ">200 lines must be split" rule per `docs/spec.md` §7 red line 10; `prototype/template.html` is its DOM structure contract (semantic ids included), while `src/index.html` remains the single source of truth for styles and scripts.
+
+## SEO & GEO (Search / Generative Engines)
+
+The site serves both classic search engines and generative engines (LLM crawlers and citation). All counts, categories and descriptions are computed from the authoritative data file — generated files never contain hand-written numbers.
+
+| Asset | URL | Purpose |
+|---|---|---|
+| `robots.txt` | `/robots.txt` | Allows public content and AI-readable manifests, disallows `/api/`, declares the sitemap |
+| `sitemap.xml` | `/sitemap.xml` | Homepage only; `#cat` / `#q` / `#skill` deep links return the same HTML and would create duplicate content |
+| `llms.txt` | `/llms.txt` | Standard summary entry point for generative engines |
+| `llms-full.txt` | `/llms-full.txt` | Full readable index of every visible skill: name, Chinese name, description, tags, install path, source, detail link |
+| JSON-LD | page `<head>` | `WebSite` (with `SearchAction`), `CollectionPage`, `SoftwareApplication`, `FAQPage` |
+| Static directory | `#site-directory` | Static HTML about/FAQ block plus a collapsible full skill index — crawlable without executing JS |
+| Data copy | `/data/skills-data.json` | Read-only deploy copy of the authoritative `data/skills-data.json` |
+
+```bash
+npm run sync:seo   # regenerate every asset (idempotent: no write when unchanged)
+```
+
+- After a data change run `npm run sync:data` (syncs inline `window.SKILLS_DATA`, then all SEO assets); `npm run build` runs the sync first as well.
+- Generated logic lives in `scripts/seo/` and `scripts/sync-seo-assets.mjs`. Blocks between `SEO-JSONLD:BEGIN/END` and `SEO-DIRECTORY:BEGIN/END` in `src/index.html` are generated — do not edit by hand.
+- All three UI languages share one URL, so no self-referencing `hreflang` links are emitted; language is expressed via `og:locale` / `og:locale:alternate` and `documentElement.lang`.
 
 ## Installation
 

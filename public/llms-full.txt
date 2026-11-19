@@ -1,0 +1,383 @@
+# Agent Skills Hub — 完整技能清单
+
+> 由 scripts/sync-seo-assets.mjs 从 data/skills-data.json 生成：168 个可见技能 / 13 个分类。请勿手工编辑。
+
+- 数据源：https://skills.ewuse.com/data/skills-data.json（169 条记录，1 条隐藏）
+- 在线检索：https://skills.ewuse.com/
+- 许可证：https://opensource.org/licenses/MIT
+- 安装方式：复制 skills/<技能名>/ 目录到你的 Agent 技能目录
+
+## 品牌与设计 / Brand & Design（33）
+
+- **ad-creative**（广告创意生成） — 规模化生成与迭代广告创意文案、标题与变体 · 标签：ai-agent、doc-writing、design-media
+  - 安装：`skills/ad-creative/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ad-creative · 详情：https://skills.ewuse.com/#skill=ad-creative
+- **ads-creative**（付费广告创意审计） — 审计付费广告的文案、图片、视频、钩子、概念、格式覆盖、平台原生契合度、信息匹配、创意疲劳、可访问性与政策合规。适用于创意审计、广告文案评审、视频评审、图片评审或生产优先级排定。 · 标签：ai-agent、doc-writing、design-media
+  - 安装：`skills/ads-creative/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ads-creative · 详情：https://skills.ewuse.com/#skill=ads-creative
+- **banner-creator**（横幅广告生成） — 用 AI 图像生成创建横幅广告素材 · 标签：ai-agent、doc-writing、design-media
+  - 安装：`skills/banner-creator/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/banner-creator · 详情：https://skills.ewuse.com/#skill=banner-creator
+- **banner-design**（横幅广告设计） — 为社媒、广告与网页设计横幅素材 · 标签：ai-agent、web-frontend、design-media
+  - 安装：`skills/banner-design/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/banner-design · 详情：https://skills.ewuse.com/#skill=banner-design
+- **brand-guidelines**（Anthropic 品牌规范） — 将 Anthropic 官方品牌配色与字体应用到任何受益于其视觉风格的产物。当涉及品牌配色或风格指南、视觉格式化或公司设计标准时适用。 · 标签：design-media
+  - 安装：`skills/brand-guidelines/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/brand-guidelines · 详情：https://skills.ewuse.com/#skill=brand-guidelines
+- **brand-operation**（品牌号运营） — 在小红书运营品牌号：建立官方品牌阵地、培育品牌社群、提升互动与增长。当用户要做品牌账号定位、内容规划、社群运营或账号涨粉时触发。 · 标签：design-media
+  - 安装：`skills/brand-operation/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/brand-operation · 详情：https://skills.ewuse.com/#skill=brand-operation
+- **brand-review**（品牌声音与风格审查） — 根据你的品牌声音、风格指南与信息支柱审查内容，按严重程度标记偏差并给出具体的修改前后建议。适用于交付前检查草稿、审计文案的一致性、术语与语气，或筛查无根据的声明、缺失免责声明及其它法律问题。 · 标签：ai-agent、doc-writing、design-media
+  - 安装：`skills/brand-review/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/brand-review · 详情：https://skills.ewuse.com/#skill=brand-review
+- **canvas-design**（画布设计） — 在画布上设计与排版视觉稿的技能。
+  - 安装：`skills/canvas-design/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/canvas-design · 详情：https://skills.ewuse.com/#skill=canvas-design
+- **compliance**（平台合规运营） — 理解并遵守小红书平台规则，规避违规，维护账号健康与安全。当用户需要排查限流、违规风险、社区规范解读或账号安全运营时触发。 · 标签：design-media、security
+  - 安装：`skills/compliance/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/compliance · 详情：https://skills.ewuse.com/#skill=compliance
+- **discover-brand**（品牌发现与定位） — 用于品牌发现与定位的技能，通过调研与梳理品牌资产、市场与目标人群，帮助建立清晰、差异化的品牌定位与视觉方向。 · 标签：doc-writing、design-media
+  - 安装：`skills/discover-brand/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/discover-brand · 详情：https://skills.ewuse.com/#skill=discover-brand
+- **drama-analyzer**（剧本故事分析） — 分析故事文本，提炼主要情节点并分析戏剧功能。适用于分析小说、剧本大纲、故事梗概等文本，识别关键转折点和情感节点。 · 标签：design-media
+  - 安装：`skills/drama-analyzer/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/drama-analyzer · 详情：https://skills.ewuse.com/#skill=drama-analyzer
+- **drama-creator**（短剧剧本创作） — 创作竖屏短剧剧本，包括宏观建构、剧本创作、精准优化、创意发想。适用于从零开始创作短剧、优化现有剧本、设计故事大纲和悬念钩子。 · 标签：doc-writing、design-media
+  - 安装：`skills/drama-creator/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/drama-creator · 详情：https://skills.ewuse.com/#skill=drama-creator
+- **drama-planner**（短剧策划方案） — 制定竖屏短剧专业策划方案，含情绪价值分析、黄金三秒钩子设计、三幕式结构规划等。适用于短剧项目前期策划、商业化方案设计、创作指导。 · 标签：design-media
+  - 安装：`skills/drama-planner/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/drama-planner · 详情：https://skills.ewuse.com/#skill=drama-planner
+- **drama-workflow**（剧本分析工作流） — 协调情节点戏剧功能分析流程，管理文本预处理、并行分析、结果整合。适用于长文本的情节点和戏剧功能分析、需要结构化分析报告的场景。 · 标签：doc-writing、design-media、automation
+  - 安装：`skills/drama-workflow/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/drama-workflow · 详情：https://skills.ewuse.com/#skill=drama-workflow
+- **dramatic**（戏剧风设计系统） — 高对比、戏剧化的设计系统，以大胆的版式、沉浸式视觉与非常规构图抓住注意力。 · 标签：design-media
+  - 安装：`skills/dramatic/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dramatic · 详情：https://skills.ewuse.com/#skill=dramatic
+- **favicon**（Favicon 生成） — 从源图生成完整的一套 favicon 并更新 HTML。用于为 Web 项目配置 favicon。 · 标签：web-frontend、design-media
+  - 安装：`skills/favicon/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/favicon · 详情：https://skills.ewuse.com/#skill=favicon
+- **figma-code-connect**（Figma 代码连接） — 创建并维护 Figma Code Connect 模板文件，将 Figma 组件映射到代码片段。当用户提到 Code Connect、Figma 组件映射、设计转代码转换，或要求创建/更新 .figma.ts / .figma.js 文件时使用。 · 标签：ai-agent、design-media、i18n
+  - 安装：`skills/figma-code-connect/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-code-connect · 详情：https://skills.ewuse.com/#skill=figma-code-connect
+- **figma-design-to-code**（Figma 设计转代码） — 强制前置技能——在调用 get_design_context Figma MCP 工具前必须触发。只要用户想将 Figma 设计实现、构建、移植或编写为代码即触发（如“实现这个 Figma 设计”“把 Figma 变成代码”）。提供智能体正确实现 Figma 设计的关键步骤与指令，不可跳过。 · 标签：ai-agent、design-media
+  - 安装：`skills/figma-design-to-code/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-design-to-code · 详情：https://skills.ewuse.com/#skill=figma-design-to-code
+- **figma-generate-design**（Figma 设计生成） — 与 figma-use 配合，将应用页面、视图或多区块布局翻译为 Figma。触发词：写入 Figma、从代码在 Figma 创建、推送页面到 Figma、把应用/页面在 Figma 中构建、创建屏幕、在 Figma 构建落地页、更新 Figma 屏幕以匹配代码、将弹窗/抽屉/面板转为 Figma。优先工作流技能，用于从代码或描述在 Figma 构建/更新整页、模态、抽屉、侧栏或组合多区块视图。 · 标签：design-media、security、automation
+  - 安装：`skills/figma-generate-design/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-generate-design · 详情：https://skills.ewuse.com/#skill=figma-generate-design
+- **figma-generate-library**（Figma 设计系统构建） — 从代码库在 Figma 中构建或更新专业级设计系统。当用户想创建变量/令牌、构建组件库、创建带变体集与变量绑定的单个组件、配置主题（明/暗模式）、记录设计基础，或调和代码与 Figma 的差距时使用。也适用于创建或生成任意 Figma 组件。本技能讲授构建什么与顺序，与讲授如何调用插件 API 的 figma-use 互补，两者应一起加载。 · 标签：doc-writing、design-media、test-qa
+  - 安装：`skills/figma-generate-library/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-generate-library · 详情：https://skills.ewuse.com/#skill=figma-generate-library
+- **figma-implement-design**（Figma 转生产代码） — 将 Figma 设计稿转换为可交付的生产级应用代码，保持 1:1 视觉还原。当用户要做设计到代码的实现、提到「实现设计」「生成代码」「实现组件」、提供 Figma 链接或要求按 Figma 规范构建组件时触发；Figma 画布写操作请用 figma-use。 · 标签：design-media、i18n
+  - 安装：`skills/figma-implement-design/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-implement-design · 详情：https://skills.ewuse.com/#skill=figma-implement-design
+- **figma-use**（Figma 插件 API 调用） — 每次调用 use_figma 工具前的必读前置技能：Figma 插件 API 调用规则与工作流。每当用户要在 Figma 文件上下文执行需要 JavaScript 的写操作或独特读操作（创建/编辑/删除节点、变量与令牌、自动布局与填充、属性绑定、结构检视）时触发。 · 标签：design-media、automation、wordpress
+  - 安装：`skills/figma-use/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/figma-use · 详情：https://skills.ewuse.com/#skill=figma-use
+- **flux-kontext**（Flux Kontext 图像生成） — 通过 fal.ai 上的 Flux Kontext 做图像编辑与生成——局部重绘、风格迁移、角色/物体一致性、背景替换与多种变体。当用户想用提示词编辑或生成图像、保持主体一致、做电商/社媒视觉或概念稿时使用。 · 标签：ai-agent、cli、doc-writing
+  - 安装：`skills/flux-kontext/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flux-kontext · 详情：https://skills.ewuse.com/#skill=flux-kontext
+- **frontend-design**（前端视觉设计） — 在构建新 UI 或重塑现有 UI 时，提供独特、有意图的视觉设计指导。帮助确定美学方向、排版，并做出不显得模板化的选择。 · 标签：design-media
+  - 安装：`skills/frontend-design/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/frontend-design · 详情：https://skills.ewuse.com/#skill=frontend-design
+- **logo-animation**（Logo 动画） — 为品牌 logo 创建动画效果，提升视觉表现与动态识别度。 · 标签：design-media
+  - 安装：`skills/logo-animation/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/logo-animation · 详情：https://skills.ewuse.com/#skill=logo-animation
+- **logo-creator**（Logo 生成） — 用 AI 图像生成创建 Logo · 标签：ai-agent、design-media
+  - 安装：`skills/logo-creator/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/logo-creator · 详情：https://skills.ewuse.com/#skill=logo-creator
+- **logo-designer**（Logo 设计） — 使用 SVG 设计并迭代 Logo。当用户要求创建、设计、制作 Logo，或为项目构思 Logo、品牌图标与字标时，使用此技能。 · 标签：design-media
+  - 安装：`skills/logo-designer/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/logo-designer · 详情：https://skills.ewuse.com/#skill=logo-designer
+- **marketing-plan**（营销方案） — 为客户或产品制定全面营销方案 · 标签：ai-agent、cli、doc-writing
+  - 安装：`skills/marketing-plan/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/marketing-plan · 详情：https://skills.ewuse.com/#skill=marketing-plan
+- **muapi-3d-logo-animation**（3D Logo 动画） — 将 2D logo 转化为高级 3D 版本，并以专业电影级特效为其制作动画。 · 标签：ai-agent、design-media
+  - 安装：`skills/muapi-3d-logo-animation/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/muapi-3d-logo-animation · 详情：https://skills.ewuse.com/#skill=muapi-3d-logo-animation
+- **muapi-logo-creator**（专业 Logo 设计） — 使用几何基元与负空间设计专业级品牌 logo——通过 muapi.ai 生成极简、可缩放的矢量风格标志。 · 标签：ai-agent、design-media
+  - 安装：`skills/muapi-logo-creator/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/muapi-logo-creator · 详情：https://skills.ewuse.com/#skill=muapi-logo-creator
+- **redesign-existing-projects**（现有项目重设计） — 将现有网站与应用升级至高级品质，审计当前设计、识别问题并交付改进方案。 · 标签：web-frontend、design-media、test-qa
+  - 安装：`skills/redesign-existing-projects/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/redesign-existing-projects · 详情：https://skills.ewuse.com/#skill=redesign-existing-projects
+- **review-animations**（动效评审） — 依据源自 Emil Kowalski 作品的高水准动效标准评审动画与动效代码。当用户希望动效更顺滑、有质感、符合高级动效规范时使用。 · 标签：ai-agent、design-media、test-qa
+  - 安装：`skills/review-animations/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/review-animations · 详情：https://skills.ewuse.com/#skill=review-animations
+- **ui-ux-pro-max**（UI/UX 设计智能） — 面向 Web、移动端与桌面的 UI/UX 设计智能。在构建设计、评审、优化界面体验时使用。 · 标签：web-frontend、design-media、test-qa
+  - 安装：`skills/ui-ux-pro-max/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ui-ux-pro-max · 详情：https://skills.ewuse.com/#skill=ui-ux-pro-max
+
+## AI 与智能体 / AI & Agents（9）
+
+- **agent-development**（智能体开发） — 构建与开发 AI 智能体的方法与最佳实践 · 标签：ai-agent
+  - 安装：`skills/agent-development/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/agent-development · 详情：https://skills.ewuse.com/#skill=agent-development
+- **ai-image-generation**（AI 图像生成） — 通过 RunComfy CLI 使用 FLUX 2、GPT Image 2、Seedream、Nano Banana 等 11+ 模型生成和编辑 AI 图像。支持文生图、图生图、局部重绘、LoRA、文字渲染。 · 标签：ai-agent、cli、design-media
+  - 安装：`skills/ai-image-generation/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-image-generation · 详情：https://skills.ewuse.com/#skill=ai-image-generation
+- **ai-research-reproduction**（AI 研究复现） — Rigor Reproduce 兼容技能，面向 README 优先的深度学习仓库复现。当用户想按 README 复现实验结果、核对环境/依赖/随机种子、定位复现差异时使用。 · 标签：ai-agent、doc-writing
+  - 安装：`skills/ai-research-reproduction/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-research-reproduction · 详情：https://skills.ewuse.com/#skill=ai-research-reproduction
+- **bailian-web-search**（百炼联网搜索） — 阿里云百炼联网搜索（web search）入口：为联网搜索 / 网页搜索 / 查最新资讯做路径分发。 先识别当前连接身份：Token Plan（profile `token-plan` 或 base_url host 为 `token-plan.<region>.maas.aliyuncs.com`）→ 模型自带搜索 （`bl text chat --api responses --tool '{"type":"web_search"}'`）；其他 / 默认 → Bailian MCP（`bl search web`）；仅在 MCP 鉴权失败、未开通或传输失败时兜底一次到模型自带搜索。 Token Plan 联网搜索失败、两条路径鉴权混淆的排查也走本技能。 反触发：宿主可完成的 普通问答 / 编程 / 写作 → 不触发；知识库 RAG → bailian-cli （`bl knowledge`）；生图/生视频/语音 → bailian-gen；精调/训练 → bailian-finetune； agents.yaml → bailian-managed-agent。 共享协议（consent / 版本预检 / 鉴权 / 错误上报）在 bailian-protocol；官方安装 `bl skill init`。 · 标签：ai-agent、cli、web-frontend
+  - 安装：`skills/bailian-web-search/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/bailian-web-search · 详情：https://skills.ewuse.com/#skill=bailian-web-search
+- **brainstorming**（头脑风暴） — 在任何创意工作（创建功能、构建组件、添加功能或修改行为）之前必须使用本技能，用于在实现前探索用户意图、需求与设计。 · 标签：ai-agent、design-media
+  - 安装：`skills/brainstorming/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/brainstorming · 详情：https://skills.ewuse.com/#skill=brainstorming
+- **dev-builder**（全栈开发工程师） — 全栈开发工程师技能包，依据产品需求文档与原型图实现功能代码，涵盖技术栈选择、项目初始化、功能实现与验证。 · 标签：ai-agent、doc-writing
+  - 安装：`skills/dev-builder/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dev-builder · 详情：https://skills.ewuse.com/#skill=dev-builder
+- **google-agents-cli-adk-code**（Google ADK 代码模式） — 使用 Google ADK（智能体开发套件）编写智能体代码——智能体类型、工具定义、回调、状态管理、Workflow API 模式及代码示例。 · 标签：ai-agent、automation
+  - 安装：`skills/google-agents-cli-adk-code/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/google-agents-cli-adk-code · 详情：https://skills.ewuse.com/#skill=google-agents-cli-adk-code
+- **google-agents-cli-deploy**（Google ADK 部署） — 将 ADK 智能体部署到 Cloud Run 或 GKE——部署工作流、服务账号、回滚、密钥管理及生产基础设施指引。 · 标签：ai-agent、devops、security
+  - 安装：`skills/google-agents-cli-deploy/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/google-agents-cli-deploy · 详情：https://skills.ewuse.com/#skill=google-agents-cli-deploy
+- **google-agents-cli-workflow**（Google ADK 开发工作流） — 完整的 ADK 开发生命周期：脚手架、构建、评估、部署、发布、监控。使用 Agent Development Kit 构建智能体的入口。 · 标签：ai-agent、devops
+  - 安装：`skills/google-agents-cli-workflow/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/google-agents-cli-workflow · 详情：https://skills.ewuse.com/#skill=google-agents-cli-workflow
+
+## 音视频与多媒体 / Media & Multimedia（23）
+
+- **ai-avatar-video**（AI 数字人视频） — 通过 inference.sh CLI 创建 AI 数字人与口播视频。推荐 P-Video-Avatar（最快最便宜、内置 TTS），另支持 OmniHuman、Fabric、PixVerse；音频可用 Inworld TTS-2、ElevenLabs、Kokoro。适用于 AI 主持人、解说视频、虚拟网红、配音、营销视频、UGC 广告、游戏数字人、NPC 对话等场景。 · 标签：ai-agent、cli、design-media
+  - 安装：`skills/ai-avatar-video/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-avatar-video · 详情：https://skills.ewuse.com/#skill=ai-avatar-video
+- **ai-music**（AI 音乐生成） — 通过 runcomfy CLI 在 RunComfy 上生成 AI 音乐——智能路由到合适的音乐模型目录。覆盖 ElevenLabs AI 音乐生成（ premium 人声轨）与 ACE Step 开源权重模型（标签驱动作曲、多语种歌词、低成本），以及音频内补绘与外补绘。按用户真实意图选模型，并附带各模型提示词范式与最小调用。 · 标签：ai-agent、cli、doc-writing
+  - 安装：`skills/ai-music/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-music · 详情：https://skills.ewuse.com/#skill=ai-music
+- **ai-video-generation**（AI 视频生成） — 通过 inference.sh CLI 使用 Google Veo、Seedance、Wan、Grok 等 40+ 模型生成 AI 视频。支持文生视频、图生视频、参考生视频、视频编辑、唇形同步、数字人动画、视频放大、拟音。适用于社媒视频、营销内容、解说视频、产品演示、AI 数字人。 · 标签：ai-agent、cli、design-media
+  - 安装：`skills/ai-video-generation/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-video-generation · 详情：https://skills.ewuse.com/#skill=ai-video-generation
+- **ai-video-generation-runcomfy**（AI 视频生成（RunComfy）） — 通过本地 RunComfy CLI 在 RunComfy 目录中智能路由生成 AI 视频，覆盖文生视频、图生视频、参考视频转视频以及 Veo 视频扩展。作为智能路由器，根据用户真实意图匹配最合适的视频生成模型，并附上对应模型的提示词写法。 · 标签：ai-agent、cli、doc-writing
+  - 安装：`skills/ai-video-generation-runcomfy/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ai-video-generation-runcomfy · 详情：https://skills.ewuse.com/#skill=ai-video-generation-runcomfy
+- **capcut**（CapCut 短视频剪辑） — CapCut 剪辑工艺技能——快速安全地剪辑短视频（TikTok、Reels、Shorts）：留存节奏剪辑、自动字幕、节拍同步音效、导出。当用户想在 CapCut 中剪辑、剪 Reel/Short、设置自动字幕、使用 CapCut AI 工具、选套餐，或询问 CapCut 音乐/素材或客户作品商用是否安全时使用。采用 EDITS 框架；智能体规划剪辑并标注授权/ToS 门槛，人工在 CapCut 执行并确认。 · 标签：ai-agent、cli、design-media
+  - 安装：`skills/capcut/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/capcut · 详情：https://skills.ewuse.com/#skill=capcut
+- **captions-and-clipping**（长视频切片与字幕） — 长视频转 Short + 静音字幕迷你技能（Opus Clip / CapCut / Submagic）。当用户想把播客/网络研讨会/长视频剪成 Short、从 YouTube 视频做 TikTok/Reels、添加字幕、将长视频改造为短内容或自动生成切片时使用。工具负责切片与字幕，人工复核。导出干净（无水印），并披露 AI 编辑视频。 · 标签：ai-agent、cli、web-frontend
+  - 安装：`skills/captions-and-clipping/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/captions-and-clipping · 详情：https://skills.ewuse.com/#skill=captions-and-clipping
+- **descript**（Descript 文稿剪辑） — Descript 剪辑工艺技能——通过编辑转录文稿而非时间轴来编辑谈话内容（播客、访谈、口播视频）。当用户想在 Descript 中剪辑、去除填充词/静音、清理音频（Studio Sound）、无需重录修复说错的词（Overdub）、自动切换说话人，或将一段录音转为切片+节目笔记+章节时使用。采用 WORDS 框架。 · 标签：cli、design-media
+  - 安装：`skills/descript/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/descript · 详情：https://skills.ewuse.com/#skill=descript
+- **douyin-video**（抖音视频下载与文案提取） — 抖音无水印视频下载与文案提取工具：从抖音分享链接获取无水印视频下载地址、下载视频，并通过语音识别提取视频中的口播文案自动保存。当用户需要处理抖音视频链接或提取视频内容时触发。 · 标签：doc-writing、design-media
+  - 安装：`skills/douyin-video/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/douyin-video · 详情：https://skills.ewuse.com/#skill=douyin-video
+- **douyin-video-summary**（抖音视频摘要） — 抖音视频摘要：提取音频→本地 whisper.cpp 转写→生成结构化摘要，可选同步到飞书文档。当用户分享抖音链接并希望获得视频内容的文字摘要时触发。 · 标签：doc-writing、design-media
+  - 安装：`skills/douyin-video-summary/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/douyin-video-summary · 详情：https://skills.ewuse.com/#skill=douyin-video-summary
+- **hyperframes**（HyperFrames 视频渲染） — HyperFrames 视频渲染入口，从 HTML 合成渲染视频、动画与动态图形 · 标签：ai-agent、cli、web-frontend
+  - 安装：`skills/hyperframes/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/hyperframes · 详情：https://skills.ewuse.com/#skill=hyperframes
+- **hyperframes-core**（HyperFrames 合成核心） — HyperFrames 合成契约构建可渲染项目 · 标签：ai-agent、cli、web-frontend
+  - 安装：`skills/hyperframes-core/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/hyperframes-core · 详情：https://skills.ewuse.com/#skill=hyperframes-core
+- **hyperframes-creative**（HyperFrames 创意指导） — HyperFrames 视频非动画创意方向 · 标签：web-frontend、design-media
+  - 安装：`skills/hyperframes-creative/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/hyperframes-creative · 详情：https://skills.ewuse.com/#skill=hyperframes-creative
+- **image-to-video**（图片转视频） — 在 RunComfy 上让任意静态图动起来——本技能是智能路由器，将用户意图匹配到 RunComfy 目录中合适的图生视频模型。通用动画选 HappyHorse 1.0 I2V，自定义配音唇形同步选带 audio_url 的 Wan 2.7，多模态动画选 Seedance 2.0 Pro。附带各模型提示词范式，通过本地 RunComfy CLI 调用。 · 标签：ai-agent、cli、doc-writing
+  - 安装：`skills/image-to-video/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/image-to-video · 详情：https://skills.ewuse.com/#skill=image-to-video
+- **luma**（Luma AI 视频生成） — Luma AI 工艺技能——用 Luma 的 AI 模型（Dream Machine / Ray / 图生视频）生成与编辑视频。当用户想要 AI 生成视频、图生视频、镜头运动控制，或了解 Luma 的生成档位与权利时使用。智能体撰写简报并在已连接时驱动 API；人工评判输出。须披露 AI 生成画面。 · 标签：ai-agent、design-media
+  - 安装：`skills/luma/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/luma · 详情：https://skills.ewuse.com/#skill=luma
+- **manga-drama**（漫剧生成器） — 漫剧生成器——基于 Seedance 的漫画风格短剧生成工具。支持以主角图片为基础，自动生成漫剧分镜脚本并生成视频。适用于创作漫画风格的短视频、角色故事、动画。 · 标签：design-media
+  - 安装：`skills/manga-drama/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/manga-drama · 详情：https://skills.ewuse.com/#skill=manga-drama
+- **mcp-vods**（影视点播搜索 MCP） — 用于追剧/追番的技能，为AI提供搜索影视播放地址的能力，并支持在小米电视上直接播放。当用户想搜索影视、动漫、短剧、综艺等节目信息或更新进度时使用此技能。 · 标签：ai-agent、design-media
+  - 安装：`skills/mcp-vods/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/mcp-vods · 详情：https://skills.ewuse.com/#skill=mcp-vods
+- **netease-music-cli**（网易云音乐 CLI） — 使用 ncm-cli 操作网易云音乐。当用户想播放、搜索歌曲，控制播放（暂停、上一首/下一首、调音量），管理播放队列、查看播放状态或播放歌单时使用。 · 标签：cli、design-media
+  - 安装：`skills/netease-music-cli/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/netease-music-cli · 详情：https://skills.ewuse.com/#skill=netease-music-cli
+- **opus-clip**（Opus Clip 智能切片） — Opus Clip 流水线技能——将长视频剪成带病毒指数、自动字幕与智能重构的 Short。当用户想要 Opus Clip 专属工作流：额度、档位、批量切片或将长视频路由到短内容时使用。人工复核，导出干净（无水印）。区别于通用的 captions-and-clipping 工艺。 · 标签：cli、design-media、test-qa
+  - 安装：`skills/opus-clip/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/opus-clip · 详情：https://skills.ewuse.com/#skill=opus-clip
+- **remotion-best-practices**（Remotion 最佳实践） — Remotion 技能的总入口与最佳实践路由。在创建程序化视频、React 视频动画时使用。 · 标签：web-frontend、design-media
+  - 安装：`skills/remotion-best-practices/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/remotion-best-practices · 详情：https://skills.ewuse.com/#skill=remotion-best-practices
+- **short-drama-storyboard**（短剧分镜设计） — 把中文短剧剧本和视觉设定写成有戏剧职责、连续性边界与冻结关键帧提示词的分镜 Markdown。用户提出“拆分镜/设计镜头/做镜头表”“场次视觉计划/调度故事板”“比较导演方案”“写首帧/关键帧提示词”或检查轴线、站位、视线、持物连续性时使用；不生成媒体。 · 标签：ai-agent、doc-writing、design-media
+  - 安装：`skills/short-drama-storyboard/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/short-drama-storyboard · 详情：https://skills.ewuse.com/#skill=short-drama-storyboard
+- **short-drama-video-prompts**（短剧视频提示词） — 把短剧分镜和冻结关键帧写成可直接复制的视频提示词 Markdown，也可按用户要求写时间线配乐/主题曲意图。用户提到文生/图生视频动作、人物表演、运镜、口型、环境运动、镜头时长、起止状态、把分镜转成视频提示词或写配乐提示词时使用；不生成媒体、不创作歌词、不改分镜边界。 · 标签：ai-agent、doc-writing、design-media
+  - 安装：`skills/short-drama-video-prompts/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/short-drama-video-prompts · 详情：https://skills.ewuse.com/#skill=short-drama-video-prompts
+- **short-drama-write**（短剧剧本编写） — 编写或修订可拍摄的中文短剧、漫剧单集 Markdown 剧本，也负责保留作者原文并规范化现成剧本。用户提出“写/改一集短剧”“把大纲写成剧本”“优化场景/对白”“去模板感”“去 AI 味润色”“续写下一集”或提供剧本要求进入后续制作时使用；不负责资产、分镜、媒体提示词或终审。 · 标签：ai-agent、doc-writing、design-media
+  - 安装：`skills/short-drama-write/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/short-drama-write · 详情：https://skills.ewuse.com/#skill=short-drama-write
+- **video-editing**（视频剪辑） — 面向真实素材剪辑、结构化与增强的 AI 辅助视频编辑工作流，覆盖从原始采集经 FFmpeg、Remotion、ElevenLabs、fal.ai，到在 Descript 与 CapCut 中做最终润色的完整管线。 · 标签：ai-agent、design-media、automation
+  - 安装：`skills/video-editing/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/video-editing · 详情：https://skills.ewuse.com/#skill=video-editing
+
+## 工程实践与质量 / Engineering Practice & Quality（33）
+
+- **analyze-project**（项目分析） — Rigor Analyze / Rigor Audit 只读技能，用于深度学习研究仓库的深入分析。当用户想阅读并理解仓库、检查模型结构与训练/推理入口、审阅配置与插入点，或在不动代码、不跑重任务的前提下标记可疑实现模式时使用。不适用于主动执行命令、大规模重构、推测性代码适配或自动修 bug。 · 标签：ai-agent、test-qa
+  - 安装：`skills/analyze-project/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/analyze-project · 详情：https://skills.ewuse.com/#skill=analyze-project
+- **architecture-blueprint-generator**（架构蓝图生成） — 分析代码库生成项目架构蓝图文档 · 标签：ai-agent、doc-writing、test-qa
+  - 安装：`skills/architecture-blueprint-generator/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/architecture-blueprint-generator · 详情：https://skills.ewuse.com/#skill=architecture-blueprint-generator
+- **clean-architecture**（整洁架构） — 围绕依赖规则构建软件架构：源代码依赖从框架指向用例再指向实体。适用于讨论架构分层、依赖规则、端口与适配器、洋葱架构或解耦框架等场景。 · 标签：test-qa
+  - 安装：`skills/clean-architecture/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/clean-architecture · 详情：https://skills.ewuse.com/#skill=clean-architecture
+- **clean-code**（整洁代码） — 通过规范命名、小函数和清晰错误处理编写可读可维护的代码。适用于讨论整洁代码、代码异味、命名规范、童子军规则、单一职责或单元测试质量等场景。 · 标签：ai-agent、test-qa
+  - 安装：`skills/clean-code/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/clean-code · 详情：https://skills.ewuse.com/#skill=clean-code
+- **code-review**（代码审查） — 围绕既定基准（提交、分支、标签或合并基点）从规范与规格两个维度审查代码改动。 · 标签：test-qa
+  - 安装：`skills/code-review/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/code-review · 详情：https://skills.ewuse.com/#skill=code-review
+- **code-review-and-quality**（代码审查与质量） — 多维度代码审查保障合并质量 · 标签：ai-agent、test-qa
+  - 安装：`skills/code-review-and-quality/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/code-review-and-quality · 详情：https://skills.ewuse.com/#skill=code-review-and-quality
+- **codebase-design**（代码库设计） — 用于设计或改进深层模块设计的共享词汇与方法，帮助构建高内聚、可维护的代码结构。 · 标签：design-media、test-qa
+  - 安装：`skills/codebase-design/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/codebase-design · 详情：https://skills.ewuse.com/#skill=codebase-design
+- **debugging-and-error-recovery**（调试与错误恢复） — 系统化根因调试与错误恢复 · 标签：ai-agent、test-qa
+  - 安装：`skills/debugging-and-error-recovery/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/debugging-and-error-recovery · 详情：https://skills.ewuse.com/#skill=debugging-and-error-recovery
+- **diagnosing-bugs**（缺陷诊断） — 针对疑难缺陷与性能回退的诊断循环，在用户要求排查复杂问题或诊断 bug 时使用。 · 标签：test-qa
+  - 安装：`skills/diagnosing-bugs/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/diagnosing-bugs · 详情：https://skills.ewuse.com/#skill=diagnosing-bugs
+- **domain-modeling**（领域建模） — 构建并打磨项目领域模型，在讨论代码库术语、撰写领域逻辑或统一概念时使用。 · 标签：ai-agent、doc-writing、test-qa
+  - 安装：`skills/domain-modeling/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/domain-modeling · 详情：https://skills.ewuse.com/#skill=domain-modeling
+- **executing-plans**（执行计划） — 当你有一份书面实现计划，需要在独立会话中执行并带评审检查点时使用 · 标签：test-qa
+  - 安装：`skills/executing-plans/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/executing-plans · 详情：https://skills.ewuse.com/#skill=executing-plans
+- **find-skills**（技能发现与安装） — 帮助用户发现并安装可用的 agent 技能。当用户问“我该怎么做 X”“找一个做 X 的技能”“有没有能做…的技能”或表达想要扩展能力时，使用本技能来寻找可能以可安装技能形式存在的功能。 · 标签：ai-agent、test-qa
+  - 安装：`skills/find-skills/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/find-skills · 详情：https://skills.ewuse.com/#skill=find-skills
+- **fix-errors**（修复构建与测试错误） — 修复编译错误、lint 问题与测试失败：覆盖 presubmit 检查、WASM 相关错误与运行指定测试。当遇到构建失败、clippy/fmt 报错、测试失败或需在 PR 前运行/解释 presubmit 时使用。
+  - 安装：`skills/fix-errors/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/fix-errors · 详情：https://skills.ewuse.com/#skill=fix-errors
+- **git-cleanup**（Git 分支清理） — 安全分析与清理本地 git 分支与工作树。 · 标签：test-qa、security
+  - 安装：`skills/git-cleanup/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/git-cleanup · 详情：https://skills.ewuse.com/#skill=git-cleanup
+- **grill-me**（方案压力访谈） — 对用户进行 relentless 访谈，以打磨计划或设计方案的合理性。 · 标签：design-media、test-qa
+  - 安装：`skills/grill-me/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/grill-me · 详情：https://skills.ewuse.com/#skill=grill-me
+- **grill-with-docs**（带文档的深度拷问） — 深度拷问计划或设计，同时边进行边生成文档（ADR 和术语表）。结合 grill（拷问）和 domain-modeling（领域建模）两项技能。 · 标签：ai-agent、doc-writing、design-media
+  - 安装：`skills/grill-with-docs/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/grill-with-docs · 详情：https://skills.ewuse.com/#skill=grill-with-docs
+- **grilling**（方案拷问） — 就计划、决策或创意对用户进行 relentless 追问，在用户希望压力测试其思路时使用。 · 标签：test-qa
+  - 安装：`skills/grilling/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/grilling · 详情：https://skills.ewuse.com/#skill=grilling
+- **handoff**（对话交接） — 将当前对话压缩为交接文档，供其他智能体接续处理。 · 标签：ai-agent、doc-writing、test-qa
+  - 安装：`skills/handoff/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/handoff · 详情：https://skills.ewuse.com/#skill=handoff
+- **implement-spec**（规格实现） — 将规格说明实现为代码，在用户要求按规范落地功能时使用。 · 标签：test-qa
+  - 安装：`skills/implement-spec/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/implement-spec · 详情：https://skills.ewuse.com/#skill=implement-spec
+- **improve-codebase-architecture**（代码库架构优化） — 扫描代码库寻找深化机会，以可视化 HTML 报告呈现，并经访谈推动架构改进。 · 标签：web-frontend、doc-writing、test-qa
+  - 安装：`skills/improve-codebase-architecture/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/improve-codebase-architecture · 详情：https://skills.ewuse.com/#skill=improve-codebase-architecture
+- **manage-skills**（技能管理） — 通过 skills-manager-cli 管理共享智能体技能库——按 agent 安装、更新、删除、部署技能，管理预设、组织标签、搜索和采纳现有技能。 · 标签：ai-agent、cli、test-qa
+  - 安装：`skills/manage-skills/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/manage-skills · 详情：https://skills.ewuse.com/#skill=manage-skills
+- **orca-cli**（Orca CLI 工具） — 用 orca CLI 管理工作树与文件夹 · 标签：ai-agent、cli、web-frontend
+  - 安装：`skills/orca-cli/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/orca-cli · 详情：https://skills.ewuse.com/#skill=orca-cli
+- **planning-with-files**（文件规划助手） — Manus 式持久化基于文件的规划，为 AI 编码智能体在磁盘保留 task_plan.md、findings.md、progress.md，使工作在上下文丢失与 /clear 后仍能存活。当用户要求规划、拆分或组织多步骤项目、研究任务或任何需要 5+ 工具调用的工作时使用。支持 /clear 后自动会话恢复。 · 标签：ai-agent、test-qa
+  - 安装：`skills/planning-with-files/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/planning-with-files · 详情：https://skills.ewuse.com/#skill=planning-with-files
+- **playwright-cli**（Playwright 命令行） — 通过 Playwright CLI 进行端到端自动化测试的技能。
+  - 安装：`skills/playwright-cli/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/playwright-cli · 详情：https://skills.ewuse.com/#skill=playwright-cli
+- **receiving-code-review**（接收代码评审） — 在收到代码评审反馈、落实建议之前使用，尤其是面对多条或相互冲突的评审意见时。引导你分类、澄清并落地评审意见。 · 标签：test-qa
+  - 安装：`skills/receiving-code-review/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/receiving-code-review · 详情：https://skills.ewuse.com/#skill=receiving-code-review
+- **requesting-code-review**（请求代码评审） — 在完成任务、实现主要功能或合并到主分支之前请求代码评审时使用。引导你整理改动、撰写评审说明并选择合适的评审范围。 · 标签：test-qa
+  - 安装：`skills/requesting-code-review/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/requesting-code-review · 详情：https://skills.ewuse.com/#skill=requesting-code-review
+- **rust-skills**（Rust 技能） — 使用 Rust 进行系统级与高性能编程的技能。
+  - 安装：`skills/rust-skills/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/rust-skills · 详情：https://skills.ewuse.com/#skill=rust-skills
+- **skill-creator**（技能创建器） — 辅助创建与规范化 Agent 技能的技能。
+  - 安装：`skills/skill-creator/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/skill-creator · 详情：https://skills.ewuse.com/#skill=skill-creator
+- **systematic-debugging**（系统化调试） — 遇到任何 bug、测试失败或意外行为时使用，先分析再动手。引导你复现、收集证据、提出假设并验证，避免盲目修改。 · 标签：ai-agent、test-qa
+  - 安装：`skills/systematic-debugging/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/systematic-debugging · 详情：https://skills.ewuse.com/#skill=systematic-debugging
+- **test-driven-development**（测试驱动开发） — 实现任何功能或修复缺陷前，先写测试（测试驱动开发）。 · 标签：doc-writing、test-qa
+  - 安装：`skills/test-driven-development/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/test-driven-development · 详情：https://skills.ewuse.com/#skill=test-driven-development
+- **to-spec**（对话转规格） — 将当前对话转化为规格并发布到项目问题追踪器，无需手动搬移上下文。 · 标签：test-qa
+  - 安装：`skills/to-spec/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/to-spec · 详情：https://skills.ewuse.com/#skill=to-spec
+- **webapp-testing**（Web 应用测试） — 使用 Playwright 与本地 Web 应用交互和测试的工具包。支持验证前端功能、调试 UI 行为、捕获浏览器截图和查看浏览器日志。 · 标签：web-frontend、test-qa
+  - 安装：`skills/webapp-testing/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/webapp-testing · 详情：https://skills.ewuse.com/#skill=webapp-testing
+- **writing-plans**（编写计划） — 当你有多步任务的规格或需求、在动手写代码之前使用 · 标签：test-qa
+  - 安装：`skills/writing-plans/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/writing-plans · 详情：https://skills.ewuse.com/#skill=writing-plans
+
+## 安全 / Security（4）
+
+- **better-auth-best-practices**（Better Auth 最佳实践） — 配置 Better Auth 服务端与客户端的认证方案，搭建数据库适配器、管理会话、添加插件并处理环境变量。当用户提及 Better Auth、betterauth、auth.ts，或需要用邮箱密码、OAuth 或插件配置搭建 TypeScript 认证时使用。 · 标签：ai-agent、cli、data
+  - 安装：`skills/better-auth-best-practices/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/better-auth-best-practices · 详情：https://skills.ewuse.com/#skill=better-auth-best-practices
+- **clerk-nextjs-patterns**（Clerk 认证模式） — 高级 Next.js 模式——middleware、Server Actions、缓存等，帮助在 Clerk + Next.js 应用中落地稳健的认证与集成模式。 · 标签：web-frontend、security
+  - 安装：`skills/clerk-nextjs-patterns/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/clerk-nextjs-patterns · 详情：https://skills.ewuse.com/#skill=clerk-nextjs-patterns
+- **fix-sentry-issues**（Sentry 问题修复） — 使用 Sentry MCP 发现、分类并根因修复生产问题。用于修复 Sentry 问题、分类生产错误、排查错误尖峰或清理 Sentry 噪声。需要 Sentry MCP 服务。 · 标签：security
+  - 安装：`skills/fix-sentry-issues/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/fix-sentry-issues · 详情：https://skills.ewuse.com/#skill=fix-sentry-issues
+- **security-review**（安全代码审查） — AI 驱动的代码库安全扫描器，像安全研究员一样推理代码：追踪数据流、理解组件交互、捕获模式匹配工具遗漏的漏洞。扫描安全漏洞、SQL 注入、XSS、命令注入、暴露的密钥、硬编码 secret、不安全依赖、访问控制问题时使用。
+  - 安装：`skills/security-review/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/security-review · 详情：https://skills.ewuse.com/#skill=security-review
+
+## WordPress 与 CMS / WordPress & CMS（7）
+
+- **blueprint**（WordPress 沙箱蓝图） — 当交付物是 WordPress Playground Blueprint JSON 或 Blueprint 包（含创建、编辑、审查、校验 schema 键、选择 steps/resources、调试 Blueprint 文件）时使用。若仅需运行或分享 Playground 环境，用 wp-playground。 · 标签：test-qa、wordpress
+  - 安装：`skills/blueprint/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/blueprint · 详情：https://skills.ewuse.com/#skill=blueprint
+- **wp-abilities-audit**（WP 能力审计） — 审计 WordPress 插件的 REST 接口面，产出标准化审计文档，提议 Abilities API 注册项。生成含 YAML schema 与散文段落的 markdown 文档，供人与 agent 在规划注册推广时共同消费。适用于任意 WP 插件。 · 标签：ai-agent、doc-writing、wordpress
+  - 安装：`skills/wp-abilities-audit/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-abilities-audit · 详情：https://skills.ewuse.com/#skill=wp-abilities-audit
+- **wp-abilities-verify**（WP 能力核验） — 核验 WordPress 插件的 Abilities API 注册：枚举能力、检查回调行为是否与各注解声明一致（对抗式「只读却写入」检测）、校验权限与 schema，并校验 wp-abilities-audit 产出的审计文档。 · 标签：ai-agent、doc-writing、wordpress
+  - 安装：`skills/wp-abilities-verify/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-abilities-verify · 详情：https://skills.ewuse.com/#skill=wp-abilities-verify
+- **wp-patterns**（WordPress 区块模式） — 模式：创建或更新 WordPress 区块模式（起始页、模板、模板部件、Query Loop 布局），审查模式注册、区块标记、分类、可访问性或 i18n/转义，或提升模式设计质量。自定义区块路由到 wp-block-development；前端交互路由到 wp-interactivity-api。 · 标签：web-frontend、design-media、test-qa
+  - 安装：`skills/wp-patterns/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-patterns · 详情：https://skills.ewuse.com/#skill=wp-patterns
+- **wp-playground**（WordPress 沙箱） — 作为 WordPress Playground 的路由包装，处理歧义 Playground 任务、本地 CLI 运行 @wp-playground/cli、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。若需编写或审查 Blueprint JSON，直接用 blueprint 技能。 · 标签：cli、web-frontend、test-qa
+  - 安装：`skills/wp-playground/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-playground · 详情：https://skills.ewuse.com/#skill=wp-playground
+- **wp-plugin-directory-guidelines**（WP 插件目录规范） — 审查 WordPress 插件的 GPL 合规性、检查许可证头或兼容性、评估 upsell/免费增值/试用软件模式、校验插件命名或商标规则、检查插件 slug、理解插件为何被 WordPress.org 拒绝，或回答关于 18 条 WordPress.org 插件目录指南的任何问题——即使用户未明确提及「指南」。 · 标签：test-qa、wordpress
+  - 安装：`skills/wp-plugin-directory-guidelines/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wp-plugin-directory-guidelines · 详情：https://skills.ewuse.com/#skill=wp-plugin-directory-guidelines
+- **wordpress-pro**（WordPress 主题与插件开发） — WordPress 专业开发：开发自定义主题与插件、注册 Gutenberg 区块与区块模式、配置 WooCommerce 商店、 实现 WordPress REST API 端点，并通过 nonce 校验、输入净化、输出转义与能力检查做安全加固， 用缓存与查询调优做性能优化。适用于编写 WordPress 主题、开发插件、自定义 Gutenberg 区块、 扩展 WooCommerce、使用 ACF、调用 WordPress REST API、使用钩子与过滤器，或改进 WordPress 性能与安全的场景。 · 标签：wordpress、web-frontend、security
+  - 安装：`skills/wordpress-pro/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/wordpress-pro · 详情：https://skills.ewuse.com/#skill=wordpress-pro
+
+## 自动化与集成 / Automation & Integration（4）
+
+- **browser-automation**（浏览器与桌面自动化） — 统一自动化入口。覆盖浏览器自动化（Playwright）和 Windows 桌面应用自动化（OpenReverse）。 浏览器场景：打开网页、点击、填表、爬取、截图、自动化登录、渗透页面交互。 桌面场景：操作 IDA/x64dbg 等 GUI 工具、Windows UI Automation、视觉驱动交互、桌面应用网络抓包。 触发关键词：浏览器自动化、桌面自动化、打开网页、填表、爬取、截图、自动化登录、Playwright、agent-browser、headless、OpenReverse、UIA、CUA、桌面操作、Windows 自动化。 · 标签：ai-agent、web-frontend、automation
+  - 安装：`skills/browser-automation/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/browser-automation · 详情：https://skills.ewuse.com/#skill=browser-automation
+- **disk-cleaner**（Mac 磁盘清理助手） — Mac 智能磁盘清理助手，基于 Mole (https://github.com/tw93/Mole) 的用户友好包装器 · 标签：automation
+  - 安装：`skills/disk-cleaner/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/disk-cleaner · 详情：https://skills.ewuse.com/#skill=disk-cleaner
+- **instagram-api**（Instagram API 替代） — fetcher.sh 上的 Instagram API 替代——以 USDC 按次付费（x402）或 Bearer 密钥预付费，无需登录与会话 Cookie。按 @handle 解析主页、按关键词搜用户、拉取帖子/Reels/快拍/标记帖/粉丝/关注、按短码查帖子、读评论、拉取话题或位置信息流、按音轨拉帖子，以及粉丝导出、监控、网红发现与竞品追踪，无需 Graph API 验证或无头浏览器。 · 标签：ai-agent、web-frontend、design-media
+  - 安装：`skills/instagram-api/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/instagram-api · 详情：https://skills.ewuse.com/#skill=instagram-api
+- **lark-meeting**（飞书会议） — 飞书视频会议：查询会议记录与会议产物(纪要/逐字稿/妙记)、妙记搜索/上传/下载/编辑、机器人参与会议；查询进行中的会议、实时会议内容(发言/聊天/共享文档)问答(会上/会里)、发送会中聊天/表情；基于 meeting_id、meeting_no、event_id、note_id、minute_token、vc-node-id 或妙记 URL 查询相关信息。预约会议、忙闲和会议室管理走 lark-calendar。 · 标签：doc-writing、design-media、security
+  - 安装：`skills/lark-meeting/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/lark-meeting · 详情：https://skills.ewuse.com/#skill=lark-meeting
+
+## 后端与平台 / Backend & Platform（10）
+
+- **bun**（Bun 运行时） — 使用 Bun 替代 Node.js、npm、pnpm 或 vite。提供命令映射、Bun 特有 API 与开发模式。
+  - 安装：`skills/bun/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/bun · 详情：https://skills.ewuse.com/#skill=bun
+- **cloudbase**（CloudBase 全栈开发） — 腾讯云开发 CloudBase 全栈开发技能，覆盖 Web/小程序/uni-app 前端、云函数、云数据库、云存储与内置大模型能力，提供从接入到部署的全流程指导。 · 标签：ai-agent、web-frontend、doc-writing
+  - 安装：`skills/cloudbase/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/cloudbase · 详情：https://skills.ewuse.com/#skill=cloudbase
+- **convex-suggest**（Convex 组件建议） — 当用户手动实现 Convex 已有的模式时（定时任务、分片计数器、限流器、存储、搜索、在线状态、工作流、RAG），主动建议使用对应的 Convex 组件。被动触发，任务完成后才建议，不打断。 · 标签：ai-agent、automation
+  - 安装：`skills/convex-suggest/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/convex-suggest · 详情：https://skills.ewuse.com/#skill=convex-suggest
+- **eve**（Eve 后端智能体） — 用 eve 框架构建持久后端 AI 智能体 · 标签：ai-agent、automation
+  - 安装：`skills/eve/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/eve · 详情：https://skills.ewuse.com/#skill=eve
+- **fastify-best-practices**（Fastify 最佳实践） — 指导用 TypeScript 或 JavaScript 开发 Fastify Node.js 后端服务与 REST API。在构建、配置或调试 Fastify 应用时使用——包括定义路由、实现插件、配置 JSON Schema 校验、处理错误、优化性能、管理认证、配置 CORS 与安全头、集成数据库、使用 WebSocket 以及生产部署。覆盖完整 Fastify 请求生命周期（hooks、序列化、Pino 日志）与通过 strip types 的 TypeScript 集成。 · 标签：web-frontend、data、devops
+  - 安装：`skills/fastify-best-practices/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/fastify-best-practices · 详情：https://skills.ewuse.com/#skill=fastify-best-practices
+- **nestjs-best-practices**（NestJS 最佳实践） — NestJS 生产级应用的最佳实践与架构模式。在编写、审查或重构 NestJS 代码，以确保模块、依赖注入、安全与性能的正确模式时使用。 · 标签：doc-writing、test-qa、security
+  - 安装：`skills/nestjs-best-practices/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nestjs-best-practices · 详情：https://skills.ewuse.com/#skill=nestjs-best-practices
+- **nodejs-backend-patterns**（Node.js 后端模式） — 构建生产级 Node.js 后端服务 · 标签：data
+  - 安装：`skills/nodejs-backend-patterns/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nodejs-backend-patterns · 详情：https://skills.ewuse.com/#skill=nodejs-backend-patterns
+- **rust-best-practices**（Rust 最佳实践） — 编写惯用 Rust 代码的最佳实践指南（基于 Apollo GraphQL 手册）：编写新代码、审查/重构既有代码、借用与克隆/所有权取舍、Result 错误处理、性能优化、编写测试与文档时使用。
+  - 安装：`skills/rust-best-practices/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/rust-best-practices · 详情：https://skills.ewuse.com/#skill=rust-best-practices
+- **rust-patterns**（Rust 开发模式） — 惯用 Rust 模式：所有权、错误处理、trait、并发与最佳实践，用于构建安全、高性能、可维护的应用。编写或审查 Rust 代码，涉及所有权、错误处理、trait 或并发时使用。
+  - 安装：`skills/rust-patterns/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/rust-patterns · 详情：https://skills.ewuse.com/#skill=rust-patterns
+- **stripe-best-practices**（Stripe 最佳实践） — 指导 Stripe 集成决策，涵盖开发与测试环境规划（独立沙箱 vs 共享测试模式沙箱）、API 选择（Checkout Sessions vs PaymentIntents）、Connect 平台搭建、计费订阅、税务、Treasury 金融账户、集成选项与安全最佳实践。 · 标签：test-qa、security
+  - 安装：`skills/stripe-best-practices/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/stripe-best-practices · 详情：https://skills.ewuse.com/#skill=stripe-best-practices
+
+## 前端开发 / Frontend Dev（11）
+
+- **chrome-webstore-release-blueprint**（Chrome 应用商店发布蓝图） — 端到端引导用户在任意仓库中搭建 Chrome Web Store API 发布自动化。用于 OAuth/CWS 凭证配置、刷新令牌创建、本地/CI 密钥设置、基于版本的发布自动化与提交状态检查。 · 标签：web-frontend、security、automation
+  - 安装：`skills/chrome-webstore-release-blueprint/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/chrome-webstore-release-blueprint · 详情：https://skills.ewuse.com/#skill=chrome-webstore-release-blueprint
+- **html-design-prototypes**（HTML 设计原型） — 触发条件：在向 AskUserQuestion 选项填充前，构建 HTML 设计原型。 · 标签：web-frontend、design-media
+  - 安装：`skills/html-design-prototypes/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/html-design-prototypes · 详情：https://skills.ewuse.com/#skill=html-design-prototypes
+- **html-prototype**（HTML 原型） — 直接调用的专家技能，产出精致、响应式、自包含的 HTML 原型。 · 标签：ai-agent、web-frontend
+  - 安装：`skills/html-prototype/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/html-prototype · 详情：https://skills.ewuse.com/#skill=html-prototype
+- **insforge-cli**（Insforge 后端 CLI） — 当用户需要后端，或任务通过 InsForge CLI 触及 InsForge 后端或云基础设施时使用：项目、SQL、迁移、RLS 策略、函数、存储、备份、部署、计算、密钥、配置、调度、日志、诊断、顾问扫描与抑制、导入/导出、AI/OpenRouter 设置、Stripe/Razorpay 支付、Apify 爬取、PostHog 分析、后端分支、组织成员、智能体记忆、反馈上报或 CLI 文档。应用代码集成见 insforge app-integration 技能。 · 标签：ai-agent、cli、web-frontend
+  - 安装：`skills/insforge-cli/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/insforge-cli · 详情：https://skills.ewuse.com/#skill=insforge-cli
+- **insforge-debug**（Insforge 调试） — Rigor Debug / Rigor Audit 技能，面向 Insforge（即时后端/数据库服务）的调试。当用户想排查 Insforge 数据模型、CLI、本地开发或部署问题时使用。 · 标签：ai-agent、cli、web-frontend
+  - 安装：`skills/insforge-debug/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/insforge-debug · 详情：https://skills.ewuse.com/#skill=insforge-debug
+- **next-best-practices**（Next.js 最佳实践） — Next.js 最佳实践——文件约定、RSC 边界、数据模式、异步 API、metadata、错误处理、路由处理器、图片/字体优化、打包。 · 标签：web-frontend、data、design-media
+  - 安装：`skills/next-best-practices/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/next-best-practices · 详情：https://skills.ewuse.com/#skill=next-best-practices
+- **nextjs-app-router-patterns**（Next.js App Router 模式） — 掌握 Next.js 14+ App Router 高级模式 · 标签：web-frontend
+  - 安装：`skills/nextjs-app-router-patterns/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nextjs-app-router-patterns · 详情：https://skills.ewuse.com/#skill=nextjs-app-router-patterns
+- **nextjs-code-review**（Next.js 代码审查） — 为 Next.js 应用提供全面代码评审，校验 Server Components、Client Components、Server Actions、缓存策略、metadata、API 路由、中间件与性能模式。在评审 Next.js App Router 代码改动、合并 PR 前、实现新功能后或做架构校验时使用。 · 标签：cli、web-frontend、test-qa
+  - 安装：`skills/nextjs-code-review/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nextjs-code-review · 详情：https://skills.ewuse.com/#skill=nextjs-code-review
+- **nextjs-react-typescript**（Next.js TS 专家） — TypeScript、Node.js、Next.js App Router、React、Shadcn UI、Radix UI 与 Tailwind 专家，提供相关技术栈的深入指导与最佳实践。 · 标签：ai-agent、web-frontend
+  - 安装：`skills/nextjs-react-typescript/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/nextjs-react-typescript · 详情：https://skills.ewuse.com/#skill=nextjs-react-typescript
+- **prototype**（原型构建） — 构建一次性原型以验证设计问题，在用户希望快速验证状态模型或界面形态时使用。 · 标签：web-frontend、design-media
+  - 安装：`skills/prototype/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/prototype · 详情：https://skills.ewuse.com/#skill=prototype
+- **ui-animation**（UI 动效） — 设计、实现、审查与逆向 UI 动效 · 标签：ai-agent、web-frontend、design-media
+  - 安装：`skills/ui-animation/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/ui-animation · 详情：https://skills.ewuse.com/#skill=ui-animation
+
+## 文档与内容 / Docs & Content（2）
+
+- **coding-standards**（跨项目编码规范基线） — 跨项目共享的编码约定基线，涵盖命名、可读性、不可变性与代码质量审查。在审查代码质量或命名、且没有适用的框架特定技能时使用。 · 标签：ai-agent、web-frontend、doc-writing
+  - 安装：`skills/coding-standards/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/coding-standards · 详情：https://skills.ewuse.com/#skill=coding-standards
+- **documentation**（技术文档编写与维护） — 编写与维护技术文档。当用户要求“为…写文档”“记录这个”“创建 README”“编写 runbook”“编写入职指南”或需要任何形式的技术写作（API 文档、架构文档或运维手册）时触发。 · 标签：ai-agent、doc-writing、devops
+  - 安装：`skills/documentation/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/documentation · 详情：https://skills.ewuse.com/#skill=documentation
+
+## 移动端开发 / Mobile Dev（27）
+
+- **dart-add-unit-test**（Dart 单元测试编写） — 为函数、方法、类编写并组织单元测试（使用 package:test）。 · 标签：ai-agent、test-qa
+  - 安装：`skills/dart-add-unit-test/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-add-unit-test · 详情：https://skills.ewuse.com/#skill=dart-add-unit-test
+- **dart-build-cli-app**（Dart CLI 应用构建） — 命令行工具的入口结构、退出码与跨平台脚本编写规范。 · 标签：cli
+  - 安装：`skills/dart-build-cli-app/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-build-cli-app · 详情：https://skills.ewuse.com/#skill=dart-build-cli-app
+- **dart-collect-coverage**（Dart 覆盖率收集） — 使用 coverage 包收集覆盖率并生成 LCOV 报告。 · 标签：ai-agent、doc-writing
+  - 安装：`skills/dart-collect-coverage/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-collect-coverage · 详情：https://skills.ewuse.com/#skill=dart-collect-coverage
+- **dart-fix-runtime-errors**（Dart 运行时错误修复） — 用 get_runtime_errors 与 lsp 获取活动堆栈、定位报错行并热重载修复。 · 标签：ai-agent
+  - 安装：`skills/dart-fix-runtime-errors/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-fix-runtime-errors · 详情：https://skills.ewuse.com/#skill=dart-fix-runtime-errors
+- **dart-flutter-patterns**（Dart/Flutter 模式） — 用于编写生产级 Dart/Flutter 代码的技能，涵盖面向 Flutter/Dart 的架构模式、代码组织与工程实践，帮助构建健壮、可维护的跨平台应用。 · 标签：doc-writing、test-qa
+  - 安装：`skills/dart-flutter-patterns/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-flutter-patterns · 详情：https://skills.ewuse.com/#skill=dart-flutter-patterns
+- **dart-generate-test-mocks**（Dart 测试桩生成） — 使用 package:mockito 与 build_runner 为外部依赖定义并生成 mock 对象。 · 标签：data、test-qa
+  - 安装：`skills/dart-generate-test-mocks/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-generate-test-mocks · 详情：https://skills.ewuse.com/#skill=dart-generate-test-mocks
+- **dart-migrate-to-checks-package**（Dart 迁移至 checks 包） — 将 package:matcher 的 expect 等用法替换为 package:checks 等价写法。
+  - 安装：`skills/dart-migrate-to-checks-package/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-migrate-to-checks-package · 详情：https://skills.ewuse.com/#skill=dart-migrate-to-checks-package
+- **dart-resolve-package-conflicts**（Dart 包冲突解决） — 修复 pub get 因版本不兼容而失败的包冲突处理流程。 · 标签：ai-agent、automation
+  - 安装：`skills/dart-resolve-package-conflicts/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-resolve-package-conflicts · 详情：https://skills.ewuse.com/#skill=dart-resolve-package-conflicts
+- **dart-run-static-analysis**（Dart 静态分析） — 执行 dart analyze 识别警告与错误，并用 dart fix --apply 自动修复机械性问题。 · 标签：test-qa
+  - 安装：`skills/dart-run-static-analysis/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-run-static-analysis · 详情：https://skills.ewuse.com/#skill=dart-run-static-analysis
+- **dart-use-pattern-matching**（Dart 模式匹配） — 在合适处使用 switch 表达式与模式匹配。
+  - 安装：`skills/dart-use-pattern-matching/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/dart-use-pattern-matching · 详情：https://skills.ewuse.com/#skill=dart-use-pattern-matching
+- **flutter-add-integration-test**（Flutter 集成测试） — 配置 Flutter Driver 进行应用交互，并将 MCP 动作转为持久化集成测试。 · 标签：test-qa
+  - 安装：`skills/flutter-add-integration-test/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-add-integration-test · 详情：https://skills.ewuse.com/#skill=flutter-add-integration-test
+- **flutter-add-widget-preview**（Flutter 组件预览） — 使用 previews.dart 系统为项目添加交互式 widget 预览。 · 标签：test-qa
+  - 安装：`skills/flutter-add-widget-preview/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-add-widget-preview · 详情：https://skills.ewuse.com/#skill=flutter-add-widget-preview
+- **flutter-add-widget-test**（Flutter 组件测试） — 使用 WidgetTester 实现组件级测试，校验 UI 渲染与用户交互。 · 标签：test-qa
+  - 安装：`skills/flutter-add-widget-test/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-add-widget-test · 详情：https://skills.ewuse.com/#skill=flutter-add-widget-test
+- **flutter-apply-architecture-best-practices**（Flutter 架构最佳实践） — 采用推荐的层式架构（UI、逻辑、数据）为 Flutter 应用做架构设计。 · 标签：data、design-media
+  - 安装：`skills/flutter-apply-architecture-best-practices/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-apply-architecture-best-practices · 详情：https://skills.ewuse.com/#skill=flutter-apply-architecture-best-practices
+- **flutter-build-responsive-layout**（Flutter 响应式布局） — 使用 LayoutBuilder、MediaQuery 或 Expanded/Flexible 构建自适应多屏布局。 · 标签：design-media
+  - 安装：`skills/flutter-build-responsive-layout/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-build-responsive-layout · 详情：https://skills.ewuse.com/#skill=flutter-build-responsive-layout
+- **flutter-dart-code-review**（Flutter 代码审查） — 与框架无关的 Flutter/Dart 代码审查清单，覆盖 widget 最佳实践、状态管理模式（BLoC、Riverpod、Provider、GetX、MobX、Signals）、Dart 惯用法、性能、可访问性、安全与整洁架构。无论项目使用何种状态管理库，审查 Flutter 或 Dart 代码时适用。 · 标签：test-qa、security
+  - 安装：`skills/flutter-dart-code-review/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-dart-code-review · 详情：https://skills.ewuse.com/#skill=flutter-dart-code-review
+- **flutter-fix-layout-issues**（Flutter 布局问题修复） — 修复 Flutter 布局错误（溢出、无界约束等）。 · 标签：ai-agent
+  - 安装：`skills/flutter-fix-layout-issues/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-fix-layout-issues · 详情：https://skills.ewuse.com/#skill=flutter-fix-layout-issues
+- **flutter-implement-json-serialization**（Flutter JSON 序列化） — 使用 dart:convert 创建含 fromJson/toJson 的模型类。
+  - 安装：`skills/flutter-implement-json-serialization/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-implement-json-serialization · 详情：https://skills.ewuse.com/#skill=flutter-implement-json-serialization
+- **flutter-setup-declarative-routing**（Flutter 声明式路由） — 使用 go_router 等包配置 MaterialApp.router 实现 URL 路由。 · 标签：web-frontend
+  - 安装：`skills/flutter-setup-declarative-routing/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-setup-declarative-routing · 详情：https://skills.ewuse.com/#skill=flutter-setup-declarative-routing
+- **flutter-setup-localization**（Flutter 本地化） — 添加 flutter_localizations 与 intl 依赖，启用生成并创建 l10n.yaml 配置。 · 标签：i18n
+  - 安装：`skills/flutter-setup-localization/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-setup-localization · 详情：https://skills.ewuse.com/#skill=flutter-setup-localization
+- **flutter-use-http-package**（Flutter HTTP 请求） — 使用 http 包执行 GET、POST、PUT 或 DELETE 请求。
+  - 安装：`skills/flutter-use-http-package/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/flutter-use-http-package · 详情：https://skills.ewuse.com/#skill=flutter-use-http-package
+- **google-mobile-ads-banner**（Google 移动广告横幅） — 实现与配置 Google 移动广告横幅
+  - 安装：`skills/google-mobile-ads-banner/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/google-mobile-ads-banner · 详情：https://skills.ewuse.com/#skill=google-mobile-ads-banner
+- **limrun-android-emulator**（Limrun 安卓模拟器） — 驱动运行在 Limrun 云端安卓模拟器上的应用：安装 APK、启动与终止应用并附带崩溃报告、点击、输入、读取 UI 元素树、截图、录屏、注入麦克风音频、限制网络带宽、读取应用日志、执行 shell 命令、传输文件，并通过本机隧道转发应用网络目标（支持 HTTP 检测与 HAR 抓包）、信任自定义 CA 证书，以及经由 CLI 隧道使用 adb 获取完整 logcat 与交互工具。在构建完成后（使用 limrun-gradle 或任意构建器）使用——当用户想在模拟器上查看、测试或操作应用，或说「给我看截图」「点一下」「在模拟器上运行」「看 logcat」「录屏」「检查网络流量」或「从模拟器访问我的本地服务」时调用。需先用 limrun-gradle 构建 APK 或 AAB。 · 标签：cli、doc-writing、design-media
+  - 安装：`skills/limrun-android-emulator/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-android-emulator · 详情：https://skills.ewuse.com/#skill=limrun-android-emulator
+- **limrun-detox-testing**（Limrun Detox 测试） — 在 Limrun iOS 模拟器上配置、运行或调试 Detox。当需要将 Limrun Detox 运行时接入应用、打通 Detox 中介连接，或经目标隧道校验应用/测试者连接时使用。 · 标签：design-media、test-qa
+  - 安装：`skills/limrun-detox-testing/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-detox-testing · 详情：https://skills.ewuse.com/#skill=limrun-detox-testing
+- **limrun-ios-simulator**（Limrun iOS 模拟器） — 驱动运行在 Limrun 云端 iOS 模拟器上的应用：启动、点击、输入、读取无障碍元素树、读取应用日志与模拟器系统日志、截图、录屏、将应用连接到本机服务、模拟摄像头、设置剪贴板，并运行定时动作链。 · 标签：ai-agent、cli、design-media
+  - 安装：`skills/limrun-ios-simulator/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-ios-simulator · 详情：https://skills.ewuse.com/#skill=limrun-ios-simulator
+- **limrun-xcode**（Limrun 远程 Xcode 构建） — 在远程 Xcode 上构建 iOS/Apple 应用（用 `lim xcode build` 替代本地 xcodebuild）、用 `lim xcode run` 运行项目命令，或用 `lim xcode test` 运行其 XCTest 测试套件——可从任意环境（Linux、Windows、macOS、VM、容器）发起。 · 标签：ai-agent、test-qa
+  - 安装：`skills/limrun-xcode/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-xcode · 详情：https://skills.ewuse.com/#skill=limrun-xcode
+- **limrun-xcode-bazel**（Limrun Bazel iOS 构建） — 在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用（替代本地 Mac），并安装到远程 iOS 模拟器。当项目是 Bazel 工作区（MODULE.bazel / WORKSPACE）时使用。
+  - 安装：`skills/limrun-xcode-bazel/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/limrun-xcode-bazel · 详情：https://skills.ewuse.com/#skill=limrun-xcode-bazel
+
+## 数据分析与可视化 / Data Analysis & Visualization（2）
+
+- **data-visualization**（Python 数据可视化） — 用于 Python 数据可视化分析的技能，覆盖 matplotlib、seaborn、plotly 等主流库，帮助将数据转化为清晰、有洞察力的图表。 · 标签：data、test-qa
+  - 安装：`skills/data-visualization/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/data-visualization · 详情：https://skills.ewuse.com/#skill=data-visualization
+- **football-data**（足球数据） — 覆盖全球主要足球联赛的数据——积分榜、赛程、比赛统计、预期进球（xG）、转会、球员档案、历史交锋、球队实力（Elo）与比赛预测。零配置、无需 API Key。涵盖英超、西甲、德甲、意甲、法甲、美职联、欧冠、世界杯、英冠、荷甲、葡超、巴甲、俄超、苏超/比甲/土超顶级联赛、欧洲杯等（调用 get_competitions 获取实时列表）。 · 标签：data、automation
+  - 安装：`skills/football-data/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/football-data · 详情：https://skills.ewuse.com/#skill=football-data
+
+## 文件与格式处理 / File & Format Handling（3）
+
+- **docx**（Word 文档创建与处理） — 任何涉及 Word 文档（.docx）的任务都应使用本技能，包括创建、编辑、读取、解析或提取 .docx 内容，或处理需要 Word 文档输入/输出的场景。 · 标签：doc-writing、data、design-media
+  - 安装：`skills/docx/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/docx · 详情：https://skills.ewuse.com/#skill=docx
+- **pdf**（PDF 处理） — 创建、解析与转换 PDF 文档的技能。
+  - 安装：`skills/pdf/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/pdf · 详情：https://skills.ewuse.com/#skill=pdf
+- **pptx**（PPTX 处理） — 生成与编辑 PowerPoint 演示文稿的技能。
+  - 安装：`skills/pptx/` · 源码：https://github.com/sutchan/Agent-Skills-Hub/tree/main/skills/pptx · 详情：https://skills.ewuse.com/#skill=pptx

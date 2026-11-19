@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.16.19-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![版本](https://img.shields.io/badge/version-v1.16.20-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 其他语言：[English](README.en.md)
 
@@ -46,7 +46,8 @@ Agent-Skills-Hub/
 ├── server/            # 本地预览服务模块化实现（config/fs-util/store/ratelimit/api/pages）
 ├── server.js          # 本地预览服务入口（Express，薄装配层）
 ├── data/              # skills-data.json（权威元数据）/ skills-metrics.json（派生指标）
-├── scripts/           # sync-inline-data / inject-ga / tag-release（同步·构建注入·发版）
+├── scripts/           # sync-inline-data / inject-ga / sync-seo-assets（数据同步·构建注入·SEO/GEO）
+│   └── seo/           # facts / render-assets / render-page（SEO 资产生成模块）
 ├── tools/             # check-version / check-skill-yaml / check-inline-js / validate-skills 等
 ├── e2e/               # Playwright 冒烟测试
 ├── prototype/         # 设计规范（DESIGN / COMPONENTS）+ 线框/状态/结构契约 HTML，不参与构建
@@ -73,7 +74,8 @@ npm test                     # 数据契约 / KV 单测
 npm run validate:yaml        # SKILL.md frontmatter 真 YAML 校验（Bun）
 node tools/check-version.mjs # 版本、CHANGELOG、徽章、文档头一致性
 node tools/check-inline-js.mjs # src/index.html 内联 JS 语法
-npm run build                # 静态导出 out/ + 注入 GA / 版本 / 构建号
+npm run sync:seo             # 生成 robots/sitemap/llms*/JSON-LD/静态技能目录（幂等）
+npm run build                # 先同步 SEO 资产，再静态导出 out/ + 注入 GA / 版本 / 构建号
 npm run e2e                  # Playwright 冒烟测试（自动起本地服务）
 node scripts/verify-storage.mjs # 投票/收藏 API 与磁盘持久化端到端验证（需服务已启动）
 ```
@@ -81,6 +83,31 @@ node scripts/verify-storage.mjs # 投票/收藏 API 与磁盘持久化端到端�
 > 本机若未下载 Playwright 自带 chromium，可用 `PLAYWRIGHT_CHANNEL=msedge npm run e2e`（PowerShell：`$env:PLAYWRIGHT_CHANNEL='msedge'; npm run e2e`）复用已安装的 Edge；CI 默认通道不变。
 
 > `src/index.html` 是**自包含单文件应用**（内联 CSS/JS/数据，双击即开），按 `docs/spec.md` §7 红线 10 豁免「单文件 >200 行拆分」规则；`prototype/template.html` 是它的 DOM 结构契约（含语义化 id），样式与脚本仍以 `src/index.html` 为唯一事实来源。
+
+## 🔎 SEO 与 GEO（搜索引擎 / 生成式引擎）
+
+站点同时面向传统搜索引擎与生成式引擎（LLM 抓取与引用）。所有数量、分类、描述由脚本从权威数据实算，生成物中禁止手填数字。
+
+| 资产 | 访问路径 | 作用 |
+|---|---|---|
+| `robots.txt` | `/robots.txt` | 允许抓取公开内容与 AI 可读清单，屏蔽 `/api/`，声明 Sitemap |
+| `sitemap.xml` | `/sitemap.xml` | 仅收录首页；`#cat` / `#q` / `#skill` 深链返回同一首页，列入会制造重复内容 |
+| `llms.txt` | `/llms.txt` | 生成式引擎标准摘要入口：站点是什么、去哪里拿完整数据 |
+| `llms-full.txt` | `/llms-full.txt` | 全部可见技能的完整可读清单：名称 / 中文名 / 描述 / 标签 / 安装路径 / 源码 / 详情深链 |
+| JSON-LD | 页面 `<head>` | `WebSite`（含 `SearchAction`）/ `CollectionPage` / `SoftwareApplication` / `FAQPage` |
+| 静态目录 | `#site-directory` | 静态 HTML 的关于文案、FAQ 与折叠全量技能索引，无需执行 JS 即可抓取 |
+| 数据副本 | `/data/skills-data.json` | 权威 `data/skills-data.json` 的只读发布副本，保证静态部署产物中该 URL 真实可达 |
+
+维护方式：
+
+```bash
+npm run sync:seo   # 重新生成全部资产（幂等：内容不变不写盘）
+```
+
+- 数据变更后运行 `npm run sync:data`，会依次同步内联 `window.SKILLS_DATA` 与全部 SEO 资产；`npm run build` 也会先跑一次，保证产物与数据一致。
+- 事实来源为 `data/skills-data.json`（技能数 / 分类数 / 描述均实时读取），生成逻辑位于 `scripts/seo/` 与 `scripts/sync-seo-assets.mjs`；`src/index.html` 中 `SEO-JSONLD:BEGIN/END`、`SEO-DIRECTORY:BEGIN/END` 之间为生成区，勿手工编辑。
+- 三语界面共用一个 URL（JS 切换 + `documentElement.lang` 同步），因此不添加 `hreflang` 自引用链接；语言信息由 `og:locale` / `og:locale:alternate` 与 `lang` 属性表达。
+- 校验：`node tools/check-inline-js.mjs`（JSON-LD 为 `application/ld+json`，会被脚本正确跳过）、`node tools/check-version.mjs`，部署后可用 `/llms.txt` 与 `/sitemap.xml` 实查可达性。
 
 ## 安装方式
 

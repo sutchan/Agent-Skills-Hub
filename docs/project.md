@@ -1,6 +1,6 @@
 # 仓库约定（Project Conventions）
 
-> 路径：`docs/project.md` · 版本：1.16.19
+> 路径：`docs/project.md` · 版本：1.16.20
 > 本文件定义目录结构、变更工作流与术语表。能力契约（frontmatter/数据/红线）的唯一权威源是 [spec.md](spec.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)。
 
 ---
@@ -24,9 +24,9 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | `edge-worker.js` + `edgeone.config.json` | 生产边缘函数（Edge KV 命名空间 `ASH_KV`）：投票/收藏键 `vote:<name>`/`fav:<name>`，API 契约与 `server/` 对齐；`*/api/*` 路由指向边缘函数 | ◻️ 低频 |
 | `prototype/` | 高保真**设计规范**事实来源：`DESIGN.md` / `COMPONENTS.md` / `wireframes.html` / `states.html` / `template.html`（DOM 结构契约，v1.16.19 起无占位符）等；**不参与构建、非运行产物** | ◻️ 低频 |
 | `tools/` | 仓库级脚本：`check-version.mjs`（版本/CHANGELOG/tag 一致性）、`ensure-lf.mjs`（LF 归一）、`extract-release-notes.mjs`（抽取发行说明）、`validate-skills.mjs`（校验 `skills/*/SKILL.md` frontmatter，硬失败/软警告）、`check-skill-yaml.mjs`（Bun 真实 YAML 解析校验 frontmatter，`npm run validate:yaml`）；`tools/lib/` 为 Node 内置测试（`skills-data.test.mjs` 校验 data JSON、`kv-store.test.mjs`） | ◻️ 低频 |
-| `scripts/` | `tag-release.mjs`（按 `package.json` 版本幂等创建 `vX.Y.Z` 注解 tag）、`verify-storage.mjs`（votes/favorites API 端到端验证）、`sync-inline-data.mjs`（`npm run sync:data`：从 `data/skills-data.json` 重建 `src/index.html` 内联 `window.SKILLS_DATA`）、`inject-ga.mjs`（构建期以 `src/index.html` 为源生成 `out/index.html`，并注入 GA / 版本 / 构建号，占位符残留时硬失败） | ◻️ 低频 |
+| `scripts/` | `tag-release.mjs`（按 `package.json` 版本幂等创建 `vX.Y.Z` 注解 tag）、`verify-storage.mjs`（votes/favorites API 端到端验证）、`sync-inline-data.mjs`（`npm run sync:data`：从 `data/skills-data.json` 重建 `src/index.html` 内联 `window.SKILLS_DATA`）、`inject-ga.mjs`（构建期以 `src/index.html` 为源生成 `out/index.html`，并注入 GA / 版本 / 构建号，占位符残留时硬失败）、`sync-seo-assets.mjs`（`npm run sync:seo`：幂等生成 SEO/GEO 资产并注入页面生成区）、`seo/`（`facts` / `render-assets` / `render-page` 生成模块） | ◻️ 低频 |
 | `data/` | 提交态数据：`skills-data.json`（技能元数据，权威源）、`skills-metrics.json`（派生指标）；运行时状态 `kv-store.json` / `ratelimit.json` 由 `server/store.js` 首次启动自建、已 gitignore（v1.16.18 起不再跟踪）；`skills-votes.json` 已删除 | ✅ 中频 |
-| `public/` | 品牌资产（banner / favicon / og 图等），随静态服务对外提供 | ◻️ 低频 |
+| `public/` | 品牌资产（banner / favicon / og 图等）+ **SEO/GEO 抓取层**：`robots.txt` / `sitemap.xml` / `llms.txt` / `llms-full.txt`（均由 `sync-seo-assets.mjs` 生成）+ `data/skills-data.json`（权威数据的只读发布副本，保证静态部署产物中该 URL 可达）；随静态服务与 `out/` 对外提供 | ◻️ 低频 |
 | `e2e/` | Playwright 冒烟测试（`smoke.spec.ts`，验证 `#grid` 渲染与 `#search-input` 过滤），CI `e2e` job 真实运行 | ◻️ 低频 |
 | ~~`live_page.html`~~ | **已移除**（v1.16.x）：曾为并行自包含快照，存在版本漂移风险，已从仓库删除；现仅 `src/index.html` 单一站点本体 | — |
 | `docs/` | 项目文档：`project.md`（约定）、`spec.md`（能力基线/权威契约）、`AGENTS.md`（协作指引）、`tasks.md` / `tasks-done.md`（任务清单） | ✅ 本目录 |

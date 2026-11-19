@@ -1,0 +1,8 @@
+# Agent Skills Hub — https://skills.ewuse.com
+# 公开内容与 AI 可读清单允许所有搜索引擎 / 生成式引擎抓取；API 仅用于投票收藏，不供索引。
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://skills.ewuse.com/sitemap.xml
