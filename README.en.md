@@ -134,7 +134,7 @@ Per-skill licenses are in each directory's `LICENSE` file (e.g. [`skill-creator/
 
 ## Related Documents
 
-- [Changelog](CHANGELOG.md) · [Contributing](.github/CONTRIBUTING.md) · [中文文档](README.md)
+- [Changelog](CHANGELOG.md) · [Contributing](.github/CONTRIBUTING.md) · [AI collaboration guide](docs/AGENTS.md) · [Capability spec](docs/spec.md) · [中文文档](README.md)
 - Repository: https://github.com/sutchan/Agent-Skills-Hub
 - Live site: https://skills.ewuse.com
 
