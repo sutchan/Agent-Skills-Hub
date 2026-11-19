@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.16.22-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![版本](https://img.shields.io/badge/version-v1.16.23-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 其他语言：[English](README.en.md)
 
@@ -150,7 +150,7 @@ cd Agent-Skills-Hub
 |---|---|---|---|
 | `GA_MEASUREMENT_ID` | GA4 衡量 ID（形如 `G-XXXXXXXXXX`） | 否（未设置时回退 `G-WQDDVB14PF`） | `G-WQDDVB14PF` |
 
-- **Vercel 构建**：仓库 `vercel.json` 声明 `buildCommand: "npm run build"` 与 `outputDirectory: "out"`（Next.js `output: "export"` 的产物目录）；若 Vercel 项目设置里手动填过 Output Directory，需改为 `out` 或清空，否则仍会报 `STATIC_BUILD_NO_OUT_DIR`。Vercel 仅发布静态产物，`/api/*` 投票收藏由 EdgeOne 边缘函数提供。
+- **Vercel 构建**：仓库 `vercel.json` 声明 `framework: null`（按纯静态站点发布，禁用 Next 构建器，避免 `NEXT_NO_ROUTES_MANIFEST`）、`buildCommand: "npm run build"` 与 `outputDirectory: "out"`（Next.js `output: "export"` 的产物目录）。**项目设置优先级高于仓库配置**：Vercel 控制台的 Framework Preset 需设为 Other / Static；若手动填过 Output Directory，需改为 `out` 或清空，否则会报 `STATIC_BUILD_NO_OUT_DIR`。Vercel 仅发布静态产物，`/api/*` 投票收藏由 EdgeOne 边缘函数提供。
 - **GitHub Actions 构建**：在仓库 **Settings → Variables** 新增 `GA_MEASUREMENT_ID`（值为你的 GA4 ID）。`build` job 已将其注入构建环境，`scripts/inject-ga.mjs` 在构建期写入 `out/index.html`。
 - **EdgeOne Pages 构建**（若改用平台构建而非仅部署）：在 EdgeOne 项目环境变量中设置同名 `GA_MEASUREMENT_ID` 即可。
 - **本地预览**：`server.js` 直接读取 `process.env.GA_MEASUREMENT_ID` 注入，未设置时回退默认值，本地 GA 不受影响。

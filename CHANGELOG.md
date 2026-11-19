@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.23] - 2026-11-19
+
+### fix: 修复 Vercel NEXT_NO_ROUTES_MANIFEST 并稳定构建配置
+
+- **根因**：v1.16.22 的 `vercel.json` 保留 `framework: "nextjs"`，Vercel 据此启用 Next 构建器，并到 `outputDirectory`（`out`）查找 `routes-manifest.json`；该文件只存在于 `.next/`，于是构建本身成功（日志含 `inject: 已生成 out/index.html`）却在部署后处理报 `NEXT_NO_ROUTES_MANIFEST`。
+- **修复**：`vercel.json` 的 `framework` 由 `"nextjs"` 改为 `null`（禁用框架检测，按纯静态站点发布 `out/`），保留 `buildCommand: "npm run build"` 与 `outputDirectory: "out"`。项目是 `output: "export"` 的纯静态站点，`/` 与 `/_not-found` 已预渲染，不需要 Next 路由清单。
+- **部署注意**：Vercel 项目设置优先级高于仓库 `vercel.json`，需在 Project Settings → Build & Development Settings 把 **Framework Preset 设为 Other / Static**，**Output Directory 设为 `out`**（或清空以让仓库配置生效）；`GA_MEASUREMENT_ID` 仍由环境变量注入。
+- **TypeScript**：接受 Next 16 构建期的强制改动（`moduleResolution=bundler`、`jsx=react-jsx`、`include` 增加 `.next/dev/types/**/*.ts`），避免每次构建都改脏工作区。
+- **Node 版本**：`engines.node` 由 `>=22.11` 收窄为 `>=22.11 <25`，消除 Vercel 自动升级到 26.x 及「新 major 自动升级」警告；CI 仍固定 Node 22。
+- **文档**：`docs/spec.md` §4 Vercel 契约、双语 README 部署段落同步；按 PR 模板全量同步版本展示位至 1.16.23。
+
 ## [1.16.22] - 2026-11-19
 
 ### fix: 修复 Vercel 静态导出构建找不到输出目录
