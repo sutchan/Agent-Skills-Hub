@@ -1,6 +1,6 @@
 # prototype/ 改进规格文档（Improvement Spec）
 
-> 版本基线：`package.json` v1.16.18（权威单一来源；本文为历史存档，当前 i18n 三语契约见 `docs/spec.md` §5）
+> 版本基线：`package.json` v1.16.18（本文撰写时的权威单一来源；本文为历史存档，**当前产品版本见根 `package.json`**，当前 i18n 三语契约见 `docs/spec.md` §5）
 > **执行状态：v1.15.0–v1.17.2 全部 P0–P3 项已落地**（含二/三轮补充修复），本 spec 转为「已实现清单」存档
 > 适用范围：本文为历史存档；当前可运行产物为单体文件 `src/index.html`（旧 `prototype/src/` + `build.mjs` → `prototype/prototype.html` 构建流程已废弃，数据由 `scripts/sync-inline-data.mjs` 注入）。
 > 调研依据：`grill-me` 对 prototype 的代码审查（2026-08-21）

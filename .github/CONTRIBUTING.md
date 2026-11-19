@@ -142,6 +142,7 @@ node -e "const d=require('./data/skills-data.json');const m={};for(const s of d.
 - **EdgeOne Pages（部署）**：CI（`.github/workflows/ci.yml`，Bun + `bun.lock` `--frozen-lockfile`）串行执行 校验 → 构建（导出 `out/`）→ e2e → 部署（`npx edgeone pages deploy ./out`）→ 发布；需 Secret `EDGEONE_API_TOKEN`（缺省跳过部署并提示）。
 - **边缘 API**：`edge-worker.js`（Edge KV 命名空间 `ASH_KV`）承接 `/api/votes`、`/api/favorites`，`edgeone.config.json` 将 `*/api/*` 路由指向它。
 - **发布（v1.16.18 起自动）**：push 到 main 且校验 / 构建 / E2E / 部署全部通过后，`release` job 幂等检查 `v{package.json version}` 的 Release——不存在则自动创建注解 tag（GitHub API，基于本次 HEAD）并发布（抽 CHANGELOG 小节作发行说明，附 `data/skills-data.json` / `data/skills-metrics.json`）；已存在则跳过，版本未 bump 的普通 push 不会重复发版。手动补发：推送 `v*` tag 同样触发。
+- **SEO/GEO 抓取层**：`public/robots.txt` / `sitemap.xml` / `llms.txt` / `llms-full.txt` / `data/skills-data.json` 由 `npm run sync:seo` 幂等生成，随 `out/` 一起部署；`npm run build` 与 `npm run sync:data` 会自动串联。改技能数据后须确认生成物已同步（`SEO-*:BEGIN/END` 生成区勿手改），契约见 `docs/spec.md` §4。
 - **本地预览**：`npm run dev`（`server.js`，默认 `:3000`）。
 - **GA4**：构建/运行期读取环境变量 `GA_MEASUREMENT_ID`（本地回退 `G-WQDDVB14PF`）；GitHub Actions 在仓库 **Settings → Variables** 配置该变量，`inject-ga.mjs` 写入 `out/index.html`。
 

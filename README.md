@@ -138,7 +138,7 @@ cd Agent-Skills-Hub
 
 ## 相关文档
 
-- [变更记录](CHANGELOG.md) · [贡献指南](.github/CONTRIBUTING.md) · [英文文档](README.en.md)
+- [变更记录](CHANGELOG.md) · [贡献指南](.github/CONTRIBUTING.md) · [协作指引](docs/AGENTS.md) · [能力契约](docs/spec.md) · [英文文档](README.en.md)
 - 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 - 在线站点：https://skills.ewuse.com
 

@@ -30,10 +30,11 @@
 ## 一致性检查清单
 
 - [ ] `npm run build` 已运行且通过；技能数据改动已手工更新 `data/skills-data.json`（非构建产物）并运行 `npm run sync:data`
+- [ ] SEO/GEO 资产已运行 `npm run sync:seo` 同步（幂等）；`SEO-JSONLD:BEGIN/END` 与 `SEO-DIRECTORY:BEGIN/END` 生成区未被手工编辑
 - [ ] 涉及技能改动时，`SKILL.md` 前置元数据完整（name/description/zh_displayName/en_description/category/en_category）
 - [ ] `en_description` 变更时已同步更新 `description` 中文译文
 - [ ] README 中英文、CHANGELOG、package.json 版本号三者一致（含版本 bump）
-- [ ] 全量版本展示位一致：docs/AGENTS.md·project.md·spec.md·tasks.md 头版本、prototype/DESIGN.md·COMPONENTS.md·IMPROVEMENT-SPEC.md 头版本、prototype/wireframes.html 页脚
+- [ ] 全量版本展示位一致：docs/AGENTS.md·project.md·spec.md·tasks.md 头版本、prototype/DESIGN.md·COMPONENTS.md·IMPROVEMENT-SPEC.md·states.html·template.html·wireframes.html 头版本、.github/CODE_OF_CONDUCT.md·CONTRIBUTING.md·SECURITY.md·SUPPORT.md 头版本
 - [ ] CHANGELOG 已新增对应版本小节，且有对应 release tag 锚点
 - [ ] 涉及 UI 文案时 i18n 字典 zh/tw/en 三语键位齐全（简体中文 > 繁体中文 > 英语）
 - [ ] 无 `console.log` / `debugger` 残留（脚本除外）

@@ -711,3 +711,14 @@
 - `docs/tasks.md` 的 5 项 P3 数据工程任务仍为**未完成**，本轮未触碰 `data/skills-data.json` 与 `data/skills-metrics.json`。
 - `next build` 自动改写的 `tsconfig.json` / `next-env.d.ts` 已还原，不纳入提交（后者引用 `.next/types/*`，CI 仅跑 tsc 时会失败）。
 - `out/` / `test-results/` / `playwright-report/` 已加入 `.gitignore`，构建与测试产物不入库。
+
+---
+
+## 迭代三十五：全量文档同步至 v1.16.21（2026-11-19）
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|---|---|---|---|
+| 1 | SEO/GEO 能力落地 | P1 | ✅ 已完成 | v1.16.20：页面 SEO meta 完善、单一 h1、JSON-LD 四类实体、静态可抓取技能目录与 FAQ、`llms.txt` / `llms-full.txt` / `robots.txt` / `sitemap.xml`、public/data 数据副本；生成脚本幂等并挂入 `sync:data` / `build` |
+| 2 | 全量版本展示位同步 | P1 | ✅ 已完成 | 按 PR 模板清单将 README 双语、docs 四文档、prototype 六文件、.github 四文档的头版本/徽章统一至 v1.16.21；历史注记与 CHANGELOG 旧小节保持原样 |
+| 3 | 协作文档补 SEO/GEO 维护流程 | P2 | ✅ 已完成 | AGENTS 数据纪律/质量门禁、CONTRIBUTING 部署配置、PR 模板清单补充 `npm run sync:seo` 与生成区勿手改约定；IMPROVEMENT-SPEC 历史基线加当前版本指针 |
+| 4 | 生成物与门禁复核 | P1 | ✅ 已完成 | 重跑 `sync:seo`（sitemap / JSON-LD 的 `dateModified` 随版本日期）、check-version / check-inline-js / tsc / 单测 / 版本与数字一致性校验全通过 |

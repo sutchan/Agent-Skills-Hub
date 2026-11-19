@@ -2,6 +2,17 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.21] - 2026-11-19
+
+### docs: 全量同步项目文档至当前版本 v1.16.21
+
+- **版本展示位统一**：按 `.github/PULL_REQUEST_TEMPLATE.md` 的「全量版本展示位一致」清单，将 README / README.en 徽章、`docs/AGENTS.md`、`docs/project.md`、`docs/spec.md`、`docs/tasks.md`、`prototype/{COMPONENTS,DESIGN,IMPROVEMENT-SPEC,states,template,wireframes}.*`、`.github/{CODE_OF_CONDUCT,CONTRIBUTING,SECURITY,SUPPORT}.md` 的头版本/当前版本标注由 1.16.18 / 1.16.19 / 1.16.20 统一到 1.16.21；`src/index.html` 头注释与 `meta[app-version]` 同步。历史注记与 CHANGELOG 旧版本小节保持原样，不篡改历史。
+- **协作文档补 SEO/GEO 维护流程**：`docs/AGENTS.md` 数据纪律与质量门禁、`CONTRIBUTING.md` 部署配置与手动校验、PR 模板一致性清单补充 `npm run sync:seo`（幂等生成 robots/sitemap/llms*/JSON-LD/静态技能目录）与「`SEO-*:BEGIN/END` 生成区勿手工编辑」约定。
+- **任务文档**：`docs/tasks.md` 最后更新日期、当前版本与归档范围更新；`docs/tasks-done.md` 新增迭代三十五归档（v1.16.20 SEO/GEO 能力 + v1.16.21 全量文档同步）。
+- **历史存档澄清**：`prototype/IMPROVEMENT-SPEC.md` 保留 v1.16.18 撰写基线，补充「当前产品版本见根 `package.json`」指针，避免历史基线被误读为当前版本。
+- **生成物同步**：重跑 `npm run sync:seo`，使 `sitemap.xml` / JSON-LD 的 `dateModified` 与本版本发布日期一致；`public/data/skills-data.json` 副本与权威数据保持逐字一致。
+- 事实数字仍以 `data/skills-data.json` 实算为准，本次未修改技能数据。
+
 ## [1.16.20] - 2026-11-12
 
 ### feat: 完善 SEO 搜索引擎优化与 GEO 生成式引擎优化

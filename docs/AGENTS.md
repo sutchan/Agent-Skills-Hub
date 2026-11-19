@@ -12,7 +12,7 @@
 变更流程：
 1. 在 [docs/tasks.md](tasks.md) 新增任务条目（标题 / 优先级 / 状态 / 备注），描述变更范围。
 2. 按仓库规范实施：先读 [spec.md](spec.md) 了解能力契约与一致性红线，再读 [project.md](project.md) 了解目录约定与变更工作流。
-3. 本地验收：`node tools/validate-skills.mjs`（SKILL.md frontmatter）、`node --test tools/lib/*.test.mjs`（data JSON 回归）、`tsc --noEmit`、`node tools/check-version.mjs`；`npm run dev` 起 `server.js` 预览；`npm run e2e`（Playwright 冒烟）；改投票/收藏可跑 `node scripts/verify-storage.mjs`。
+3. 本地验收：`node tools/validate-skills.mjs`（SKILL.md frontmatter）、`node --test tools/lib/*.test.mjs`（data JSON 回归）、`tsc --noEmit`、`node tools/check-version.mjs`、`npm run sync:seo`（SEO/GEO 资产幂等同步）；`npm run dev` 起 `server.js` 预览；`npm run e2e`（Playwright 冒烟）；改投票/收藏可跑 `node scripts/verify-storage.mjs`。
 4. 完成后将任务状态更新为「已完成」并归档至 `docs/tasks-done.md`，更新 `CHANGELOG.md`（新增版本小节）。
 
 ---
@@ -25,6 +25,7 @@
 - **应用形态**：站点本体是自包含静态单页 `src/index.html`（原生 JS、内联数据），`server/`（Express，薄装配 `server.js`）提供本地托管与投票/收藏 API，`edge-worker.js` 承接生产侧存储；`src/app/`（Next.js）仅为重定向存根。
 - **无嵌套副本**：新技能只能落在 `skills/<name>/`，不得创建 `skills/<x>/skills/<name>/` 之类嵌套。
 - **数据型数字**：README/应用内技能总数与领域表计数须以 `data/skills-data.json` 实算，禁止手填。
+- **SEO/GEO 资产**：`public/{robots.txt,sitemap.xml,llms.txt,llms-full.txt,data/skills-data.json}` 与 `src/index.html` 的 `SEO-JSONLD:BEGIN/END`、`SEO-DIRECTORY:BEGIN/END` 生成区均由 `npm run sync:seo` 从权威数据实算生成，**勿手工编辑生成区**；`npm run sync:data` 会自动串联同步，契约见 `docs/spec.md` §4。
 - **单文件应用例外**：`src/index.html` 为有意维持的内联单文件，豁免「>200 行拆分」规则；新增逻辑须模块化、加语义化 id 与注释。
 - **三语国际化**：界面语言优先级固定为简体中文 `zh`（默认）> 繁体中文 `tw` > 英语 `en`；新增/修改 UI 文案须同步 `translations` 三份字典（键位一一对应）、静态 `.zh`/`.tw`/`.en` 节点、`data-tip-tw` 与 `html lang`（繁体为 `zh-Hant`）；繁体词条用台湾用语习惯，禁止以回退 zh 作为交付态。
 
