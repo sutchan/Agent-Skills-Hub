@@ -2,6 +2,19 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.24] - 2026-11-19
+
+### feat: 投票/收藏存储迁移至 Vercel Blob（Serverless API）
+
+- **新增统一存储层** `server/blob-store.js`：生产（`VERCEL=1`）或显式 `USE_BLOB=1` 且 `BLOB_READ_WRITE_TOKEN` 有效时读写 Vercel Blob 私有对象 `kv-store.json`（`{ votes, favorites }` 全量状态，`addRandomSuffix:false` 保持 URL 稳定）；否则回退本地 `data/kv-store.json`，开发 / e2e 无需 token 即可运行
+- **新增 Vercel Serverless Functions**：`api/votes.js` / `api/favorites.js`（GET/POST/OPTIONS + CORS），前端 API 路径 `/api/votes`、`/api/favorites` 不变；与本地 Express 共用 `server/kv-ops.js` 的校验与计票语义（name kebab-case ≤100、undo 删除 vote、add/remove/缺省 toggle fav）
+- **本地 Express 改造**：`server/api.js` 改为 async 并经 `wrap()` 传递异常；`server/store.js` 精简为仅保留技能名白名单（移除内存 KV 与退出钩子，避免绕过 Blob 写回旧文件）
+- **依赖与配置**：新增 `@vercel/blob@^2.9.0`（bun.lock 已更新）；`.env.local` / `.env.example` 增加 `BLOB_READ_WRITE_TOKEN` 占位符与获取说明（`.env.local` 已被 gitignore 忽略）
+- **存储取舍**：Vercel Blob 无原子自增，采用「读-改-写」单对象模型，高并发以最后一次写入为准（展示型投票/收藏可接受）
+- **版本同步**：展示位统一至 1.16.24（含 src 头注释/meta、双语 README、docs/prototype/.github 头版本）
+
+[1.16.24]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.24
+
 ## [1.16.23] - 2026-11-19
 
 ### fix: 修复 Vercel NEXT_NO_ROUTES_MANIFEST 并稳定构建配置

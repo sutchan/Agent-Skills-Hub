@@ -1,7 +1,8 @@
-// server/store.js
-// Edge KV 模拟层：投票/收藏的内存态 + 磁盘持久化（防抖 + 原子写），并加载技能白名单。
-import { SKILLS_FILE, STORE_FILE } from './config.js';
-import { readJsonFile, writeJsonAtomic } from './fs-util.js';
+// server/store.js — 技能名白名单（投票/收藏写接口的防伪造校验）
+// 投票/收藏状态已迁移至 server/blob-store.js（Vercel Blob / 本地文件回退），
+// 本模块仅保留白名单加载；原 kvStore 内存态与防抖落盘随迁移移除。
+import { SKILLS_FILE } from './config.js';
+import { readJsonFile } from './fs-util.js';
 
 /**
  * 技能名白名单：写请求的 name 不在其中时一律拒绝，防止伪造技能刷计数。
@@ -19,31 +20,3 @@ function loadWhitelist() {
   }
   return set;
 }
-
-/** 内存态 KV：votes（技能 → { up }）与 favorites（技能 → true） */
-export const kvStore = readJsonFile(STORE_FILE, { votes: {}, favorites: {} });
-
-let saveTimer = null;
-
-/** 取消待执行的防抖并立即落盘（进程退出时避免丢失最后 100ms 的投票/收藏） */
-export function flushKvStore() {
-  if (saveTimer) {
-    clearTimeout(saveTimer);
-    saveTimer = null;
-  }
-  try {
-    writeJsonAtomic(STORE_FILE, kvStore);
-  } catch (e) {
-    console.error('Failed to flush kv-store:', e);
-  }
-}
-
-/** 100ms 防抖后落盘，把高频写入合并成一次磁盘 IO */
-export function saveKvStoreAtomic() {
-  if (saveTimer) clearTimeout(saveTimer);
-  saveTimer = setTimeout(flushKvStore, 100);
-}
-
-// 'exit' 中只允许同步操作，writeJsonAtomic 为同步实现；
-// ratelimit.js 的 SIGINT/SIGTERM 处理器调用 process.exit 时同样会触发此钩子。
-process.on('exit', flushKvStore);

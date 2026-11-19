@@ -1,6 +1,6 @@
 {
   "name": "agent-skills-hub",
-  "version": "1.16.23",
+  "version": "1.16.24",
   "private": true,
   "description": "Agent Skills Hub — 高质量 agent 技能目录与高保真原型（纯静态站点）",
   "type": "module",
@@ -17,6 +17,7 @@
     "e2e": "playwright test"
   },
   "dependencies": {
+    "@vercel/blob": "^2.9.0",
     "express": "^4.19.2",
     "next": "^16.4.0",
     "react": "^19.3.0",

@@ -1,9 +1,9 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.16.23
+> 路径：`docs/spec.md` · 版本：1.16.24
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
-> ⚠️ 本 spec 反映**截至 v1.16.23 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / sync-* / src/lib / prototype.html」等描述已被后续迭代移除。
+> ⚠️ 本 spec 反映**截至 v1.16.24 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / sync-* / src/lib / prototype.html」等描述已被后续迭代移除。
 
 ---
 
@@ -125,7 +125,7 @@ type SkillsData = {
 - `category` 必须是 **14 大稳定中文分类键**之一（当前活跃 13 键）；`en_category` 为对应英文名；未知分类归「其他」类（须为零）。
 - **中英共存**：每技能同时提供中文 `description` 与英文 `en_description`。
 - **改技能展示的同步流程**：① 手工编辑 `data/skills-data.json`（+ 需要时 `skills-metrics.json`）；② 运行 `npm run sync:data` **自动**重建 `src/index.html` 内联 `window.SKILLS_DATA`。
-- **`skills-votes.json` 已删除**（v1.16.18 结构清理）：历史上为空 `{}` 且无写入方，已从仓库移除；投票/收藏真源为本地 `data/kv-store.json`（运行时生成、已停止 git 跟踪）/ 生产 Edge KV。`src/index.html` 中 `a.download = "skills-votes.json"` 仅为导出文件名，与已删文件无关。
+- **`skills-votes.json` 已删除**（v1.16.18 结构清理）：历史上为空 `{}` 且无写入方，已从仓库移除；投票/收藏真源为本地 `data/kv-store.json`（运行时生成、已停止 git 跟踪）/ 生产 Vercel Blob（`kv-store.json` 对象，v1.16.24 起）。`src/index.html` 中 `a.download = "skills-votes.json"` 仅为导出文件名，与已删文件无关。
 - **数据型数字**：README/应用内技能总数与领域表计数须以 `data/skills-data.json` 实算，**禁止手填**。
 
 ---
@@ -134,9 +134,9 @@ type SkillsData = {
 
 - **本地**：`npm run dev` / `npm run start` = `node server.js`（Express，默认 `http://localhost:3000`），`GET /` 返回 `src/index.html`，并提供 `/api/votes`、`/api/favorites`。
 - **构建**：`npm run build` = `node scripts/sync-seo-assets.mjs && next build && node scripts/inject-ga.mjs`（**v1.16.20 起**构建前先幂等同步 SEO/GEO 资产；**v1.16.19 起**移除 Unix 专用 `NODE_ENV=production` / `cp` 语法，Next 构建自身设置 production；注入脚本直接以 `src/index.html` 为源写出 `out/index.html`，Windows / CI 行为一致）。`next.config.mjs` 为 `output:"export"`（纯静态，产物落 `out/`）。由于 `src/app` 仅导出一个重定向占位页，随后被注入脚本用真正的静态应用**覆盖** `out/index.html`，故 **Next 层对最终页面无实质贡献**，真实可部署物 = `src/index.html` + `public/` + `data/` + `skills/` + `out/` 导出壳。`inject-ga.mjs` 一次性替换 `__GA_MEASUREMENT_ID__`（环境变量，缺省回退 `G-WQDDVB14PF`）、`__APP_VERSION__`、`__BUILD_ID__`，并在源文件或占位符残留时**硬失败**（旧版缺产物时静默跳过会部署空白页）。
-- **Vercel 静态导出（v1.16.23 契约）**：`vercel.json` 固定 `framework: null`（禁用 Next 构建器——`output: "export"` 的纯静态产物无需 `routes-manifest.json`，若保留 `"nextjs"` 会在 `out/` 查找该清单而报 `NEXT_NO_ROUTES_MANIFEST`）/ `buildCommand: "npm run build"` / `outputDirectory: "out"`。构建链仍为 `sync:seo → next build → inject-ga`。**项目设置优先级高于仓库配置**：Vercel 控制台需把 Framework Preset 设为 Other / Static，Output Directory 设为 `out` 或清空；`GA_MEASUREMENT_ID` 由环境变量注入，缺省回退。Vercel 仅发布静态产物，`/api/*` 投票收藏由 EdgeOne 边缘函数提供。
+- **Vercel 静态导出 + Serverless API（v1.16.24 契约）**：`vercel.json` 固定 `framework: null`（禁用 Next 构建器——`output: "export"` 的纯静态产物无需 `routes-manifest.json`，若保留 `"nextjs"` 会在 `out/` 查找该清单而报 `NEXT_NO_ROUTES_MANIFEST`）/ `buildCommand: "npm run build"` / `outputDirectory: "out"`。构建链仍为 `sync:seo → next build → inject-ga`。**项目设置优先级高于仓库配置**：Vercel 控制台需把 Framework Preset 设为 Other / Static，Output Directory 设为 `out` 或清空；`GA_MEASUREMENT_ID` 由环境变量注入，缺省回退。Vercel 发布静态产物 `out/`，并自动识别仓库根 `api/` 目录为 Serverless Functions：`api/votes.js`、`api/favorites.js` 提供 `/api/*` 投票收藏，存储走 Vercel Blob（`BLOB_READ_WRITE_TOKEN`）。
 - **SEO / GEO（v1.16.20 契约）**：`public/` 为抓取层唯一发布入口，含 `robots.txt`（允许公开内容、`Disallow: /api/`、`Sitemap` 指令）、`sitemap.xml`（仅首页；hash 深链复用同一首页 HTML，列入即重复内容）、`llms.txt`（生成式引擎摘要）、`llms-full.txt`（全部可见技能可读清单）、`data/skills-data.json`（权威数据的只读发布副本，保证 `/data/skills-data.json` 在 `out/` 中可达）。`src/index.html` 的 `SEO-JSONLD:BEGIN/END` 与 `SEO-DIRECTORY:BEGIN/END` 标记之间为生成区：前者是 `WebSite`/`CollectionPage`/`SoftwareApplication`/`FAQPage` 四类 JSON-LD，后者是静态可见的关于文案、FAQ 与 `<details>` 折叠技能索引（爬虫无需执行 JS 即可读到真实内容）。生成逻辑在 `scripts/seo/{facts,render-assets,render-page}.mjs` 与 `scripts/sync-seo-assets.mjs`，数量/分类/描述**一律从 `data/skills-data.json` 实算**，写入幂等；`npm run sync:seo` 手动触发，`sync:data` 与 `build` 自动触发。页面 head 为单一 `<h1>`、canonical 指向站点绝对 URL；三语共用一 URL，不添加 `hreflang` 自引用，语言由 `og:locale` + `documentElement.lang` 表达。
-- **生产 API**：`edge-worker.js`（Edge KV `ASH_KV`）实现投票/收藏，`edgeone.config.json` 将 `*/api/*` 路由指向它；键 `vote:<name>`（`{up}`）/ `fav:<name>`，契约与 `server/` 对齐。
+- **生产 API（v1.16.24 起 Vercel Blob）**：`api/votes.js` / `api/favorites.js`（Vercel Serverless Functions）实现投票/收藏，存储为 Vercel Blob 私有对象 `kv-store.json`（`{ votes: {<name>:{up}}, favorites: {<name>:true} }`）；`server/blob-store.js` 封装读写（生产 `VERCEL=1` 走 Blob，本地无 token 回退 `data/kv-store.json`），`server/kv-ops.js` 提供两端共用校验/计票。契约与前端 `/api/*` 保持一致。历史 `edge-worker.js` + EdgeOne Edge KV（`ASH_KV`，键 `vote:<name>`/`fav:<name>`）为旧生产方案，保留文件作回退参考但**不再是默认生产路径**；`vercel.json` 下 `/api/*` 由 Vercel Functions 提供。
 - **CI/CD**（`.github/workflows/ci.yml`，**Bun + `bun.lock`** `--frozen-lockfile`）：串行流水线 `validate`（`tsc --noEmit` + `bun run test`（node --test tools/lib）+ `tools/validate-skills.mjs` + `tools/check-skill-yaml.mjs` + `tools/check-version.mjs` + `tools/check-inline-js.mjs`）→ `build`（导出 `out/`、上传构件）→ `e2e`（Playwright，`webServer` = `bun run start`，跑 `e2e/smoke.spec.ts`）→ `deploy`（`npx edgeone pages deploy ./out` 到 EdgeOne Pages）→ `release`（`refs/tags/v*` 或 main 分支触发，抽 CHANGELOG 发行说明，附 `data/*.json`）。
 - **发版（v1.16.18 起自动，规范：所有工作流全绿后自动发布 Releases）**：bump `package.json` version → 更新 `CHANGELOG.md` → push main；`validate`/`build`/`e2e`/`deploy` 全部通过后，`release` job 幂等检查 `v{version}` Release——不存在则经 GitHub API 自动创建注解 tag（基于本次 HEAD，与部署同一提交）并发布；已存在则跳过（版本未 bump 的普通 push 不重复发版）。手动补发路径：`npm run tag` + 推送 `v*` tag。
 
