@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.26] - 2026-11-21
+
+### fix: 消除 Vercel 构建中的技能示例 TS2307 误报
+
+- **根因**：Vercel 构建链存在全仓 TypeScript 扫描（`include **/*.ts` 且未排除 `skills/`），把 `skills/` 下 18 处技能示例/模板当作应用源码；其依赖的 `@clerk/nextjs`、`remotion`、`@maptiler/sdk`、`@turf/turf`、`~/threads/*` 均不在应用依赖中，报 TS2307。本地 `npm run lint` 与 `npm run build` 不受影响（根 `tsconfig.json` 自创建起就 `exclude: ["skills"]`）。
+- **复现证据**：用全仓扫描配置的临时 tsconfig 运行 `tsc --noEmit`，完整复现用户日志中全部 18 条错误；加声明后全仓扫描与 `npm run lint` 均 0 错误。
+- **修复**：新增 `src/types/skill-examples.d.ts`，以 ambient module 声明上述依赖；同时被「应用 tsconfig 的 `src/**/*.ts`」与「全仓扫描的 `**/*.ts`」命中，一条修复覆盖两条检查路径。`~/threads/*` 额外导出 `ThreadManager` / `LaceEvent` / `LaceEventType` 同名类型，避免 shorthand 声明引发 TS2709。
+- 声明仅服务于不参与构建的技能示例；若应用将来真正引入这些包，应删除对应声明以恢复真实类型检查。
+- **未改动**：应用依赖未新增（不为示例安装 `@clerk/nextjs` / `remotion` 等大包），根 `tsconfig.json` 的 `exclude` 保持不变。
+
 ## [1.16.25] - 2026-11-19
 
 ### feat: 通用文件存储服务（Vercel Blob 上传/读取/删除）

@@ -12,5 +12,12 @@ declare module '@clerk/nextjs/server';
 declare module 'remotion';
 declare module '@maptiler/sdk';
 declare module '@turf/turf';
-declare module '~/threads/thread-manager';
-declare module '~/threads/types';
+// 这两个模块在示例中只以 `import type { ... }` 使用，必须导出同名类型，
+// 否则 shorthand 声明会被当成 namespace 而报 TS2709。
+declare module '~/threads/thread-manager' {
+  export type ThreadManager = any;
+}
+declare module '~/threads/types' {
+  export type LaceEventType = any;
+  export type LaceEvent = any;
+}
