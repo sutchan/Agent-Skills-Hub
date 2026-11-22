@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.27] - 2026-11-22
+
+### feat: 支持自动加载 .env.local 并兼容 BLOB_SKILLS_* 凭据命名
+
+- 新增 `server/env.js`：无第三方依赖地读取仓库根 `.env.local` 并注入 `process.env`；系统/CI 已有变量优先，空值不覆盖（GA 仍走内置回退）
+- 兼容本地配置中的 `BLOB_SKILLS_READ_WRITE_TOKEN` → 代码侧 `BLOB_READ_WRITE_TOKEN` 别名映射，避免改动用户凭据文件
+- `server/config.js` 作为 `server.js` / `blob-store.js` 的共同依赖，在模块初始化最早阶段加载本地环境
+- `USE_BLOB` 仍保持默认关闭：本地服务即使读到 token 也继续走 `data/kv-store.json`，需联调生产 Blob 时显式设置 `USE_BLOB=1`
+
 ## [1.16.26] - 2026-11-21
 
 ### fix: 消除 Vercel 构建中的技能示例 TS2307 误报

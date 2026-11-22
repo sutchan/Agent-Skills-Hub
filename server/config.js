@@ -3,6 +3,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadLocalEnv } from './env.js';
+
+// 必须在读取任何业务环境变量之前加载：config.js 是 server.js / blob-store.js 的共同依赖
+loadLocalEnv();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
