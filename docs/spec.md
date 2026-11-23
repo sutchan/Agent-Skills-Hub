@@ -69,10 +69,10 @@
 
 由 `skills/*/SKILL.md` 解析生成的历史流程（`build-skills-data.mjs`）**已移除**，当前**无脚本**从 `SKILL.md` 反向生成 `data/skills-data.json`（属已确认的设计取舍：数据由外部 skills-manager 基于 §2 六字段 frontmatter 生成并手工提交）。当前两份核心数据：
 
-- `data/skills-data.json`：稳定技能元数据（`total` / `categories` / `categoryEn` / `skills[]`），**权威源**。
-- `data/skills-metrics.json`：频繁派生指标，以 `name` 为 key 的 map。
+- `data/skills-data.json`：稳定技能元数据（顶层仅 `total` / `skills[]`；`categories` / `categoryEn` 为内联数据派生键，**不落盘**），**权威源**。
+- `data/skills-metrics.json`：派生指标，以 `name` 为 key 的 map；`size`（技能目录字节总和）/ `files`（文件数）/ `popularity`（其它技能描述提及次数）**一律按磁盘实算**生成，禁止手填——`npm run sync:metrics` 写入、`npm run check:metrics` 校验（CI 亦执行）。v1.21.0 已纠正 75 条历史快照失真（如 `canvas-design` 曾记 404 字节 / 1 文件，实为 5,553,917 字节 / 83 文件）。
 
-二者内容经 `npm run sync:data`（读取 `data/skills-data.json`）**单向重建**进 `src/index.html` 的 `window.SKILLS_DATA`（前端唯一读取源；不 `fetch` data json）。历史并行快照 `live_page.html` **已从仓库移除**（见 §8.3），`sync:data` 现只更新唯一站点本体 `src/index.html`。
+三者关系：`data/skills-data.json` 为唯一权威源；`npm run sync:data` 单向派生 ①`src/index.html` 内联 `window.SKILLS_DATA`（前端唯一读取源，不 `fetch` data json）、②`public/data/skills-data.json` 静态发布副本（保证 `/data/skills-data.json` 在 `out/` 中可达）、③`server/skill-names.json` 与 `edge-worker.js` 内联白名单；历史并行快照 `live_page.html` **已从仓库移除**（见 §8.3）。一致性由 `tools/lib/data-sync.test.mjs` 断言。
 
 ### 3.1 技能条目（SkillEntry）
 
@@ -137,7 +137,9 @@ type SkillsData = {
 - **Vercel 静态发布 + Serverless API（v1.21.0 契约）**：`vercel.json` 固定 `framework: null`（纯静态发布，禁用框架检测）/ `buildCommand: "npm run build"` / `outputDirectory: "out"`。构建链为 `sync:data → build-static → inject-ga`。**项目设置优先级高于仓库配置**：Vercel 控制台需把 Framework Preset 设为 Other / Static，Output Directory 设为 `out` 或清空；`GA_MEASUREMENT_ID` 由环境变量注入，缺省回退。Vercel 发布静态产物 `out/`，并自动识别仓库根 `api/` 目录为 Serverless Functions：`api/votes.js`、`api/favorites.js` 提供 `/api/*` 投票收藏，存储走 Vercel Blob（`BLOB_READ_WRITE_TOKEN`）。
 - **SEO / GEO**：`public/` 为抓取层唯一发布入口，含 `robots.txt`（允许公开内容、`Disallow: /api/`、`Sitemap` 指令）、`sitemap.xml`（首页 + 独立关于页；hash 深链复用同一首页 HTML，列入即重复内容）、`llms.txt`（生成式引擎摘要，含关于页入口）、`llms-full.txt`（全部可见技能可读清单）、`about.html`（独立关于页，见下）、`data/skills-data.json`（权威数据的只读发布副本，保证 `/data/skills-data.json` 在 `out/` 中可达）。`src/index.html` 仅 `SEO-JSONLD:BEGIN/END` 之间为生成区：首页 head 的 `WebSite`/`CollectionPage`/`SoftwareApplication` 三类 JSON-LD；**首页不再展示任何关于区块**（无 `SEO-DIRECTORY` 生成区、无 `#site-directory`）。全部关于引导、7 条 FAQ 与数据入口由独立关于页 `public/about.html` 承载，由 `scripts/seo/render-about.mjs` 生成、自包含静态 HTML，承载 `AboutPage`/`FAQPage` JSON-LD（正文复用 `render-page.mjs` 的 `renderAboutBody()`，数字同样实算）；页面不展示技能索引；结构化数据与可见正文同页。本地 `GET /about` 301 到 `/about.html`（`server/pages.js`），静态部署由 `public/` → `out/` 直接发布。生成逻辑在 `scripts/seo/{facts,render-assets,render-page,render-about}.mjs` 与 `scripts/sync-seo-assets.mjs`，数量/分类/描述**一律从 `data/skills-data.json` 实算**，写入幂等；`npm run sync:seo` 手动触发，`sync:data` 与 `build` 自动触发。首页 head 为单一 `<h1>`、各页 canonical 指向自身绝对 URL；三语共用一 URL，不添加 `hreflang` 自引用，语言由 `og:locale` + `documentElement.lang` 表达。
 - **生产 API（v1.16.25 起 Vercel Blob）**：`api/votes.js` / `api/favorites.js`（Vercel Serverless Functions）实现投票/收藏，存储为 Vercel Blob 私有对象 `kv-store.json`（`{ votes: {<name>:{up}}, favorites: {<name>:true} }`）；`server/blob-store.js` 封装读写（生产 `VERCEL=1` 走 Blob，本地无 token 回退 `data/kv-store.json`），`server/kv-ops.js` 提供两端共用校验/计票。契约与前端 `/api/*` 保持一致。历史 `edge-worker.js` + EdgeOne Edge KV（`ASH_KV`，键 `vote:<name>`/`fav:<name>`）为旧生产方案，保留文件作回退参考但**不再是默认生产路径**；`vercel.json` 下 `/api/*` 由 Vercel Functions 提供。
-- **CI/CD**（`.github/workflows/ci.yml`，**Bun + `bun.lock`** `--frozen-lockfile`）：串行流水线 `validate`（`tsc --noEmit` + `bun run test`（node --test tools/lib）+ `tools/validate-skills.mjs` + `tools/check-skill-yaml.mjs` + `tools/check-version.mjs` + `tools/check-inline-js.mjs`）→ `build`（导出 `out/`、上传构件）→ `e2e`（Playwright，`webServer` = `bun run start`，跑 `e2e/smoke.spec.ts`）→ `deploy`（`npx edgeone pages deploy ./out` 到 EdgeOne Pages）→ `release`（`refs/tags/v*` 或 main 分支触发，抽 CHANGELOG 发行说明，附 `data/*.json`）。
+- **三后端接口契约（v1.21.0 单一来源）**：投票/收藏存在三个后端实现（本地 Express `server/api.js`、Vercel Functions `api/*.js`、EdgeOne 边缘函数 `edge-worker.js`），判定顺序与文案统一由 `server/api-contract.js` 提供（限流 → 存储可用性 → 白名单可用性 → JSON 解析 → 名称校验）；白名单不可用一律 **fail-closed 返回 503**（`STORE_UNAVAILABLE`），名称非法 400（`Invalid or missing skill name` / `Skill name not found in whitelist`），非法 JSON 400，限流 429（`RATE_LIMITED`）。`server/kv-ops.js` 的错误文案取自该模块常量；边缘函数无法 import，等价文案由 `tools/lib/api-contract.test.mjs` 以源码断言保证一致。
+- **技能名白名单（三端一致）**：白名单来源优先级 `server/skill-names.json`（构建期生成，随 Serverless Function 打包）→ `data/skills-data.json`（本地回退）→ 空（写接口停用）。边缘函数内联同一名单（`edge-worker.js` 的 `SKILL_NAMES_INLINE`，由 `scripts/sync-inline-data.mjs` 生成），**白名单为空即拒绝写入**，不再退化为「仅格式校验」。
+- **CI/CD**（`.github/workflows/ci.yml`，**Bun + `bun.lock`** `--frozen-lockfile`）：串行流水线 `validate`（`tsc --noEmit` + `bun run test`（node --test tools/lib：data JSON + 三后端契约 + i18n 键位 + 数据链路）+ `tools/validate-skills.mjs` + `tools/check-skill-yaml.mjs` + `bun run check:metrics`（技能指标与磁盘实算一致）+ `tools/check-version.mjs` + `tools/check-inline-js.mjs`）→ `build`（生成 `out/`、校验产物（版本注入 + 占位符残留）、上传构件）→ `e2e`（Playwright，`webServer` = `bun run start`，跑 `e2e/smoke.spec.ts`）→ `deploy`（`npx edgeone pages deploy ./out` 到 EdgeOne Pages）→ `release`（`refs/tags/v*` 或 main 分支触发，抽 CHANGELOG 发行说明，附 `data/*.json`）。
 - **发版（v1.16.18 起自动，规范：所有工作流全绿后自动发布 Releases）**：bump `package.json` version → 更新 `CHANGELOG.md` → push main；`validate`/`build`/`e2e`/`deploy` 全部通过后，`release` job 幂等检查 `v{version}` Release——不存在则经 GitHub API 自动创建注解 tag（基于本次 HEAD，与部署同一提交）并发布；已存在则跳过（版本未 bump 的普通 push 不重复发版）。手动补发路径：`npm run tag` + 推送 `v*` tag。
 
 ---
@@ -193,12 +195,13 @@ type SkillsData = {
 > 以下为当前真实存在、待后续迭代处理的问题；历史已修复项附于末尾备查。**改动相关区域前须先知悉**。
 
 - **8.1 ~~Next 壳冗余~~（v1.21.0 已解决）**：`src/app/` 重定向存根、`next.config.mjs`、`next-env.d.ts` 与 `next`/`react`/`react-dom` 依赖已移除；站点直接由 `scripts/build-static.mjs` 生成 `out/`，无框架运行时与 `.next` 中间目录。
-- **8.2 无 `SKILL.md`→`data` 生成器**：`data/*.json` 由外部 skills-manager 基于 §2 六字段 frontmatter 生成并手工提交仓库；仓库内不保留反向生成脚本，**属已确认设计取舍**（非 bug）。新增/修改技能须先满足 §2 契约（`validate-skills.mjs` 软门禁提示缺失字段），再经 skills-manager 落 `data/`。
-- **8.3 `live_page.html`（已失效）**：该并行快照文件已从仓库移除，本条仅存档；`npm run sync:data` 现只更新 `src/index.html`（唯一站点本体），若未来恢复快照文件需重新评估同步策略。
+- **8.2 无 `SKILL.md`→`data` 生成器**：`data/skills-data.json` 由外部 skills-manager 基于 §2 六字段 frontmatter 生成并手工提交仓库；仓库内不保留反向生成脚本，**属已确认设计取舍**（非 bug）。新增/修改技能须先满足 §2 契约（`validate-skills.mjs` 软门禁提示缺失字段），再经 skills-manager 落 `data/`。注意与 §3 的 `skills-metrics.json` 区分：后者**有**脚本（`npm run sync:metrics`）按磁盘实算生成，不依赖 skills-manager。
+- **8.3 `live_page.html`（已失效）**：该并行快照文件已从仓库移除，本条仅存档；`npm run sync:data` 现只更新 `src/index.html`（唯一站点本体）、`public/data/skills-data.json`（发布副本）与两处白名单清单，若未来恢复快照文件需重新评估同步策略。
 - **8.4 过期引用残留（v1.16.18 部分清理）**：`src/index.html` 头注释与 og 注释、`.gitignore` 幽灵规则已清理；历史 CHANGELOG 中旧双轨版本号（1.20.x / 2026-08 的 1.16.x 与现行体系重名）仅存档不动。
-- **8.5 边缘产物部署保证**：`edge-worker.js` / `edgeone.config.json` 在仓库根，构建脚本不把它们纳入 `out/`（EdgeOne 侧按平台约定单独部署）；其随 EdgeOne 部署的保证未在流水线中明确，待确认。
+- **8.5 边缘产物部署保证**：`edge-worker.js` / `edgeone.config.json` 在仓库根，构建脚本不把它们纳入 `out/`（EdgeOne 侧按平台约定单独部署）；其随 EdgeOne 部署的保证未在流水线中明确，待确认。v1.21.0 起该文件内联 169 个技能名白名单并改为 fail-判定，**重新部署需在控制台粘贴最新文件**（生产主路径已是 Vercel Functions + Blob，边缘方案仅作回退参考）。
 
 **历史已修复（记录备查，勿再标为问题）**：
+- **v1.21.0 六维诊断整改**：① 数据链路单一源（`public/data` 发布副本与白名单改由脚本生成，新增 `tools/lib/data-sync.test.mjs`）；② 三后端接口契约统一到 `server/api-contract.js`（含 fail-closed 503 与统一文案，新增 `tools/lib/api-contract.test.mjs`）；③ 边缘函数内联精确白名单并 fail-closed；④ 修复「复制安装命令」按钮从未绑定监听的缺陷，详情弹窗改为一次性事件委托；⑤ `.card` 增加 `content-visibility` 离屏渲染优化；⑥ 语言常量去重（统一 `I18N.supported`）+ 三语键位门禁（`tools/lib/i18n-parity.test.mjs`）；⑦ 技能指标按磁盘实算（`scripts/sync-metrics.mjs`，纠正 75 条失真快照）；⑧ 数据层 13 处描述残留引号清理；⑨ CI 增加 `check:metrics` 与构建产物校验。
 - **v1.16.19 代码审查**：① 工作区配置中的明文 IDE accessToken 移除并脱敏后重新纳入版本控制；② `edge-worker.js` 回源失败补 502 兜底、GET /api/votes 改并行 KV 读取、兼容 KV list 两种返回形态；③ `server/store.js` 增加退出前强制落盘（防最后 100ms 投票/收藏丢失），`server/pages.js` 首页注入结果按 mtime 缓存；④ 详情外链加 http/https 协议白名单，复制降级路径按 `execCommand` 真实结果反馈；⑤ id 全量 kebab-case 化并消除重复 id；⑥ `prototype/template.html` 从残留占位符模板重写为 DOM 结构契约，三份原型的 favicon 引用与页脚结构对齐实现。
 - 内联数据漂移（161→167）：v1.16.0 起 `npm run sync:data` 从 `data/skills-data.json` 重建内联 `window.SKILLS_DATA`，meta/内联 `total`/data 三处实算一致。
 - 限流在生产反代下误伤全站：server 增加 `trust proxy` + `X-Forwarded-For` 取真实 IP。

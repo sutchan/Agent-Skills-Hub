@@ -70,12 +70,14 @@ npm run dev      # 启动静态服务，默认 http://localhost:3000
 
 ```bash
 npm run lint                 # TypeScript 类型检查
-npm test                     # 数据契约 / KV 单测
+npm test                     # 数据契约 / 三后端契约 / i18n 键位 / 数据链路 单测
 npm run validate:yaml        # SKILL.md frontmatter 真 YAML 校验（Bun）
 node tools/check-version.mjs # 版本、CHANGELOG、徽章、文档头一致性
 node tools/check-inline-js.mjs # src/index.html 内联 JS 语法
 npm run sync:seo             # 生成 robots/sitemap/llms*/JSON-LD/静态技能目录（幂等）
-npm run build                # 先同步 SEO 资产，再静态导出 out/ + 注入 GA / 版本 / 构建号
+npm run sync:metrics         # 按磁盘实算技能指标（size / files / popularity）
+npm run check:metrics        # 校验技能指标与磁盘实算一致（CI 亦执行）
+npm run build                # 同步数据与 SEO 资产 → 生成 out/ → 注入 GA / 版本 / 构建号
 npm run e2e                  # Playwright 冒烟测试（自动起本地服务）
 node scripts/verify-storage.mjs # 投票/收藏 API 与磁盘持久化端到端验证（需服务已启动）
 ```
@@ -105,7 +107,7 @@ node scripts/verify-storage.mjs # 投票/收藏 API 与磁盘持久化端到端�
 npm run sync:seo   # 重新生成全部资产（幂等：内容不变不写盘）
 ```
 
-- 数据变更后须先运行 `npm run sync:data` 再构建：该命令依次同步内联 `window.SKILLS_DATA` 与全部 SEO 资产；`npm run build` 只同步 SEO 资产，不会自动更新内联技能数据。
+- 数据变更后须先运行 `npm run sync:data` 再构建：该命令依次同步内联 `window.SKILLS_DATA`、静态发布副本 `public/data/skills-data.json`、白名单清单与全部 SEO 资产；`npm run build` 已内置 `sync:data`，可直接构建（若只想同步 SEO 资产，用 `npm run sync:seo`）。
 - 事实来源为 `data/skills-data.json`（技能数 / 分类数 / 描述均实时读取），生成逻辑位于 `scripts/seo/` 与 `scripts/sync-seo-assets.mjs`；`src/index.html` 仅 `SEO-JSONLD:BEGIN/END` 之间为生成区（勿手工编辑），关于内容全部生成于 `public/about.html`。
 - 三语界面共用一个 URL（JS 切换 + `documentElement.lang` 同步），因此不添加 `hreflang` 自引用链接；语言信息由 `og:locale` / `og:locale:alternate` 与 `lang` 属性表达。
 - 校验：`node tools/check-inline-js.mjs`（JSON-LD 为 `application/ld+json`，会被脚本正确跳过）、`node tools/check-version.mjs`，部署后可用 `/llms.txt` 与 `/sitemap.xml` 实查可达性。
@@ -153,7 +155,7 @@ cd Agent-Skills-Hub
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob 读写 token（投票/收藏存储；Vercel 控制台 → Storage → Blob 获取） | 生产必填；本地留空则回退文件 | — |
 | `USE_BLOB` | 本地强制走 Vercel Blob（设为 `1`）；生产 `VERCEL=1` 时自动启用 | 否 | — |
 
-- **Vercel 构建**：仓库 `vercel.json` 声明 `framework: null`（按纯静态站点发布，禁用 Next 构建器，避免 `NEXT_NO_ROUTES_MANIFEST`）、`buildCommand: "npm run build"` 与 `outputDirectory: "out"`（Next.js `output: "export"` 的产物目录）。**项目设置优先级高于仓库配置**：Vercel 控制台的 Framework Preset 需设为 Other / Static；若手动填过 Output Directory，需改为 `out` 或清空，否则会报 `STATIC_BUILD_NO_OUT_DIR`。Vercel 发布静态产物 `out/`，并自动识别根 `api/` 目录为 Serverless Functions：`/api/votes`、`/api/favorites` 由 `api/*.js` + Vercel Blob 提供（**v1.16.25 起**；旧 EdgeOne 边缘函数为历史方案）。
+- **Vercel 构建**：仓库 `vercel.json` 声明 `framework: null`（按纯静态站点发布，禁用框架检测）、`buildCommand: "npm run build"` 与 `outputDirectory: "out"`。**项目设置优先级高于仓库配置**：Vercel 控制台的 Framework Preset 需设为 Other / Static；若手动填过 Output Directory，需改为 `out` 或清空，否则会报 `STATIC_BUILD_NO_OUT_DIR`。Vercel 发布静态产物 `out/`，并自动识别根 `api/` 目录为 Serverless Functions：`/api/votes`、`/api/favorites` 由 `api/*.js` + Vercel Blob 提供（**v1.16.25 起**；旧 EdgeOne 边缘函数为历史方案）。
 - **GitHub Actions 构建**：在仓库 **Settings → Variables** 新增 `GA_MEASUREMENT_ID`（值为你的 GA4 ID）。`build` job 已将其注入构建环境，`scripts/inject-ga.mjs` 在构建期写入 `out/index.html`。
 - **EdgeOne Pages 构建**（若改用平台构建而非仅部署）：在 EdgeOne 项目环境变量中设置同名 `GA_MEASUREMENT_ID` 即可。
 - **本地预览**：`server.js` 直接读取 `process.env.GA_MEASUREMENT_ID` 注入，未设置时回退默认值，本地 GA 不受影响。

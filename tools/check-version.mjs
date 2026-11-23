@@ -35,12 +35,15 @@ if (tagVersion && tagVersion !== pkgVersion) {
 }
 
 // 扩展（1.16.7）：额外校验 README 徽章与文档头版本与 package.json 一致，防止展示位漂移。
+// v1.21.0：补入 docs/AGENTS.md 与 prototype/COMPONENTS.md（此前两处版本头长期滞后）。
 const docChecks = [
   { file: 'README.md', re: /version-v(\d+\.\d+\.\d+)-blue/ },
   { file: 'README.en.md', re: /version-v(\d+\.\d+\.\d+)-blue/ },
   { file: 'docs/spec.md', re: /^>\s*路径：.*版本：(\d+\.\d+\.\d+)/m },
   { file: 'docs/project.md', re: /^>\s*路径：.*版本：(\d+\.\d+\.\d+)/m },
+  { file: 'docs/AGENTS.md', re: /^>\s*路径：.*版本：(\d+\.\d+\.\d+)/m },
   { file: 'prototype/DESIGN.md', re: /^>\s*路径：.*版本：(\d+\.\d+\.\d+)/m },
+  { file: 'prototype/COMPONENTS.md', re: /^>\s*路径：.*版本：(\d+\.\d+\.\d+)/m },
 ];
 for (const { file, re: r } of docChecks) {
   let content;

@@ -69,12 +69,14 @@ Skill data is maintained in `data/skills-data.json` (stable metadata) and `data/
 
 ```bash
 npm run lint                  # TypeScript type check
-npm test                      # data contract / KV unit tests
+npm test                      # data contract / three-backend contract / i18n parity / data-chain unit tests
 npm run validate:yaml         # real YAML frontmatter validation (Bun)
 node tools/check-version.mjs  # version / CHANGELOG / badges / doc headers
 node tools/check-inline-js.mjs # inline JS syntax
 npm run sync:seo              # generate robots/sitemap/llms*/JSON-LD/static index (idempotent)
-npm run build                 # sync SEO assets first, then export out/ + inject GA/version/build id
+npm run sync:metrics          # recompute skill metrics from disk (size / files / popularity)
+npm run check:metrics         # verify metrics match disk (also runs in CI)
+npm run build                 # sync data + SEO assets -> emit out/ -> inject GA/version/build id
 npm run e2e                   # Playwright smoke tests (starts the server)
 node scripts/verify-storage.mjs # votes/favorites API + disk persistence e2e (server must be running)
 ```
@@ -102,7 +104,7 @@ The site serves both classic search engines and generative engines (LLM crawlers
 npm run sync:seo   # regenerate every asset (idempotent: no write when unchanged)
 ```
 
-- After a data change, run `npm run sync:data` before building: it syncs inline `window.SKILLS_DATA` and then all SEO assets. `npm run build` only syncs SEO assets and does not update inline skill data.
+- After a data change, run `npm run sync:data` before building: it syncs inline `window.SKILLS_DATA`, the static publish copy `public/data/skills-data.json`, the whitelist manifests and all SEO assets. `npm run build` already runs `sync:data` (use `npm run sync:seo` when you only want SEO assets).
 - Generated logic lives in `scripts/seo/` and `scripts/sync-seo-assets.mjs`. Only the block between `SEO-JSONLD:BEGIN/END` in `src/index.html` is generated — do not edit by hand; all about content is generated into `public/about.html`.
 - All three UI languages share one URL, so no self-referencing `hreflang` links are emitted; language is expressed via `og:locale` / `og:locale:alternate` and `documentElement.lang`.
 
@@ -149,7 +151,7 @@ The site is a pure static artifact (`npm run build` = sync data -> `scripts/buil
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob read/write token (votes/favorites storage; Vercel dashboard → Storage → Blob) | Required in production; local falls back to file | — |
 | `USE_BLOB` | Force Vercel Blob locally (set to `1`); auto-enabled in production (`VERCEL=1`) | No | — |
 
-- **Vercel build**: `vercel.json` declares `framework: null` (publish as a pure static site — no Next builder, avoiding `NEXT_NO_ROUTES_MANIFEST`), `buildCommand: "npm run build"` and `outputDirectory: "out"` (the output of Next.js `output: "export"`). **Project settings override repo config**: set Framework Preset to Other / Static in the Vercel dashboard; if Output Directory was set manually, change it to `out` or clear it — otherwise `STATIC_BUILD_NO_OUT_DIR` persists. Vercel publishes the static `out/` and auto-detects root `api/` as Serverless Functions: `/api/votes` and `/api/favorites` are served by `api/*.js` + Vercel Blob (**since v1.16.25**; the EdgeOne edge worker is the legacy approach).
+- **Vercel build**: `vercel.json` declares `framework: null` (publish as a pure static site — framework detection disabled), `buildCommand: "npm run build"` and `outputDirectory: "out"`. **Project settings override repo config**: set Framework Preset to Other / Static in the Vercel dashboard; if Output Directory was set manually, change it to `out` or clear it — otherwise `STATIC_BUILD_NO_OUT_DIR` persists. Vercel publishes the static `out/` and auto-detects root `api/` as Serverless Functions: `/api/votes` and `/api/favorites` are served by `api/*.js` + Vercel Blob (**since v1.16.25**; the EdgeOne edge worker is the legacy approach).
 - **GitHub Actions build**: add `GA_MEASUREMENT_ID` (your GA4 ID) under repo **Settings → Variables**. The `build` job injects it, and `scripts/inject-ga.mjs` writes it into `out/index.html` at build time.
 - **EdgeOne Pages build** (if using platform build instead of deploy-only): set the same `GA_MEASUREMENT_ID` in the EdgeOne project environment variables.
 - **Local preview**: `server.js` reads `process.env.GA_MEASUREMENT_ID` directly, falling back to the default when unset — local GA is unaffected.

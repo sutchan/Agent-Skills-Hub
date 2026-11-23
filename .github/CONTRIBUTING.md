@@ -93,14 +93,17 @@ en_category: <对应英文分类名，英文态展示>
 
 ```bash
 npm run build    # = npm run sync:data && node scripts/build-static.mjs && node scripts/inject-ga.mjs
-npm run sync:data # = node scripts/sync-inline-data.mjs（data/*.json → src/index.html 内联 window.SKILLS_DATA）
-npm test         # = node --test tools/lib/*.test.mjs（data JSON 回归）
+npm run sync:data # = node scripts/sync-inline-data.mjs（data/*.json → src/index.html 内联 window.SKILLS_DATA + 发布副本 + 白名单）
+npm run sync:metrics # = node scripts/sync-metrics.mjs（按磁盘实算 size/files，收敛 popularity 口径）
+npm run check:metrics # = node scripts/sync-metrics.mjs --check（校验指标与磁盘一致，CI 亦执行）
+npm run clean:quotes # = node scripts/clean-data-quotes.mjs（清理描述首尾成对引号，幂等）
+npm test         # = node --test tools/lib/*.test.mjs（data JSON + 三后端契约 + i18n 键位 + 数据链路 回归）
 npm run lint     # = tsc --noEmit
 npm run e2e      # = playwright test（e2e/smoke.spec.ts）
 npm run tag      # = node scripts/tag-release.mjs（手动创建 vX.Y.Z 注解 tag；自动发版见下方「发布」）
 ```
 
-- **`data/*.json` 为提交态、手工维护**（无 `SKILL.md`→data 生成脚本）；改技能展示须**手工编辑 `data/*.json` + 运行 `npm run sync:data`** 重建 `src/index.html` 内联数据（单向同步）。
+- **`data/skills-data.json` 为提交态、手工维护**（无 `SKILL.md`→data 生成脚本）；改技能展示须**手工编辑该文件 + 运行 `npm run sync:data`** 重建 `src/index.html` 内联数据（单向同步）。`data/skills-metrics.json` 的 `size` / `files` / `popularity` 由 `npm run sync:metrics` 按磁盘实算生成，**不要手填**。
 - 站点为纯静态产物（`scripts/build-static.mjs` 生成 `out/`，`inject-ga.mjs` 写入 `out/index.html`），真实可部署物 = `src/index.html` + `public/` + `data/` + `skills/` + `out/`。`inject-ga.mjs` 将 `out/index.html` 中 `__GA_MEASUREMENT_ID__` 占位符替换为环境变量 `GA_MEASUREMENT_ID`（缺省回退 `G-WQDDVB14PF`）。
 - **校验**：提交前运行 `node tools/validate-skills.mjs` + `node --test tools/lib/*.test.mjs`；CI `validate` job 亦会执行。
 - 设计规范改 `prototype/DESIGN.md` 等源；改展示效果须同步 `src/index.html` 内联产物并跑 `sync:data`。
