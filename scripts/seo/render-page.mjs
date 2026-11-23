@@ -2,7 +2,7 @@
 //
 // 站点是 JS 驱动的单页应用：卡片由 window.SKILLS_DATA 渲染，不执行 JS 的爬虫只能看到骨架屏。
 // 结构化数据（JSON-LD）留在首页 head，完整关于正文 + FAQ 由 render-about.mjs 生成到 /about.html。
-import { SITE, SITE_DESCRIPTION, total, recordCount, hiddenCount, groups, faq, lastmod, esc } from './facts.mjs';
+import { SITE, SITE_DESCRIPTION, total, recordCount, hiddenCount, groups, faq, faqTw, lastmod, esc } from './facts.mjs';
 
 const LF = '\n';
 
@@ -68,12 +68,17 @@ export function renderJsonLd() {
 /** 供独立关于页复用的静态正文：事实段落 + FAQ。
  *  页面不再展示技能索引；完整可读清单由 /llms-full.txt 承担，机器可读数据由 /data/skills-data.json 承担。 */
 export function renderAboutBody() {
+  const links = '完整清单见 <a href="/llms-full.txt">llms-full.txt</a>，机器可读元数据见 <a href="/data/skills-data.json">skills-data.json</a>。';
+  const linksTw = '完整清單見 <a href="/llms-full.txt">llms-full.txt</a>，機器可讀中繼資料見 <a href="/data/skills-data.json">skills-data.json</a>。';
+  const leadZh = `${esc(SITE_DESCRIPTION)} 当前展示 ${total} 个可见技能、${groups.length} 个分类；权威数据共 ${recordCount} 条记录，其中 ${hiddenCount} 条标记为隐藏。`;
+  const leadTw = `開源 AI Agent 技能目錄：按 SKILL.md 規範整理，提供分類瀏覽、關鍵字搜尋、中英雙語描述與一鍵安裝路徑；介面支援簡體中文、繁體中文與英語，專案整體採用 MIT 授權條款。 目前展示 ${total} 個可見技能，涵蓋 ${groups.length} 個分類；權威資料共 ${recordCount} 筆記錄，其中 ${hiddenCount} 筆標記為隱藏。`;
   const lines = [
-    `<p class="seo-lead" id="site-directory-lead">${esc(SITE_DESCRIPTION)} 当前展示 ${total} 个可见技能、${groups.length} 个分类；权威数据共 ${recordCount} 条记录，其中 ${hiddenCount} 条标记为隐藏。完整清单见 <a href="/llms-full.txt">llms-full.txt</a>，机器可读元数据见 <a href="/data/skills-data.json">skills-data.json</a>。</p>`,
+    `<p class="seo-lead" id="site-directory-lead"><span class="lang-zh">${leadZh}${links}</span><span class="lang-tw">${esc(leadTw)}${linksTw}</span></p>`,
     '  <dl class="seo-faq" id="site-faq">',
   ];
-  for (const f of faq) {
-    lines.push(`    <div><dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd></div>`);
+  for (let i = 0; i < faq.length; i++) {
+    lines.push(`    <div class="lang-zh"><dt>${esc(faq[i].q)}</dt><dd>${esc(faq[i].a)}</dd></div>`);
+    lines.push(`    <div class="lang-tw"><dt>${esc(faqTw[i].q)}</dt><dd>${esc(faqTw[i].a)}</dd></div>`);
   }
   lines.push('  </dl>');
   return lines.join(LF);

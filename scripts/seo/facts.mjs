@@ -106,3 +106,35 @@ export const faq = [
     a: '筛选与搜索结果会同步进 URL hash，例如 #q=wordpress 可直接分享搜索结果，#skill=<技能名> 会自动打开该技能详情。',
   },
 ];
+
+/** 繁体中文 FAQ：与 faq 一一对应，供 /about.html 繁体区块使用（不改动简体/JSON-LD 口径） */
+export const faqTw = [
+  {
+    q: 'Agent Skills Hub 是什麼？',
+    a: 'Agent Skills Hub 是一個開源、免費、純靜態的 AI Agent 技能（Skill）目錄。技能按 SKILL.md 規範組織，站台提供分類瀏覽、關鍵字搜尋、標籤篩選、投票收藏與技能詳情，介面支援簡體中文、繁體中文和英語。',
+  },
+  {
+    q: '目前收錄了多少個技能、多少個分類？',
+    a: `站台目前展示 ${total} 個可見技能，涵蓋 ${groups.length} 個分類；權威資料來源 data/skills-data.json 共 ${recordCount} 筆記錄，其中 ${hiddenCount} 筆標記為隱藏。數量以該檔案為準。`,
+  },
+  {
+    q: '是否免費？使用什麼授權？',
+    a: '完全免費且開源，專案整體採用 MIT 授權條款；各技能本身的授權以其目錄內 LICENSE 檔案為準。儲存庫網址 https://github.com/sutchan/Agent-Skills-Hub。',
+  },
+  {
+    q: '怎樣安裝和使用一個技能？',
+    a: '把 skills/<技能名稱>/ 整個目錄複製到你的 Agent 技能目錄（例如 Claude Code 的 ~/.claude/skills/），技能會由 SKILL.md 中的 description 自動觸發；也可用 skills-manager 批次管理。',
+  },
+  {
+    q: '技能描述支援哪些語言？',
+    a: '每條技能都有中文描述與英文原文（enDescription），介面可切換簡體中文、繁體中文、英語三語；分類名稱同樣提供中英對照。',
+  },
+  {
+    q: '技能中繼資料在哪裡可以機器讀取？',
+    a: '權威資料是站台 /data/skills-data.json，完整可讀清單是 /llms-full.txt，供搜尋引擎與生成式引擎引用的摘要見 /llms.txt。',
+  },
+  {
+    q: '如何分享某次搜尋或某個技能？',
+    a: '篩選與搜尋結果會同步進 URL hash，例如 #q=wordpress 可直接分享搜尋結果，#skill=<技能名稱> 會自動開啟該技能詳情。',
+  },
+];

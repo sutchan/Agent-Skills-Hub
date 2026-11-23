@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- src/index.html v1.16.30 — Agent Skills Hub 自包含静态单页应用（站点本体） -->
+<!-- src/index.html v1.16.31 — Agent Skills Hub 自包含静态单页应用（站点本体） -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="app-version" content="1.16.30" />
+  <meta name="app-version" content="1.16.31" />
   <title>Agent Skills Hub · 开源 AI Agent 技能目录（中文可检索）</title>
   <meta name="description" content="开源 AI Agent 技能目录：按 SKILL.md 规范整理，提供分类浏览、关键词搜索、中英双语描述与一键安装路径；界面支持简体中文、繁体中文与英语，项目整体采用 MIT 协议。" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -840,7 +840,8 @@ html[data-lang="tw"] .zh, html[data-lang="tw"] .en { display: none; }
 :root[data-name-mode="zh"] .card-title .zh { display: block; font-weight: 600; }
 :root[data-name-mode="en"] .card-title .zh { display: none; }
 :root[data-name-mode="en"] .card-title .en { display: block; font-size: inherit; font-weight: 600; color: inherit; margin-top: 0; }
-/* 繁体态：技能数据暂无繁体名，标题回退为简体名 + 英文副标题（覆盖全局 .en 隐藏规则） */
+/* 繁体态：技能数据无繁体名，tw 节点沿用中文名；英文副标题保留（覆盖全局 .en 隐藏规则） */
+html[data-lang="tw"] .card-title .tw { display: block; font-weight: 600; }
 html[data-lang="tw"] .card-title .en { display: block; }
 /* 卡片描述：固定 2 行高度（min-height 兜底），保证同一行卡片的分类徽标、底部分隔线严格水平对齐 */
 .card-desc { color: var(--text-2); font-size: 13px; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 2px; min-height: calc(2 * 1.55 * 13px); }
@@ -994,9 +995,9 @@ html[data-lang="tw"] .icon-btn::after { content: attr(data-tip-tw); }
 .detail-close:hover { background: hsl(var(--muted) / .7); color: var(--text); }
 .detail-head { display: flex; align-items: flex-start; gap: 12px; padding: 20px 22px 14px; border-bottom: 1px solid var(--border); position: relative; }
 .d-title { margin: 0; font-family: var(--font-display); font-weight: 700; line-height: 1.35; flex: 1; min-width: 0; font-size: 21px; letter-spacing: -.01em; }
-.d-title .zh { display: block; color: var(--text); }
+.d-title .zh, .d-title .tw { display: block; color: var(--text); }
 .d-title .en { display: block; font-size: 13.5px; font-weight: 400; color: var(--text-2); margin-top: 4px; word-break: break-word; font-family: var(--font-sans); }
-/* 繁体态：详情标题回退为简体名 + 英文副标题（覆盖全局 .en 隐藏规则） */
+/* 繁体态：tw 节点沿用中文名（数据无繁体字段），英文副标题保留（覆盖全局 .en 隐藏规则） */
 html[data-lang="tw"] .d-title .en { display: block; }
 .d-actions { display: flex; align-items: center; gap: 10px; flex: none; }
 .d-actions .fav-btn { position: static; width: 36px; height: 36px; }
@@ -1557,7 +1558,7 @@ html[data-lang="tw"] .d-title .en { display: block; }
       </div>
       <!-- 辅助导航：补齐页脚此前缺失的内容入口（关于 / 更新日志 / 反馈） -->
       <nav class="footer-links" id="footer-links" aria-label="页脚导航 / Footer navigation">
-        <a href="/about.html"><span class="zh" data-i18n="footer.about">关于</span><span class="tw" data-i18n="footer.about">關於</span><span class="en" data-i18n="footer.about">About</span></a>
+        <a href="/about.html" id="footer-about-link"><span class="zh" data-i18n="footer.about">关于</span><span class="tw" data-i18n="footer.about">關於</span><span class="en" data-i18n="footer.about">About</span></a>
         <a href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/CHANGELOG.md" target="_blank" rel="noopener"><span class="zh" data-i18n="footer.changelog">更新日志</span><span class="tw" data-i18n="footer.changelog">更新日誌</span><span class="en" data-i18n="footer.changelog">Changelog</span></a>
         <a href="https://github.com/sutchan/Agent-Skills-Hub/issues" target="_blank" rel="noopener"><span class="zh" data-i18n="footer.issue">提交 Issue</span><span class="tw" data-i18n="footer.issue">提交 Issue</span><span class="en" data-i18n="footer.issue">Report an issue</span></a>
       </nav>
@@ -1597,6 +1598,25 @@ html[data-lang="tw"] .d-title .en { display: block; }
 //   2. 翻译函数 t(key) 永远不抛错：key 缺失或语言缺失时降级到 zh / key 原文，
 //      保证「即使翻译文件/字典出错，应用也不会崩溃」。
 //   3. 语言状态、切换、DOM 同步全部收敛到本模块，与 UI 渲染解耦。
+
+// 分类繁体名（数据源只有简中 category 与英文 enCategory；繁体 UI 文案在此集中维护，
+// 与 SKILLS_DATA.categories 的 13 个分类一一对应；新增分类时须同步补齐）。
+const CATEGORY_TW = {
+  "品牌与设计": "品牌與設計",
+  "自动化与集成": "自動化與整合",
+  "AI 与智能体": "AI 與智能體",
+  "音视频与多媒体": "影音與多媒體",
+  "工程实践与质量": "工程實踐與品質",
+  "安全": "安全",
+  "WordPress 与 CMS": "WordPress 與 CMS",
+  "后端与平台": "後端與平台",
+  "前端开发": "前端開發",
+  "文档与内容": "文件與內容",
+  "移动端开发": "行動端開發",
+  "数据分析与可视化": "數據分析與視覺化",
+  "文件与格式处理": "檔案與格式處理"
+};
+
 (function (global) {
   "use strict";
 
@@ -1754,7 +1774,7 @@ html[data-lang="tw"] .d-title .en { display: block; }
       "dice.title": "為你抽中的技能",
       "dice.hint": "不知道從哪開始？讓骰子決定。",
       "filter.popular": "🔥 最多讚",
-      "filter.favs": "⭐ 我的收藏",
+      "filter.favs": "⭐ 我的最愛",
       "filter.all": "全部",
       "filter.tags": "標籤",
       "empty.suggest": "沒有匹配？試試這些熱門標籤：",
@@ -1763,7 +1783,7 @@ html[data-lang="tw"] .d-title .en { display: block; }
       "sort.nameDesc": "名稱 Z-A",
       "sort.cat": "按分類",
       "sort.zh": "按中文名稱",
-      "empty.title": "未找到匹配的技能",
+      "empty.title": "找不到符合的技能",
       "card.noDesc": "暫無中文描述。",
       "result.count": "共 {n} 個技能",
       "result.empty": "無匹配結果",
@@ -1779,7 +1799,7 @@ html[data-lang="tw"] .d-title .en { display: block; }
       "settings.viewGroup": "佈局 / Layout",
       "settings.view": "檢視模式",
       "settings.viewGrid": "網格 / Grid",
-      "settings.viewList": "列表 / List",
+      "settings.viewList": "清單 / List",
       "settings.densityGroup": "密度 / Density",
       "settings.density": "卡片間距",
       "settings.densityComfortable": "舒適 / Comfortable",
@@ -2223,7 +2243,7 @@ function buildFilterItems(agg) {
   const catOrder = SKILLS_DATA.categories || [];
   const catItems = catOrder
     .filter((c) => (agg.cats.get(c) || 0) > 0)
-    .map((c) => ({ key: c, zh: c, en: en[c] || c, count: agg.cats.get(c) || 0, hue: catHue(c), attr: "data-cat" }));
+    .map((c) => ({ key: c, zh: c, tw: CATEGORY_TW[c] || c, en: en[c] || c, count: agg.cats.get(c) || 0, hue: catHue(c), attr: "data-cat" }));
   return { catItems };
 }
 
@@ -2248,7 +2268,8 @@ function renderTags() {
   container.innerHTML = allBtn + tags.map(([t, c]) => {
     const active = state.tags.includes(t);
     const safe = t.replace(/[^a-zA-Z0-9一-龥_-]/g, "");
-    return `<button class="chip${active ? " active" : ""}" id="tag-chip-${safe}" data-tag="${esc(t)}" style="--hue:270" tabindex="0" aria-pressed="${active}"><span class="zh">${esc(t)}</span> <span class="chip-count">${c}</span></button>`;
+    // 标签是数据标识符（多为英文），无简繁变体：不套 .zh 容器，避免繁体模式下被全局规则隐藏成空白
+    return `<button class="chip${active ? " active" : ""}" id="tag-chip-${safe}" data-tag="${esc(t)}" style="--hue:270" tabindex="0" aria-pressed="${active}">${esc(t)} <span class="chip-count">${c}</span></button>`;
   }).join("");
 }
 
@@ -2264,24 +2285,26 @@ function renderCategoryChart(items) {
 
   const total = items.reduce((sum, it) => sum + it.count, 0);
   const activeItem = state.cats ? items.find((it) => it.key === state.cats) : null;
-  const isZh = I18N.getLang() === "zh";
+  const lang = I18N.getLang();
+  const isZh = lang === "zh";
+  const isTw = lang === "tw";
 
   if (centerNum) {
     centerNum.textContent = activeItem ? String(activeItem.count) : String(total);
   }
   if (centerLabel) {
     if (activeItem) {
-      centerLabel.textContent = isZh ? activeItem.zh : activeItem.en;
+      centerLabel.textContent = isTw ? (activeItem.tw || activeItem.zh) : (isZh ? activeItem.zh : activeItem.en);
     } else {
-      centerLabel.textContent = isZh ? "全部技能" : "Total Skills";
+      centerLabel.textContent = isTw ? "全部技能" : (isZh ? "全部技能" : "Total Skills");
     }
   }
   if (centerHint) {
     if (activeItem && total > 0) {
       const activePct = ((activeItem.count / total) * 100).toFixed(1) + "%";
-      centerHint.textContent = `${activePct} · ${isZh ? "点击重置" : "Reset"}`;
+      centerHint.textContent = `${activePct} · ${isTw ? "點擊重置" : (isZh ? "点击重置" : "Reset")}`;
     } else {
-      centerHint.textContent = isZh ? "点击分类筛选" : "Click to filter";
+      centerHint.textContent = isTw ? "點擊分類篩選" : (isZh ? "点击分类筛选" : "Click to filter");
     }
   }
   if (centerBox) {
@@ -2365,6 +2388,7 @@ function renderCategoryChart(items) {
           <div class="cat-legend-top">
             <span class="cat-legend-name">
               <span class="zh">${esc(it.zh)}</span>
+              <span class="tw">${esc(it.tw || it.zh)}</span>
               <span class="en">${esc(it.en)}</span>
             </span>
             <span class="cat-legend-meta">
@@ -2456,16 +2480,18 @@ function cardHTML(s) {
           <div class="avatar sm" style="--hue:${catHue(s.category)}">${initials(s.name)}</div>
           <div class="card-title">
             <span class="zh">${esc(s.zh || s.name)}</span>
+            <span class="tw">${esc(s.zh || s.name)}</span>
             <span class="en">${esc(s.name)}</span>
           </div>
         </div>
         <div class="card-desc">
           <span class="zh">${esc(descZh)}</span>
+          <span class="tw">${esc(descZh)}</span>
           <span class="en">${esc(s.enDescription || "")}</span>
         </div>
         <div class="card-cat">
           <span class="cat-indicator" style="background: hsl(${catHue(s.category)} 65% 48%)" aria-hidden="true"></span>
-          <span class="zh">${esc(s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span>
+          <span class="zh">${esc(s.category)}</span><span class="tw">${esc(CATEGORY_TW[s.category] || s.category)}</span><span class="en">${esc(s.enCategory || s.category)}</span>
         </div>
       </button>
     </div>
@@ -2734,7 +2760,8 @@ function detailHTML(skill) {
   const githubUrl = `${GITHUB_TREE}/${skill.githubDir}`;
   const tools = (skill.allowedTools || []).filter(Boolean);
 
-  const desc = st.lang === "zh" ? skill.description : (skill.enDescription || skill.description);
+  // 数据源只有简中 + 英文描述：繁体态沿用中文原文，避免详情正文空白
+  const desc = st.lang === "en" ? (skill.enDescription || skill.description) : skill.description;
   const titleZh = skill.zh || skill.name;
   const titleEn = skill.name;
   const fav = isFavorite(skill.name);
@@ -2743,11 +2770,12 @@ function detailHTML(skill) {
   const detailTitleId = "detail-title";
   let titleInner = "";
   if (st.nameMode === "en") {
+    // 仅英文名模式：繁体态由 html[data-lang="tw"] .d-title .en 规则恢复显示
     titleInner = `<span class="en">${esc(titleEn)}</span>`;
   } else if (st.nameMode === "zh") {
-    titleInner = `<span class="zh">${esc(titleZh)}</span>`;
+    titleInner = `<span class="zh">${esc(titleZh)}</span><span class="tw">${esc(titleZh)}</span>`;
   } else {
-    titleInner = `<span class="zh">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span>`;
+    titleInner = `<span class="zh">${esc(titleZh)}</span><span class="tw">${esc(titleZh)}</span><span class="en">${esc(titleEn)}</span>`;
   }
   const titleHTML = `<h2 class="d-title" id="${detailTitleId}">${titleInner}</h2>`;
 
@@ -3035,14 +3063,18 @@ function applyLang() {
   // 输入框占位符为单节点，无法用 CSS 显隐，故由 i18n 直接驱动
   const si = $("#search-input");
   if (si) si.placeholder = I18N.t("search.placeholder");
-  // hero 区 aria-labelledby 指向当前可见语言的标题（en 模式 zh 标题被 CSS 隐藏，需切换引用）
+  // h1 已合并为单一节点（三语为互斥 span）：aria-labelledby 恒指 hero-title，不再引用已移除的 hero-title-tw/en
   const hero = $("#hero");
-  if (hero) hero.setAttribute("aria-labelledby", state.lang === "en" ? "hero-title-en" : (state.lang === "tw" ? "hero-title-tw" : "hero-title"));
-  // 三 h1 视觉互斥：隐藏的加 aria-hidden，避免读屏重复朗读多个标题（P3）
-  const hZh = $("#hero-title"), hTw = $("#hero-title-tw"), hEn = $("#hero-title-en");
-  if (hZh) hZh.setAttribute("aria-hidden", state.lang === "zh" ? "false" : "true");
-  if (hTw) hTw.setAttribute("aria-hidden", state.lang === "tw" ? "false" : "true");
-  if (hEn) hEn.setAttribute("aria-hidden", state.lang === "en" ? "false" : "true");
+  if (hero) hero.setAttribute("aria-labelledby", "hero-title");
+  const titleRoot = $("#hero-title");
+  if (titleRoot) {
+    titleRoot.querySelectorAll(":scope > .zh, :scope > .tw, :scope > .en").forEach((node) => {
+      node.setAttribute("aria-hidden", node.classList.contains(state.lang) ? "false" : "true");
+    });
+  }
+  // 关于页读取 ?lang 参数：把当前语言透传过去，避免繁体模式跳到简中内容
+  const aboutLink = $("#footer-about-link");
+  if (aboutLink) aboutLink.setAttribute("href", "/about.html?lang=" + (state.lang === "tw" ? "tw" : "zh"));
   // 分类筛选区的「全部」等文案由 renderCats 用 I18N.t 动态生成（非 data-i18n 静态属性），
   // 语言切换后必须重渲染网格才能刷新分类文案，否则切换语言后 chips 仍显示旧语言
   renderGrid();

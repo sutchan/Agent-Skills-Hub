@@ -59,6 +59,13 @@ body{margin:0;background:hsl(var(--background));color:hsl(var(--foreground));fon
 .seo-faq>div{min-width:0;padding:12px 14px;border:1px solid hsl(var(--border));border-radius:10px;background:hsl(var(--secondary))}
 .seo-faq dt{font-weight:600}
 .seo-faq dd{margin:4px 0 0;color:hsl(var(--muted-foreground))}
+/* 繁体/简体文案互斥：与首页 html[data-lang] 约定一致 */
+.lang-tw{display:none}
+html[data-lang="tw"] .lang-zh{display:none}
+html[data-lang="tw"] .lang-tw{display:block}
+.about-lang{display:flex;gap:6px;margin:0 0 12px}
+.about-lang button{padding:4px 12px;border:1px solid hsl(var(--border));border-radius:999px;background:transparent;color:hsl(var(--muted-foreground));font:inherit;font-size:12px;cursor:pointer}
+.about-lang button.active{background:hsl(var(--primary));border-color:hsl(var(--primary));color:#fff}
 @media(max-width:640px){.about-wrap{padding:20px 14px 48px}.seo-directory{padding:18px 16px}.seo-directory h1{font-size:23px}}
 `;
 
@@ -88,12 +95,42 @@ export function renderAboutPage() {
     '</head>',
     '<body>',
     '  <div class="about-wrap">',
+    '    <div class="about-lang" id="about-lang" aria-label="语言 / Language"><button type="button" data-lang-set="zh">简体</button><button type="button" data-lang-set="tw">繁體</button></div>',
     `    <a class="about-back" href="/" aria-label="返回技能目录首页 / Back to home">← 返回技能目录首页</a>`,
     '    <main class="seo-directory" id="site-directory" aria-labelledby="about-title">',
     '      <h1 id="about-title">关于 Agent Skills Hub</h1>',
     ...body.split(LF).map((line) => `      ${line}`),
     '    </main>',
     '  </div>',
+    `  <script>
+(function () {
+  var root = document.documentElement;
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang');
+  if (lang !== 'tw' && lang !== 'zh') {
+    try { lang = (localStorage.getItem('ash-lang') || '').indexOf('tw') >= 0 ? 'tw' : 'zh'; } catch (e) { lang = 'zh'; }
+  }
+  if (lang !== 'tw' && lang !== 'zh') lang = 'zh';
+  function apply(next) {
+    root.setAttribute('data-lang', next);
+    root.setAttribute('lang', next === 'tw' ? 'zh-Hant' : 'zh-CN');
+    document.querySelectorAll('[data-lang-set]').forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-lang-set') === next);
+    });
+  }
+  apply(lang);
+  document.querySelectorAll('[data-lang-set]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var next = btn.getAttribute('data-lang-set');
+      apply(next);
+      var p = new URLSearchParams(location.search);
+      p.set('lang', next);
+      history.replaceState(null, '', location.pathname + '?' + p.toString());
+      try { localStorage.setItem('ash-lang', next); } catch (e) {}
+    });
+  });
+})();
+  </script>`,
     '</body>',
     '</html>',
     '',
