@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.21.0] - 2026-11-23
+
+### feat: 六维诊断全面整改（架构收敛 / 安全加固 / 数据真实化 / 性能与门禁）
+
+- **架构**：移除 Next.js 存根与 react/react-dom 依赖（`src/app/`、`next.config.mjs`、`next-env.d.ts` 一并删除）；`npm run build` 改为 `sync:data → scripts/build-static.mjs → scripts/inject-ga.mjs`，直接产出纯静态 `out/`，无框架运行时、无 `.next` 中间目录
+- **安全**：写接口 CORS 由 `*` 收敛为同源；Serverless 与边缘函数补 IP 写限流；技能名白名单 fail-closed（白名单不可用即 503，不再静默放行任意名称）；新增 CSP 与统一安全响应头（`server/security-headers.js`）；上传体积上限对齐平台 4.5MB 限制；全局错误处理区分 400/413
+- **三后端契约**：新增 `server/api-contract.js` 作为共享判定单一来源（限流 → 存储 → 白名单 → JSON → 名称），本地 Express / Vercel Functions / EdgeOne 边缘函数统一接入并统一错误文案；`edge-worker.js` 内联 169 个精确技能名白名单（由脚本生成），白名单为空即拒绝
+- **数据真实化**：新增 `scripts/sync-metrics.mjs` 按磁盘实算 `size` / `files`，`popularity` 口径收敛为「其它技能描述提及次数」，纠正 75 条历史快照（如 `canvas-design` 404B/1 文件 → 5,553,917B/83 文件）；新增 `scripts/clean-data-quotes.mjs` 清理 13 处描述首尾成对引号；`public/data/skills-data.json` 改为由权威源单向生成
+- **前端修复与性能**：详情弹窗改为 `#dialog` 一次性事件委托，消除监听器累积，并修复「复制安装命令」按钮从未绑定监听（打开详情反而立即复制一次）的缺陷；`.card` 增加 `content-visibility: auto` + `contain-intrinsic-size`，离屏卡片跳过布局绘制；删除死常量 `SUPPORTED_LANGS` 与第二份语言数组，统一取 `I18N.supported` / `I18N.fallback`
+- **门禁**：新增 `tools/lib/{api-contract,i18n-parity,data-sync}.test.mjs`（24 项断言）；CI 增加「技能指标与磁盘实算一致」与「构建产物校验（版本注入 + 占位符残留）」两步
+- **版本号**：历史 CHANGELOG 已存在 1.17.x 与 1.20.68，本次 bump 取 **v1.21.0**（高于历史最高），避免 tag 冲突导致 CI 自动发版幂等跳过
+- **文档**：README 双语、`docs/spec.md`、`docs/project.md`、`docs/AGENTS.md`、`prototype/DESIGN.md`、`prototype/COMPONENTS.md`、`prototype/template.html` 版本与形态描述同步；任务文档按「未完成 / 已归档」双文件模型更新
+
+[1.21.0]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.21.0
+
 ## [1.16.31] - 2026-11-23
 
 ### fix: 修复繁体中文字符串缺失

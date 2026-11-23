@@ -22,7 +22,7 @@
     {
       "name": "ads-creative",
       "description": "审计付费广告的文案、图片、视频、钩子、概念、格式覆盖、平台原生契合度、信息匹配、创意疲劳、可访问性与政策合规。适用于创意审计、广告文案评审、视频评审、图片评审或生产优先级排定。",
-      "enDescription": "\"Audit paid-ad copy, images, video, hooks, concepts, format coverage, platform-native fit, message match, creative fatigue, accessibility, and policy across supported platforms. Use for creative audit, ad creative, creative fatigue, creative diversity, ad copy review, video review, image review, or production priorities.\"",
+      "enDescription": "Audit paid-ad copy, images, video, hooks, concepts, format coverage, platform-native fit, message match, creative fatigue, accessibility, and policy across supported platforms. Use for creative audit, ad creative, creative fatigue, creative diversity, ad copy review, video review, image review, or production priorities.",
       "zh": "付费广告创意审计",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -211,7 +211,7 @@
     {
       "name": "architecture-blueprint-generator",
       "description": "分析代码库生成项目架构蓝图文档",
-      "enDescription": "'Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.'",
+      "enDescription": "Comprehensive project architecture blueprint generator that analyzes codebases to create detailed architectural documentation. Automatically detects technology stacks and architectural patterns, generates visual diagrams, documents implementation patterns, and provides extensible blueprints for maintaining architectural consistency and guiding new development.",
       "zh": "架构蓝图生成",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -640,7 +640,7 @@
     {
       "name": "convex-suggest",
       "description": "当用户手动实现 Convex 已有的模式时（定时任务、分片计数器、限流器、存储、搜索、在线状态、工作流、RAG），主动建议使用对应的 Convex 组件。被动触发，任务完成后才建议，不打断。",
-      "enDescription": "\"Suggest the matching Convex component when the user hand-rolls a pattern it already solves (crons, sharded-counter, rate-limiter, storage, search, presence, workflow, RAG, prosemirror-sync). Passive — suggest after the task, never interrupt. Never install without consent.\"",
+      "enDescription": "Suggest the matching Convex component when the user hand-rolls a pattern it already solves (crons, sharded-counter, rate-limiter, storage, search, presence, workflow, RAG, prosemirror-sync). Passive — suggest after the task, never interrupt. Never install without consent.",
       "zh": "Convex 组件建议",
       "category": "后端与平台",
       "enCategory": "Backend & Platform",
@@ -1143,7 +1143,7 @@
     {
       "name": "fastify-best-practices",
       "description": "指导用 TypeScript 或 JavaScript 开发 Fastify Node.js 后端服务与 REST API。在构建、配置或调试 Fastify 应用时使用——包括定义路由、实现插件、配置 JSON Schema 校验、处理错误、优化性能、管理认证、配置 CORS 与安全头、集成数据库、使用 WebSocket 以及生产部署。覆盖完整 Fastify 请求生命周期（hooks、序列化、Pino 日志）与通过 strip types 的 TypeScript 集成。",
-      "enDescription": "\"Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, managing authentication, configuring CORS and security headers, integrating databases, working with WebSockets, and deploying to production. Covers the full Fastify request lifecycle (hooks, serialization, logging with Pino) and TypeScript integration via strip types. Trigger terms: Fastify, Node.js server, REST API, API routes, backend framework, fastify.config, server.ts, app.ts.\"",
+      "enDescription": "Guides development of Fastify Node.js backend servers and REST APIs using TypeScript or JavaScript. Use when building, configuring, or debugging a Fastify application — including defining routes, implementing plugins, setting up JSON Schema validation, handling errors, optimising performance, managing authentication, configuring CORS and security headers, integrating databases, working with WebSockets, and deploying to production. Covers the full Fastify request lifecycle (hooks, serialization, logging with Pino) and TypeScript integration via strip types. Trigger terms: Fastify, Node.js server, REST API, API routes, backend framework, fastify.config, server.ts, app.ts.",
       "zh": "Fastify 最佳实践",
       "category": "后端与平台",
       "enCategory": "Backend & Platform",
@@ -1196,7 +1196,7 @@
     {
       "name": "figma-design-to-code",
       "description": "强制前置技能——在调用 get_design_context Figma MCP 工具前必须触发。只要用户想将 Figma 设计实现、构建、移植或编写为代码即触发（如“实现这个 Figma 设计”“把 Figma 变成代码”）。提供智能体正确实现 Figma 设计的关键步骤与指令，不可跳过。",
-      "enDescription": "\"**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped.\"",
+      "enDescription": "**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user wants to implement, build, port, or code up a Figma design as code. Example prompts (not exhaustive) are 'implement this Figma design', 'build this screen from Figma', 'turn this Figma into code', 'design to code'. This skill provides critical instructions and steps to the agent on how to correctly implement Figma designs in code and must NOT be skipped.",
       "zh": "Figma 设计转代码",
       "category": "品牌与设计",
       "enCategory": "Brand & Design",
@@ -1991,7 +1991,7 @@
     {
       "name": "limrun-xcode-bazel",
       "description": "在 Limrun 远程构建执行（RBE）上构建基于 Bazel 的 iOS/macOS/Apple 应用（替代本地 Mac），并安装到远程 iOS 模拟器。当项目是 Bazel 工作区（MODULE.bazel / WORKSPACE）时使用。",
-      "enDescription": "\"Legacy: build a Bazel iOS app with `lim xcode rbe` on a dedicated Xcode sandbox and install it on a remote iOS simulator attached to that sandbox. Use only when the workspace already runs on `lim xcode rbe` (its `.limrun/` came from `lim xcode rbe`) or the user explicitly asks for it, or when a `lim xcode rbe` build, upload, or install misbehaves. For every other Bazel build, including new workspaces, iOS or Android, and running the app on a simulator, use limrun-bazel. To tap, type, screenshot, or otherwise interact with the running app, use limrun-ios-simulator.\"",
+      "enDescription": "Legacy: build a Bazel iOS app with `lim xcode rbe` on a dedicated Xcode sandbox and install it on a remote iOS simulator attached to that sandbox. Use only when the workspace already runs on `lim xcode rbe` (its `.limrun/` came from `lim xcode rbe`) or the user explicitly asks for it, or when a `lim xcode rbe` build, upload, or install misbehaves. For every other Bazel build, including new workspaces, iOS or Android, and running the app on a simulator, use limrun-bazel. To tap, type, screenshot, or otherwise interact with the running app, use limrun-ios-simulator.",
       "zh": "Limrun Bazel iOS 构建",
       "category": "移动端开发",
       "enCategory": "Mobile Dev",
@@ -2541,7 +2541,7 @@
     {
       "name": "security-review",
       "description": "AI 驱动的代码库安全扫描器，像安全研究员一样推理代码：追踪数据流、理解组件交互、捕获模式匹配工具遗漏的漏洞。扫描安全漏洞、SQL 注入、XSS、命令注入、暴露的密钥、硬编码 secret、不安全依赖、访问控制问题时使用。",
-      "enDescription": "'AI-powered codebase security scanner that reasons about code like a security researcher — tracing data flows, understanding component interactions, and catching vulnerabilities that pattern-matching tools miss. Use this skill when asked to scan code for security vulnerabilities, find bugs, check for SQL injection, XSS, command injection, exposed API keys, hardcoded secrets, insecure dependencies, access control issues, or any request like \"is my code secure?\", \"review for security issues\", \"audit this codebase\", or \"check for vulnerabilities\". Covers injection flaws, authentication and access control bugs, secrets exposure, weak cryptography, insecure dependencies, and business logic issues across JavaScript, TypeScript, Python, Java, PHP, Go, Ruby, and Rust.'",
+      "enDescription": "AI-powered codebase security scanner that reasons about code like a security researcher — tracing data flows, understanding component interactions, and catching vulnerabilities that pattern-matching tools miss. Use this skill when asked to scan code for security vulnerabilities, find bugs, check for SQL injection, XSS, command injection, exposed API keys, hardcoded secrets, insecure dependencies, access control issues, or any request like \"is my code secure?\", \"review for security issues\", \"audit this codebase\", or \"check for vulnerabilities\". Covers injection flaws, authentication and access control bugs, secrets exposure, weak cryptography, insecure dependencies, and business logic issues across JavaScript, TypeScript, Python, Java, PHP, Go, Ruby, and Rust.",
       "zh": "安全代码审查",
       "category": "安全",
       "enCategory": "Security",
@@ -2674,7 +2674,7 @@
     {
       "name": "to-spec",
       "description": "将当前对话转化为规格并发布到项目问题追踪器，无需手动搬移上下文。",
-      "enDescription": "\"Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.\"",
+      "enDescription": "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed.",
       "zh": "对话转规格",
       "category": "工程实践与质量",
       "enCategory": "Engineering Practice & Quality",
@@ -2761,7 +2761,7 @@
     {
       "name": "wp-abilities-audit",
       "description": "审计 WordPress 插件的 REST 接口面，产出标准化审计文档，提议 Abilities API 注册项。生成含 YAML schema 与散文段落的 markdown 文档，供人与 agent 在规划注册推广时共同消费。适用于任意 WP 插件。",
-      "enDescription": "\"Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.\"",
+      "enDescription": "Audit a WordPress plugin's REST surface and produce a standardized audit document proposing Abilities API registrations. Produces a markdown doc with a YAML schema and prose sections that humans and agents can both consume when planning a registration rollout. Works on any WP plugin.",
       "zh": "WP 能力审计",
       "category": "WordPress 与 CMS",
       "enCategory": "WordPress & CMS",
@@ -2779,7 +2779,7 @@
     {
       "name": "wp-abilities-verify",
       "description": "核验 WordPress 插件的 Abilities API 注册：枚举能力、检查回调行为是否与各注解声明一致（对抗式「只读却写入」检测）、校验权限与 schema，并校验 wp-abilities-audit 产出的审计文档。",
-      "enDescription": "\"Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.\"",
+      "enDescription": "Verify a WordPress plugin's Abilities API registrations: enumerate abilities, check that callback behavior matches each annotation's claim (the adversarial readonly-but-writes detection), validate permissions and schemas, and validate audit documents produced by wp-abilities-audit.",
       "zh": "WP 能力核验",
       "category": "WordPress 与 CMS",
       "enCategory": "WordPress & CMS",
@@ -2797,7 +2797,7 @@
     {
       "name": "wp-patterns",
       "description": "模式：创建或更新 WordPress 区块模式（起始页、模板、模板部件、Query Loop 布局），审查模式注册、区块标记、分类、可访问性或 i18n/转义，或提升模式设计质量。自定义区块路由到 wp-block-development；前端交互路由到 wp-interactivity-api。",
-      "enDescription": "\"Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.\"",
+      "enDescription": "Pattern: create or update WordPress block patterns (starter pages, templates, template parts, Query Loop layouts), review pattern registration, block markup, categories, accessibility, or i18n/escaping, or improve pattern design quality. Route custom blocks to wp-block-development; route frontend interactivity to wp-interactivity-api.",
       "zh": "WordPress 区块模式",
       "category": "WordPress 与 CMS",
       "enCategory": "WordPress & CMS",
@@ -2815,7 +2815,7 @@
     {
       "name": "wp-playground",
       "description": "作为 WordPress Playground 的路由包装，处理歧义 Playground 任务、本地 CLI 运行 @wp-playground/cli、playground.wordpress.net 分享链接、浏览器预览、快照、挂载、版本切换与 Xdebug。若需编写或审查 Blueprint JSON，直接用 blueprint 技能。",
-      "enDescription": "\"Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, WebMCP site tools, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.\"",
+      "enDescription": "Use as the WordPress Playground routing wrapper for ambiguous Playground work, local CLI runs with @wp-playground/cli, playground.wordpress.net share links, browser previews, WebMCP site tools, snapshots, mounts, version switching, and Xdebug. For Blueprint JSON authoring or review, use the blueprint skill directly.",
       "zh": "WordPress 沙箱",
       "category": "WordPress 与 CMS",
       "enCategory": "WordPress & CMS",
@@ -2833,7 +2833,7 @@
     {
       "name": "wp-plugin-directory-guidelines",
       "description": "审查 WordPress 插件的 GPL 合规性、检查许可证头或兼容性、评估 upsell/免费增值/试用软件模式、校验插件命名或商标规则、检查插件 slug、理解插件为何被 WordPress.org 拒绝，或回答关于 18 条 WordPress.org 插件目录指南的任何问题——即使用户未明确提及「指南」。",
-      "enDescription": "\"Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, running Plugin Check (PCP) to validate plugin changes, interpreting its findings, understanding why a plugin was rejected from WordPress.org, or answering questions about the 18 WordPress.org Plugin Directory guidelines.\"",
+      "enDescription": "Use when reviewing WordPress plugins for GPL compliance, checking license headers or compatibility, evaluating upsell/freemium/trialware patterns, validating plugin naming or trademark rules, checking plugin slugs, running Plugin Check (PCP) to validate plugin changes, interpreting its findings, understanding why a plugin was rejected from WordPress.org, or answering questions about the 18 WordPress.org Plugin Directory guidelines.",
       "zh": "WP 插件目录规范",
       "category": "WordPress 与 CMS",
       "enCategory": "WordPress & CMS",

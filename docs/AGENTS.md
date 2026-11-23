@@ -1,6 +1,6 @@
 # AI 协作指引（AGENTS）
 
-> 路径：`docs/AGENTS.md` · 版本：1.16.30
+> 路径：`docs/AGENTS.md` · 版本：1.21.0
 > 本文件供 AI 编码助手（如 CodeBuddy / Claude）在处理本仓库变更时遵循。能力契约见 [spec.md](spec.md)，仓库约定见 [project.md](project.md)，贡献操作见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 
 ---
@@ -22,7 +22,7 @@
 - **变更前**：先读 `spec.md` 了解当前能力基线（frontmatter 契约、数据契约、一致性红线），再读 `project.md` 了解目录约定与变更工作流。
 - **任务登记**：变更统一在 `docs/tasks.md` 登记任务条目；本仓库**不生成 proposal.md / design.md 独立产物文件**，设计要点直接写在对应变更文件或 tasks.md 备注栏。
 - **数据纪律**：`data/skills-data.json` / `skills-metrics.json` 是**提交态、手工维护**的数据（**无 `SKILL.md`→data 自动生成脚本**）；改技能展示须先编辑 `data/*.json`，再运行 `npm run sync:data` **自动**重建 `src/index.html` 内联 `window.SKILLS_DATA`（单向）。技能**正文/资源**权威仍是磁盘 `skills/<name>/SKILL.md`（详见 [spec.md §3](spec.md) / §8）。
-- **应用形态**：站点本体是自包含静态单页 `src/index.html`（原生 JS、内联数据），`server/`（Express，薄装配 `server.js`）提供本地托管与投票/收藏 API，`edge-worker.js` 承接生产侧存储；`src/app/`（Next.js）仅为重定向存根。
+- **应用形态**：站点本体是自包含静态单页 `src/index.html`（原生 JS、内联数据），**无前端框架运行时**（v1.21.0 起移除 Next.js / react 依赖）；`server/`（Express，薄装配 `server.js`）提供本地托管与投票/收藏 API，`edge-worker.js` 承接生产侧存储。
 - **无嵌套副本**：新技能只能落在 `skills/<name>/`，不得创建 `skills/<x>/skills/<name>/` 之类嵌套。
 - **数据型数字**：README/应用内技能总数与领域表计数须以 `data/skills-data.json` 实算，禁止手填。
 - **SEO/GEO 资产**：`public/{robots.txt,sitemap.xml,llms.txt,llms-full.txt,about.html,data/skills-data.json}` 与 `src/index.html` 的 `SEO-JSONLD:BEGIN/END` 生成区均由 `npm run sync:seo` 从权威数据实算生成，**勿手工编辑生成区**；**首页不再展示任何关于区块**，关于引导与完整 FAQ 全部在独立关于页 `public/about.html`，技能索引完整清单见 `/llms-full.txt`，`npm run sync:data` 会自动串联同步，契约见 `docs/spec.md` §4。

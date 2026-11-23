@@ -92,7 +92,7 @@ en_category: <对应英文分类名，英文态展示>
 ## 数据与构建
 
 ```bash
-npm run build    # = NODE_ENV=production next build && cp src/index.html out/index.html && node scripts/inject-ga.mjs
+npm run build    # = npm run sync:data && node scripts/build-static.mjs && node scripts/inject-ga.mjs
 npm run sync:data # = node scripts/sync-inline-data.mjs（data/*.json → src/index.html 内联 window.SKILLS_DATA）
 npm test         # = node --test tools/lib/*.test.mjs（data JSON 回归）
 npm run lint     # = tsc --noEmit
@@ -101,7 +101,7 @@ npm run tag      # = node scripts/tag-release.mjs（手动创建 vX.Y.Z 注解 t
 ```
 
 - **`data/*.json` 为提交态、手工维护**（无 `SKILL.md`→data 生成脚本）；改技能展示须**手工编辑 `data/*.json` + 运行 `npm run sync:data`** 重建 `src/index.html` 内联数据（单向同步）。
-- `next.config.mjs` 为 `output:"export"`（产物 `out/`）；由于 `src/app` 仅重定向存根，`cp src/index.html out/index.html` 会用真正的静态应用覆盖导出页，故真实可部署物 = `src/index.html` + `public/` + `data/` + `skills/` + `out/` 导出壳。`inject-ga.mjs` 将 `out/index.html` 中 `__GA_MEASUREMENT_ID__` 占位符替换为环境变量 `GA_MEASUREMENT_ID`（缺省回退 `G-WQDDVB14PF`）。
+- 站点为纯静态产物（`scripts/build-static.mjs` 生成 `out/`，`inject-ga.mjs` 写入 `out/index.html`），真实可部署物 = `src/index.html` + `public/` + `data/` + `skills/` + `out/`。`inject-ga.mjs` 将 `out/index.html` 中 `__GA_MEASUREMENT_ID__` 占位符替换为环境变量 `GA_MEASUREMENT_ID`（缺省回退 `G-WQDDVB14PF`）。
 - **校验**：提交前运行 `node tools/validate-skills.mjs` + `node --test tools/lib/*.test.mjs`；CI `validate` job 亦会执行。
 - 设计规范改 `prototype/DESIGN.md` 等源；改展示效果须同步 `src/index.html` 内联产物并跑 `sync:data`。
 

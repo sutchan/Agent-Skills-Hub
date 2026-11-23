@@ -1,10 +1,11 @@
 // Vercel Serverless Function — 收藏 API（GET /api/favorites、POST /api/favorites）
 // 存储走 server/blob-store.js：生产自动使用 Vercel Blob；无 token 时回退本地文件。
-// 与本地 Express（server/api.js）共用 server/kv-ops.js 的校验与收藏语义。
+// 与本地 Express（server/api.js）、EdgeOne 边缘函数（edge-worker.js）共用 server/api-contract.js 的判定语义。
 import { loadKv, saveKv, writableStoreIssue } from '../server/blob-store.js';
 import { validateName, applyFavorite } from '../server/kv-ops.js';
 import { validSkillNames } from '../server/store.js';
 import { allowRequest, clientIp } from '../server/api-ratelimit.js';
+import { checkWriteState, parseWriteBody } from '../server/api-contract.js';
 
 // 同源接口：不开放跨站 CORS（写端点跨站可写会污染公开收藏状态）。
 const HEADERS = {
@@ -30,20 +31,15 @@ export default async function handler(req, res) {
       return json(res, 200, kv.favorites || {});
     }
     if (req.method === 'POST') {
-      if (!allowRequest(clientIp(req))) {
-        return json(res, 429, { error: 'RATE_LIMITED', message: '请求过于频繁，请稍后再试' });
-      }
-      const issue = writableStoreIssue();
-      if (issue) return json(res, 503, { error: 'STORE_UNAVAILABLE', message: issue });
-      // 白名单不可用时必须拒绝写入（fail-closed）
-      if (!validSkillNames || validSkillNames.size === 0) {
-        return json(res, 503, { error: 'STORE_UNAVAILABLE', message: '技能名单不可用，写接口已暂停' });
-      }
-      let body = req.body;
-      if (typeof body === 'string') {
-        try { body = JSON.parse(body); } catch { return json(res, 400, { error: 'Invalid JSON body' }); }
-      }
-      const { name, action } = body || {};
+      const state = checkWriteState({
+        limited: !allowRequest(clientIp(req)),
+        storageIssue: writableStoreIssue(),
+        whitelistSize: validSkillNames ? validSkillNames.size : 0,
+      });
+      if (!state.ok) return json(res, state.status, state.body);
+      const parsed = parseWriteBody(req.body);
+      if (!parsed.ok) return json(res, 400, { error: parsed.error });
+      const { name, action } = parsed.data;
       const error = validateName(name, validSkillNames);
       if (error) return json(res, 400, { error });
       const kv = await loadKv();
@@ -52,7 +48,8 @@ export default async function handler(req, res) {
       return json(res, 200, { name, ...next });
     }
     return json(res, 405, { error: 'Method not allowed' });
-  } catch {
+  } catch (err) {
+    console.error('[api/favorites] unexpected error:', err);
     return json(res, 500, { error: 'Internal server error' });
   }
 }

@@ -1,16 +1,16 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.16.31
+> 路径：`docs/spec.md` · 版本：1.21.0
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
-> ⚠️ 本 spec 反映**截至 v1.16.26 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / sync-* / src/lib / prototype.html」等描述已被后续迭代移除。
+> ⚠️ 本 spec 反映**截至 v1.21.0 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / sync-* / src/lib / prototype.html」等描述已被后续迭代移除。
 
 ---
 
 ## 1. 范围与权威源
 
 - **项目定位**：Agent 技能集合仓库。技能内容权威 = 磁盘 `skills/<name>/SKILL.md`；展示数据 = 提交态 `data/skills-data.json`（**手工维护，无从 `SKILL.md` 自动生成脚本**）。
-- **应用形态**：自包含静态单页 `src/index.html`（原生 JS、内联 `window.SKILLS_DATA` + CSS）为站点本体；`src/app/`（Next.js 16 App Router）仅为将 `/` 重定向到 `/index.html` 的存根；`server/`（Express，薄装配 `server.js`）提供本地静态托管与投票/收藏 API；`edge-worker.js`（EdgeOne Edge KV）承接生产侧投票/收藏。
+- **应用形态**：自包含静态单页 `src/index.html`（原生 JS、内联 `window.SKILLS_DATA` + CSS）为站点本体，**无前端框架运行时**（v1.21.0 起移除 Next.js 存根与 react 依赖）；`server/`（Express，薄装配 `server.js`）提供本地静态托管与投票/收藏 API；`edge-worker.js`（EdgeOne Edge KV）承接生产侧投票/收藏；`api/`（Vercel Serverless Functions）提供 Blob 侧存储实现。
 - **设计规范权威源**：`prototype/`（`DESIGN.md` / `COMPONENTS.md` 等）；设计令牌历史上源自 `prototype/src/styles/tokens.css`，现随产物**内联进 `src/index.html`**。
 - **版本权威源**：根 `package.json` 的 `version`（当前 **1.16.18**）。README 中/英徽章、CHANGELOG 顶部、各文档头注释须与之一致。
 
@@ -133,8 +133,8 @@ type SkillsData = {
 ## 4. 构建与部署
 
 - **本地**：`npm run dev` / `npm run start` = `node server.js`（Express，默认 `http://localhost:3000`），`GET /` 返回 `src/index.html`，并提供 `/api/votes`、`/api/favorites`。
-- **构建**：`npm run build` = `node scripts/sync-seo-assets.mjs && next build && node scripts/inject-ga.mjs`（**v1.16.20 起**构建前先幂等同步 SEO/GEO 资产；**v1.16.19 起**移除 Unix 专用 `NODE_ENV=production` / `cp` 语法，Next 构建自身设置 production；注入脚本直接以 `src/index.html` 为源写出 `out/index.html`，Windows / CI 行为一致）。`next.config.mjs` 为 `output:"export"`（纯静态，产物落 `out/`）。由于 `src/app` 仅导出一个重定向占位页，随后被注入脚本用真正的静态应用**覆盖** `out/index.html`，故 **Next 层对最终页面无实质贡献**，真实可部署物 = `src/index.html` + `public/` + `data/` + `skills/` + `out/` 导出壳。`inject-ga.mjs` 一次性替换 `__GA_MEASUREMENT_ID__`（环境变量，缺省回退 `G-WQDDVB14PF`）、`__APP_VERSION__`、`__BUILD_ID__`，并在源文件或占位符残留时**硬失败**（旧版缺产物时静默跳过会部署空白页）。
-- **Vercel 静态导出 + Serverless API（v1.16.25 契约）**：`vercel.json` 固定 `framework: null`（禁用 Next 构建器——`output: "export"` 的纯静态产物无需 `routes-manifest.json`，若保留 `"nextjs"` 会在 `out/` 查找该清单而报 `NEXT_NO_ROUTES_MANIFEST`）/ `buildCommand: "npm run build"` / `outputDirectory: "out"`。构建链仍为 `sync:seo → next build → inject-ga`。**项目设置优先级高于仓库配置**：Vercel 控制台需把 Framework Preset 设为 Other / Static，Output Directory 设为 `out` 或清空；`GA_MEASUREMENT_ID` 由环境变量注入，缺省回退。Vercel 发布静态产物 `out/`，并自动识别仓库根 `api/` 目录为 Serverless Functions：`api/votes.js`、`api/favorites.js` 提供 `/api/*` 投票收藏，存储走 Vercel Blob（`BLOB_READ_WRITE_TOKEN`）。
+- **构建**：`npm run build` = `npm run sync:data`（内联数据 + SEO/GEO 资产 + `server/skill-names.json`）→ `node scripts/build-static.mjs`（清空并复制 `public/` 到 `out/`）→ `node scripts/inject-ga.mjs`（写出 `out/index.html`）。**v1.21.0 起移除 Next.js**：站点为纯静态产物，无框架运行时、无 `.next` 中间目录，构建链跨平台一致（无 Unix 专用语法），源文件缺失时硬失败。`inject-ga.mjs` 一次性替换 `__GA_MEASUREMENT_ID__`（环境变量，缺省回退 `G-WQDDVB14PF`）、`__APP_VERSION__`、`__BUILD_ID__`。真实可部署物 = `src/index.html` + `public/` + `data/` + `skills/` + `out/`。
+- **Vercel 静态发布 + Serverless API（v1.21.0 契约）**：`vercel.json` 固定 `framework: null`（纯静态发布，禁用框架检测）/ `buildCommand: "npm run build"` / `outputDirectory: "out"`。构建链为 `sync:data → build-static → inject-ga`。**项目设置优先级高于仓库配置**：Vercel 控制台需把 Framework Preset 设为 Other / Static，Output Directory 设为 `out` 或清空；`GA_MEASUREMENT_ID` 由环境变量注入，缺省回退。Vercel 发布静态产物 `out/`，并自动识别仓库根 `api/` 目录为 Serverless Functions：`api/votes.js`、`api/favorites.js` 提供 `/api/*` 投票收藏，存储走 Vercel Blob（`BLOB_READ_WRITE_TOKEN`）。
 - **SEO / GEO**：`public/` 为抓取层唯一发布入口，含 `robots.txt`（允许公开内容、`Disallow: /api/`、`Sitemap` 指令）、`sitemap.xml`（首页 + 独立关于页；hash 深链复用同一首页 HTML，列入即重复内容）、`llms.txt`（生成式引擎摘要，含关于页入口）、`llms-full.txt`（全部可见技能可读清单）、`about.html`（独立关于页，见下）、`data/skills-data.json`（权威数据的只读发布副本，保证 `/data/skills-data.json` 在 `out/` 中可达）。`src/index.html` 仅 `SEO-JSONLD:BEGIN/END` 之间为生成区：首页 head 的 `WebSite`/`CollectionPage`/`SoftwareApplication` 三类 JSON-LD；**首页不再展示任何关于区块**（无 `SEO-DIRECTORY` 生成区、无 `#site-directory`）。全部关于引导、7 条 FAQ 与数据入口由独立关于页 `public/about.html` 承载，由 `scripts/seo/render-about.mjs` 生成、自包含静态 HTML，承载 `AboutPage`/`FAQPage` JSON-LD（正文复用 `render-page.mjs` 的 `renderAboutBody()`，数字同样实算）；页面不展示技能索引；结构化数据与可见正文同页。本地 `GET /about` 301 到 `/about.html`（`server/pages.js`），静态部署由 `public/` → `out/` 直接发布。生成逻辑在 `scripts/seo/{facts,render-assets,render-page,render-about}.mjs` 与 `scripts/sync-seo-assets.mjs`，数量/分类/描述**一律从 `data/skills-data.json` 实算**，写入幂等；`npm run sync:seo` 手动触发，`sync:data` 与 `build` 自动触发。首页 head 为单一 `<h1>`、各页 canonical 指向自身绝对 URL；三语共用一 URL，不添加 `hreflang` 自引用，语言由 `og:locale` + `documentElement.lang` 表达。
 - **生产 API（v1.16.25 起 Vercel Blob）**：`api/votes.js` / `api/favorites.js`（Vercel Serverless Functions）实现投票/收藏，存储为 Vercel Blob 私有对象 `kv-store.json`（`{ votes: {<name>:{up}}, favorites: {<name>:true} }`）；`server/blob-store.js` 封装读写（生产 `VERCEL=1` 走 Blob，本地无 token 回退 `data/kv-store.json`），`server/kv-ops.js` 提供两端共用校验/计票。契约与前端 `/api/*` 保持一致。历史 `edge-worker.js` + EdgeOne Edge KV（`ASH_KV`，键 `vote:<name>`/`fav:<name>`）为旧生产方案，保留文件作回退参考但**不再是默认生产路径**；`vercel.json` 下 `/api/*` 由 Vercel Functions 提供。
 - **CI/CD**（`.github/workflows/ci.yml`，**Bun + `bun.lock`** `--frozen-lockfile`）：串行流水线 `validate`（`tsc --noEmit` + `bun run test`（node --test tools/lib）+ `tools/validate-skills.mjs` + `tools/check-skill-yaml.mjs` + `tools/check-version.mjs` + `tools/check-inline-js.mjs`）→ `build`（导出 `out/`、上传构件）→ `e2e`（Playwright，`webServer` = `bun run start`，跑 `e2e/smoke.spec.ts`）→ `deploy`（`npx edgeone pages deploy ./out` 到 EdgeOne Pages）→ `release`（`refs/tags/v*` 或 main 分支触发，抽 CHANGELOG 发行说明，附 `data/*.json`）。
@@ -192,11 +192,11 @@ type SkillsData = {
 
 > 以下为当前真实存在、待后续迭代处理的问题；历史已修复项附于末尾备查。**改动相关区域前须先知悉**。
 
-- **8.1 Next 壳冗余**：`src/index.html`（真实应用）与 `src/app`（重定向壳）双层并存，仅一层有用；`src/app` 仅导出占位页随后被 `cp` 覆盖。候选清理：删除 `src/app` 或改 `next.config` 直接以 `src/index.html` 为入口。
+- **8.1 ~~Next 壳冗余~~（v1.21.0 已解决）**：`src/app/` 重定向存根、`next.config.mjs`、`next-env.d.ts` 与 `next`/`react`/`react-dom` 依赖已移除；站点直接由 `scripts/build-static.mjs` 生成 `out/`，无框架运行时与 `.next` 中间目录。
 - **8.2 无 `SKILL.md`→`data` 生成器**：`data/*.json` 由外部 skills-manager 基于 §2 六字段 frontmatter 生成并手工提交仓库；仓库内不保留反向生成脚本，**属已确认设计取舍**（非 bug）。新增/修改技能须先满足 §2 契约（`validate-skills.mjs` 软门禁提示缺失字段），再经 skills-manager 落 `data/`。
 - **8.3 `live_page.html`（已失效）**：该并行快照文件已从仓库移除，本条仅存档；`npm run sync:data` 现只更新 `src/index.html`（唯一站点本体），若未来恢复快照文件需重新评估同步策略。
 - **8.4 过期引用残留（v1.16.18 部分清理）**：`src/index.html` 头注释与 og 注释、`.gitignore` 幽灵规则已清理；历史 CHANGELOG 中旧双轨版本号（1.20.x / 2026-08 的 1.16.x 与现行体系重名）仅存档不动。
-- **8.5 边缘产物部署保证**：`edge-worker.js` / `edgeone.config.json` 在仓库根，`next build`/`cp` 不把它们纳入 `out/`；其随 EdgeOne 部署的保证未在流水线中明确，待确认。
+- **8.5 边缘产物部署保证**：`edge-worker.js` / `edgeone.config.json` 在仓库根，构建脚本不把它们纳入 `out/`（EdgeOne 侧按平台约定单独部署）；其随 EdgeOne 部署的保证未在流水线中明确，待确认。
 
 **历史已修复（记录备查，勿再标为问题）**：
 - **v1.16.19 代码审查**：① 工作区配置中的明文 IDE accessToken 移除并脱敏后重新纳入版本控制；② `edge-worker.js` 回源失败补 502 兜底、GET /api/votes 改并行 KV 读取、兼容 KV list 两种返回形态；③ `server/store.js` 增加退出前强制落盘（防最后 100ms 投票/收藏丢失），`server/pages.js` 首页注入结果按 mtime 缓存；④ 详情外链加 http/https 协议白名单，复制降级路径按 `execCommand` 真实结果反馈；⑤ id 全量 kebab-case 化并消除重复 id；⑥ `prototype/template.html` 从残留占位符模板重写为 DOM 结构契约，三份原型的 favicon 引用与页脚结构对齐实现。

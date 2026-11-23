@@ -723,3 +723,23 @@
 | 3 | 协作文档补 SEO/GEO 维护流程 | P2 | ✅ 已完成 | AGENTS 数据纪律/质量门禁、CONTRIBUTING 部署配置、PR 模板清单补充 `npm run sync:seo` 与生成区勿手改约定；IMPROVEMENT-SPEC 历史基线加当前版本指针 |
 | 4 | 生成物与门禁复核 | P1 | ✅ 已完成 | 重跑 `sync:seo`（sitemap / JSON-LD 的 `dateModified` 随版本日期）、check-version / check-inline-js / tsc / 单测 / 版本与数字一致性校验全通过 |
 | 5 | Vercel 输出目录修复 | P1 | ✅ 已完成 | 新增 `vercel.json`（framework / buildCommand / outputDirectory=out），修复 `STATIC_BUILD_NO_OUT_DIR`；全量文档与版本同步至 1.16.22 |
+
+---
+
+## 迭代三十六：六维诊断全面整改（v1.21.0，2026-11-23）
+
+**触发**：以「技能分析」视角对应用做六维系统诊断（功能完整性 / 性能稳定性 / 体验交互 / 代码质量 / 安全风险 / 可扩展性），随后按结论全面整改。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 1 | 数据链路单一源治理 | P0 | ✅ 已完成 | `scripts/sync-inline-data.mjs` 增加「静态发布副本」与「边缘白名单」单向生成；新增 `tools/lib/data-sync.test.mjs`（6 项断言）校验权威源 → 内联 / public 副本 / Serverless 白名单全链路一致 |
+| 2 | 三后端契约统一 | P0 | ✅ 已完成 | 新增 `server/api-contract.js` 作为共享契约单一来源（限流 → 存储 → 白名单 → JSON → 名称判定顺序与文案）；本地 Express / Vercel Functions / EdgeOne 边缘函数统一接入；`tools/lib/api-contract.test.mjs`（12 项）含边缘函数源码断言 |
+| 3 | 边缘函数白名单 fail-closed | P0 | ✅ 已完成 | `edge-worker.js` 由「仅格式校验」改为内联 169 个精确技能名 + 白名单为空即拒绝（503），与 server 端语义对齐；文件由 219 行压缩至 196 行 |
+| 4 | 修复「复制安装命令」按钮失效 | P0 | ✅ 已完成 | `#copy-cmd-btn` 从未绑定点击监听（打开详情反而立即复制一次）；详情弹窗改为 `#dialog` 一次性事件委托（关闭 / 复制名 / 复制命令 / 导出反馈 / 相关技能），消除监听器随打开次数累积 |
+| 5 | 前端渲染性能优化 | P1 | ✅ 已完成 | `.card` 增加 `content-visibility: auto` + `contain-intrinsic-size: auto 220px`，离屏卡片跳过布局绘制；搜索防抖（120ms）与分页（36/页）沿用既有实现 |
+| 6 | 语言常量去重与 i18n 门禁 | P1 | ✅ 已完成 | 删除死常量 `SUPPORTED_LANGS` 与第二份语言数组，统一取 `I18N.supported` / `I18N.fallback`；新增 `tools/lib/i18n-parity.test.mjs`（6 项）校验三语键位、语言优先级、BCP-47 映射与繁体分类覆盖 |
+| 7 | 技能指标实算与口径收敛 | P1 | ✅ 已完成 | 新增 `scripts/sync-metrics.mjs`：按磁盘实算 `size` / `files`，`popularity` 口径定义为「其它技能描述提及次数」；169 个技能 75 条历史快照被纠正（如 `canvas-design` 404B/1 文件 → 5,553,917B/83 文件） |
+| 8 | 数据层残留引号清理 | P2 | ✅ 已完成 | 新增 `scripts/clean-data-quotes.mjs`（幂等），清理 13 处 `enDescription` 首尾成对引号；SKILL.md ↔ data 一致性核对差异 0 条 |
+| 9 | CI 门禁补强 | P1 | ✅ 已完成 | 新增「技能指标与磁盘实算一致」（`npm run check:metrics`）与「构建产物校验」（版本注入 + 占位符残留检查）两步；`npm test` 自动纳入 3 个新测试文件 |
+| 10 | 版本号选用避坑 | P1 | ✅ 已完成 | 历史 CHANGELOG 已存在 1.17.x 与 1.20.68，本次 bump 取 **v1.21.0**（高于历史最高），避免 tag 冲突导致 CI 自动发版幂等跳过 |
+| 11 | 临时产物清理 | P2 | ✅ 已完成 | 清除 `scripts/_tmp_docA.mjs` 等会话级临时脚本；`.gitignore` 补 `.tmp/` |

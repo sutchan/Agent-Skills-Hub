@@ -1,10 +1,10 @@
 # Agent Skills Hub · 原型设计规范（Design Spec）
 
-> 路径：`prototype/DESIGN.md` · 版本：1.16.31
+> 路径：`prototype/DESIGN.md` · 版本：1.21.0
 > 本文档是**视觉 / 交互设计的事实来源（Single Source of Truth）**，涵盖设计原则、设计系统、组件库、交互标准与响应式规范。
 > 适用目录：`prototype/`（已重命名自 `site/`）。
 >
-> **实际交付形态（与 docs/spec.md §1 对齐）**：站点本体为自包含静态单页 `src/index.html`（原生 JS + 内联 CSS + 内联 `window.SKILLS_DATA`）；`npm run build` = `next build` 后将 `src/index.html` 拷贝覆盖 `out/index.html` 并注入 GA；`src/app/` 仅为把 `/` 重定向到 `/index.html` 的 Next 存根；本地预览由 `server/`（Express）提供，`edge-worker.js` 承接生产侧投票 / 收藏。本 DESIGN.md 的**设计令牌与组件规范依然为准**，但「由 `tools/build.mjs` 从 `prototype/src` 拼装产物」的旧构建流程已废弃，请勿据此重建产物。
+> **实际交付形态（与 docs/spec.md §1 对齐）**：站点本体为自包含静态单页 `src/index.html`（原生 JS + 内联 CSS + 内联 `window.SKILLS_DATA`）；`npm run build` = `npm run sync:data` → `scripts/build-static.mjs`（生成 `out/`）→ `scripts/inject-ga.mjs`（注入 GA/版本/构建号）；**无前端框架运行时**（v1.21.0 起移除 Next.js 存根与 react 依赖）；本地预览由 `server/`（Express）提供，`edge-worker.js` 承接生产侧投票 / 收藏。本 DESIGN.md 的**设计令牌与组件规范依然为准**，但「由 `tools/build.mjs` 从 `prototype/src` 拼装产物」的旧构建流程已废弃，请勿据此重建产物。
 
 ---
 
@@ -261,7 +261,7 @@
 ## 7. 技术栈与构建（实际形态，与 `docs/spec.md` 对齐）
 
 - 站点本体为**纯静态原生实现**单体文件 `src/index.html`：内联 CSS（设计令牌与组件样式，以 `:root` CSS 变量为唯一来源，非 Tailwind）+ 内联 JS（原生渲染与交互，无 React/Next.js/Radix）+ 内联 `window.SKILLS_DATA`。
-- 构建：`npm run build` = `next build`（`src/app/page.tsx` 仅把 `/` 重定向到 `/index.html`）后将 `src/index.html` 拷贝覆盖 `out/index.html` 并注入 GA；无前端运行时依赖。
+- 构建：`npm run build` = `npm run sync:data` → `scripts/build-static.mjs`（生成 `out/`）→ `scripts/inject-ga.mjs`（注入 GA/版本/构建号）；无前端运行时依赖，无 Next.js / react。
 - 数据源：磁盘 `skills/<name>/SKILL.md`（六字段契约）→ 手工维护 `data/skills-data.json` → `scripts/sync-inline-data.mjs`（仅读 skills-data.json）派生注入 `src/index.html` 内联数据块。
 - 分发形态：仓库保留 `src/index.html`（唯一可运行产物）与 `prototype/`（设计文档与设计稿，不再含可运行构建产物）。
 - 本地预览：`server/`（Express）提供静态服务与投票/收藏 API；生产部署由 `edge-worker.js` 在边缘承接投票/收藏 API（Edge KV）。静态托管服务 `out/`。

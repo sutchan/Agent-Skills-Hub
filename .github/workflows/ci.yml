@@ -99,6 +99,9 @@ jobs:
       - name: 校验 SKILL.md frontmatter YAML 合法性（真实 YAML 解析）
         run: bun run tools/check-skill-yaml.mjs
 
+      - name: 校验技能指标与磁盘实算一致（size / files / popularity）
+        run: bun run check:metrics
+
       - name: 版本 / CHANGELOG / Tag 一致性校验
         run: node tools/check-version.mjs
 
@@ -132,6 +135,12 @@ jobs:
           # 构建期由 scripts/inject-ga.mjs 写入 out/index.html，避免硬编码泄露/耦合。
           GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
         run: bun run build
+
+      - name: 校验构建产物（站点本体 + 版本/构建号注入完成）
+        run: |
+          test -f out/index.html
+          test -f out/data/skills-data.json
+          node -e "const fs=require('fs');const h=fs.readFileSync('out/index.html','utf8');const v=require('./package.json').version;if(!h.includes('content=\"'+v+'\"')){console.error('产物缺少版本号 '+v);process.exit(1);}if(/__APP_VERSION__|__BUILD_ID__|__GA_MEASUREMENT_ID__/.test(h)){console.error('产物残留占位符');process.exit(1);}console.log('✓ 构建产物校验通过：'+v);"
 
       - name: 上传部署构件（out/，供 deploy 复用）
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

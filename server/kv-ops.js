@@ -1,5 +1,8 @@
 // server/kv-ops.js — 投票/收藏的纯业务逻辑（本地 Express 与 Vercel Functions 共用）
 // 与 edge-worker.js 的 NAME_RE / action 语义保持一致：name 为 kebab-case ≤100，undo 删除 vote，add/remove/缺省 toggle fav。
+// 错误文案统一取自 server/api-contract.js，避免三端（本地 / Serverless / 边缘函数）文案漂移。
+import { INVALID_NAME, UNKNOWN_NAME, WHITELIST_UNAVAILABLE } from './api-contract.js';
+
 export const NAME_RE = /^[a-z0-9][a-z0-9-]{0,99}$/;
 
 /**
@@ -8,9 +11,9 @@ export const NAME_RE = /^[a-z0-9][a-z0-9-]{0,99}$/;
  * 计数被伪造是数据完整性问题，宁可拒绝写入也不能静默失守。
  */
 export function validateName(name, whitelist) {
-  if (!NAME_RE.test(name || '')) return 'Invalid or missing skill name';
-  if (!whitelist || whitelist.size === 0) return 'Skill whitelist unavailable';
-  if (!whitelist.has(name)) return 'Skill name not found in whitelist';
+  if (!NAME_RE.test(name || '')) return INVALID_NAME;
+  if (!whitelist || whitelist.size === 0) return WHITELIST_UNAVAILABLE;
+  if (!whitelist.has(name)) return UNKNOWN_NAME;
   return null;
 }
 

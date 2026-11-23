@@ -71,3 +71,34 @@ const namesPath = path.join(root, 'server', 'skill-names.json');
 const names = data.skills.map((s) => s.name).filter(Boolean);
 fs.writeFileSync(namesPath, JSON.stringify({ names }, null, 0) + '\n', 'utf8');
 console.log(`✓ 已生成 server/skill-names.json：${names.length} 个技能名（随 Serverless Function 打包）`);
+
+// 同步生成「静态发布副本」public/data/skills-data.json：
+// 该副本让 /data/skills-data.json 在纯静态产物（out/）中可达，供机器读取；
+// 权威源唯一为 data/skills-data.json，此处单向复制，避免人工复制导致副本漂移。
+const pubDataDir = path.join(root, 'public', 'data');
+fs.mkdirSync(pubDataDir, { recursive: true });
+const pubDataPath = path.join(pubDataDir, 'skills-data.json');
+fs.writeFileSync(pubDataPath, fs.readFileSync(dataPath, 'utf8'), 'utf8');
+console.log(`✓ 已同步 public/data/skills-data.json：发布副本（${data.skills.length} 个技能）`);
+
+// 同步注入「边缘函数精确白名单」edge-worker.js：
+// 边缘运行时读不到仓库数据文件，此前仅做名称格式校验（任意 kebab-case 名称都能写入计数）。
+// 这里把权威名单内联进 edge-worker.js，配合 fail-closed 判定，与 server/ 端语义对齐。
+const edgePath = path.join(root, 'edge-worker.js');
+const edgeSrc = fs.readFileSync(edgePath, 'utf8');
+const EDGE_BLOCK_RE = /const SKILL_NAMES_INLINE = \[[\s\S]*?\n\];/;
+if (!EDGE_BLOCK_RE.test(edgeSrc)) {
+  throw new Error('edge-worker.js 未找到 SKILL_NAMES_INLINE 白名单块，无法注入技能名单');
+}
+const nameLines = [];
+for (let i = 0; i < names.length; i += 10) {
+  nameLines.push('  ' + names.slice(i, i + 10).map((n) => JSON.stringify(n)).join(', '));
+}
+const edgeBlock = 'const SKILL_NAMES_INLINE = [\n' + nameLines.join(',\n') + ',\n];';
+const nextEdge = edgeSrc.replace(EDGE_BLOCK_RE, edgeBlock);
+if (nextEdge !== edgeSrc) {
+  fs.writeFileSync(edgePath, nextEdge, 'utf8');
+  console.log(`✓ 已注入 edge-worker.js 白名单：${names.length} 个技能名`);
+} else {
+  console.log('· edge-worker.js 白名单已是最新，无需变更');
+}

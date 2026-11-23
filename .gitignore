@@ -7,6 +7,9 @@ logs/
 # 临时文件
 *.tmp
 
+# 会话级临时目录（探针 / 取证 / 中间产物；用完即删，勿入库）
+.tmp/
+
 # FreeFileSync 残留临时目录（非源码，禁止入库）
 skills/RecycleBin~*.ffs_tmp/
 

@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.16.31-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Version](https://img.shields.io/badge/version-v1.21.0-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Other languages: [中文文档](README.md)
 
@@ -141,7 +141,7 @@ Per-skill licenses are in each directory's `LICENSE` file (e.g. [`skill-creator/
 
 ## Environment Variables (Deployment)
 
-The site is a pure static export (`output: "export"` in `next.config.mjs`). The Google Analytics 4 measurement ID is **no longer hard-coded** and is injected via the `GA_MEASUREMENT_ID` environment variable at deploy time:
+The site is a pure static artifact (`npm run build` = sync data -> `scripts/build-static.mjs` emits `out/` -> `scripts/inject-ga.mjs` injects GA / version / build id). The Google Analytics 4 measurement ID is **no longer hard-coded** and is injected via the `GA_MEASUREMENT_ID` environment variable at deploy time:
 
 | Variable | Description | Required | Default |
 |---|---|---|---|

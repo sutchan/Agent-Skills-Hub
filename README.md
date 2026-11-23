@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.16.31-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![版本](https://img.shields.io/badge/version-v1.21.0-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 其他语言：[English](README.en.md)
 
@@ -145,7 +145,7 @@ cd Agent-Skills-Hub
 
 ## 环境变量（部署）
 
-站点为纯静态导出（`next.config.mjs` 的 `output: "export"`），Google Analytics 4 衡量 ID **不再硬编码**，改由部署平台环境变量 `GA_MEASUREMENT_ID` 注入：
+站点为纯静态产物（`npm run build` 依次执行：数据同步 → `scripts/build-static.mjs` 生成 `out/` → `scripts/inject-ga.mjs` 注入 GA/版本/构建号），Google Analytics 4 衡量 ID **不再硬编码**，改由部署平台环境变量 `GA_MEASUREMENT_ID` 注入：
 
 | 变量 | 说明 | 必填 | 默认 |
 |---|---|---|---|
