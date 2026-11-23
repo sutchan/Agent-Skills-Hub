@@ -752,3 +752,18 @@
 | 1 | 修复 EdgeOne 构建后 lstat .next 失败 | P0 | ✅ 已完成 | 平台日志：`npm run build` 成功生成 `out/index.html`（11 文件），但收集产物阶段报 `ENOENT lstat .next`（exit 18）；新增根 `edgeone.json` 声明 `buildCommand: "npm run build"` + `outputDirectory: "out"`（顶层字段覆盖控制台默认行为） |
 | 2 | 配置职责澄清与文档同步 | P1 | ✅ 已完成 | `edgeone.json`（构建配置）≠ `edgeone.config.json`（边缘函数路由 / KV 绑定）；官方文档确认纯静态站点无需 `framework` 字段；同步 `docs/spec.md` §4、`docs/project.md` 目录表、README 双语 EdgeOne 段、CHANGELOG 1.21.1 小节 |
 | 3 | 版本同步 | P1 | ✅ 已完成 | v1.21.0 → v1.21.1（package.json / src 头注释·meta / 双语 README 徽章 / docs 头版本 / DOM 契约 / CHANGELOG） |
+
+---
+
+## 迭代三十八：任务清单复核与状态治理（v1.21.2，2026-11-23 22:51 UTC+8）
+
+> 来源：用户指令「查看 `docs/tasks.md` 任务进度，把已完成任务移入 `docs/tasks-done.md`；更新未完成任务优先级与状态并记录时间戳；随后推进并完成所有剩余任务；完成后同步任务文档」。
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 1 | 核对 tasks.md 已完成项与归档范围 | P1 | ✅ 已完成 | 当前 tasks.md 无已完成项可迁移；tasks-done.md 已归档至迭代三十七；修正 tasks.md 头部「迭代一至三十六」为「迭代一至三十七」 |
+| 2 | 逐项复核 4 个未完成任务的可推进性 | P1 | ✅ 已完成 | #1 `skills/` 169 目录 / 13 分类实算无桌面与客户端素材；#2 需 EdgeOne 控制台账号/token；#3 本机 `curl` 生产因 `CRYPT_E_REVOCATION_OFFLINE` 失败；#4 本机无 Python/opencc 与 opencc-js，UI 已有 `tw \|\| zh` 回退但数据缺 `tw*` 字段。四项均登记为⛔阻塞 |
+| 3 | 更新优先级与状态、记录时间戳 | P1 | ✅ 已完成 | #3 P3→P2、#2 P3→P4；新增「状态说明」区分待开始/阻塞/已完成；时间戳 2026-11-23 22:51 UTC+8 |
+| 4 | 同步版本至 v1.21.2 与全局展示位 | P1 | ✅ 已完成 | package.json / src 头注释·meta / 双语 README 徽章 / docs 头版本 / CHANGELOG |
+
+> **未完成项**：4 个阻塞任务均需外部条件解除（真实技能素材、EdgeOne 控制台访问、可联网验证环境、繁体转换工具/译文）。本次**未编造数据或验证结果**，阻塞项保留在 `docs/tasks.md`。
