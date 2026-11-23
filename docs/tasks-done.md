@@ -743,3 +743,12 @@
 | 9 | CI 门禁补强 | P1 | ✅ 已完成 | 新增「技能指标与磁盘实算一致」（`npm run check:metrics`）与「构建产物校验」（版本注入 + 占位符残留检查）两步；`npm test` 自动纳入 3 个新测试文件 |
 | 10 | 版本号选用避坑 | P1 | ✅ 已完成 | 历史 CHANGELOG 已存在 1.17.x 与 1.20.68，本次 bump 取 **v1.21.0**（高于历史最高），避免 tag 冲突导致 CI 自动发版幂等跳过 |
 | 11 | 临时产物清理 | P2 | ✅ 已完成 | 清除 `scripts/_tmp_docA.mjs` 等会话级临时脚本；`.gitignore` 补 `.tmp/` |
+---
+
+## 迭代三十七：EdgeOne Pages 构建产物目录修复（v1.21.1，2026-11-23）
+
+| # | 任务 | 优先级 | 状态 | 备注 |
+|---|------|--------|------|------|
+| 1 | 修复 EdgeOne 构建后 lstat .next 失败 | P0 | ✅ 已完成 | 平台日志：`npm run build` 成功生成 `out/index.html`（11 文件），但收集产物阶段报 `ENOENT lstat .next`（exit 18）；新增根 `edgeone.json` 声明 `buildCommand: "npm run build"` + `outputDirectory: "out"`（顶层字段覆盖控制台默认行为） |
+| 2 | 配置职责澄清与文档同步 | P1 | ✅ 已完成 | `edgeone.json`（构建配置）≠ `edgeone.config.json`（边缘函数路由 / KV 绑定）；官方文档确认纯静态站点无需 `framework` 字段；同步 `docs/spec.md` §4、`docs/project.md` 目录表、README 双语 EdgeOne 段、CHANGELOG 1.21.1 小节 |
+| 3 | 版本同步 | P1 | ✅ 已完成 | v1.21.0 → v1.21.1（package.json / src 头注释·meta / 双语 README 徽章 / docs 头版本 / DOM 契约 / CHANGELOG） |

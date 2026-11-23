@@ -1,6 +1,6 @@
 # 仓库约定（Project Conventions）
 
-> 路径：`docs/project.md` · 版本：1.21.0
+> 路径：`docs/project.md` · 版本：1.21.1
 > 本文件定义目录结构、变更工作流与术语表。能力契约（frontmatter/数据/红线）的唯一权威源是 [spec.md](spec.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)。
 
 ---
@@ -19,7 +19,7 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 | `skills/<name>/references/`、`scripts/`、`assets/`、`agents/` | 技能的参考资料 / 脚本 / 资源 | ✅ 中频 |
 | `src/index.html` | **应用本体**：自包含静态单页（原生 JS、无框架），内联 CSS + `window.SKILLS_DATA`，`server.js` 的 `GET /` 即返回它 | ✅ 高频 |
 | ~~`src/app/`~~ | **已移除**（v1.21.0）：Next.js 重定向存根（`page.tsx` 跳 `/index.html`）对最终页面无实质贡献，连同 `next.config.mjs` / `next-env.d.ts` 一并移除 | — |
-| `scripts/build-static.mjs` + `vercel.json` | 静态构建契约：清空并复制 `public/` 到 `out/`，`inject-ga.mjs` 随后写入 `out/index.html`；`vercel.json` 声明 `buildCommand: "npm run build"` 与 `outputDirectory: "out"`（项目设置优先级更高，须同步为 `out` 或留空） | ◻️ 低频 |
+| `scripts/build-static.mjs` + `vercel.json` + `edgeone.json` | 静态构建契约：清空并复制 `public/` 到 `out/`，`inject-ga.mjs` 随后写入 `out/index.html`；`vercel.json`（Vercel）与 `edgeone.json`（EdgeOne Pages，v1.21.1 新增）均声明 `buildCommand: "npm run build"` 与 `outputDirectory: "out"`——前者受项目设置优先级影响，后者覆盖控制台默认行为、防止平台按旧预设去找 `.next`。`edgeone.config.json` 另管边缘函数路由与 KV 绑定，二者职责不同 | ◻️ 低频 |
 | `server/` | 本地服务模块化实现：`config.js`（路径/环境常量）、`fs-util.js`（JSON 安全读 + 原子写）、`store.js`（技能名白名单；v1.16.25 移除内存 KV）、`blob-store.js`（**统一存储层**：Vercel Blob / 本地文件回退）、`kv-ops.js`（校验/计票共用逻辑）、`ratelimit.js`（IP 限流持久化）、`api.js`（async `/api/votes`、`/api/favorites`）、`pages.js`（静态资源与 SPA 回退）；根 `server.js` 为薄装配层 | ◻️ 低频 |
 | `api/` | **Vercel Serverless Functions**（v1.16.25 起）：`votes.js` / `favorites.js` 提供生产 `/api/*`，复用 `server/blob-store.js` + `server/kv-ops.js`，CORS + OPTIONS 预检 | ◻️ 低频 |
 | `server.js` | 本地服务入口（Express 薄装配，仅挂载 `server/` 各模块、维持中间件顺序） | ◻️ 低频 |

@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.21.1] - 2026-11-23
+
+### fix: 修复 EdgeOne Pages 部署仍查找 .next 目录导致构建失败
+
+- **现象**：EdgeOne 日志显示 `npm run build` 成功生成 `out/index.html`（11 个文件、版本 1.21.0），但平台在收集产物阶段报 `ENOENT: lstat /dev/shm/repo/.../.next`，CLI exit 18
+- **根因**：v1.21.0 已移除 Next.js 存根与依赖，构建链改为纯静态；但 EdgeOne 项目仍沿用旧的框架预设/产物目录 `.next`，而仓库缺少覆盖该默认行为的项目配置
+- **修复**：仓库根新增 `edgeone.json`，显式声明 `buildCommand: "npm run build"` 与 `outputDirectory: "out"`。官方文档确认 `outputDirectory` 为顶层字段且覆盖控制台设置；纯静态站点无需 `framework` 字段
+- **配置职责澄清**：`edgeone.json`（项目构建配置：输出目录 / 构建命令）与既有 `edgeone.config.json`（边缘函数路由 / KV 绑定）是两份不同文件，互不冲突
+- **文档**：`docs/spec.md` §4、`docs/project.md` 目录表、README 双语 EdgeOne 段补充部署契约；版本同步全链路至 1.21.1
+
+[1.21.1]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.21.1
+
 ## [1.21.0] - 2026-11-23
 
 ### feat: 六维诊断全面整改（架构收敛 / 安全加固 / 数据真实化 / 性能与门禁）
