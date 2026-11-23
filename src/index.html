@@ -368,10 +368,9 @@ html[data-lang="tw"] .zh, html[data-lang="tw"] .en { display: none; }
 .empty-state .empty-title { font-size: 18px; font-weight: 600; color: var(--text); }
 .empty-state .empty-desc { font-size: 14px; }
 
-/* ===== 页脚：目录版权页（colophon）—— 简化版：识别与动作 / 构建元数据两区，单行 flex（对齐 app #appFooter）===== */
-
+/* ===== 页脚：目录版权页（colophon）===== */
 /* 底层：背景全宽，内容限宽居中（--maxw，与其余栏一致） */
-/* 页脚三段式：左栏 colophon（品牌/协议/版权元数据）· 中段辅助导航 · 右段动作区 */
+/* 三段式：左栏 colophon（品牌/协议/版权元数据）· 中段辅助导航 · 右段动作区 */
 .site-footer { border-top: 1px solid var(--border); background: var(--surface-2); padding: 32px 24px 36px; margin-top: 24px; }
 .footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; }
 
@@ -437,7 +436,7 @@ html[data-lang="tw"] .zh, html[data-lang="tw"] .en { display: none; }
 @media (max-width: 900px) {
   .footer-inner { justify-content: space-between; gap: 20px 24px; }
   .footer-cta { order: 1; }
-  .footer-links { width: 100%; order: 2; justify-content: flex-end; }
+  .footer-links { width: 100%; order: 2; justify-content: flex-start; }
 }
 @media (max-width: 640px) {
   .site-footer { padding: 20px 16px; margin-top: 20px; }
@@ -445,8 +444,9 @@ html[data-lang="tw"] .zh, html[data-lang="tw"] .en { display: none; }
   .footer-info { width: 100%; align-items: center; text-align: center; }
   .footer-meta { justify-content: center; }
   .footer-links { width: 100%; order: 2; justify-content: center; }
-  .footer-cta { width: 100%; order: 3; }
-  .star-btn, .share-btn { flex: 1 1 auto; justify-content: center; }
+  .footer-cta { width: 100%; order: 3; justify-content: center; gap: 18px; }
+  /* Star 为主动作取自然宽度，Share 文字链不被拉伸，避免各占 50% 的主次失衡 */
+  .star-btn, .share-btn { flex: 0 1 auto; justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) {
   .share-btn::after, .star-btn { transition: none; }
@@ -1546,37 +1546,38 @@ html[data-lang="tw"] .d-title .en { display: block; }
   <!-- 页脚区：定位为「目录版权页」—— 左栏品牌/协议/版权元数据，中段辅助导航，右段动作区（v1.16.16 三段式）
        脚本契约（勿改 id）：#footer-ver 版本 / #footer-build 构建号 由 inject-ga.mjs 构建期与 server/pages.js 本地服务注入；#star-btn/#share-btn 绑定交互。
        约定：版本取自 package.json（占位符 __APP_VERSION__，构建/本地服务替换），构建号 = yymmddhhmm（10 位 · 2 位数年份，占位符 __BUILD_ID__）；不再展示更新日期。
-       版权年份由 JS 动态写入 #footer-copy；meta 与辅助链接均为静态节点，语言切换靠 .zh/.en 互斥显示。 -->
+       版权年份（含所有者）由 JS 动态写入 #footer-copy；meta 与辅助链接均为静态节点，文案靠 .zh/.tw/.en 互斥显示，aria/title 经 data-i18n-aria/title 随语言切换。 -->
   <footer class="site-footer" id="site-footer">
     <div class="footer-inner" id="footer-inner">
       <div class="footer-info" id="footer-info">
-        <a class="footer-name" id="footer-name" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener" aria-label="访问 GitHub 仓库 / Visit GitHub repo">Agent Skills Hub</a>
+        <a class="footer-name" id="footer-name" href="https://github.com/sutchan/Agent-Skills-Hub" target="_blank" rel="noopener" data-i18n-aria="footer.ariaName">Agent Skills Hub</a>
         <a class="footer-desc zh" id="footer-desc-zh" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">开源免费 · MIT 协议</a>
         <a class="footer-desc tw" id="footer-desc-tw" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">開源免費 · MIT 授權</a>
         <a class="footer-desc en" id="footer-desc-en" data-i18n="footer.desc" href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/LICENSE" target="_blank" rel="noopener">Open source · MIT License</a>
         <div class="footer-meta" id="footer-meta">
           <!-- 版权年份 + 版本（__APP_VERSION__，链接至 releases）+ 构建号（__BUILD_ID__，按钮可复制） -->
-          <span class="footer-copy" id="footer-copy">© 2026</span>
+          <span class="footer-copy" id="footer-copy">© 2026 Agent Skills Hub</span>
           <span class="footer-sep" aria-hidden="true">·</span>
-          <a class="footer-ver" id="footer-ver" href="https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v__APP_VERSION__" target="_blank" rel="noopener" title="查看该版本更新说明 / View release notes">v__APP_VERSION__</a>
+          <a class="footer-ver" id="footer-ver" href="https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v__APP_VERSION__" target="_blank" rel="noopener" data-i18n-title="footer.titleVer">v__APP_VERSION__</a>
           <span class="footer-sep" aria-hidden="true">·</span>
-          <button class="footer-build" id="footer-build" type="button" aria-label="复制版本信息 / Copy version info">build __BUILD_ID__</button>
+          <button class="footer-build" id="footer-build" type="button" data-i18n-aria="footer.clickCopy">build __BUILD_ID__</button>
         </div>
       </div>
       <!-- 辅助导航：补齐页脚此前缺失的内容入口（关于 / 更新日志 / 反馈） -->
-      <nav class="footer-links" id="footer-links" aria-label="页脚导航 / Footer navigation">
-        <a href="/about.html" id="footer-about-link"><span class="zh" data-i18n="footer.about">关于</span><span class="tw" data-i18n="footer.about">關於</span><span class="en" data-i18n="footer.about">About</span></a>
-        <a href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/CHANGELOG.md" target="_blank" rel="noopener"><span class="zh" data-i18n="footer.changelog">更新日志</span><span class="tw" data-i18n="footer.changelog">更新日誌</span><span class="en" data-i18n="footer.changelog">Changelog</span></a>
-        <a href="https://github.com/sutchan/Agent-Skills-Hub/issues" target="_blank" rel="noopener"><span class="zh" data-i18n="footer.issue">提交 Issue</span><span class="tw" data-i18n="footer.issue">提交 Issue</span><span class="en" data-i18n="footer.issue">Report an issue</span></a>
+      <nav class="footer-links" id="footer-links" data-i18n-aria="footer.ariaNav">
+        <a href="/about.html" id="footer-about-link" data-i18n-aria="footer.about"><span class="zh" data-i18n="footer.about">关于</span><span class="tw" data-i18n="footer.about">關於</span><span class="en" data-i18n="footer.about">About</span></a>
+        <a href="https://github.com/sutchan/Agent-Skills-Hub/blob/main/CHANGELOG.md" target="_blank" rel="noopener" data-i18n-aria="footer.changelog"><span class="zh" data-i18n="footer.changelog">更新日志</span><span class="tw" data-i18n="footer.changelog">更新日誌</span><span class="en" data-i18n="footer.changelog">Changelog</span></a>
+        <a href="https://github.com/sutchan/Agent-Skills-Hub/issues" target="_blank" rel="noopener" data-i18n-aria="footer.issue"><span class="zh" data-i18n="footer.issue">提交 Issue</span><span class="tw" data-i18n="footer.issue">提交 Issue</span><span class="en" data-i18n="footer.issue">Report an issue</span></a>
+        <a href="https://github.com/sutchan/Agent-Skills-Hub#readme" target="_blank" rel="noopener" data-i18n-aria="footer.docs"><span class="zh" data-i18n="footer.docs">使用文档</span><span class="tw" data-i18n="footer.docs">使用文件</span><span class="en" data-i18n="footer.docs">Documentation</span></a>
       </nav>
-      <nav class="footer-cta" id="footer-cta" aria-label="页脚动作 / Footer actions">
-        <a class="star-btn" id="star-btn" href="https://github.com/sutchan/Agent-Skills-Hub/stargazers" target="_blank" rel="noopener" aria-label="给仓库点 Star / Star this repo">
+      <nav class="footer-cta" id="footer-cta" data-i18n-aria="footer.ariaActions">
+        <a class="star-btn" id="star-btn" href="https://github.com/sutchan/Agent-Skills-Hub/stargazers" target="_blank" rel="noopener" data-i18n-aria="footer.ariaStar">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9L12 2.5z"/></svg>
           <span class="zh" data-i18n="footer.star">给仓库点个 Star</span>
           <span class="tw" data-i18n="footer.star">給倉庫點個 Star</span>
           <span class="en" data-i18n="footer.star">Star this repo</span>
         </a>
-        <button class="share-btn" id="share-btn" type="button" aria-label="分享 / Share">
+        <button class="share-btn" id="share-btn" type="button" data-i18n-aria="footer.ariaShare">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
           <span class="zh" data-i18n="share.btn">分享</span>
           <span class="tw" data-i18n="share.btn">分享</span>
@@ -1733,7 +1734,19 @@ const CATEGORY_TW = {
       "footer.star": "给仓库点个 Star",
       "footer.about": "关于",
       "footer.changelog": "更新日志",
-      "footer.issue": "提交 Issue"
+      "footer.issue": "提交 Issue",
+      "footer.ariaName": "访问 GitHub 仓库",
+      "footer.ariaNav": "页脚导航",
+      "footer.ariaActions": "页脚动作",
+      "footer.ariaStar": "给仓库点个 Star",
+      "footer.ariaShare": "分享",
+      "footer.newTab": "（在新窗口打开）",
+      "footer.footerBuildTime": "构建时间",
+      "footer.clickCopy": "点击复制版本信息",
+      "footer.copyDone": "已复制版本信息",
+      "footer.copyFailed": "复制失败，请手动复制",
+      "footer.titleVer": "查看该版本更新说明",
+      "footer.docs": "使用文档"
     },
     tw: {
       "brand.subtitle": "高品質 Agent 技能庫",
@@ -1838,7 +1851,19 @@ const CATEGORY_TW = {
       "footer.star": "給倉庫點個 Star",
       "footer.about": "關於",
       "footer.changelog": "更新日誌",
-      "footer.issue": "提交 Issue"
+      "footer.issue": "提交 Issue",
+      "footer.ariaName": "前往 GitHub 倉庫",
+      "footer.ariaNav": "頁腳導覽",
+      "footer.ariaActions": "頁腳動作",
+      "footer.ariaStar": "給倉庫點個 Star",
+      "footer.ariaShare": "分享",
+      "footer.newTab": "（在新視窗開啟）",
+      "footer.footerBuildTime": "建置時間",
+      "footer.clickCopy": "點擊複製版本資訊",
+      "footer.copyDone": "已複製版本資訊",
+      "footer.copyFailed": "複製失敗，請手動複製",
+      "footer.titleVer": "檢視該版本更新說明",
+      "footer.docs": "使用文件"
     },
     en: {
       "chart.title": "Category Distribution",
@@ -1943,7 +1968,19 @@ const CATEGORY_TW = {
       "footer.star": "Star this repo",
       "footer.about": "About",
       "footer.changelog": "Changelog",
-      "footer.issue": "Report an issue"
+      "footer.issue": "Report an issue",
+      "footer.ariaName": "Visit GitHub repository",
+      "footer.ariaNav": "Footer navigation",
+      "footer.ariaActions": "Footer actions",
+      "footer.ariaStar": "Star this repo",
+      "footer.ariaShare": "Share",
+      "footer.newTab": "(opens in a new tab)",
+      "footer.footerBuildTime": "Build time",
+      "footer.clickCopy": "Click to copy version info",
+      "footer.copyDone": "Version info copied",
+      "footer.copyFailed": "Copy failed, copy manually",
+      "footer.titleVer": "View release notes",
+      "footer.docs": "Documentation"
     }
   };
 
@@ -2039,6 +2076,23 @@ const CATEGORY_TW = {
         else text = t(key, current);
         if (text) node.textContent = text;
       }
+      // 可访问性属性随语言切换：data-i18n-aria / data-i18n-title
+      // 解决「视觉三语、读屏仍中英混排」的问题；无语言类节点按当前语言取。
+      ["aria", "title"].forEach(function (kind) {
+        var attrNodes = document.querySelectorAll("[data-i18n-" + kind + "]");
+        for (var j = 0; j < attrNodes.length; j++) {
+          var n = attrNodes[j];
+          var k = n.getAttribute("data-i18n-" + kind);
+          var lang = n.classList.contains("en") ? "en" : (n.classList.contains("tw") ? "tw" : (n.classList.contains("zh") ? "zh" : current));
+          var v = t(k, lang);
+          // 外链自动补「在新窗口打开」读屏提示，避免导航歧义
+          if (kind === "aria" && n.getAttribute("target") === "_blank" && !n.hasAttribute("data-no-newtab-hint")) {
+            var hint = t("footer.newTab", lang);
+            if (hint) v = v + " " + hint;
+          }
+          if (v) n.setAttribute(kind === "aria" ? "aria-label" : "title", v);
+        }
+      });
     } catch (e) {
       // 同步失败不应影响交互逻辑
     }
@@ -3093,7 +3147,18 @@ function applyLang() {
   }
   // 关于页读取 ?lang 参数：把当前语言透传过去，避免繁体模式跳到简中内容
   const aboutLink = $("#footer-about-link");
-  if (aboutLink) aboutLink.setAttribute("href", "/about.html?lang=" + (state.lang === "tw" ? "tw" : "zh"));
+  if (aboutLink) {
+    // about.html 仅有简/繁双语文案；英文态改指仓库英文 README，避免进入中文关于页
+    if (state.lang === "en") {
+      aboutLink.setAttribute("href", "https://github.com/sutchan/Agent-Skills-Hub/blob/main/README.en.md");
+      aboutLink.setAttribute("target", "_blank");
+      aboutLink.setAttribute("rel", "noopener");
+    } else {
+      aboutLink.setAttribute("href", "/about.html?lang=" + (state.lang === "tw" ? "tw" : "zh"));
+      aboutLink.removeAttribute("target");
+      aboutLink.removeAttribute("rel");
+    }
+  }
   // 分类筛选区的「全部」等文案由 renderCats 用 I18N.t 动态生成（非 data-i18n 静态属性），
   // 语言切换后必须重渲染网格才能刷新分类文案，否则切换语言后 chips 仍显示旧语言
   renderGrid();
@@ -3823,7 +3888,7 @@ function init() {
   window.addEventListener("resize", setTopbarH);
   // 页脚版权年份：构建期不注入，按当前年份动态写入，避免每年手改
   const fc = $("#footer-copy");
-  if (fc) fc.textContent = "© " + new Date().getFullYear();
+  if (fc) fc.textContent = "© " + new Date().getFullYear() + " Agent Skills Hub";
   // 页脚版本兜底：裸开 src/index.html 时占位符未被替换，回退到 <meta name="app-version">。
   // 不能判断 __APP_VERSION__ 字符串——构建期全局替换会把它改成具体版本号，导致兜底被无条件触发。
   const fv = $("#footer-ver");
@@ -3846,16 +3911,19 @@ function init() {
     const m = (fb.textContent.match(/(\d{10})/) || [])[1];
     if (m) {
       const bt = "20" + m.slice(0, 2) + "-" + m.slice(2, 4) + "-" + m.slice(4, 6) + " " + m.slice(6, 8) + ":" + m.slice(8, 10);
-      fb.title = "构建时间 / Build time: " + bt + "（点击复制版本信息 / click to copy）";
+      fb.title = I18N.t("footer.footerBuildTime") + ": " + bt + "（" + I18N.t("footer.clickCopy") + "）";
       // aria-label 覆盖按钮文本会屏蔽 build 编号，故运行时补回编号 + 动作说明
-      fb.setAttribute("aria-label", "build " + m + " · 复制版本信息 / Copy version info");
+      fb.setAttribute("aria-label", "build " + m + " · " + I18N.t("footer.clickCopy"));
       fb.addEventListener("click", () => {
         const fv2 = $("#footer-ver");
         const info = (fv2 ? fv2.textContent.trim() : "") + " · build " + m;
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(info).then(() => showToast("已复制版本信息 / Version info copied"), () => showToast(info));
+          navigator.clipboard.writeText(info).then(
+            () => showToast(I18N.t("footer.copyDone")),
+            () => showToast(I18N.t("footer.copyFailed") + "：" + info)
+          );
         } else {
-          showToast(info);
+          showToast(I18N.t("footer.copyFailed") + "：" + info);
         }
       });
     }
