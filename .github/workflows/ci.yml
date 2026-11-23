@@ -18,9 +18,8 @@
 #
 # 设计要点：
 #   1) 构建一次、多处复用：`build` job 产出 out/ 并上传为构件，`deploy` 直接下载复用，
-#      避免原先 build / e2e / deploy 各自重复执行 next build（由 3 次降为 1 次）。
-#   2) 缓存：Bun 依赖缓存（~/.bun/install/cache）、Next.js 构建缓存（.next/cache）、
-#      Playwright 浏览器缓存（~/.cache/ms-playwright）。
+#      避免原先 build / e2e / deploy 各自重复执行构建（由 3 次降为 1 次）。
+#   2) 缓存：Bun 依赖缓存（~/.bun/install/cache）、Playwright 浏览器缓存（~/.cache/ms-playwright）。
 #   3) 并发分组：校验/构建/测试同组可取消；部署与发布独占不可取消组，避免新提交
 #      打断进行中的部署导致半成品（原先所有 job 共用一个 cancel-in-progress:true 组）。
 #   4) run 脚本一律通过 env 传值再引用 "$VAR"，不直接插值 ${{ }}，收敛命令注入面。
@@ -36,8 +35,8 @@
 # 部署平台：EdgeOne Pages
 # 前置 Secret：EDGEONE_API_TOKEN（Settings → Secrets and variables → Actions）；缺省时跳过部署并提示。
 #
-# 部署产物目录：next.config.mjs 为 output:"export"（静态导出），站点静态产物落在 `out/`，
-# 下方部署步骤上传并部署 `./out`（已修正此前误用 `.next` 的错位，见 tasks.md #2 / spec §8.1）。
+# 部署产物目录：站点为纯静态产物（src/index.html + public/），构建脚本 scripts/build-static.mjs
+# 直接生成 `out/`，下方部署步骤上传并部署 `./out`（无框架运行时，不存在 .next 中间目录）。
 
 name: CI/CD
 
@@ -64,7 +63,6 @@ permissions:
 env:
   NODE_VERSION: "22"
   BUN_VERSION: "1.4.3"
-  NEXT_TELEMETRY_DISABLED: "1"
   HAS_TOKEN: ${{ secrets.EDGEONE_API_TOKEN != '' }}
 
 jobs:
@@ -128,14 +126,6 @@ jobs:
           bun-version: ${{ env.BUN_VERSION }}
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: 恢复 Next.js 构建缓存
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
-        with:
-          path: .next/cache
-          key: ${{ runner.os }}-next-${{ hashFiles('package.json', 'bun.lock', 'src/**/*', 'data/**/*.json') }}
-          restore-keys: |
-            ${{ runner.os }}-next-
-
       - name: 生产构建
         env:
           # GA 衡量 ID 由部署平台环境变量注入（仓库 Settings → Variables 设置 GA_MEASUREMENT_ID），
@@ -154,7 +144,7 @@ jobs:
   # ───────────────────────── E2E 冒烟 ─────────────────────────
   # 说明：应用本体由 express `server.js` 提供（src/index.html 静态站 + /api/votes、/api/favorites），
   # 见 playwright.config.ts 的 webServer.command（`bun run start`）。因此 e2e 无需重建，
-  # 且 next.config.mjs 为 output:"export"，不可使用 next start。
+  # 且站点为纯静态产物，不存在框架运行时的生产服务器（本地服务仅用于开发与 e2e）。
   e2e:
     name: E2E 冒烟（Playwright）
     runs-on: ubuntu-latest
