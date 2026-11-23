@@ -44,6 +44,14 @@ app.use('/api', (req, res) => {
 // 全局错误兜底（避免未捕获异常泄露堆栈）
 app.use((err, req, res, next) => {
   if (res.headersSent) return next(err);
+  // 请求体解析失败属客户端错误：返回 400 并给出可读提示，
+  // 不能与内部异常混为一谈（否则外部只需发一个畸形 body 就能制造 500 噪声）。
+  if (err && (err.type === 'entity.parse.failed' || err instanceof SyntaxError)) {
+    return res.status(400).json({ error: 'Invalid JSON body' });
+  }
+  if (err && err.type === 'entity.too.large') {
+    return res.status(413).json({ error: 'Payload too large' });
+  }
   console.error('Unhandled error:', err);
   res.status(500).json({ error: 'Internal server error' });
 });
