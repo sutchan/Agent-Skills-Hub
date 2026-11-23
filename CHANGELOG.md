@@ -2,6 +2,42 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.16.30] - 2026-11-23
+
+### refactor: 首页关于内容全部移入独立页面
+
+- 首页 `#site-directory` 区块（最后的「关于 Agent Skills Hub」引导）已移除，首页不再展示任何关于内容；`<noscript>` 提示与页脚「关于」入口继续指向 `/about.html`
+- `scripts/sync-seo-assets.mjs` 不再向首页回填 DIRECTORY 区块（仅保留 JSON-LD 生成），`scripts/seo/render-page.mjs` 删除仅服务首页的 `renderDirectory()`；关于正文仍由 `render-about.mjs` → `renderAboutBody()` 生成到 `public/about.html`
+- 首页 `.seo-directory` 相关 CSS（含 FAQ / 技能索引 / 响应式）清理，`<style>` 仅保留 `.noscript-hint`；`prototype/template.html` 线框同步移除该区块
+- 文档契约同步：README（中/英）、`docs/spec.md` §4、`docs/AGENTS.md` 的 SEO/GEO 段落改为「首页无关于区块、关于内容全部在 `/about.html`」
+- 验证脚本 `.verify-about.mjs` 改为断言首页不存在关于区块；e2e 与 tools 均无对 `#site-directory` 的引用
+- 版本 bump 1.16.29 → 1.16.30（package.json / src 头注释·meta / README 双语徽章 / 被改文档头）
+
+[1.16.30]: https://github.com/sutchan/Agent-Skills-Hub/releases/tag/v1.16.30
+
+## [1.16.29] - 2026-11-23
+
+### style: 移除页面上的技能索引
+
+- 关于页 `public/about.html` 不再渲染折叠的 `#skill-index` 全量技能索引，仅保留 FAQ 与数据入口；首页原本已无完整索引，仅调整「关于」引导与 noscript 提示，不再承诺索引
+- 生成源 `scripts/seo/render-page.mjs` / `render-about.mjs` 同步移除索引 HTML 与样式，避免 `npm run sync:seo` / `build` 重新写回；`llms.txt` 中关于页描述一并更新
+- 完整技能清单继续由 `/llms-full.txt` 承担，机器可读数据继续由 `/data/skills-data.json` 承担；站内搜索/筛选卡片与技能详情不受影响
+- 原型模板 `prototype/template.html` 与 README（中/英）、`docs/spec.md`、`docs/AGENTS.md` 中关于「技能索引」的描述同步清理
+
+## [1.16.28] - 2026-11-23
+
+### fix: 全面审查并修复阻塞性问题（CI / 安全 / 接口契约 / 稳定性）
+
+- **CI 阻塞**：`docs/spec.md`、`docs/project.md`、`prototype/DESIGN.md` 头版本停在 1.16.26，导致 `tools/check-version.mjs` 必失败并阻断整条流水线；已同步至 1.16.28
+- **安全（上传限流）**：`/api/upload` 原先挂在全局限流之前，未认证可无限上传耗尽磁盘/Blob 容量；现挂载点单独套用 `rateLimitMiddleware`
+- **安全（文件 API）**：Vercel 文件接口取消 `Access-Control-Allow-Origin: *`；新增 `FILE_API_TOKEN` 鉴权，生产（`VERCEL=1`）未配置时上传/列举/删除返回 503 fail-closed，本地零配置行为不变
+- **安全（内容校验）**：默认白名单移除 `image/svg+xml`，HTML/JS/SVG 即使环境变量添加也强制拒绝；新增魔数校验（`file-validation.js`），声明类型与内容不符返回 415
+- **接口契约**：超大请求体不再 `req.destroy()`，确保客户端收到结构化 413 而非连接重置
+- **生产配置**：无有效 Blob token 时投票/收藏写入返回明确 503，不再向只读文件系统写入后报 500
+- **稳定性**：限流落盘由每次重置定时器改为 1s 节流；过期 IP 记录定期清理，避免内存/文件无界增长
+- **版本单一来源**：页脚兜底不再判断会被构建期全局替换的 `__APP_VERSION__` 字符串，改判断展示值是否为合法 `vX.Y.Z`
+- **测试与文档**：E2E 改用 `node server.js` 启动并固定端口 3000，去除 Bun 隐式依赖；修正 README 关于 `build` 自动同步内联数据的错误描述；补充文件服务鉴权说明
+
 ## [1.16.27] - 2026-11-22
 
 ### feat: 支持自动加载 .env.local 并兼容 BLOB_SKILLS_* 凭据命名

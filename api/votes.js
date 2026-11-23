@@ -1,7 +1,7 @@
 // Vercel Serverless Function — 投票 API（GET /api/votes、POST /api/votes）
 // 存储走 server/blob-store.js：生产自动使用 Vercel Blob；无 token 时回退本地文件。
 // 与本地 Express（server/api.js）共用 server/kv-ops.js 的校验与计票语义。
-import { loadKv, saveKv } from '../server/blob-store.js';
+import { loadKv, saveKv, writableStoreIssue } from '../server/blob-store.js';
 import { validateName, applyVote } from '../server/kv-ops.js';
 import { validSkillNames } from '../server/store.js';
 
@@ -31,6 +31,8 @@ export default async function handler(req, res) {
       return json(res, 200, kv.votes || {});
     }
     if (req.method === 'POST') {
+      const issue = writableStoreIssue();
+      if (issue) return json(res, 503, { error: 'STORE_UNAVAILABLE', message: issue });
       let body = req.body;
       if (typeof body === 'string') {
         try { body = JSON.parse(body); } catch { return json(res, 400, { error: 'Invalid JSON body' }); }

@@ -41,9 +41,12 @@ export function mountStatic(app) {
   app.use('/skills', express.static(SKILLS_DIR));
 }
 
-/** 首页（须挂在限流与 API 之后） */
+/** 首页与独立关于页（须挂在限流与 API 之后）
+ *  /about.html 由 express.static(public) 直接服务；/about 是无扩展名的友好别名，
+ *  显式 301 过去，避免被末尾的 SPA 回退当成首页返回。 */
 export function mountHome(app) {
   app.get('/', (req, res) => sendIndex(res));
+  app.get('/about', (req, res) => res.redirect(301, '/about.html'));
 }
 
 /**

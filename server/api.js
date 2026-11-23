@@ -1,7 +1,7 @@
 // server/api.js — 投票 / 收藏 REST 接口（本地 Express）
 // 存储统一走 server/blob-store.js（生产 Vercel Blob / 本地文件回退），
 // 校验与计票语义与 Vercel Functions（api/*.js）共用 server/kv-ops.js。
-import { loadKv, saveKv } from './blob-store.js';
+import { loadKv, saveKv, writableStoreIssue } from './blob-store.js';
 import { validateName, applyVote, applyFavorite } from './kv-ops.js';
 import { validSkillNames } from './store.js';
 
@@ -11,6 +11,8 @@ export async function getVotes(req, res) {
 }
 
 export async function postVote(req, res) {
+  const issue = writableStoreIssue();
+  if (issue) return res.status(503).json({ error: 'STORE_UNAVAILABLE', message: issue });
   const { name, action } = req.body;
   const error = validateName(name, validSkillNames);
   if (error) return res.status(400).json({ error });
@@ -26,6 +28,8 @@ export async function getFavorites(req, res) {
 }
 
 export async function postFavorite(req, res) {
+  const issue = writableStoreIssue();
+  if (issue) return res.status(503).json({ error: 'STORE_UNAVAILABLE', message: issue });
   const { name, action } = req.body;
   const error = validateName(name, validSkillNames);
   if (error) return res.status(400).json({ error });

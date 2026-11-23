@@ -5,6 +5,7 @@
 开源 AI Agent 技能目录：按 SKILL.md 规范整理，提供分类浏览、关键词搜索、中英双语描述与一键安装路径；界面支持简体中文、繁体中文与英语，项目整体采用 MIT 协议。
 
 - 在线站点：https://skills.ewuse.com/
+- [关于页（常见问题与数据入口）](https://skills.ewuse.com/about.html)
 - GitHub 仓库：https://github.com/sutchan/Agent-Skills-Hub
 - 界面语言：简体中文 / 繁体中文 / 英语
 - 许可证：MIT（整体）

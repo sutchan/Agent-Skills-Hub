@@ -24,6 +24,13 @@ export function isBlobEnabled() {
   return Boolean(blobToken()) && (process.env.VERCEL === '1' || process.env.USE_BLOB === '1');
 }
 
+/** 生产环境缺少有效 token 时禁止写入只读文件系统，返回可读原因（正常返回 null） */
+export function writableStoreIssue() {
+  return process.env.VERCEL === '1' && !blobToken()
+    ? 'BLOB_READ_WRITE_TOKEN 未配置或无效，生产环境写操作已停用'
+    : null;
+}
+
 function emptyKv() {
   return { votes: {}, favorites: {} };
 }
@@ -43,6 +50,8 @@ export async function loadKv() {
 
 /** 写入全量投票/收藏状态（覆盖同一 pathname，URL 保持稳定） */
 export async function saveKv(data) {
+  const issue = writableStoreIssue();
+  if (issue) throw Object.assign(new Error(issue), { code: 'STORE_UNAVAILABLE', status: 503 });
   if (!isBlobEnabled()) {
     writeJsonAtomic(STORE_FILE, data);
     return;

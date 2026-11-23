@@ -1,12 +1,14 @@
-// scripts/seo/render-page.mjs — 生成注入 src/index.html 的 JSON-LD 与静态可抓取目录区块
+// scripts/seo/render-page.mjs — 首页 JSON-LD + 供独立关于页复用的静态正文
 //
 // 站点是 JS 驱动的单页应用：卡片由 window.SKILLS_DATA 渲染，不执行 JS 的爬虫只能看到骨架屏。
-// 这里生成一份静态 HTML 目录 + 问答，让搜索引擎与生成式引擎无需执行脚本即可读到真实内容。
-import { SITE, SITE_DESCRIPTION, total, recordCount, hiddenCount, groups, faq, lastmod, esc, summary, skillUrl } from './facts.mjs';
+// 结构化数据（JSON-LD）留在首页 head，完整关于正文 + FAQ 由 render-about.mjs 生成到 /about.html。
+import { SITE, SITE_DESCRIPTION, total, recordCount, hiddenCount, groups, faq, lastmod, esc } from './facts.mjs';
 
 const LF = '\n';
 
-/** JSON-LD：WebSite / CollectionPage / SoftwareApplication / FAQPage 四类实体 */
+/** 首页 JSON-LD：WebSite / CollectionPage / SoftwareApplication 三类实体。
+ *  FAQPage 已随可见 FAQ 移入独立 /about.html（结构化数据须与页面可见内容同源，
+ *  否则 Google 会以「结构化数据与正文不符」处罚）；见 render-about.mjs。 */
 export function renderJsonLd() {
   const graph = [
     {
@@ -56,47 +58,23 @@ export function renderJsonLd() {
       inLanguage: ['zh-CN', 'zh-TW', 'en'],
       sameAs: [SITE.repo],
     },
-    {
-      '@type': 'FAQPage',
-      '@id': `${SITE.url}/#faq`,
-      mainEntity: faq.map((f) => ({
-        '@type': 'Question',
-        name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
-      })),
-    },
+    // FAQPage 已移入独立关于页（render-about.mjs），首页不再声明与可见内容不符的 FAQ 实体
   ];
   // `<` 统一转义，避免任何文本意外闭合 </script>
   const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2).replace(/</g, '\\u003c');
   return `<script type="application/ld+json">${LF}${json}${LF}</script>`;
 }
 
-/** 静态可见内容：事实段落 + FAQ + 折叠的全量技能索引（details 是合法交互，非隐藏文本） */
-export function renderDirectory() {
+/** 供独立关于页复用的静态正文：事实段落 + FAQ。
+ *  页面不再展示技能索引；完整可读清单由 /llms-full.txt 承担，机器可读数据由 /data/skills-data.json 承担。 */
+export function renderAboutBody() {
   const lines = [
-    '<section class="seo-directory" id="site-directory" aria-labelledby="site-directory-title">',
-    '  <h2 id="site-directory-title">关于 Agent Skills Hub</h2>',
-    `  <p class="seo-lead" id="site-directory-lead">${esc(SITE_DESCRIPTION)} 当前展示 ${total} 个可见技能、${groups.length} 个分类；权威数据共 ${recordCount} 条记录，其中 ${hiddenCount} 条标记为隐藏。完整清单见 <a href="/llms-full.txt">llms-full.txt</a>，机器可读元数据见 <a href="/data/skills-data.json">skills-data.json</a>。</p>`,
+    `<p class="seo-lead" id="site-directory-lead">${esc(SITE_DESCRIPTION)} 当前展示 ${total} 个可见技能、${groups.length} 个分类；权威数据共 ${recordCount} 条记录，其中 ${hiddenCount} 条标记为隐藏。完整清单见 <a href="/llms-full.txt">llms-full.txt</a>，机器可读元数据见 <a href="/data/skills-data.json">skills-data.json</a>。</p>`,
     '  <dl class="seo-faq" id="site-faq">',
   ];
   for (const f of faq) {
     lines.push(`    <div><dt>${esc(f.q)}</dt><dd>${esc(f.a)}</dd></div>`);
   }
   lines.push('  </dl>');
-  lines.push(`  <details class="seo-index" id="skill-index">`);
-  lines.push(`    <summary>全部 ${total} 个技能索引（按 ${groups.length} 个分类）</summary>`);
-  lines.push('    <div class="seo-index-body">');
-  for (const g of groups) {
-    lines.push(`      <h3>${esc(g.name)} / ${esc(g.en)}（${g.skills.length}）</h3>`);
-    lines.push('      <ul>');
-    for (const s of g.skills) {
-      const label = esc(`${s.name}${s.zh ? ` · ${s.zh}` : ''}`);
-      lines.push(`        <li><a href="${esc(skillUrl(s))}">${label}</a> — ${summary(s.description)}</li>`);
-    }
-    lines.push('      </ul>');
-  }
-  lines.push('    </div>');
-  lines.push('  </details>');
-  lines.push('</section>');
-  return lines.map((line) => '  ' + line).join(LF);
+  return lines.join(LF);
 }

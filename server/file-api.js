@@ -2,6 +2,7 @@
 // 之所以不直接复用 Vercel handler：Express 的 req.body 已被 express.json() 预解析，
 // 而上传走原始二进制流，须在挂载点之前以 express.raw() 精确处理 /api/upload。
 import { uploadFile, listFiles, readFile, deleteFile, errorResponse, FILE_STORE_CONFIG } from './file-store.js';
+import { requireFileApiAccess } from './file-auth.js';
 
 function fail(res, err) {
   const mapped = errorResponse(err);
@@ -12,12 +13,17 @@ function readRaw(req, limit) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     let size = 0;
+    let tooLarge = false;
     req.on('data', (chunk) => {
       size += chunk.length;
-      if (size > limit) { reject(Object.assign(new Error('body too large'), { tooLarge: true })); req.destroy(); return; }
+      if (size > limit) { tooLarge = true; return; }
       chunks.push(chunk);
     });
-    req.on('end', () => resolve(Buffer.concat(chunks)));
+    // 不调用 req.destroy()：销毁 socket 会让 413 响应无法送达客户端
+    req.on('end', () => {
+      if (tooLarge) return reject(Object.assign(new Error('body too large'), { tooLarge: true }));
+      resolve(Buffer.concat(chunks));
+    });
     req.on('error', reject);
   });
 }
@@ -25,6 +31,8 @@ function readRaw(req, limit) {
 /** 原始二进制上传路由：须在 express.json() 之前挂载 */
 export async function uploadRoute(req, res) {
   try {
+    const denied = requireFileApiAccess(req);
+    if (denied) return res.status(denied.status).json(denied.body);
     const body = await readRaw(req, FILE_STORE_CONFIG.maxFileBytes * 2);
     const result = await uploadFile({
       pathname: req.query.name,
@@ -53,6 +61,8 @@ export function mountFileApi(app) {
         if (result.size) res.set('Content-Length', String(result.size));
         return Buffer.isBuffer(result.body) ? res.end(result.body) : result.body.pipe(res);
       }
+      const denied = requireFileApiAccess(req); // 列举会暴露私有文件名，视为敏感操作
+      if (denied) return res.status(denied.status).json(denied.body);
       const files = await listFiles({ prefix: req.query.prefix, limit: req.query.limit });
       res.json({ files, count: files.length });
     } catch (err) { fail(res, err); }
@@ -60,6 +70,8 @@ export function mountFileApi(app) {
 
   app.delete('/api/files', async (req, res) => {
     try {
+      const denied = requireFileApiAccess(req);
+      if (denied) return res.status(denied.status).json(denied.body);
       if (!req.query.name) return res.status(400).json({ error: 'INVALID_PATH', message: '缺少 name 参数' });
       res.json(await deleteFile(req.query.name, { ifMatch: req.headers['if-match'] }));
     } catch (err) { fail(res, err); }

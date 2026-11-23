@@ -23,8 +23,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// 文件上传走原始二进制：必须在 express.json() 之前按路径挂载，否则 body 会被 JSON 中间件消费
-app.post('/api/upload', uploadRoute);
+// 文件上传走原始二进制：必须在 express.json() 之前按路径挂载，否则 body 会被 JSON 中间件消费。
+// 该路由早于全局限流挂载，须在此单独套用限流，防止未认证上传耗尽磁盘/Blob 容量。
+app.post('/api/upload', rateLimitMiddleware, uploadRoute);
 
 // 限制 JSON 请求体大小，避免超大 payload 占用内存（投票/收藏接口只需 name/action）
 app.use(express.json({ limit: "10kb" }));

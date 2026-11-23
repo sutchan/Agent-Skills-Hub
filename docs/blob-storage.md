@@ -1,4 +1,4 @@
-> 路径：`docs/blob-storage.md` · 版本：1.16.25 · 状态：v1.16.25 起生效
+> 路径：`docs/blob-storage.md` · 版本：1.16.28 · 状态：v1.16.25 起生效
 
 # Vercel Blob 文件存储服务
 
@@ -31,8 +31,11 @@ Vercel Blob **没有传统对象存储的"桶（Bucket）"概念**——一个 *
 | `BLOB_ALLOWED_MIME` | 否 | 见下 | 允许上传的 MIME 白名单（逗号分隔） |
 | `BLOB_ACCESS` | 否 | `private` | 缺省访问控制：`public` 或 `private` |
 | `BLOB_CACHE_MAX_AGE` | 否 | `2592000`（30 天） | public 对象的 CDN/浏览器缓存秒数（最小 60 秒） |
+| `FILE_API_TOKEN` | 生产必填 | — | 上传/列举/删除的 Bearer 令牌；`VERCEL=1` 且缺失时写接口返回 503，本地不填保持零配置 |
 
-默认 MIME 白名单：`image/png`、`image/jpeg`、`image/gif`、`image/webp`、`image/svg+xml`、`text/plain`、`text/csv`、`application/pdf`、`application/json`、`application/zip`。
+默认 MIME 白名单：`image/png`、`image/jpeg`、`image/gif`、`image/webp`、`text/plain`、`text/csv`、`application/pdf`、`application/json`、`application/zip`。
+
+安全约束：`image/svg+xml` / HTML / JS 即使写入 `BLOB_ALLOWED_MIME` 也会被强制拒绝；图片/PDF/ZIP 按文件魔数校验，声明类型与内容不符返回 `415 MIME_MISMATCH`。
 
 ## 3. API 契约
 
@@ -42,7 +45,7 @@ Vercel Blob **没有传统对象存储的"桶（Bucket）"概念**——一个 *
 
 - 请求体：**原始二进制**（不要用 multipart；`Content-Type` 设为文件 MIME）。
 - 查询参数：`?name=<pathname>`（必填，自动加 `files/` 前缀；支持子目录如 `docs/manual.pdf`）。
-- 请求头：`x-file-content-type`（可选，覆盖 Content-Type）、`x-file-access`（`public` / `private`，覆盖默认）。
+- 请求头：`x-file-content-type`（可选，覆盖 Content-Type）、`x-file-access`（`public` / `private`，覆盖默认）、`Authorization: Bearer <FILE_API_TOKEN>`（生产必填）。
 - 成功 `200`：`{ pathname, url, downloadUrl?, contentType, size, access, etag?, storage }`
   - `url` 是访问地址：private 对象为 `/api/files?name=...`（服务端代理），public 对象为 Vercel CDN 永久 URL。
 - 失败：`400` 路径非法 / `413` 超过大小上限 / `415` 类型不允许 / `503` 凭据无效 / `500` 内部错误。

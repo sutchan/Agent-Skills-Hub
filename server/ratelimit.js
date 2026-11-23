@@ -11,11 +11,13 @@ const stored = readJsonFile(RATELIMIT_FILE, []);
 const rateLimitMap = new Map(Array.isArray(stored) ? stored : []);
 
 let ratelimitSaveTimer = null;
+let lastSweepAt = Date.now();
 
-/** 1s 防抖后落盘（限流数据量大但精度要求低，无需每次请求都写） */
+/** 1s 节流落盘：已有待写入任务时直接返回，避免持续流量把定时器无限后推导致计数永不持久化 */
 function saveRatelimitAtomic() {
-  if (ratelimitSaveTimer) clearTimeout(ratelimitSaveTimer);
+  if (ratelimitSaveTimer) return;
   ratelimitSaveTimer = setTimeout(() => {
+    ratelimitSaveTimer = null;
     try {
       writeJsonAtomic(RATELIMIT_FILE, [...rateLimitMap], 0);
     } catch (e) {
@@ -49,6 +51,13 @@ process.on('SIGTERM', () => {
  */
 export function checkRateLimit(ip) {
   const now = Date.now();
+  // 定期清理过期 IP：原先只重置不删除，唯一 IP 数量无上界增长
+  if (now - lastSweepAt >= WINDOW_MS) {
+    for (const [key, rec] of rateLimitMap) {
+      if (now - rec.start > WINDOW_MS) rateLimitMap.delete(key);
+    }
+    lastSweepAt = now;
+  }
   const record = rateLimitMap.get(ip);
   if (!record || now - record.start > WINDOW_MS) {
     rateLimitMap.set(ip, { start: now, count: 1 });

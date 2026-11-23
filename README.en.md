@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![Version](https://img.shields.io/badge/version-v1.16.27-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
+[![Version](https://img.shields.io/badge/version-v1.16.30-blue)](CHANGELOG.md) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![中文文档](https://img.shields.io/badge/docs-中文-blue)](README.md)
 
 > Other languages: [中文文档](README.md)
 
@@ -90,19 +90,20 @@ The site serves both classic search engines and generative engines (LLM crawlers
 | Asset | URL | Purpose |
 |---|---|---|
 | `robots.txt` | `/robots.txt` | Allows public content and AI-readable manifests, disallows `/api/`, declares the sitemap |
-| `sitemap.xml` | `/sitemap.xml` | Homepage only; `#cat` / `#q` / `#skill` deep links return the same HTML and would create duplicate content |
+| `sitemap.xml` | `/sitemap.xml` | Homepage and standalone about page; `#cat` / `#q` / `#skill` deep links return the same HTML and would create duplicate content |
 | `llms.txt` | `/llms.txt` | Standard summary entry point for generative engines |
 | `llms-full.txt` | `/llms-full.txt` | Full readable index of every visible skill: name, Chinese name, description, tags, install path, source, detail link |
-| JSON-LD | page `<head>` | `WebSite` (with `SearchAction`), `CollectionPage`, `SoftwareApplication`, `FAQPage` |
-| Static directory | `#site-directory` | Static HTML about/FAQ block plus a collapsible full skill index — crawlable without executing JS |
+| `about.html` | `/about.html` | Standalone about page (`/about` 301 redirects): home of the FAQ and data entry points — crawlable without executing JS |
+| JSON-LD | page `<head>` | Homepage: `WebSite` (with `SearchAction`), `CollectionPage`, `SoftwareApplication`; about page: `AboutPage`, `FAQPage` |
+| About content | `/about.html` | The homepage no longer renders an about section; the about blurb, FAQ and data entry points live exclusively on the standalone about page (full list: `/llms-full.txt`) |
 | Data copy | `/data/skills-data.json` | Read-only deploy copy of the authoritative `data/skills-data.json` |
 
 ```bash
 npm run sync:seo   # regenerate every asset (idempotent: no write when unchanged)
 ```
 
-- After a data change run `npm run sync:data` (syncs inline `window.SKILLS_DATA`, then all SEO assets); `npm run build` runs the sync first as well.
-- Generated logic lives in `scripts/seo/` and `scripts/sync-seo-assets.mjs`. Blocks between `SEO-JSONLD:BEGIN/END` and `SEO-DIRECTORY:BEGIN/END` in `src/index.html` are generated — do not edit by hand.
+- After a data change, run `npm run sync:data` before building: it syncs inline `window.SKILLS_DATA` and then all SEO assets. `npm run build` only syncs SEO assets and does not update inline skill data.
+- Generated logic lives in `scripts/seo/` and `scripts/sync-seo-assets.mjs`. Only the block between `SEO-JSONLD:BEGIN/END` in `src/index.html` is generated — do not edit by hand; all about content is generated into `public/about.html`.
 - All three UI languages share one URL, so no self-referencing `hreflang` links are emitted; language is expressed via `og:locale` / `og:locale:alternate` and `documentElement.lang`.
 
 ## Installation

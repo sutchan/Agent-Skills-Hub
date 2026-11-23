@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 // scripts/sync-seo-assets.mjs — 从权威数据同步全站 SEO/GEO 资产（幂等）
 //
-// 生成：public/robots.txt、sitemap.xml、llms.txt、llms-full.txt
-// 注入：src/index.html 的 JSON-LD 区块与静态技能目录区块（两处标记之间，勿手工编辑）
+// 生成：public/robots.txt、sitemap.xml、llms.txt、llms-full.txt、about.html
+// 注入：src/index.html 的 JSON-LD 区块（标记之间，勿手工编辑）；关于内容全部在独立 /about.html
+// 关于页：完整关于引导 + FAQ 位于独立 /about.html；首页无静态目录区块，完整清单见 /llms-full.txt
 // 由 `npm run sync:seo`、`npm run sync:data` 与 `npm run build` 调用；内容不变时不写盘，
 // 因此 CI 构建不会把工作区改脏，也不会产生与数据无关的 diff。
 import fs from 'node:fs';
 import path from 'node:path';
 import { ROOT, total, groups, recordCount } from './seo/facts.mjs';
 import { renderRobots, renderSitemap, renderLlms, renderLlmsFull } from './seo/render-assets.mjs';
-import { renderJsonLd, renderDirectory } from './seo/render-page.mjs';
+import { renderJsonLd } from './seo/render-page.mjs';
+import { renderAboutPage } from './seo/render-about.mjs';
 
 const PUBLIC = path.join(ROOT, 'public');
 const HTML_PATH = path.join(ROOT, 'src', 'index.html');
@@ -62,9 +64,12 @@ fs.mkdirSync(path.dirname(DATA_PUBLIC), { recursive: true });
 const dataChanged = writeIfChanged(DATA_PUBLIC, fs.readFileSync(DATA_FILE, 'utf8'));
 console.log(`${dataChanged ? '已更新' : '无变化'} public/data/skills-data.json（静态部署副本）`);
 
+// 独立关于页：完整 FAQ 从首页迁移而来，Next export / 本地静态服务均从 public/ 发布
+const aboutChanged = writeIfChanged(path.join(PUBLIC, 'about.html'), renderAboutPage());
+console.log(`${aboutChanged ? '已更新' : '无变化'} public/about.html（独立关于页）`);
+
 const source = fs.readFileSync(HTML_PATH, 'utf8');
-let output = injectBlock(source, 'JSONLD', renderJsonLd());
-output = injectBlock(output, 'DIRECTORY', renderDirectory());
+const output = injectBlock(source, 'JSONLD', renderJsonLd());
 const changed = writeIfChanged(HTML_PATH, output);
-console.log(`${changed ? '已更新' : '无变化'} src/index.html（JSON-LD + 静态技能目录）`);
+console.log(`${changed ? '已更新' : '无变化'} src/index.html（仅 JSON-LD；关于内容由 /about.html 承载）`);
 console.log(`同步完成：${total} 个可见技能 / ${groups.length} 个分类 / ${recordCount} 条数据源记录`);

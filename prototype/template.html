@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- prototype/template.html v1.16.25 — Agent Skills Hub DOM 结构契约（与 src/index.html 对齐；不参与构建） -->
+<!-- prototype/template.html v1.16.30 — Agent Skills Hub DOM 结构契约（与 src/index.html 对齐；不参与构建） -->
 <html lang="zh" data-theme="light" data-lang="zh">
 <head>
   <meta charset="UTF-8" />
@@ -130,17 +130,8 @@
       <button type="button" id="clear-filters">清除筛选</button>
     </div>
   </main>
-  <noscript><p class="noscript-hint">未启用 JavaScript 时请查看下方技能索引。</p></noscript>
+  <noscript><p class="noscript-hint">未启用 JavaScript 时可查看完整技能清单（/llms-full.txt）或关于页常见问题。</p></noscript>
   <nav class="pager" id="pager" aria-label="分页 / Pagination"></nav>
-
-  <!-- SEO/GEO 静态目录（v1.16.20）：真实 HTML 由 scripts/sync-seo-assets.mjs 生成，
-       此处仅固定 DOM 与 id 契约；JSON-LD 位于 <head> 的同名生成区。 -->
-  <section class="seo-directory" id="site-directory" aria-labelledby="site-directory-title">
-    <h2 id="site-directory-title">关于 Agent Skills Hub</h2>
-    <p class="seo-lead" id="site-directory-lead">…</p>
-    <dl class="seo-faq" id="site-faq"></dl>
-    <details class="seo-index" id="skill-index"><summary>全部技能索引</summary><div class="seo-index-body"></div></details>
-  </section>
 
   <!-- 页脚：三段式版权页（v1.16.16 起）—— 品牌/协议/版权元数据 | 辅助导航 | 动作区
        版本与构建号由 inject-ga.mjs（构建期）/ server/pages.js（本地服务）注入，不展示更新日期。 -->

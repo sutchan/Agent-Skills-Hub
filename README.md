@@ -2,7 +2,7 @@
 
 ![Agent Skills Hub Banner](public/banner.svg)
 
-[![版本](https://img.shields.io/badge/version-v1.16.27-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
+[![版本](https://img.shields.io/badge/version-v1.16.30-blue)](CHANGELOG.md) [![许可证](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![CI](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml/badge.svg)](https://github.com/sutchan/Agent-Skills-Hub/actions/workflows/ci.yml) [![英文文档](https://img.shields.io/badge/docs-English-blue)](README.en.md)
 
 > 其他语言：[English](README.en.md)
 
@@ -91,11 +91,12 @@ node scripts/verify-storage.mjs # 投票/收藏 API 与磁盘持久化端到端�
 | 资产 | 访问路径 | 作用 |
 |---|---|---|
 | `robots.txt` | `/robots.txt` | 允许抓取公开内容与 AI 可读清单，屏蔽 `/api/`，声明 Sitemap |
-| `sitemap.xml` | `/sitemap.xml` | 仅收录首页；`#cat` / `#q` / `#skill` 深链返回同一首页，列入会制造重复内容 |
+| `sitemap.xml` | `/sitemap.xml` | 收录首页与独立关于页；`#cat` / `#q` / `#skill` 深链返回同一首页，列入会制造重复内容 |
 | `llms.txt` | `/llms.txt` | 生成式引擎标准摘要入口：站点是什么、去哪里拿完整数据 |
 | `llms-full.txt` | `/llms-full.txt` | 全部可见技能的完整可读清单：名称 / 中文名 / 描述 / 标签 / 安装路径 / 源码 / 详情深链 |
-| JSON-LD | 页面 `<head>` | `WebSite`（含 `SearchAction`）/ `CollectionPage` / `SoftwareApplication` / `FAQPage` |
-| 静态目录 | `#site-directory` | 静态 HTML 的关于文案、FAQ 与折叠全量技能索引，无需执行 JS 即可抓取 |
+| `about.html` | `/about.html` | 独立关于页（`/about` 301 跳转）：FAQ 与数据入口的载体，无需执行 JS 即可抓取 |
+| JSON-LD | 页面 `<head>` | 首页 `WebSite`（含 `SearchAction`）/ `CollectionPage` / `SoftwareApplication`；关于页 `AboutPage` / `FAQPage` |
+| 关于内容 | `/about.html` | 首页不再展示关于区块；关于引导、FAQ 与数据入口全部由独立关于页承载（完整清单见 `/llms-full.txt`） |
 | 数据副本 | `/data/skills-data.json` | 权威 `data/skills-data.json` 的只读发布副本，保证静态部署产物中该 URL 真实可达 |
 
 维护方式：
@@ -104,8 +105,8 @@ node scripts/verify-storage.mjs # 投票/收藏 API 与磁盘持久化端到端�
 npm run sync:seo   # 重新生成全部资产（幂等：内容不变不写盘）
 ```
 
-- 数据变更后运行 `npm run sync:data`，会依次同步内联 `window.SKILLS_DATA` 与全部 SEO 资产；`npm run build` 也会先跑一次，保证产物与数据一致。
-- 事实来源为 `data/skills-data.json`（技能数 / 分类数 / 描述均实时读取），生成逻辑位于 `scripts/seo/` 与 `scripts/sync-seo-assets.mjs`；`src/index.html` 中 `SEO-JSONLD:BEGIN/END`、`SEO-DIRECTORY:BEGIN/END` 之间为生成区，勿手工编辑。
+- 数据变更后须先运行 `npm run sync:data` 再构建：该命令依次同步内联 `window.SKILLS_DATA` 与全部 SEO 资产；`npm run build` 只同步 SEO 资产，不会自动更新内联技能数据。
+- 事实来源为 `data/skills-data.json`（技能数 / 分类数 / 描述均实时读取），生成逻辑位于 `scripts/seo/` 与 `scripts/sync-seo-assets.mjs`；`src/index.html` 仅 `SEO-JSONLD:BEGIN/END` 之间为生成区（勿手工编辑），关于内容全部生成于 `public/about.html`。
 - 三语界面共用一个 URL（JS 切换 + `documentElement.lang` 同步），因此不添加 `hreflang` 自引用链接；语言信息由 `og:locale` / `og:locale:alternate` 与 `lang` 属性表达。
 - 校验：`node tools/check-inline-js.mjs`（JSON-LD 为 `application/ld+json`，会被脚本正确跳过）、`node tools/check-version.mjs`，部署后可用 `/llms.txt` 与 `/sitemap.xml` 实查可达性。
 

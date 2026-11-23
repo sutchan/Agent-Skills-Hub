@@ -26,7 +26,7 @@ export function renderRobots() {
 
 export function renderSitemap() {
   // SPA 的 #cat / #q / #skill 深链返回同一份首页 HTML，canonical 也指向首页；
-  // 把它们列进 sitemap 只会制造重复内容，因此只收录唯一可索引页面。
+  // 把它们列进 sitemap 只会制造重复内容，因此只收录首页与独立关于页两个唯一可索引页面。
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -35,6 +35,12 @@ export function renderSitemap() {
     `    <lastmod>${lastmod}</lastmod>`,
     '    <changefreq>weekly</changefreq>',
     '    <priority>1.0</priority>',
+    '  </url>',
+    '  <url>',
+    `    <loc>${SITE.url}/about.html</loc>`,
+    `    <lastmod>${lastmod}</lastmod>`,
+    '    <changefreq>monthly</changefreq>',
+    '    <priority>0.6</priority>',
     '  </url>',
     '</urlset>',
     '',
@@ -51,6 +57,7 @@ export function renderLlms() {
     SITE_DESCRIPTION,
     '',
     `- 在线站点：${SITE.url}/`,
+    `- [关于页（常见问题与数据入口）](${SITE.url}/about.html)`,
     `- GitHub 仓库：${SITE.repo}`,
     '- 界面语言：简体中文 / 繁体中文 / 英语',
     '- 许可证：MIT（整体）',

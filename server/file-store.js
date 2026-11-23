@@ -17,59 +17,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { isBlobEnabled } from './blob-store.js';
 import { ROOT_DIR } from './config.js';
+import {
+  FILES_PREFIX, MAX_FILE_BYTES, CACHE_MAX_AGE, DEFAULT_ACCESS, ALLOWED_MIME,
+  FileStoreError, safePathname, assertUpload,
+} from './file-validation.js';
 
-const FILES_PREFIX = 'files/';
 const LOCAL_DIR = path.join(ROOT_DIR, 'data', 'uploads');
-const MAX_FILE_BYTES = numEnv('BLOB_MAX_FILE_BYTES', 10 * 1024 * 1024);
-const CACHE_MAX_AGE = numEnv('BLOB_CACHE_MAX_AGE', 30 * 24 * 60 * 60);
-const DEFAULT_ACCESS = (process.env.BLOB_ACCESS === 'public' ? 'public' : 'private');
-const ALLOWED_MIME = (process.env.BLOB_ALLOWED_MIME ||
-  'image/png,image/jpeg,image/gif,image/webp,image/svg+xml,text/plain,text/csv,application/pdf,application/json,application/zip')
-  .split(',').map((s) => s.trim()).filter(Boolean);
-
-function numEnv(key, fallback) {
-  const n = Number(process.env[key]);
-  return Number.isFinite(n) && n > 0 ? n : fallback;
-}
-
-/** 自定义错误：带 HTTP 状态码，供 API 层统一映射 */
-export class FileStoreError extends Error {
-  constructor(status, code, message) {
-    super(message);
-    this.status = status;
-    this.code = code;
-  }
-}
-
-/** 校验并规范化 pathname（防目录穿越、限制长度与字符） */
-export function safePathname(input) {
-  const raw = String(input || '').trim();
-  if (!raw || raw.length > 200 || /[\0\r\n]/.test(raw)) {
-    throw new FileStoreError(400, 'INVALID_PATH', 'pathname 无效（1-200 字符，禁止控制字符）');
-  }
-  const clean = path.posix.normalize(raw).replace(/^\/+/, '');
-  if (clean.startsWith('..') || clean.includes('/../') || clean.endsWith('/')) {
-    throw new FileStoreError(400, 'INVALID_PATH', 'pathname 禁止目录穿越');
-  }
-  if (!/^[a-zA-Z0-9._/\-一-龥]+$/.test(clean)) {
-    throw new FileStoreError(400, 'INVALID_PATH', 'pathname 仅允许字母数字、点、下划线、连字符、斜杠与中文');
-  }
-  // 幂等：上传传相对名（自动加前缀），读取/删除可传完整 files/... 路径
-  return clean.startsWith(FILES_PREFIX) ? clean : FILES_PREFIX + clean;
-}
-
-/** 校验体积与 MIME */
-function assertUpload(bytes, contentType) {
-  if (!Number.isFinite(bytes) || bytes <= 0) throw new FileStoreError(400, 'EMPTY_FILE', '文件内容为空');
-  if (bytes > MAX_FILE_BYTES) {
-    throw new FileStoreError(413, 'FILE_TOO_LARGE', `文件超过 ${MAX_FILE_BYTES} 字节上限（${Math.floor(MAX_FILE_BYTES / 1024 / 1024)}MB）`);
-  }
-  const mime = String(contentType || '').split(';')[0].trim().toLowerCase();
-  if (!mime || !ALLOWED_MIME.includes(mime)) {
-    throw new FileStoreError(415, 'TYPE_NOT_ALLOWED', `文件类型不允许：${mime || '(空)'}；允许：${ALLOWED_MIME.join(', ')}`);
-  }
-  return mime;
-}
 
 function localPath(fullPathname) {
   const rel = fullPathname.startsWith(FILES_PREFIX) ? fullPathname.slice(FILES_PREFIX.length) : fullPathname;
@@ -80,7 +33,7 @@ function localPath(fullPathname) {
 export async function uploadFile({ pathname, body, contentType, access }) {
   const full = safePathname(pathname);
   const bytes = Buffer.isBuffer(body) ? body : Buffer.from(body || []);
-  const mime = assertUpload(bytes.length, contentType);
+  const mime = assertUpload(bytes, contentType);
   const mode = access === 'public' ? 'public' : access === 'private' ? 'private' : DEFAULT_ACCESS;
 
   if (!isBlobEnabled()) {

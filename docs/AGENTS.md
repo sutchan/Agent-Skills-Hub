@@ -1,6 +1,6 @@
 # AI 协作指引（AGENTS）
 
-> 路径：`docs/AGENTS.md` · 版本：1.16.25
+> 路径：`docs/AGENTS.md` · 版本：1.16.30
 > 本文件供 AI 编码助手（如 CodeBuddy / Claude）在处理本仓库变更时遵循。能力契约见 [spec.md](spec.md)，仓库约定见 [project.md](project.md)，贡献操作见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 
 ---
@@ -25,7 +25,7 @@
 - **应用形态**：站点本体是自包含静态单页 `src/index.html`（原生 JS、内联数据），`server/`（Express，薄装配 `server.js`）提供本地托管与投票/收藏 API，`edge-worker.js` 承接生产侧存储；`src/app/`（Next.js）仅为重定向存根。
 - **无嵌套副本**：新技能只能落在 `skills/<name>/`，不得创建 `skills/<x>/skills/<name>/` 之类嵌套。
 - **数据型数字**：README/应用内技能总数与领域表计数须以 `data/skills-data.json` 实算，禁止手填。
-- **SEO/GEO 资产**：`public/{robots.txt,sitemap.xml,llms.txt,llms-full.txt,data/skills-data.json}` 与 `src/index.html` 的 `SEO-JSONLD:BEGIN/END`、`SEO-DIRECTORY:BEGIN/END` 生成区均由 `npm run sync:seo` 从权威数据实算生成，**勿手工编辑生成区**；`npm run sync:data` 会自动串联同步，契约见 `docs/spec.md` §4。
+- **SEO/GEO 资产**：`public/{robots.txt,sitemap.xml,llms.txt,llms-full.txt,about.html,data/skills-data.json}` 与 `src/index.html` 的 `SEO-JSONLD:BEGIN/END` 生成区均由 `npm run sync:seo` 从权威数据实算生成，**勿手工编辑生成区**；**首页不再展示任何关于区块**，关于引导与完整 FAQ 全部在独立关于页 `public/about.html`，技能索引完整清单见 `/llms-full.txt`，`npm run sync:data` 会自动串联同步，契约见 `docs/spec.md` §4。
 - **单文件应用例外**：`src/index.html` 为有意维持的内联单文件，豁免「>200 行拆分」规则；新增逻辑须模块化、加语义化 id 与注释。
 - **三语国际化**：界面语言优先级固定为简体中文 `zh`（默认）> 繁体中文 `tw` > 英语 `en`；新增/修改 UI 文案须同步 `translations` 三份字典（键位一一对应）、静态 `.zh`/`.tw`/`.en` 节点、`data-tip-tw` 与 `html lang`（繁体为 `zh-Hant`）；繁体词条用台湾用语习惯，禁止以回退 zh 作为交付态。
 
