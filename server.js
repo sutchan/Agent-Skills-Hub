@@ -8,6 +8,7 @@ import { mountApi } from './server/api.js';
 import { mountFileApi, uploadRoute } from './server/file-api.js';
 import { mountHome, mountSpaFallback, mountStatic } from './server/pages.js';
 import { rateLimitMiddleware } from './server/ratelimit.js';
+import { mountSecurityHeaders } from './server/security-headers.js';
 
 const app = express();
 
@@ -15,13 +16,8 @@ const app = express();
 // 否则 req.ip 为边缘节点 IP，限流会按全站共用一个桶计数，极易误伤全员 429（代码审查 #2）。
 app.set('trust proxy', 1);
 
-// 基础安全响应头（无外部依赖）
-app.use((req, res, next) => {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  next();
-});
+// 安全响应头（CSP / frame-ancestors / Permissions-Policy 等），须早于静态与路由挂载
+mountSecurityHeaders(app);
 
 // 文件上传走原始二进制：必须在 express.json() 之前按路径挂载，否则 body 会被 JSON 中间件消费。
 // 该路由早于全局限流挂载，须在此单独套用限流，防止未认证上传耗尽磁盘/Blob 容量。
