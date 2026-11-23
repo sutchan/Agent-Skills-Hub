@@ -199,6 +199,7 @@ type SkillsData = {
 - **8.3 `live_page.html`（已失效）**：该并行快照文件已从仓库移除，本条仅存档；`npm run sync:data` 现只更新 `src/index.html`（唯一站点本体）、`public/data/skills-data.json`（发布副本）与两处白名单清单，若未来恢复快照文件需重新评估同步策略。
 - **8.4 过期引用残留（v1.16.18 部分清理）**：`src/index.html` 头注释与 og 注释、`.gitignore` 幽灵规则已清理；历史 CHANGELOG 中旧双轨版本号（1.20.x / 2026-08 的 1.16.x 与现行体系重名）仅存档不动。
 - **8.5 边缘产物部署保证**：`edge-worker.js` / `edgeone.config.json` 在仓库根，构建脚本不把它们纳入 `out/`（EdgeOne 侧按平台约定单独部署）；其随 EdgeOne 部署的保证未在流水线中明确，待确认。v1.21.0 起该文件内联 169 个技能名白名单并改为 fail-判定，**重新部署需在控制台粘贴最新文件**（生产主路径已是 Vercel Functions + Blob，边缘方案仅作回退参考）。
+- **8.6 投票/收藏未引入内存缓存（有意取舍）**：`server/blob-store.js` 每次写请求走「读-改-写」全量覆盖，理论上可加内存缓存降低 Blob 读放大；但 Vercel Blob 无原子自增，缓存会让并发写互相覆盖、造成计数丢失（数据正确性优先于读性能），故**保持无缓存**。当前写入量级（展示型投票/收藏）下该取舍可接受；若未来写入量显著上升，需改用支持原子自增的存储而非加缓存。
 
 **历史已修复（记录备查，勿再标为问题）**：
 - **v1.21.0 六维诊断整改**：① 数据链路单一源（`public/data` 发布副本与白名单改由脚本生成，新增 `tools/lib/data-sync.test.mjs`）；② 三后端接口契约统一到 `server/api-contract.js`（含 fail-closed 503 与统一文案，新增 `tools/lib/api-contract.test.mjs`）；③ 边缘函数内联精确白名单并 fail-closed；④ 修复「复制安装命令」按钮从未绑定监听的缺陷，详情弹窗改为一次性事件委托；⑤ `.card` 增加 `content-visibility` 离屏渲染优化；⑥ 语言常量去重（统一 `I18N.supported`）+ 三语键位门禁（`tools/lib/i18n-parity.test.mjs`）；⑦ 技能指标按磁盘实算（`scripts/sync-metrics.mjs`，纠正 75 条失真快照）；⑧ 数据层 13 处描述残留引号清理；⑨ CI 增加 `check:metrics` 与构建产物校验。

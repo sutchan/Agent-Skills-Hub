@@ -29,3 +29,17 @@ test("搜索框可过滤技能", async ({ page }) => {
   expect(empty > 0 || cards > 0).toBeTruthy();
   expect(errors).toEqual([]);
 });
+
+test("详情弹窗可打开，「复制安装命令」按钮点击无异常（v1.21.0 回归）", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.goto("/");
+  await page.waitForSelector("#grid .card", { timeout: 30000 });
+  await page.locator("#grid .card").first().click();
+  await page.waitForSelector("#dialog.show #copy-cmd-btn", { timeout: 10000 });
+  // 该按钮此前从未绑定点击监听（打开详情反而立即复制一次），此处验证点击路径可用且不抛错
+  await page.locator("#copy-cmd-btn").click();
+  await page.waitForTimeout(200);
+  expect(await page.locator("#dialog.show").count()).toBeGreaterThan(0);
+  expect(errors).toEqual([]);
+});
