@@ -36,6 +36,9 @@ export default async function handler(req, res) {
   try {
     const q = req.query || {};
     if (req.method === 'GET') {
+      // 读取与列举同样属于敏感操作：已知文件名即可直接取回内容，必须与列举一致鉴权
+      const denied = requireFileApiAccess(req);
+      if (denied) return json(res, denied.status, denied.body);
       if (q.name) {
         const result = await readFile(q.name, { asAttachment: q.download === '1' });
         if (result.redirect) {
@@ -47,8 +50,6 @@ export default async function handler(req, res) {
         }
         return pipeStream(res, result);
       }
-      const denied = requireFileApiAccess(req); // 列举私有文件名属敏感操作
-      if (denied) return json(res, denied.status, denied.body);
       const files = await listFiles({ prefix: q.prefix, limit: q.limit });
       return json(res, 200, { files, count: files.length });
     }

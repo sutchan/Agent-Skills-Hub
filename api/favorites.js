@@ -4,24 +4,23 @@
 import { loadKv, saveKv, writableStoreIssue } from '../server/blob-store.js';
 import { validateName, applyFavorite } from '../server/kv-ops.js';
 import { validSkillNames } from '../server/store.js';
+import { allowRequest, clientIp } from '../server/api-ratelimit.js';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
+// 同源接口：不开放跨站 CORS（写端点跨站可写会污染公开收藏状态）。
+const HEADERS = {
   'Content-Type': 'application/json',
   'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'no-referrer',
 };
 
 function json(res, status, body) {
   res.statusCode = status;
-  for (const [k, v] of Object.entries(CORS)) res.setHeader(k, v);
+  for (const [k, v] of Object.entries(HEADERS)) res.setHeader(k, v);
   res.end(JSON.stringify(body));
 }
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
-    for (const [k, v] of Object.entries(CORS)) res.setHeader(k, v);
     res.statusCode = 204;
     return res.end();
   }
@@ -31,8 +30,15 @@ export default async function handler(req, res) {
       return json(res, 200, kv.favorites || {});
     }
     if (req.method === 'POST') {
+      if (!allowRequest(clientIp(req))) {
+        return json(res, 429, { error: 'RATE_LIMITED', message: '请求过于频繁，请稍后再试' });
+      }
       const issue = writableStoreIssue();
       if (issue) return json(res, 503, { error: 'STORE_UNAVAILABLE', message: issue });
+      // 白名单不可用时必须拒绝写入（fail-closed）
+      if (!validSkillNames || validSkillNames.size === 0) {
+        return json(res, 503, { error: 'STORE_UNAVAILABLE', message: '技能名单不可用，写接口已暂停' });
+      }
       let body = req.body;
       if (typeof body === 'string') {
         try { body = JSON.parse(body); } catch { return json(res, 400, { error: 'Invalid JSON body' }); }

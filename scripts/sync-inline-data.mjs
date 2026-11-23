@@ -62,3 +62,12 @@ fs.writeFileSync(htmlPath, lines.join('\n'), 'utf8');
 console.log(
   `✓ 已同步内联 SKILLS_DATA：total=${next.total}（可见 ${visible}），skills=${next.skills.length}，categories=${next.categories.length}，categoryEn=${Object.keys(next.categoryEn).length}`
 );
+
+// 同步生成「可打包的技能名清单」server/skill-names.json：
+// Serverless Function 打包时不会带上仓库的 data/skills-data.json，
+// 若白名单读不到就会退化为空集（写接口 fail-closed 后将完全不可写）。
+// 这里输出精简名单（约数 KB），随函数一起打包，生产环境白名单始终可用。
+const namesPath = path.join(root, 'server', 'skill-names.json');
+const names = data.skills.map((s) => s.name).filter(Boolean);
+fs.writeFileSync(namesPath, JSON.stringify({ names }, null, 0) + '\n', 'utf8');
+console.log(`✓ 已生成 server/skill-names.json：${names.length} 个技能名（随 Serverless Function 打包）`);

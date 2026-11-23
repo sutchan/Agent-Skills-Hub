@@ -11,8 +11,51 @@
 
 // 技能名白名单格式：小写字母/数字开头，仅含小写字母、数字与连字符，最长 100 字符。
 // 与 server/store.js 的 validSkillNames 语义对齐（此处边缘函数无法读取 skills-data.json，
-// 故用格式校验兜底，阻止任意 key 写入）。
+// 故默认用格式校验兜底，阻止任意 key 写入）。
+// 若部署环境通过环境变量 SKILL_NAMES 注入逗号分隔的技能名清单，则升级为精确白名单校验。
 const NAME_RE = /^[a-z0-9][a-z0-9-]{0,99}$/;
+const NAME_WHITELIST = new Set(
+  String(typeof SKILL_NAMES !== "undefined" ? SKILL_NAMES : "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+);
+
+/** 校验技能名：配置了白名单则精确匹配，否则仅做格式校验 */
+function isValidName(name) {
+  if (!NAME_RE.test(name || "")) return false;
+  if (NAME_WHITELIST.size > 0) return NAME_WHITELIST.has(name);
+  return true;
+}
+
+/**
+ * 边缘实例级写请求限流（内存计数，按实例生效）。
+ * 边缘运行时实例数不固定，配额会被放大，仅用于拦住单 IP 的突发刷写。
+ */
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX_WRITES = Number(typeof API_RATE_LIMIT !== "undefined" ? API_RATE_LIMIT : 30);
+const rateBuckets = new Map();
+
+function allowWrite(ip) {
+  const now = Date.now();
+  const rec = rateBuckets.get(ip);
+  if (!rec || now - rec.start > RATE_WINDOW_MS) {
+    rateBuckets.set(ip, { start: now, count: 1 });
+    return true;
+  }
+  rec.count += 1;
+  return rec.count <= RATE_MAX_WRITES;
+}
+
+/** 取客户端 IP：优先 CF-Connecting-IP / X-Forwarded-For 首段 */
+function clientIp(request) {
+  const headers = request.headers;
+  const direct = headers.get("cf-connecting-ip") || headers.get("x-real-ip");
+  if (direct) return direct.trim();
+  const xff = headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0].trim();
+  return "unknown";
+}
 
 /** KV list 的返回在不同运行时可能是字符串数组或 {name} 对象数组，统一取键名 */
 function kvKeyName(entry) {
@@ -55,12 +98,11 @@ async function handleRequest(request) {
   const url = new URL(request.url);
   const kv = typeof ASH_KV !== "undefined" ? ASH_KV : null;
 
+  // 同源接口：不开放跨站 CORS（写端点跨站可写会污染公开计数与收藏状态）。
   const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
     "Content-Type": "application/json",
     "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
   };
 
   if (request.method === "OPTIONS") {
@@ -86,10 +128,16 @@ async function handleRequest(request) {
         return new Response(JSON.stringify(votes), { headers: corsHeaders });
       }
       if (request.method === "POST") {
+        if (!allowWrite(clientIp(request))) {
+          return new Response(JSON.stringify({ error: "Too many requests" }), {
+            status: 429,
+            headers: corsHeaders,
+          });
+        }
         const parsed = await readJson(request);
         if (!parsed.ok) return badRequest(parsed.error, corsHeaders);
         const { name, action } = parsed.data;
-        if (!NAME_RE.test(name || "")) {
+        if (!isValidName(name)) {
           return badRequest("Invalid or missing skill name", corsHeaders);
         }
         const key = `vote:${name}`;
@@ -120,10 +168,16 @@ async function handleRequest(request) {
         return new Response(JSON.stringify(favs), { headers: corsHeaders });
       }
       if (request.method === "POST") {
+        if (!allowWrite(clientIp(request))) {
+          return new Response(JSON.stringify({ error: "Too many requests" }), {
+            status: 429,
+            headers: corsHeaders,
+          });
+        }
         const parsed = await readJson(request);
         if (!parsed.ok) return badRequest(parsed.error, corsHeaders);
         const { name, action } = parsed.data;
-        if (!NAME_RE.test(name || "")) {
+        if (!isValidName(name)) {
           return badRequest("Invalid or missing skill name", corsHeaders);
         }
         const key = `fav:${name}`;

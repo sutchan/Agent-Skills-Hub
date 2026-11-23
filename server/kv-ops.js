@@ -2,10 +2,15 @@
 // 与 edge-worker.js 的 NAME_RE / action 语义保持一致：name 为 kebab-case ≤100，undo 删除 vote，add/remove/缺省 toggle fav。
 export const NAME_RE = /^[a-z0-9][a-z0-9-]{0,99}$/;
 
-/** 校验技能名：白名单为空时不拦截（与 server/store.js 语义一致） */
+/**
+ * 校验技能名：白名单不可用（缺失/未加载）时一律拒绝（fail-closed）。
+ * 早期版本在白名单为空时放行，导致生产环境读不到数据文件时可写入任意名称——
+ * 计数被伪造是数据完整性问题，宁可拒绝写入也不能静默失守。
+ */
 export function validateName(name, whitelist) {
   if (!NAME_RE.test(name || '')) return 'Invalid or missing skill name';
-  if (whitelist && whitelist.size > 0 && !whitelist.has(name)) return 'Skill name not found in whitelist';
+  if (!whitelist || whitelist.size === 0) return 'Skill whitelist unavailable';
+  if (!whitelist.has(name)) return 'Skill name not found in whitelist';
   return null;
 }
 

@@ -9,7 +9,10 @@ function numEnv(key, fallback) {
   return Number.isFinite(n) && n > 0 ? n : fallback;
 }
 
-export const MAX_FILE_BYTES = numEnv('BLOB_MAX_FILE_BYTES', 10 * 1024 * 1024);
+// 单文件上限：默认 4MB。
+// 平台约束：Vercel Serverless 请求体上限 4.5MB、Vercel Blob 单对象 4.5MB，
+// 取 4MB 留出协议开销余量，避免「平台静默截断 → 魔数校验失败 → 误报 MIME 不匹配」。
+export const MAX_FILE_BYTES = numEnv('BLOB_MAX_FILE_BYTES', 4 * 1024 * 1024);
 export const CACHE_MAX_AGE = numEnv('BLOB_CACHE_MAX_AGE', 30 * 24 * 60 * 60);
 export const DEFAULT_ACCESS = process.env.BLOB_ACCESS === 'public' ? 'public' : 'private';
 

@@ -7,6 +7,8 @@
 // 限制与错误见 server/file-store.js（413 过大 / 415 类型不允许 / 400 路径非法）。
 import { uploadFile, errorResponse } from '../server/file-store.js';
 import { requireFileApiAccess } from '../server/file-auth.js';
+import { MAX_FILE_BYTES } from '../server/file-validation.js';
+import { allowRequest, clientIp } from '../server/api-ratelimit.js';
 
 // 仅保留安全响应头：文件服务为同源接口，不再以 '*' 开放跨站读写
 const HEADERS = { 'X-Content-Type-Options': 'nosniff' };
@@ -45,13 +47,16 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return send(res, 405, { error: 'METHOD_NOT_ALLOWED', message: '仅支持 POST' });
   const denied = requireFileApiAccess(req);
   if (denied) return send(res, denied.status, denied.body);
+  if (!allowRequest(clientIp(req))) {
+    return send(res, 429, { error: 'RATE_LIMITED', message: '上传过于频繁，请稍后再试' });
+  }
   try {
     const name = req.query?.name;
     const contentType = req.headers['x-file-content-type'] || req.headers['content-type'] || '';
     const access = req.headers['x-file-access'];
-    // 先按最大上限 + 1 宽松读取，再由 file-store 做精确校验（返回 413 标准错误）
-    const hardLimit = Number(process.env.BLOB_MAX_FILE_BYTES) * 2 || 20 * 1024 * 1024;
-    const body = await readBody(req, hardLimit);
+    // 硬上限与业务上限一致（默认 4MB，平台请求体上限 4.5MB）：
+    // 读超限立即中断并回 413，避免平台层静默截断后误报 MIME 不匹配。
+    const body = await readBody(req, MAX_FILE_BYTES);
     const result = await uploadFile({ pathname: name, body, contentType, access });
     return send(res, 200, result);
   } catch (err) {
