@@ -4,6 +4,16 @@
 
 ## [1.21.2] - 2026-11-23
 
+### feat: 页脚无障碍与多语言完善
+
+- **三语读屏闭环**：`syncDOM()` 新增 `data-i18n-aria` / `data-i18n-title` 属性填充，页脚品牌名、导航、Star/Share 等 aria-label 与版本链接 title 随语言切换，消除「视觉三语、读屏仍中英混排」
+- **外链新窗口提示**：带 `target="_blank"` 的 aria 节点自动追加三语「（在新窗口打开）」文案（`footer.newTab`）
+- **英文态「关于」链接修复**：`about.html` 仅简/繁双语，英文态改指仓库 `README.en.md`，避免英文用户进入中文关于页
+- **构建号交互三语化**：悬浮构建时间、点击复制成功/失败提示均走 `I18N.t()`（新增 `footer.footerBuildTime`/`clickCopy`/`copyDone`/`copyFailed` 四键 × 三语）
+- **版权行补全所有者**：`© {年份} Agent Skills Hub`
+- **辅助导航新增「使用文档」入口**；900px 断点导航改左对齐（与品牌起点一致）；移动端 Star/Share 不再等宽拉伸，改自然宽度居中
+- 过时注释清理（页脚 CSS 双区描述、语言切换 `.zh/.en` 描述）
+
 ### docs: 任务清单复核与阻塞状态治理
 
 - 复核 `docs/tasks.md`：当前无已完成项需迁移，`docs/tasks-done.md` 已归档至迭代三十七；修正 tasks.md 头部归档范围
