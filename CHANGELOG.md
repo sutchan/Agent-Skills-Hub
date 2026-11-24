@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.21.7] - 2026-11-24
+
+### fix: 补齐根 tsconfig 的 jsx 选项，消除 Vercel 全仓扫描的 TS17004/TS6142
+
+- **根因复现**：不带 `--jsx` 时对 `skills/ui-animation/evals/fixtures/settings-panel.tsx` 执行 `tsc --noEmit`，精准复现 TS17004 与 TS6142；带 `--jsx react-jsx` 则零错误。说明 Vercel 构建侧存在绕过根 `tsconfig.json` 的显式 `.tsx` 文件扫描（本地 `npm run lint` 与 CI `bun run lint` 均因根配置已 `exclude: ["skills"]` 而不受影响）。
+- **修复**：在根 `tsconfig.json` 的 `compilerOptions` 增加 `"jsx": "react-jsx"`，使任何经根配置的 tsc 调用（含 `--project` 或默认查找）都能正确编译 `.tsx` 示例；保留 `exclude: ["skills"]` 维持最小编译面。
+- **验证**：本地默认 `npm run lint` 零错误；模拟全仓扫描（临时配置 `extends` 根配置并纳入 `skills/**/*.ts(x)`）同样零错误，TS17004/TS6142 已消除。
+- **平台侧注意**：若 Vercel Dashboard 的 Build Command 被改为显式 `tsc` 文件列表（此时 Node/tsc 不会读取 tsconfig.json），需在平台侧改回 `npm run build`；仓库 `vercel.json` 已声明 `buildCommand: npm run build`。
+
 ## [1.21.6] - 2026-11-24
 
 ### fix: 合并 trae 分支的 Edge KV/限流修复并修复白名单误拒
