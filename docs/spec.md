@@ -1,6 +1,6 @@
 # Agent-Skills-Hub 能力基线（Spec）
 
-> 路径：`docs/spec.md` · 版本：1.21.4
+> 路径：`docs/spec.md` · 版本：1.21.5
 > 本文件固化**当前已落地能力**的基线规范，是 frontmatter 契约、数据契约与一致性红线的**唯一权威源**（变更起点与回退基准）。
 > 仓库约定见 [project.md](project.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)；贡献指引见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 > ⚠️ 本 spec 反映**截至 v1.21.0 的真实状态**；早期「Next.js 14 / React 18 / build-skills-data / sync-* / src/lib / prototype.html」等描述已被后续迭代移除。

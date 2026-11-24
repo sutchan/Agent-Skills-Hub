@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.21.5] - 2026-11-24
+
+### docs: 线上 API 可达性复核完成并登记生产 404 缺陷
+
+- 复核 `docs/tasks.md` 与归档范围：原 #3「线上 API 可达性与写接口联调复核」完成并归档至 `docs/tasks-done.md` 迭代三十九；头部归档范围更新为迭代一至三十九
+- **阻塞解除手段**：用 `curl --ssl-no-revoke` 绕过 Windows Schannel 证书吊销检查离线（`CRYPT_E_REVOCATION_OFFLINE`）造成的假性不可达，恢复对生产域名的只读探测
+- **复核结论**：`https://skills.ewuse.com/` 200、`/llms.txt` 200、`/data/skills-data.json` 200（`Server: edgeone makers`）；但 `/api/votes`、`/api/favorites` 的 GET/OPTIONS 均 **404** → 生产 API 不可达（边缘函数未部署或路由未生效）。仅做只读探测，未写生产数据
+- **缺陷登记**：tasks.md 新增 #5「修复生产 `/api/*` 404」P0；#2「EdgeOne 边缘函数重新部署」P4→P0（修复前置，与 CI/CD 评审的「平台统一」P0 同源）；#4 备注补充 Bun 可用、需授权安装 opencc-js；#1 维持 P3 阻塞（缺真实素材）
+- 时间戳：2026-11-24 11:34:27（UTC+8）；仍未完成项保留在 `docs/tasks.md`，未编造素材、译文或线上验证结果
+
 ## [1.21.4] - 2026-11-24
 
 ### ci: 落地生产级 P0 门禁（依赖审计 / 失败告警 / 部署闸门）
