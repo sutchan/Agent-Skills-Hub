@@ -63,7 +63,8 @@ function whitelistAvailable() {
 /** 名称校验错误文案（与 server/kv-ops.js 的 validateName 语义一致） */
 function nameError(name) {
   if (!NAME_RE.test(name || "")) return "Invalid or missing skill name";
-  return "Skill name not found in whitelist";
+  if (!NAME_WHITELIST.has(name)) return "Skill name not found in whitelist";
+  return null;
 }
 
 /** 边缘实例级写请求限流（内存计数，按实例生效，仅拦单 IP 突发刷写） */

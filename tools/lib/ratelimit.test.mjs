@@ -3,7 +3,7 @@
 // 并持续把整表写入 ratelimit.json；现加入周期清理 + 上限淘汰。运行：npm test
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
 import { join as pathJoin } from "node:path";
@@ -15,7 +15,7 @@ const root = join(__dirname, "..", "..");
 process.env.RATELIMIT_FILE = pathJoin(tmpdir(), `ratelimit-test-${process.pid}.json`);
 
 const { rateLimitMap, checkRateLimit } = await import(
-  join(root, "server", "ratelimit.js")
+  pathToFileURL(join(root, "server", "ratelimit.js")).href
 );
 
 const MAX_ENTRIES = 50_000; // 与 server/ratelimit.js 中 MAX_RATELIMIT_ENTRIES 一致

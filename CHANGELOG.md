@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.21.6] - 2026-11-24
+
+### fix: 合并 trae 分支的 Edge KV/限流修复并修复白名单误拒
+
+- 合并 `origin/trae/agent-BEwZrI` 唯一领先提交 `48d6a43f`（EdgeOne KV `list()` 返回 `ListKey` 对象的兼容修复、限流表过期清理与上限淘汰、两个回归测试）；`edge-worker.js` 冲突取 main 的 `kvKeyName()` 重构实现（更健壮，已覆盖该修复）
+- 修复 main 上 `edge-worker.js` 的 `nameError()` 缺陷：原实现未检查 `NAME_WHITELIST.has(name)`，对任何合法技能名一律返回「不在白名单」，导致所有投票/收藏写请求 400；补回成员判断后测试通过
+- 两个新测试原以 Windows 反斜杠路径直接 ESM `import`，在 Node 报 `ERR_UNSUPPORTED_ESM_URL_SCHEME`；改用 `pathToFileURL(...).href` 跨平台加载
+- 验证：`npm test` 36/36 通过、`npm run build` 成功（11 个产物文件）、`tsc --noEmit`、版本/产物/指标/技能契约门禁全绿
+
 ## [1.21.5] - 2026-11-24
 
 ### docs: 线上 API 可达性复核完成并登记生产 404 缺陷

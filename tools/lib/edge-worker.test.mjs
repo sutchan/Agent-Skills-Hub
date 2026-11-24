@@ -4,7 +4,7 @@
 // （云同步完全失效）。运行：npm test（node --test tools/lib/*.test.mjs）
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { dirname, join } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -44,7 +44,7 @@ globalThis.ASH_KV = makeKv({
   "fav:ad-creative": "1",
 });
 
-await import(join(root, "edge-worker.js"));
+await import(pathToFileURL(join(root, "edge-worker.js")).href);
 
 /** 调用 worker 的 fetch 处理器并取回响应 Promise */
 function callWorker(request) {
