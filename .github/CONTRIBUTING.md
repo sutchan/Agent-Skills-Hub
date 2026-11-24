@@ -2,7 +2,7 @@
 
 感谢你愿意为 **Agent Skills Hub** 贡献！本指南帮助你在不破坏数据管线与规范的前提下，新增或更新技能、修复文档、提交变更。
 
-> 路径：`.github/CONTRIBUTING.md` · 版本：1.21.2
+> 路径：`.github/CONTRIBUTING.md` · 版本：1.21.3
 > 项目地址：https://github.com/sutchan/Agent-Skills-Hub
 > 能力契约（frontmatter/数据/红线）的唯一权威源是 [docs/spec.md](./docs/spec.md)；仓库约定见 [docs/project.md](./docs/project.md)。
 
@@ -115,6 +115,7 @@ npm run tag      # = node scripts/tag-release.mjs（手动创建 vX.Y.Z 注解 t
 - 只有实际改动的文件才更新其文件头注释版本号，禁止全仓库批量刷写头注释。
 - CHANGELOG 遵循 [Keep a Changelog](https://keepachangelog.com/) + SemVer，每个版本小节须在底部有对应 release tag 锚点。
 - 详细红线见 [docs/spec.md §7](./docs/spec.md)。
+- 生产级工程规范目标（代码审查、测试覆盖率、安全审计、性能、监控告警、部署回滚等）见 [`docs/production-readiness.md`](../docs/production-readiness.md)；其中标为「待落地」的条款尚未生效，不得当作现状。
 
 ### 文档同步清单（防版本/数字脱节）
 

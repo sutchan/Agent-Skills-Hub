@@ -1,6 +1,6 @@
 # 仓库约定（Project Conventions）
 
-> 路径：`docs/project.md` · 版本：1.21.2
+> 路径：`docs/project.md` · 版本：1.21.3
 > 本文件定义目录结构、变更工作流与术语表。能力契约（frontmatter/数据/红线）的唯一权威源是 [spec.md](spec.md)；AI 协作流程见 [AGENTS.md](AGENTS.md)。
 
 ---
@@ -90,5 +90,6 @@ Agent Skills Hub 是面向开发、设计、测试、DevOps、Agent 工程及各
 - **spec.md**（权威）：frontmatter 契约、数据契约、构建部署、一致性红线。
 - **project.md**（本文件）：目录结构、变更工作流、任务准则、术语表。
 - **AGENTS.md**：AI 助手协作流程与质量门禁。
+- **production-readiness.md**：生产级工程规范目标、现状差距与完善清单（代码质量 / 测试覆盖率 / 安全合规 / 性能可用性 / 监控告警 / 部署回滚 / 版本 / 文档完整性）。
 - **CONTRIBUTING.md**（`.github/`）：贡献者操作指南。
 - 所有规范文档互为引用、不重复定义；冲突以 **spec.md** 为准。

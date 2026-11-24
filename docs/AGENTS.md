@@ -1,6 +1,6 @@
 # AI 协作指引（AGENTS）
 
-> 路径：`docs/AGENTS.md` · 版本：1.21.2
+> 路径：`docs/AGENTS.md` · 版本：1.21.3
 > 本文件供 AI 编码助手（如 CodeBuddy / Claude）在处理本仓库变更时遵循。能力契约见 [spec.md](spec.md)，仓库约定见 [project.md](project.md)，贡献操作见 [CONTRIBUTING.md](../.github/CONTRIBUTING.md)。
 
 ---
@@ -39,6 +39,7 @@
 
 ## 质量门禁
 
+- **生产级规范**：[docs/production-readiness.md](production-readiness.md) 定义八维度目标与完善清单；下列门禁是其中「代码质量与审查」的已落地部分。新增规范须同步该清单并标注状态，禁止把「待落地」写成「已落地」。
 - 涉及展示效果的改动须对齐 `prototype/DESIGN.md`（配色令牌、响应式、可访问性）；改后确认 `src/index.html` 内联产物一致，并运行 `npm run sync:data` 同步内联数据。
 - 提交前运行 `node tools/validate-skills.mjs`（校验 `skills/*/SKILL.md` frontmatter：硬失败=缺 name/description、name≠目录名、category 非法；软警告=缺 en_description/zh_displayName/category/en_category）+ `node --test tools/lib/*.test.mjs`（data JSON + 三后端契约 + i18n 键位 + 数据链路 回归）+ `npm run check:metrics`（指标与磁盘实算一致）；`tsc --noEmit` 过类型；`node tools/check-version.mjs` 校验 `package.json` == 最新 CHANGELOG（== git tag，仅标签触发时）。
 - 提交信息遵循 `<type>: <描述>` 规范（Conventional Commits，详见 CONTRIBUTING「提交规范」）。
