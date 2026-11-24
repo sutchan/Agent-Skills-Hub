@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。
 
+## [1.21.4] - 2026-11-24
+
+### ci: 落地生产级 P0 门禁（依赖审计 / 失败告警 / 部署闸门）
+
+- **依赖漏洞审计**：`validate` job 新增步骤，以 `npm install --package-lock-only` 生成临时 lockfile 后执行 `npm audit --audit-level=high`，高危漏洞直接阻断流水线；仓库仍只提交 `bun.lock`，构建侧由 `--frozen-lockfile` 保证可复现。
+- **失败告警**：新增 `notify` job（`if: failure()`，依赖全部阶段），将失败事件/分支/运行链接写入 `GITHUB_STEP_SUMMARY`，并在 PR 或 Commit 留言；fork PR 因 token 只读自动跳过留言，避免权限失败。
+- **部署硬失败**：`deploy` job 输出 `deployed`/`url`；生产环境（push/tag）缺少 `EDGEONE_API_TOKEN` 时硬失败，PR 预览仍降级为告警跳过。
+- **部署后健康检查**：EdgeOne CLI 返回 URL 后，对 `/`、`/llms.txt`、`/data/skills-data.json` 各做最多 10 次 `curl -fsS` 重试；URL 缺失或任一资源不可达即失败，阻断发版。
+- **发版闸门**：`release` job 的 `if` 追加 `needs.deploy.outputs.deployed == 'true'`，杜绝「未部署却发版」。
+- **规范状态同步**：`docs/production-readiness.md` 更新 3.1、5.4、6.1 为已落地，5.3、6.2 标注部分落地，并新增「P0 落地记录」；6.5（统一生产平台）需业务决策，未擅自切换。
+- **验证范围**：本地运行版本/产物/单测门禁；CI YAML 语法与新增步骤的实际效果需在首次流水线运行中验证（本地无 YAML 解析器）。
+
 ## [1.21.3] - 2026-11-24
 
 ### docs: 建立生产就绪工程规范与完善清单

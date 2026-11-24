@@ -87,6 +87,13 @@ jobs:
           bun-version: ${{ env.BUN_VERSION }}
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: 依赖漏洞审计（高危及以上阻断）
+        # 仓库只提交 bun.lock；生成临时 package-lock 供 npm audit 使用，不写回仓库。
+        # 首次启用若发现既有高危漏洞，需先升级依赖再合并，禁止用 --omit=dev 或降低 level 绕过。
+        run: |
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          npm audit --audit-level=high
+
       - name: 类型检查
         run: bun run lint
 
@@ -202,6 +209,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [e2e]
+    # 发布闸门：只有部署成功且健康检查通过（deployed=true）才允许 release 发版。
+    outputs:
+      deployed: ${{ steps.health.outputs.deployed || 'false' }}
+      url: ${{ steps.deploy.outputs.url }}
     permissions:
       contents: read
       pull-requests: write
@@ -278,15 +289,50 @@ jobs:
             echo "| $DEPLOY_NAME | $DEPLOY_ENV | ${url:-（CLI 未返回链接）} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: 提示未配置部署密钥
-        if: env.HAS_TOKEN != 'true'
+      - name: 部署后健康检查（首页 + GEO/数据资产）
+        id: health
+        if: env.HAS_TOKEN == 'true'
+        env:
+          DEPLOY_URL: ${{ steps.deploy.outputs.url }}
         run: |
-          echo "::warning::未检测到 EDGEONE_API_TOKEN，已跳过部署。请在仓库 Settings → Secrets and variables → Actions 中配置。"
+          set -euo pipefail
+          if [ -z "${DEPLOY_URL:-}" ]; then
+            echo "::error::EdgeOne CLI 未返回部署 URL，无法执行健康检查；本次不发版"
+            exit 1
+          fi
+          base="${DEPLOY_URL%/}"
+          for path in / /llms.txt /data/skills-data.json; do
+            ok="false"
+            for attempt in 1 2 3 4 5 6 7 8 9 10; do
+              if curl -fsS -m 10 -o /dev/null "${base}${path}"; then
+                ok="true"
+                break
+              fi
+              sleep 5
+            done
+            if [ "$ok" != "true" ]; then
+              echo "::error::部署后健康检查失败：${base}${path}（10 次重试均失败）"
+              exit 1
+            fi
+            echo "✓ ${path}"
+          done
+          echo "deployed=true" >> "$GITHUB_OUTPUT"
+
+      - name: 生产环境缺少部署密钥则硬失败
+        if: env.HAS_TOKEN != 'true'
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          echo "::error::未检测到 EDGEONE_API_TOKEN，无法部署；本次不会发布 Release。"
           {
-            echo "### EdgeOne Pages 部署"
+            echo "### 部署失败"
             echo ""
-            echo "⚠️ 已跳过：未配置 \`EDGEONE_API_TOKEN\` secret。构建已通过，产物未上传。"
+            echo "❌ 未配置 \`EDGEONE_API_TOKEN\`。构建已通过，但未部署、不会发版。"
           } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$EVENT_NAME" != "pull_request" ]; then
+            exit 1
+          fi
+          echo "::warning::PR 预览未配置密钥，跳过部署（不阻断预览流水线）。"
 
       - name: 回写预览链接到 PR
         if: |
@@ -332,7 +378,8 @@ jobs:
     needs: [deploy]
     # 标签推送（手动/补发）与 main 分支推送（全绿自动发布）均可进入发布阶段；
     # 其余事件（PR 预览 / 手动 dispatch）不发布。
-    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
+    # 发版闸门：必须部署成功且健康检查通过（deployed=true），杜绝「未部署却发版」。
+    if: (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main') && needs.deploy.outputs.deployed == 'true'
     permissions:
       contents: write
     concurrency:
@@ -400,3 +447,55 @@ jobs:
           files: |
             data/skills-data.json
             data/skills-metrics.json
+
+  # ───────────────────────── 失败告警 ─────────────────────────
+  notify:
+    name: 失败告警
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [validate, build, e2e, deploy, release]
+    if: failure()
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: 汇总失败上下文到 Step Summary
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EVENT_NAME: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          {
+            echo "### 🚨 流水线失败"
+            echo ""
+            echo "- 事件：\`$EVENT_NAME\` / 分支或标签：\`$REF_NAME\`"
+            echo "- 运行链接：$RUN_URL"
+            echo "- 失败阶段：见上方各 job 状态（validate / build / e2e / deploy / release）"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # 同仓事件才留言：fork PR 的 GITHUB_TOKEN 为只读，写评论会失败。
+      - name: 在 PR 或 Commit 留言告警
+        if: github.event.pull_request.head.repo.full_name == github.repository || github.event_name != 'pull_request'
+        continue-on-error: true
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          script: |
+            const body = `🚨 CI/CD 流水线失败：${context.eventName} / ${context.ref}\n\n运行日志：${process.env.RUN_URL}`;
+            if (context.issue.number) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            } else {
+              await github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body,
+              });
+            }

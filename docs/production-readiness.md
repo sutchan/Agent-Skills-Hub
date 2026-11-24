@@ -71,7 +71,7 @@
 
 | # | 建议 | 优先级 | 状态 |
 |---|---|---|---|
-| 3.1 | CI 增加依赖漏洞审计（`npm audit --audit-level=high` 或 OSV Scanner），高危阻断合并；配套 `package-lock.json` 或可复现的 lockfile | P0 | 待落地 |
+| 3.1 | CI 增加依赖漏洞审计（`npm audit --audit-level=high` 或 OSV Scanner），高危阻断合并；配套 `package-lock.json` 或可复现的 lockfile | P0 | ✅ 已落地（v1.21.4：validate job 临时生成 `package-lock.json` 并审计，高危阻断；仓库仍只提交 `bun.lock`，构建侧由 frozen lockfile 保证可复现） |
 | 3.2 | 启用 Dependabot（npm + GitHub Actions）与 secret push protection；每季度人工复核权限与密钥轮换 | P1 | 待落地 |
 | 3.3 | 新增「权限矩阵」：本地服务 / Vercel Functions / EdgeOne 边缘函数各自的读写范围、限流阈值、失败降级行为 | P1 | 待落地 |
 | 3.4 | 明确隐私与合规：GA4 数据用途告知、无 PII 写入日志/Blob、技能正文许可证与上游来源标注、MIT 全仓许可 | P2 | 部分落地 |
@@ -108,8 +108,8 @@
 |---|---|---|---|
 | 5.1 | 统一结构化日志（单行 JSON：time/level/event/requestId/duration），禁止记录 token、Cookie、用户 PII | P1 | 待落地 |
 | 5.2 | 生产错误上报与聚合（如 Sentry 或平台日志服务），保留至少 30 天；API 错误须带可关联 requestId | P1 | 待落地 |
-| 5.3 | 告警：构建/部署失败、API 5xx 突增、429 激增、Blob 写入失败、每日健康检查失败 → 发送 Slack/飞书/邮件 | P0 | 待落地 |
-| 5.4 | CI 增加失败通知 job（`if: failure()`），并在 summary 输出部署 URL/版本/构建号 | P1 | 待落地 |
+| 5.3 | 告警：构建/部署失败、API 5xx 突增、429 激增、Blob 写入失败、每日健康检查失败 → 发送 Slack/飞书/邮件 | P0 | ⚠️ 部分落地（v1.21.4：构建/部署失败写入 Step Summary + PR/Commit 留言；运行时 5xx/429 与外部通道仍待落地） |
+| 5.4 | CI 增加失败通知 job（`if: failure()`），并在 summary 输出部署 URL/版本/构建号 | P1 | ⚠️ 部分落地（v1.21.4：新增 `notify` job 并在 Step Summary 输出事件/分支/运行链接 + PR/Commit 留言，fork PR 自动跳过；部署 URL/版本/构建号的直接输出仍待补） |
 
 ---
 
@@ -125,8 +125,8 @@
 
 | # | 建议 | 优先级 | 状态 |
 |---|---|---|---|
-| 6.1 | 生产 token 缺失或部署失败时流水线硬失败；release 依赖部署成功的显式输出，杜绝「未部署却发版」 | P0 | 待落地 |
-| 6.2 | 部署后 `curl -fsS` 校验首页与关键资源（`/llms.txt`、`/data/skills-data.json`、`/api/*` OPTIONS），失败即回滚 | P0 | 待落地 |
+| 6.1 | 生产 token 缺失或部署失败时流水线硬失败；release 依赖部署成功的显式输出，杜绝「未部署却发版」 | P0 | ✅ 已落地（v1.21.4：deploy job 输出 `deployed`，缺密钥时 push/tag 硬失败、PR 预览降级告警；release 闸门附带 `needs.deploy.outputs.deployed == 'true'`） |
+| 6.2 | 部署后 `curl -fsS` 校验首页与关键资源（`/llms.txt`、`/data/skills-data.json`、`/api/*` OPTIONS），失败即回滚 | P0 | ⚠️ 部分落地（v1.21.4：首页 + GEO/数据资产 3 个 URL 已做 10 次重试校验，失败即阻断发版；`/api/*` OPTIONS 与自动回滚仍待落地） |
 | 6.3 | 定义回滚 runbook：保留最近 N 次成功 `out/` 制品 ≥7 天，平台侧用别名/快照切换；`workflow_dispatch` 提供 `rollback` 入口 | P1 | 待落地 |
 | 6.4 | 使用 GitHub Environments：production 需审批与等待窗口，preview 自动；部署 job 绑定 `environment:` | P1 | 待落地 |
 | 6.5 | 统一生产平台（Vercel 或 EdgeOne），另一平台仅作预览/回退并文档化数据边界 | P0 | 待落地 |
@@ -181,6 +181,17 @@
 | 部署与回滚 | 无回滚、无部署后健康检查、token 缺失仍发版、双平台 | P0 | 6.1–6.5：硬失败、健康校验、回滚 runbook、环境审批、统一平台 |
 | 版本与变更 | 基本完备；tasks.md 头未纳入校验，hotfix 未定义 | P2 | 7.1–7.4：变更类型、hotfix、回退版本规则、扩展校验 |
 | 文档完整性 | 责任人与复审周期缺失，历史数字易脱节 | P1/P2 | 8.1–8.4：触发矩阵、数字实算、季度复审、状态可信 |
+
+### P0 落地记录（v1.21.4，2026-11-24）
+
+| 条款 | 状态 | 实现 / 剩余工作 |
+|---|---|---|
+| 3.1 依赖漏洞审计 | ✅ 已落地 | `validate` job 临时生成 `package-lock.json` 并执行 `npm audit --audit-level=high`；高危阻断 |
+| 5.4 失败通知 | ⚠️ 部分落地 | `notify` job：Step Summary + PR/Commit 留言；fork PR 因只读 token 自动跳过；部署 URL/版本/构建号直接输出待补 |
+| 6.1 部署硬失败与发版闸门 | ✅ 已落地 | `deploy` 输出 `deployed`；缺密钥时 push/tag 硬失败；`release` 附带 `deployed == 'true'` 条件 |
+| 5.3 告警 | ⚠️ 部分落地 | 构建/部署失败已覆盖；运行时 5xx/429 与外部告警通道待落地 |
+| 6.2 部署后健康检查 | ⚠️ 部分落地 | 首页 + `/llms.txt` + `/data/skills-data.json` 各 10 次重试；`/api/*` OPTIONS 与自动回滚待落地 |
+| 6.5 统一生产平台 | ⛔ 待决策 | 需确定 Vercel 或 EdgeOne 为唯一生产平台（涉及域名与业务配置），本次未擅自切换 |
 
 ---
 
